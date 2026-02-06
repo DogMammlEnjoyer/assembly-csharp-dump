@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhotonVoice</RootNamespace>
+    <AssemblyName>PhotonVoice</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSCore\AudioEncoding.cs" />
+    <Compile Include="CSCore\AudioSubTypes.cs" />
+    <Compile Include="CSCore\ChannelMask.cs" />
+    <Compile Include="CSCore\Codecs\WAV\WaveWriter.cs" />
+    <Compile Include="CSCore\Extensions.cs" />
+    <Compile Include="CSCore\IAudioSource.cs" />
+    <Compile Include="CSCore\IReadableAudioSource.cs" />
+    <Compile Include="CSCore\IWaveSource.cs" />
+    <Compile Include="CSCore\IWriteable.cs" />
+    <Compile Include="CSCore\WaveFormat.cs" />
+    <Compile Include="CSCore\WaveFormatExtensible.cs" />
+    <Compile Include="Photon\Voice\LoadBalancingFrontend.cs" />
+    <Compile Include="Photon\Voice\Unity\AudioChangesHandler.cs" />
+    <Compile Include="Photon\Voice\Unity\AudioInEnumeratorEx.cs" />
+    <Compile Include="Photon\Voice\Unity\ILoggable.cs" />
+    <Compile Include="Photon\Voice\Unity\ILoggableDependent.cs" />
+    <Compile Include="Photon\Voice\Unity\NativeAndroidMicrophoneSettings.cs" />
+    <Compile Include="Photon\Voice\Unity\PlaybackDelaySettings.cs" />
+    <Compile Include="Photon\Voice\Unity\Recorder.cs" />
+    <Compile Include="Photon\Voice\Unity\RemoteVoiceLink.cs" />
+    <Compile Include="Photon\Voice\Unity\Speaker.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\ConnectAndJoin.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\MicAmplifier.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\MicAmplifierFloat.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\MicAmplifierShort.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\MicrophonePermission.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\PhotonVoiceLagSimulationGui.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\PhotonVoiceStatsGui.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\SaveIncomingStreamToFile.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\SaveOutgoingStreamToFile.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\TestTone.cs" />
+    <Compile Include="Photon\Voice\Unity\UtilityScripts\ToneAudioReader.cs" />
+    <Compile Include="Photon\Voice\Unity\VoiceComponent.cs" />
+    <Compile Include="Photon\Voice\Unity\VoiceConnection.cs" />
+    <Compile Include="Photon\Voice\Unity\VoiceLogger.cs" />
+    <Compile Include="Photon\Voice\Unity\WebRtcAudioDsp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Name>Photon3Unity3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA4}</Project>
+      <Name>PhotonVoice.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

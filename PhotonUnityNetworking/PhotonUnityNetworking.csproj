@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Photon.Pun</RootNamespace>
+    <AssemblyName>PhotonUnityNetworking</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConnectMethod.cs" />
+    <Compile Include="CustomTypes.cs" />
+    <Compile Include="DefaultPool.cs" />
+    <Compile Include="InstantiateParameters.cs" />
+    <Compile Include="IOnPhotonViewControllerChange.cs" />
+    <Compile Include="IOnPhotonViewOwnerChange.cs" />
+    <Compile Include="IOnPhotonViewPreNetDestroy.cs" />
+    <Compile Include="IPhotonViewCallback.cs" />
+    <Compile Include="IPunInstantiateMagicCallback.cs" />
+    <Compile Include="IPunObservable.cs" />
+    <Compile Include="IPunOwnershipCallbacks.cs" />
+    <Compile Include="IPunPrefabPool.cs" />
+    <Compile Include="IPunPrefabPoolVerify.cs" />
+    <Compile Include="MonoBehaviourPun.cs" />
+    <Compile Include="MonoBehaviourPunCallbacks.cs" />
+    <Compile Include="NestedComponentUtilities.cs" />
+    <Compile Include="OwnershipOption.cs" />
+    <Compile Include="PhotonAnimatorView.cs" />
+    <Compile Include="PhotonHandler.cs" />
+    <Compile Include="PhotonMessageInfo.cs" />
+    <Compile Include="PhotonNetwork.cs" />
+    <Compile Include="PhotonRigidbody2DView.cs" />
+    <Compile Include="PhotonRigidbodyView.cs" />
+    <Compile Include="PhotonStream.cs" />
+    <Compile Include="PhotonStreamQueue.cs" />
+    <Compile Include="PhotonTransformView.cs" />
+    <Compile Include="PhotonTransformViewClassic.cs" />
+    <Compile Include="PhotonTransformViewPositionControl.cs" />
+    <Compile Include="PhotonTransformViewPositionModel.cs" />
+    <Compile Include="PhotonTransformViewRotationControl.cs" />
+    <Compile Include="PhotonTransformViewRotationModel.cs" />
+    <Compile Include="PhotonTransformViewScaleControl.cs" />
+    <Compile Include="PhotonTransformViewScaleModel.cs" />
+    <Compile Include="PhotonView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PunEvent.cs" />
+    <Compile Include="PunExtensions.cs" />
+    <Compile Include="PunLogLevel.cs" />
+    <Compile Include="PunRPC.cs" />
+    <Compile Include="RpcTarget.cs" />
+    <Compile Include="SceneManagerHelper.cs" />
+    <Compile Include="ServerSettings.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="ViewSynchronization.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Name>Photon3Unity3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

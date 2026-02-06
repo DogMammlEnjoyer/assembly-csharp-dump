@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fusion.Realtime</RootNamespace>
+    <AssemblyName>Fusion.Realtime</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fusion.Common">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fusion.Log">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fusion\FusionRealtimeProxy.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ActorProperties.cs" />
+    <Compile Include="Fusion\Photon\Realtime\AppSettings.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\AuthenticationFailedException.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\DisconnectException.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\LoadBalancingClientAsyncExtensions.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\OperationException.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\OperationHandler.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\OperationStartException.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\OperationTimeoutException.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\PhotonConnectionCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\PhotonLobbyCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Async\PhotonMatchmakingCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\AuthenticationValues.cs" />
+    <Compile Include="Fusion\Photon\Realtime\AuthModeOption.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ClientAppType.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ClientState.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ConnectionCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ConnectionHandler.cs" />
+    <Compile Include="Fusion\Photon\Realtime\CustomAuthenticationType.cs" />
+    <Compile Include="Fusion\Photon\Realtime\CustomTypesUnity.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Debug_.cs" />
+    <Compile Include="Fusion\Photon\Realtime\DisconnectCause.cs" />
+    <Compile Include="Fusion\Photon\Realtime\EncryptionMode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\EnterRoomParams.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ErrorCode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ErrorInfo.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ErrorInfoCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\EventCaching.cs" />
+    <Compile Include="Fusion\Photon\Realtime\EventCode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Extensions.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Extension\RealtimeExtensions_DictionaryProperties.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Extension\RealtimeExtensions_Hashtable.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Extension\RealtimeExtensions_RoomInfo.cs" />
+    <Compile Include="Fusion\Photon\Realtime\FindFriendsOptions.cs" />
+    <Compile Include="Fusion\Photon\Realtime\FriendInfo.cs" />
+    <Compile Include="Fusion\Photon\Realtime\FusionAppSettings.cs" />
+    <Compile Include="Fusion\Photon\Realtime\FusionRelayClient.cs" />
+    <Compile Include="Fusion\Photon\Realtime\GamePropertyKey.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IConnectionCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IErrorInfoCallback.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IInRoomCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ILobbyCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IMatchmakingCallbacks.cs" />
+    <Compile Include="Fusion\Photon\Realtime\InRoomCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IOnEventCallback.cs" />
+    <Compile Include="Fusion\Photon\Realtime\IWebRpcCallback.cs" />
+    <Compile Include="Fusion\Photon\Realtime\JoinMode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\JoinType.cs" />
+    <Compile Include="Fusion\Photon\Realtime\LoadBalancingClient.cs" />
+    <Compile Include="Fusion\Photon\Realtime\LoadBalancingPeer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\LobbyCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\LobbyType.cs" />
+    <Compile Include="Fusion\Photon\Realtime\MatchMakingCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\MatchmakingMode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\MonoBehaviourEmpty.cs" />
+    <Compile Include="Fusion\Photon\Realtime\OperationCode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\OpJoinRandomRoomParams.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ParameterCode.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PhotonAppSettings.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PhotonPing.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PhotonPortDefinition.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PingHttp.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PingMono.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Player.cs" />
+    <Compile Include="Fusion\Photon\Realtime\PropertyTypeFlag.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RaiseEventOptions.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ReceiverGroup.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Region.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RegionHandler.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RegionPinger.cs" />
+    <Compile Include="Fusion\Photon\Realtime\Room.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RoomOptionBit.cs" />
+    <Compile Include="Fusion\Photon\Realtime\RoomOptions.cs" />
+    <Compile Include="Fusion\Photon\Realtime\ServerConnection.cs" />
+    <Compile Include="Fusion\Photon\Realtime\SupportLogger.cs" />
+    <Compile Include="Fusion\Photon\Realtime\SystemConnectionSummary.cs" />
+    <Compile Include="Fusion\Photon\Realtime\TypedLobby.cs" />
+    <Compile Include="Fusion\Photon\Realtime\TypedLobbyInfo.cs" />
+    <Compile Include="Fusion\Photon\Realtime\WebFlags.cs" />
+    <Compile Include="Fusion\Photon\Realtime\WebRpcCallbacksContainer.cs" />
+    <Compile Include="Fusion\Photon\Realtime\WebRpcResponse.cs" />
+    <Compile Include="Fusion\RegionInfo.cs" />
+    <Compile Include="Fusion\SessionProperty.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Name>Photon3Unity3D</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

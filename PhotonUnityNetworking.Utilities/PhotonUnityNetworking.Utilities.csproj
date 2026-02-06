@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Photon.Pun.UtilityScripts</RootNamespace>
+    <AssemblyName>PhotonUnityNetworking.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonInsideScrollList.cs" />
+    <Compile Include="ByteComparer.cs" />
+    <Compile Include="CellTree.cs" />
+    <Compile Include="CellTreeNode.cs" />
+    <Compile Include="ConnectAndJoinRandom.cs" />
+    <Compile Include="CountdownTimer.cs" />
+    <Compile Include="CullArea.cs" />
+    <Compile Include="CullingHandler.cs" />
+    <Compile Include="EventSystemSpawner.cs" />
+    <Compile Include="GraphicToggleIsOnTransition.cs" />
+    <Compile Include="IPunTurnManagerCallbacks.cs" />
+    <Compile Include="MoveByKeys.cs" />
+    <Compile Include="OnClickDestroy.cs" />
+    <Compile Include="OnClickInstantiate.cs" />
+    <Compile Include="OnClickRpc.cs" />
+    <Compile Include="OnEscapeQuit.cs" />
+    <Compile Include="OnJoinedInstantiate.cs" />
+    <Compile Include="OnPointerOverTooltip.cs" />
+    <Compile Include="OnStartDelete.cs" />
+    <Compile Include="PhotonLagSimulationGui.cs" />
+    <Compile Include="PhotonStatsGui.cs" />
+    <Compile Include="PhotonTeam.cs" />
+    <Compile Include="PhotonTeamExtensions.cs" />
+    <Compile Include="PhotonTeamsManager.cs" />
+    <Compile Include="PlayerNumbering.cs" />
+    <Compile Include="PlayerNumberingExtensions.cs" />
+    <Compile Include="PointedAtGameObjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PunPlayerScores.cs" />
+    <Compile Include="PunTeams.cs" />
+    <Compile Include="PunTurnManager.cs" />
+    <Compile Include="ScoreExtensions.cs" />
+    <Compile Include="SmoothSyncMovement.cs" />
+    <Compile Include="StatesGui.cs" />
+    <Compile Include="TabViewManager.cs" />
+    <Compile Include="TeamExtensions.cs" />
+    <Compile Include="TextButtonTransition.cs" />
+    <Compile Include="TextToggleIsOnTransition.cs" />
+    <Compile Include="TurnExtensions.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Name>Photon3Unity3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonUnityNetworking\PhotonUnityNetworking.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA2}</Project>
+      <Name>PhotonUnityNetworking</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

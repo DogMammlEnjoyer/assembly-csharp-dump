@@ -1,0 +1,412 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace Fusion
+{
+	[NetworkStructWeaved(8)]
+	[Serializable]
+	[StructLayout(LayoutKind.Explicit)]
+	public struct BitSet256 : INetworkStruct, IEquatable<BitSet256>, IEnumerable<int>, IEnumerable
+	{
+		public BitSet256.Iterator GetIterator()
+		{
+			return new BitSet256.Iterator(this);
+		}
+
+		public int Length
+		{
+			get
+			{
+				return 256;
+			}
+		}
+
+		public unsafe static BitSet256 FromArray(ulong[] values)
+		{
+			bool flag = values == null;
+			if (flag)
+			{
+				throw new ArgumentNullException("values");
+			}
+			bool flag2 = 4 != values.Length;
+			if (flag2)
+			{
+				throw new ArgumentException("Array needs to be of length 4", "values");
+			}
+			BitSet256 result = default(BitSet256);
+			for (int i = 0; i < 4; i++)
+			{
+				*(ref result.Bits.FixedElementField + (IntPtr)i * 8) = values[i];
+			}
+			return result;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe void Set(int bit)
+		{
+			Assert.Check(bit >= 0 && bit < 256);
+			*(ref this.Bits.FixedElementField + (IntPtr)(bit / 64) * 8) |= 1UL << bit % 64;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe void Clear(int bit)
+		{
+			Assert.Check(bit >= 0 && bit < 256);
+			*(ref this.Bits.FixedElementField + (IntPtr)(bit / 64) * 8) &= ~(1UL << bit % 64);
+		}
+
+		public bool this[int index]
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get
+			{
+				return this.IsSet(index);
+			}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set
+			{
+				if (value)
+				{
+					this.Set(index);
+				}
+				else
+				{
+					this.Clear(index);
+				}
+			}
+		}
+
+		public unsafe void And(BitSet256 other)
+		{
+			this.Bits.FixedElementField = (this.Bits.FixedElementField & other.Bits.FixedElementField);
+			*(ref this.Bits.FixedElementField + 8) &= *(ref other.Bits.FixedElementField + 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) &= *(ref other.Bits.FixedElementField + (IntPtr)2 * 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) &= *(ref other.Bits.FixedElementField + (IntPtr)3 * 8);
+		}
+
+		public unsafe void Or(BitSet256 other)
+		{
+			this.Bits.FixedElementField = (this.Bits.FixedElementField | other.Bits.FixedElementField);
+			*(ref this.Bits.FixedElementField + 8) |= *(ref other.Bits.FixedElementField + 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) |= *(ref other.Bits.FixedElementField + (IntPtr)2 * 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) |= *(ref other.Bits.FixedElementField + (IntPtr)3 * 8);
+		}
+
+		public unsafe void Xor(BitSet256 other)
+		{
+			this.Bits.FixedElementField = (this.Bits.FixedElementField ^ other.Bits.FixedElementField);
+			*(ref this.Bits.FixedElementField + 8) ^= *(ref other.Bits.FixedElementField + 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) ^= *(ref other.Bits.FixedElementField + (IntPtr)2 * 8);
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) ^= *(ref other.Bits.FixedElementField + (IntPtr)3 * 8);
+		}
+
+		public unsafe void AndNot(BitSet256 other)
+		{
+			this.Bits.FixedElementField = (this.Bits.FixedElementField & ~other.Bits.FixedElementField);
+			*(ref this.Bits.FixedElementField + 8) &= ~(*(ref other.Bits.FixedElementField + 8));
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) &= ~(*(ref other.Bits.FixedElementField + (IntPtr)2 * 8));
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) &= ~(*(ref other.Bits.FixedElementField + (IntPtr)3 * 8));
+		}
+
+		public unsafe void Not()
+		{
+			this.Bits.FixedElementField = ~this.Bits.FixedElementField;
+			*(ref this.Bits.FixedElementField + 8) = ~(*(ref this.Bits.FixedElementField + 8));
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) = ~(*(ref this.Bits.FixedElementField + (IntPtr)2 * 8));
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) = ~(*(ref this.Bits.FixedElementField + (IntPtr)3 * 8));
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe void ClearAll()
+		{
+			this.Bits.FixedElementField = 0UL;
+			*(ref this.Bits.FixedElementField + 8) = 0UL;
+			*(ref this.Bits.FixedElementField + (IntPtr)2 * 8) = 0UL;
+			*(ref this.Bits.FixedElementField + (IntPtr)3 * 8) = 0UL;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe bool IsSet(int bit)
+		{
+			return (*(ref this.Bits.FixedElementField + (IntPtr)(bit / 64) * 8) & 1UL << bit % 64) > 0UL;
+		}
+
+		public unsafe int GetSetCount()
+		{
+			return Maths.CountSetBits(this.Bits.FixedElementField) + Maths.CountSetBits(*(ref this.Bits.FixedElementField + 8)) + Maths.CountSetBits(*(ref this.Bits.FixedElementField + (IntPtr)2 * 8)) + Maths.CountSetBits(*(ref this.Bits.FixedElementField + (IntPtr)3 * 8));
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe bool Any()
+		{
+			return this.Bits.FixedElementField != 0UL || *(ref this.Bits.FixedElementField + 8) != 0UL || *(ref this.Bits.FixedElementField + (IntPtr)2 * 8) != 0UL || *(ref this.Bits.FixedElementField + (IntPtr)3 * 8) > 0UL;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public unsafe bool Empty()
+		{
+			return this.Bits.FixedElementField == 0UL && *(ref this.Bits.FixedElementField + 8) == 0UL && *(ref this.Bits.FixedElementField + (IntPtr)2 * 8) == 0UL && *(ref this.Bits.FixedElementField + (IntPtr)3 * 8) == 0UL;
+		}
+
+		public unsafe override int GetHashCode()
+		{
+			fixed (ulong* ptr = &this.Bits.FixedElementField)
+			{
+				ulong* ptr2 = ptr;
+				return HashCodeUtilities.GetArrayHashCode<ulong>(ptr2, 4, 43);
+			}
+		}
+
+		public override bool Equals(object obj)
+		{
+			bool result;
+			if (obj is BitSet256)
+			{
+				BitSet256 other = (BitSet256)obj;
+				result = this.Equals(other);
+			}
+			else
+			{
+				result = false;
+			}
+			return result;
+		}
+
+		public unsafe bool Equals(BitSet256 other)
+		{
+			return this.Bits.FixedElementField == other.Bits.FixedElementField && *(ref this.Bits.FixedElementField + 8) == *(ref other.Bits.FixedElementField + 8) && *(ref this.Bits.FixedElementField + (IntPtr)2 * 8) == *(ref other.Bits.FixedElementField + (IntPtr)2 * 8) && *(ref this.Bits.FixedElementField + (IntPtr)3 * 8) == *(ref other.Bits.FixedElementField + (IntPtr)3 * 8);
+		}
+
+		public unsafe BitSet256.Enumerator GetEnumerator()
+		{
+			fixed (ulong* ptr = &this.Bits.FixedElementField)
+			{
+				ulong* bits = ptr;
+				return new BitSet256.Enumerator(bits);
+			}
+		}
+
+		IEnumerator<int> IEnumerable<int>.GetEnumerator()
+		{
+			return this.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return this.GetEnumerator();
+		}
+
+		public static bool operator ==(BitSet256 a, BitSet256 b)
+		{
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(BitSet256 a, BitSet256 b)
+		{
+			return !a.Equals(b);
+		}
+
+		public const int SIZE = 32;
+
+		public const int CAPACITY = 256;
+
+		[FixedBuffer(typeof(ulong), 4)]
+		[FieldOffset(0)]
+		public BitSet256.<Bits>e__FixedBuffer Bits;
+
+		public struct Iterator
+		{
+			public Iterator(BitSet256 set)
+			{
+				this._set = set;
+				this._bit = -1;
+			}
+
+			public unsafe bool Next(out int index)
+			{
+				this._bit++;
+				for (;;)
+				{
+					bool flag = this._bit >= 256;
+					if (flag)
+					{
+						break;
+					}
+					ulong num = *(ref this._set.Bits.FixedElementField + (IntPtr)(this._bit / 64) * 8);
+					int num2 = this._bit % 64;
+					bool flag2 = (num & 1UL << num2) > 0UL;
+					if (flag2)
+					{
+						goto Block_2;
+					}
+					bool flag3 = num == 0UL;
+					if (flag3)
+					{
+						this._bit += 64;
+					}
+					else
+					{
+						bool flag4 = ((uint*)(&num))[num2 / 32] == 0U;
+						if (flag4)
+						{
+							this._bit += 32;
+						}
+						else
+						{
+							bool flag5 = ((ushort*)(&num))[num2 / 16] == 0;
+							if (flag5)
+							{
+								this._bit += 16;
+							}
+							else
+							{
+								int num3 = this._bit / 64;
+								for (;;)
+								{
+									int num4 = this._bit + 1;
+									this._bit = num4;
+									if (num4 / 64 != num3)
+									{
+										break;
+									}
+									bool flag6 = (num & 1UL << this._bit % 64) > 0UL;
+									if (flag6)
+									{
+										goto Block_6;
+									}
+								}
+							}
+						}
+					}
+				}
+				index = -1;
+				return false;
+				Block_2:
+				index = this._bit;
+				return true;
+				Block_6:
+				index = this._bit;
+				return true;
+			}
+
+			private int _bit;
+
+			public BitSet256 _set;
+		}
+
+		public struct Enumerator : IEnumerator<int>, IEnumerator, IDisposable
+		{
+			public unsafe Enumerator(ulong* bits)
+			{
+				this._bits = bits;
+				this._bit = -1;
+			}
+
+			public int Current
+			{
+				get
+				{
+					return this._bit;
+				}
+			}
+
+			public void Reset()
+			{
+				this._bit = -1;
+			}
+
+			public unsafe bool MoveNext()
+			{
+				this._bit++;
+				for (;;)
+				{
+					bool flag = this._bit >= 256;
+					if (flag)
+					{
+						break;
+					}
+					ulong num = this._bits[this._bit / 64];
+					int num2 = this._bit % 64;
+					bool flag2 = (num & 1UL << num2) > 0UL;
+					if (flag2)
+					{
+						goto Block_2;
+					}
+					bool flag3 = num == 0UL;
+					if (flag3)
+					{
+						this._bit += 64;
+					}
+					else
+					{
+						bool flag4 = ((uint*)(&num))[num2 / 32] == 0U;
+						if (flag4)
+						{
+							this._bit += 32;
+						}
+						else
+						{
+							bool flag5 = ((ushort*)(&num))[num2 / 16] == 0;
+							if (flag5)
+							{
+								this._bit += 16;
+							}
+							else
+							{
+								int num3 = this._bit / 64;
+								for (;;)
+								{
+									int num4 = this._bit + 1;
+									this._bit = num4;
+									if (num4 / 64 != num3)
+									{
+										break;
+									}
+									bool flag6 = (num & 1UL << this._bit % 64) > 0UL;
+									if (flag6)
+									{
+										goto Block_6;
+									}
+								}
+							}
+						}
+					}
+				}
+				return false;
+				Block_2:
+				return true;
+				Block_6:
+				return true;
+			}
+
+			object IEnumerator.Current
+			{
+				get
+				{
+					return this.Current;
+				}
+			}
+
+			public void Dispose()
+			{
+				this._bits = null;
+				this._bit = -1;
+			}
+
+			private unsafe ulong* _bits;
+
+			private int _bit;
+		}
+
+		[CompilerGenerated]
+		[UnsafeValueType]
+		[StructLayout(LayoutKind.Sequential, Size = 32)]
+		public struct <Bits>e__FixedBuffer
+		{
+			public ulong FixedElementField;
+		}
+	}
+}

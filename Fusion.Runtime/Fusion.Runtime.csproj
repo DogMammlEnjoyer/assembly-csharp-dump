@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fusion.Runtime</RootNamespace>
+    <AssemblyName>Fusion.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fusion.Common">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fusion.Log">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="Fusion.Sockets">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ElementReaderWriterBoolean.cs" />
+    <Compile Include="Fusion\Allocator.cs" />
+    <Compile Include="Fusion\Angle.cs" />
+    <Compile Include="Fusion\AnimatorSyncSettings.cs" />
+    <Compile Include="Fusion\ArraySpecialized.cs" />
+    <Compile Include="Fusion\AssetObject.cs" />
+    <Compile Include="Fusion\AuthorityMasks.cs" />
+    <Compile Include="Fusion\Behaviour.cs" />
+    <Compile Include="Fusion\BehaviourUtils.cs" />
+    <Compile Include="Fusion\BitSet128.cs" />
+    <Compile Include="Fusion\BitSet192.cs" />
+    <Compile Include="Fusion\BitSet256.cs" />
+    <Compile Include="Fusion\BitSet512.cs" />
+    <Compile Include="Fusion\BitSet64.cs" />
+    <Compile Include="Fusion\CallbackInterfaceInvoker.cs" />
+    <Compile Include="Fusion\CapacityAttribute.cs" />
+    <Compile Include="Fusion\ClientTimeProvider.cs" />
+    <Compile Include="Fusion\ClientTimeProviderSettings.cs" />
+    <Compile Include="Fusion\ClientTimeTrace.cs" />
+    <Compile Include="Fusion\Clock.cs" />
+    <Compile Include="Fusion\CloudCommunicator.cs" />
+    <Compile Include="Fusion\CloudServices.cs" />
+    <Compile Include="Fusion\CloudServicesMetadata.cs" />
+    <Compile Include="Fusion\ConnectionType.cs" />
+    <Compile Include="Fusion\DefaultForPropertyAttribute.cs" />
+    <Compile Include="Fusion\DisconnectCauseExt.cs" />
+    <Compile Include="Fusion\DisconnectReasonExt.cs" />
+    <Compile Include="Fusion\DynamicHeap.cs" />
+    <Compile Include="Fusion\DynamicHeapInstance.cs" />
+    <Compile Include="Fusion\ElementReaderWriterByte.cs" />
+    <Compile Include="Fusion\ElementReaderWriterChar.cs" />
+    <Compile Include="Fusion\ElementReaderWriterDouble.cs" />
+    <Compile Include="Fusion\ElementReaderWriterInt16.cs" />
+    <Compile Include="Fusion\ElementReaderWriterInt32.cs" />
+    <Compile Include="Fusion\ElementReaderWriterInt64.cs" />
+    <Compile Include="Fusion\ElementReaderWriterNetworkBehaviourId.cs" />
+    <Compile Include="Fusion\ElementReaderWriterNetworkBool.cs" />
+    <Compile Include="Fusion\ElementReaderWriterNetworkId.cs" />
+    <Compile Include="Fusion\ElementReaderWriterPlayerRef.cs" />
+    <Compile Include="Fusion\ElementReaderWriterSByte.cs" />
+    <Compile Include="Fusion\ElementReaderWriterSingle.cs" />
+    <Compile Include="Fusion\ElementReaderWriterUInt16.cs" />
+    <Compile Include="Fusion\ElementReaderWriterUInt32.cs" />
+    <Compile Include="Fusion\ElementReaderWriterUInt64.cs" />
+    <Compile Include="Fusion\ElementReaderWriterVector2.cs" />
+    <Compile Include="Fusion\ElementReaderWriterVector3.cs" />
+    <Compile Include="Fusion\ElementReaderWriterVector4.cs" />
+    <Compile Include="Fusion\ErrorCodeExt.cs" />
+    <Compile Include="Fusion\ExponentialDecay.cs" />
+    <Compile Include="Fusion\FixedArray.2.cs" />
+    <Compile Include="Fusion\FixedArray.cs" />
+    <Compile Include="Fusion\FixedBufferPropertyAttribute.cs" />
+    <Compile Include="Fusion\FixedFeedback.cs" />
+    <Compile Include="Fusion\FixedStorage.cs" />
+    <Compile Include="Fusion\FloatCompressed.cs" />
+    <Compile Include="Fusion\FloatUtils.cs" />
+    <Compile Include="Fusion\GameMode.cs" />
+    <Compile Include="Fusion\HashCodeUtilities.cs" />
+    <Compile Include="Fusion\HeapConfiguration.cs" />
+    <Compile Include="Fusion\Histogram.cs" />
+    <Compile Include="Fusion\Hitbox.cs" />
+    <Compile Include="Fusion\HitboxManager.cs" />
+    <Compile Include="Fusion\HitboxRoot.cs" />
+    <Compile Include="Fusion\HitboxTypes.cs" />
+    <Compile Include="Fusion\HitOptions.cs" />
+    <Compile Include="Fusion\HostMigrationConfig.cs" />
+    <Compile Include="Fusion\HostMigrationToken.cs" />
+    <Compile Include="Fusion\IAfterAllTicks.cs" />
+    <Compile Include="Fusion\IAfterClientPredictionReset.cs" />
+    <Compile Include="Fusion\IAfterHostMigration.cs" />
+    <Compile Include="Fusion\IAfterRender.cs" />
+    <Compile Include="Fusion\IAfterSpawned.cs" />
+    <Compile Include="Fusion\IAfterTick.cs" />
+    <Compile Include="Fusion\IAfterUpdate.cs" />
+    <Compile Include="Fusion\IAfterUpdateRemotePrefabs.cs" />
+    <Compile Include="Fusion\IAsyncOperation.cs" />
+    <Compile Include="Fusion\IBeforeAllTicks.cs" />
+    <Compile Include="Fusion\IBeforeClientPredictionReset.cs" />
+    <Compile Include="Fusion\IBeforeCopyPreviousState.cs" />
+    <Compile Include="Fusion\IBeforeHitboxRegistration.cs" />
+    <Compile Include="Fusion\IBeforeSimulation.cs" />
+    <Compile Include="Fusion\IBeforeTick.cs" />
+    <Compile Include="Fusion\IBeforeUpdate.cs" />
+    <Compile Include="Fusion\IBeforeUpdateRemotePrefabs.cs" />
+    <Compile Include="Fusion\ICallbacksExtensions.cs" />
+    <Compile Include="Fusion\ICoroutine.cs" />
+    <Compile Include="Fusion\IDespawned.cs" />
+    <Compile Include="Fusion\IElementReaderWriter.cs" />
+    <Compile Include="Fusion\IExportedWordCount.cs" />
+    <Compile Include="Fusion\IFeedbackController.cs" />
+    <Compile Include="Fusion\IFixedStorage.cs" />
+    <Compile Include="Fusion\IInputAuthorityGained.cs" />
+    <Compile Include="Fusion\IInputAuthorityLost.cs" />
+    <Compile Include="Fusion\IInterestEnter.cs" />
+    <Compile Include="Fusion\IInterestExit.cs" />
+    <Compile Include="Fusion\ILocalPrefabCreated.cs" />
+    <Compile Include="Fusion\INetworkArray.cs" />
+    <Compile Include="Fusion\INetworkAssetSource.cs" />
+    <Compile Include="Fusion\INetworkDictionary.cs" />
+    <Compile Include="Fusion\INetworkInput.cs" />
+    <Compile Include="Fusion\INetworkLinkedList.cs" />
+    <Compile Include="Fusion\INetworkObjectInitializer.cs" />
+    <Compile Include="Fusion\INetworkObjectProvider.cs" />
+    <Compile Include="Fusion\INetworkPrefabSource.cs" />
+    <Compile Include="Fusion\INetworkRunnerCallbacks.cs" />
+    <Compile Include="Fusion\INetworkRunnerUpdater.cs" />
+    <Compile Include="Fusion\INetworkSceneManager.cs" />
+    <Compile Include="Fusion\INetworkString.cs" />
+    <Compile Include="Fusion\INetworkStruct.cs" />
+    <Compile Include="Fusion\INetworkTRSPTeleport.cs" />
+    <Compile Include="Fusion\Instant.cs" />
+    <Compile Include="Fusion\Internal\IUnitySurrogate.cs" />
+    <Compile Include="Fusion\Internal\IUnityValueSurrogate.cs" />
+    <Compile Include="Fusion\Internal\UnityArraySurrogate.cs" />
+    <Compile Include="Fusion\Internal\UnityDictionarySurrogate.cs" />
+    <Compile Include="Fusion\Internal\UnityLinkedListSurrogate.cs" />
+    <Compile Include="Fusion\Internal\UnitySurrogateBase.cs" />
+    <Compile Include="Fusion\Internal\UnityValueSurrogate.cs" />
+    <Compile Include="Fusion\InterpolatedErrorCorrectionSettings.cs" />
+    <Compile Include="Fusion\InterpolationParams.cs" />
+    <Compile Include="Fusion\IPlayerJoined.cs" />
+    <Compile Include="Fusion\IPlayerLeft.cs" />
+    <Compile Include="Fusion\IPublicFacingInterface.cs" />
+    <Compile Include="Fusion\IRemotePrefabCreated.cs" />
+    <Compile Include="Fusion\ISceneLoadDone.cs" />
+    <Compile Include="Fusion\ISceneLoadStart.cs" />
+    <Compile Include="Fusion\ISimulationEnter.cs" />
+    <Compile Include="Fusion\ISimulationExit.cs" />
+    <Compile Include="Fusion\ISpawned.cs" />
+    <Compile Include="Fusion\IStateAuthorityChanged.cs" />
+    <Compile Include="Fusion\ITimeProvider.cs" />
+    <Compile Include="Fusion\JoinProcessStage.cs" />
+    <Compile Include="Fusion\LagCompensatedHit.cs" />
+    <Compile Include="Fusion\LagCompensationSettings.cs" />
+    <Compile Include="Fusion\LagCompensation\AABB.cs" />
+    <Compile Include="Fusion\LagCompensation\BoundsExtension.cs" />
+    <Compile Include="Fusion\LagCompensation\BoxOverlapQuery.cs" />
+    <Compile Include="Fusion\LagCompensation\BoxOverlapQueryParams.cs" />
+    <Compile Include="Fusion\LagCompensation\BVH.cs" />
+    <Compile Include="Fusion\LagCompensation\BVHDraw.cs" />
+    <Compile Include="Fusion\LagCompensation\BVHNode.cs" />
+    <Compile Include="Fusion\LagCompensation\BVHNodeDrawInfo.cs" />
+    <Compile Include="Fusion\LagCompensation\ColliderDrawInfo.cs" />
+    <Compile Include="Fusion\LagCompensation\HitboxBuffer.cs" />
+    <Compile Include="Fusion\LagCompensation\HitboxCollider.cs" />
+    <Compile Include="Fusion\LagCompensation\HitboxColliderContainerDraw.cs" />
+    <Compile Include="Fusion\LagCompensation\HitboxHit.cs" />
+    <Compile Include="Fusion\LagCompensation\HitType.cs" />
+    <Compile Include="Fusion\LagCompensation\IBoundsTraversalTest.cs" />
+    <Compile Include="Fusion\LagCompensation\IHitboxColliderContainer.cs" />
+    <Compile Include="Fusion\LagCompensation\ILagCompensationBroadphase.cs" />
+    <Compile Include="Fusion\LagCompensation\LagCompensatedExt.cs" />
+    <Compile Include="Fusion\LagCompensation\LagCompensationDraw.cs" />
+    <Compile Include="Fusion\LagCompensation\LagCompensationUtils.cs" />
+    <Compile Include="Fusion\LagCompensation\Mapper.cs" />
+    <Compile Include="Fusion\LagCompensation\PositionRotationQueryParams.cs" />
+    <Compile Include="Fusion\LagCompensation\PreProcessingDelegate.cs" />
+    <Compile Include="Fusion\LagCompensation\Query.cs" />
+    <Compile Include="Fusion\LagCompensation\QueryParams.cs" />
+    <Compile Include="Fusion\LagCompensation\RaycastAllQuery.cs" />
+    <Compile Include="Fusion\LagCompensation\RaycastQuery.cs" />
+    <Compile Include="Fusion\LagCompensation\RaycastQueryParams.cs" />
+    <Compile Include="Fusion\LagCompensation\SnapshotHistoryDraw.cs" />
+    <Compile Include="Fusion\LagCompensation\SphereOverlapQuery.cs" />
+    <Compile Include="Fusion\LagCompensation\SphereOverlapQueryParams.cs" />
+    <Compile Include="Fusion\ListSpecialized.cs" />
+    <Compile Include="Fusion\LobbyInfo.cs" />
+    <Compile Include="Fusion\NATPunchStage.cs" />
+    <Compile Include="Fusion\NestedComponentUtilities.cs" />
+    <Compile Include="Fusion\NetworkArray.cs" />
+    <Compile Include="Fusion\NetworkArrayExtensions.cs" />
+    <Compile Include="Fusion\NetworkArrayReadOnly.cs" />
+    <Compile Include="Fusion\NetworkAssemblyIgnoreAttribute.cs" />
+    <Compile Include="Fusion\NetworkAssemblyWeavedAttribute.cs" />
+    <Compile Include="Fusion\NetworkBehaviour.cs" />
+    <Compile Include="Fusion\NetworkBehaviourBuffer.cs" />
+    <Compile Include="Fusion\NetworkBehaviourBufferInterpolator.cs" />
+    <Compile Include="Fusion\NetworkBehaviourId.cs" />
+    <Compile Include="Fusion\NetworkBehaviourUtils.cs" />
+    <Compile Include="Fusion\NetworkBehaviourWeavedAttribute.cs" />
+    <Compile Include="Fusion\NetworkBool.cs" />
+    <Compile Include="Fusion\NetworkBufferSerializer.cs" />
+    <Compile Include="Fusion\NetworkBufferSerializerInfo.cs" />
+    <Compile Include="Fusion\NetworkButtons.cs" />
+    <Compile Include="Fusion\NetworkConfiguration.cs" />
+    <Compile Include="Fusion\NetworkDelegates.cs" />
+    <Compile Include="Fusion\NetworkDeserializeMethodAttribute.cs" />
+    <Compile Include="Fusion\NetworkDictionary.cs" />
+    <Compile Include="Fusion\NetworkDictionaryReadOnly.cs" />
+    <Compile Include="Fusion\NetworkedAttribute.cs" />
+    <Compile Include="Fusion\NetworkedWeavedArrayAttribute.cs" />
+    <Compile Include="Fusion\NetworkedWeavedAttribute.cs" />
+    <Compile Include="Fusion\NetworkedWeavedDictionaryAttribute.cs" />
+    <Compile Include="Fusion\NetworkedWeavedLinkedListAttribute.cs" />
+    <Compile Include="Fusion\NetworkedWeavedStringAttribute.cs" />
+    <Compile Include="Fusion\NetworkEvents.cs" />
+    <Compile Include="Fusion\NetworkId.cs" />
+    <Compile Include="Fusion\NetworkInput.cs" />
+    <Compile Include="Fusion\NetworkInputUtils.cs" />
+    <Compile Include="Fusion\NetworkInputWeavedAttribute.cs" />
+    <Compile Include="Fusion\NetworkLinkedList.cs" />
+    <Compile Include="Fusion\NetworkLinkedListReadOnly.cs" />
+    <Compile Include="Fusion\NetworkLoadSceneParameters.cs" />
+    <Compile Include="Fusion\NetworkLoadSceneParametersFlags.cs" />
+    <Compile Include="Fusion\NetworkMecanimAnimator.cs" />
+    <Compile Include="Fusion\NetworkObject.cs" />
+    <Compile Include="Fusion\NetworkObjectAcquireResult.cs" />
+    <Compile Include="Fusion\NetworkObjectConnectionData.cs" />
+    <Compile Include="Fusion\NetworkObjectConnectionDataList.cs" />
+    <Compile Include="Fusion\NetworkObjectConnectionDataStatus.cs" />
+    <Compile Include="Fusion\NetworkObjectDestroyFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectDestroyFlagsExtensions.cs" />
+    <Compile Include="Fusion\NetworkObjectFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectFlagsExtensions.cs" />
+    <Compile Include="Fusion\NetworkObjectGuid.cs" />
+    <Compile Include="Fusion\NetworkObjectGuidUtils.cs" />
+    <Compile Include="Fusion\NetworkObjectHeader.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderFlagsExtensions.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderPlayerDataFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderPtr.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderSnapshot.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderSnapshotList.cs" />
+    <Compile Include="Fusion\NetworkObjectHeaderSnapshotRef.cs" />
+    <Compile Include="Fusion\NetworkObjectInactivityGuard.cs" />
+    <Compile Include="Fusion\NetworkObjectInitializerUnity.cs" />
+    <Compile Include="Fusion\NetworkObjectMeta.cs" />
+    <Compile Include="Fusion\NetworkObjectMetaFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectNestingKey.cs" />
+    <Compile Include="Fusion\NetworkObjectPacketData.cs" />
+    <Compile Include="Fusion\NetworkObjectPacketFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectPrefabData.cs" />
+    <Compile Include="Fusion\NetworkObjectPriorityList.cs" />
+    <Compile Include="Fusion\NetworkObjectProviderDummy.cs" />
+    <Compile Include="Fusion\NetworkObjectReleaseContext.cs" />
+    <Compile Include="Fusion\NetworkObjectRuntimeFlags.cs" />
+    <Compile Include="Fusion\NetworkObjectRuntimeFlagsExtensions.cs" />
+    <Compile Include="Fusion\NetworkObjectSortKeyComparer.cs" />
+    <Compile Include="Fusion\NetworkObjectSpawnDelegate.cs" />
+    <Compile Include="Fusion\NetworkObjectSpawnException.cs" />
+    <Compile Include="Fusion\NetworkObjectTypeId.cs" />
+    <Compile Include="Fusion\NetworkPhysicsInfo.cs" />
+    <Compile Include="Fusion\NetworkPrefabAcquireContext.cs" />
+    <Compile Include="Fusion\NetworkPrefabAttribute.cs" />
+    <Compile Include="Fusion\NetworkPrefabId.cs" />
+    <Compile Include="Fusion\NetworkPrefabRef.cs" />
+    <Compile Include="Fusion\NetworkPrefabTable.cs" />
+    <Compile Include="Fusion\NetworkPrefabTableGetPrefabResult.cs" />
+    <Compile Include="Fusion\NetworkPrefabTableOptions.cs" />
+    <Compile Include="Fusion\NetworkProjectConfig.cs" />
+    <Compile Include="Fusion\NetworkProjectConfigAsset.cs" />
+    <Compile Include="Fusion\NetworkRNG.cs" />
+    <Compile Include="Fusion\NetworkRpcStaticWeavedInvokerAttribute.cs" />
+    <Compile Include="Fusion\NetworkRpcWeavedInvokerAttribute.cs" />
+    <Compile Include="Fusion\NetworkRunner.cs" />
+    <Compile Include="Fusion\NetworkRunnerCallbackArgs.cs" />
+    <Compile Include="Fusion\NetworkRunnerInitializeArgs.cs" />
+    <Compile Include="Fusion\NetworkRunnerUpdaterDefault.cs" />
+    <Compile Include="Fusion\NetworkRunnerUpdaterDefaultInvokeSettings.cs" />
+    <Compile Include="Fusion\NetworkRunnerUpdaterDummy.cs" />
+    <Compile Include="Fusion\NetworkSceneAsyncOp.cs" />
+    <Compile Include="Fusion\NetworkSceneInfo.cs" />
+    <Compile Include="Fusion\NetworkSceneInfoChangeSource.cs" />
+    <Compile Include="Fusion\NetworkSceneInfoDefaultFlags.cs" />
+    <Compile Include="Fusion\NetworkSceneLoadId.cs" />
+    <Compile Include="Fusion\NetworkSceneManagerDummy.cs" />
+    <Compile Include="Fusion\NetworkSceneObjectId.cs" />
+    <Compile Include="Fusion\NetworkSerializeMethodAttribute.cs" />
+    <Compile Include="Fusion\NetworkSimulationConfiguration.cs" />
+    <Compile Include="Fusion\NetworkSpawnFlags.cs" />
+    <Compile Include="Fusion\NetworkSpawnOp.cs" />
+    <Compile Include="Fusion\NetworkSpawnStatus.cs" />
+    <Compile Include="Fusion\NetworkString.2.cs" />
+    <Compile Include="Fusion\NetworkString.cs" />
+    <Compile Include="Fusion\NetworkStructUtils.cs" />
+    <Compile Include="Fusion\NetworkStructWeavedAttribute.cs" />
+    <Compile Include="Fusion\NetworkTransform.cs" />
+    <Compile Include="Fusion\NetworkTransformSerializer.cs" />
+    <Compile Include="Fusion\NetworkTRSP.cs" />
+    <Compile Include="Fusion\NetworkTRSPData.cs" />
+    <Compile Include="Fusion\NetworkTypeIdKind.cs" />
+    <Compile Include="Fusion\NormalizedRectAttribute.cs" />
+    <Compile Include="Fusion\OnChangedRenderAttribute.cs" />
+    <Compile Include="Fusion\PageSizes.cs" />
+    <Compile Include="Fusion\PeerPing.cs" />
+    <Compile Include="Fusion\PlayerRef.cs" />
+    <Compile Include="Fusion\PreserveInPluginAttribute.cs" />
+    <Compile Include="Fusion\PriorityLevel.cs" />
+    <Compile Include="Fusion\Ptr.cs" />
+    <Compile Include="Fusion\QuaternionCompressed.cs" />
+    <Compile Include="Fusion\ReaderWriterCache.cs" />
+    <Compile Include="Fusion\ReadWriteUtils.cs" />
+    <Compile Include="Fusion\ReadWriteUtilsForWeaver.cs" />
+    <Compile Include="Fusion\ReflectionUtils.cs" />
+    <Compile Include="Fusion\RenderAttribute.cs" />
+    <Compile Include="Fusion\RenderSource.cs" />
+    <Compile Include="Fusion\RenderTimeframe.cs" />
+    <Compile Include="Fusion\RenderTimeline.cs" />
+    <Compile Include="Fusion\RenderWeavedAttribute.cs" />
+    <Compile Include="Fusion\ResolveNetworkPrefabSourceAttribute.cs" />
+    <Compile Include="Fusion\RingBuffer.cs" />
+    <Compile Include="Fusion\RpcAttribute.cs" />
+    <Compile Include="Fusion\RpcChannel.cs" />
+    <Compile Include="Fusion\RpcHeader.cs" />
+    <Compile Include="Fusion\RpcHostMode.cs" />
+    <Compile Include="Fusion\RpcInfo.cs" />
+    <Compile Include="Fusion\RpcInvokeData.cs" />
+    <Compile Include="Fusion\RpcInvokeDelegate.cs" />
+    <Compile Include="Fusion\RpcInvokeInfo.cs" />
+    <Compile Include="Fusion\RpcLocalInvokeResult.cs" />
+    <Compile Include="Fusion\RpcSendCullResult.cs" />
+    <Compile Include="Fusion\RpcSendMessageResult.cs" />
+    <Compile Include="Fusion\RpcSendResult.cs" />
+    <Compile Include="Fusion\RpcSources.cs" />
+    <Compile Include="Fusion\RpcStaticInvokeDelegate.cs" />
+    <Compile Include="Fusion\RpcTargetAttribute.cs" />
+    <Compile Include="Fusion\RpcTargets.cs" />
+    <Compile Include="Fusion\RpcTargetStatus.cs" />
+    <Compile Include="Fusion\SceneLoadDoneArgs.cs" />
+    <Compile Include="Fusion\SceneRef.cs" />
+    <Compile Include="Fusion\ScheduledRequests.cs" />
+    <Compile Include="Fusion\ScheduledRequestsExt.cs" />
+    <Compile Include="Fusion\SerializableDictionary.2.cs" />
+    <Compile Include="Fusion\SerializableDictionary.cs" />
+    <Compile Include="Fusion\ServerTimeProvider.cs" />
+    <Compile Include="Fusion\ServerTimeProviderSettings.cs" />
+    <Compile Include="Fusion\SessionInfo.cs" />
+    <Compile Include="Fusion\SessionLobby.cs" />
+    <Compile Include="Fusion\ShutdownReason.cs" />
+    <Compile Include="Fusion\Simulation.cs" />
+    <Compile Include="Fusion\SimulationArgs.cs" />
+    <Compile Include="Fusion\SimulationBehaviour.cs" />
+    <Compile Include="Fusion\SimulationBehaviourAttribute.cs" />
+    <Compile Include="Fusion\SimulationBehaviourListScope.cs" />
+    <Compile Include="Fusion\SimulationBehaviourRuntimeFlags.cs" />
+    <Compile Include="Fusion\SimulationBehaviourUpdater.cs" />
+    <Compile Include="Fusion\SimulationConfig.cs" />
+    <Compile Include="Fusion\SimulationConnection.cs" />
+    <Compile Include="Fusion\SimulationHistoryEntryList.cs" />
+    <Compile Include="Fusion\SimulationInput.cs" />
+    <Compile Include="Fusion\SimulationInputCollection.cs" />
+    <Compile Include="Fusion\SimulationInputHeader.cs" />
+    <Compile Include="Fusion\SimulationInputList.cs" />
+    <Compile Include="Fusion\SimulationMessage.cs" />
+    <Compile Include="Fusion\SimulationMessageEnvelope.cs" />
+    <Compile Include="Fusion\SimulationMessageInternalTypes.cs" />
+    <Compile Include="Fusion\SimulationMessageInternal_SetAreaOfInterest.cs" />
+    <Compile Include="Fusion\SimulationMessageInternal_SetPlayerObject.cs" />
+    <Compile Include="Fusion\SimulationMessageInternal_SharedModeRequestStateAuthority.cs" />
+    <Compile Include="Fusion\SimulationMessageInternal_SharedModeSetAlwaysInterested.cs" />
+    <Compile Include="Fusion\SimulationMessageList.cs" />
+    <Compile Include="Fusion\SimulationMessagePtr.cs" />
+    <Compile Include="Fusion\SimulationMessageResult.cs" />
+    <Compile Include="Fusion\SimulationModes.cs" />
+    <Compile Include="Fusion\SimulationPacketEnvelope.cs" />
+    <Compile Include="Fusion\SimulationPlayer.cs" />
+    <Compile Include="Fusion\SimulationRenderSequencer.cs" />
+    <Compile Include="Fusion\SimulationRuntimeConfig.cs" />
+    <Compile Include="Fusion\SimulationStages.cs" />
+    <Compile Include="Fusion\StartGameArgs.cs" />
+    <Compile Include="Fusion\StartGameException.cs" />
+    <Compile Include="Fusion\StartGameResult.cs" />
+    <Compile Include="Fusion\Statistics\BehaviourStatisticsManager.cs" />
+    <Compile Include="Fusion\Statistics\BehaviourStatisticsSnapshot.cs" />
+    <Compile Include="Fusion\Statistics\FusionStatisticsManager.cs" />
+    <Compile Include="Fusion\Statistics\FusionStatisticsSnapshot.cs" />
+    <Compile Include="Fusion\Statistics\LagCompensationStatisticsManager.cs" />
+    <Compile Include="Fusion\Statistics\LagCompensationStatisticsSnapshot.cs" />
+    <Compile Include="Fusion\Statistics\MemoryStatisticsSnapshot.cs" />
+    <Compile Include="Fusion\Statistics\NetworkObjectStatisticsManager.cs" />
+    <Compile Include="Fusion\Statistics\NetworkObjectStatisticsSnapshot.cs" />
+    <Compile Include="Fusion\Status.cs" />
+    <Compile Include="Fusion\Tick.cs" />
+    <Compile Include="Fusion\TickAccumulator.cs" />
+    <Compile Include="Fusion\TickRate.cs" />
+    <Compile Include="Fusion\TickTimer.cs" />
+    <Compile Include="Fusion\TimeAdjustment.cs" />
+    <Compile Include="Fusion\Timeline.cs" />
+    <Compile Include="Fusion\TimelinePoint.cs" />
+    <Compile Include="Fusion\TimeProviderCallback.cs" />
+    <Compile Include="Fusion\TimeSeries.cs" />
+    <Compile Include="Fusion\TimeSyncConfiguration.cs" />
+    <Compile Include="Fusion\Topologies.cs" />
+    <Compile Include="Fusion\UnityContextMenuItemAttribute.cs" />
+    <Compile Include="Fusion\UnityDelayedAttribute.cs" />
+    <Compile Include="Fusion\UnityFormerlySerializedAsAttribute.cs" />
+    <Compile Include="Fusion\UnityHeaderAttribute.cs" />
+    <Compile Include="Fusion\UnityMinAttribute.cs" />
+    <Compile Include="Fusion\UnityMultilineAttribute.cs" />
+    <Compile Include="Fusion\UnityNonReorderableAttribute.cs" />
+    <Compile Include="Fusion\UnityNonSerializedAttribute.cs" />
+    <Compile Include="Fusion\UnityPlayerLoopSystemAddMode.cs" />
+    <Compile Include="Fusion\UnityPlayerLoopSystemUtils.cs" />
+    <Compile Include="Fusion\UnityPropertyAttributeProxyAttribute.cs" />
+    <Compile Include="Fusion\UnityRangeAttribute.cs" />
+    <Compile Include="Fusion\UnitySerializeField.cs" />
+    <Compile Include="Fusion\UnitySerializeReference.cs" />
+    <Compile Include="Fusion\UnitySpaceAttribute.cs" />
+    <Compile Include="Fusion\UnityTooltipAttribute.cs" />
+    <Compile Include="Fusion\VariableFeedback.cs" />
+    <Compile Include="Fusion\Vector2Compressed.cs" />
+    <Compile Include="Fusion\Vector3Compressed.cs" />
+    <Compile Include="Fusion\Vector4Compressed.cs" />
+    <Compile Include="Fusion\WeaverGeneratedAttribute.cs" />
+    <Compile Include="Fusion\_128.cs" />
+    <Compile Include="Fusion\_16.cs" />
+    <Compile Include="Fusion\_2.cs" />
+    <Compile Include="Fusion\_256.cs" />
+    <Compile Include="Fusion\_32.cs" />
+    <Compile Include="Fusion\_4.cs" />
+    <Compile Include="Fusion\_512.cs" />
+    <Compile Include="Fusion\_64.cs" />
+    <Compile Include="Fusion\_8.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RequiresLocationAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9E}</Project>
+      <Name>Fusion.Realtime</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

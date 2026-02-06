@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhotonVoice.API</RootNamespace>
+    <AssemblyName>PhotonVoice.API</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="netstandard">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Photon\Voice\AudioDesc.cs" />
+    <Compile Include="Photon\Voice\AudioInChangeNotifierNotSupported.cs" />
+    <Compile Include="Photon\Voice\AudioInEnumeratorNotSupported.cs" />
+    <Compile Include="Photon\Voice\AudioOutDelayControl.2.cs" />
+    <Compile Include="Photon\Voice\AudioOutDelayControl.cs" />
+    <Compile Include="Photon\Voice\AudioSampleType.cs" />
+    <Compile Include="Photon\Voice\AudioSyncBuffer.cs" />
+    <Compile Include="Photon\Voice\AudioUtil.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapter.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapterAsyncPool.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapterAsyncPoolCopy.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapterAsyncPoolFloatToShort.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapterAsyncPoolShortToFloat.cs" />
+    <Compile Include="Photon\Voice\BufferReaderPushAdapterBase.cs" />
+    <Compile Include="Photon\Voice\Codec.cs" />
+    <Compile Include="Photon\Voice\DeviceEnumeratorBase.cs" />
+    <Compile Include="Photon\Voice\DeviceEnumeratorNotSupported.cs" />
+    <Compile Include="Photon\Voice\DeviceInfo.cs" />
+    <Compile Include="Photon\Voice\FactoryPrimitiveArrayPool.cs" />
+    <Compile Include="Photon\Voice\FactoryReusableArray.cs" />
+    <Compile Include="Photon\Voice\Flip.cs" />
+    <Compile Include="Photon\Voice\FrameBuffer.cs" />
+    <Compile Include="Photon\Voice\FrameFlags.cs" />
+    <Compile Include="Photon\Voice\FrameOut.cs" />
+    <Compile Include="Photon\Voice\Framer.cs" />
+    <Compile Include="Photon\Voice\IAudioDesc.cs" />
+    <Compile Include="Photon\Voice\IAudioInChangeNotifier.cs" />
+    <Compile Include="Photon\Voice\IAudioOut.cs" />
+    <Compile Include="Photon\Voice\IAudioPusher.cs" />
+    <Compile Include="Photon\Voice\IAudioReader.cs" />
+    <Compile Include="Photon\Voice\IDataReader.cs" />
+    <Compile Include="Photon\Voice\IDecoder.cs" />
+    <Compile Include="Photon\Voice\IDecoderDirect.cs" />
+    <Compile Include="Photon\Voice\IDeviceEnumerator.cs" />
+    <Compile Include="Photon\Voice\IEncoder.cs" />
+    <Compile Include="Photon\Voice\IEncoderDirect.cs" />
+    <Compile Include="Photon\Voice\IEncoderDirectImage.cs" />
+    <Compile Include="Photon\Voice\ILocalVoiceAudio.cs" />
+    <Compile Include="Photon\Voice\ILogger.cs" />
+    <Compile Include="Photon\Voice\ImageBufferInfo.cs" />
+    <Compile Include="Photon\Voice\ImageBufferNative.cs" />
+    <Compile Include="Photon\Voice\ImageBufferNativeAlloc.cs" />
+    <Compile Include="Photon\Voice\ImageBufferNativeGCHandleSinglePlane.cs" />
+    <Compile Include="Photon\Voice\ImageBufferNativePool.cs" />
+    <Compile Include="Photon\Voice\ImageFormat.cs" />
+    <Compile Include="Photon\Voice\IOS\AudioSessionCategory.cs" />
+    <Compile Include="Photon\Voice\IOS\AudioSessionCategoryOption.cs" />
+    <Compile Include="Photon\Voice\IOS\AudioSessionMode.cs" />
+    <Compile Include="Photon\Voice\IOS\AudioSessionParameters.cs" />
+    <Compile Include="Photon\Voice\IOS\AudioSessionParametersPresets.cs" />
+    <Compile Include="Photon\Voice\IProcessor.cs" />
+    <Compile Include="Photon\Voice\IResettable.cs" />
+    <Compile Include="Photon\Voice\IServiceable.cs" />
+    <Compile Include="Photon\Voice\IVoiceTransport.cs" />
+    <Compile Include="Photon\Voice\LoadBalancingTransport.cs" />
+    <Compile Include="Photon\Voice\LoadBalancingTransport2.cs" />
+    <Compile Include="Photon\Voice\LocalVoice.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceAudio.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceAudioDummy.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceAudioFloat.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceAudioShort.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceFramed.cs" />
+    <Compile Include="Photon\Voice\LocalVoiceFramedBase.cs" />
+    <Compile Include="Photon\Voice\ObjectFactory.cs" />
+    <Compile Include="Photon\Voice\ObjectPool.cs" />
+    <Compile Include="Photon\Voice\OpusCodec.cs" />
+    <Compile Include="Photon\Voice\PhotonTransportProtocol.cs" />
+    <Compile Include="Photon\Voice\Platform.cs" />
+    <Compile Include="Photon\Voice\PrimitiveArrayPool.cs" />
+    <Compile Include="Photon\Voice\RawCodec.cs" />
+    <Compile Include="Photon\Voice\RemoteVoice.cs" />
+    <Compile Include="Photon\Voice\RemoteVoiceInfo.cs" />
+    <Compile Include="Photon\Voice\RemoteVoiceOptions.cs" />
+    <Compile Include="Photon\Voice\Rotation.cs" />
+    <Compile Include="Photon\Voice\SpacingProfile.cs" />
+    <Compile Include="Photon\Voice\Unity\AndroidAudioInAEC.cs" />
+    <Compile Include="Photon\Voice\Unity\AndroidAudioInParameters.cs" />
+    <Compile Include="Photon\Voice\Unity\AudioClipWrapper.cs" />
+    <Compile Include="Photon\Voice\Unity\AudioInEnumerator.cs" />
+    <Compile Include="Photon\Voice\Unity\AudioOutCapture.cs" />
+    <Compile Include="Photon\Voice\Unity\Logger.cs" />
+    <Compile Include="Photon\Voice\Unity\MicWrapper.cs" />
+    <Compile Include="Photon\Voice\Unity\MicWrapperPusher.cs" />
+    <Compile Include="Photon\Voice\Unity\PhotonVoiceCreatedParams.cs" />
+    <Compile Include="Photon\Voice\Unity\UnityAudioOut.cs" />
+    <Compile Include="Photon\Voice\Unity\UnityMicrophone.cs" />
+    <Compile Include="Photon\Voice\UnsupportedCodecException.cs" />
+    <Compile Include="Photon\Voice\UnsupportedPlatformException.cs" />
+    <Compile Include="Photon\Voice\UnsupportedSampleTypeException.cs" />
+    <Compile Include="Photon\Voice\Util.cs" />
+    <Compile Include="Photon\Voice\VideoInEnumeratorNotSupported.cs" />
+    <Compile Include="Photon\Voice\VoiceClient.cs" />
+    <Compile Include="Photon\Voice\VoiceEvent.cs" />
+    <Compile Include="Photon\Voice\VoiceInfo.cs" />
+    <Compile Include="Photon\Voice\WebRTCAudioLib.cs" />
+    <Compile Include="Photon\Voice\WebRTCAudioProcessor.cs" />
+    <Compile Include="Photon\Voice\Windows\AudioInEnumerator.cs" />
+    <Compile Include="Photon\Voice\Windows\MonoPInvokeCallbackAttribute.cs" />
+    <Compile Include="Photon\Voice\Windows\WindowsAudioInPusher.cs" />
+    <Compile Include="POpusCodec\Enums\Bandwidth.cs" />
+    <Compile Include="POpusCodec\Enums\Channels.cs" />
+    <Compile Include="POpusCodec\Enums\Complexity.cs" />
+    <Compile Include="POpusCodec\Enums\Delay.cs" />
+    <Compile Include="POpusCodec\Enums\ForceChannels.cs" />
+    <Compile Include="POpusCodec\Enums\OpusApplicationType.cs" />
+    <Compile Include="POpusCodec\Enums\OpusCtlGetRequest.cs" />
+    <Compile Include="POpusCodec\Enums\OpusCtlSetRequest.cs" />
+    <Compile Include="POpusCodec\Enums\OpusStatusCode.cs" />
+    <Compile Include="POpusCodec\Enums\SamplingRate.cs" />
+    <Compile Include="POpusCodec\Enums\SignalHint.cs" />
+    <Compile Include="POpusCodec\OpusDecoder.cs" />
+    <Compile Include="POpusCodec\OpusEncoder.cs" />
+    <Compile Include="POpusCodec\OpusException.cs" />
+    <Compile Include="POpusCodec\OpusLib.cs" />
+    <Compile Include="POpusCodec\Wrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Name>Photon3Unity3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
+      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
