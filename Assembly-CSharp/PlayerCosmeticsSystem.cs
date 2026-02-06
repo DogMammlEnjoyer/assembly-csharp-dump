@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using GorillaExtensions;
 using GorillaNetworking;
+using GorillaTagScripts;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -21,6 +23,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			Object.DontDestroyOnLoad(this);
 			this.inventory = new List<string>();
 			this.inventory.Add("Inventory");
+			this.inventory.Add(PlayerCosmeticsSystem.subscriptionKey);
 			NetworkSystem.Instance.OnRaiseEvent += this.OnNetEvent;
 			return;
 		}
@@ -161,10 +164,16 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 					PlayerCosmeticsSystem.playersWaiting.Clear();
 					return;
 				}
+				bool flag = false;
 				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
 				{
-					if (!(keyValuePair.Key != "Inventory") && Utils.PlayerInRoom(PlayerCosmeticsSystem.playerActorNumberList[j]))
+					if (keyValuePair.Key == "Inventory")
 					{
+						int j;
+						if (!Utils.PlayerInRoom(PlayerCosmeticsSystem.playerActorNumberList[j]))
+						{
+							continue;
+						}
 						this.tempCosmetics = keyValuePair.Value.Value;
 						IUserCosmeticsCallback userCosmeticsCallback;
 						if (!PlayerCosmeticsSystem.userCosmeticCallback.TryGetValue(PlayerCosmeticsSystem.playerActorNumberList[j], out userCosmeticsCallback))
@@ -179,6 +188,55 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 								PlayerCosmeticsSystem.playersToLookUp.Enqueue(player);
 								userCosmeticsCallback.PendingUpdate = true;
 							}
+						}
+					}
+					else if (keyValuePair.Key == PlayerCosmeticsSystem.subscriptionKey)
+					{
+						flag = true;
+						NetPlayer netPlayer = null;
+						NetPlayer[] allNetPlayers = NetworkSystem.Instance.AllNetPlayers;
+						for (int j = 0; j < allNetPlayers.Length; j++)
+						{
+							NetPlayer netPlayer2 = allNetPlayers[j];
+							if (netPlayer2.ActorNumber == PlayerCosmeticsSystem.playerActorNumberList[j])
+							{
+								netPlayer = netPlayer2;
+								break;
+							}
+						}
+						if (netPlayer != null)
+						{
+							bool isSubscribed = false;
+							if (!string.IsNullOrEmpty(keyValuePair.Value.Value))
+							{
+								try
+								{
+									isSubscribed = JsonConvert.DeserializeObject<PlayerCosmeticsSystem.PlayFabSubscriptionData>(keyValuePair.Value.Value).IsActive;
+								}
+								catch (Exception ex)
+								{
+									Debug.LogError("Failed to deserialize subscription data for " + netPlayer.NickName + ": " + ex.Message);
+								}
+							}
+							SubscriptionManager.UpdatePlayerSubscriptionData(netPlayer, isSubscribed, 0);
+						}
+					}
+					if (!flag)
+					{
+						NetPlayer netPlayer3 = null;
+						NetPlayer[] allNetPlayers = NetworkSystem.Instance.AllNetPlayers;
+						for (int j = 0; j < allNetPlayers.Length; j++)
+						{
+							NetPlayer netPlayer4 = allNetPlayers[j];
+							if (netPlayer4.ActorNumber == PlayerCosmeticsSystem.playerActorNumberList[j])
+							{
+								netPlayer3 = netPlayer4;
+								break;
+							}
+						}
+						if (netPlayer3 != null)
+						{
+							SubscriptionManager.UpdatePlayerSubscriptionData(netPlayer3, false, 0);
 						}
 					}
 				}
@@ -529,21 +587,31 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 
 	private List<string> inventory;
 
+	private static readonly string subscriptionKey = "subscriptions.fan_club";
+
 	private static PlayerCosmeticsSystem instance;
 
-	private static Queue<NetPlayer> playersToLookUp = new Queue<NetPlayer>(10);
+	private static Queue<NetPlayer> playersToLookUp = new Queue<NetPlayer>(20);
 
-	private static Dictionary<int, IUserCosmeticsCallback> userCosmeticCallback = new Dictionary<int, IUserCosmeticsCallback>(10);
+	private static Dictionary<int, IUserCosmeticsCallback> userCosmeticCallback = new Dictionary<int, IUserCosmeticsCallback>(20);
 
 	private static Dictionary<int, string> userCosmeticsWaiting = new Dictionary<int, string>(5);
 
-	private static List<string> playerIDsList = new List<string>(10);
+	private static List<string> playerIDsList = new List<string>(20);
 
-	private static List<int> playerActorNumberList = new List<int>(10);
+	private static List<int> playerActorNumberList = new List<int>(20);
 
 	private static List<int> playersWaiting = new List<int>();
 
 	private static TimeSince sinceLastTryOnEvent = 0f;
 
 	private static readonly Dictionary<string, int> k_tempUnlockedCosmetics = new Dictionary<string, int>(20);
+
+	[Serializable]
+	public class PlayFabSubscriptionData
+	{
+		public string Sku;
+
+		public bool IsActive;
+	}
 }

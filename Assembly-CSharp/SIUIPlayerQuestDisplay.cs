@@ -73,8 +73,9 @@ public class SIUIPlayerQuestDisplay : MonoBehaviour, IGorillaSliceableSimple
 		int bonusProgress = siplayer.CurrentProgression.bonusProgress;
 		if (this.lastBonusProgress != bonusProgress)
 		{
-			this.sharedProgress.UpdateFillPercent((float)bonusProgress / 4f);
-			this.sharedProgress.progressText.text = string.Format("{0}%", Mathf.Min(100, bonusProgress * 10));
+			float num2 = Mathf.Clamp01((float)bonusProgress / 4f);
+			this.sharedProgress.UpdateFillPercent(num2);
+			this.sharedProgress.progressText.text = string.Format("{0:F0}%", num2 * 100f);
 		}
 		this.lastBonusProgress = bonusProgress;
 		bool flag3 = siplayer.CurrentProgression.stashedBonusPoints > 0;

@@ -1,7 +1,7 @@
 ﻿using System;
 using Fusion;
 
-[NetworkBehaviourWeaved(23)]
+[NetworkBehaviourWeaved(43)]
 public class HuntGameModeData : FusionGameModeData
 {
 	public override object Data
@@ -17,7 +17,7 @@ public class HuntGameModeData : FusionGameModeData
 	}
 
 	[Networked]
-	[NetworkedWeaved(0, 23)]
+	[NetworkedWeaved(0, 43)]
 	private unsafe HuntData huntdata
 	{
 		get
@@ -53,7 +53,7 @@ public class HuntGameModeData : FusionGameModeData
 	}
 
 	[WeaverGenerated]
-	[DefaultForProperty("huntdata", 0, 23)]
+	[DefaultForProperty("huntdata", 0, 43)]
 	[DrawIf("IsEditorWritable", true, CompareOperator.Equal, DrawIfMode.ReadOnly)]
 	private HuntData _huntdata;
 }

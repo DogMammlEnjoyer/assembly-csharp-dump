@@ -60,6 +60,10 @@ public static class MothershipClientApiUnity
 				MothershipClientApiUnity.client.SetWriteEventsCompleteClientDelegateWrapper(MothershipClientApiUnity.writeEventsCallback);
 				MothershipClientApiUnity.listMothershipTitleDataCallback = new MothershipListTitleDataCallback();
 				MothershipClientApiUnity.client.SetListMothershipTitleDataCompleteClientDelegateWrapper(MothershipClientApiUnity.listMothershipTitleDataCallback);
+				MothershipClientApiUnity.getMySubscriptionCallback = new MothershipGetMySubscriptionCallback();
+				MothershipClientApiUnity.client.SetClientGetMySubscriptionsDelegateWrapper(MothershipClientApiUnity.getMySubscriptionCallback);
+				MothershipClientApiUnity.getRoomPlayersSubscriptionsCallback = new MothershipGetRoomPlayersSubscriptionsCallback();
+				MothershipClientApiUnity.client.SetClientBulkGetSubscriptionsDelegateWrapper(MothershipClientApiUnity.getRoomPlayersSubscriptionsCallback);
 			}
 			catch (Exception exception)
 			{
@@ -488,6 +492,36 @@ public static class MothershipClientApiUnity
 		return MothershipClientApiUnity.client.ListClientMothershipTitleData(MothershipClientContext.MothershipId, keys, userData);
 	}
 
+	public static bool GetAndRefreshMySubscriptions(Action<GetMySubscriptionsResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!MothershipClientApiUnity.isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<GetMySubscriptionsResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return MothershipClientApiUnity.client.ClientGetMySubscriptions(MothershipClientContext.MothershipId, userData);
+	}
+
+	public static bool GetRoomPlayerSubscriptions(string[] playerIds, Action<BulkGetSubscriptionsResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!MothershipClientApiUnity.isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		(IntPtr)GCHandle.Alloc(new CallbackPair<BulkGetSubscriptionsResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return false;
+	}
+
 	private static bool isEnabled;
 
 	public static string MothershipBaseUrl = "";
@@ -539,4 +573,8 @@ public static class MothershipClientApiUnity
 	private static MothershipWriteEventsCallback writeEventsCallback;
 
 	private static MothershipListTitleDataCallback listMothershipTitleDataCallback;
+
+	private static MothershipGetMySubscriptionCallback getMySubscriptionCallback;
+
+	private static MothershipGetRoomPlayersSubscriptionsCallback getRoomPlayersSubscriptionsCallback;
 }

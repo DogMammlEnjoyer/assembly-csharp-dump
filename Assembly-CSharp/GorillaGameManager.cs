@@ -357,7 +357,7 @@ public abstract class GorillaGameManager : MonoBehaviourPunCallbacks, ITickSyste
 	public void ReadLastTagged(PhotonStream stream)
 	{
 		this.lastTaggedActorNr.Clear();
-		int num = Mathf.Min((int)stream.ReceiveNext(), 10);
+		int num = Mathf.Min((int)stream.ReceiveNext(), 20);
 		for (int i = 0; i < num; i++)
 		{
 			this.lastTaggedActorNr.Add((int)stream.ReceiveNext(), (int)stream.ReceiveNext());

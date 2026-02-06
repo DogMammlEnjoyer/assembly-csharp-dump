@@ -121,6 +121,10 @@ public class SIPurchaseTerminal : MonoBehaviour, ITouchScreenStation
 		}
 	}
 
+	public void TouchscreenToggleButtonPressed(SITouchscreenButton.SITouchscreenButtonType buttonType, int data, int actorNr, bool isToggledOn)
+	{
+	}
+
 	private void IncreasePurchase()
 	{
 		this.purchaseSize = Math.Min(this.purchaseSize + 1, this.maxPurchaseSize);

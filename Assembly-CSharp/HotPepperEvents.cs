@@ -1,4 +1,5 @@
 ﻿using System;
+using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,11 +33,24 @@ public class HotPepperEvents : MonoBehaviour
 		{
 			return;
 		}
-		rig.transform.Find("RigAnchor/rig/body/head/gorillaface/spicy").gameObject.GetComponent<HotPepperFace>().PlayFX(1f);
+		GameObject gameObject = rig.cosmeticReferences.Get(this.m_targetEffectID);
+		if (gameObject.IsNull())
+		{
+			return;
+		}
+		HotPepperFace component = gameObject.GetComponent<HotPepperFace>();
+		if (component.IsNull())
+		{
+			return;
+		}
+		component.PlayFX(1f);
 	}
 
 	[SerializeField]
 	private EdibleHoldable _pepper;
+
+	[SerializeField]
+	private CosmeticRefID m_targetEffectID = CosmeticRefID.HotPepperFaceEffect;
 
 	public enum EdibleState
 	{

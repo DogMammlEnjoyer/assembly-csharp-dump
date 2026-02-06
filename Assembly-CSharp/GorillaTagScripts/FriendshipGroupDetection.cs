@@ -75,7 +75,7 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
-			bool flag = (int)RoomSystem.GetRoomSize("") == NetworkSystem.Instance.RoomPlayerCount;
+			bool flag = (int)NetworkSystem.Instance.CurrentRoom.MaxPlayers == NetworkSystem.Instance.RoomPlayerCount;
 			Debug.Log(string.Concat(new string[]
 			{
 				"[FriendshipGroupDetection::OnPlayerJoinedRoom] JoiningPlayer: ",
@@ -790,11 +790,10 @@ namespace GorillaTagScripts
 		private void AddPartyMembersWrapped(string partyGameMode, short braceletColor, int[] memberIDs, PhotonMessageInfoWrapped infoWrapped)
 		{
 			GorillaNot.IncrementRPCCall(infoWrapped, "AddPartyMembersWrapped");
-			if (memberIDs.Length > 10 || !this.IsInParty || !this.myPartyMembersHash.Contains(NetworkSystem.Instance.GetUserID(infoWrapped.senderID)) || !GorillaGameModes.GameMode.IsValidGameMode(partyGameMode))
+			if (!this.IsInParty || memberIDs == null || memberIDs.Length > 10 || !this.myPartyMembersHash.Contains(NetworkSystem.Instance.GetUserID(infoWrapped.senderID)) || !GorillaGameModes.GameMode.IsValidGameMode(partyGameMode))
 			{
 				return;
 			}
-			Debug.Log("Adding party members: [" + string.Join<int>(",", memberIDs) + "]");
 			this.SetNewParty(partyGameMode, braceletColor, memberIDs);
 		}
 

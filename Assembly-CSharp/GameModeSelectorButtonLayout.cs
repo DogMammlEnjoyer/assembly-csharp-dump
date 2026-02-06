@@ -26,7 +26,7 @@ public class GameModeSelectorButtonLayout : MonoBehaviour
 		}
 	}
 
-	public virtual void SetupButtons()
+	protected virtual void SetupButtons()
 	{
 		GameModeSelectorButtonLayout.<SetupButtons>d__9 <SetupButtons>d__;
 		<SetupButtons>d__.<>t__builder = AsyncVoidMethodBuilder.Create();

@@ -1936,5 +1936,24 @@ public class MothershipAutomationApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetGetSubscriptionsForPlayerCompleteDelegateWrapper(AutomationGetPlayerSubscriptionCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipAutomationApiClient_SetGetSubscriptionsForPlayerCompleteDelegateWrapper(this.swigCPtr, AutomationGetPlayerSubscriptionCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool GetSubscriptionsForPlayer(string titleId, string envId, string playerId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipAutomationApiClient_GetSubscriptionsForPlayer(this.swigCPtr, titleId, envId, playerId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private HandleRef swigCPtr;
 }

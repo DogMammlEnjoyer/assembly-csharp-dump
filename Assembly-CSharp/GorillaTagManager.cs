@@ -12,7 +12,7 @@ public class GorillaTagManager : GorillaGameManager
 	public override void Awake()
 	{
 		base.Awake();
-		this.currentInfectedArray = new int[10];
+		this.currentInfectedArray = new int[20];
 		for (int i = 0; i < this.currentInfectedArray.Length; i++)
 		{
 			this.currentInfectedArray[i] = -1;
@@ -560,6 +560,16 @@ public class GorillaTagManager : GorillaGameManager
 		stream.SendNext(this.currentInfectedArray[7]);
 		stream.SendNext(this.currentInfectedArray[8]);
 		stream.SendNext(this.currentInfectedArray[9]);
+		stream.SendNext(this.currentInfectedArray[10]);
+		stream.SendNext(this.currentInfectedArray[11]);
+		stream.SendNext(this.currentInfectedArray[12]);
+		stream.SendNext(this.currentInfectedArray[13]);
+		stream.SendNext(this.currentInfectedArray[14]);
+		stream.SendNext(this.currentInfectedArray[15]);
+		stream.SendNext(this.currentInfectedArray[16]);
+		stream.SendNext(this.currentInfectedArray[17]);
+		stream.SendNext(this.currentInfectedArray[18]);
+		stream.SendNext(this.currentInfectedArray[19]);
 		base.WriteLastTagged(stream);
 	}
 
@@ -581,6 +591,16 @@ public class GorillaTagManager : GorillaGameManager
 		this.currentInfectedArray[7] = (int)stream.ReceiveNext();
 		this.currentInfectedArray[8] = (int)stream.ReceiveNext();
 		this.currentInfectedArray[9] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[10] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[11] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[12] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[13] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[14] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[15] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[16] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[17] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[18] = (int)stream.ReceiveNext();
+		this.currentInfectedArray[19] = (int)stream.ReceiveNext();
 		base.ReadLastTagged(stream);
 		this.CopyInfectedArrayToList();
 		if (this.isCurrentlyTag)
@@ -678,7 +698,7 @@ public class GorillaTagManager : GorillaGameManager
 	public const byte ReportInfectionTagEvent = 2;
 
 	[NonSerialized]
-	public List<NetPlayer> currentInfected = new List<NetPlayer>(10);
+	public List<NetPlayer> currentInfected = new List<NetPlayer>(20);
 
 	[NonSerialized]
 	public int[] currentInfectedArray;

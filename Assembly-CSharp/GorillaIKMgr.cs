@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GorillaTagScripts;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -30,7 +31,8 @@ public class GorillaIKMgr : MonoBehaviour
 		};
 		this.jobXform = new GorillaIKMgr.IKTransformJob
 		{
-			transformRotations = new NativeArray<Quaternion>(140, Allocator.Persistent, NativeArrayOptions.ClearMemory)
+			transformRotations = new NativeArray<Quaternion>(160, Allocator.Persistent, NativeArrayOptions.ClearMemory),
+			transformPositions = new NativeArray<Vector3>(160, Allocator.Persistent, NativeArrayOptions.ClearMemory)
 		};
 	}
 
@@ -39,6 +41,7 @@ public class GorillaIKMgr : MonoBehaviour
 		this.jobHandle.Complete();
 		this.jobXformHandle.Complete();
 		this.jobXform.transformRotations.Dispose();
+		this.jobXform.transformPositions.Dispose();
 		this.tAA.Dispose();
 		this.job.input.Dispose();
 		this.job.constantInput.Dispose();
@@ -76,12 +79,18 @@ public class GorillaIKMgr : MonoBehaviour
 		this.job.constantInput[index] = new GorillaIKMgr.IKConstantInput
 		{
 			initRotLower = ik.initialLowerLeft,
-			initRotUpper = ik.initialUpperLeft
+			initRotUpper = ik.initialUpperLeft,
+			shoulderPosition = new Vector3(-0.018300775f, -0.04206751f, 0.08612572f),
+			bodyPivotPos = new Vector3(0f, 0.011406422f, 1.6582015f),
+			shoulderRot = new Quaternion(-0.59150106f, 0.3665933f, 0.20795153f, 0.68738055f)
 		};
 		this.job.constantInput[index + 1] = new GorillaIKMgr.IKConstantInput
 		{
 			initRotLower = ik.initialLowerRight,
-			initRotUpper = ik.initialUpperRight
+			initRotUpper = ik.initialUpperRight,
+			shoulderPosition = new Vector3(0.018300813f, -0.042066876f, 0.08613044f),
+			bodyPivotPos = new Vector3(0f, 0.011406422f, 1.6582015f),
+			shoulderRot = new Quaternion(-0.591501f, -0.3665933f, -0.20795153f, 0.6873807f)
 		};
 	}
 
@@ -92,13 +101,32 @@ public class GorillaIKMgr : MonoBehaviour
 		while (i < this.actualListSz)
 		{
 			GorillaIK gorillaIK = this.ikList[i / 2];
+			bool flag = gorillaIK.usingUpdatedIK && SubscriptionManager.GetSubscriptionDetails(gorillaIK.myRig).active;
+			if (gorillaIK != GorillaIKMgr.playerIK)
+			{
+				gorillaIK.lerpLeftElbowDirection = Vector3.Lerp(gorillaIK.lerpLeftElbowDirection, gorillaIK.leftElbowDirection, this.lerpValue);
+				gorillaIK.lerpRightElbowDirection = Vector3.Lerp(gorillaIK.lerpRightElbowDirection, gorillaIK.rightElbowDirection, this.lerpValue);
+				gorillaIK.lerpBodyRot = (flag ? Quaternion.Lerp(gorillaIK.lerpBodyRot, gorillaIK.targetBodyRot, this.lerpValue) : gorillaIK.bodyInitialRot);
+			}
+			else
+			{
+				gorillaIK.lerpLeftElbowDirection = gorillaIK.leftElbowDirection;
+				gorillaIK.lerpRightElbowDirection = gorillaIK.rightElbowDirection;
+				gorillaIK.lerpBodyRot = (flag ? gorillaIK.targetBodyRot : gorillaIK.bodyInitialRot);
+			}
 			this.job.input[i] = new GorillaIKMgr.IKInput
 			{
-				targetPos = gorillaIK.GetShoulderLocalTargetPos_Left()
+				targetPos = gorillaIK.GetShoulderLocalTargetPos_Left(flag),
+				elbowDir = gorillaIK.lerpLeftElbowDirection,
+				bodyRot = gorillaIK.lerpBodyRot,
+				usingNewIK = flag
 			};
 			this.job.input[i + 1] = new GorillaIKMgr.IKInput
 			{
-				targetPos = gorillaIK.GetShoulderLocalTargetPos_Right()
+				targetPos = gorillaIK.GetShoulderLocalTargetPos_Right(flag),
+				elbowDir = gorillaIK.lerpRightElbowDirection,
+				bodyRot = gorillaIK.lerpBodyRot,
+				usingNewIK = flag
 			};
 			gorillaIK.ClearOverrides();
 			i += 2;
@@ -109,7 +137,7 @@ public class GorillaIKMgr : MonoBehaviour
 	private void CopyOutput()
 	{
 		bool flag = false;
-		if (this.updatedSinceLastRun || this.tAA.length != this.ikList.Count * 7)
+		if (this.updatedSinceLastRun || this.tAA.length != this.ikList.Count * 8)
 		{
 			flag = true;
 			this.tAA.Dispose();
@@ -124,17 +152,21 @@ public class GorillaIKMgr : MonoBehaviour
 				this.transformList.Add(gorillaIK.leftLowerArm);
 				this.transformList.Add(gorillaIK.rightUpperArm);
 				this.transformList.Add(gorillaIK.rightLowerArm);
+				this.transformList.Add(gorillaIK.bodyBone);
 				this.transformList.Add(gorillaIK.headBone);
 				this.transformList.Add(gorillaIK.leftHand);
 				this.transformList.Add(gorillaIK.rightHand);
 			}
-			this.jobXform.transformRotations[this.tFormCount * i] = this.job.output[i * 2].upperArmLocalRot;
-			this.jobXform.transformRotations[this.tFormCount * i + 1] = this.job.output[i * 2].lowerArmLocalRot;
-			this.jobXform.transformRotations[this.tFormCount * i + 2] = this.job.output[i * 2 + 1].upperArmLocalRot;
-			this.jobXform.transformRotations[this.tFormCount * i + 3] = this.job.output[i * 2 + 1].lowerArmLocalRot;
-			this.jobXform.transformRotations[this.tFormCount * i + 4] = gorillaIK.targetHead.rotation;
-			this.jobXform.transformRotations[this.tFormCount * i + 5] = gorillaIK.targetLeft.rotation;
-			this.jobXform.transformRotations[this.tFormCount * i + 6] = gorillaIK.targetRight.rotation;
+			this.jobXform.transformRotations[8 * i] = this.job.output[i * 2].upperArmLocalRot;
+			this.jobXform.transformRotations[8 * i + 1] = this.job.output[i * 2].lowerArmLocalRot;
+			this.jobXform.transformRotations[8 * i + 2] = this.job.output[i * 2 + 1].upperArmLocalRot;
+			this.jobXform.transformRotations[8 * i + 3] = this.job.output[i * 2 + 1].lowerArmLocalRot;
+			this.jobXform.transformRotations[8 * i + 4] = gorillaIK.lerpBodyRot;
+			this.jobXform.transformRotations[8 * i + 5] = gorillaIK.targetHead.rotation;
+			this.jobXform.transformRotations[8 * i + 6] = gorillaIK.targetLeft.rotation;
+			this.jobXform.transformRotations[8 * i + 7] = gorillaIK.targetRight.rotation;
+			this.jobXform.transformPositions[8 * i + 6] = this.job.output[i * 2].handLocalPosition;
+			this.jobXform.transformPositions[8 * i + 7] = this.job.output[i * 2 + 1].handLocalPosition;
 		}
 		if (flag)
 		{
@@ -145,6 +177,11 @@ public class GorillaIKMgr : MonoBehaviour
 
 	public void LateUpdate()
 	{
+		GorillaIK gorillaIK = GorillaIKMgr.playerIK;
+		if (gorillaIK != null)
+		{
+			gorillaIK.SkeletonUpdate();
+		}
 		if (!this.firstFrame)
 		{
 			this.jobXformHandle.Complete();
@@ -155,6 +192,11 @@ public class GorillaIKMgr : MonoBehaviour
 		this.CopyOutput();
 		this.jobXformHandle = this.jobXform.Schedule(this.tAA, default(JobHandle));
 		this.firstFrame = false;
+	}
+
+	public static void AddPlayerIK(GorillaIK _playerIK)
+	{
+		GorillaIKMgr.playerIK = _playerIK;
 	}
 
 	[OnEnterPlay_SetNull]
@@ -178,7 +220,11 @@ public class GorillaIKMgr : MonoBehaviour
 
 	private bool updatedSinceLastRun;
 
-	private int tFormCount = 7;
+	public const int tFormCount = 8;
+
+	public static GorillaIK playerIK;
+
+	private float lerpValue = 0.155f;
 
 	private GorillaIKMgr.IKJob job;
 
@@ -189,24 +235,41 @@ public class GorillaIKMgr : MonoBehaviour
 		public Quaternion initRotLower;
 
 		public Quaternion initRotUpper;
+
+		public Vector3 shoulderPosition;
+
+		public Vector3 bodyPivotPos;
+
+		public Quaternion bodyStartRot;
+
+		public Quaternion shoulderRot;
 	}
 
 	private struct IKInput
 	{
+		public bool usingNewIK;
+
 		public Vector3 targetPos;
+
+		public Vector3 elbowDir;
+
+		public Quaternion bodyRot;
 	}
 
 	private struct IKOutput
 	{
-		public IKOutput(Quaternion upperArmLocalRot_, Quaternion lowerArmLocalRot_)
+		public IKOutput(Quaternion upperArmLocalRot_, Quaternion lowerArmLocalRot_, Vector3 _handLocalPosition)
 		{
 			this.upperArmLocalRot = upperArmLocalRot_;
 			this.lowerArmLocalRot = lowerArmLocalRot_;
+			this.handLocalPosition = _handLocalPosition;
 		}
 
 		public Quaternion upperArmLocalRot;
 
 		public Quaternion lowerArmLocalRot;
+
+		public Vector3 handLocalPosition;
 	}
 
 	[BurstCompile]
@@ -219,7 +282,7 @@ public class GorillaIKMgr : MonoBehaviour
 			Quaternion rotation = initRotUpper * this.constantInput[i].initRotLower;
 			Vector3 vector2 = vector + initRotUpper * GorillaIKMgr.IKJob.forearmLocalPos;
 			Vector3 vector3 = vector2 + rotation * GorillaIKMgr.IKJob.handLocalPos;
-			float num = 0f;
+			float num = 0.001f;
 			float magnitude = (vector - vector2).magnitude;
 			float magnitude2 = (vector2 - vector3).magnitude;
 			float max = magnitude + magnitude2 - num;
@@ -238,9 +301,22 @@ public class GorillaIKMgr : MonoBehaviour
 			Quaternion rhs = Quaternion.AngleAxis((num6 - num3) * 57.29578f, Quaternion.Inverse(initRotUpper) * normalized5);
 			Quaternion rhs2 = Quaternion.AngleAxis((num7 - num4) * 57.29578f, Quaternion.Inverse(rotation) * normalized5);
 			Quaternion rhs3 = Quaternion.AngleAxis(num5 * 57.29578f, Quaternion.Inverse(initRotUpper) * normalized6);
-			Quaternion upperArmLocalRot_ = this.constantInput[i].initRotUpper * rhs3 * rhs;
-			Quaternion lowerArmLocalRot_ = this.constantInput[i].initRotLower * rhs2;
-			this.output[i] = new GorillaIKMgr.IKOutput(upperArmLocalRot_, lowerArmLocalRot_);
+			Quaternion quaternion = this.constantInput[i].initRotUpper * rhs3 * rhs;
+			Quaternion quaternion2 = this.constantInput[i].initRotLower * rhs2;
+			Quaternion quaternion3 = this.input[i].bodyRot * this.constantInput[i].shoulderRot;
+			Quaternion quaternion4 = quaternion3 * quaternion;
+			Quaternion rotation2 = quaternion4 * quaternion2;
+			Vector3 handLocalPosition = this.constantInput[i].bodyPivotPos + this.input[i].bodyRot * this.constantInput[i].shoulderPosition + quaternion3 * GorillaIKMgr.IKJob.upperArmLocalPos + quaternion4 * GorillaIKMgr.IKJob.forearmLocalPos + rotation2 * GorillaIKMgr.IKJob.handLocalPos;
+			if (!this.input[i].usingNewIK)
+			{
+				this.output[i] = new GorillaIKMgr.IKOutput(quaternion, quaternion2, handLocalPosition);
+				return;
+			}
+			Vector3 normalized7 = this.input[i].elbowDir.normalized;
+			Vector3 normalized8 = (vector + quaternion * GorillaIKMgr.IKJob.forearmLocalPos - vector).normalized;
+			Vector3 normalized9 = Vector3.Cross(normalized4, normalized7).normalized;
+			quaternion = Quaternion.AngleAxis(Vector3.SignedAngle(Vector3.Cross(normalized4, normalized8).normalized, normalized9, normalized4), normalized4) * quaternion;
+			this.output[i] = new GorillaIKMgr.IKOutput(quaternion, quaternion2, handLocalPosition);
 		}
 
 		public NativeArray<GorillaIKMgr.IKConstantInput> constantInput;
@@ -249,11 +325,11 @@ public class GorillaIKMgr : MonoBehaviour
 
 		public NativeArray<GorillaIKMgr.IKOutput> output;
 
-		private static readonly Vector3 upperArmLocalPos = new Vector3(-0.0002577677f, 0.1454885f, -0.02598158f);
+		private static readonly Vector3 upperArmLocalPos = new Vector3(0f, 0.1454885f, -0.02598158f);
 
-		private static readonly Vector3 forearmLocalPos = new Vector3(4.204223E-06f, 0.4061671f, -1.043081E-06f);
+		private static readonly Vector3 forearmLocalPos = new Vector3(0f, 0.4061671f, 0f);
 
-		private static readonly Vector3 handLocalPos = new Vector3(3.073364E-08f, 0.3816895f, 1.117587E-08f);
+		private static readonly Vector3 handLocalPos = new Vector3(0f, 0.3816895f, 0f);
 	}
 
 	[BurstCompile]
@@ -261,14 +337,22 @@ public class GorillaIKMgr : MonoBehaviour
 	{
 		public void Execute(int index, TransformAccess xform)
 		{
-			if (index % 7 <= 3)
+			if (index % 8 <= 4)
 			{
 				xform.localRotation = this.transformRotations[index];
-				return;
 			}
-			xform.rotation = this.transformRotations[index];
+			else
+			{
+				xform.rotation = this.transformRotations[index];
+			}
+			if (index % 8 >= 6)
+			{
+				xform.localPosition = this.transformPositions[index];
+			}
 		}
 
 		public NativeArray<Quaternion> transformRotations;
+
+		public NativeArray<Vector3> transformPositions;
 	}
 }

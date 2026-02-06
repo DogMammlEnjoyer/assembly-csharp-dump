@@ -67,5 +67,5 @@ public class PlayerCollection : MonoBehaviour
 
 	[DebugReadout]
 	[NonSerialized]
-	public readonly List<VRRig> containedRigs = new List<VRRig>(10);
+	public readonly List<VRRig> containedRigs = new List<VRRig>(20);
 }

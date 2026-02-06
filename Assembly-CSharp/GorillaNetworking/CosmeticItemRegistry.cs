@@ -7,6 +7,14 @@ namespace GorillaNetworking
 {
 	public class CosmeticItemRegistry
 	{
+		public bool isInitialized
+		{
+			get
+			{
+				return this._isInitialized;
+			}
+		}
+
 		public void Initialize(GameObject[] cosmeticGObjs)
 		{
 			if (this._isInitialized)
@@ -18,9 +26,9 @@ namespace GorillaNetworking
 			{
 				string text = gameObject.name.Replace("LEFT.", "").Replace("RIGHT.", "").TrimEnd();
 				CosmeticItemInstance cosmeticItemInstance;
-				if (this.nameToCosmeticMap.ContainsKey(text))
+				if (this._nameToCosmeticMap.ContainsKey(text))
 				{
-					cosmeticItemInstance = this.nameToCosmeticMap[text];
+					cosmeticItemInstance = this._nameToCosmeticMap[text];
 				}
 				else
 				{
@@ -28,7 +36,7 @@ namespace GorillaNetworking
 					CosmeticSO cosmeticSOFromDisplayName = CosmeticsController.instance.GetCosmeticSOFromDisplayName(text);
 					cosmeticItemInstance.clippingOffsets = ((cosmeticSOFromDisplayName != null) ? cosmeticSOFromDisplayName.info.anchorAntiIntersectOffsets : CosmeticsController.instance.defaultClipOffsets);
 					cosmeticItemInstance.isHoldableItem = (cosmeticSOFromDisplayName != null && cosmeticSOFromDisplayName.info.hasHoldableParts);
-					this.nameToCosmeticMap.Add(text, cosmeticItemInstance);
+					this._nameToCosmeticMap.Add(text, cosmeticItemInstance);
 				}
 				HoldableObject component = gameObject.GetComponent<HoldableObject>();
 				bool flag = gameObject.name.Contains("LEFT.");
@@ -65,6 +73,22 @@ namespace GorillaNetworking
 					cosmeticItemInstance.objects.Add(gameObject);
 				}
 				cosmeticItemInstance.dbgname = text;
+				Renderer[] componentsInChildren = gameObject.GetComponentsInChildren<Renderer>();
+				for (int j = 0; j < componentsInChildren.Length; j++)
+				{
+					if (componentsInChildren[j].enabled)
+					{
+						cosmeticItemInstance.allRenderers.Add(componentsInChildren[j]);
+					}
+				}
+				ParticleSystem[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystem>();
+				for (int k = 0; k < componentsInChildren2.Length; k++)
+				{
+					if (componentsInChildren2[k].emission.enabled)
+					{
+						cosmeticItemInstance.allParticles.Add(componentsInChildren2[k]);
+					}
+				}
 			}
 		}
 
@@ -80,7 +104,7 @@ namespace GorillaNetworking
 				return null;
 			}
 			CosmeticItemInstance result;
-			if (!this.nameToCosmeticMap.TryGetValue(itemName, out result))
+			if (!this._nameToCosmeticMap.TryGetValue(itemName, out result))
 			{
 				return null;
 			}
@@ -89,8 +113,8 @@ namespace GorillaNetworking
 
 		private bool _isInitialized;
 
-		private Dictionary<string, CosmeticItemInstance> nameToCosmeticMap = new Dictionary<string, CosmeticItemInstance>();
+		private Dictionary<string, CosmeticItemInstance> _nameToCosmeticMap = new Dictionary<string, CosmeticItemInstance>();
 
-		private GameObject nullItem;
+		private GameObject _nullItem;
 	}
 }

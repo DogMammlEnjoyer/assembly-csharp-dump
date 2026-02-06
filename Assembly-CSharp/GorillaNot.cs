@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using ExitGames.Client.Photon;
 using Fusion;
-using GorillaNetworking;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -232,7 +231,7 @@ public class GorillaNot : MonoBehaviour, IGorillaSliceableSimple
 					this.SetToRoomCreatorIfHere();
 					this.CloseInvalidRoom();
 				}
-				if (this.cachedPlayerList.Length > (int)RoomSystem.GetRoomSize(PhotonNetworkController.Instance.currentGameType))
+				if ((!RoomSystem.WasRoomSubscription && this.cachedPlayerList.Length > (int)RoomSystem.GetCurrentRoomExpectedSize()) || this.cachedPlayerList.Length > 20)
 				{
 					this.sendReport = true;
 					this.suspiciousReason = "too many players";
@@ -417,7 +416,7 @@ public class GorillaNot : MonoBehaviour, IGorillaSliceableSimple
 	{
 		PhotonNetwork.CurrentRoom.IsOpen = false;
 		PhotonNetwork.CurrentRoom.IsVisible = false;
-		PhotonNetwork.CurrentRoom.MaxPlayers = RoomSystem.GetRoomSize(PhotonNetworkController.Instance.currentGameType);
+		PhotonNetwork.CurrentRoom.MaxPlayers = RoomSystem.GetCurrentRoomExpectedSize();
 	}
 
 	[OnEnterPlay_SetNull]

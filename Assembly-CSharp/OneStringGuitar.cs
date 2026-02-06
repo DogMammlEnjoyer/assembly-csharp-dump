@@ -16,8 +16,8 @@ public class OneStringGuitar : TransferrableObject
 	public override void OnSpawn(VRRig rig)
 	{
 		base.OnSpawn(rig);
-		this.chestColliderLeft = this._GetChestColliderByPath(rig, "GorillaPlayerNetworkedRigAnchor/rig/body/Old Cosmetics Body/OneStringGuitarStick/Center/BaseTransformLeft");
-		this.chestColliderRight = this._GetChestColliderByPath(rig, "GorillaPlayerNetworkedRigAnchor/rig/body/Old Cosmetics Body/OneStringGuitarStick/Center/BaseTransformRight");
+		this.chestColliderLeft = this._GetChestColliderByPath(rig, "rig/body_pivot/Old Cosmetics Body/OneStringGuitarStick/Center/BaseTransformLeft");
+		this.chestColliderRight = this._GetChestColliderByPath(rig, "rig/body_pivot/Old Cosmetics Body/OneStringGuitarStick/Center/BaseTransformRight");
 		this.currentChestCollider = this.chestColliderLeft;
 		Transform[] array;
 		string str;

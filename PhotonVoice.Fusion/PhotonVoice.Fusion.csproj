@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA6}</ProjectGuid>
+    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Photon.Voice.Fusion</RootNamespace>
@@ -59,27 +59,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9E}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF4}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Runtime\Fusion.Runtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9F}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF5}</Project>
       <Name>Fusion.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF6}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF7}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA4}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CFA}</Project>
       <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice\PhotonVoice.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA5}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CFB}</Project>
       <Name>PhotonVoice</Name>
     </ProjectReference>
   </ItemGroup>

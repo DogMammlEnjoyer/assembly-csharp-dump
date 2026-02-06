@@ -81,11 +81,11 @@ public struct NetworkSystemConfig
 
 	private static string gameVersionType = "live1";
 
-	public static string prependCode = "repairdigrocketdeeper";
+	public static string prependCode = "prependmonke5birthdayparty26";
 
 	public static int majorVersion = 1;
 
 	public static int minorVersion = 1;
 
-	public static int minorVersion2 = 129;
+	public static int minorVersion2 = 130;
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9C}</ProjectGuid>
+    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AA.Mothership</RootNamespace>
@@ -68,6 +68,9 @@
     <Compile Include="AnalyticsRequestVector.cs" />
     <Compile Include="AnalyticsResponseVector.cs" />
     <Compile Include="AuthRefreshRequiredDelegateWrapper.cs" />
+    <Compile Include="AutomationGetPlayerSubscriptionCompleteDelegateWrapper.cs" />
+    <Compile Include="AutomationGetSubscriptionsRequest.cs" />
+    <Compile Include="AutomationGetSubscriptionsResponse.cs" />
     <Compile Include="BulkGetAccountLinksCompleteDelegateWrapper.cs" />
     <Compile Include="BulkGetAccountLinksFailedError.cs" />
     <Compile Include="BulkGetAccountLinksRequest.cs" />
@@ -76,12 +79,16 @@
     <Compile Include="BulkGetPlayersFailedError.cs" />
     <Compile Include="BulkGetPlayersRequest.cs" />
     <Compile Include="BulkGetPlayersResponse.cs" />
+    <Compile Include="BulkGetSubscriptionsRequest.cs" />
+    <Compile Include="BulkGetSubscriptionsResponse.cs" />
     <Compile Include="CallbackPair.cs" />
     <Compile Include="ChangeCommitStatusOfOfferBindingsCompleteDelegateWrapper.cs" />
     <Compile Include="ChangeCommitStatusOfOfferBindingsRequest.cs" />
     <Compile Include="ChangeCommitStatusOfOfferBindingsResponse.cs" />
     <Compile Include="ClientAuthenticationFailedError.cs" />
     <Compile Include="ClientAuthToken.cs" />
+    <Compile Include="ClientGetBulkSubscriptionsCompleteDelegateWrapper.cs" />
+    <Compile Include="ClientGetMySubscriptionCompleteDelegateWrapper.cs" />
     <Compile Include="ClientGetPermissionsCompleteDelegateWrapper.cs" />
     <Compile Include="ClientGetPermissionsRequest.cs" />
     <Compile Include="ClientGetPermissionsResponse.cs" />
@@ -215,6 +222,8 @@
     <Compile Include="GetLastTransactionCompleteAutomationDelegateWrapper.cs" />
     <Compile Include="GetLastTransactionCompleteServerDelegateWrapper.cs" />
     <Compile Include="GetMergedInventoryCompleteClientDelegateWrapper.cs" />
+    <Compile Include="GetMySubscriptionsRequest.cs" />
+    <Compile Include="GetMySubscriptionsResponse.cs" />
     <Compile Include="GetPermissionsFailedError.cs" />
     <Compile Include="GetPlayerAccountLinksCompleteDelegateWrapper.cs" />
     <Compile Include="GetPlayerAccountLinksRequest.cs" />
@@ -396,8 +405,10 @@
     <Compile Include="MothershipGetLastTransactionRunRequest.cs" />
     <Compile Include="MothershipGetMergedInventoryRequest.cs" />
     <Compile Include="MothershipGetMergedInventoryResponse.cs" />
+    <Compile Include="MothershipGetMySubscriptionCallback.cs" />
     <Compile Include="MothershipGetPlayerProgressionCallback.cs" />
     <Compile Include="MothershipGetPlayerProgressionTressCallback.cs" />
+    <Compile Include="MothershipGetRoomPlayersSubscriptionsCallback.cs" />
     <Compile Include="MothershipGetStorefrontCallback.cs" />
     <Compile Include="MothershipGetStorefrontRequest.cs" />
     <Compile Include="MothershipGetStorefrontResponse.cs" />
@@ -480,6 +491,7 @@
     <Compile Include="OfferDisplayVector.cs" />
     <Compile Include="OfferEntitlementChanges.cs" />
     <Compile Include="OfferEntitlementMap.cs" />
+    <Compile Include="PlatformAndSkuVector.cs" />
     <Compile Include="PlayerIdentityVector.cs" />
     <Compile Include="PlayerLookupEntry.cs" />
     <Compile Include="PlayerLookupVector.cs" />
@@ -533,6 +545,7 @@
     <Compile Include="ServerCreateReportCompleteDelegateWrapper.cs" />
     <Compile Include="ServerCreateReportRequest.cs" />
     <Compile Include="ServerCreateReportResponse.cs" />
+    <Compile Include="ServerGetBulkSubscriptionsCompleteDelegateWrapper.cs" />
     <Compile Include="ServerGetPermissionsCompleteDelegateWrapper.cs" />
     <Compile Include="ServerGetPermissionsRequest.cs" />
     <Compile Include="ServerGetPermissionsResponse.cs" />
@@ -558,6 +571,10 @@
     <Compile Include="StringIntMap.cs" />
     <Compile Include="StringKeyValueMap.cs" />
     <Compile Include="StringVector.cs" />
+    <Compile Include="Subscription.cs" />
+    <Compile Include="SubscriptionPlatformAndSku.cs" />
+    <Compile Include="SubscriptionsByPlayerMap.cs" />
+    <Compile Include="SubscriptionsVector.cs" />
     <Compile Include="SWIGTYPE_p_int64_t.cs" />
     <Compile Include="SWIGTYPE_p_rapidjson__Document.cs" />
     <Compile Include="SWIGTYPE_p_rapidjson__GenericObjectT_false_rapidjson__Value_.cs" />

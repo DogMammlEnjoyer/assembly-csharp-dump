@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using GorillaGameModes;
 using GorillaLocomotion;
@@ -103,8 +102,18 @@ public class Gorillanalytics : MonoBehaviour
 		{
 			map += "private";
 		}
-		mode = (this.modes.FirstOrDefault((string s) => gameMode.Contains(s)) ?? "unknown");
-		queue = (this.queues.FirstOrDefault((string s) => gameMode.Contains(s)) ?? "unknown");
+		int num = gameMode.LastIndexOf('|');
+		if (num != -1)
+		{
+			string modeTestString = gameMode.Substring(num + 1).ToUpper();
+			mode = (this.mapModeQueueSet.modes.FirstOrDefault((string s) => modeTestString == s) ?? "unknown");
+		}
+		else
+		{
+			string modeTestString = gameMode.ToUpper();
+			mode = (this.mapModeQueueSet.modes.FirstOrDefault((string s) => modeTestString.EndsWith(s)) ?? "unknown");
+		}
+		queue = (this.mapModeQueueSet.queues.FirstOrDefault((string s) => gameMode.Contains(s)) ?? "unknown");
 	}
 
 	public float interval = 60f;
@@ -113,13 +122,9 @@ public class Gorillanalytics : MonoBehaviour
 
 	public PhotonNetworkController photonNetworkController;
 
+	public MapModeQueueSet mapModeQueueSet;
+
 	public GameModeZoneMapping gameModeData;
-
-	public List<string> maps;
-
-	public List<string> modes;
-
-	public List<string> queues;
 
 	private readonly Gorillanalytics.UploadData uploadData = new Gorillanalytics.UploadData();
 

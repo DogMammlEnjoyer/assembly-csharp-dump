@@ -335,6 +335,7 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 		{
 			this.IncrementRoomSize();
 		}
+		this.UpdateScreen();
 	}
 
 	private void DecrementRoomSize()

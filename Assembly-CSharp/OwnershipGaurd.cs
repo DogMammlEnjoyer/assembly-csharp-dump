@@ -14,7 +14,7 @@ internal class OwnershipGaurd : MonoBehaviour
 		{
 			return;
 		}
-		OwnershipGaurdHandler.RegisterViews(this.NetViews);
+		OwnershipGuardHandler.RegisterViews(this.NetViews);
 	}
 
 	private void OnDestroy()
@@ -23,7 +23,7 @@ internal class OwnershipGaurd : MonoBehaviour
 		{
 			return;
 		}
-		OwnershipGaurdHandler.RemoveViews(this.NetViews);
+		OwnershipGuardHandler.RemoveViews(this.NetViews);
 	}
 
 	[SerializeField]

@@ -4,64 +4,64 @@ using Fusion;
 using Fusion.CodeGen;
 using UnityEngine;
 
-[NetworkStructWeaved(31)]
-[StructLayout(LayoutKind.Explicit, Size = 124)]
+[NetworkStructWeaved(61)]
+[StructLayout(LayoutKind.Explicit, Size = 244)]
 public struct PaintbrawlData : INetworkStruct
 {
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ElementReaderWriterInt32))]
-	[NetworkedWeaved(1, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ElementReaderWriterInt32))]
+	[NetworkedWeaved(1, 20)]
 	public NetworkArray<int> playerLivesArray
 	{
 		get
 		{
-			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@10>(ref this._playerLivesArray), 10, ElementReaderWriterInt32.GetInstance());
+			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@20>(ref this._playerLivesArray), 20, ElementReaderWriterInt32.GetInstance());
 		}
 	}
 
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ElementReaderWriterInt32))]
-	[NetworkedWeaved(11, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ElementReaderWriterInt32))]
+	[NetworkedWeaved(21, 20)]
 	public NetworkArray<int> playerActorNumberArray
 	{
 		get
 		{
-			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@10>(ref this._playerActorNumberArray), 10, ElementReaderWriterInt32.GetInstance());
+			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@20>(ref this._playerActorNumberArray), 20, ElementReaderWriterInt32.GetInstance());
 		}
 	}
 
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus))]
-	[NetworkedWeaved(21, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus))]
+	[NetworkedWeaved(41, 20)]
 	public NetworkArray<GorillaPaintbrawlManager.PaintbrawlStatus> playerStatusArray
 	{
 		get
 		{
-			return new NetworkArray<GorillaPaintbrawlManager.PaintbrawlStatus>(Native.ReferenceToPointer<FixedStorage@10>(ref this._playerStatusArray), 10, ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus.GetInstance());
+			return new NetworkArray<GorillaPaintbrawlManager.PaintbrawlStatus>(Native.ReferenceToPointer<FixedStorage@20>(ref this._playerStatusArray), 20, ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus.GetInstance());
 		}
 	}
 
 	[FieldOffset(0)]
 	public GorillaPaintbrawlManager.PaintbrawlState currentPaintbrawlState;
 
-	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 10, order = -2147483647)]
+	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 20, order = -2147483647)]
 	[WeaverGenerated]
 	[SerializeField]
 	[FieldOffset(4)]
-	private FixedStorage@10 _playerLivesArray;
+	private FixedStorage@20 _playerLivesArray;
 
-	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 10, order = -2147483647)]
-	[WeaverGenerated]
-	[SerializeField]
-	[FieldOffset(44)]
-	private FixedStorage@10 _playerActorNumberArray;
-
-	[FixedBufferProperty(typeof(NetworkArray<GorillaPaintbrawlManager.PaintbrawlStatus>), typeof(UnityArraySurrogate@ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus), 10, order = -2147483647)]
+	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 20, order = -2147483647)]
 	[WeaverGenerated]
 	[SerializeField]
 	[FieldOffset(84)]
-	private FixedStorage@10 _playerStatusArray;
+	private FixedStorage@20 _playerActorNumberArray;
+
+	[FixedBufferProperty(typeof(NetworkArray<GorillaPaintbrawlManager.PaintbrawlStatus>), typeof(UnityArraySurrogate@ReaderWriter@GorillaPaintbrawlManager__PaintbrawlStatus), 20, order = -2147483647)]
+	[WeaverGenerated]
+	[SerializeField]
+	[FieldOffset(164)]
+	private FixedStorage@20 _playerStatusArray;
 }

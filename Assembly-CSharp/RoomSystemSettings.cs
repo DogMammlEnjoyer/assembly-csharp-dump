@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GorillaGameModes;
 using GorillaTag;
 using UnityEngine;
 
@@ -78,6 +79,46 @@ internal class RoomSystemSettings : ScriptableObject
 		}
 	}
 
+	public int GetRoomCount(bool privateRoom, bool sub)
+	{
+		if (privateRoom)
+		{
+			if (!sub)
+			{
+				return this.privateRoomCountZoneModeMapping.GetRoomCount();
+			}
+			return this.subsPrivateRoomCountZoneModeMapping.GetRoomCount();
+		}
+		else
+		{
+			if (!sub)
+			{
+				return this.publicRoomCountZoneModeMapping.GetRoomCount();
+			}
+			return this.subsPublicRoomCountZoneModeMapping.GetRoomCount();
+		}
+	}
+
+	public int GetRoomCount(GTZone zone, GameModeType mode, bool privateRoom, bool sub)
+	{
+		if (privateRoom)
+		{
+			if (!sub)
+			{
+				return this.privateRoomCountZoneModeMapping.GetRoomCount(zone, mode);
+			}
+			return this.subsPrivateRoomCountZoneModeMapping.GetRoomCount(zone, mode);
+		}
+		else
+		{
+			if (!sub)
+			{
+				return this.publicRoomCountZoneModeMapping.GetRoomCount(zone, mode);
+			}
+			return this.subsPublicRoomCountZoneModeMapping.GetRoomCount(zone, mode);
+		}
+	}
+
 	[SerializeField]
 	private ExpectedUsersDecayTimer expectedUsersTimer;
 
@@ -104,4 +145,16 @@ internal class RoomSystemSettings : ScriptableObject
 
 	[SerializeField]
 	private int pausedDCTimer;
+
+	[SerializeField]
+	private RoomCount publicRoomCountZoneModeMapping;
+
+	[SerializeField]
+	private PrivateRoomCount privateRoomCountZoneModeMapping;
+
+	[SerializeField]
+	private RoomCount subsPublicRoomCountZoneModeMapping;
+
+	[SerializeField]
+	private PrivateRoomCount subsPrivateRoomCountZoneModeMapping;
 }

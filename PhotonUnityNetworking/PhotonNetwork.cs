@@ -1995,7 +1995,6 @@ namespace Photon.Pun
 		{
 			if (rpcData == null || !rpcData.ContainsKey(PhotonNetwork.keyByteZero))
 			{
-				Debug.LogError("Malformed RPC; this should never occur. Content: " + SupportClass.DictionaryToString(rpcData, true) + ". Sender is " + sender.UserId);
 				return;
 			}
 			int num = (int)rpcData[PhotonNetwork.keyByteZero];
@@ -2032,24 +2031,10 @@ namespace Photon.Pun
 			}
 			if (photonView.Prefix != num2)
 			{
-				Debug.LogError(string.Concat(new string[]
-				{
-					"Received RPC \"",
-					text,
-					"\" on viewID ",
-					num.ToString(),
-					" with a prefix of ",
-					num2.ToString(),
-					", our prefix is ",
-					photonView.Prefix.ToString(),
-					". The RPC has been ignored.. Sender is ",
-					sender.UserId
-				}));
 				return;
 			}
 			if (string.IsNullOrEmpty(text))
 			{
-				Debug.LogError("Malformed RPC; this should never occur. Content: " + SupportClass.DictionaryToString(rpcData, true) + ". Sender is " + sender.UserId);
 				return;
 			}
 			if (PhotonNetwork.LogLevel >= PunLogLevel.Full)
@@ -2087,11 +2072,7 @@ namespace Photon.Pun
 			for (int j = 0; j < photonView.RpcMonoBehaviours.Length; j++)
 			{
 				MonoBehaviour monoBehaviour = photonView.RpcMonoBehaviours[j];
-				if (monoBehaviour == null)
-				{
-					Debug.LogError("ERROR You have missing MonoBehaviours on your gameobjects!. Sender is " + sender.UserId);
-				}
-				else
+				if (!(monoBehaviour == null))
 				{
 					Type type = monoBehaviour.GetType();
 					List<MethodInfo> list = null;
@@ -3361,19 +3342,20 @@ namespace Photon.Pun
 				case 203:
 					break;
 				case 204:
-				{
-					Hashtable hashtable = (Hashtable)photonEvent.CustomData;
-					if (hashtable != null)
+					if (photonEvent.CustomData is Hashtable)
 					{
-						int key = (int)hashtable[PhotonNetwork.keyByteZero];
-						PhotonView photonView = null;
-						if (PhotonNetwork.photonViewList.TryGetValue(key, out photonView))
+						Hashtable hashtable = (Hashtable)photonEvent.CustomData;
+						if (hashtable != null)
 						{
-							PhotonNetwork.RemoveInstantiatedGO(photonView.gameObject, true);
+							int key = (int)hashtable[PhotonNetwork.keyByteZero];
+							PhotonView photonView = null;
+							if (PhotonNetwork.photonViewList.TryGetValue(key, out photonView))
+							{
+								PhotonNetwork.RemoveInstantiatedGO(photonView.gameObject, true);
+							}
 						}
 					}
 					break;
-				}
 				case 205:
 				case 208:
 				case 209:
@@ -3382,22 +3364,23 @@ namespace Photon.Pun
 				case 212:
 					break;
 				case 207:
-				{
-					Hashtable hashtable = (Hashtable)photonEvent.CustomData;
-					if (hashtable != null)
+					if (photonEvent.CustomData is Hashtable)
 					{
-						int num = (int)hashtable[PhotonNetwork.keyByteZero];
-						if (num >= 0)
+						Hashtable hashtable = (Hashtable)photonEvent.CustomData;
+						if (hashtable != null)
 						{
-							PhotonNetwork.DestroyPlayerObjects(num, true);
-						}
-						else
-						{
-							PhotonNetwork.DestroyAll(true);
+							int num = (int)hashtable[PhotonNetwork.keyByteZero];
+							if (num >= 0)
+							{
+								PhotonNetwork.DestroyPlayerObjects(num, true);
+							}
+							else
+							{
+								PhotonNetwork.DestroyAll(true);
+							}
 						}
 					}
 					break;
-				}
 				default:
 					if (code != 254)
 					{

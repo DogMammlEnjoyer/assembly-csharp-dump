@@ -437,7 +437,7 @@ namespace GorillaGameModes
 			}
 			GameMode._participatingPlayers.Clear();
 			List<NetPlayer> playersInRoom = RoomSystem.PlayersInRoom;
-			int num = Mathf.Min(playersInRoom.Count, 10);
+			int num = Mathf.Min(playersInRoom.Count, 20);
 			for (int j = 0; j < num; j++)
 			{
 				if (GameMode.CanParticipate(playersInRoom[j]))
@@ -567,18 +567,18 @@ namespace GorillaGameModes
 		private static GameModeSerializer activeNetworkHandler = null;
 
 		[OnEnterPlay_Clear]
-		private static readonly HashSet<int> optOutPlayers = new HashSet<int>(10);
+		private static readonly HashSet<int> optOutPlayers = new HashSet<int>(20);
 
 		[OnEnterPlay_Clear]
-		private static readonly List<NetPlayer> _participatingPlayers = new List<NetPlayer>(10);
+		private static readonly List<NetPlayer> _participatingPlayers = new List<NetPlayer>(20);
 
-		private static readonly NetPlayer[] _oldPlayersBuffer = new NetPlayer[10];
+		private static readonly NetPlayer[] _oldPlayersBuffer = new NetPlayer[20];
 
 		private static int _oldPlayersCount;
 
-		private static readonly List<NetPlayer> _tempAddedPlayers = new List<NetPlayer>(10);
+		private static readonly List<NetPlayer> _tempAddedPlayers = new List<NetPlayer>(20);
 
-		private static readonly List<NetPlayer> _tempRemovedPlayers = new List<NetPlayer>(10);
+		private static readonly List<NetPlayer> _tempRemovedPlayers = new List<NetPlayer>(20);
 
 		public delegate void OnStartGameModeAction(GameModeType newGameModeType);
 	}

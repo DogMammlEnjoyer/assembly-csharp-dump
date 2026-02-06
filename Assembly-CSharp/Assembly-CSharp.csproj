@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9D}</ProjectGuid>
+    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CF3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Assembly-CSharp</RootNamespace>
@@ -176,6 +176,9 @@
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
@@ -601,6 +604,7 @@
     <Compile Include="CosmeticWardrobeProximityDetector.cs" />
     <Compile Include="CrankableToyCarDeployed.cs" />
     <Compile Include="CrankableToyCarHoldable.cs" />
+    <Compile Include="CreateBonesLol.cs" />
     <Compile Include="CreateSessionData.cs" />
     <Compile Include="CreatorCodeProvider.cs" />
     <Compile Include="CreatorCodes.cs" />
@@ -881,6 +885,7 @@
     <Compile Include="Fusion\CodeGen\FixedStorage@153.cs" />
     <Compile Include="Fusion\CodeGen\FixedStorage@18.cs" />
     <Compile Include="Fusion\CodeGen\FixedStorage@183.cs" />
+    <Compile Include="Fusion\CodeGen\FixedStorage@20.cs" />
     <Compile Include="Fusion\CodeGen\FixedStorage@207.cs" />
     <Compile Include="Fusion\CodeGen\FixedStorage@3.cs" />
     <Compile Include="Fusion\CodeGen\FixedStorage@33.cs" />
@@ -957,6 +962,7 @@
     <Compile Include="GameModePages.cs" />
     <Compile Include="GameModeSelectButton.cs" />
     <Compile Include="GameModeSelectorButtonLayout.cs" />
+    <Compile Include="GameModeSelectorJoinSubsButton.cs" />
     <Compile Include="GameModeSerializer.cs" />
     <Compile Include="GameModeSpecificObject.cs" />
     <Compile Include="GameModeSpecificObjectRegistry.cs" />
@@ -977,6 +983,7 @@
     <Compile Include="GameSnappableCollider.cs" />
     <Compile Include="GameStateFx.cs" />
     <Compile Include="GameTriggerInteractable.cs" />
+    <Compile Include="GenericObservable.cs" />
     <Compile Include="GenericTriggerReactor.cs" />
     <Compile Include="GeodeItem.cs" />
     <Compile Include="GeoSoundArg.cs" />
@@ -1049,6 +1056,7 @@
     <Compile Include="GorillaEnemyAI.cs" />
     <Compile Include="GorillaEnemySpawner.cs" />
     <Compile Include="GorillaExtensions\CollectionExtensions.cs" />
+    <Compile Include="GorillaExtensions\DictionaryExtensions.cs" />
     <Compile Include="GorillaExtensions\EnumerableExtensions.cs" />
     <Compile Include="GorillaExtensions\GameObjectExtensions.cs" />
     <Compile Include="GorillaExtensions\GorillaMath.cs" />
@@ -1057,6 +1065,7 @@
     <Compile Include="GorillaExtensions\GTTextMeshProExtensions.cs" />
     <Compile Include="GorillaExtensions\GTTryFindByExactPath.cs" />
     <Compile Include="GorillaExtensions\ListExtensions.cs" />
+    <Compile Include="GorillaExtensions\UnityEventExtensions.cs" />
     <Compile Include="GorillaEyeExpressions.cs" />
     <Compile Include="GorillaFaceTextureReplacement.cs" />
     <Compile Include="GorillaFireball.cs" />
@@ -1093,6 +1102,7 @@
     <Compile Include="GorillaIK.cs" />
     <Compile Include="GorillaIKHandTarget.cs" />
     <Compile Include="GorillaIKMgr.cs" />
+    <Compile Include="GorillaIOBT.cs" />
     <Compile Include="GorillaJoinTeamBox.cs" />
     <Compile Include="GorillaKeyButton.cs" />
     <Compile Include="GorillaLevelScreen.cs" />
@@ -1151,6 +1161,7 @@
     <Compile Include="GorillaNetworking\CosmeticItemInstance.cs" />
     <Compile Include="GorillaNetworking\CosmeticItemRegistry.cs" />
     <Compile Include="GorillaNetworking\CosmeticsController.cs" />
+    <Compile Include="GorillaNetworking\CosmeticsThrottler.cs" />
     <Compile Include="GorillaNetworking\CreditsSection.cs" />
     <Compile Include="GorillaNetworking\CreditsView.cs" />
     <Compile Include="GorillaNetworking\CustomMapNetworkJoinTrigger.cs" />
@@ -1171,6 +1182,7 @@
     <Compile Include="GorillaNetworking\GorillaNetworkLeaveRoomTrigger.cs" />
     <Compile Include="GorillaNetworking\GorillaNetworkLobbyJoinTrigger.cs" />
     <Compile Include="GorillaNetworking\GorillaNetworkRankedJoinTrigger.cs" />
+    <Compile Include="GorillaNetworking\GorillaRigHelper.cs" />
     <Compile Include="GorillaNetworking\GorillaServer.cs" />
     <Compile Include="GorillaNetworking\GorillaText.cs" />
     <Compile Include="GorillaNetworking\GorillaTextManager.cs" />
@@ -1390,8 +1402,15 @@
     <Compile Include="GorillaTagScripts\PlayerTimerManager.cs" />
     <Compile Include="GorillaTagScripts\RandomProjectileThrowable.cs" />
     <Compile Include="GorillaTagScripts\RotationAxis.cs" />
+    <Compile Include="GorillaTagScripts\ScavengerHunt\ScavengerManager.cs" />
+    <Compile Include="GorillaTagScripts\ScavengerHunt\ScavengerTarget.cs" />
     <Compile Include="GorillaTagScripts\SceneBasedObject.cs" />
     <Compile Include="GorillaTagScripts\SnapOverlap.cs" />
+    <Compile Include="GorillaTagScripts\SubscriptionManager.cs" />
+    <Compile Include="GorillaTagScripts\Subscription\HandScanner.cs" />
+    <Compile Include="GorillaTagScripts\Subscription\SubscriberExclusiveZone.cs" />
+    <Compile Include="GorillaTagScripts\Subscription\SubscriberZoneTrigger.cs" />
+    <Compile Include="GorillaTagScripts\Subscription\SubscriptionKiosk.cs" />
     <Compile Include="GorillaTagScripts\SurfaceMover.cs" />
     <Compile Include="GorillaTagScripts\UI\GorillaKeyWrapper.cs" />
     <Compile Include="GorillaTagScripts\UI\ModIO\CustomMapsRoomMapDisplay.cs" />
@@ -1425,6 +1444,7 @@
     <Compile Include="GorillaTag\Audio\LoudSpeakerTrigger.cs" />
     <Compile Include="GorillaTag\Audio\LoudSpeakerVolume.cs" />
     <Compile Include="GorillaTag\Audio\PlanarSound.cs" />
+    <Compile Include="GorillaTag\Audio\PlayerSpeakerSwapper.cs" />
     <Compile Include="GorillaTag\Audio\ProcessVoiceDataToLoudness.cs" />
     <Compile Include="GorillaTag\Audio\VoiceToLoudness.cs" />
     <Compile Include="GorillaTag\BoneOffset.cs" />
@@ -1619,6 +1639,7 @@
     <Compile Include="GorillaTag\ScienceExperimentManager.cs" />
     <Compile Include="GorillaTag\ScienceExperimentPlatformGenerator.cs" />
     <Compile Include="GorillaTag\Scripts\Utilities\GTStr.cs" />
+    <Compile Include="GorillaTag\Scripts\Utilities\StringWriterWithEncoding.cs" />
     <Compile Include="GorillaTag\Shared\Scripts\Cosmetics\ActionRestrictions\CosmeticExclusionEventGate.cs" />
     <Compile Include="GorillaTag\Shared\Scripts\Cosmetics\ActionRestrictions\CosmeticExclusionQuery.cs" />
     <Compile Include="GorillaTag\Shared\Scripts\Cosmetics\ActionRestrictions\CosmeticExclusionSource.cs" />
@@ -1932,6 +1953,7 @@
     <Compile Include="HandTapEffect.cs" />
     <Compile Include="HandTapOverrides.cs" />
     <Compile Include="HandTapReactor.cs" />
+    <Compile Include="HandTrackingFingerCurl.cs" />
     <Compile Include="HandTransformFollowOffest.cs" />
     <Compile Include="HangingClaw.cs" />
     <Compile Include="HapticsWithDistance.cs" />
@@ -2135,6 +2157,7 @@
     <Compile Include="Line.cs" />
     <Compile Include="LinearSpline.cs" />
     <Compile Include="LineRendererDraw.cs" />
+    <Compile Include="LineRendererUpdateTarget.cs" />
     <Compile Include="LineRenderVelocityMapper.cs" />
     <Compile Include="LinqUtils.cs" />
     <Compile Include="LiquidMain.cs" />
@@ -2203,6 +2226,7 @@
     <Compile Include="ManipulatableObject.cs" />
     <Compile Include="ManipulatableSlider.cs" />
     <Compile Include="ManipulatableSpinner.cs" />
+    <Compile Include="MapModeQueueSet.cs" />
     <Compile Include="MarkOneMitts.cs" />
     <Compile Include="MaskCyclopsEye.cs" />
     <Compile Include="MatCombinerUtils.cs" />
@@ -2378,7 +2402,7 @@
     <Compile Include="OwlLook.cs" />
     <Compile Include="OwnerRig.cs" />
     <Compile Include="OwnershipGaurd.cs" />
-    <Compile Include="OwnershipGaurdHandler.cs" />
+    <Compile Include="OwnershipGuardHandler.cs" />
     <Compile Include="PaintbrawlBalloons.cs" />
     <Compile Include="PaintbrawlData.cs" />
     <Compile Include="PaintbrawlRPCs.cs" />
@@ -2473,6 +2497,7 @@
     <Compile Include="PreGameMessage.cs" />
     <Compile Include="PrimaryButtonEvent.cs" />
     <Compile Include="PrimaryButtonWatcher.cs" />
+    <Compile Include="PrivateRoomCount.cs" />
     <Compile Include="PrivateUIRoom.cs" />
     <Compile Include="ProgressBar.cs" />
     <Compile Include="ProgressDisplay.cs" />
@@ -2560,6 +2585,9 @@
     <Compile Include="RingBuffer.cs" />
     <Compile Include="RockPiles.cs" />
     <Compile Include="RoomConfig.cs" />
+    <Compile Include="RoomCount.cs" />
+    <Compile Include="RoomCountForMode.cs" />
+    <Compile Include="RoomCountForZone.cs" />
     <Compile Include="RoomStateVisibility.cs" />
     <Compile Include="RoomSystem.cs" />
     <Compile Include="RoomSystemSettings.cs" />
@@ -2671,6 +2699,7 @@
     <Compile Include="SimpleSpeedTracker.cs" />
     <Compile Include="SimpleStateMachine.cs" />
     <Compile Include="SimpleTeleporter.cs" />
+    <Compile Include="SimpleUnloadUnusedAssets.cs" />
     <Compile Include="SinglePool.cs" />
     <Compile Include="SIPlayer.cs" />
     <Compile Include="SIPosedTentacleArm.cs" />
@@ -2760,6 +2789,7 @@
     <Compile Include="SpawnWorldEffectsTrigger.cs" />
     <Compile Include="SpeakerVoiceLoudnessAudioOut.cs" />
     <Compile Include="SpeakerVoiceToLoudness.cs" />
+    <Compile Include="SpeakerVoiceToLoudnessConfig.cs" />
     <Compile Include="SpeedDrivenAnim.cs" />
     <Compile Include="SpiderDangler.cs" />
     <Compile Include="Spinner.cs" />
@@ -2777,6 +2807,7 @@
     <Compile Include="SRand.cs" />
     <Compile Include="StageMicrophone.cs" />
     <Compile Include="StateHash.cs" />
+    <Compile Include="StaticArrayBag.cs" />
     <Compile Include="StaticHash.cs" />
     <Compile Include="StaticHashExt.cs" />
     <Compile Include="StaticRPCEntry.cs" />
@@ -2798,6 +2829,7 @@
     <Compile Include="SubEmitterListener.cs" />
     <Compile Include="SubGrabPoint.cs" />
     <Compile Include="SubLineGrabPoint.cs" />
+    <Compile Include="SubscriptionStation.cs" />
     <Compile Include="SubSplineGrabPoint.cs" />
     <Compile Include="SuperCasualGame.cs" />
     <Compile Include="SuperInfection.cs" />
@@ -3100,39 +3132,39 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AA.Mothership\AA.Mothership.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9C}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF2}</Project>
       <Name>AA.Mothership</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9E}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF4}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Runtime\Fusion.Runtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9F}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF5}</Project>
       <Name>Fusion.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA0}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF6}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA1}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF7}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonUnityNetworking\PhotonUnityNetworking.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA2}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF8}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA4}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CFA}</Project>
       <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.PUN\PhotonVoice.PUN.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA7}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CFD}</Project>
       <Name>PhotonVoice.PUN</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice\PhotonVoice.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEEA5}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CFB}</Project>
       <Name>PhotonVoice</Name>
     </ProjectReference>
   </ItemGroup>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9F}</ProjectGuid>
+    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CF5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion.Runtime</RootNamespace>
@@ -477,7 +477,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{DEF4F61B-BEB4-4EEF-BDF7-E6E9EABEEE9E}</Project>
+      <Project>{0500B909-98DB-4230-9588-00F558423CF4}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
   </ItemGroup>

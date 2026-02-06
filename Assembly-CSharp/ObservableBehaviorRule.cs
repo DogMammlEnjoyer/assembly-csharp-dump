@@ -20,9 +20,20 @@ public class ObservableBehaviorRule : ScriptableObject
 		}
 	}
 
+	public bool InverseObservable
+	{
+		get
+		{
+			return this.inverseObservable;
+		}
+	}
+
 	[SerializeField]
 	private Vector2 observableDistanceRange = new Vector2(0f, 15f);
 
 	[SerializeField]
 	private Vector2 observableDotRange = new Vector2(-1f, 0f);
+
+	[SerializeField]
+	private bool inverseObservable;
 }

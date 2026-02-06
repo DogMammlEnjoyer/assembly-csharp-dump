@@ -17,7 +17,7 @@ namespace GorillaNetworking
 			});
 		}
 
-		public override byte GetRoomSize()
+		public override byte GetRoomSize(bool subscribed)
 		{
 			return CustomMapLoader.GetRoomSizeForCurrentlyLoadedMap();
 		}

@@ -80,47 +80,50 @@ public class GTSignalRelay : MonoBehaviourStatic<GTSignalRelay>, IOnEventCallbac
 
 	void IOnEventCallback.OnEvent(EventData eventData)
 	{
-		if (eventData.Code != 186)
+		if (eventData.Code == 186)
 		{
-			return;
-		}
-		object[] array = (object[])eventData.CustomData;
-		int key = (int)array[0];
-		List<GTSignalListener> list;
-		if (!GTSignalRelay.gSignalIdToListeners.TryGetValue(key, out list))
-		{
-			return;
-		}
-		int sender = eventData.Sender;
-		for (int i = 0; i < list.Count; i++)
-		{
-			try
+			object[] array = eventData.CustomData as object[];
+			if (array != null)
 			{
-				GTSignalListener gtsignalListener = list[i];
-				if (!gtsignalListener.deafen)
+				int key = (int)array[0];
+				List<GTSignalListener> list;
+				if (!GTSignalRelay.gSignalIdToListeners.TryGetValue(key, out list))
 				{
-					if (gtsignalListener.IsReady())
+					return;
+				}
+				int sender = eventData.Sender;
+				for (int i = 0; i < list.Count; i++)
+				{
+					try
 					{
-						if (!gtsignalListener.ignoreSelf || sender != gtsignalListener.rigActorID)
+						GTSignalListener gtsignalListener = list[i];
+						if (!gtsignalListener.deafen)
 						{
-							if (!gtsignalListener.listenToSelfOnly || sender == gtsignalListener.rigActorID)
+							if (gtsignalListener.IsReady())
 							{
-								gtsignalListener.HandleSignalReceived(sender, array);
-								if (gtsignalListener.callUnityEvent)
+								if (!gtsignalListener.ignoreSelf || sender != gtsignalListener.rigActorID)
 								{
-									UnityEvent onSignalReceived = gtsignalListener.onSignalReceived;
-									if (onSignalReceived != null)
+									if (!gtsignalListener.listenToSelfOnly || sender == gtsignalListener.rigActorID)
 									{
-										onSignalReceived.Invoke();
+										gtsignalListener.HandleSignalReceived(sender, array);
+										if (gtsignalListener.callUnityEvent)
+										{
+											UnityEvent onSignalReceived = gtsignalListener.onSignalReceived;
+											if (onSignalReceived != null)
+											{
+												onSignalReceived.Invoke();
+											}
+										}
 									}
 								}
 							}
 						}
 					}
+					catch (Exception)
+					{
+					}
 				}
-			}
-			catch (Exception)
-			{
+				return;
 			}
 		}
 	}

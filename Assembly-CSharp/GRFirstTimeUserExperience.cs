@@ -53,7 +53,7 @@ public class GRFirstTimeUserExperience : MonoBehaviour
 			return;
 		}
 		case GRFirstTimeUserExperience.TransitionState.Teleport:
-			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this.joinRoomTrigger, JoinType.Solo, null);
+			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this.joinRoomTrigger, JoinType.Solo, null, false);
 			GTPlayer.Instance.TeleportTo(this.teleportLocation.position, this.teleportLocation.rotation, false, false);
 			GTPlayer.Instance.InitializeValues();
 			this.stateStartTime = Time.time;

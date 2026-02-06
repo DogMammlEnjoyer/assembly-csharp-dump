@@ -424,6 +424,10 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 		}
 	}
 
+	public void TouchscreenToggleButtonPressed(SITouchscreenButton.SITouchscreenButtonType buttonType, int data, int actorNr, bool isToggledOn)
+	{
+	}
+
 	public void UpdateHelpButtonPage(int helpButtonPageIndex)
 	{
 		for (int i = 0; i < this.helpPopupScreens.Length; i++)

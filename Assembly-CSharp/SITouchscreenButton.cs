@@ -17,12 +17,24 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 		}
 	}
 
+	public bool IsToggledOn
+	{
+		get
+		{
+			return this._isToggledOn;
+		}
+	}
+
 	private void Awake()
 	{
 		ITouchScreenStation componentInParent = base.GetComponentInParent<ITouchScreenStation>();
 		if (componentInParent != null)
 		{
 			this._screenRegion = componentInParent.ScreenRegion;
+		}
+		if (this.buttonMode == SITouchscreenButton.ButtonMode.Toggle)
+		{
+			this._isToggledOn = this._startToggledOn;
 		}
 	}
 
@@ -51,10 +63,32 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 		{
 			this._screenRegion.RegisterButtonPress();
 		}
-		this.buttonPressed.Invoke(this.buttonType, this.data, NetworkSystem.Instance.LocalPlayer.ActorNumber);
+		if (this.buttonMode == SITouchscreenButton.ButtonMode.Normal)
+		{
+			this.buttonPressed.Invoke(this.buttonType, this.data, NetworkSystem.Instance.LocalPlayer.ActorNumber);
+		}
+		else if (this.buttonMode == SITouchscreenButton.ButtonMode.Toggle)
+		{
+			bool arg = !this._isToggledOn;
+			this.buttonToggled.Invoke(this.buttonType, this.data, NetworkSystem.Instance.LocalPlayer.ActorNumber, arg);
+		}
 		if (this._pressSound != null)
 		{
 			GTAudioOneShot.Play(this._pressSound, base.transform.position, this._pressSoundVolume, 1f);
+		}
+	}
+
+	public void SetToggleState(bool state, bool invokeEvent = false)
+	{
+		if (this.buttonMode != SITouchscreenButton.ButtonMode.Toggle)
+		{
+			return;
+		}
+		bool flag = this._isToggledOn != state;
+		this._isToggledOn = state;
+		if (invokeEvent && flag)
+		{
+			this.buttonToggled.Invoke(this.buttonType, this.data, NetworkSystem.Instance.LocalPlayer.ActorNumber, this._isToggledOn);
 		}
 	}
 
@@ -62,6 +96,8 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 	{
 		this.PressButton();
 	}
+
+	public SITouchscreenButton.ButtonMode buttonMode;
 
 	public SITouchscreenButton.SITouchscreenButtonType buttonType;
 
@@ -73,7 +109,15 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 	[SerializeField]
 	private float _pressSoundVolume = 0.1f;
 
+	[SerializeField]
+	private bool _isToggledOn;
+
+	[SerializeField]
+	private bool _startToggledOn;
+
 	public UnityEvent<SITouchscreenButton.SITouchscreenButtonType, int, int> buttonPressed;
+
+	public UnityEvent<SITouchscreenButton.SITouchscreenButtonType, int, int, bool> buttonToggled;
 
 	private SIScreenRegion _screenRegion;
 
@@ -83,6 +127,12 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 
 	[NonSerialized]
 	public bool isUsable = true;
+
+	public enum ButtonMode
+	{
+		Normal,
+		Toggle
+	}
 
 	public enum SITouchscreenButtonType
 	{
@@ -100,6 +150,7 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 		Confirm,
 		Cancel,
 		OverrideFailure,
-		None
+		None,
+		Subscribe
 	}
 }

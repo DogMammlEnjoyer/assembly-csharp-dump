@@ -5,7 +5,7 @@ public class OwlLook : MonoBehaviour
 {
 	private void Awake()
 	{
-		this.overlapRigs = new VRRig[10];
+		this.overlapRigs = new VRRig[20];
 		if (this.myRig == null)
 		{
 			this.myRig = base.GetComponentInParent<VRRig>();
@@ -77,7 +77,7 @@ public class OwlLook : MonoBehaviour
 
 	public Collider[] overlapColliders;
 
-	public VRRig[] rigs = new VRRig[10];
+	public VRRig[] rigs = new VRRig[20];
 
 	public VRRig[] overlapRigs;
 

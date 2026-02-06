@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using GorillaExtensions;
 using GorillaTagScripts.VirtualStumpCustomMaps;
@@ -40,21 +41,39 @@ namespace GorillaNetworking.Store
 
 		public void AddStandToStoreController()
 		{
+			base.StartCoroutine(this.ConnectToStoreController());
+		}
+
+		private IEnumerator ConnectToStoreController()
+		{
+			int i = 0;
+			while (i < 30 && !(StoreController.instance != null))
+			{
+				if (i == 29)
+				{
+					Object.Destroy(this);
+					throw new Exception("Could not connect to store controller.");
+				}
+				yield return null;
+				int num = i + 1;
+				i = num;
+			}
 			if (!StoreController.instance.cosmeticsInitialized)
 			{
 				this.AsyncAddStandToStoreController();
-				return;
+				yield break;
 			}
 			this._AddStandToStoreController();
+			yield break;
 		}
 
 		public void AsyncAddStandToStoreController()
 		{
-			DynamicCosmeticStand.<AsyncAddStandToStoreController>d__29 <AsyncAddStandToStoreController>d__;
+			DynamicCosmeticStand.<AsyncAddStandToStoreController>d__30 <AsyncAddStandToStoreController>d__;
 			<AsyncAddStandToStoreController>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<AsyncAddStandToStoreController>d__.<>4__this = this;
 			<AsyncAddStandToStoreController>d__.<>1__state = -1;
-			<AsyncAddStandToStoreController>d__.<>t__builder.Start<DynamicCosmeticStand.<AsyncAddStandToStoreController>d__29>(ref <AsyncAddStandToStoreController>d__);
+			<AsyncAddStandToStoreController>d__.<>t__builder.Start<DynamicCosmeticStand.<AsyncAddStandToStoreController>d__30>(ref <AsyncAddStandToStoreController>d__);
 		}
 
 		public void _AddStandToStoreController()

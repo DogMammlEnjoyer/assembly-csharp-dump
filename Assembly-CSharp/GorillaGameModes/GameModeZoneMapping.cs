@@ -13,12 +13,12 @@ namespace GorillaGameModes
 		{
 			get
 			{
-				this.init();
+				this.Init();
 				return this.allModes;
 			}
 		}
 
-		private void init()
+		private void Init()
 		{
 			if (this.allModes != null)
 			{
@@ -27,11 +27,9 @@ namespace GorillaGameModes
 			this.allModes = new HashSet<GameModeType>();
 			for (int i = 0; i < this.defaultGameModes.Length; i++)
 			{
-				if (!this.allModes.Contains(this.defaultGameModes[i]))
-				{
-					this.allModes.Add(this.defaultGameModes[i]);
-				}
+				this.allModes.Add(this.defaultGameModes[i]);
 			}
+			this.bigRoomZoneGameModesLookup = new Dictionary<GTZone, HashSet<GameModeType>>();
 			this.publicZoneGameModesLookup = new Dictionary<GTZone, HashSet<GameModeType>>();
 			this.privateZoneGameModesLookup = new Dictionary<GTZone, HashSet<GameModeType>>();
 			for (int j = 0; j < this.zoneGameModes.Length; j++)
@@ -78,7 +76,7 @@ namespace GorillaGameModes
 
 		public HashSet<GameModeType> GetModesForZone(GTZone zone, bool isPrivate)
 		{
-			this.init();
+			this.Init();
 			if (isPrivate && this.privateZoneGameModesLookup.ContainsKey(zone))
 			{
 				return this.privateZoneGameModesLookup[zone];
@@ -90,9 +88,21 @@ namespace GorillaGameModes
 			return new HashSet<GameModeType>(this.defaultGameModes);
 		}
 
+		public bool IsBigRoomMode(GameModeType gameModeType)
+		{
+			for (int i = 0; i < this.bigRoomGameModes.Length; i++)
+			{
+				if (this.bigRoomGameModes[i] == gameModeType)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		internal string GetModeName(GameModeType mode)
 		{
-			this.init();
+			this.Init();
 			if (this.modeNameLookup.ContainsKey(mode))
 			{
 				return this.modeNameLookup[mode];
@@ -102,13 +112,13 @@ namespace GorillaGameModes
 
 		internal bool IsNew(GameModeType mode)
 		{
-			this.init();
+			this.Init();
 			return this.isNewLookup.Contains(mode);
 		}
 
 		internal CountdownTextDate GetCountdown(GameModeType mode)
 		{
-			this.init();
+			this.Init();
 			if (this.gameModeTypeCountdownsLookup.ContainsKey(mode))
 			{
 				return this.gameModeTypeCountdownsLookup[mode];
@@ -171,6 +181,9 @@ namespace GorillaGameModes
 		private GameModeType[] defaultGameModes;
 
 		[SerializeField]
+		private GameModeType[] bigRoomGameModes;
+
+		[SerializeField]
 		private ZoneGameModes[] zoneGameModes;
 
 		[SerializeField]
@@ -178,6 +191,8 @@ namespace GorillaGameModes
 
 		[SerializeField]
 		private GameModeType[] newThisUpdate;
+
+		private Dictionary<GTZone, HashSet<GameModeType>> bigRoomZoneGameModesLookup;
 
 		private Dictionary<GTZone, HashSet<GameModeType>> publicZoneGameModesLookup;
 

@@ -197,12 +197,27 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 	{
 		if (state)
 		{
-			this.buttonRenderer.material = this.pressedMaterial;
+			this.SetPressedMaterial();
 			this.SetOnText(this.myText.IsNotNull(), this.myTmpText.IsNotNull(), this.myTmpText2.IsNotNull());
 			return;
 		}
-		this.buttonRenderer.material = this.unpressedMaterial;
+		this.SetUnpressedMaterial();
 		this.SetOffText(this.myText.IsNotNull(), this.myTmpText.IsNotNull(), this.myTmpText2.IsNotNull());
+	}
+
+	public void SetRendererMaterial(Material mat)
+	{
+		this.buttonRenderer.material = mat;
+	}
+
+	public void SetPressedMaterial()
+	{
+		this.SetRendererMaterial(this.pressedMaterial);
+	}
+
+	public void SetUnpressedMaterial()
+	{
+		this.SetRendererMaterial(this.unpressedMaterial);
 	}
 
 	public virtual void ButtonActivation()

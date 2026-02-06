@@ -81,5 +81,5 @@ public class HandHoldBehaviourActivation : Tappable
 
 	private int grabs;
 
-	private readonly Dictionary<int, byte> m_playerGrabCounts = new Dictionary<int, byte>(10);
+	private readonly Dictionary<int, byte> m_playerGrabCounts = new Dictionary<int, byte>(20);
 }

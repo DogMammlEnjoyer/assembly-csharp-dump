@@ -50,7 +50,7 @@ public class PerfTestGorillaHarness : MonoBehaviour
 
 	public PerfTestGorillaSlot _vrSlot;
 
-	public List<PerfTestGorillaSlot> dummySlots = new List<PerfTestGorillaSlot>(9);
+	public List<PerfTestGorillaSlot> dummySlots = new List<PerfTestGorillaSlot>(19);
 
 	private bool _isRecording;
 

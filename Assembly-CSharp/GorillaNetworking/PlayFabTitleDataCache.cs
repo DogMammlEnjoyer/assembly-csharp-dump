@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using GorillaExtensions;
 using LitJson;
 using PlayFab;
 using UnityEngine;
@@ -51,6 +52,12 @@ namespace GorillaNetworking
 				return;
 			}
 			PlayFabTitleDataCache.Instance = this;
+			Action<PlayFabTitleDataCache> action = PlayFabTitleDataCache.k_onnLoaded;
+			if (action != null)
+			{
+				action(this);
+			}
+			PlayFabTitleDataCache.k_onnLoaded = null;
 		}
 
 		private void Start()
@@ -121,7 +128,7 @@ namespace GorillaNetworking
 		{
 			try
 			{
-				PlayFabTitleDataCache.<>c__DisplayClass23_0 CS$<>8__locals1 = new PlayFabTitleDataCache.<>c__DisplayClass23_0();
+				PlayFabTitleDataCache.<>c__DisplayClass24_0 CS$<>8__locals1 = new PlayFabTitleDataCache.<>c__DisplayClass24_0();
 				CacheImport oldCache = this.LoadDataFromFile();
 				string currentLocale = LocalisationManager.CurrentLanguage.Identifier.Code;
 				Dictionary<string, string> titleData;
@@ -303,6 +310,18 @@ namespace GorillaNetworking
 			}
 			this.requests.Clear();
 		}
+
+		public static void RegisterOnLoad(Action<PlayFabTitleDataCache> callback)
+		{
+			if (PlayFabTitleDataCache.Instance.IsNotNull())
+			{
+				callback(PlayFabTitleDataCache.Instance);
+				return;
+			}
+			PlayFabTitleDataCache.k_onnLoaded = (Action<PlayFabTitleDataCache>)Delegate.Combine(PlayFabTitleDataCache.k_onnLoaded, callback);
+		}
+
+		private static Action<PlayFabTitleDataCache> k_onnLoaded;
 
 		public PlayFabTitleDataCache.DataUpdate OnTitleDataUpdate;
 

@@ -21,7 +21,7 @@ public class CosmeticRefRegistry : MonoBehaviour
 		return this.partsTable[(int)partID];
 	}
 
-	private GameObject[] partsTable = new GameObject[8];
+	private GameObject[] partsTable = new GameObject[9];
 
 	[SerializeField]
 	private CosmeticRefTarget[] builtInRefTargets;

@@ -53,7 +53,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		CustomMapLoader.mapBundle = null;
 		CustomMapLoader.initialSceneNames = new List<string>();
 		CustomMapLoader.initialSceneIndexes = new List<int>();
-		CustomMapLoader.maxPlayersForMap = 10;
+		CustomMapLoader.maxPlayersForMap = 20;
 		CustomMapLoader.loadedMapModId = ModId.Null;
 		CustomMapLoader.loadedMapModFileId = -1L;
 		CustomMapLoader.loadedMapPackageInfo = null;
@@ -460,7 +460,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		{
 			if (CustomMapLoader.loadedMapPackageInfo != null && CustomMapLoader.loadedMapPackageInfo.customMapSupportVersion >= 3)
 			{
-				CustomMapLoader.maxPlayersForMap = (byte)Math.Clamp(CustomMapLoader.loadedMapPackageInfo.maxPlayers, 1, 10);
+				CustomMapLoader.maxPlayersForMap = (byte)Math.Clamp(CustomMapLoader.loadedMapPackageInfo.maxPlayers, 1, 20);
 				if (CustomMapLoader.loadedMapPackageInfo.customMapSupportVersion >= 5)
 				{
 					CustomMapModeSelector.SetAvailableGameModes(CustomMapLoader.loadedMapPackageInfo.availableGameModes, CustomMapLoader.loadedMapPackageInfo.defaultGameMode);
@@ -967,7 +967,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 		if (CustomMapLoader.loadedMapPackageInfo != null && CustomMapLoader.loadedMapPackageInfo.customMapSupportVersion < 3 && sceneDescriptor.IsInitialScene)
 		{
-			CustomMapLoader.maxPlayersForMap = (byte)Math.Clamp(sceneDescriptor.MaxPlayers, 1, 10);
+			CustomMapLoader.maxPlayersForMap = (byte)Math.Clamp(sceneDescriptor.MaxPlayers, 1, 20);
 			CustomMapLoader.cachedLuauScript = ((sceneDescriptor.CustomGamemode != null) ? sceneDescriptor.CustomGamemode.text : "");
 			CustomMapLoader.devModeEnabled = sceneDescriptor.DevMode;
 			CustomMapLoader.disableHoldingHandsAllModes = sceneDescriptor.DisableHoldingHandsAllGameModes;
@@ -2246,7 +2246,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		CustomMapLoader.loadedSceneIndexes.Clear();
 		CustomMapLoader.initialSceneIndexes.Clear();
 		CustomMapLoader.initialSceneNames.Clear();
-		CustomMapLoader.maxPlayersForMap = 10;
+		CustomMapLoader.maxPlayersForMap = 20;
 		CustomMapModeSelector.ResetButtons();
 		if (RoomSystem.JoinedRoom && NetworkSystem.Instance.LocalPlayer.IsMasterClient && NetworkSystem.Instance.SessionIsPrivate)
 		{
@@ -2569,7 +2569,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 	{
 		if (!CustomMapLoader.IsMapLoaded())
 		{
-			return 10;
+			return 20;
 		}
 		return CustomMapLoader.maxPlayersForMap;
 	}
@@ -2767,7 +2767,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	private static List<int> initialSceneIndexes = new List<int>();
 
-	private static byte maxPlayersForMap = 10;
+	private static byte maxPlayersForMap = 20;
 
 	private static ModId loadedMapModId;
 

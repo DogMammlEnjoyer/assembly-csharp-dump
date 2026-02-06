@@ -47,6 +47,6 @@ namespace GorillaTag
 
 		public float decayTime = 15f;
 
-		private Dictionary<string, float> expectedUsers = new Dictionary<string, float>(10);
+		private Dictionary<string, float> expectedUsers = new Dictionary<string, float>(20);
 	}
 }

@@ -638,8 +638,8 @@ public class GamePlayer : MonoBehaviour
 
 	internal static void InitializeStaticLookupCaches()
 	{
-		GamePlayer.lookupCache_actorNum_to_gamePlayer = new ValueTuple<int, GamePlayer>[10];
-		GamePlayer.lookupCache_rigInstanceId_to_gamePlayer = new ValueTuple<int, GamePlayer>[10];
+		GamePlayer.lookupCache_actorNum_to_gamePlayer = new ValueTuple<int, GamePlayer>[20];
+		GamePlayer.lookupCache_rigInstanceId_to_gamePlayer = new ValueTuple<int, GamePlayer>[20];
 		if (VRRigCache.isInitialized)
 		{
 			GamePlayer.UpdateStaticLookupCaches();
@@ -655,9 +655,9 @@ public class GamePlayer : MonoBehaviour
 		List<VRRig> list;
 		using (ListPool<VRRig>.Get(out list))
 		{
-			if (list.Capacity < 10)
+			if (list.Capacity < 20)
 			{
-				list.Capacity = 10;
+				list.Capacity = 20;
 			}
 			VRRigCache.Instance.GetActiveRigs(list);
 			if (list.Count > GamePlayer.lookupCache_actorNum_to_gamePlayer.Length)

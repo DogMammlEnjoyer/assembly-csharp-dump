@@ -4,31 +4,31 @@ using Fusion;
 using Fusion.CodeGen;
 using UnityEngine;
 
-[NetworkStructWeaved(23)]
-[StructLayout(LayoutKind.Explicit, Size = 92)]
+[NetworkStructWeaved(43)]
+[StructLayout(LayoutKind.Explicit, Size = 172)]
 public struct HuntData : INetworkStruct
 {
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ElementReaderWriterInt32))]
-	[NetworkedWeaved(3, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ElementReaderWriterInt32))]
+	[NetworkedWeaved(3, 20)]
 	public NetworkArray<int> currentHuntedArray
 	{
 		get
 		{
-			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@10>(ref this._currentHuntedArray), 10, ElementReaderWriterInt32.GetInstance());
+			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@20>(ref this._currentHuntedArray), 20, ElementReaderWriterInt32.GetInstance());
 		}
 	}
 
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ElementReaderWriterInt32))]
-	[NetworkedWeaved(13, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ElementReaderWriterInt32))]
+	[NetworkedWeaved(23, 20)]
 	public NetworkArray<int> currentTargetArray
 	{
 		get
 		{
-			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@10>(ref this._currentTargetArray), 10, ElementReaderWriterInt32.GetInstance());
+			return new NetworkArray<int>(Native.ReferenceToPointer<FixedStorage@20>(ref this._currentTargetArray), 20, ElementReaderWriterInt32.GetInstance());
 		}
 	}
 
@@ -41,15 +41,15 @@ public struct HuntData : INetworkStruct
 	[FieldOffset(8)]
 	public int countDownTime;
 
-	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 10, order = -2147483647)]
+	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 20, order = -2147483647)]
 	[WeaverGenerated]
 	[SerializeField]
 	[FieldOffset(12)]
-	private FixedStorage@10 _currentHuntedArray;
+	private FixedStorage@20 _currentHuntedArray;
 
-	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 10, order = -2147483647)]
+	[FixedBufferProperty(typeof(NetworkArray<int>), typeof(UnityArraySurrogate@ElementReaderWriterInt32), 20, order = -2147483647)]
 	[WeaverGenerated]
 	[SerializeField]
-	[FieldOffset(52)]
-	private FixedStorage@10 _currentTargetArray;
+	[FieldOffset(92)]
+	private FixedStorage@20 _currentTargetArray;
 }

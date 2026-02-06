@@ -10,6 +10,7 @@ using GorillaTag;
 using GorillaTag.Cosmetics;
 using GorillaTagScripts;
 using Photon.Pun;
+using Photon.Realtime;
 using TagEffects;
 using UnityEngine;
 
@@ -142,6 +143,7 @@ internal class RoomSystem : MonoBehaviour
 			RoomSystem.playerEffectDictionary.Add(playerEffectConfig.type, playerEffectConfig);
 		}
 		this.roomSettings.ResyncNetworkTimeTimer.callback = new Action(PhotonNetwork.FetchServerTimestamp);
+		RoomSystem.__roomSettings = this.roomSettings;
 	}
 
 	private void Start()
@@ -185,7 +187,27 @@ internal class RoomSystem : MonoBehaviour
 		PlayerCosmeticsSystem.UpdatePlayerCosmetics(RoomSystem.netPlayersInRoom);
 		RoomSystem.roomGameMode = NetworkSystem.Instance.GameModeString;
 		RoomSystem.WasRoomPrivate = NetworkSystem.Instance.SessionIsPrivate;
+		RoomSystem.WasRoomSubscription = NetworkSystem.Instance.SessionIsSubscription;
 		RoomSystem.IsVStumpRoom = NetworkSystem.Instance.RoomName.StartsWith(GorillaComputer.instance.VStumpRoomPrepend);
+		RoomSystem.InitialJoinTrigger = GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(RoomSystem.roomGameMode);
+		if (!RoomSystem.WasRoomPrivate)
+		{
+			Hashtable customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+			if (customProperties.ContainsKey("fan_club"))
+			{
+				string text = customProperties["fan_club"] as string;
+				bool wasRoomSubscription;
+				if (text != null && bool.TryParse(text, out wasRoomSubscription))
+				{
+					RoomSystem.WasRoomSubscription = wasRoomSubscription;
+					goto IL_EA;
+				}
+			}
+			RoomSystem.WasRoomSubscription = false;
+		}
+		IL_EA:
+		Debug.Log(string.Format("Checking if room in session is a subscription-based room: {0}.", RoomSystem.WasRoomSubscription));
+		bool wasRoomSubscription2 = RoomSystem.WasRoomSubscription;
 		if (NetworkSystem.Instance.IsMasterClient)
 		{
 			for (int j = 0; j < this.prefabsToInstantiateByPath.Length; j++)
@@ -276,6 +298,11 @@ internal class RoomSystem : MonoBehaviour
 		{
 			Debug.LogError("RoomSystem failed invoking event");
 		}
+		finally
+		{
+			RoomSystem.WasRoomSubscription = false;
+			RoomSystem.InitialJoinTrigger = null;
+		}
 		GC.Collect(0);
 	}
 
@@ -283,15 +310,7 @@ internal class RoomSystem : MonoBehaviour
 	{
 		if (netPlayer == null)
 		{
-			Debug.LogError("Player how left doesnt have a reference somehow");
-		}
-		foreach (NetPlayer netPlayer2 in RoomSystem.netPlayersInRoom)
-		{
-			if (netPlayer2 == netPlayer)
-			{
-				RoomSystem.netPlayersInRoom.Remove(netPlayer2);
-				break;
-			}
+			Debug.LogError("Player that left doesn't have a reference somehow...");
 		}
 		RoomSystem.netPlayersInRoom.Remove(netPlayer);
 		try
@@ -316,6 +335,8 @@ internal class RoomSystem : MonoBehaviour
 	private static bool UseRoomSizeOverride { get; set; }
 
 	public static byte RoomSizeOverride { get; set; }
+
+	public static byte RoomSizeReduction { get; set; }
 
 	public static List<NetPlayer> PlayersInRoom
 	{
@@ -352,6 +373,10 @@ internal class RoomSystem : MonoBehaviour
 	public static bool IsVStumpRoom { get; private set; }
 
 	public static bool WasRoomPrivate { get; private set; }
+
+	public static bool WasRoomSubscription { get; private set; }
+
+	public static GorillaNetworkJoinTrigger InitialJoinTrigger { get; private set; }
 
 	static RoomSystem()
 	{
@@ -390,11 +415,20 @@ internal class RoomSystem : MonoBehaviour
 		PhotonNetwork.SendAllOutgoingCommands();
 	}
 
-	public static byte GetRoomSize(string gameMode = "")
+	public static byte GetMaxRoomSize()
 	{
-		if (RoomSystem.joinedRoom)
+		return (byte)RoomSystem.__roomSettings.GetRoomCount(true, true);
+	}
+
+	public static byte GetCurrentRoomExpectedSize()
+	{
+		if (!RoomSystem.joinedRoom)
 		{
-			if (RoomSystem.m_roomSizeOnJoin > 10)
+			return 10;
+		}
+		if (RoomSystem.IsVStumpRoom)
+		{
+			if (RoomSystem.m_roomSizeOnJoin >= 10)
 			{
 				return 10;
 			}
@@ -402,41 +436,81 @@ internal class RoomSystem : MonoBehaviour
 		}
 		else
 		{
-			if (RoomSystem.UseRoomSizeOverride)
+			NetPlayer lowestActorNumberPlayer = RoomSystem.GetLowestActorNumberPlayer();
+			RigContainer rigContainer;
+			if (lowestActorNumberPlayer == null || !VRRigCache.Instance.TryGetVrrig(lowestActorNumberPlayer, out rigContainer))
 			{
-				return RoomSystem.RoomSizeOverride;
+				return 10;
 			}
-			return 10;
+			bool active = SubscriptionManager.GetSubscriptionDetails(lowestActorNumberPlayer).active;
+			byte b;
+			if (RoomSystem.WasRoomPrivate)
+			{
+				Room currentRoom = PhotonNetwork.CurrentRoom;
+				if (!rigContainer.Rig.InitializedCosmetics)
+				{
+					b = currentRoom.MaxPlayers;
+					if (b >= 20)
+					{
+						return 20;
+					}
+					return b;
+				}
+				else
+				{
+					b = (byte)RoomSystem.__roomSettings.GetRoomCount(true, active);
+					if (!active && PhotonNetwork.CurrentRoom.PlayerCount > 10)
+					{
+						b = PhotonNetwork.CurrentRoom.PlayerCount;
+					}
+				}
+			}
+			else
+			{
+				GorillaNetworkJoinTrigger initialJoinTrigger = RoomSystem.InitialJoinTrigger;
+				GTZone zone = GTZone.none;
+				if (initialJoinTrigger.IsNotNull())
+				{
+					zone = initialJoinTrigger.zone;
+				}
+				b = (byte)RoomSystem.__roomSettings.GetRoomCount(zone, GameMode.CurrentGameModeType, false, RoomSystem.WasRoomSubscription);
+			}
+			if (b >= 20)
+			{
+				return 20;
+			}
+			return b;
 		}
 	}
 
-	public static byte GetRoomSizeForCreate(string gameMode = "")
+	public static byte GetRoomSizeForCreate(GTZone zone, GameModeType mode, bool privateRoom, bool sub)
 	{
 		if (RoomSystem.UseRoomSizeOverride)
 		{
 			return RoomSystem.RoomSizeOverride;
 		}
-		return 10;
+		return (byte)RoomSystem.__roomSettings.GetRoomCount(zone, mode, privateRoom, sub);
 	}
 
-	public static void OverrideRoomSize(byte roomSize)
+	public static void OverrideRoomSize(byte size)
 	{
-		if (roomSize < 1)
+		if (size < 1)
 		{
-			roomSize = 1;
+			size = 1;
 		}
-		if (roomSize > 10)
+		else if (size > 10)
 		{
-			roomSize = 10;
+			size = 10;
 		}
-		if (roomSize == 10)
+		if (size == 10)
 		{
 			RoomSystem.UseRoomSizeOverride = false;
-			RoomSystem.RoomSizeOverride = 10;
-			return;
 		}
-		RoomSystem.UseRoomSizeOverride = true;
-		RoomSystem.RoomSizeOverride = roomSize;
+		else
+		{
+			RoomSystem.UseRoomSizeOverride = true;
+		}
+		RoomSystem.RoomSizeOverride = size;
 	}
 
 	public static byte GetOverridenRoomSize()
@@ -460,12 +534,30 @@ internal class RoomSystem : MonoBehaviour
 		{
 			return;
 		}
-		if (roomSize > 10)
+		if (roomSize > 20)
 		{
-			roomSize = 10;
+			roomSize = 20;
 		}
 		RoomSystem.m_roomSizeOnJoin = roomSize;
 		PhotonNetwork.CurrentRoom.MaxPlayers = roomSize;
+	}
+
+	public static NetPlayer GetLowestActorNumberPlayer()
+	{
+		if (!RoomSystem.joinedRoom || RoomSystem.netPlayersInRoom.Count == 0)
+		{
+			return null;
+		}
+		NetPlayer netPlayer = RoomSystem.netPlayersInRoom[0];
+		for (int i = 1; i < RoomSystem.netPlayersInRoom.Count; i++)
+		{
+			NetPlayer netPlayer2 = RoomSystem.netPlayersInRoom[i];
+			if (netPlayer2.ActorNumber < netPlayer.ActorNumber)
+			{
+				netPlayer = netPlayer2;
+			}
+		}
+		return netPlayer;
 	}
 
 	internal static void SendEvent(in byte code, in object evData, in NetPlayer target, bool reliable)
@@ -1170,13 +1262,15 @@ internal class RoomSystem : MonoBehaviour
 
 	public static Dictionary<PlayerEffect, RoomSystem.PlayerEffectConfig> playerEffectDictionary = new Dictionary<PlayerEffect, RoomSystem.PlayerEffectConfig>();
 
+	private static RoomSystemSettings __roomSettings;
+
 	[OnEnterPlay_SetNull]
 	private static RoomSystem callbackInstance;
 
 	private static byte m_roomSizeOnJoin;
 
 	[OnEnterPlay_Clear]
-	private static List<NetPlayer> netPlayersInRoom = new List<NetPlayer>(10);
+	private static List<NetPlayer> netPlayersInRoom = new List<NetPlayer>(20);
 
 	[OnEnterPlay_Set("")]
 	private static string roomGameMode = "";
@@ -1205,7 +1299,7 @@ internal class RoomSystem : MonoBehaviour
 	private static Timer disconnectTimer = new Timer();
 
 	[OnExitPlay_Clear]
-	internal static readonly Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>> netEventCallbacks = new Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>>(10);
+	internal static readonly Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>> netEventCallbacks = new Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>>(20);
 
 	private static readonly object[] sendEventData = new object[3];
 

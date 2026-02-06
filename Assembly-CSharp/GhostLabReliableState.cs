@@ -4,11 +4,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Scripting;
 
-[NetworkBehaviourWeaved(11)]
+[NetworkBehaviourWeaved(21)]
 public class GhostLabReliableState : NetworkComponent
 {
 	[Networked]
-	[NetworkedWeaved(0, 11)]
+	[NetworkedWeaved(0, 21)]
 	private unsafe GhostLabData NetData
 	{
 		get
@@ -300,7 +300,7 @@ public class GhostLabReliableState : NetworkComponent
 	public bool[] singleDoorOpen;
 
 	[WeaverGenerated]
-	[DefaultForProperty("NetData", 0, 11)]
+	[DefaultForProperty("NetData", 0, 21)]
 	[DrawIf("IsEditorWritable", true, CompareOperator.Equal, DrawIfMode.ReadOnly)]
 	private GhostLabData _NetData;
 }

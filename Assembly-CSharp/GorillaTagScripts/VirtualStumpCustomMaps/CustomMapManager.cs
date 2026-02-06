@@ -455,7 +455,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 					CustomMapManager.waitingForRoomJoin = true;
 					GorillaComputer.instance.allowedMapsToJoin = CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger().myCollider.myAllowedMapsToJoin;
 					Debug.Log(string.Format("[CustomMapManager::FinalizeExit] allowedMaps: {0}", GorillaComputer.instance.allowedMapsToJoin));
-					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger(), JoinType.Solo, null);
+					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger(), JoinType.Solo, null, false);
 					return;
 				}
 			}
@@ -466,7 +466,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 					GorillaComputer.instance.allowedMapsToJoin = CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger().myCollider.myAllowedMapsToJoin;
 					Debug.Log(string.Format("[CustomMapManager::FinalizeExit] allowedMaps: {0}", GorillaComputer.instance.allowedMapsToJoin));
 					CustomMapManager.waitingForRoomJoin = true;
-					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger(), JoinType.Solo, null);
+					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(CustomMapManager.lastUsedTeleporter.GetExitVStumpJoinTrigger(), JoinType.Solo, null, false);
 					return;
 				}
 				CustomMapManager.EndTeleport(true);

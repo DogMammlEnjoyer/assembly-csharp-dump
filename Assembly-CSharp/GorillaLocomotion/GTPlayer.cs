@@ -25,6 +25,18 @@ namespace GorillaLocomotion
 			}
 		}
 
+		private float bodyInitialHeight
+		{
+			get
+			{
+				if (GorillaIK.playerIK == null || !GorillaIK.playerIK.usingUpdatedIK)
+				{
+					return this._bodyInitialHeight;
+				}
+				return Mathf.Max(0.2f, Vector3.Dot(GorillaIK.playerIK.bodyBone.up, Vector3.up)) * this._bodyInitialHeight;
+			}
+		}
+
 		public GTPlayer.HandState LeftHand
 		{
 			get
@@ -482,7 +494,7 @@ namespace GorillaLocomotion
 			this.playerRigidbodyInterpolationDefault = this.playerRigidBody.interpolation;
 			this.playerRigidBody.maxAngularVelocity = 0f;
 			this.bodyOffsetVector = new Vector3(0f, -this.bodyCollider.height / 2f, 0f);
-			this.bodyInitialHeight = this.bodyCollider.height;
+			this._bodyInitialHeight = this.bodyCollider.height;
 			this.bodyInitialRadius = this.bodyCollider.radius;
 			this.rayCastNonAllocColliders = new RaycastHit[5];
 			this.crazyCheckVectors = new Vector3[7];
@@ -2634,15 +2646,15 @@ namespace GorillaLocomotion
 			Vector3 localPosition = this.climbHelper.localPosition;
 			if (climbable.snapX)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|425_0(ref localPosition.x, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.x, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapY)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|425_0(ref localPosition.y, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.y, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapZ)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|425_0(ref localPosition.z, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.z, climbable.maxDistanceSnap);
 			}
 			this.climbHelperTargetPos = localPosition;
 			climbable.isBeingClimbed = true;
@@ -3190,12 +3202,12 @@ namespace GorillaLocomotion
 
 		public void DoLaunch(Vector3 velocity)
 		{
-			GTPlayer.<DoLaunch>d__461 <DoLaunch>d__;
+			GTPlayer.<DoLaunch>d__465 <DoLaunch>d__;
 			<DoLaunch>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DoLaunch>d__.<>4__this = this;
 			<DoLaunch>d__.velocity = velocity;
 			<DoLaunch>d__.<>1__state = -1;
-			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__461>(ref <DoLaunch>d__);
+			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__465>(ref <DoLaunch>d__);
 		}
 
 		private void OnEnable()
@@ -3355,7 +3367,7 @@ namespace GorillaLocomotion
 		}
 
 		[CompilerGenerated]
-		internal static void <BeginClimbing>g__SnapAxis|425_0(ref float val, float maxDist)
+		internal static void <BeginClimbing>g__SnapAxis|429_0(ref float val, float maxDist)
 		{
 			if (val > maxDist)
 			{
@@ -3382,7 +3394,11 @@ namespace GorillaLocomotion
 
 		private float bodyInitialRadius;
 
-		private float bodyInitialHeight;
+		private float _bodyInitialHeight;
+
+		private float currentBodyHeight;
+
+		private double frameCount;
 
 		private RaycastHit bodyHitInfo;
 

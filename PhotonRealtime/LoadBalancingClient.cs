@@ -1914,17 +1914,28 @@ namespace Photon.Realtime
 					int num = 0;
 					if (photonEvent.Parameters.ContainsKey(253))
 					{
-						num = (int)photonEvent[253];
+						object obj2 = photonEvent[253];
+						if (!(obj2 is int))
+						{
+							return;
+						}
+						int num2 = (int)obj2;
+						num = num2;
 					}
 					Hashtable gameProperties = null;
 					Hashtable actorProperties = null;
 					if (num == 0)
 					{
-						gameProperties = (Hashtable)photonEvent[251];
+						Hashtable hashtable2 = photonEvent[251] as Hashtable;
+						if (hashtable2 == null)
+						{
+							return;
+						}
+						gameProperties = hashtable2;
 					}
-					else
+					else if (!(photonEvent[251] is Hashtable))
 					{
-						actorProperties = (Hashtable)photonEvent[251];
+						return;
 					}
 					this.ReadoutProperties(gameProperties, actorProperties, num);
 					break;
@@ -1949,29 +1960,29 @@ namespace Photon.Realtime
 					}
 					if (photonEvent.Parameters.ContainsKey(203))
 					{
-						int num2 = (int)photonEvent[203];
-						if (num2 != 0)
+						int num3 = (int)photonEvent[203];
+						if (num3 != 0)
 						{
-							this.CurrentRoom.masterClientId = num2;
-							this.InRoomCallbackTargets.OnMasterClientSwitched(this.CurrentRoom.GetPlayer(num2, false));
+							this.CurrentRoom.masterClientId = num3;
+							this.InRoomCallbackTargets.OnMasterClientSwitched(this.CurrentRoom.GetPlayer(num3, false));
 						}
 					}
 					this.InRoomCallbackTargets.OnPlayerLeftRoom(player);
 					break;
 				case 255:
 				{
-					Hashtable hashtable2 = (Hashtable)photonEvent[249];
+					Hashtable hashtable3 = (Hashtable)photonEvent[249];
 					if (player == null)
 					{
 						if (sender > 0)
 						{
-							player = this.CreatePlayer(string.Empty, sender, false, hashtable2);
+							player = this.CreatePlayer(string.Empty, sender, false, hashtable3);
 							this.CurrentRoom.StorePlayer(player);
 						}
 					}
 					else
 					{
-						player.InternalCacheProperties(hashtable2);
+						player.InternalCacheProperties(hashtable3);
 						player.IsInactive = false;
 						player.HasRejoined = (sender != this.LocalPlayer.ActorNumber);
 					}

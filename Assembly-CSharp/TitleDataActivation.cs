@@ -126,7 +126,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 				{
 					if (componentsInChildren2[k].playOnAwake)
 					{
-						if (componentsInChildren2[k].clip.length < delayedActivation)
+						if (componentsInChildren2[k].clip != null && componentsInChildren2[k].clip.length > delayedActivation)
 						{
 							componentsInChildren2[k].time = delayedActivation;
 						}
@@ -136,6 +136,45 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 						}
 					}
 				}
+			}
+		}
+	}
+
+	public float GetDelayedActivationTime()
+	{
+		DateTime serverTime = GorillaComputer.instance.GetServerTime();
+		if (serverTime.Year < 2000)
+		{
+			return 0f;
+		}
+		bool flag = false;
+		float b = 0f;
+		int num = 0;
+		while (this.activationData.AbsoluteDateTimeWindow != null && num < this.activationData.AbsoluteDateTimeWindow.Length && !flag)
+		{
+			this.activationData.AbsoluteDateTimeWindow[num].IsInWindow(serverTime, out flag, out b);
+			num++;
+		}
+		int num2 = 0;
+		while (this.activationData.RelativeDateTimeWindow != null && num2 < this.activationData.RelativeDateTimeWindow.Length && !flag)
+		{
+			this.activationData.RelativeDateTimeWindow[num2].IsInWindow(serverTime, out flag, out b);
+			num2++;
+		}
+		return Mathf.Max(0f, b);
+	}
+
+	public void PlayAnimatorAtScheduledTime(Animator animator)
+	{
+		float delayedActivationTime = this.GetDelayedActivationTime();
+		int fullPathHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+		animator.PlayInFixedTime(fullPathHash, 0, this.GetDelayedActivationTime());
+		AudioSource[] componentsInChildren = animator.GetComponentsInChildren<AudioSource>();
+		for (int i = 0; i < componentsInChildren.Length; i++)
+		{
+			if (componentsInChildren[i].playOnAwake && componentsInChildren[i].clip != null && componentsInChildren[i].clip.length > delayedActivationTime)
+			{
+				componentsInChildren[i].time = delayedActivationTime;
 			}
 		}
 	}

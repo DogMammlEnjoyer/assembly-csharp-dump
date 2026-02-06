@@ -217,7 +217,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 		{
 			return;
 		}
-		if (args == null || args.Length < 4)
+		if (args == null || args.Length < 3)
 		{
 			return;
 		}

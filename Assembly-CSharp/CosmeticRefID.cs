@@ -10,5 +10,6 @@ public enum CosmeticRefID
 	ElfLauncherHoseSocket,
 	ShadeRevealerHoseSocket,
 	GreenMonkeLauncherHoseSocket,
+	HotPepperFaceEffect,
 	_COUNT
 }

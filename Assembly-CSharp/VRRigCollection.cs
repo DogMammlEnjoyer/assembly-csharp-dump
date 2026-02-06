@@ -95,7 +95,7 @@ public class VRRigCollection : MonoBehaviour
 		return false;
 	}
 
-	public readonly List<RigContainer> containedRigs = new List<RigContainer>(10);
+	public readonly List<RigContainer> containedRigs = new List<RigContainer>(20);
 
 	[SerializeField]
 	private CompositeTriggerEvents collisionTriggerEvents;

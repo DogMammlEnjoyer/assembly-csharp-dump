@@ -37,11 +37,11 @@ public class RigDuplicationZone : MonoBehaviour
 		{
 			return;
 		}
-		this.setOtherZone(z);
-		z.setOtherZone(this);
+		this.SetOtherZone(z);
+		z.SetOtherZone(this);
 	}
 
-	private void setOtherZone(RigDuplicationZone z)
+	private void SetOtherZone(RigDuplicationZone z)
 	{
 		this.otherZone = z;
 		this.offsetToOtherZone = z.transform.position - base.transform.position;
@@ -77,16 +77,13 @@ public class RigDuplicationZone : MonoBehaviour
 		component.ClearDuplicationZone(this);
 	}
 
-	public Vector3 VisualOffsetForRigs
+	public Vector3 GetVisualOffsetForRigs(Vector3 cachedOffset)
 	{
-		get
+		if (!this.otherZone.playerInZone)
 		{
-			if (!this.otherZone.playerInZone)
-			{
-				return Vector3.zero;
-			}
-			return this.offsetToOtherZone;
+			return cachedOffset;
 		}
+		return this.offsetToOtherZone + cachedOffset;
 	}
 
 	public bool IsApplyingDisplacement

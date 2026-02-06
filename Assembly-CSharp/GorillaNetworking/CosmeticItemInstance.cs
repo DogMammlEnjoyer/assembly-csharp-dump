@@ -8,6 +8,14 @@ namespace GorillaNetworking
 {
 	public class CosmeticItemInstance
 	{
+		public CosmeticsController.CosmeticSlots ActiveSlot
+		{
+			get
+			{
+				return this._activeSlot;
+			}
+		}
+
 		private void EnableItem(GameObject obj, bool enable)
 		{
 			try
@@ -30,7 +38,7 @@ namespace GorillaNetworking
 			{
 				if (this.clippingOffsets.nameTag.enabled)
 				{
-					this._anchorOverrides.UpdateNameTagOffset(itemEnabled ? this.clippingOffsets.nameTag.offset : XformOffset.Identity, itemEnabled, this.activeSlot);
+					this._anchorOverrides.UpdateNameTagOffset(itemEnabled ? this.clippingOffsets.nameTag.offset : XformOffset.Identity, itemEnabled, this._activeSlot);
 				}
 				if (this.clippingOffsets.leftArm.enabled)
 				{
@@ -50,7 +58,7 @@ namespace GorillaNetworking
 				}
 				if (this.clippingOffsets.badge.enabled)
 				{
-					this._anchorOverrides.UpdateBadgeOffset(itemEnabled ? this.clippingOffsets.badge.offset : XformOffset.Identity, itemEnabled, this.activeSlot);
+					this._anchorOverrides.UpdateBadgeOffset(itemEnabled ? this.clippingOffsets.badge.offset : XformOffset.Identity, itemEnabled, this._activeSlot);
 				}
 				if (this.clippingOffsets.builderWatch.enabled)
 				{
@@ -96,7 +104,7 @@ namespace GorillaNetworking
 		{
 			bool flag = CosmeticsController.CosmeticSet.IsSlotLeftHanded(cosmeticSlot);
 			bool flag2 = CosmeticsController.CosmeticSet.IsSlotRightHanded(cosmeticSlot);
-			this.activeSlot = cosmeticSlot;
+			this._activeSlot = cosmeticSlot;
 			if (rig != null && this._anchorOverrides == null)
 			{
 				this._anchorOverrides = rig.gameObject.GetComponent<VRRigAnchorOverrides>();
@@ -139,6 +147,22 @@ namespace GorillaNetworking
 			this.ApplyClippingOffsets(true);
 		}
 
+		public void ToggleRenderers(bool enabled)
+		{
+			for (int i = 0; i < this.allRenderers.Count; i++)
+			{
+				this.allRenderers[i].enabled = enabled;
+			}
+		}
+
+		public void ToggleParticles(bool enabled)
+		{
+			for (int i = 0; i < this.allParticles.Count; i++)
+			{
+				this.allParticles[i].emission.enabled = enabled;
+			}
+		}
+
 		public List<GameObject> leftObjects = new List<GameObject>();
 
 		public List<GameObject> rightObjects = new List<GameObject>();
@@ -146,6 +170,10 @@ namespace GorillaNetworking
 		public List<GameObject> objects = new List<GameObject>();
 
 		public List<GameObject> holdableObjects = new List<GameObject>();
+
+		public List<Renderer> allRenderers = new List<Renderer>();
+
+		public List<ParticleSystem> allParticles = new List<ParticleSystem>();
 
 		public CosmeticAnchorAntiIntersectOffsets clippingOffsets;
 
@@ -157,6 +185,6 @@ namespace GorillaNetworking
 
 		private VRRigAnchorOverrides _anchorOverrides;
 
-		private CosmeticsController.CosmeticSlots activeSlot;
+		private CosmeticsController.CosmeticSlots _activeSlot;
 	}
 }

@@ -9,7 +9,7 @@ namespace Viveport
 		[MonoPInvokeCallback(typeof(StatusCallback2))]
 		private static void IsReadyIl2cppCallback(int errorCode, string message)
 		{
-			Subscription.isReadyIl2cppCallback(errorCode, message);
+			Viveport.Subscription.isReadyIl2cppCallback(errorCode, message);
 		}
 
 		public static void IsReady(StatusCallback2 callback)
@@ -18,14 +18,14 @@ namespace Viveport
 			{
 				throw new InvalidOperationException("callback == null");
 			}
-			Subscription.isReadyIl2cppCallback = new StatusCallback2(callback.Invoke);
-			Api.InternalStatusCallback2s.Add(new StatusCallback2(Subscription.IsReadyIl2cppCallback));
+			Viveport.Subscription.isReadyIl2cppCallback = new StatusCallback2(callback.Invoke);
+			Api.InternalStatusCallback2s.Add(new StatusCallback2(Viveport.Subscription.IsReadyIl2cppCallback));
 			if (IntPtr.Size == 8)
 			{
-				Subscription.IsReady_64(new StatusCallback2(Subscription.IsReadyIl2cppCallback));
+				Viveport.Internal.Subscription.IsReady_64(new StatusCallback2(Viveport.Subscription.IsReadyIl2cppCallback));
 				return;
 			}
-			Subscription.IsReady(new StatusCallback2(Subscription.IsReadyIl2cppCallback));
+			Viveport.Internal.Subscription.IsReady(new StatusCallback2(Viveport.Subscription.IsReadyIl2cppCallback));
 		}
 
 		public static SubscriptionStatus GetUserStatus()
@@ -33,15 +33,15 @@ namespace Viveport
 			SubscriptionStatus subscriptionStatus = new SubscriptionStatus();
 			if (IntPtr.Size == 8)
 			{
-				if (Subscription.IsWindowsSubscriber_64())
+				if (Viveport.Internal.Subscription.IsWindowsSubscriber_64())
 				{
 					subscriptionStatus.Platforms.Add(SubscriptionStatus.Platform.Windows);
 				}
-				if (Subscription.IsAndroidSubscriber_64())
+				if (Viveport.Internal.Subscription.IsAndroidSubscriber_64())
 				{
 					subscriptionStatus.Platforms.Add(SubscriptionStatus.Platform.Android);
 				}
-				switch (Subscription.GetTransactionType_64())
+				switch (Viveport.Internal.Subscription.GetTransactionType_64())
 				{
 				case ESubscriptionTransactionType.UNKNOWN:
 					subscriptionStatus.Type = SubscriptionStatus.TransactionType.Unknown;
@@ -62,15 +62,15 @@ namespace Viveport
 			}
 			else
 			{
-				if (Subscription.IsWindowsSubscriber())
+				if (Viveport.Internal.Subscription.IsWindowsSubscriber())
 				{
 					subscriptionStatus.Platforms.Add(SubscriptionStatus.Platform.Windows);
 				}
-				if (Subscription.IsAndroidSubscriber())
+				if (Viveport.Internal.Subscription.IsAndroidSubscriber())
 				{
 					subscriptionStatus.Platforms.Add(SubscriptionStatus.Platform.Android);
 				}
-				switch (Subscription.GetTransactionType())
+				switch (Viveport.Internal.Subscription.GetTransactionType())
 				{
 				case ESubscriptionTransactionType.UNKNOWN:
 					subscriptionStatus.Type = SubscriptionStatus.TransactionType.Unknown;

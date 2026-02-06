@@ -160,7 +160,8 @@ public class DebugHudStats : MonoBehaviour
 			num = Mathf.Min(num, 90);
 			this.builder.Append((num < DebugHudStats.FPS_THRESHOLD) ? " - <color=\"red\">" : " - <color=\"white\">");
 			this.builder.Append(num);
-			this.builder.AppendLine(" fps</color>");
+			this.builder.Append(string.Format(" fps / {0} fps</color> ", DebugHudStats.FPS_THRESHOLD + 1));
+			this.builder.AppendLine(string.Format("sfps: {0} (Health: {1})", GorillaTagger.Instance.SmoothedFramerate, GorillaTagger.Instance.FramerateHealth));
 			float eyeTextureResolutionScale = XRSettings.eyeTextureResolutionScale;
 			float renderViewportScale = XRSettings.renderViewportScale;
 			float renderScale = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset).renderScale;

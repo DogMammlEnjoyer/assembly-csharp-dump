@@ -132,6 +132,22 @@ public class NetworkSystemFusion : NetworkSystem
 		}
 	}
 
+	public override bool SessionIsSubscription
+	{
+		get
+		{
+			NetworkRunner runner = this.runner;
+			if (runner == null)
+			{
+				return false;
+			}
+			SessionInfo sessionInfo = runner.SessionInfo;
+			int? num = (sessionInfo != null) ? new int?(sessionInfo.MaxPlayers) : null;
+			int num2 = 10;
+			return num.GetValueOrDefault() > num2 & num != null;
+		}
+	}
+
 	public override int LocalPlayerID
 	{
 		get
@@ -231,11 +247,11 @@ public class NetworkSystemFusion : NetworkSystem
 
 	public override void Initialise()
 	{
-		NetworkSystemFusion.<Initialise>d__53 <Initialise>d__;
+		NetworkSystemFusion.<Initialise>d__55 <Initialise>d__;
 		<Initialise>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<Initialise>d__.<>4__this = this;
 		<Initialise>d__.<>1__state = -1;
-		<Initialise>d__.<>t__builder.Start<NetworkSystemFusion.<Initialise>d__53>(ref <Initialise>d__);
+		<Initialise>d__.<>t__builder.Start<NetworkSystemFusion.<Initialise>d__55>(ref <Initialise>d__);
 	}
 
 	private void CreateRegionCrawler()
@@ -247,11 +263,11 @@ public class NetworkSystemFusion : NetworkSystem
 
 	private Task AwaitAuth()
 	{
-		NetworkSystemFusion.<AwaitAuth>d__55 <AwaitAuth>d__;
+		NetworkSystemFusion.<AwaitAuth>d__57 <AwaitAuth>d__;
 		<AwaitAuth>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<AwaitAuth>d__.<>4__this = this;
 		<AwaitAuth>d__.<>1__state = -1;
-		<AwaitAuth>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitAuth>d__55>(ref <AwaitAuth>d__);
+		<AwaitAuth>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitAuth>d__57>(ref <AwaitAuth>d__);
 		return <AwaitAuth>d__.<>t__builder.Task;
 	}
 
@@ -267,55 +283,55 @@ public class NetworkSystemFusion : NetworkSystem
 
 	public override Task<NetJoinResult> ConnectToRoom(string roomName, RoomConfig opts, int regionIndex = -1)
 	{
-		NetworkSystemFusion.<ConnectToRoom>d__57 <ConnectToRoom>d__;
+		NetworkSystemFusion.<ConnectToRoom>d__59 <ConnectToRoom>d__;
 		<ConnectToRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<ConnectToRoom>d__.<>4__this = this;
 		<ConnectToRoom>d__.roomName = roomName;
 		<ConnectToRoom>d__.opts = opts;
 		<ConnectToRoom>d__.<>1__state = -1;
-		<ConnectToRoom>d__.<>t__builder.Start<NetworkSystemFusion.<ConnectToRoom>d__57>(ref <ConnectToRoom>d__);
+		<ConnectToRoom>d__.<>t__builder.Start<NetworkSystemFusion.<ConnectToRoom>d__59>(ref <ConnectToRoom>d__);
 		return <ConnectToRoom>d__.<>t__builder.Task;
 	}
 
 	private Task<bool> Connect(Fusion.GameMode mode, string targetSessionName, RoomConfig opts)
 	{
-		NetworkSystemFusion.<Connect>d__58 <Connect>d__;
+		NetworkSystemFusion.<Connect>d__60 <Connect>d__;
 		<Connect>d__.<>t__builder = AsyncTaskMethodBuilder<bool>.Create();
 		<Connect>d__.<>4__this = this;
 		<Connect>d__.mode = mode;
 		<Connect>d__.targetSessionName = targetSessionName;
 		<Connect>d__.opts = opts;
 		<Connect>d__.<>1__state = -1;
-		<Connect>d__.<>t__builder.Start<NetworkSystemFusion.<Connect>d__58>(ref <Connect>d__);
+		<Connect>d__.<>t__builder.Start<NetworkSystemFusion.<Connect>d__60>(ref <Connect>d__);
 		return <Connect>d__.<>t__builder.Task;
 	}
 
 	private Task<NetJoinResult> MakeOrJoinRoom(string roomName, RoomConfig opts)
 	{
-		NetworkSystemFusion.<MakeOrJoinRoom>d__59 <MakeOrJoinRoom>d__;
+		NetworkSystemFusion.<MakeOrJoinRoom>d__61 <MakeOrJoinRoom>d__;
 		<MakeOrJoinRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<MakeOrJoinRoom>d__.<>4__this = this;
 		<MakeOrJoinRoom>d__.roomName = roomName;
 		<MakeOrJoinRoom>d__.opts = opts;
 		<MakeOrJoinRoom>d__.<>1__state = -1;
-		<MakeOrJoinRoom>d__.<>t__builder.Start<NetworkSystemFusion.<MakeOrJoinRoom>d__59>(ref <MakeOrJoinRoom>d__);
+		<MakeOrJoinRoom>d__.<>t__builder.Start<NetworkSystemFusion.<MakeOrJoinRoom>d__61>(ref <MakeOrJoinRoom>d__);
 		return <MakeOrJoinRoom>d__.<>t__builder.Task;
 	}
 
 	private Task<NetJoinResult> JoinRandomPublicRoom(RoomConfig opts)
 	{
-		NetworkSystemFusion.<JoinRandomPublicRoom>d__60 <JoinRandomPublicRoom>d__;
+		NetworkSystemFusion.<JoinRandomPublicRoom>d__62 <JoinRandomPublicRoom>d__;
 		<JoinRandomPublicRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<JoinRandomPublicRoom>d__.<>4__this = this;
 		<JoinRandomPublicRoom>d__.opts = opts;
 		<JoinRandomPublicRoom>d__.<>1__state = -1;
-		<JoinRandomPublicRoom>d__.<>t__builder.Start<NetworkSystemFusion.<JoinRandomPublicRoom>d__60>(ref <JoinRandomPublicRoom>d__);
+		<JoinRandomPublicRoom>d__.<>t__builder.Start<NetworkSystemFusion.<JoinRandomPublicRoom>d__62>(ref <JoinRandomPublicRoom>d__);
 		return <JoinRandomPublicRoom>d__.<>t__builder.Task;
 	}
 
 	public override Task JoinFriendsRoom(string userID, int actorIDToFollow, string keyToFollow, string shufflerToFollow)
 	{
-		NetworkSystemFusion.<JoinFriendsRoom>d__61 <JoinFriendsRoom>d__;
+		NetworkSystemFusion.<JoinFriendsRoom>d__63 <JoinFriendsRoom>d__;
 		<JoinFriendsRoom>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<JoinFriendsRoom>d__.<>4__this = this;
 		<JoinFriendsRoom>d__.userID = userID;
@@ -323,7 +339,7 @@ public class NetworkSystemFusion : NetworkSystem
 		<JoinFriendsRoom>d__.keyToFollow = keyToFollow;
 		<JoinFriendsRoom>d__.shufflerToFollow = shufflerToFollow;
 		<JoinFriendsRoom>d__.<>1__state = -1;
-		<JoinFriendsRoom>d__.<>t__builder.Start<NetworkSystemFusion.<JoinFriendsRoom>d__61>(ref <JoinFriendsRoom>d__);
+		<JoinFriendsRoom>d__.<>t__builder.Start<NetworkSystemFusion.<JoinFriendsRoom>d__63>(ref <JoinFriendsRoom>d__);
 		return <JoinFriendsRoom>d__.<>t__builder.Task;
 	}
 
@@ -334,41 +350,41 @@ public class NetworkSystemFusion : NetworkSystem
 
 	public override Task ReturnToSinglePlayer()
 	{
-		NetworkSystemFusion.<ReturnToSinglePlayer>d__63 <ReturnToSinglePlayer>d__;
+		NetworkSystemFusion.<ReturnToSinglePlayer>d__65 <ReturnToSinglePlayer>d__;
 		<ReturnToSinglePlayer>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<ReturnToSinglePlayer>d__.<>4__this = this;
 		<ReturnToSinglePlayer>d__.<>1__state = -1;
-		<ReturnToSinglePlayer>d__.<>t__builder.Start<NetworkSystemFusion.<ReturnToSinglePlayer>d__63>(ref <ReturnToSinglePlayer>d__);
+		<ReturnToSinglePlayer>d__.<>t__builder.Start<NetworkSystemFusion.<ReturnToSinglePlayer>d__65>(ref <ReturnToSinglePlayer>d__);
 		return <ReturnToSinglePlayer>d__.<>t__builder.Task;
 	}
 
 	private Task CloseRunner(ShutdownReason reason = ShutdownReason.Ok)
 	{
-		NetworkSystemFusion.<CloseRunner>d__64 <CloseRunner>d__;
+		NetworkSystemFusion.<CloseRunner>d__66 <CloseRunner>d__;
 		<CloseRunner>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<CloseRunner>d__.<>4__this = this;
 		<CloseRunner>d__.reason = reason;
 		<CloseRunner>d__.<>1__state = -1;
-		<CloseRunner>d__.<>t__builder.Start<NetworkSystemFusion.<CloseRunner>d__64>(ref <CloseRunner>d__);
+		<CloseRunner>d__.<>t__builder.Start<NetworkSystemFusion.<CloseRunner>d__66>(ref <CloseRunner>d__);
 		return <CloseRunner>d__.<>t__builder.Task;
 	}
 
 	public void MigrateHost(NetworkRunner runner, HostMigrationToken hostMigrationToken)
 	{
-		NetworkSystemFusion.<MigrateHost>d__65 <MigrateHost>d__;
+		NetworkSystemFusion.<MigrateHost>d__67 <MigrateHost>d__;
 		<MigrateHost>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<MigrateHost>d__.<>4__this = this;
 		<MigrateHost>d__.<>1__state = -1;
-		<MigrateHost>d__.<>t__builder.Start<NetworkSystemFusion.<MigrateHost>d__65>(ref <MigrateHost>d__);
+		<MigrateHost>d__.<>t__builder.Start<NetworkSystemFusion.<MigrateHost>d__67>(ref <MigrateHost>d__);
 	}
 
 	public void ResetSystem()
 	{
-		NetworkSystemFusion.<ResetSystem>d__66 <ResetSystem>d__;
+		NetworkSystemFusion.<ResetSystem>d__68 <ResetSystem>d__;
 		<ResetSystem>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<ResetSystem>d__.<>4__this = this;
 		<ResetSystem>d__.<>1__state = -1;
-		<ResetSystem>d__.<>t__builder.Start<NetworkSystemFusion.<ResetSystem>d__66>(ref <ResetSystem>d__);
+		<ResetSystem>d__.<>t__builder.Start<NetworkSystemFusion.<ResetSystem>d__68>(ref <ResetSystem>d__);
 	}
 
 	private void AddVoice()
@@ -443,12 +459,12 @@ public class NetworkSystemFusion : NetworkSystem
 
 	private void AttachSceneObjects(bool onlyCached = false)
 	{
-		NetworkSystemFusion.<AttachSceneObjects>d__74 <AttachSceneObjects>d__;
+		NetworkSystemFusion.<AttachSceneObjects>d__76 <AttachSceneObjects>d__;
 		<AttachSceneObjects>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<AttachSceneObjects>d__.<>4__this = this;
 		<AttachSceneObjects>d__.onlyCached = onlyCached;
 		<AttachSceneObjects>d__.<>1__state = -1;
-		<AttachSceneObjects>d__.<>t__builder.Start<NetworkSystemFusion.<AttachSceneObjects>d__74>(ref <AttachSceneObjects>d__);
+		<AttachSceneObjects>d__.<>t__builder.Start<NetworkSystemFusion.<AttachSceneObjects>d__76>(ref <AttachSceneObjects>d__);
 	}
 
 	public override void AttachObjectInGame(GameObject item)
@@ -636,11 +652,11 @@ public class NetworkSystemFusion : NetworkSystem
 
 	public override Task AwaitSceneReady()
 	{
-		NetworkSystemFusion.<AwaitSceneReady>d__93 <AwaitSceneReady>d__;
+		NetworkSystemFusion.<AwaitSceneReady>d__95 <AwaitSceneReady>d__;
 		<AwaitSceneReady>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<AwaitSceneReady>d__.<>4__this = this;
 		<AwaitSceneReady>d__.<>1__state = -1;
-		<AwaitSceneReady>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitSceneReady>d__93>(ref <AwaitSceneReady>d__);
+		<AwaitSceneReady>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitSceneReady>d__95>(ref <AwaitSceneReady>d__);
 		return <AwaitSceneReady>d__.<>t__builder.Task;
 	}
 
@@ -686,12 +702,12 @@ public class NetworkSystemFusion : NetworkSystem
 
 	private Task AwaitJoiningPlayerClientReady(PlayerRef player)
 	{
-		NetworkSystemFusion.<AwaitJoiningPlayerClientReady>d__99 <AwaitJoiningPlayerClientReady>d__;
+		NetworkSystemFusion.<AwaitJoiningPlayerClientReady>d__101 <AwaitJoiningPlayerClientReady>d__;
 		<AwaitJoiningPlayerClientReady>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<AwaitJoiningPlayerClientReady>d__.<>4__this = this;
 		<AwaitJoiningPlayerClientReady>d__.player = player;
 		<AwaitJoiningPlayerClientReady>d__.<>1__state = -1;
-		<AwaitJoiningPlayerClientReady>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitJoiningPlayerClientReady>d__99>(ref <AwaitJoiningPlayerClientReady>d__);
+		<AwaitJoiningPlayerClientReady>d__.<>t__builder.Start<NetworkSystemFusion.<AwaitJoiningPlayerClientReady>d__101>(ref <AwaitJoiningPlayerClientReady>d__);
 		return <AwaitJoiningPlayerClientReady>d__.<>t__builder.Task;
 	}
 

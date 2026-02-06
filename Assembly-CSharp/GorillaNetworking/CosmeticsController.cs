@@ -2773,6 +2773,10 @@ namespace GorillaNetworking
 
 		public bool ValidatePackedItems(int[] packed)
 		{
+			if (packed == null)
+			{
+				return false;
+			}
 			if (packed.Length == 0)
 			{
 				return true;

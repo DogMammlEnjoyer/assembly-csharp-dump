@@ -40,6 +40,11 @@ public struct GroupJoinZoneAB
 		return one.a != two.a || one.b != two.b;
 	}
 
+	public bool HasAnyFlag(GroupJoinZoneAB other)
+	{
+		return (this.a & other.a) != (GroupJoinZoneA)0 || (this.b & other.b) > (GroupJoinZoneB)0;
+	}
+
 	public override bool Equals(object other)
 	{
 		return this == (GroupJoinZoneAB)other;

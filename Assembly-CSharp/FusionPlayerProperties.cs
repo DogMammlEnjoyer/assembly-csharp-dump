@@ -8,7 +8,7 @@ using UnityEngine.Scripting;
 [NetworkBehaviourWeaved(0)]
 public class FusionPlayerProperties : NetworkBehaviour
 {
-	[Capacity(10)]
+	[Capacity(20)]
 	private NetworkDictionary<PlayerRef, FusionPlayerProperties.PlayerInfo> netPlayerAttributes
 	{
 		get

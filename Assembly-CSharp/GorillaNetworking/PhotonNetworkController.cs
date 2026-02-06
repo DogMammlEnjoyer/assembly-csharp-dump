@@ -128,7 +128,7 @@ namespace GorillaNetworking
 					this.partyJoinDeferredUntilTimestamp = 0f;
 					if (!(this.currentJoinTrigger == this.privateTrigger))
 					{
-						this.AttemptToJoinPublicRoom(this.currentJoinTrigger, this.currentJoinType, null);
+						this.AttemptToJoinPublicRoom(this.currentJoinTrigger, this.currentJoinType, null, false);
 						return;
 					}
 					if (this.customRoomID == this.roomToJoin || this.customRoomID == this.autoJoinRoom || this.customRoomID == this.LastRoomToJoin)
@@ -158,12 +158,12 @@ namespace GorillaNetworking
 			this.deferredJoin = false;
 		}
 
-		public void AttemptToJoinPublicRoom(GorillaNetworkJoinTrigger triggeredTrigger, JoinType roomJoinType = JoinType.Solo, List<ValueTuple<string, string>> additionalCustomProperties = null)
+		public void AttemptToJoinPublicRoom(GorillaNetworkJoinTrigger triggeredTrigger, JoinType roomJoinType = JoinType.Solo, List<ValueTuple<string, string>> additionalCustomProperties = null, bool filterSubscribed = false)
 		{
-			this.AttemptToJoinPublicRoomAsync(triggeredTrigger, roomJoinType, additionalCustomProperties);
+			this.AttemptToJoinPublicRoomAsync(triggeredTrigger, roomJoinType, additionalCustomProperties, filterSubscribed);
 		}
 
-		private void AttemptToJoinPublicRoomAsync(GorillaNetworkJoinTrigger triggeredTrigger, JoinType roomJoinType, List<ValueTuple<string, string>> additionalCustomProperties)
+		private void AttemptToJoinPublicRoomAsync(GorillaNetworkJoinTrigger triggeredTrigger, JoinType roomJoinType, List<ValueTuple<string, string>> additionalCustomProperties, bool filterSubscribed)
 		{
 			PhotonNetworkController.<AttemptToJoinPublicRoomAsync>d__69 <AttemptToJoinPublicRoomAsync>d__;
 			<AttemptToJoinPublicRoomAsync>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
@@ -171,6 +171,7 @@ namespace GorillaNetworking
 			<AttemptToJoinPublicRoomAsync>d__.triggeredTrigger = triggeredTrigger;
 			<AttemptToJoinPublicRoomAsync>d__.roomJoinType = roomJoinType;
 			<AttemptToJoinPublicRoomAsync>d__.additionalCustomProperties = additionalCustomProperties;
+			<AttemptToJoinPublicRoomAsync>d__.filterSubscribed = filterSubscribed;
 			<AttemptToJoinPublicRoomAsync>d__.<>1__state = -1;
 			<AttemptToJoinPublicRoomAsync>d__.<>t__builder.Start<PhotonNetworkController.<AttemptToJoinPublicRoomAsync>d__69>(ref <AttemptToJoinPublicRoomAsync>d__);
 		}
@@ -307,14 +308,10 @@ namespace GorillaNetworking
 						break;
 					}
 				}
-				if (flag && GorillaComputer.instance.friendJoinCollider != null && !GorillaComputer.instance.friendJoinCollider.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId))
+				if (flag && GorillaComputer.instance.friendJoinCollider != null && !GorillaComputer.instance.friendJoinCollider.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId) && !GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(NetworkSystem.Instance.GameModeString).groupJoinRequiredZonesAB.HasAnyFlag(VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB))
 				{
-					GTZone gtzone = this.ParseZoneFromGameMode(NetworkSystem.Instance.GameModeString);
-					if (gtzone != GTZone.none && !ZoneManagement.IsInZone(gtzone))
-					{
-						Debug.Log(string.Format("NOT ALLOWED IN ROOM: Joined {0} room but not physically in {1} zone", gtzone, gtzone));
-						flag = false;
-					}
+					Debug.Log(string.Format("NOT ALLOWED IN ROOM: Joined {0} room but physically in {1} zone", this.ParseZoneFromGameMode(NetworkSystem.Instance.GameModeString), VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB));
+					flag = false;
 				}
 				if (!flag)
 				{
@@ -604,7 +601,7 @@ namespace GorillaNetworking
 
 		public string autoJoinRoom;
 
-		public int autoJoinRoomCap = 8;
+		public int autoJoinRoomCap = 18;
 
 		public string autoJoinGameMode;
 

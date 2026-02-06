@@ -112,7 +112,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 			GorillaComputer.instance.SetGameModeWithoutButton(CustomMapModeSelector.defaultGamemodeForLoadedMap.ToString());
 		}
 
-		public override void SetupButtons()
+		protected override void SetupButtons()
 		{
 			CustomMapModeSelector.<SetupButtons>d__16 <SetupButtons>d__;
 			<SetupButtons>d__.<>t__builder = AsyncVoidMethodBuilder.Create();

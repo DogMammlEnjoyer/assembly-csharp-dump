@@ -621,5 +621,43 @@ public class MothershipClientApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetClientGetMySubscriptionsDelegateWrapper(ClientGetMySubscriptionCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientGetMySubscriptionsDelegateWrapper(this.swigCPtr, ClientGetMySubscriptionCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientGetMySubscriptions(string callerId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientGetMySubscriptions(this.swigCPtr, callerId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetClientBulkGetSubscriptionsDelegateWrapper(ClientGetBulkSubscriptionsCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientBulkGetSubscriptionsDelegateWrapper(this.swigCPtr, ClientGetBulkSubscriptionsCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientBulkGetSubscriptions(string callerId, StringVector players, PlatformAndSkuVector platformSkus, StringVector catalogIds, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientBulkGetSubscriptions(this.swigCPtr, callerId, StringVector.getCPtr(players), PlatformAndSkuVector.getCPtr(platformSkus), StringVector.getCPtr(catalogIds), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private HandleRef swigCPtr;
 }

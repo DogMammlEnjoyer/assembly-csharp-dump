@@ -150,9 +150,9 @@ namespace GorillaNetworking
 			return NetworkSystem.Instance.groupJoinOverrideGameMode.StartsWith(this.networkZone);
 		}
 
-		public virtual byte GetRoomSize()
+		public virtual byte GetRoomSize(bool subscribed)
 		{
-			return RoomSystem.GetRoomSizeForCreate(this.networkZone);
+			return RoomSystem.GetRoomSizeForCreate(this.zone, Enum.Parse<GameModeType>(GorillaComputer.instance.currentGameMode.Value, true), false, subscribed);
 		}
 
 		public bool CanPartyJoin()
@@ -216,7 +216,7 @@ namespace GorillaNetworking
 					Debug.Log(string.Format("JoinTrigger: Attempting party join in 1 second! <{0}> accepts <{1}>", this.groupJoinRequiredZones, FriendshipGroupDetection.Instance.partyZone));
 					PhotonNetworkController.Instance.DeferJoining(1f);
 					FriendshipGroupDetection.Instance.SendAboutToGroupJoin();
-					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.JoinWithParty, list);
+					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.JoinWithParty, list, false);
 					return;
 				}
 				Debug.Log(string.Format("JoinTrigger: LeaveGroup: Leaving party and will solo join, wanted <{0}> but got <{1}>", this.groupJoinRequiredZones, FriendshipGroupDetection.Instance.partyZone));
@@ -228,7 +228,19 @@ namespace GorillaNetworking
 				Debug.Log("JoinTrigger: Solo join (not in a group)");
 				PhotonNetworkController.Instance.ClearDeferredJoin();
 			}
-			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.Solo, list);
+			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.Solo, list, false);
+		}
+
+		public void SubsPublicJoin()
+		{
+			if (GorillaNetworkJoinTrigger.triggerJoinsDisabled)
+			{
+				Debug.Log("GorillaNetworkJoinTrigger::SubsPublicJoin - blocking join call");
+				return;
+			}
+			GorillaComputer.instance.allowedMapsToJoin = this.myCollider.myAllowedMapsToJoin;
+			PhotonNetworkController.Instance.ClearDeferredJoin();
+			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.Solo, null, SubscriptionManager.IsLocalSubscribed());
 		}
 
 		public static void DisableTriggerJoins()

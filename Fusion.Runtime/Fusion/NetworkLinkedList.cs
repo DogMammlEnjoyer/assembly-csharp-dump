@@ -9,7 +9,7 @@ namespace Fusion
 {
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(NetworkLinkedList<>.DebuggerProxy))]
-	public struct NetworkLinkedList<T> : IEnumerable<T>, IEnumerable, INetworkLinkedList
+	public struct NetworkLinkedList<T> : IEnumerable<!0>, IEnumerable, INetworkLinkedList
 	{
 		private unsafe int Head
 		{

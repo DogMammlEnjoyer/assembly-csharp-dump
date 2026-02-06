@@ -498,7 +498,7 @@ internal class VRRigCache : MonoBehaviour
 	[SerializeField]
 	private GameObject rigTemplate;
 
-	private int rigAmount = 9;
+	private int rigAmount = 19;
 
 	[SerializeField]
 	private TickSystemTimer m_ensureNetworkObjectTimer = new TickSystemTimer(0.1f);

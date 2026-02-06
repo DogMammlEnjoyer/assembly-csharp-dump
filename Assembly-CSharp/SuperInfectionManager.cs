@@ -1088,9 +1088,9 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 
 	public static Dictionary<GTZone, SuperInfectionManager> siManagerByZone = new Dictionary<GTZone, SuperInfectionManager>();
 
-	private static List<VRRig> tempRigs = new List<VRRig>(10);
+	private static List<VRRig> tempRigs = new List<VRRig>(20);
 
-	private static List<VRRig> tempRigs2 = new List<VRRig>(10);
+	private static List<VRRig> tempRigs2 = new List<VRRig>(20);
 
 	private readonly Dictionary<SnapJointType, List<SuperInfectionSnapPoint>> allSnapPoints = new Dictionary<SnapJointType, List<SuperInfectionSnapPoint>>();
 

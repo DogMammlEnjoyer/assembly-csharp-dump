@@ -203,7 +203,7 @@ namespace Fusion
 
 		private static StringBuilder _stringBuilderCached;
 
-		public struct Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<T>, IEnumerator, IDisposable
 		{
 			public unsafe T Current
 			{

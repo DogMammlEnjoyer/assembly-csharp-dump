@@ -997,7 +997,7 @@ public sealed class GorillaPropHuntGameManager : GorillaTagManager
 	[SerializeField]
 	private GameObject m_ph_blindfold_forAvatarPrefab;
 
-	private readonly Dictionary<int, GameObject> _ph_vrRig_to_blindfolds = new Dictionary<int, GameObject>(10);
+	private readonly Dictionary<int, GameObject> _ph_vrRig_to_blindfolds = new Dictionary<int, GameObject>(20);
 
 	[Tooltip("A randomly picked sound in this soundbank will be played when the hide state starts.")]
 	[FormerlySerializedAs("m_propHunt_hideState_startSoundBank")]
@@ -1145,7 +1145,7 @@ public sealed class GorillaPropHuntGameManager : GorillaTagManager
 	private static float _g_ph_hapticsLastImpulseEndTime;
 
 	[OnEnterPlay_Clear]
-	private static readonly List<VRRig> _g_ph_activePlayerRigs = new List<VRRig>(10);
+	private static readonly List<VRRig> _g_ph_activePlayerRigs = new List<VRRig>(20);
 
 	[OnEnterPlay_Clear]
 	private static readonly List<PropHuntPropZone> _g_ph_allPropZones = new List<PropHuntPropZone>();

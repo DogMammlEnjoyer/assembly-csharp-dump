@@ -31,8 +31,8 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 		HandEffectsTriggerRegistry.HasInstance = true;
 		this.job = new HandEffectsTriggerRegistry.HandEffectsJob
 		{
-			positionInput = new NativeArray<Vector3>(30, Allocator.Persistent, NativeArrayOptions.ClearMemory),
-			closeOutput = new NativeArray<bool>(900, Allocator.Persistent, NativeArrayOptions.ClearMemory),
+			positionInput = new NativeArray<Vector3>(50, Allocator.Persistent, NativeArrayOptions.ClearMemory),
+			closeOutput = new NativeArray<bool>(2500, Allocator.Persistent, NativeArrayOptions.ClearMemory),
 			actualListSize = this.actualListSz
 		};
 	}
@@ -51,7 +51,7 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 
 	public void Register(IHandEffectsTrigger trigger)
 	{
-		if (this.triggers.Count < 30)
+		if (this.triggers.Count < 50)
 		{
 			this.actualListSz++;
 			this.triggers.Add(trigger);
@@ -95,10 +95,10 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 		for (int i = 0; i < this.triggers.Count; i++)
 		{
 			IHandEffectsTrigger handEffectsTrigger = this.triggers[i];
-			int num = i * 30;
+			int num = i * 50;
 			for (int j = i + 1; j < this.triggers.Count; j++)
 			{
-				if (this.job.closeOutput[i * 30 + j])
+				if (this.job.closeOutput[i * 50 + j])
 				{
 					IHandEffectsTrigger handEffectsTrigger2 = this.triggers[j];
 					if (handEffectsTrigger.InTriggerZone(handEffectsTrigger2) || handEffectsTrigger2.InTriggerZone(handEffectsTrigger))
@@ -130,9 +130,9 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 		}
 	}
 
-	private const int MAX_TRIGGERS = 30;
+	private const int MAX_TRIGGERS = 50;
 
-	private const int BIT_ARRAY_SIZE = 900;
+	private const int BIT_ARRAY_SIZE = 2500;
 
 	private const float COOLDOWN_TIME = 0.5f;
 
@@ -140,11 +140,11 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 
 	private readonly List<IHandEffectsTrigger> triggers = new List<IHandEffectsTrigger>();
 
-	private readonly float[] triggerTimes = new float[30];
+	private readonly float[] triggerTimes = new float[50];
 
-	private readonly GTBitArray existingCollisionBits = new GTBitArray(900);
+	private readonly GTBitArray existingCollisionBits = new GTBitArray(2500);
 
-	private readonly GTBitArray newCollisionBits = new GTBitArray(900);
+	private readonly GTBitArray newCollisionBits = new GTBitArray(2500);
 
 	private int actualListSz;
 
@@ -159,7 +159,7 @@ public class HandEffectsTriggerRegistry : MonoBehaviour, ITickSystemTick, ITickS
 		{
 			for (int j = i + 1; j < this.actualListSize; j++)
 			{
-				this.closeOutput[i * 30 + j] = (this.positionInput[i] - this.positionInput[j]).IsShorterThan(0.5f);
+				this.closeOutput[i * 50 + j] = (this.positionInput[i] - this.positionInput[j]).IsShorterThan(0.5f);
 			}
 		}
 

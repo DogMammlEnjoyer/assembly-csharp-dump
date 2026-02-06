@@ -129,7 +129,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 		{
 			return;
 		}
-		if (participantActorNumbers.Length > 10)
+		if (participantActorNumbers.Length > 20)
 		{
 			return;
 		}
@@ -804,7 +804,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 
 		private PhotonView photonView;
 
-		private List<RacingManager.RacerData> racers = new List<RacingManager.RacerData>(10);
+		private List<RacingManager.RacerData> racers = new List<RacingManager.RacerData>(20);
 
 		private Dictionary<NetPlayer, int> playerLookup = new Dictionary<NetPlayer, int>();
 

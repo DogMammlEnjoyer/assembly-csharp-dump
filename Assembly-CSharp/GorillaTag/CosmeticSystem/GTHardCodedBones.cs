@@ -307,7 +307,7 @@ namespace GorillaTag.CosmeticSystem
 			Transform transform4 = outBoneXforms[2];
 			if (transform4 != null && transform4.parent != null)
 			{
-				outBoneXforms[1] = transform4.parent;
+				outBoneXforms[1] = transform4.parent.parent;
 			}
 			else
 			{

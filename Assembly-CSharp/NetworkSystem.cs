@@ -522,6 +522,8 @@ public abstract class NetworkSystem : MonoBehaviour
 
 	public abstract bool SessionIsPrivate { get; }
 
+	public abstract bool SessionIsSubscription { get; }
+
 	public abstract int LocalPlayerID { get; }
 
 	public virtual NetPlayer[] AllNetPlayers

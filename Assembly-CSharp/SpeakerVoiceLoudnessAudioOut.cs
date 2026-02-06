@@ -35,7 +35,12 @@ public class SpeakerVoiceLoudnessAudioOut : UnityAudioOut
 		}
 		if (num > 0f)
 		{
-			this.voiceToLoudness.loudness = num / (float)data.Length;
+			float num3 = num / (float)data.Length;
+			this.voiceToLoudness.loudness = num3;
+			if (SpeakerVoiceToLoudnessConfig.EnableLoudnessLimit && num3 > SpeakerVoiceToLoudnessConfig.LoudnessLimitThreshold)
+			{
+				data = SpeakerVoiceToLoudnessConfig.StaticArrays.GetStaticArray(data.Length);
+			}
 		}
 		base.OutWrite(data, offsetSamples);
 	}

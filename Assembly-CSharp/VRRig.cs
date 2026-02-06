@@ -647,6 +647,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		this.leftIndex.Initialize();
 		this.leftMiddle.Initialize();
 		this.leftThumb.Initialize();
+		this.cachedRenderTransformPos = this.renderTransform.localPosition;
 	}
 
 	public void SliceUpdate()
@@ -837,6 +838,10 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 				{
 					this.jobPos += b2;
 				}
+			}
+			else if (this.InOverrideSubscriptionZone)
+			{
+				this.jobPos = this.OverrideSubscriptionZoneLocation;
 			}
 		}
 		else
@@ -1059,7 +1064,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		if (this.inDuplicationZone)
 		{
-			this.renderTransform.position = base.transform.position + this.duplicationZone.VisualOffsetForRigs;
+			this.renderTransform.position = base.transform.position + this.duplicationZone.GetVisualOffsetForRigs(this.cachedRenderTransformPos);
 		}
 		if (this.frozenEffect.activeSelf)
 		{
@@ -1262,60 +1267,91 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	private InputStruct SerializeWriteShared()
 	{
-		InputStruct result = default(InputStruct);
-		result.headRotation = BitPackUtils.PackQuaternionForNetwork(this.head.rigTarget.localRotation);
-		result.rightHandLong = BitPackUtils.PackHandPosRotForNetwork(this.rightHand.rigTarget.localPosition, this.rightHand.rigTarget.localRotation);
-		result.leftHandLong = BitPackUtils.PackHandPosRotForNetwork(this.leftHand.rigTarget.localPosition, this.leftHand.rigTarget.localRotation);
-		result.position = BitPackUtils.PackWorldPosForNetwork(base.transform.position);
-		result.handPosition = this.ReturnHandPosition();
-		result.taggedById = (short)this.taggedById;
+		if (this.myIk == null)
+		{
+			this.myIk = base.GetComponent<GorillaIK>();
+		}
+		InputStruct inputStruct = new InputStruct
+		{
+			headRotation = BitPackUtils.PackQuaternionForNetwork(this.head.rigTarget.localRotation),
+			usingNewIK = this.ShouldUseNewIKMethod(this.myIk.usingUpdatedIK)
+		};
+		if (inputStruct.usingNewIK)
+		{
+			inputStruct.bodyRotation = BitPackUtils.PackQuaternionForNetwork(this.myIk.targetBodyRot);
+			inputStruct.rightUpperArmRotation = (short)BitPackUtils.PackRelativePos16(this.myIk.rightElbowDirection, Vector3.zero, 1f);
+			inputStruct.leftUpperArmRotation = (short)BitPackUtils.PackRelativePos16(this.myIk.leftElbowDirection, Vector3.zero, 1f);
+		}
+		inputStruct.rightHandLong = BitPackUtils.PackHandPosRotForNetwork(this.rightHand.rigTarget.localPosition, this.rightHand.rigTarget.localRotation);
+		inputStruct.leftHandLong = BitPackUtils.PackHandPosRotForNetwork(this.leftHand.rigTarget.localPosition, this.leftHand.rigTarget.localRotation);
+		inputStruct.position = BitPackUtils.PackWorldPosForNetwork(base.transform.position);
+		inputStruct.handPosition = this.ReturnHandPosition();
+		inputStruct.taggedById = (short)this.taggedById;
 		int num = Mathf.Clamp(Mathf.RoundToInt(base.transform.rotation.eulerAngles.y + 360f) % 360, 0, 360);
 		int num2 = Mathf.RoundToInt(Mathf.Clamp01(this.SpeakingLoudness) * 255f);
 		bool flag = this.leftHandLink.IsLinkActive() || this.rightHandLink.IsLinkActive();
 		GorillaGameManager activeGameMode = GorillaGameModes.GameMode.ActiveGameMode;
 		bool flag2 = activeGameMode != null && activeGameMode.GameType() == GameModeType.PropHunt;
-		int packedFields = num + (this.remoteUseReplacementVoice ? 512 : 0) + ((this.grabbedRopeIndex != -1) ? 1024 : 0) + (this.grabbedRopeIsPhotonView ? 2048 : 0) + (flag ? 4096 : 0) + (this.hoverboardVisual.IsHeld ? 8192 : 0) + (this.hoverboardVisual.IsLeftHanded ? 16384 : 0) + ((this.mountedMovingSurfaceId != -1) ? 32768 : 0) + (flag2 ? 65536 : 0) + (this.propHuntHandFollower.IsLeftHand ? 131072 : 0) + (this.leftHandLink.CanBeGrabbed() ? 262144 : 0) + (this.rightHandLink.CanBeGrabbed() ? 524288 : 0) + (this.leftHandLink.IsTentacleGrab ? 1048576 : 0) + (this.rightHandLink.IsTentacleGrab ? 2097152 : 0) + (num2 << 24);
-		result.packedFields = packedFields;
-		result.packedCompetitiveData = this.PackCompetitiveData();
+		int packedFields = num + (this.remoteUseReplacementVoice ? 512 : 0) + ((this.grabbedRopeIndex != -1) ? 1024 : 0) + (this.grabbedRopeIsPhotonView ? 2048 : 0) + (flag ? 4096 : 0) + (this.hoverboardVisual.IsHeld ? 8192 : 0) + (this.hoverboardVisual.IsLeftHanded ? 16384 : 0) + ((this.mountedMovingSurfaceId != -1) ? 32768 : 0) + (flag2 ? 65536 : 0) + (this.propHuntHandFollower.IsLeftHand ? 131072 : 0) + (this.leftHandLink.CanBeGrabbed() ? 262144 : 0) + (this.rightHandLink.CanBeGrabbed() ? 524288 : 0) + (this.leftHandLink.IsTentacleGrab ? 1048576 : 0) + (this.rightHandLink.IsTentacleGrab ? 2097152 : 0) + (this.ShowGoldNameTag ? 4194304 : 0) + (num2 << 24);
+		inputStruct.packedFields = packedFields;
+		inputStruct.packedCompetitiveData = this.PackCompetitiveData();
 		if (this.grabbedRopeIndex != -1)
 		{
-			result.grabbedRopeIndex = this.grabbedRopeIndex;
-			result.ropeBoneIndex = this.grabbedRopeBoneIndex;
-			result.ropeGrabIsLeft = this.grabbedRopeIsLeft;
-			result.ropeGrabIsBody = this.grabbedRopeIsBody;
-			result.ropeGrabOffset = this.grabbedRopeOffset;
+			inputStruct.grabbedRopeIndex = this.grabbedRopeIndex;
+			inputStruct.ropeBoneIndex = this.grabbedRopeBoneIndex;
+			inputStruct.ropeGrabIsLeft = this.grabbedRopeIsLeft;
+			inputStruct.ropeGrabIsBody = this.grabbedRopeIsBody;
+			inputStruct.ropeGrabOffset = this.grabbedRopeOffset;
 		}
 		if (this.grabbedRopeIndex == -1 && this.mountedMovingSurfaceId != -1)
 		{
-			result.grabbedRopeIndex = this.mountedMovingSurfaceId;
-			result.ropeGrabIsLeft = this.mountedMovingSurfaceIsLeft;
-			result.ropeGrabIsBody = this.mountedMovingSurfaceIsBody;
-			result.ropeGrabOffset = this.mountedMonkeBlockOffset;
+			inputStruct.grabbedRopeIndex = this.mountedMovingSurfaceId;
+			inputStruct.ropeGrabIsLeft = this.mountedMovingSurfaceIsLeft;
+			inputStruct.ropeGrabIsBody = this.mountedMovingSurfaceIsBody;
+			inputStruct.ropeGrabOffset = this.mountedMonkeBlockOffset;
 		}
 		if (this.hoverboardVisual.IsHeld)
 		{
-			result.hoverboardPosRot = BitPackUtils.PackHandPosRotForNetwork(this.hoverboardVisual.NominalLocalPosition, this.hoverboardVisual.NominalLocalRotation);
-			result.hoverboardColor = BitPackUtils.PackColorForNetwork(this.hoverboardVisual.boardColor);
+			inputStruct.hoverboardPosRot = BitPackUtils.PackHandPosRotForNetwork(this.hoverboardVisual.NominalLocalPosition, this.hoverboardVisual.NominalLocalRotation);
+			inputStruct.hoverboardColor = BitPackUtils.PackColorForNetwork(this.hoverboardVisual.boardColor);
 		}
 		if (flag2)
 		{
-			result.propHuntPosRot = this.propHuntHandFollower.GetRelativePosRotLong();
+			inputStruct.propHuntPosRot = this.propHuntHandFollower.GetRelativePosRotLong();
 		}
 		if (flag)
 		{
-			this.leftHandLink.Write(out result.isGroundedHand, out result.isGroundedButt, out result.leftHandGrabbedActorNumber, out result.leftGrabbedHandIsLeft);
-			this.rightHandLink.Write(out result.isGroundedHand, out result.isGroundedButt, out result.rightHandGrabbedActorNumber, out result.rightGrabbedHandIsLeft);
-			result.lastTouchedGroundAtTime = this.LastTouchedGroundAtNetworkTime;
-			result.lastHandTouchedGroundAtTime = this.LastHandTouchedGroundAtNetworkTime;
+			this.leftHandLink.Write(out inputStruct.isGroundedHand, out inputStruct.isGroundedButt, out inputStruct.leftHandGrabbedActorNumber, out inputStruct.leftGrabbedHandIsLeft);
+			this.rightHandLink.Write(out inputStruct.isGroundedHand, out inputStruct.isGroundedButt, out inputStruct.rightHandGrabbedActorNumber, out inputStruct.rightGrabbedHandIsLeft);
+			inputStruct.lastTouchedGroundAtTime = this.LastTouchedGroundAtNetworkTime;
+			inputStruct.lastHandTouchedGroundAtTime = this.LastHandTouchedGroundAtNetworkTime;
 		}
-		return result;
+		return inputStruct;
 	}
 
 	private void SerializeReadShared(InputStruct data)
 	{
+		if (this.myIk == null)
+		{
+			this.myIk = base.GetComponent<GorillaIK>();
+		}
 		VRMap vrmap = this.head;
 		Quaternion quaternion = BitPackUtils.UnpackQuaternionFromNetwork(data.headRotation);
 		ref vrmap.syncRotation.SetValueSafe(quaternion);
+		bool usingUpdatedIK = this.ShouldUseNewIKMethod(data.usingNewIK);
+		this.myIk.usingUpdatedIK = usingUpdatedIK;
+		if (this.myIk.usingUpdatedIK)
+		{
+			GorillaIK gorillaIK = this.myIk;
+			quaternion = BitPackUtils.UnpackQuaternionFromNetwork(data.bodyRotation);
+			ref gorillaIK.targetBodyRot.SetValueSafe(quaternion);
+			GorillaIK gorillaIK2 = this.myIk;
+			Vector3 vector = BitPackUtils.UnpackRelativePos16((ushort)data.leftUpperArmRotation, Vector3.zero, 1f, false);
+			ref gorillaIK2.leftElbowDirection.SetValueSafe(vector);
+			GorillaIK gorillaIK3 = this.myIk;
+			vector = BitPackUtils.UnpackRelativePos16((ushort)data.rightUpperArmRotation, Vector3.zero, 1f, false);
+			ref gorillaIK3.rightElbowDirection.SetValueSafe(vector);
+		}
 		BitPackUtils.UnpackHandPosRotFromNetwork(data.rightHandLong, out this.tempVec, out this.tempQuat);
 		this.rightHand.syncPos = this.tempVec;
 		ref this.rightHand.syncRotation.SetValueSafe(this.tempQuat);
@@ -1328,6 +1364,14 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		int num = packedFields & 511;
 		this.syncRotation.eulerAngles = this.SanitizeVector3(new Vector3(0f, (float)num, 0f));
 		this.remoteUseReplacementVoice = ((packedFields & 512) != 0);
+		if ((packedFields & 4194304) != 0)
+		{
+			this.playerText1.color = SubscriptionManager.SUBSCRIBER_NAME_COLOR;
+		}
+		else
+		{
+			this.playerText1.color = Color.white;
+		}
 		int num2 = packedFields >> 24 & 255;
 		this.SpeakingLoudness = (float)num2 / 255f;
 		this.UpdateReplacementVoice();
@@ -1399,10 +1443,28 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		this.AddVelocityToQueue(this.syncPos, data.serverTimeStamp);
 	}
 
+	private bool ShouldUseNewIKMethod(bool isReceivingNewIKData)
+	{
+		if (this.isOfflineVRRig)
+		{
+			bool flag = SubscriptionManager.IsLocalSubscribed();
+			bool flag2 = SubscriptionManager.GetSubscriptionSettingValue("SMKEYPREFIXIOBT_ENABLE_KEY") >= 1;
+			return flag && flag2 && this.myIk != null && this.myIk.usingUpdatedIK;
+		}
+		return isReceivingNewIKData;
+	}
+
 	void IWrappedSerializable.OnSerializeWrite(PhotonStream stream, PhotonMessageInfo info)
 	{
 		InputStruct inputStruct = this.SerializeWriteShared();
 		stream.SendNext(inputStruct.headRotation);
+		stream.SendNext(inputStruct.usingNewIK);
+		if (inputStruct.usingNewIK)
+		{
+			stream.SendNext(inputStruct.bodyRotation);
+			stream.SendNext(inputStruct.leftUpperArmRotation);
+			stream.SendNext(inputStruct.rightUpperArmRotation);
+		}
 		stream.SendNext(inputStruct.rightHandLong);
 		stream.SendNext(inputStruct.leftHandLong);
 		stream.SendNext(inputStruct.position);
@@ -1453,13 +1515,20 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		InputStruct inputStruct = new InputStruct
 		{
 			headRotation = (int)stream.ReceiveNext(),
-			rightHandLong = (long)stream.ReceiveNext(),
-			leftHandLong = (long)stream.ReceiveNext(),
-			position = (long)stream.ReceiveNext(),
-			handPosition = (int)stream.ReceiveNext(),
-			packedFields = (int)stream.ReceiveNext(),
-			packedCompetitiveData = (short)stream.ReceiveNext()
+			usingNewIK = (bool)stream.ReceiveNext()
 		};
+		if (inputStruct.usingNewIK)
+		{
+			inputStruct.bodyRotation = (int)stream.ReceiveNext();
+			inputStruct.leftUpperArmRotation = (short)stream.ReceiveNext();
+			inputStruct.rightUpperArmRotation = (short)stream.ReceiveNext();
+		}
+		inputStruct.rightHandLong = (long)stream.ReceiveNext();
+		inputStruct.leftHandLong = (long)stream.ReceiveNext();
+		inputStruct.position = (long)stream.ReceiveNext();
+		inputStruct.handPosition = (int)stream.ReceiveNext();
+		inputStruct.packedFields = (int)stream.ReceiveNext();
+		inputStruct.packedCompetitiveData = (short)stream.ReceiveNext();
 		bool flag = (inputStruct.packedFields & 1024) != 0;
 		bool flag2 = (inputStruct.packedFields & 32768) != 0;
 		if (flag)
@@ -1786,6 +1855,31 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			}
 		}
 		TagEffectsLibrary.PlayEffect(base.transform, false, this.scaleFactor, effectType, this.CosmeticEffectPack, tagEffectPack, q);
+	}
+
+	public void ToggleMatParticles(bool enabled)
+	{
+		if (this.lavaParticleSystem != null)
+		{
+			this.ToggleParticleSystem(this.lavaParticleSystem, enabled);
+		}
+		if (this.rockParticleSystem != null)
+		{
+			this.ToggleParticleSystem(this.rockParticleSystem, enabled);
+		}
+		if (this.iceParticleSystem != null)
+		{
+			this.ToggleParticleSystem(this.iceParticleSystem, enabled);
+		}
+		if (this.snowFlakeParticleSystem != null)
+		{
+			this.ToggleParticleSystem(this.snowFlakeParticleSystem, enabled);
+		}
+	}
+
+	private void ToggleParticleSystem(ParticleSystem ps, bool enabled)
+	{
+		ps.emission.enabled = enabled;
 	}
 
 	public void UpdateMatParticles(int materialIndex)
@@ -2853,6 +2947,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public void OnEnable()
 	{
 		EyeScannerMono.Register(this);
+		SubscriptionManager.OnLocalSubscriptionData = (Action)Delegate.Combine(SubscriptionManager.OnLocalSubscriptionData, new Action(this.OnSubscriptionData));
 		GorillaComputer.RegisterOnNametagSettingChanged(new Action<bool>(this.UpdateName));
 		if (this.currentRopeSwingTarget != null)
 		{
@@ -2878,6 +2973,21 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
 		TickSystem<object>.AddPostTickCallback(this);
+	}
+
+	public void OnSubscriptionData()
+	{
+		if (!this.isOfflineVRRig)
+		{
+			return;
+		}
+		this.showGoldNameTag = (SubscriptionManager.IsLocalSubscribed() && PlayerPrefs.GetInt("SMKEYPREFIXGOLDEN_NAME_KEY") > 0);
+		if (this.showGoldNameTag)
+		{
+			this.playerText1.color = SubscriptionManager.SUBSCRIBER_NAME_COLOR;
+			return;
+		}
+		this.playerText1.color = Color.white;
 	}
 
 	void IPreDisable.PreDisable()
@@ -2920,6 +3030,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	public void OnDisable()
 	{
+		SubscriptionManager.OnLocalSubscriptionData = (Action)Delegate.Remove(SubscriptionManager.OnLocalSubscriptionData, new Action(this.OnSubscriptionData));
 		try
 		{
 			GorillaSkin.ApplyToRig(this, null, GorillaSkin.SkinType.gameMode);
@@ -3440,7 +3551,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		if (this.duplicationZone == duplicationZone)
 		{
 			this.SetDuplicationZone(null);
-			this.renderTransform.localPosition = Vector3.zero;
+			this.renderTransform.localPosition = this.cachedRenderTransformPos;
 		}
 	}
 
@@ -3478,6 +3589,18 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	}
 
 	public bool IsFrozen { get; set; }
+
+	public bool ShowGoldNameTag
+	{
+		get
+		{
+			return this.showGoldNameTag;
+		}
+		private set
+		{
+			this.showGoldNameTag = value;
+		}
+	}
 
 	bool IUserCosmeticsCallback.OnGetUserCosmetics(string cosmetics)
 	{
@@ -3753,6 +3876,12 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	[NonSerialized]
 	public Vector3 mountedMonkeBlockOffset = Vector3.zero;
+
+	[NonSerialized]
+	public bool InOverrideSubscriptionZone;
+
+	[NonSerialized]
+	public Vector3 OverrideSubscriptionZoneLocation = Vector3.zero;
 
 	private float lastMountedSurfaceTimer;
 
@@ -4242,7 +4371,11 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	private const int isRightHandTentacleHoldingHand_BIT = 2097152;
 
+	private const int showSubscriber_BIT = 4194304;
+
 	private const int speakingLoudnessVal_BITSHIFT = 24;
+
+	private GorillaIK myIk;
 
 	private Vector3 tempVec;
 
@@ -4290,9 +4423,14 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	private RigDuplicationZone duplicationZone;
 
+	private Vector3 cachedRenderTransformPos = new Vector3(0f, -1.65f, 0f);
+
 	private bool pendingCosmeticUpdate = true;
 
 	private string rawCosmeticString = "";
+
+	[NonSerialized]
+	private bool showGoldNameTag;
 
 	public List<HandEffectsOverrideCosmetic> CosmeticHandEffectsOverride_Right = new List<HandEffectsOverrideCosmetic>();
 
@@ -4301,6 +4439,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	private int loudnessCheckFrame;
 
 	private float frameScale;
+
+	private SubscriptionManager.SubscriptionDetails subDataCache;
 
 	private const bool SHOW_SCREENS = false;
 

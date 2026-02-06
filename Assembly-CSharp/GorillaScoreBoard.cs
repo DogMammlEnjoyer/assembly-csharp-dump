@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using GorillaGameModes;
+using GorillaTagScripts;
 using TMPro;
 using UnityEngine;
 
@@ -29,16 +30,24 @@ public class GorillaScoreBoard : MonoBehaviour
 		}
 	}
 
-	private void OnDestroy()
+	private string GetBeginningString()
 	{
+		string text = string.Format(" ({0})", 10);
+		if (NetworkSystem.Instance.SessionIsSubscription)
+		{
+			text = string.Format(" ({0})", 20);
+		}
+		return string.Concat(new string[]
+		{
+			"ROOM ID: ",
+			NetworkSystem.Instance.SessionIsPrivate ? "-PRIVATE- GAME: " : (NetworkSystem.Instance.RoomName + "   GAME: "),
+			this.RoomType(),
+			text,
+			"\n  PLAYER     COLOR  MUTE   REPORT"
+		});
 	}
 
-	public string GetBeginningString()
-	{
-		return "ROOM ID: " + (NetworkSystem.Instance.SessionIsPrivate ? "-PRIVATE- GAME: " : (NetworkSystem.Instance.RoomName + "   GAME: ")) + this.RoomType() + "\n  PLAYER     COLOR  MUTE   REPORT";
-	}
-
-	public string RoomType()
+	private string RoomType()
 	{
 		this.initialGameMode = RoomSystem.RoomGameMode;
 		this.gmNames = GameMode.gameModeNames;
@@ -78,20 +87,50 @@ public class GorillaScoreBoard : MonoBehaviour
 		this.stringBuilder.Append(this.GetBeginningString());
 		this.buttonStringBuilder.Clear();
 		bool flag = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Custom_Nametags);
+		int num = 0;
 		for (int i = 0; i < this.lines.Count; i++)
+		{
+			if (this.lines[i].gameObject.activeInHierarchy)
+			{
+				num++;
+			}
+		}
+		if (num > 10)
+		{
+			this.linesParent.transform.localScale = new Vector3(1f, 0.5f, 1f);
+			this.linesParent.transform.localPosition = new Vector3(0f, this.bigRoomYOffset, 0f);
+			this.textsParent.transform.localScale = new Vector3(1f, 0.5f, 1f);
+		}
+		else
+		{
+			this.linesParent.transform.localScale = Vector3.one;
+			this.linesParent.transform.localPosition = Vector3.zero;
+			this.textsParent.transform.localScale = Vector3.one;
+		}
+		for (int j = 0; j < this.lines.Count; j++)
 		{
 			try
 			{
-				if (this.lines[i].gameObject.activeInHierarchy)
+				if (this.lines[j].gameObject.activeInHierarchy)
 				{
-					this.lines[i].gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0f, (float)(this.startingYValue - this.lineHeight * i), 0f);
-					if (this.lines[i].linePlayer != null && this.lines[i].linePlayer.InRoom)
+					this.linesRTs[j].localPosition = new Vector3(0f, (float)(this.startingYValue - this.lineHeight * j), 0f);
+					if (this.lines[j].linePlayer != null && this.lines[j].linePlayer.InRoom)
 					{
 						this.stringBuilder.Append("\n ");
-						this.stringBuilder.Append(flag ? this.lines[i].playerNameVisible : this.lines[i].linePlayer.DefaultName);
-						if (this.lines[i].linePlayer != NetworkSystem.Instance.LocalPlayer)
+						SubscriptionManager.SubscriptionDetails subscriptionDetails = SubscriptionManager.GetSubscriptionDetails(this.lines[j].linePlayer);
+						if (subscriptionDetails.active && subscriptionDetails.tier > 0)
 						{
-							if (this.lines[i].reportButton.isActiveAndEnabled)
+							this.stringBuilder.Append("<color=#ffc600>");
+						}
+						else
+						{
+							this.stringBuilder.Append("<color=#ffffff>");
+						}
+						this.stringBuilder.Append(flag ? this.lines[j].playerNameVisible : this.lines[j].linePlayer.DefaultName);
+						this.stringBuilder.Append("</color>");
+						if (this.lines[j].linePlayer != NetworkSystem.Instance.LocalPlayer)
+						{
+							if (this.lines[j].reportButton.isActiveAndEnabled)
 							{
 								this.buttonStringBuilder.Append("MUTE                                REPORT\n");
 							}
@@ -132,6 +171,11 @@ public class GorillaScoreBoard : MonoBehaviour
 
 	private void Start()
 	{
+		this.linesRTs.Clear();
+		for (int i = 0; i < this.lines.Count; i++)
+		{
+			this.linesRTs.Add(this.lines[i].GetComponent<RectTransform>());
+		}
 		GorillaScoreboardTotalUpdater.RegisterScoreboard(this);
 	}
 
@@ -158,8 +202,14 @@ public class GorillaScoreBoard : MonoBehaviour
 
 	public GameObject linesParent;
 
+	public float bigRoomYOffset = 32.5f;
+
 	[SerializeField]
 	public List<GorillaPlayerScoreboardLine> lines;
+
+	private List<RectTransform> linesRTs = new List<RectTransform>();
+
+	public GameObject textsParent;
 
 	public TextMeshPro boardText;
 

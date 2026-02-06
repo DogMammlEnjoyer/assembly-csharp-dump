@@ -685,5 +685,24 @@ public class MothershipServerApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetServerBulkGetSubscriptionsCompleteDelegateWrapper(ServerGetBulkSubscriptionsCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetServerBulkGetSubscriptionsCompleteDelegateWrapper(this.swigCPtr, ServerGetBulkSubscriptionsCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ServerBulkGetSubscriptions(StringVector players, PlatformAndSkuVector platformSkus, StringVector catalogIds, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerBulkGetSubscriptions(this.swigCPtr, StringVector.getCPtr(players), PlatformAndSkuVector.getCPtr(platformSkus), StringVector.getCPtr(catalogIds), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private HandleRef swigCPtr;
 }

@@ -8,7 +8,7 @@ namespace Fusion
 {
 	[DebuggerDisplay("Length = {Length}")]
 	[DebuggerTypeProxy(typeof(NetworkArray<>.DebuggerProxy))]
-	public struct NetworkArray<T> : IEnumerable<!0>, IEnumerable, INetworkArray
+	public struct NetworkArray<T> : IEnumerable<T>, IEnumerable, INetworkArray
 	{
 		public int Length
 		{
@@ -302,7 +302,7 @@ namespace Fusion
 			public Lazy<T[]> _items;
 		}
 
-		public struct Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<T>, IEnumerator, IDisposable
 		{
 			public T Current
 			{

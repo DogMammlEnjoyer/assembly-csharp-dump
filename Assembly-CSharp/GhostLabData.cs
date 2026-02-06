@@ -4,21 +4,21 @@ using Fusion;
 using Fusion.CodeGen;
 using UnityEngine;
 
-[NetworkStructWeaved(11)]
-[StructLayout(LayoutKind.Explicit, Size = 44)]
+[NetworkStructWeaved(21)]
+[StructLayout(LayoutKind.Explicit, Size = 84)]
 public struct GhostLabData : INetworkStruct
 {
 	public int DoorState { readonly get; set; }
 
 	[Networked]
-	[Capacity(10)]
-	[NetworkedWeavedArray(10, 1, typeof(ElementReaderWriterNetworkBool))]
-	[NetworkedWeaved(1, 10)]
+	[Capacity(20)]
+	[NetworkedWeavedArray(20, 1, typeof(ElementReaderWriterNetworkBool))]
+	[NetworkedWeaved(1, 20)]
 	public NetworkArray<NetworkBool> OpenDoors
 	{
 		get
 		{
-			return new NetworkArray<NetworkBool>(Native.ReferenceToPointer<FixedStorage@10>(ref this._OpenDoors), 10, ElementReaderWriterNetworkBool.GetInstance());
+			return new NetworkArray<NetworkBool>(Native.ReferenceToPointer<FixedStorage@20>(ref this._OpenDoors), 20, ElementReaderWriterNetworkBool.GetInstance());
 		}
 	}
 
@@ -32,9 +32,9 @@ public struct GhostLabData : INetworkStruct
 		}
 	}
 
-	[FixedBufferProperty(typeof(NetworkArray<NetworkBool>), typeof(UnityArraySurrogate@ElementReaderWriterNetworkBool), 10, order = -2147483647)]
+	[FixedBufferProperty(typeof(NetworkArray<NetworkBool>), typeof(UnityArraySurrogate@ElementReaderWriterNetworkBool), 20, order = -2147483647)]
 	[WeaverGenerated]
 	[SerializeField]
 	[FieldOffset(4)]
-	private FixedStorage@10 _OpenDoors;
+	private FixedStorage@20 _OpenDoors;
 }

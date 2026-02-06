@@ -867,7 +867,7 @@ namespace GorillaNetworking
 					PhotonNetworkController.Instance.keyStr = Random.Range(0, 99999999).ToString().PadLeft(8, '0');
 					RoomSystem.SendNearbyFollowCommand(chosenFriendJoinCollider, PhotonNetworkController.Instance.shuffler, PhotonNetworkController.Instance.keyStr);
 					PhotonNetwork.SendAllOutgoingCommands();
-					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(selectedMapJoinTrigger, JoinType.JoinWithNearby, null);
+					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(selectedMapJoinTrigger, JoinType.JoinWithNearby, null, false);
 					this.currentStateIndex = 0;
 					this.SwitchState(this.GetState(this.currentStateIndex), true);
 				}
@@ -875,7 +875,7 @@ namespace GorillaNetworking
 			}
 			if (selectedMapJoinTrigger != null && selectedMapJoinTrigger.CanPartyJoin())
 			{
-				PhotonNetworkController.Instance.AttemptToJoinPublicRoom(selectedMapJoinTrigger, JoinType.ForceJoinWithParty, null);
+				PhotonNetworkController.Instance.AttemptToJoinPublicRoom(selectedMapJoinTrigger, JoinType.ForceJoinWithParty, null, false);
 				this.currentStateIndex = 0;
 				this.SwitchState(this.GetState(this.currentStateIndex), true);
 				return;
@@ -1106,11 +1106,11 @@ namespace GorillaNetworking
 
 		private void DisconnectAfterDelay(float seconds)
 		{
-			GorillaComputer.<DisconnectAfterDelay>d__377 <DisconnectAfterDelay>d__;
+			GorillaComputer.<DisconnectAfterDelay>d__378 <DisconnectAfterDelay>d__;
 			<DisconnectAfterDelay>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DisconnectAfterDelay>d__.seconds = seconds;
 			<DisconnectAfterDelay>d__.<>1__state = -1;
-			<DisconnectAfterDelay>d__.<>t__builder.Start<GorillaComputer.<DisconnectAfterDelay>d__377>(ref <DisconnectAfterDelay>d__);
+			<DisconnectAfterDelay>d__.<>t__builder.Start<GorillaComputer.<DisconnectAfterDelay>d__378>(ref <DisconnectAfterDelay>d__);
 		}
 
 		private void ProcessTurnState(GorillaKeyboardBindings buttonPressed)
@@ -1524,22 +1524,25 @@ namespace GorillaNetworking
 				PlayerPrefs.Save();
 				return;
 			}
-			if (buttonPressed == GorillaKeyboardBindings.option1)
+			switch (buttonPressed)
 			{
+			case GorillaKeyboardBindings.option1:
 				this.disableParticles = false;
 				PlayerPrefs.SetString("disableParticles", "FALSE");
 				PlayerPrefs.Save();
 				GorillaTagger.Instance.ShowCosmeticParticles(!this.disableParticles);
 				return;
-			}
-			if (buttonPressed != GorillaKeyboardBindings.option2)
-			{
+			case GorillaKeyboardBindings.option2:
+				this.disableParticles = true;
+				PlayerPrefs.SetString("disableParticles", "TRUE");
+				PlayerPrefs.Save();
+				GorillaTagger.Instance.ShowCosmeticParticles(!this.disableParticles);
+				break;
+			case GorillaKeyboardBindings.option3:
+				break;
+			default:
 				return;
 			}
-			this.disableParticles = true;
-			PlayerPrefs.SetString("disableParticles", "TRUE");
-			PlayerPrefs.Save();
-			GorillaTagger.Instance.ShowCosmeticParticles(!this.disableParticles);
 		}
 
 		private void ProcessCreditsState(GorillaKeyboardBindings buttonPressed)
@@ -1700,7 +1703,7 @@ namespace GorillaNetworking
 
 		private void LoadingScreen()
 		{
-			GorillaComputer.<>c__DisplayClass403_0 CS$<>8__locals1 = new GorillaComputer.<>c__DisplayClass403_0();
+			GorillaComputer.<>c__DisplayClass404_0 CS$<>8__locals1 = new GorillaComputer.<>c__DisplayClass404_0();
 			CS$<>8__locals1.<>4__this = this;
 			string defaultResult = "LOADING";
 			LocalisationManager.TryGetKeyForCurrentLocale("LOADING_SCREEN", out CS$<>8__locals1.result, defaultResult);
@@ -3322,11 +3325,11 @@ namespace GorillaNetworking
 
 		private void UpdateSession()
 		{
-			GorillaComputer.<UpdateSession>d__486 <UpdateSession>d__;
+			GorillaComputer.<UpdateSession>d__487 <UpdateSession>d__;
 			<UpdateSession>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<UpdateSession>d__.<>4__this = this;
 			<UpdateSession>d__.<>1__state = -1;
-			<UpdateSession>d__.<>t__builder.Start<GorillaComputer.<UpdateSession>d__486>(ref <UpdateSession>d__);
+			<UpdateSession>d__.<>t__builder.Start<GorillaComputer.<UpdateSession>d__487>(ref <UpdateSession>d__);
 		}
 
 		private void OnSessionUpdate_GorillaComputer()
@@ -3877,8 +3880,6 @@ namespace GorillaNetworking
 
 		private const string VISUALS_SCREEN_OPTIONS_KEY = "VISUALS_SCREEN_OPTIONS";
 
-		private const string VISUALS_SCREEN_PERF_KEY = "VISUALS_SCREEN_PERF";
-
 		private const string VISUALS_SCREEN_CURRENT_KEY = "VISUALS_SCREEN_CURRENT";
 
 		private const string VISUALS_SCREEN_VOLUME_KEY = "VISUALS_SCREEN_VOLUME";
@@ -4246,6 +4247,10 @@ namespace GorillaNetworking
 		public bool disableParticles;
 
 		public float instrumentVolume;
+
+		public bool perfMode;
+
+		public bool isSubcribed;
 
 		[Header("Credits")]
 		public CreditsView creditsView;

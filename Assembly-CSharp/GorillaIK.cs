@@ -1,31 +1,49 @@
 ﻿using System;
+using GorillaTagScripts;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class GorillaIK : MonoBehaviour
 {
 	private void Awake()
 	{
-		if (Application.isPlaying && !this.testInEditor)
-		{
-			this.dU = (this.leftUpperArm.position - this.leftLowerArm.position).magnitude;
-			this.dL = (this.leftLowerArm.position - this.leftHand.position).magnitude;
-			this.dMax = this.dU + this.dL - this.eps;
-			this.initialUpperLeft = this.leftUpperArm.localRotation;
-			this.initialLowerLeft = this.leftLowerArm.localRotation;
-			this.initialUpperRight = this.rightUpperArm.localRotation;
-			this.initialLowerRight = this.rightLowerArm.localRotation;
-		}
+		this.bodyInitialRot = this.bodyBone.localRotation;
+		this.myRig = base.GetComponent<VRRig>();
+		this.ResetIKData();
 	}
 
 	private void OnEnable()
 	{
 		GorillaIKMgr.Instance.RegisterIK(this);
+		if (this.skeleton == null)
+		{
+			return;
+		}
+		GorillaIK.playerIK = this;
 	}
 
 	private void OnDisable()
 	{
 		GorillaIKMgr.Instance.DeregisterIK(this);
+		this.ResetIKData();
 	}
+
+	public void ResetIKData()
+	{
+		this.leftElbowDirection = Vector3.zero;
+		this.lerpLeftElbowDirection = Vector3.zero;
+		this.rightElbowDirection = Vector3.zero;
+		this.lerpRightElbowDirection = Vector3.zero;
+		this.targetBodyRot = this.bodyInitialRot;
+		this.lerpBodyRot = this.targetBodyRot;
+		if (this.projectedBodyRotation != null)
+		{
+			this.projectedBodyRotation.localRotation = this.targetBodyRot;
+		}
+		this.usingUpdatedIK = false;
+	}
+
+	public bool TickRunning { get; set; }
 
 	public void OverrideTargetPos(bool isLeftHand, Vector3 targetWorldPos)
 	{
@@ -39,13 +57,21 @@ public class GorillaIK : MonoBehaviour
 		this.rightOverrideWorldPos = targetWorldPos;
 	}
 
-	public Vector3 GetShoulderLocalTargetPos_Left()
+	public Vector3 GetShoulderLocalTargetPos_Left(bool updatedIK)
 	{
+		if (this.projectedBodyRotation != null && updatedIK)
+		{
+			return this.projectedLeftShoulderPosition.InverseTransformPoint(this.hasLeftOverride ? this.leftOverrideWorldPos : this.targetLeft.position);
+		}
 		return this.leftUpperArm.parent.InverseTransformPoint(this.hasLeftOverride ? this.leftOverrideWorldPos : this.targetLeft.position);
 	}
 
-	public Vector3 GetShoulderLocalTargetPos_Right()
+	public Vector3 GetShoulderLocalTargetPos_Right(bool updatedIK)
 	{
+		if (this.projectedBodyRotation != null && updatedIK)
+		{
+			return this.projectedRightShoulderPosition.InverseTransformPoint(this.hasRightOverride ? this.rightOverrideWorldPos : this.targetRight.position);
+		}
 		return this.rightUpperArm.parent.InverseTransformPoint(this.hasRightOverride ? this.rightOverrideWorldPos : this.targetRight.position);
 	}
 
@@ -55,29 +81,80 @@ public class GorillaIK : MonoBehaviour
 		this.hasRightOverride = false;
 	}
 
-	private void ArmIK(ref Transform upperArm, ref Transform lowerArm, ref Transform hand, Quaternion initRotUpper, Quaternion initRotLower, Transform target)
+	public void SkeletonUpdate()
 	{
-		upperArm.localRotation = initRotUpper;
-		lowerArm.localRotation = initRotLower;
-		float num = Mathf.Clamp((target.position - upperArm.position).magnitude, this.eps, this.dMax);
-		float num2 = Mathf.Acos(Mathf.Clamp(Vector3.Dot((hand.position - upperArm.position).normalized, (lowerArm.position - upperArm.position).normalized), -1f, 1f));
-		float num3 = Mathf.Acos(Mathf.Clamp(Vector3.Dot((upperArm.position - lowerArm.position).normalized, (hand.position - lowerArm.position).normalized), -1f, 1f));
-		float num4 = Mathf.Acos(Mathf.Clamp(Vector3.Dot((hand.position - upperArm.position).normalized, (target.position - upperArm.position).normalized), -1f, 1f));
-		float num5 = Mathf.Acos(Mathf.Clamp((this.dL * this.dL - this.dU * this.dU - num * num) / (-2f * this.dU * num), -1f, 1f));
-		float num6 = Mathf.Acos(Mathf.Clamp((num * num - this.dU * this.dU - this.dL * this.dL) / (-2f * this.dU * this.dL), -1f, 1f));
-		Vector3 normalized = Vector3.Cross(hand.position - upperArm.position, lowerArm.position - upperArm.position).normalized;
-		Vector3 normalized2 = Vector3.Cross(hand.position - upperArm.position, target.position - upperArm.position).normalized;
-		Quaternion rhs = Quaternion.AngleAxis((num5 - num2) * 57.29578f, Quaternion.Inverse(upperArm.rotation) * normalized);
-		Quaternion rhs2 = Quaternion.AngleAxis((num6 - num3) * 57.29578f, Quaternion.Inverse(lowerArm.rotation) * normalized);
-		Quaternion rhs3 = Quaternion.AngleAxis(num4 * 57.29578f, Quaternion.Inverse(upperArm.rotation) * normalized2);
-		this.newRotationUpper = upperArm.localRotation * rhs3 * rhs;
-		this.newRotationLower = lowerArm.localRotation * rhs2;
-		upperArm.localRotation = this.newRotationUpper;
-		lowerArm.localRotation = this.newRotationLower;
-		hand.rotation = target.rotation;
+		if (!this.canUseUpdatedIK)
+		{
+			return;
+		}
+		if (!SubscriptionManager.IsLocalSubscribed())
+		{
+			return;
+		}
+		bool flag = SubscriptionManager.GetSubscriptionSettingValue("SMKEYPREFIXIOBT_ENABLE_KEY") >= 1;
+		if (flag != this.skeleton.gameObject.activeSelf)
+		{
+			this.skeleton.gameObject.SetActive(flag);
+			this.usingUpdatedIK = flag;
+			if (!flag)
+			{
+				this.ResetIKData();
+			}
+			return;
+		}
+		if (!flag)
+		{
+			return;
+		}
+		if (this.skeleton == null || this.skeleton.Bones == null || this.skeleton.Bones.Count == 0)
+		{
+			return;
+		}
+		if (this.boneXforms[0] == null || this.body == null || this.leftArmUpper == null || this.leftArmLower == null || this.rightArmUpper == null || this.rightArmLower == null)
+		{
+			foreach (OVRBone ovrbone in this.skeleton.Bones)
+			{
+				this.boneXforms[(int)ovrbone.Id] = ovrbone.Transform;
+			}
+			this.body = this.boneXforms[5];
+			this.leftArmUpper = this.boneXforms[10];
+			this.leftArmLower = this.boneXforms[11];
+			this.rightArmUpper = this.boneXforms[15];
+			this.rightArmLower = this.boneXforms[16];
+			return;
+		}
+		this.usingUpdatedIK = true;
+		this.targetBodyRot = Quaternion.Inverse(this.bodyBone.parent.rotation) * this.skeleton.transform.rotation * this.body.localRotation * this.bodyOffsetRotation;
+		this.projectedBodyRotation.localRotation = this.targetBodyRot;
+		this.leftElbowDirection = this.projectedLeftShoulderPosition.InverseTransformDirection((this.leftArmLower.position - this.leftArmLower.up * this.biasDistance - this.targetLeft.position).normalized).normalized;
+		this.rightElbowDirection = this.projectedRightShoulderPosition.InverseTransformDirection((this.rightArmLower.position + this.rightArmLower.up * this.biasDistance - this.targetRight.position).normalized).normalized;
+	}
+
+	private void CheckPermissions()
+	{
+		if (!Permission.HasUserAuthorizedPermission("com.oculus.permission.BODY_TRACKING"))
+		{
+			PermissionCallbacks permissionCallbacks = new PermissionCallbacks();
+			permissionCallbacks.PermissionGranted += this.PermissionGranted;
+			Permission.RequestUserPermission("com.oculus.permission.BODY_TRACKING", permissionCallbacks);
+			return;
+		}
+		this.PermissionGranted("");
+	}
+
+	private void PermissionGranted(string permissionName)
+	{
+		GorillaIKMgr.AddPlayerIK(this);
+		this.boneXforms = new Transform[84];
+		this.leftElbowDirection = Vector3.zero;
+		this.rightElbowDirection = Vector3.zero;
+		this.targetBodyRot = this.bodyInitialRot;
+		this.canUseUpdatedIK = true;
 	}
 
 	public Transform headBone;
+
+	public Transform bodyBone;
 
 	public Transform leftUpperArm;
 
@@ -105,29 +182,49 @@ public class GorillaIK : MonoBehaviour
 
 	public Quaternion initialLowerRight;
 
-	public Quaternion newRotationUpper;
+	[NonSerialized]
+	public Quaternion targetBodyRot;
 
-	public Quaternion newRotationLower;
+	[NonSerialized]
+	public Quaternion lerpBodyRot;
 
-	public float dU;
+	[NonSerialized]
+	public Vector3 leftElbowDirection;
 
-	public float dL;
+	[NonSerialized]
+	public Vector3 lerpLeftElbowDirection;
 
-	public float dMax;
+	[NonSerialized]
+	public Vector3 rightElbowDirection;
 
-	public bool testInEditor;
+	[NonSerialized]
+	public Vector3 lerpRightElbowDirection;
 
-	public bool reset;
+	public bool usingUpdatedIK;
 
-	public bool testDefineRot;
+	public bool canUseUpdatedIK;
 
-	public bool moveOnce;
+	public Quaternion bodyOffsetRotation;
 
-	public float eps;
+	public OVRSkeleton skeleton;
 
-	public float upperArmAngle;
+	private Transform[] boneXforms;
 
-	public float elbowAngle;
+	[NonSerialized]
+	public Quaternion bodyInitialRot;
+
+	public Transform projectedBodyRotation;
+
+	public Transform projectedLeftShoulderPosition;
+
+	public Transform projectedRightShoulderPosition;
+
+	[NonSerialized]
+	public VRRig myRig;
+
+	public static GorillaIK playerIK;
+
+	public float biasDistance = 0.2f;
 
 	private bool hasLeftOverride;
 
@@ -136,4 +233,14 @@ public class GorillaIK : MonoBehaviour
 	private bool hasRightOverride;
 
 	private Vector3 rightOverrideWorldPos;
+
+	private Transform body;
+
+	private Transform leftArmUpper;
+
+	private Transform leftArmLower;
+
+	private Transform rightArmUpper;
+
+	private Transform rightArmLower;
 }
