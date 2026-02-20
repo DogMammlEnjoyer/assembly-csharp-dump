@@ -28,7 +28,7 @@ public class ZoneConditionalVisibility : MonoBehaviour
 
 	private void OnZoneChanged()
 	{
-		bool flag = ZoneManagement.IsInZone(this.zone);
+		bool flag = (this.zones == null || this.zones.Length == 0) ? ZoneManagement.IsInZone(this.zone) : this.InAnyZone();
 		if (this.invisibleWhileLoaded)
 		{
 			if (this.renderersOnly)
@@ -63,8 +63,23 @@ public class ZoneConditionalVisibility : MonoBehaviour
 		}
 	}
 
+	private bool InAnyZone()
+	{
+		for (int i = 0; i < this.zones.Length; i++)
+		{
+			if (ZoneManagement.IsInZone(this.zones[i]))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	[SerializeField]
 	private GTZone zone;
+
+	[SerializeField]
+	private GTZone[] zones;
 
 	[SerializeField]
 	private bool invisibleWhileLoaded;

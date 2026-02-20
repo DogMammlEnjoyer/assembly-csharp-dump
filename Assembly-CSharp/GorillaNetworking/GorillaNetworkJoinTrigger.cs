@@ -170,7 +170,6 @@ namespace GorillaNetworking
 			base.OnBoxTriggered();
 			if (GorillaNetworkJoinTrigger.triggerJoinsDisabled)
 			{
-				Debug.Log("GorillaNetworkJoinTrigger::OnBoxTriggered - blocking join call");
 				return;
 			}
 			GorillaComputer.instance.allowedMapsToJoin = this.myCollider.myAllowedMapsToJoin;
@@ -213,19 +212,16 @@ namespace GorillaNetworking
 				}
 				if (this.CanPartyJoin())
 				{
-					Debug.Log(string.Format("JoinTrigger: Attempting party join in 1 second! <{0}> accepts <{1}>", this.groupJoinRequiredZones, FriendshipGroupDetection.Instance.partyZone));
 					PhotonNetworkController.Instance.DeferJoining(1f);
 					FriendshipGroupDetection.Instance.SendAboutToGroupJoin();
 					PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.JoinWithParty, list, false);
 					return;
 				}
-				Debug.Log(string.Format("JoinTrigger: LeaveGroup: Leaving party and will solo join, wanted <{0}> but got <{1}>", this.groupJoinRequiredZones, FriendshipGroupDetection.Instance.partyZone));
 				FriendshipGroupDetection.Instance.LeaveParty();
 				PhotonNetworkController.Instance.DeferJoining(1f);
 			}
 			else
 			{
-				Debug.Log("JoinTrigger: Solo join (not in a group)");
 				PhotonNetworkController.Instance.ClearDeferredJoin();
 			}
 			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(this, JoinType.Solo, list, false);
@@ -235,7 +231,6 @@ namespace GorillaNetworking
 		{
 			if (GorillaNetworkJoinTrigger.triggerJoinsDisabled)
 			{
-				Debug.Log("GorillaNetworkJoinTrigger::SubsPublicJoin - blocking join call");
 				return;
 			}
 			GorillaComputer.instance.allowedMapsToJoin = this.myCollider.myAllowedMapsToJoin;
@@ -245,13 +240,11 @@ namespace GorillaNetworking
 
 		public static void DisableTriggerJoins()
 		{
-			Debug.Log("[GorillaNetworkJoinTrigger::DisableTriggerJoins] Disabling Trigger-based Room Joins...");
 			GorillaNetworkJoinTrigger.triggerJoinsDisabled = true;
 		}
 
 		public static void EnableTriggerJoins()
 		{
-			Debug.Log("[GorillaNetworkJoinTrigger::EnableTriggerJoins] Enabling Trigger-based Room Joins...");
 			GorillaNetworkJoinTrigger.triggerJoinsDisabled = false;
 		}
 

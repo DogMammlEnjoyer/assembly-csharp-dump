@@ -70,7 +70,6 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 			if (list.Count > 0)
 			{
 				this.gameEntityManager.RequestDestroyItems(list);
-				Debug.Log("[GT/SuperInfectionManager]  _OnStartGameMode: " + string.Format("Removed {0} blaster gadgets because they are only allowed in SuperInfection.", list.Count), this);
 			}
 		}
 	}
@@ -275,15 +274,6 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 			this.PendingZoneInit = true;
 			return;
 		}
-		string[] array = new string[5];
-		array[0] = "poop - switching super infection zone from \"";
-		int num = 1;
-		SuperInfectionManager superInfectionManager = SuperInfectionManager.activeSuperInfectionManager;
-		array[num] = ((superInfectionManager != null) ? superInfectionManager.name : null);
-		array[2] = "\" to \"";
-		array[3] = base.name;
-		array[4] = "\"";
-		Debug.Log(string.Concat(array), this);
 		SuperInfectionManager.activeSuperInfectionManager = this;
 		if (this.gameEntityManager.IsAuthority())
 		{
@@ -970,7 +960,6 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		SIPlayer siplayer = SIPlayer.Get((int)(entity.createData & (long)((ulong)-1)));
 		if (siplayer != null && siplayer.activePlayerGadgets.Contains(entity.GetNetId()))
 		{
-			Debug.Log(string.Format("GadgetDebug: removing gadget grom list {0} {1}", siplayer.gameObject.name, entity.GetNetId()));
 			siplayer.activePlayerGadgets.Remove(entity.GetNetId());
 		}
 	}

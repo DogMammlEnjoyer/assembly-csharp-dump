@@ -328,7 +328,6 @@ namespace GorillaTag.Cosmetics
 			this.myRig = rig;
 			this.isLocal = rig.isLocal;
 			this.wearableSlot = this.CosmeticCategoryToWearableSlot(this.assignedSlot, this.CosmeticSelectedSide != ECosmeticSelectSide.Right);
-			Debug.Log(string.Format("Networked Wearable {0} Select Side {1} slot {2}", base.gameObject.name, this.CosmeticSelectedSide, this.wearableSlot));
 		}
 
 		public void OnDespawn()

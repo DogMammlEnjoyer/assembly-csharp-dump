@@ -55,7 +55,6 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		yield return request.SendWebRequest();
 		if (request.result == UnityWebRequest.Result.Success)
 		{
-			GTDev.Log<string>("GetRankInformation Success: raw response: " + request.downloadHandler.text, null);
 			this.OnCompleteGetRankInformation(request.downloadHandler.text, callback);
 		}
 		else if (request.result != UnityWebRequest.Result.ProtocolError)
@@ -69,18 +68,18 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 			{
 				if (responseCode >= 600L)
 				{
-					goto IL_156;
+					goto IL_136;
 				}
 			}
 			else if (responseCode != 408L && responseCode != 429L)
 			{
-				goto IL_156;
+				goto IL_136;
 			}
 			bool flag = true;
-			goto IL_159;
-			IL_156:
+			goto IL_139;
+			IL_136:
 			flag = false;
-			IL_159:
+			IL_139:
 			if (flag)
 			{
 				retry = true;

@@ -198,77 +198,60 @@ namespace GorillaTag
 		private static bool _TryAddMembersToLodGroup(bool isNew, int groupIndex)
 		{
 			bool flag = false;
-			StaticLodGroup staticLodGroup = StaticLodManager.groupMonoBehaviours[groupIndex];
+			StaticLodGroup lodGroup = StaticLodManager.groupMonoBehaviours[groupIndex];
 			StaticLodManager.GroupInfo value = StaticLodManager.groupInfos[groupIndex];
-			StaticLodGroupExcluder componentInParent = staticLodGroup.GetComponentInParent<StaticLodGroupExcluder>();
-			bool result = flag | StaticLodManager._TryAddComponentsToGroup<Collider>(staticLodGroup, componentInParent, ref value, ref value.interactableColliders, (Collider coll) => coll.gameObject.IsOnLayer(UnityLayer.GorillaInteractable), (Collider coll) => coll.bounds) | StaticLodManager._TryAddComponentsToGroup<Renderer>(staticLodGroup, componentInParent, ref value, ref value.renderers, delegate(Renderer rend)
+			bool result = flag | StaticLodManager._TryAddComponentsToGroup<Collider>(lodGroup, ref value, ref value.interactableColliders, (Collider coll) => coll.gameObject.IsOnLayer(UnityLayer.GorillaInteractable), (Collider coll) => coll.bounds) | StaticLodManager._TryAddComponentsToGroup<Renderer>(lodGroup, ref value, ref value.renderers, delegate(Renderer rend)
 			{
 				int layer = rend.gameObject.layer;
 				return (layer == 5 || layer == 18) && rend.enabled;
-			}, (Renderer rend) => rend.bounds) | StaticLodManager._TryAddComponentsToGroup<Graphic>(staticLodGroup, componentInParent, ref value, ref value.uiGraphics, (Graphic _) => true, (Graphic gfx) => new Bounds(gfx.transform.position, Vector3.one * 0.01f));
+			}, (Renderer rend) => rend.bounds) | StaticLodManager._TryAddComponentsToGroup<Graphic>(lodGroup, ref value, ref value.uiGraphics, (Graphic _) => true, (Graphic gfx) => new Bounds(gfx.transform.position, Vector3.one * 0.01f));
 			StaticLodManager.groupInfos[groupIndex] = value;
 			return result;
 		}
 
-		private static bool _TryAddComponentsToGroup<T>(StaticLodGroup lodGroup, StaticLodGroupExcluder excluderAboveGroup, ref StaticLodManager.GroupInfo ref_groupInfo, ref T[] ref_components, Predicate<T> includeIf, StaticLodManager._GetBoundsDelegate<T> getBounds) where T : Component
+		private static bool _TryAddComponentsToGroup<T>(StaticLodGroup lodGroup, ref StaticLodManager.GroupInfo ref_groupInfo, ref T[] ref_components, Predicate<T> includeIf, StaticLodManager._GetBoundsDelegate<T> getBounds) where T : Component
 		{
-			List<T> list;
-			bool result;
-			using (lodGroup.GTGetComponentsListPool(true, out list))
+			List<T> componentsInChildrenUntil = lodGroup.GetComponentsInChildrenUntil(true, false, 64);
+			for (int i = componentsInChildrenUntil.Count - 1; i >= 0; i--)
 			{
-				for (int i = list.Count - 1; i >= 0; i--)
+				if (!includeIf(componentsInChildrenUntil[i]))
 				{
-					if (!includeIf(list[i]))
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						StaticLodGroupExcluder componentInParent = list[i].GetComponentInParent<StaticLodGroupExcluder>(true);
-						if (componentInParent != null && componentInParent != excluderAboveGroup)
-						{
-							list.RemoveAt(i);
-						}
-					}
-				}
-				if (list.Count == 0)
-				{
-					if (ref_components == null)
-					{
-						ref_components = Array.Empty<T>();
-					}
-					result = false;
-				}
-				else
-				{
-					T[] array = ref_components;
-					int num = (array != null) ? array.Length : 0;
-					if (num == 0)
-					{
-						ref_components = list.ToArray();
-					}
-					else
-					{
-						Array.Resize<T>(ref ref_components, num + list.Count);
-						for (int j = num; j < ref_components.Length; j++)
-						{
-							ref_components[j] = list[j - num];
-						}
-					}
-					if (Mathf.Approximately(ref_groupInfo.radiusSq, 0f))
-					{
-						ref_groupInfo.bounds = getBounds(ref_components[0]);
-					}
-					for (int k = num; k < ref_components.Length; k++)
-					{
-						ref_groupInfo.bounds.Encapsulate(getBounds(ref_components[k]));
-					}
-					ref_groupInfo.center = ref_groupInfo.bounds.center;
-					ref_groupInfo.radiusSq = ref_groupInfo.bounds.extents.sqrMagnitude;
-					result = true;
+					componentsInChildrenUntil.RemoveAt(i);
 				}
 			}
-			return result;
+			if (componentsInChildrenUntil.Count == 0)
+			{
+				if (ref_components == null)
+				{
+					ref_components = Array.Empty<T>();
+				}
+				return false;
+			}
+			T[] array = ref_components;
+			int num = (array != null) ? array.Length : 0;
+			if (num == 0)
+			{
+				ref_components = componentsInChildrenUntil.ToArray();
+			}
+			else
+			{
+				Array.Resize<T>(ref ref_components, num + componentsInChildrenUntil.Count);
+				for (int j = num; j < ref_components.Length; j++)
+				{
+					ref_components[j] = componentsInChildrenUntil[j - num];
+				}
+			}
+			if (Mathf.Approximately(ref_groupInfo.radiusSq, 0f))
+			{
+				ref_groupInfo.bounds = getBounds(ref_components[0]);
+			}
+			for (int k = num; k < ref_components.Length; k++)
+			{
+				ref_groupInfo.bounds.Encapsulate(getBounds(ref_components[k]));
+			}
+			ref_groupInfo.center = ref_groupInfo.bounds.center;
+			ref_groupInfo.radiusSq = ref_groupInfo.bounds.extents.sqrMagnitude;
+			return true;
 		}
 
 		[Conditional("UNITY_EDITOR")]
@@ -341,14 +324,14 @@ namespace GorillaTag
 		}
 
 		[OnEnterPlay_Clear]
-		private static readonly List<StaticLodGroup> groupMonoBehaviours = new List<StaticLodGroup>(32);
+		private static readonly List<StaticLodGroup> groupMonoBehaviours = new List<StaticLodGroup>(256);
 
 		[OnEnterPlay_Clear]
-		private static readonly Dictionary<int, int> _groupInstId_to_index = new Dictionary<int, int>(32);
+		private static readonly Dictionary<int, int> _groupInstId_to_index = new Dictionary<int, int>(256);
 
 		[DebugReadout]
 		[OnEnterPlay_Clear]
-		private static readonly List<StaticLodManager.GroupInfo> groupInfos = new List<StaticLodManager.GroupInfo>(32);
+		private static readonly List<StaticLodManager.GroupInfo> groupInfos = new List<StaticLodManager.GroupInfo>(256);
 
 		[OnEnterPlay_Clear]
 		private static readonly Stack<int> freeSlots = new Stack<int>();

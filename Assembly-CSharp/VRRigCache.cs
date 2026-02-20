@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using GorillaExtensions;
 using GorillaLocomotion;
 using GorillaTag;
+using GorillaTagScripts;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -48,6 +49,7 @@ internal class VRRigCache : MonoBehaviour
 		}
 		TickSystemTimer ensureNetworkObjectTimer = this.m_ensureNetworkObjectTimer;
 		ensureNetworkObjectTimer.callback = (Action)Delegate.Combine(ensureNetworkObjectTimer.callback, new Action(this.InstantiateNetworkObject));
+		NetworkedPlayerColourNotifier.SetLocalRigReference(this.localRig);
 	}
 
 	private void OnDestroy()

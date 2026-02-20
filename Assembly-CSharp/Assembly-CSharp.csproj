@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CF3}</ProjectGuid>
+    <ProjectGuid>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C5C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Assembly-CSharp</RootNamespace>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -32,233 +33,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ALINE">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\ALINE.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="AstarPathfindingProject">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\AstarPathfindingProject.dll</HintPath>
-    </Reference>
-    <Reference Include="Backtrace.Unity">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Backtrace.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="BakeryRuntimeAssembly">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\BakeryRuntimeAssembly.dll</HintPath>
-    </Reference>
-    <Reference Include="com.rlabrecque.steamworks.net">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
-    </Reference>
-    <Reference Include="endel.nativewebsocket">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\endel.nativewebsocket.dll</HintPath>
-    </Reference>
-    <Reference Include="Fusion.Common">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Fusion.Sockets">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Sockets.dll</HintPath>
-    </Reference>
-    <Reference Include="Fusion.Unity">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="GT_CustomMapSupportRuntime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\GT_CustomMapSupportRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="KID">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\KID.dll</HintPath>
-    </Reference>
-    <Reference Include="LIV.LCK">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\LIV.LCK.dll</HintPath>
-    </Reference>
-    <Reference Include="LIV.LCKCore">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\LIV.LCKCore.dll</HintPath>
-    </Reference>
-    <Reference Include="LIV.LCK_GorillaTag">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\LIV.LCK_GorillaTag.dll</HintPath>
-    </Reference>
-    <Reference Include="Modio">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Modio.dll</HintPath>
-    </Reference>
-    <Reference Include="Modio.Unity">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Modio.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="netstandard">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="nexus.nexussdk.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\nexus.nexussdk.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Oculus.Platform">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Oculus.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Oculus.VR">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Oculus.VR.dll</HintPath>
-    </Reference>
-    <Reference Include="PlayFab">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\PlayFab.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Sirenix.OdinInspector.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="SteamVR">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\SteamVR.dll</HintPath>
-    </Reference>
-    <Reference Include="SteamVR_Actions">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\SteamVR_Actions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Addressables">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Addressables.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.AI.Navigation">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.AI.Navigation.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Animation.Rigging">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Animation.Rigging.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Burst.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Cinemachine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Cinemachine.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.InputSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Localization">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.ProBuilder.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ResourceManager">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.ResourceManager.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Splines">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.Splines.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.CoreUtils">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.XR.CoreUtils.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.Interaction.Toolkit">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.XR.Interaction.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.OpenVR">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Unity.XR.OpenVR.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AIModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AndroidJNIModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.DirectorModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.UIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VideoModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.VideoModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VRModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.VRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.XRModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.XRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="VoiceSDK.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\VoiceSDK.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="XNode">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\XNode.dll</HintPath>
-    </Reference>
-    <Reference Include="ZString">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\ZString.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
@@ -1249,6 +1028,7 @@
     <Compile Include="GorillaSerializerMasterOnly.cs" />
     <Compile Include="GorillaSerializerScene.cs" />
     <Compile Include="GorillaSetZoneTrigger.cs" />
+    <Compile Include="GorillaSimpleBackgroundWorkerManager.cs" />
     <Compile Include="GorillaSkin.cs" />
     <Compile Include="GorillaSkinCatalog.cs" />
     <Compile Include="GorillaSkinMaterials.cs" />
@@ -1390,6 +1170,7 @@
     <Compile Include="GorillaTagScripts\MoleTypes.cs" />
     <Compile Include="GorillaTagScripts\MovingSurface.cs" />
     <Compile Include="GorillaTagScripts\MovingSurfaceManager.cs" />
+    <Compile Include="GorillaTagScripts\NetworkedPlayerColourNotifier.cs" />
     <Compile Include="GorillaTagScripts\ObstacleCourse\ObstacleCourse.cs" />
     <Compile Include="GorillaTagScripts\ObstacleCourse\ObstacleCourseData.cs" />
     <Compile Include="GorillaTagScripts\ObstacleCourse\ObstacleCourseManager.cs" />
@@ -2029,6 +1810,7 @@
     <Compile Include="IgnoreLocalRotation.cs" />
     <Compile Include="IGorillaSerializeable.cs" />
     <Compile Include="IGorillaSerializeableScene.cs" />
+    <Compile Include="IGorillaSimpleBackgroundWorker.cs" />
     <Compile Include="IGorillaSliceableSimple.cs" />
     <Compile Include="IGRSleepableEntity.cs" />
     <Compile Include="IGRSummoningEntity.cs" />
@@ -2434,6 +2216,7 @@
     <Compile Include="PeriodicFoodTopUpper.cs" />
     <Compile Include="PeriodicNoiseGenerator.cs" />
     <Compile Include="PerSceneRenderData.cs" />
+    <Compile Include="PersistLog.cs" />
     <Compile Include="PhotonAuthenticator.cs" />
     <Compile Include="PhotonAuthenticatorSettings.cs" />
     <Compile Include="PhotonAuthenticatorSettingsScriptableObject.cs" />
@@ -2744,6 +2527,7 @@
     <Compile Include="SizeManagerManager.cs" />
     <Compile Include="SkeletonNetData.cs" />
     <Compile Include="SkeletonPathingNode.cs" />
+    <Compile Include="SkipTriggerCalls.cs" />
     <Compile Include="SkyboxController.cs" />
     <Compile Include="SkyboxSettings.cs" />
     <Compile Include="Slingshot.cs" />
@@ -3132,40 +2916,336 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AA.Mothership\AA.Mothership.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF2}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C58}</Project>
       <Name>AA.Mothership</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ALINE\ALINE.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C59}</Project>
+      <Name>ALINE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C5B}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AstarPathfindingProject\AstarPathfindingProject.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C5F}</Project>
+      <Name>AstarPathfindingProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Backtrace.Unity\Backtrace.Unity.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C62}</Project>
+      <Name>Backtrace.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BakeryRuntimeAssembly\BakeryRuntimeAssembly.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C63}</Project>
+      <Name>BakeryRuntimeAssembly</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.rlabrecque.steamworks.net\com.rlabrecque.steamworks.net.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C64}</Project>
+      <Name>com.rlabrecque.steamworks.net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\endel.nativewebsocket\endel.nativewebsocket.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C66}</Project>
+      <Name>endel.nativewebsocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C67}</Project>
+      <Name>Fusion.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF4}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C69}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Runtime\Fusion.Runtime.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF5}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6A}</Project>
       <Name>Fusion.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fusion.Sockets\Fusion.Sockets.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6B}</Project>
+      <Name>Fusion.Sockets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fusion.Unity\Fusion.Unity.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6C}</Project>
+      <Name>Fusion.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GT_CustomMapSupportRuntime\GT_CustomMapSupportRuntime.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6E}</Project>
+      <Name>GT_CustomMapSupportRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KID\KID.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6F}</Project>
+      <Name>KID</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LIV.LCKCore\LIV.LCKCore.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C73}</Project>
+      <Name>LIV.LCKCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LIV.LCK\LIV.LCK.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C71}</Project>
+      <Name>LIV.LCK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LIV.LCK_GorillaTag\LIV.LCK_GorillaTag.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C70}</Project>
+      <Name>LIV.LCK_GorillaTag</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modio.Unity\Modio.Unity.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C8C}</Project>
+      <Name>Modio.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modio\Modio.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C8B}</Project>
+      <Name>Modio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C94}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C95}</Project>
+      <Name>Newtonsoft.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexus.nexussdk.Runtime\nexus.nexussdk.Runtime.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C96}</Project>
+      <Name>nexus.nexussdk.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Oculus.Platform\Oculus.Platform.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C9D}</Project>
+      <Name>Oculus.Platform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Oculus.VR\Oculus.VR.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C9E}</Project>
+      <Name>Oculus.VR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF6}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA2}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF7}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA3}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonUnityNetworking\PhotonUnityNetworking.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF8}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA4}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CFA}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA6}</Project>
       <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.PUN\PhotonVoice.PUN.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CFD}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA9}</Project>
       <Name>PhotonVoice.PUN</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice\PhotonVoice.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CFB}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA7}</Project>
       <Name>PhotonVoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayFab\PlayFab.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CAA}</Project>
+      <Name>PlayFab</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sirenix.OdinInspector.Attributes\Sirenix.OdinInspector.Attributes.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CAB}</Project>
+      <Name>Sirenix.OdinInspector.Attributes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SteamVR\SteamVR.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CAE}</Project>
+      <Name>SteamVR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SteamVR_Actions\SteamVR_Actions.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CAD}</Project>
+      <Name>SteamVR_Actions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CBD}</Project>
+      <Name>System.Runtime.CompilerServices.Unsafe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Addressables\Unity.Addressables.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CC6}</Project>
+      <Name>Unity.Addressables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.AI.Navigation\Unity.AI.Navigation.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CC7}</Project>
+      <Name>Unity.AI.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Animation.Rigging\Unity.Animation.Rigging.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CC8}</Project>
+      <Name>Unity.Animation.Rigging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CCA}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Cinemachine\Unity.Cinemachine.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CCC}</Project>
+      <Name>Unity.Cinemachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Collections\Unity.Collections.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CCD}</Project>
+      <Name>Unity.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CD0}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Localization\Unity.Localization.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CD3}</Project>
+      <Name>Unity.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CD4}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.ProBuilder\Unity.ProBuilder.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CDA}</Project>
+      <Name>Unity.ProBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CE3}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CEA}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.ResourceManager\Unity.ResourceManager.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CEC}</Project>
+      <Name>Unity.ResourceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Splines\Unity.Splines.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CEE}</Project>
+      <Name>Unity.Splines</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CEF}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.CoreUtils\Unity.XR.CoreUtils.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CF2}</Project>
+      <Name>Unity.XR.CoreUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.Interaction.Toolkit\Unity.XR.Interaction.Toolkit.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CF3}</Project>
+      <Name>Unity.XR.Interaction.Toolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.OpenVR\Unity.XR.OpenVR.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CF5}</Project>
+      <Name>Unity.XR.OpenVR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AIModule\UnityEngine.AIModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CFD}</Project>
+      <Name>UnityEngine.AIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CFF}</Project>
+      <Name>UnityEngine.AndroidJNIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D00}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D02}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D03}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D08}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.DirectorModule\UnityEngine.DirectorModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D0A}</Project>
+      <Name>UnityEngine.DirectorModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.ImageConversionModule\UnityEngine.ImageConversionModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D14}</Project>
+      <Name>UnityEngine.ImageConversionModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D15}</Project>
+      <Name>UnityEngine.IMGUIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D17}</Project>
+      <Name>UnityEngine.InputLegacyModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D1A}</Project>
+      <Name>UnityEngine.JSONSerializeModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.ParticleSystemModule\UnityEngine.ParticleSystemModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D1F}</Project>
+      <Name>UnityEngine.ParticleSystemModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D21}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D22}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SubsystemsModule\UnityEngine.SubsystemsModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D2D}</Project>
+      <Name>UnityEngine.SubsystemsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TerrainModule\UnityEngine.TerrainModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D2E}</Project>
+      <Name>UnityEngine.TerrainModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D32}</Project>
+      <Name>UnityEngine.TextRenderingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TilemapModule\UnityEngine.TilemapModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D33}</Project>
+      <Name>UnityEngine.TilemapModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D37}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D35}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D41}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestTextureModule\UnityEngine.UnityWebRequestTextureModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D42}</Project>
+      <Name>UnityEngine.UnityWebRequestTextureModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.VideoModule\UnityEngine.VideoModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D46}</Project>
+      <Name>UnityEngine.VideoModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.VRModule\UnityEngine.VRModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D48}</Project>
+      <Name>UnityEngine.VRModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D4B}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D0B}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VoiceSDK.Runtime\VoiceSDK.Runtime.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D4F}</Project>
+      <Name>VoiceSDK.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XNode\XNode.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D53}</Project>
+      <Name>XNode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZString\ZString.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D54}</Project>
+      <Name>ZString</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

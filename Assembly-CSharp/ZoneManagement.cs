@@ -151,6 +151,7 @@ public class ZoneManagement : MonoBehaviour
 		}
 		this.allObjects = hashSet.ToArray<GameObject>();
 		this.objectActivationState = new bool[this.allObjects.Length];
+		ZoneManagement.AddSceneToForceStayLoaded("City");
 	}
 
 	private void SetZones(GTZone[] newActiveZones)

@@ -3,21 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SinglePool
+public class SinglePool : IGorillaSimpleBackgroundWorker
 {
-	private void PrivAllocPooledObjects()
+	public void SimpleWork()
 	{
 		int count = this.inactivePool.Count;
-		for (int i = count; i < count + this.initAmountToPool; i++)
+		if (count >= this.initAmountToPool)
 		{
-			GameObject gameObject = Object.Instantiate<GameObject>(this.objectToPool, this.gameObject.transform, true);
-			gameObject.name = this.objectToPool.name + "(PoolIndex=" + i.ToString() + ")";
-			gameObject.SetActive(false);
-			this.inactivePool.Push(gameObject);
-			this.amountAllocatedToPool++;
-			int instanceID = gameObject.GetInstanceID();
-			this.pooledObjects.Add(instanceID);
+			return;
 		}
+		GameObject gameObject = Object.Instantiate<GameObject>(this.objectToPool, this.gameObject.transform, true);
+		gameObject.name = this.objectToPool.name + "(PoolIndex=" + count.ToString() + ")";
+		gameObject.SetActive(false);
+		this.inactivePool.Push(gameObject);
+		this.amountAllocatedToPool++;
+		int instanceID = gameObject.GetInstanceID();
+		this.pooledObjects.Add(instanceID);
+		GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
+	}
+
+	private void PrivAllocPooledObjects()
+	{
+		if (this.inactivePool.Count == 0)
+		{
+			this.SimpleWork();
+			return;
+		}
+		GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
 	}
 
 	public void Initialize(GameObject gameObject_)
@@ -26,7 +38,7 @@ public class SinglePool
 		this.activePool = new Dictionary<int, GameObject>(this.initAmountToPool);
 		this.inactivePool = new Stack<GameObject>(this.initAmountToPool);
 		this.pooledObjects = new HashSet<int>();
-		this.PrivAllocPooledObjects();
+		GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
 	}
 
 	public GameObject Instantiate(bool setActive = true)
@@ -48,12 +60,10 @@ public class SinglePool
 		int instanceID = obj.GetInstanceID();
 		if (!this.activePool.ContainsKey(instanceID))
 		{
-			Debug.Log("Failed to destroy Object " + obj.name + " in pool, It is not contained in the activePool");
 			return;
 		}
 		if (!this.pooledObjects.Contains(instanceID))
 		{
-			Debug.Log("Failed to destroy Object " + obj.name + " in pool, It is not contained in the pooledObjects");
 			return;
 		}
 		obj.SetActive(false);

@@ -57,7 +57,6 @@ namespace GorillaTagScripts
 		{
 			if (SubscriptionManager.Instance == null || !SubscriptionManager.Instance.rigs.ContainsKey(rig))
 			{
-				Debug.LogError("Failed to get subscription details via VRRig");
 				return default(SubscriptionManager.SubscriptionDetails);
 			}
 			return SubscriptionManager.GetSubscriptionDetails(SubscriptionManager.Instance.rigs[rig]);
@@ -68,7 +67,6 @@ namespace GorillaTagScripts
 			SubscriptionManager.SubscriptionDetails result;
 			if (SubscriptionManager.Instance == null || !SubscriptionManager.Instance.subData.TryGetValue(np, out result))
 			{
-				Debug.LogError("Failed to get subscription details via NetPlayer");
 				return default(SubscriptionManager.SubscriptionDetails);
 			}
 			return result;
@@ -79,7 +77,6 @@ namespace GorillaTagScripts
 			SubscriptionManager.SubscriptionDetails result;
 			if (SubscriptionManager.Instance == null || !SubscriptionManager.Instance.subData.TryGetValue(VRRig.LocalRig.creator, out result))
 			{
-				Debug.LogError("Failed to get local player's subscription details");
 				return default(SubscriptionManager.SubscriptionDetails);
 			}
 			return result;
@@ -107,17 +104,11 @@ namespace GorillaTagScripts
 		public static bool IsLocalSubscribed()
 		{
 			SubscriptionManager.SubscriptionDetails subscriptionDetails;
-			if (SubscriptionManager.Instance == null || !SubscriptionManager.Instance.subData.TryGetValue(VRRig.LocalRig.creator, out subscriptionDetails))
-			{
-				Debug.LogError("Failed to get local player's subscription details");
-				return false;
-			}
-			return subscriptionDetails.active;
+			return !(SubscriptionManager.Instance == null) && !(VRRig.LocalRig == null) && VRRig.LocalRig.creator != null && SubscriptionManager.Instance.subData.TryGetValue(VRRig.LocalRig.creator, out subscriptionDetails) && subscriptionDetails.active;
 		}
 
 		public static void ForceRecheck()
 		{
-			Debug.Log("SubscriptionsManager: Running ForceRecheck");
 			SubscriptionManager.Instance.OnPlayerJoinedRoom(null);
 		}
 
@@ -138,7 +129,6 @@ namespace GorillaTagScripts
 		{
 			if (player == null)
 			{
-				Debug.LogWarning("SubscriptionsManager: NetPlayer is null!");
 				return;
 			}
 			RigContainer rigContainer;
@@ -146,8 +136,10 @@ namespace GorillaTagScripts
 			{
 				this.rigs[rigContainer.Rig] = player;
 			}
-			bool flag = player == NetworkSystem.Instance.LocalPlayer || player == VRRig.LocalRig.creator;
-			Debug.Log(string.Format("SubscriptionManager: UpdatePlayerSubsDetails: {0} {1}", player.NickName, flag));
+			if (player != NetworkSystem.Instance.LocalPlayer)
+			{
+				bool flag = player == VRRig.LocalRig.creator;
+			}
 			bool flag2 = false;
 			int daysAccrued2 = 0;
 			int tier = 0;
@@ -156,22 +148,14 @@ namespace GorillaTagScripts
 				flag2 = isSubscribed.Value;
 				tier = (flag2 ? 1 : 0);
 				daysAccrued2 = daysAccrued.GetValueOrDefault();
-				Debug.Log(string.Format("SubscriptionManager: Using networked subscription data for {0} - Active: {1}", player.NickName, flag2));
 			}
-			SubscriptionManager.SubscriptionDetails subscriptionDetails = new SubscriptionManager.SubscriptionDetails
+			SubscriptionManager.SubscriptionDetails value = new SubscriptionManager.SubscriptionDetails
 			{
 				active = flag2,
 				tier = tier,
 				daysAccrued = daysAccrued2
 			};
-			this.subData[player] = subscriptionDetails;
-			Debug.Log(string.Format("SubscriptionManager: Final state for {0} - Active: {1}, Tier: {2}, Days: {3}", new object[]
-			{
-				player.NickName,
-				subscriptionDetails.active,
-				subscriptionDetails.tier,
-				subscriptionDetails.daysAccrued
-			}));
+			this.subData[player] = value;
 		}
 
 		private void OnPlayerLeft(NetPlayer pl)
@@ -281,7 +265,6 @@ namespace GorillaTagScripts
 				Debug.LogWarning("SubscriptionManager: NetPlayer is null, cannot update subscription data");
 				return;
 			}
-			Debug.Log(string.Format("SubscriptionManager: Received networked subscription update for {0} - Subscribed: {1}", player.NickName, isSubscribed));
 			SubscriptionManager.Instance.UpdatePlayerSubsDetails(player, new bool?(isSubscribed), new int?(daysAccrued));
 			if (SubscriptionManager.OnSubscriptionData != null)
 			{

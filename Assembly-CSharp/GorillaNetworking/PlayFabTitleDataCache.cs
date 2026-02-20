@@ -146,8 +146,7 @@ namespace GorillaNetworking
 				bool wipeOldData = oldCache == null || oldCache.DeploymentId != MothershipClientApiUnity.DeploymentId;
 				CS$<>8__locals1.newTitleData = null;
 				CS$<>8__locals1.mothershipError = null;
-				Stopwatch sw = Stopwatch.StartNew();
-				Debug.Log("[PlayFabTitleDataCache::UpdateDataCo] Starting Mothership API call");
+				Stopwatch.StartNew();
 				StringVector stringVector = new StringVector();
 				if (!this.isFirstLoad)
 				{
@@ -157,48 +156,20 @@ namespace GorillaNetworking
 					}
 				}
 				CS$<>8__locals1.finished = false;
-				Debug.Log("[PlayFabTitleDataCache::UpdateDataCo] Keys to fetch: " + string.Join(", ", stringVector));
-				Debug.Log(string.Format("[PlayFabTitleDataCache::UpdateDataCo] Calling MothershipClientApiUnity.ListMothershipTitleData with TitleId={0}, EnvironmentId={1}, DeploymentId={2}, keys count={3}", new object[]
-				{
-					MothershipClientApiUnity.TitleId,
-					MothershipClientApiUnity.EnvironmentId,
-					MothershipClientApiUnity.DeploymentId,
-					stringVector.Count
-				}));
 				if (!MothershipClientApiUnity.ListMothershipTitleData(MothershipClientApiUnity.TitleId, MothershipClientApiUnity.EnvironmentId, MothershipClientApiUnity.DeploymentId, stringVector, delegate(ListClientMothershipTitleDataResponse response)
 				{
-					string format = "[PlayFabTitleDataCache::UpdateDataCo] Mothership API success callback - Response: {0}, Results: {1}";
-					object arg = response != null;
-					int? num;
-					if (response == null)
-					{
-						num = null;
-					}
-					else
-					{
-						TitleDataShortVector results = response.Results;
-						num = ((results != null) ? new int?(results.Count) : null);
-					}
-					int? num2 = num;
-					Debug.Log(string.Format(format, arg, num2.GetValueOrDefault()));
 					if (response != null && response.Results != null)
 					{
 						CS$<>8__locals1.newTitleData = new Dictionary<string, string>();
 						for (int j = 0; j < response.Results.Count; j++)
 						{
 							MothershipTitleDataShort mothershipTitleDataShort = response.Results[j];
-							string format2 = "[PlayFabTitleDataCache::UpdateDataCo] Processing title data item {0}: key='{1}', data length={2}";
-							object arg2 = j;
-							object key = mothershipTitleDataShort.key;
-							string data = mothershipTitleDataShort.data;
-							Debug.Log(string.Format(format2, arg2, key, (data != null) ? data.Length : 0));
 							if (!string.IsNullOrEmpty(mothershipTitleDataShort.key))
 							{
 								CS$<>8__locals1.newTitleData[mothershipTitleDataShort.key] = mothershipTitleDataShort.data;
 							}
 						}
 						CS$<>8__locals1.mothershipError = null;
-						Debug.Log(string.Format("[PlayFabTitleDataCache::UpdateDataCo] Successfully processed {0} title data items", CS$<>8__locals1.newTitleData.Count));
 					}
 					else
 					{
@@ -216,12 +187,9 @@ namespace GorillaNetworking
 					CS$<>8__locals1.mothershipError = "Mothership API call was not sent.";
 					Debug.LogError("[PlayFabTitleDataCache::UpdateDataCo] " + CS$<>8__locals1.mothershipError);
 				}
-				Debug.Log("[PlayFabTitleDataCache::UpdateDataCo] Waiting for Mothership API response");
 				yield return new WaitUntil(() => CS$<>8__locals1.finished);
-				Debug.Log(string.Format("[PlayFabTitleDataCache::UpdateDataCo] {0:N5}s", sw.Elapsed.TotalSeconds));
 				if (CS$<>8__locals1.newTitleData != null)
 				{
-					Debug.Log(string.Format("[PlayFabTitleDataCache::UpdateDataCo] Processing {0} new title data items", CS$<>8__locals1.newTitleData.Count));
 					if (wipeOldData)
 					{
 						this.localizedTitleData.Clear();
@@ -239,7 +207,6 @@ namespace GorillaNetworking
 						keyValuePair.Deconstruct(out text, out text2);
 						string text3 = text;
 						string text4 = text2;
-						Debug.Log("[PlayFabTitleDataCache::UpdateDataCo] Updating title data key: " + text3);
 						titleData[text3] = text4;
 						for (int i = this.requests.Count - 1; i >= 0; i--)
 						{
@@ -273,7 +240,6 @@ namespace GorillaNetworking
 				currentLocale = null;
 				titleData = null;
 				oldLocalizedCache = null;
-				sw = null;
 			}
 			finally
 			{

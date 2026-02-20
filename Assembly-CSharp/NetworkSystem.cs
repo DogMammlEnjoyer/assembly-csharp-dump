@@ -326,21 +326,11 @@ public abstract class NetworkSystem : MonoBehaviour
 
 	public void BroadcastMyRoom(bool create, string key, string shuffler)
 	{
-		string text = NetworkSystem.ShuffleRoomName(NetworkSystem.Instance.RoomName, shuffler.Substring(2, 8), true) + "|" + NetworkSystem.ShuffleRoomName("ABCDEFGHIJKLMNPQRSTUVWXYZ123456789".Substring(NetworkSystem.Instance.currentRegionIndex, 1), shuffler.Substring(0, 2), true);
-		Debug.Log(string.Format("Broadcasting room {0} region {1}({2}). Create: {3} key: {4} (shuffler {5}) shuffled: {6}", new object[]
-		{
-			NetworkSystem.Instance.RoomName,
-			NetworkSystem.Instance.currentRegionIndex,
-			NetworkSystem.Instance.regionNames[NetworkSystem.Instance.currentRegionIndex],
-			create,
-			key,
-			shuffler,
-			text
-		}));
+		string roomToJoin = NetworkSystem.ShuffleRoomName(NetworkSystem.Instance.RoomName, shuffler.Substring(2, 8), true) + "|" + NetworkSystem.ShuffleRoomName("ABCDEFGHIJKLMNPQRSTUVWXYZ123456789".Substring(NetworkSystem.Instance.currentRegionIndex, 1), shuffler.Substring(0, 2), true);
 		GorillaServer instance = GorillaServer.Instance;
 		BroadcastMyRoomRequest broadcastMyRoomRequest = new BroadcastMyRoomRequest();
 		broadcastMyRoomRequest.KeyToFollow = key;
-		broadcastMyRoomRequest.RoomToJoin = text;
+		broadcastMyRoomRequest.RoomToJoin = roomToJoin;
 		broadcastMyRoomRequest.Set = create;
 		instance.BroadcastMyRoom(broadcastMyRoomRequest, delegate(ExecuteFunctionResult result)
 		{
@@ -360,17 +350,13 @@ public abstract class NetworkSystem : MonoBehaviour
 		getSharedGroupDataRequest.SharedGroupId = userID;
 		PlayFabClientAPI.GetSharedGroupData(getSharedGroupDataRequest, delegate(GetSharedGroupDataResult result)
 		{
-			Debug.Log("Get Shared Group Data returned a success");
-			Debug.Log(result.Data.ToStringFull());
 			if (result.Data.Count > 0)
 			{
 				success = true;
 				return;
 			}
-			Debug.Log("RESULT returned but no DATA");
 		}, delegate(PlayFabError error)
 		{
-			Debug.Log("ERROR - no group data found");
 		}, null, null);
 		return success;
 	}

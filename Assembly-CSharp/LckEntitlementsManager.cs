@@ -79,10 +79,7 @@ public class LckEntitlementsManager : MonoBehaviour
 		HashSet<string> remotePlayersToGetEntitlementsFor = this._remotePlayersToGetEntitlementsFor;
 		lock (remotePlayersToGetEntitlementsFor)
 		{
-			if (this._remotePlayersToGetEntitlementsFor.Add(remoteUserId))
-			{
-				Debug.Log("LCK: Queued remote player " + remoteUserId + " for batched entitlements check.");
-			}
+			this._remotePlayersToGetEntitlementsFor.Add(remoteUserId);
 		}
 	}
 
@@ -108,7 +105,6 @@ public class LckEntitlementsManager : MonoBehaviour
 		playerProcessRecord.LastSeenTimestamp = Time.time;
 		if (Time.time < playerProcessRecord.TimeoutUntilTimestamp)
 		{
-			Debug.LogWarning("LCK: Player " + userId + " is on a timeout. Entitlements Manager will ignore spawn event.");
 			return false;
 		}
 		if (playerProcessRecord.AttemptCount > 3)
@@ -119,10 +115,8 @@ public class LckEntitlementsManager : MonoBehaviour
 		if (playerProcessRecord.AttemptCount > 3)
 		{
 			playerProcessRecord.TimeoutUntilTimestamp = Time.time + 60f;
-			Debug.LogWarning(string.Format("LCK: Player {0} exceeded max attempts. Applying a {1}-minute timeout.", userId, 1f));
 			return false;
 		}
-		Debug.Log(string.Format("LCK: Processing player {0} (Attempt {1}/{2}).", userId, playerProcessRecord.AttemptCount, 3));
 		return true;
 	}
 
@@ -162,14 +156,6 @@ public class LckEntitlementsManager : MonoBehaviour
 			yield break;
 		}
 		string sessionId = "DefaultSessionId";
-		Debug.Log(string.Concat(new string[]
-		{
-			"LCK: Announcing Presence for local player with UserId: ",
-			localPlayerId,
-			" + Session ID: ",
-			sessionId,
-			"."
-		}));
 		int num;
 		for (int attempt = 1; attempt <= 2; attempt = num + 1)
 		{
@@ -178,7 +164,6 @@ public class LckEntitlementsManager : MonoBehaviour
 			yield return new WaitUntil(() => CS$<>8__locals1.announcementAsync.IsCompleted);
 			if (!CS$<>8__locals1.announcementAsync.IsFaulted && CS$<>8__locals1.announcementAsync.Result.IsOk)
 			{
-				Debug.Log("LCK: Successfully set session entitlement.");
 				yield break;
 			}
 			string arg = CS$<>8__locals1.announcementAsync.IsFaulted ? CS$<>8__locals1.announcementAsync.Exception.ToString() : CS$<>8__locals1.announcementAsync.Result.Message.ToString();
@@ -219,7 +204,6 @@ public class LckEntitlementsManager : MonoBehaviour
 			}
 			if (playersToRemove.Count > 0)
 			{
-				Debug.Log(string.Format("LCK: Cleaning up {0} stale player records.", playersToRemove.Count));
 				using (List<string>.Enumerator enumerator2 = playersToRemove.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())

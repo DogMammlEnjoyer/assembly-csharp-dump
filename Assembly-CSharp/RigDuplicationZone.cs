@@ -79,6 +79,11 @@ public class RigDuplicationZone : MonoBehaviour
 
 	public Vector3 GetVisualOffsetForRigs(Vector3 cachedOffset)
 	{
+		if (this.otherZone == null)
+		{
+			Debug.LogError("RigDuplicationZone doesn't have an other zone!", base.gameObject);
+			return cachedOffset;
+		}
 		if (!this.otherZone.playerInZone)
 		{
 			return cachedOffset;

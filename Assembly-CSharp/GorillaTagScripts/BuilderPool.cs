@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GorillaTagScripts
 {
-	public class BuilderPool : MonoBehaviour
+	public class BuilderPool : MonoBehaviour, IGorillaSimpleBackgroundWorker
 	{
 		private void Awake()
 		{
@@ -61,22 +61,25 @@ namespace GorillaTagScripts
 				{
 					foreach (BuilderPieceSet.PieceInfo pieceInfo in builderPieceSubset.pieceInfos)
 					{
-						int pieceType = pieceInfo.piecePrefab.name.GetStaticHash();
+						int staticHash = pieceInfo.piecePrefab.name.GetStaticHash();
 						int count;
-						if (!this.piecePoolLookup.TryGetValue(pieceType, out count))
+						if (!this.piecePoolLookup.TryGetValue(staticHash, out count))
 						{
 							count = this.piecePools.Count;
 							this.piecePools.Add(new List<BuilderPiece>(128));
-							this.piecePoolLookup.Add(pieceType, count);
+							this.piecePoolLookup.Add(staticHash, count);
 							if (!isFallbackSet)
 							{
-								int numToCreate = isStarterSet ? 32 : 8;
+								int num = isStarterSet ? 32 : 8;
 								int i = 0;
-								while (i < numToCreate)
+								while (i < num)
 								{
+									if (this.piecesToAdd.Count == 0)
+									{
+										GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
+									}
 									i += 2;
-									this.AddToPool(pieceType, 2);
-									yield return null;
+									this.piecesToAdd.Enqueue(staticHash);
 								}
 							}
 						}
@@ -89,6 +92,19 @@ namespace GorillaTagScripts
 			List<BuilderPieceSet>.Enumerator enumerator = default(List<BuilderPieceSet>.Enumerator);
 			yield break;
 			yield break;
+		}
+
+		public void SimpleWork()
+		{
+			int count = 2;
+			if (this.piecesToAdd.Count > 0)
+			{
+				this.AddToPool(this.piecesToAdd.Dequeue(), count);
+			}
+			if (this.piecesToAdd.Count > 0)
+			{
+				GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
+			}
 		}
 
 		private void AddToPool(int pieceType, int count)
@@ -295,5 +311,7 @@ namespace GorillaTagScripts
 		private bool isSetup;
 
 		private bool hasBuiltPieceSets;
+
+		private Queue<int> piecesToAdd = new Queue<int>();
 	}
 }

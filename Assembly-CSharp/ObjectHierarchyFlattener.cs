@@ -3,11 +3,11 @@ using GorillaTag;
 using UnityEngine;
 
 [DefaultExecutionOrder(2001)]
-public class ObjectHierarchyFlattener : MonoBehaviour
+public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundWorker
 {
 	private void ResetTransform()
 	{
-		if (this.originalParentGO.activeInHierarchy)
+		if (!this.initialized || (this.originalParentGO != null && this.originalParentGO.activeInHierarchy))
 		{
 			return;
 		}
@@ -16,6 +16,7 @@ public class ObjectHierarchyFlattener : MonoBehaviour
 		base.transform.localPosition = this.originalLocalPosition;
 		base.transform.localRotation = this.originalLocalRotation;
 		base.transform.localScale = this.originalScale;
+		this.initialized = false;
 	}
 
 	public void CrumbDisabled()
@@ -46,6 +47,39 @@ public class ObjectHierarchyFlattener : MonoBehaviour
 
 	private void OnEnable()
 	{
+		this.abandonWork = false;
+		GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
+	}
+
+	private void OnDisable()
+	{
+		this.abandonWork = true;
+		ObjectHierarchyFlattenerManager.UnregisterOHF(this);
+		if (base.enabled)
+		{
+			base.Invoke("ResetTransformIfStillDisabled", 0f);
+		}
+	}
+
+	private void OnDestroy()
+	{
+		base.CancelInvoke();
+	}
+
+	private void ResetTransformIfStillDisabled()
+	{
+		if (!base.isActiveAndEnabled)
+		{
+			this.ResetTransform();
+		}
+	}
+
+	public void SimpleWork()
+	{
+		if (this.initialized || this.abandonWork)
+		{
+			return;
+		}
 		if (this.trackTransformOfParent)
 		{
 			ObjectHierarchyFlattenerManager.RegisterOHF(this);
@@ -68,25 +102,7 @@ public class ObjectHierarchyFlattener : MonoBehaviour
 		}
 		base.transform.SetParent((this.overrideParentTransform != null) ? this.overrideParentTransform : null);
 		this.isAttachedToOverride = true;
-	}
-
-	private void OnDisable()
-	{
-		ObjectHierarchyFlattenerManager.UnregisterOHF(this);
-		base.Invoke("ResetTransformIfStillDisabled", 0f);
-	}
-
-	private void OnDestroy()
-	{
-		base.CancelInvoke();
-	}
-
-	private void ResetTransformIfStillDisabled()
-	{
-		if (!base.isActiveAndEnabled)
-		{
-			this.ResetTransform();
-		}
+		this.initialized = true;
 	}
 
 	public const int k_monoDefaultExecutionOrder = 2001;
@@ -115,4 +131,8 @@ public class ObjectHierarchyFlattener : MonoBehaviour
 	public Transform overrideParentTransform;
 
 	private bool isAttachedToOverride;
+
+	private bool initialized;
+
+	private bool abandonWork = true;
 }

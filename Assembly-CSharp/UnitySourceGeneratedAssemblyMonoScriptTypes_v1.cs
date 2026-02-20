@@ -10013,7 +10013,7 @@ internal class UnitySourceGeneratedAssemblyMonoScriptTypes_v1
 			104,
 			101,
 			100,
-			"Not showing all elements because this array is too big (154122 elements)"
+			"Not showing all elements because this array is too big (154381 elements)"
 		};
 		result.TypesData = new byte[]
 		{
@@ -20016,10 +20016,10 @@ internal class UnitySourceGeneratedAssemblyMonoScriptTypes_v1
 			115,
 			66,
 			97,
-			"Not showing all elements because this array is too big (101257 elements)"
+			"Not showing all elements because this array is too big (101425 elements)"
 		};
-		result.TotalFiles = 2276;
-		result.TotalTypes = 3242;
+		result.TotalFiles = 2280;
+		result.TotalTypes = 3247;
 		result.IsEditorOnly = false;
 		return result;
 	}

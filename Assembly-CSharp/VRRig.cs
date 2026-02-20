@@ -1364,7 +1364,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		int num = packedFields & 511;
 		this.syncRotation.eulerAngles = this.SanitizeVector3(new Vector3(0f, (float)num, 0f));
 		this.remoteUseReplacementVoice = ((packedFields & 512) != 0);
-		if ((packedFields & 4194304) != 0)
+		if ((packedFields & 4194304) != 0 && SubscriptionManager.GetSubscriptionDetails(this).active)
 		{
 			this.playerText1.color = SubscriptionManager.SUBSCRIBER_NAME_COLOR;
 		}

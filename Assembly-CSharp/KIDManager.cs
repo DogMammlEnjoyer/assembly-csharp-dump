@@ -117,7 +117,6 @@ public class KIDManager : MonoBehaviour
 			Object.Destroy(base.gameObject);
 			return;
 		}
-		Debug.Log("[KID] INIT");
 		KIDManager._instance = this;
 		KIDManager.DbgLocale = PlayerPrefs.GetString(KIDManager._debugKIDLocalePlayerPrefRef, "");
 	}
@@ -412,12 +411,10 @@ public class KIDManager : MonoBehaviour
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
 	public static void InitialiseBootFlow()
 	{
-		Debug.Log("[KID::MANAGER] PHASE ZERO -- START -- Checking K-ID Flag");
 		if (PlayerPrefs.GetInt(KIDManager.KIDSetupPlayerPref, 0) != 0)
 		{
 			return;
 		}
-		Debug.Log("[KID::MANAGER] INITIALISE BOOT FLOW - Force Starting Overlay");
 		PrivateUIRoom.ForceStartOverlay();
 	}
 
@@ -432,7 +429,6 @@ public class KIDManager : MonoBehaviour
 
 	private static bool UpdatePermissions(TMPSession newSession)
 	{
-		Debug.Log("[KID::MANAGER] Updating Permissions to reflect session.");
 		if (newSession == null || !newSession.IsValidSession)
 		{
 			Debug.LogError("[KID::MANAGER] A NULL or Invalid Session was received!");
@@ -810,67 +806,56 @@ public class KIDManager : MonoBehaviour
 
 	public static void RegisterSessionUpdateCallback_AnyPermission(Action callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors any permission change");
 		KIDManager._onSessionUpdated_AnyPermission = (Action)Delegate.Combine(KIDManager._onSessionUpdated_AnyPermission, callback);
 	}
 
 	public static void UnregisterSessionUpdateCallback_AnyPermission(Action callback)
 	{
-		Debug.Log("[KID] Successfully unregistered a new callback to SessionUpdate which monitors any permission change");
 		KIDManager._onSessionUpdated_AnyPermission = (Action)Delegate.Remove(KIDManager._onSessionUpdated_AnyPermission, callback);
 	}
 
 	public static void RegisterSessionUpdatedCallback_VoiceChat(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors the Voice Chat permission");
 		KIDManager._onSessionUpdated_VoiceChat = (Action<bool, Permission.ManagedByEnum>)Delegate.Combine(KIDManager._onSessionUpdated_VoiceChat, callback);
 	}
 
 	public static void UnregisterSessionUpdatedCallback_VoiceChat(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully unregistered a callback to SessionUpdate which monitors the Voice Chat permission");
 		KIDManager._onSessionUpdated_VoiceChat = (Action<bool, Permission.ManagedByEnum>)Delegate.Remove(KIDManager._onSessionUpdated_VoiceChat, callback);
 	}
 
 	public static void RegisterSessionUpdatedCallback_CustomUsernames(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors the Custom Usernames permission");
 		KIDManager._onSessionUpdated_CustomUsernames = (Action<bool, Permission.ManagedByEnum>)Delegate.Combine(KIDManager._onSessionUpdated_CustomUsernames, callback);
 	}
 
 	public static void UnregisterSessionUpdatedCallback_CustomUsernames(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully unregistered a callback to SessionUpdate which monitors the Custom Usernames permission");
 		KIDManager._onSessionUpdated_CustomUsernames = (Action<bool, Permission.ManagedByEnum>)Delegate.Remove(KIDManager._onSessionUpdated_CustomUsernames, callback);
 	}
 
 	public static void RegisterSessionUpdatedCallback_PrivateRooms(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors the Private Rooms permission");
 		KIDManager._onSessionUpdated_PrivateRooms = (Action<bool, Permission.ManagedByEnum>)Delegate.Combine(KIDManager._onSessionUpdated_PrivateRooms, callback);
 	}
 
 	public static void UnregisterSessionUpdatedCallback_PrivateRooms(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully unregistered a callback to SessionUpdate which monitors the Private Rooms permission");
 		KIDManager._onSessionUpdated_PrivateRooms = (Action<bool, Permission.ManagedByEnum>)Delegate.Remove(KIDManager._onSessionUpdated_PrivateRooms, callback);
 	}
 
 	public static void RegisterSessionUpdatedCallback_Multiplayer(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors the Multiplayer permission");
 		KIDManager._onSessionUpdated_Multiplayer = (Action<bool, Permission.ManagedByEnum>)Delegate.Combine(KIDManager._onSessionUpdated_Multiplayer, callback);
 	}
 
 	public static void UnregisterSessionUpdatedCallback_Multiplayer(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully unregistered a callback to SessionUpdate which monitors the Multiplayer permission");
 		KIDManager._onSessionUpdated_Multiplayer = (Action<bool, Permission.ManagedByEnum>)Delegate.Remove(KIDManager._onSessionUpdated_Multiplayer, callback);
 	}
 
 	public static void RegisterSessionUpdatedCallback_UGC(Action<bool, Permission.ManagedByEnum> callback)
 	{
-		Debug.Log("[KID] Successfully registered a new callback to SessionUpdate which monitors the UGC permission");
 		KIDManager._onSessionUpdated_UGC = (Action<bool, Permission.ManagedByEnum>)Delegate.Combine(KIDManager._onSessionUpdated_UGC, callback);
 	}
 

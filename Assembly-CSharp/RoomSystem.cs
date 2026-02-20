@@ -206,7 +206,6 @@ internal class RoomSystem : MonoBehaviour
 			RoomSystem.WasRoomSubscription = false;
 		}
 		IL_EA:
-		Debug.Log(string.Format("Checking if room in session is a subscription-based room: {0}.", RoomSystem.WasRoomSubscription));
 		bool wasRoomSubscription2 = RoomSystem.WasRoomSubscription;
 		if (NetworkSystem.Instance.IsMasterClient)
 		{
@@ -736,13 +735,6 @@ internal class RoomSystem : MonoBehaviour
 			if (vrrig.IsLocalPartyMember && vrrig.creator != NetworkSystem.Instance.LocalPlayer)
 			{
 				netEventOptions.TargetActors[0] = vrrig.creator.ActorNumber;
-				Debug.Log(string.Format("SendGroupFollowCommand - sendEvent to {0} from {1}, shuffler {2} key {3}", new object[]
-				{
-					vrrig.creator.NickName,
-					NetworkSystem.Instance.LocalPlayer.UserId,
-					RoomSystem.groupJoinSendData[0],
-					RoomSystem.groupJoinSendData[1]
-				}));
 				byte b = 7;
 				object obj = RoomSystem.groupJoinSendData;
 				RoomSystem.SendEvent(b, obj, netEventOptions, false);
@@ -773,13 +765,6 @@ internal class RoomSystem : MonoBehaviour
 			if (sourceFriendCollider.playerIDsCurrentlyTouching.Contains(netPlayer.UserId) || (targetFriendCollider.playerIDsCurrentlyTouching.Contains(netPlayer.UserId) && netPlayer != NetworkSystem.Instance.LocalPlayer))
 			{
 				netEventOptions.TargetActors[0] = netPlayer.ActorNumber;
-				Debug.Log(string.Format("SendElevatorFollowCommand - sendEvent to {0} from {1}, shuffler {2} key {3}", new object[]
-				{
-					netPlayer.NickName,
-					NetworkSystem.Instance.LocalPlayer.UserId,
-					RoomSystem.groupJoinSendData[0],
-					RoomSystem.groupJoinSendData[1]
-				}));
 				object obj = RoomSystem.groupJoinSendData;
 				RoomSystem.SendEvent(eventType, obj, netEventOptions, false);
 			}

@@ -188,12 +188,6 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 	public GameEntityId AddGameEntity(int netId, GameEntity gameEntity)
 	{
 		int num = this.FindNewEntityIndex();
-		Debug.LogFormat("Add Game Entity {0} {1} {2}", new object[]
-		{
-			gameEntity.gameObject.name,
-			netId,
-			num
-		});
 		this.entities[num] = gameEntity;
 		this.entitiesActiveCount++;
 		GameEntityData item = default(GameEntityData);
@@ -558,7 +552,6 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 
 	public void RequestCreateItems(List<GameEntityCreateData> entityData)
 	{
-		Debug.Log(string.Format("GameEntityManager RequestCreateItems List.Count: {0}", entityData.Count));
 		if (!this.IsZoneAuthority() || !this.IsZoneActive())
 		{
 			GTDev.LogError<string>(string.Format("[GameEntityManager::RequestCreateItems] Cannot create items. Zone Auth: {0} ", this.IsZoneAuthority()) + string.Format("| Zone Active: {0}", this.IsZoneActive()), null);

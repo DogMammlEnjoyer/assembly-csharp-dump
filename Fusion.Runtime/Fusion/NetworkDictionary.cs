@@ -9,7 +9,7 @@ namespace Fusion
 {
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(NetworkDictionary<, >.DebuggerProxy))]
-	public struct NetworkDictionary<K, V> : IEnumerable<KeyValuePair<!0, !1>>, IEnumerable, INetworkDictionary
+	public struct NetworkDictionary<K, V> : IEnumerable<KeyValuePair<K, V>>, IEnumerable, INetworkDictionary
 	{
 		private unsafe int _free
 		{

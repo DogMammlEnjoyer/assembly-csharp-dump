@@ -340,7 +340,6 @@ public class CosmeticWardrobe : MonoBehaviour
 		this.nextOutfit.UpdateColor();
 		this.previousOutfit.UpdateColor();
 		this.outfitText.text = "Outfit #" + num.ToString();
-		this.outfitTextOutline.text = "Outfit #" + num.ToString();
 	}
 
 	public bool WardrobeButtonsInitialized()
@@ -388,9 +387,6 @@ public class CosmeticWardrobe : MonoBehaviour
 
 	[SerializeField]
 	private TMP_Text outfitText;
-
-	[SerializeField]
-	private TMP_Text outfitTextOutline;
 
 	private static int selectedCategoryIndex = 0;
 

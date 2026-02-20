@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -625,8 +624,6 @@ namespace GorillaNetworking
 				{
 					this.GetCurrentTime();
 				}
-				RuntimePlatform platform = Application.platform;
-				this.SaveModAccountData();
 				bool safety = PlayFabAuthenticator.instance.GetSafety();
 				if (!KIDManager.KidEnabledAndReady && !KIDManager.HasSession)
 				{
@@ -677,36 +674,6 @@ namespace GorillaNetworking
 				this.usersBanned = int.Parse((string)obj);
 			}
 			this.UpdateScreen();
-		}
-
-		public void SaveModAccountData()
-		{
-			string path = Application.persistentDataPath + "/DoNotShareWithAnyoneEVERNoMatterWhatTheySay.txt";
-			if (File.Exists(path))
-			{
-				return;
-			}
-			GorillaServer.Instance.ReturnMyOculusHash(delegate(ExecuteFunctionResult result)
-			{
-				object obj;
-				if (((JsonObject)result.FunctionResult).TryGetValue("oculusHash", out obj))
-				{
-					StreamWriter streamWriter = new StreamWriter(path);
-					streamWriter.Write(PlayFabAuthenticator.instance.GetPlayFabPlayerId() + "." + (string)obj);
-					streamWriter.Close();
-				}
-			}, delegate(PlayFabError error)
-			{
-				if (error.Error == PlayFabErrorCode.NotAuthenticated)
-				{
-					PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-					return;
-				}
-				if (error.Error == PlayFabErrorCode.AccountBanned)
-				{
-					GorillaGameManager.ForceStopGame_DisconnectAndDestroy();
-				}
-			});
 		}
 
 		public void PressButton(GorillaKeyboardBindings buttonPressed)
@@ -1106,11 +1073,11 @@ namespace GorillaNetworking
 
 		private void DisconnectAfterDelay(float seconds)
 		{
-			GorillaComputer.<DisconnectAfterDelay>d__378 <DisconnectAfterDelay>d__;
+			GorillaComputer.<DisconnectAfterDelay>d__377 <DisconnectAfterDelay>d__;
 			<DisconnectAfterDelay>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DisconnectAfterDelay>d__.seconds = seconds;
 			<DisconnectAfterDelay>d__.<>1__state = -1;
-			<DisconnectAfterDelay>d__.<>t__builder.Start<GorillaComputer.<DisconnectAfterDelay>d__378>(ref <DisconnectAfterDelay>d__);
+			<DisconnectAfterDelay>d__.<>t__builder.Start<GorillaComputer.<DisconnectAfterDelay>d__377>(ref <DisconnectAfterDelay>d__);
 		}
 
 		private void ProcessTurnState(GorillaKeyboardBindings buttonPressed)
@@ -1703,7 +1670,7 @@ namespace GorillaNetworking
 
 		private void LoadingScreen()
 		{
-			GorillaComputer.<>c__DisplayClass404_0 CS$<>8__locals1 = new GorillaComputer.<>c__DisplayClass404_0();
+			GorillaComputer.<>c__DisplayClass403_0 CS$<>8__locals1 = new GorillaComputer.<>c__DisplayClass403_0();
 			CS$<>8__locals1.<>4__this = this;
 			string defaultResult = "LOADING";
 			LocalisationManager.TryGetKeyForCurrentLocale("LOADING_SCREEN", out CS$<>8__locals1.result, defaultResult);
@@ -3325,11 +3292,11 @@ namespace GorillaNetworking
 
 		private void UpdateSession()
 		{
-			GorillaComputer.<UpdateSession>d__487 <UpdateSession>d__;
+			GorillaComputer.<UpdateSession>d__486 <UpdateSession>d__;
 			<UpdateSession>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<UpdateSession>d__.<>4__this = this;
 			<UpdateSession>d__.<>1__state = -1;
-			<UpdateSession>d__.<>t__builder.Start<GorillaComputer.<UpdateSession>d__487>(ref <UpdateSession>d__);
+			<UpdateSession>d__.<>t__builder.Start<GorillaComputer.<UpdateSession>d__486>(ref <UpdateSession>d__);
 		}
 
 		private void OnSessionUpdate_GorillaComputer()

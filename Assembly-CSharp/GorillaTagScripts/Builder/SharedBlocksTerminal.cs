@@ -692,7 +692,6 @@ namespace GorillaTagScripts.Builder
 
 		private void OnJoinedRoom()
 		{
-			GTDev.Log<string>("[SharedBlocksTerminal::OnJoinedRoom] Joined a multiplayer room, resetting terminal control", null);
 			this.cachedLocalPlayerID = NetworkSystem.Instance.LocalPlayer.ActorNumber;
 			this.ResetTerminalControl();
 		}

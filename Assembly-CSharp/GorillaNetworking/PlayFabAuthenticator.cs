@@ -412,16 +412,17 @@ namespace GorillaNetworking
 
 		public void SetDisplayName(string playerName)
 		{
-			if (this._displayName == null || (this._displayName.Length > 4 && this._displayName.Substring(0, this._displayName.Length - 4) != playerName))
+			if (this._displayName == null || (this._displayName.Length > 4 && this._displayName.Substring(0, this._displayName.Length - 4) != playerName && this._displayName != playerName))
 			{
-				UpdateUserTitleDisplayNameRequest updateUserTitleDisplayNameRequest = new UpdateUserTitleDisplayNameRequest();
-				updateUserTitleDisplayNameRequest.DisplayName = playerName;
-				PlayFabClientAPI.UpdateUserTitleDisplayName(updateUserTitleDisplayNameRequest, delegate(UpdateUserTitleDisplayNameResult result)
+				PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+				{
+					DisplayName = playerName
+				}, delegate(UpdateUserTitleDisplayNameResult result)
 				{
 					this._displayName = playerName;
 				}, delegate(PlayFabError error)
 				{
-					Debug.LogError(error.GenerateErrorReport());
+					Debug.LogError("Error with name: " + playerName + ". Error is " + error.GenerateErrorReport());
 				}, null, null);
 			}
 		}

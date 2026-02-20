@@ -377,23 +377,12 @@ public class BuilderSetManager : MonoBehaviour
 		}
 		foreach (ItemInstance itemInstance in inventoryResult.Inventory)
 		{
-			if (BuilderSetManager.IsItemIDBuilderItem(itemInstance.ItemId))
+			BuilderSetManager.BuilderSetStoreItem builderSetStoreItem2;
+			if (BuilderSetManager.IsItemIDBuilderItem(itemInstance.ItemId) && BuilderSetManager._setIdToStoreItem.TryGetValue(itemInstance.ItemId.GetStaticHash(), out builderSetStoreItem2))
 			{
-				BuilderSetManager.BuilderSetStoreItem builderSetStoreItem2;
-				if (BuilderSetManager._setIdToStoreItem.TryGetValue(itemInstance.ItemId.GetStaticHash(), out builderSetStoreItem2))
-				{
-					Debug.LogFormat("BuilderSetManager: Unlocking Inventory Item {0}", new object[]
-					{
-						itemInstance.ItemId
-					});
-					this._unlockedPieceSets.Add(builderSetStoreItem2.setRef);
-					CosmeticsController cosmeticsController2 = CosmeticsController.instance;
-					cosmeticsController2.concatStringCosmeticsAllowed += itemInstance.ItemId;
-				}
-				else
-				{
-					Debug.Log("BuilderSetManager: No store item found with id" + itemInstance.ItemId);
-				}
+				this._unlockedPieceSets.Add(builderSetStoreItem2.setRef);
+				CosmeticsController cosmeticsController2 = CosmeticsController.instance;
+				cosmeticsController2.concatStringCosmeticsAllowed += itemInstance.ItemId;
 			}
 		}
 		this.pulledStoreItems = true;
@@ -576,7 +565,6 @@ public class BuilderSetManager : MonoBehaviour
 		int num = this._allPieceSets.FindIndex((BuilderPieceSet x) => setID == x.GetIntIdentifier());
 		if (num >= 0 && !this._unlockedPieceSets.Contains(this._allPieceSets[num]))
 		{
-			Debug.Log("BuilderSetManager: unlocking set " + this._allPieceSets[num].SetName);
 			this._unlockedPieceSets.Add(this._allPieceSets[num]);
 		}
 		UnityEvent onOwnedSetsUpdated = this.OnOwnedSetsUpdated;

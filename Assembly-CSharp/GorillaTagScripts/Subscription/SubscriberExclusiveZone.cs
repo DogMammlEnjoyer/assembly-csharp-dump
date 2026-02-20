@@ -215,7 +215,7 @@ namespace GorillaTagScripts.Subscription
 			}
 			for (int i = 0; i < this.rigs.Count; i++)
 			{
-				if (!this.rigs[i].isOfflineVRRig)
+				if (!this.rigs[i].isOfflineVRRig && !SubscriptionManager.GetSubscriptionDetails(this.rigs[i]).active)
 				{
 					Vector3 vector = this.restrictedZoneCollider.transform.InverseTransformPoint(this.rigs[i].syncPos);
 					Vector3 vector2 = ((BoxCollider)this.restrictedZoneCollider).size / 2f;

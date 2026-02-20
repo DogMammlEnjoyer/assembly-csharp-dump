@@ -170,23 +170,22 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 					if (keyValuePair.Key == "Inventory")
 					{
 						int j;
-						if (!Utils.PlayerInRoom(PlayerCosmeticsSystem.playerActorNumberList[j]))
+						if (Utils.PlayerInRoom(PlayerCosmeticsSystem.playerActorNumberList[j]))
 						{
-							continue;
-						}
-						this.tempCosmetics = keyValuePair.Value.Value;
-						IUserCosmeticsCallback userCosmeticsCallback;
-						if (!PlayerCosmeticsSystem.userCosmeticCallback.TryGetValue(PlayerCosmeticsSystem.playerActorNumberList[j], out userCosmeticsCallback))
-						{
-							PlayerCosmeticsSystem.userCosmeticsWaiting[PlayerCosmeticsSystem.playerActorNumberList[j]] = this.tempCosmetics;
-						}
-						else
-						{
-							userCosmeticsCallback.PendingUpdate = false;
-							if (!userCosmeticsCallback.OnGetUserCosmetics(this.tempCosmetics))
+							this.tempCosmetics = keyValuePair.Value.Value;
+							IUserCosmeticsCallback userCosmeticsCallback;
+							if (!PlayerCosmeticsSystem.userCosmeticCallback.TryGetValue(PlayerCosmeticsSystem.playerActorNumberList[j], out userCosmeticsCallback))
 							{
-								PlayerCosmeticsSystem.playersToLookUp.Enqueue(player);
-								userCosmeticsCallback.PendingUpdate = true;
+								PlayerCosmeticsSystem.userCosmeticsWaiting[PlayerCosmeticsSystem.playerActorNumberList[j]] = this.tempCosmetics;
+							}
+							else
+							{
+								userCosmeticsCallback.PendingUpdate = false;
+								if (!userCosmeticsCallback.OnGetUserCosmetics(this.tempCosmetics))
+								{
+									PlayerCosmeticsSystem.playersToLookUp.Enqueue(player);
+									userCosmeticsCallback.PendingUpdate = true;
+								}
 							}
 						}
 					}
@@ -221,23 +220,23 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 							SubscriptionManager.UpdatePlayerSubscriptionData(netPlayer, isSubscribed, 0);
 						}
 					}
-					if (!flag)
+				}
+				if (!flag)
+				{
+					NetPlayer netPlayer3 = null;
+					NetPlayer[] allNetPlayers = NetworkSystem.Instance.AllNetPlayers;
+					for (int j = 0; j < allNetPlayers.Length; j++)
 					{
-						NetPlayer netPlayer3 = null;
-						NetPlayer[] allNetPlayers = NetworkSystem.Instance.AllNetPlayers;
-						for (int j = 0; j < allNetPlayers.Length; j++)
+						NetPlayer netPlayer4 = allNetPlayers[j];
+						if (netPlayer4.ActorNumber == PlayerCosmeticsSystem.playerActorNumberList[j])
 						{
-							NetPlayer netPlayer4 = allNetPlayers[j];
-							if (netPlayer4.ActorNumber == PlayerCosmeticsSystem.playerActorNumberList[j])
-							{
-								netPlayer3 = netPlayer4;
-								break;
-							}
+							netPlayer3 = netPlayer4;
+							break;
 						}
-						if (netPlayer3 != null)
-						{
-							SubscriptionManager.UpdatePlayerSubscriptionData(netPlayer3, false, 0);
-						}
+					}
+					if (netPlayer3 != null)
+					{
+						SubscriptionManager.UpdatePlayerSubscriptionData(netPlayer3, false, 0);
 					}
 				}
 			}, delegate(PlayFabError error)

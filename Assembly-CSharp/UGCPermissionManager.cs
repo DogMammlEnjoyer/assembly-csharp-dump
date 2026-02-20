@@ -60,14 +60,9 @@ internal class UGCPermissionManager : MonoBehaviour
 		bool? flag = UGCPermissionManager.isUGCEnabled;
 		if (!(enabled == flag.GetValueOrDefault() & flag != null))
 		{
-			Debug.LogFormat("[UGCPermissionManager][KID] UGC state changed: [{0}]", new object[]
-			{
-				enabled ? "ENABLED" : "DISABLED"
-			});
 			UGCPermissionManager.isUGCEnabled = new bool?(enabled);
 			if (enabled)
 			{
-				Debug.Log("[UGCPermissionManager][KID] Invoking onUGCEnabled");
 				Action action = UGCPermissionManager.onUGCEnabled;
 				if (action == null)
 				{
@@ -78,7 +73,6 @@ internal class UGCPermissionManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("[UGCPermissionManager][KID] Invoking onUGCDisabled");
 				Action action2 = UGCPermissionManager.onUGCDisabled;
 				if (action2 == null)
 				{
@@ -117,10 +111,6 @@ internal class UGCPermissionManager : MonoBehaviour
 		public void Initialize()
 		{
 			bool safety = PlayFabAuthenticator.instance.GetSafety();
-			Debug.LogFormat("[UGCPermissionManager][KID] UGC initialized from Playfab: [{0}]", new object[]
-			{
-				safety ? "DISABLED" : "ENABLED"
-			});
 			Action<bool> action = this.setUGCEnabled;
 			if (action == null)
 			{

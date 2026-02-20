@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0500B909-98DB-4230-9588-00F558423CF5}</ProjectGuid>
+    <ProjectGuid>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion.Runtime</RootNamespace>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,25 +32,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Fusion.Common">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Fusion.Log">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Log.dll</HintPath>
-    </Reference>
-    <Reference Include="Fusion.Sockets">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\Fusion.Sockets.dll</HintPath>
-    </Reference>
-    <Reference Include="netstandard">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\netstandard.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gorilla Tag\Gorilla Tag_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
@@ -476,9 +462,29 @@
     <Compile Include="System\Runtime\CompilerServices\RequiresLocationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C67}</Project>
+      <Name>Fusion.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C68}</Project>
+      <Name>Fusion.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{0500B909-98DB-4230-9588-00F558423CF4}</Project>
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C69}</Project>
       <Name>Fusion.Realtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fusion.Sockets\Fusion.Sockets.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C6B}</Project>
+      <Name>Fusion.Sockets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C94}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D0B}</Project>
+      <Name>UnityEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

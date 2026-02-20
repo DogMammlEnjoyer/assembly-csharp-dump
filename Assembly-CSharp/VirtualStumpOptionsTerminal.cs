@@ -164,7 +164,6 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 
 	private void UpdateScreen()
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::UpdateScreen] State: " + this.currentState.ToString() + " | CachedError: " + (!this.cachedError.IsNullOrEmpty()).ToString());
 		this.mainScreenText.text = "";
 		if (!this.cachedError.IsNullOrEmpty())
 		{
@@ -192,13 +191,11 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 
 	private void OnModIOLoginStarted()
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::OnModIOLoginStarted]...");
 		this.UpdateScreen();
 	}
 
 	private void OnModIOLoggedIn()
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::OnModIOLoggedIn]...");
 		ModIOManager.OnModIOLoggedOut.RemoveListener(new UnityAction(this.OnModIOLoggedOut));
 		ModIOManager.OnModIOLoggedOut.AddListener(new UnityAction(this.OnModIOLoggedOut));
 		this.processingAccountLink = false;
@@ -211,13 +208,11 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 		associateMotherhsipAndModIOAccountsRequest.MothershipToken = MothershipClientContext.Token;
 		base.StartCoroutine(ModIOManager.AssociateMothershipAndModIOAccounts(associateMotherhsipAndModIOAccountsRequest, delegate(AssociateMotherhsipAndModIOAccountsResponse response)
 		{
-			Debug.Log("[VirtualStumpOptionsTerminal::OnModIOLoggedIn]... Mothership Account Association Created/Updated");
 		}));
 	}
 
 	private void OnModIOLoggedOut()
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::OnModIOLoggedOut]...");
 		ModIOManager.OnModIOLoggedOut.RemoveListener(new UnityAction(this.OnModIOLoggedOut));
 		this.processingAccountLink = false;
 		this.UpdateScreen();
@@ -225,7 +220,6 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 
 	private void OnModIOLoginFailed(string error)
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::OnModIOLoginFailed] Error: " + error);
 		this.processingAccountLink = false;
 		this.cachedError = error;
 		this.UpdateScreen();
@@ -233,7 +227,6 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 
 	private void OnModIOUserChanged(User user)
 	{
-		Debug.Log("[VirtualStumpOptionsTerminal::OnModIOUserChanged] Username: " + ModIOManager.GetCurrentUsername());
 		this.UpdateScreen();
 	}
 

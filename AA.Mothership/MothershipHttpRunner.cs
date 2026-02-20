@@ -18,11 +18,7 @@ public class MothershipHttpRunner : MonoBehaviour
 	{
 		if (MothershipHttpRunner._instance == null)
 		{
-			MothershipHttpRunner._instance = Object.FindFirstObjectByType<MothershipHttpRunner>();
-			if (MothershipHttpRunner._instance == null)
-			{
-				MothershipHttpRunner._instance = new GameObject(typeof(MothershipHttpRunner).Name).AddComponent<MothershipHttpRunner>();
-			}
+			MothershipHttpRunner._instance = new GameObject(typeof(MothershipHttpRunner).Name).AddComponent<MothershipHttpRunner>();
 		}
 	}
 

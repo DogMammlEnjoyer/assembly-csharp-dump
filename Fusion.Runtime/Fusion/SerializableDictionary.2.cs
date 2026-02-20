@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Fusion
 {
 	[Serializable]
-	public class SerializableDictionary<TKey, TValue> : SerializableDictionary, IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable, ISerializationCallbackReceiver
+	public class SerializableDictionary<TKey, TValue> : SerializableDictionary, IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<!0, !1>>, IEnumerable, ISerializationCallbackReceiver
 	{
 		private Dictionary<TKey, TValue> Inner
 		{

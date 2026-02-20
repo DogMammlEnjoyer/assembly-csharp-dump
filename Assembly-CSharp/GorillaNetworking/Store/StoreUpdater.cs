@@ -48,7 +48,6 @@ namespace GorillaNetworking.Store
 			OVRManager.HMDUnmounted += this.HandleHMDUnmounted;
 			OVRManager.HMDLost += this.HandleHMDUnmounted;
 			OVRManager.HMDAcquired += this.HandleHMDMounted;
-			Debug.Log("StoreUpdater - Starting");
 			if (this.bLoadFromJSON)
 			{
 				this.GetEventsFromTitleData();
@@ -103,7 +102,6 @@ namespace GorillaNetworking.Store
 				}
 				else
 				{
-					Debug.Log("StoreUpdater - Adding Pedestal " + cosmeticItemPrefab.PedestalID);
 					this.cosmeticItemPrefabsDictionary.Add(cosmeticItemPrefab.PedestalID, cosmeticItemPrefab);
 				}
 			}
@@ -238,7 +236,6 @@ namespace GorillaNetworking.Store
 
 		private void GetEventsFromTitleData()
 		{
-			Debug.Log("StoreUpdater - GetEventsFromTitleData");
 			if (this.bUsePlaceHolderJSON)
 			{
 				DateTime startTime = new DateTime(2024, 2, 13, 16, 0, 0, DateTimeKind.Utc);
@@ -248,7 +245,6 @@ namespace GorillaNetworking.Store
 			}
 			PlayFabTitleDataCache.Instance.GetTitleData("TOTD", delegate(string result)
 			{
-				Debug.Log("StoreUpdater - Recieved TitleData : " + result);
 				List<StoreUpdateEvent> updateEvents2 = StoreUpdateEvent.DeserializeFromJSonList(result);
 				this.HandleRecievingEventsFromTitleData(updateEvents2);
 			}, delegate(PlayFabError error)
@@ -259,7 +255,6 @@ namespace GorillaNetworking.Store
 
 		private void HandleRecievingEventsFromTitleData(List<StoreUpdateEvent> updateEvents)
 		{
-			Debug.Log("StoreUpdater - HandleRecievingEventsFromTitleData");
 			this.CheckEvents(updateEvents);
 			if (CosmeticsController.instance.GetItemFromDict("LBAEY.").isNullItem)
 			{
@@ -279,12 +274,10 @@ namespace GorillaNetworking.Store
 					this.pedestalUpdateEvents[storeUpdateEvent.PedestalID].Add(storeUpdateEvent);
 				}
 			}
-			Debug.Log("StoreUpdater - Starting Events");
 			foreach (string text in this.pedestalUpdateEvents.Keys)
 			{
 				if (this.cosmeticItemPrefabsDictionary.ContainsKey(text))
 				{
-					Debug.Log("StoreUpdater - Starting Event " + text);
 					this.StartNextEvent(text, false);
 				}
 			}
@@ -292,7 +285,6 @@ namespace GorillaNetworking.Store
 			{
 				if (!this.pedestalUpdateEvents.ContainsKey(text2))
 				{
-					Debug.Log("StoreUpdater - Adding PlaceHolder Events " + text2);
 					this.GetStoreUpdateEventsPlaceHolder(text2);
 					this.StartNextEvent(text2, false);
 				}
@@ -301,21 +293,11 @@ namespace GorillaNetworking.Store
 
 		private void PrintJSONEvents()
 		{
-			string text = StoreUpdateEvent.SerializeArrayAsJSon(this.CreateTempEvents("Pedestal1", 5, 28).ToArray());
-			foreach (StoreUpdateEvent storeUpdateEvent in StoreUpdateEvent.DeserializeFromJSonList(text))
+			string json = StoreUpdateEvent.SerializeArrayAsJSon(this.CreateTempEvents("Pedestal1", 5, 28).ToArray());
+			foreach (StoreUpdateEvent storeUpdateEvent in StoreUpdateEvent.DeserializeFromJSonList(json))
 			{
-				Debug.Log(string.Concat(new string[]
-				{
-					"Event : ",
-					storeUpdateEvent.ItemName,
-					" : ",
-					storeUpdateEvent.StartTimeUTC.ToString(),
-					" : ",
-					storeUpdateEvent.EndTimeUTC.ToString()
-				}));
 			}
-			Debug.Log("NewEvents :\n" + text);
-			this.tempJson = text;
+			this.tempJson = json;
 		}
 
 		private List<StoreUpdateEvent> CreateTempEvents(string PedestalID, int minuteDelay, int totalEvents)

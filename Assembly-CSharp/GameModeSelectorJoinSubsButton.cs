@@ -1,5 +1,6 @@
 ﻿using System;
 using GorillaTagScripts;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
@@ -7,10 +8,10 @@ public class GameModeSelectorJoinSubsButton : MonoBehaviour
 {
 	private void OnEnable()
 	{
-		this.CheckSubscribed();
 		SubscriptionManager.OnLocalSubscriptionData = (Action)Delegate.Combine(SubscriptionManager.OnLocalSubscriptionData, new Action(this.CheckSubscribed));
 		RoomSystem.JoinedRoomEvent += new Action(this.OnJoinRoom);
 		RoomSystem.LeftRoomEvent += new Action(this.OnLeaveRoom);
+		this.CheckSubscribed();
 	}
 
 	private void OnDisable()
@@ -23,12 +24,17 @@ public class GameModeSelectorJoinSubsButton : MonoBehaviour
 	[ContextMenu("Check Subscribed")]
 	private void CheckSubscribed()
 	{
-		if (SubscriptionManager.IsLocalSubscribed())
+		if (!SubscriptionManager.IsLocalSubscribed())
+		{
+			this.DisableButtonSubscribers();
+			return;
+		}
+		if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.MaxPlayers <= 10)
 		{
 			this.ShowButton();
 			return;
 		}
-		this.DisableButtonSubscribers();
+		this.DisableButtonInPublicRoom();
 	}
 
 	private void OnJoinRoom()
@@ -55,18 +61,25 @@ public class GameModeSelectorJoinSubsButton : MonoBehaviour
 
 	private void DisableButtonSubscribers()
 	{
-		this.subsPublicButton.enabled = false;
-		this.subsPublicButton.SetRendererMaterial(this.DisabledButtonMaterial);
-		this.disabledObject.SetActive(true);
-		this.disabledText.text = "ONLY FOR\nSUBSCRIBERS";
+		this.DisableButton("ONLY FOR\nSUBSCRIBERS");
 	}
 
 	private void DisableButtonPrivate()
 	{
+		this.DisableButton("IN PRIVATE ROOM");
+	}
+
+	private void DisableButtonInPublicRoom()
+	{
+		this.DisableButton("ALREADY IN\nPUBLIC ROOM");
+	}
+
+	private void DisableButton(string disabled)
+	{
 		this.subsPublicButton.enabled = false;
 		this.subsPublicButton.SetRendererMaterial(this.DisabledButtonMaterial);
 		this.disabledObject.SetActive(true);
-		this.disabledText.text = "IN PRIVATE ROOM";
+		this.disabledText.text = disabled;
 	}
 
 	public Material DisabledButtonMaterial;

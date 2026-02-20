@@ -273,7 +273,6 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 	private void PlayPreviouStream()
 	{
 		DateTime serverTime = GorillaComputer.instance.GetServerTime();
-		Debug.Log(string.Format("VOD :: serverTime={0}", serverTime));
 		int hour = serverTime.Hour;
 		int minute = serverTime.Minute;
 		DateTime dateTime = new DateTime(serverTime.Year, serverTime.Month, serverTime.Day, hour, minute, 0);
@@ -298,7 +297,6 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		VODPlayer.VODStream.VODStreamType type = str.type;
 		if (type == VODPlayer.VODStream.VODStreamType.VIDEO)
 		{
-			Debug.Log("VOD :: StartVideoPlayback :: go");
 			this.StartVideoPlayback(str.url, time);
 			return;
 		}
@@ -306,7 +304,6 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return;
 		}
-		Debug.Log("VOD :: StartImagePlayback :: go");
 		this.StartImagePlayback(str.url, str.duration, time);
 	}
 

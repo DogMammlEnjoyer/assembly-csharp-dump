@@ -71,7 +71,6 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 		this.siManager = SuperInfectionManager.GetSIManagerForZone(this.zone);
 		if (this.siManager != null)
 		{
-			Debug.Log(string.Format("$OnEnable: {0} zoneSuperInfection = {1}", this.siManager, this));
 			this.siManager.OnEnableZoneSuperInfection(this);
 		}
 		if (this.siManager.isActiveAndEnabled)
@@ -208,7 +207,6 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 					GameEntity gameEntity = siresourceRegion.Items[j];
 					if (!gameEntity)
 					{
-						GTDev.Log<string>(string.Format("Removing null item at {0}", j), null);
 						siresourceRegion.Items.RemoveAt(j);
 					}
 					else if (gameEntity.transform.position.y < this.resourceResetHeight)
@@ -244,12 +242,10 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 			ValueTuple<bool, Vector3, Vector3> spawnPointWithNormal = siresourceRegion.GetSpawnPointWithNormal(5);
 			if (!spawnPointWithNormal.Item1)
 			{
-				GTDev.Log<string>(string.Format("[{0}] Couldn't find a valid {1} spawn point in {2}", base.name, siresourceRegion.resourcePrefab.name, siresourceRegion), null);
 				return;
 			}
 			if (siresourceRegion.resourcePrefab == null)
 			{
-				GTDev.Log<string>("No resourceprefab set for region", null);
 				return;
 			}
 			float spawnPitchVariance = siresourceRegion.resourcePrefab.spawnPitchVariance;

@@ -4,26 +4,43 @@ using UnityEngine;
 namespace GorillaTag
 {
 	[DefaultExecutionOrder(2000)]
-	public class StaticLodGroup : MonoBehaviour
+	public class StaticLodGroup : MonoBehaviour, IGorillaSimpleBackgroundWorker
 	{
-		protected void Awake()
-		{
-			this.index = StaticLodManager.Register(this);
-		}
-
 		protected void OnEnable()
 		{
-			StaticLodManager.SetEnabled(this.index, true);
+			if (this.initialized)
+			{
+				StaticLodManager.SetEnabled(this.index, true);
+				return;
+			}
+			GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
 		}
 
 		protected void OnDisable()
 		{
-			StaticLodManager.SetEnabled(this.index, false);
+			if (this.initialized)
+			{
+				StaticLodManager.SetEnabled(this.index, false);
+			}
 		}
 
 		private void OnDestroy()
 		{
-			StaticLodManager.Unregister(this.index);
+			if (this.initialized)
+			{
+				StaticLodManager.Unregister(this.index);
+			}
+		}
+
+		public void SimpleWork()
+		{
+			if (this.initialized)
+			{
+				return;
+			}
+			this.index = StaticLodManager.Register(this);
+			StaticLodManager.SetEnabled(this.index, true);
+			this.initialized = true;
 		}
 
 		public const int k_monoDefaultExecutionOrder = 2000;
@@ -33,5 +50,7 @@ namespace GorillaTag
 		public float collisionEnableDistance = 3f;
 
 		public float uiFadeDistanceMax = 10f;
+
+		private bool initialized;
 	}
 }

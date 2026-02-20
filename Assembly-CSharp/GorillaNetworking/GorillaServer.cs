@@ -49,7 +49,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "ReturnCurrentVersion result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "ReturnCurrentVersion error");
-			Debug.Log("GorillaServer: ReturnCurrentVersion V2 call");
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -58,27 +57,10 @@ namespace GorillaNetworking
 			}, successCallback, errorCallback, null, null);
 		}
 
-		public void ReturnMyOculusHash(Action<ExecuteFunctionResult> successCallback, Action<PlayFabError> errorCallback)
-		{
-			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "ReturnMyOculusHash result");
-			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "ReturnMyOculusHash error");
-			Debug.Log("GorillaServer: ReturnMyOculusHash V2 call");
-			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
-			{
-				Entity = this.playerEntity,
-				FunctionName = "ReturnMyOculusHashV2",
-				FunctionParameter = new
-				{
-
-				}
-			}, successCallback, errorCallback, null, null);
-		}
-
 		public void TryDistributeCurrency(Action<ExecuteFunctionResult> successCallback, Action<PlayFabError> errorCallback)
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "TryDistributeCurrency result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "TryDistributeCurrency error");
-			Debug.Log("GorillaServer: TryDistributeCurrency V2 call");
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -94,7 +76,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "AddOrRemoveDLCOwnership result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "AddOrRemoveDLCOwnership error");
-			Debug.Log("GorillaServer: AddOrRemoveDLCOwnership V2 call");
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -110,7 +91,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "BroadcastMyRoom result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "BroadcastMyRoom error");
-			Debug.Log(string.Format("GorillaServer: BroadcastMyRoom V2 call ({0})", request));
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -164,7 +144,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<Dictionary<string, string>>(successCallback, "GetAcceptedAgreements result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "GetAcceptedAgreements json error");
-			Debug.Log(string.Format("GorillaServer: GetAcceptedAgreements call ({0})", request));
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -193,7 +172,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "SubmitAcceptedAgreements result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "SubmitAcceptedAgreements error");
-			Debug.Log(string.Format("GorillaServer: SubmitAcceptedAgreements call ({0})", request));
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -205,7 +183,6 @@ namespace GorillaNetworking
 
 		public void UploadGorillanalytics(object uploadData)
 		{
-			Debug.Log(string.Format("GorillaServer: UploadGorillanalytics call ({0})", uploadData));
 			ExecuteFunctionRequest executeFunctionRequest = new ExecuteFunctionRequest();
 			executeFunctionRequest.Entity = this.playerEntity;
 			executeFunctionRequest.FunctionName = "Gorillanalytics";
@@ -213,10 +190,8 @@ namespace GorillaNetworking
 			executeFunctionRequest.GeneratePlayStreamEvent = new bool?(false);
 			PlayFabCloudScriptAPI.ExecuteFunction(executeFunctionRequest, delegate(ExecuteFunctionResult result)
 			{
-				Debug.Log(string.Format("The {0} function took {1} to complete", result.FunctionName, result.ExecutionTimeMilliseconds));
 			}, delegate(PlayFabError error)
 			{
-				Debug.Log("Error uploading Gorillanalytics: " + error.GenerateErrorReport());
 			}, null, null);
 		}
 
@@ -224,7 +199,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "CheckForBadName result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "CheckForBadName error");
-			Debug.Log(string.Format("GorillaServer: CheckForBadName call ({0})", request));
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -243,7 +217,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "GetRandomName result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "GetRandomName error");
-			Debug.Log("GorillaServer: GetRandomName call");
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -256,7 +229,6 @@ namespace GorillaNetworking
 		{
 			successCallback = this.DebugWrapCb<ExecuteFunctionResult>(successCallback, "ReturnQueueStats result");
 			errorCallback = this.DebugWrapCb<PlayFabError>(errorCallback, "ReturnQueueStats error");
-			Debug.Log("GorillaServer: ReturnQueueStats call");
 			PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest
 			{
 				Entity = this.playerEntity,
@@ -273,24 +245,7 @@ namespace GorillaNetworking
 		{
 			return delegate(T arg)
 			{
-				if (this.debug)
-				{
-					try
-					{
-						Debug.Log(string.Concat(new string[]
-						{
-							"GorillaServer: ",
-							label,
-							" (",
-							JsonConvert.SerializeObject(arg, this.serializationSettings),
-							")"
-						}));
-					}
-					catch (Exception arg2)
-					{
-						Debug.LogError(string.Format("GorillaServer: {0} Error printing failure log: {1}", label, arg2));
-					}
-				}
+				bool flag = this.debug;
 				cb(arg);
 			};
 		}

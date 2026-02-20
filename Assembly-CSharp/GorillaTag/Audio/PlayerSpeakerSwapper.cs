@@ -22,7 +22,6 @@ namespace GorillaTag.Audio
 		{
 			int num = NetworkSystem.Instance.AllNetPlayers.Length;
 			this._lowPassFilter.enabled = (num >= 10);
-			Debug.Log(string.Format("Detected {0} players, low pass filter enabled is {1}", num, this._lowPassFilter.enabled));
 		}
 
 		[SerializeField]

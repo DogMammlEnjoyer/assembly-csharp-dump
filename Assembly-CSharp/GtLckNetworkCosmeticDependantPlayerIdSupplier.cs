@@ -13,7 +13,6 @@ public class GtLckNetworkCosmeticDependantPlayerIdSupplier : MonoBehaviour, ILck
 
 	public void UpdatePlayerId()
 	{
-		Debug.Log("LCK: GtLckNetworkCosmeticDependantPlayerIdSupplier::UpdatePlayerId, ID is now: " + this.vrrig.OwningNetPlayer.UserId);
 		PlayerIdUpdatedEvent playerIdUpdated = this.PlayerIdUpdated;
 		if (playerIdUpdated == null)
 		{

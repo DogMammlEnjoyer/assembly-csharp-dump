@@ -234,24 +234,18 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 			}
 			PhotonNetworkController.Instance.shuffler = Random.Range(0, 99).ToString().PadLeft(2, '0') + Random.Range(0, 99999999).ToString().PadLeft(8, '0');
 			PhotonNetworkController.Instance.keyStr = Random.Range(0, 99999999).ToString().PadLeft(8, '0');
-			Debug.Log("Send Shuttle Join");
 			RoomSystem.SendShuttleFollowCommand(PhotonNetworkController.Instance.shuffler, PhotonNetworkController.Instance.keyStr, sourceFriendCollider, destinationFriendCollider);
 			PhotonNetwork.SendAllOutgoingCommands();
-			List<ValueTuple<string, string>> list = null;
+			List<ValueTuple<string, string>> additionalCustomProperties = null;
 			if (targetLevel >= 0)
 			{
 				int joinDepthSectionFromLevel = GhostReactor.GetJoinDepthSectionFromLevel(targetLevel);
-				list = new List<ValueTuple<string, string>>
+				additionalCustomProperties = new List<ValueTuple<string, string>>
 				{
 					new ValueTuple<string, string>("ghostReactorDepth", joinDepthSectionFromLevel.ToString())
 				};
-				Debug.LogFormat("GR Room Param Join {0} {1}", new object[]
-				{
-					list[0].Item1,
-					list[0].Item2
-				});
 			}
-			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(destinationJoinTrigger, JoinType.JoinWithElevator, list, false);
+			PhotonNetworkController.Instance.AttemptToJoinPublicRoom(destinationJoinTrigger, JoinType.JoinWithElevator, additionalCustomProperties, false);
 		}
 		PhotonNetworkController.Instance.AttemptToJoinPublicRoom(destinationJoinTrigger, JoinType.Solo, null, false);
 	}

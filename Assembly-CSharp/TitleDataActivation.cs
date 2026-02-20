@@ -121,21 +121,6 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 					int fullPathHash = componentsInChildren[j].GetCurrentAnimatorStateInfo(0).fullPathHash;
 					componentsInChildren[j].PlayInFixedTime(fullPathHash, 0, delayedActivation);
 				}
-				AudioSource[] componentsInChildren2 = this.gameObjects[i].GetComponentsInChildren<AudioSource>();
-				for (int k = 0; k < componentsInChildren2.Length; k++)
-				{
-					if (componentsInChildren2[k].playOnAwake)
-					{
-						if (componentsInChildren2[k].clip != null && componentsInChildren2[k].clip.length > delayedActivation)
-						{
-							componentsInChildren2[k].time = delayedActivation;
-						}
-						else
-						{
-							componentsInChildren2[k].Stop();
-						}
-					}
-				}
 			}
 		}
 	}

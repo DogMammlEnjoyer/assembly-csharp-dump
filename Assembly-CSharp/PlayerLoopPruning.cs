@@ -79,6 +79,7 @@ public class PlayerLoopPruning : MonoBehaviour
 		long elapsedTicks = PlayerLoopPruning.sw.ElapsedTicks;
 		long num = (long)((1f / (float)Application.targetFrameRate - PlayerLoopPruning.slop) * 10000000f);
 		long num2 = num - elapsedTicks;
+		num2 -= GorillaSimpleBackgroundWorkerManager.DoWork(num2);
 		if (num2 < 0L)
 		{
 			PlayerLoopPruning.sw.Restart();
