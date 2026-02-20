@@ -203,35 +203,28 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 		SIProgression.Instance.UpdateHeldGadgetsTelemetry(this.PageId, isMine, -1);
 	}
 
-	public bool FindAttachedHand(out bool isLeft, bool checkHeld = true, bool checkSnapped = true)
+	public bool FindAttachedHand(out bool isLeft)
 	{
 		isLeft = false;
-		int num = -1;
 		GamePlayer gamePlayer;
-		if (checkHeld && GamePlayer.TryGetGamePlayer(this.gameEntity.heldByActorNumber, out gamePlayer))
-		{
-			num = gamePlayer.FindHandIndex(this.gameEntity.id);
-		}
-		GamePlayer gamePlayer2;
-		if (num == -1 && checkSnapped && GamePlayer.TryGetGamePlayer(this.gameEntity.snappedByActorNumber, out gamePlayer2))
-		{
-			num = gamePlayer2.FindSnapIndex(this.gameEntity.id);
-		}
-		if (num == -1)
+		if (!GamePlayer.TryGetGamePlayer(this.gameEntity.AttachedPlayerActorNr, out gamePlayer))
 		{
 			return false;
 		}
-		isLeft = GamePlayer.IsLeftHand(num);
-		return true;
+		int num = gamePlayer.FindSlotIndex(this.gameEntity.id);
+		isLeft = (num == 0 || num == 2);
+		return isLeft || num == 1 || num == 3;
 	}
 
-	public int GetAttachedPlayerActorNumber()
+	public VRRig GetAttachedPlayerRig()
 	{
-		if (this.gameEntity.heldByActorNumber == -1)
+		int attachedPlayerActorNr = this.gameEntity.AttachedPlayerActorNr;
+		GamePlayer gamePlayer;
+		if (attachedPlayerActorNr < 1 || !GamePlayer.TryGetGamePlayer(attachedPlayerActorNr, out gamePlayer))
 		{
-			return this.gameEntity.snappedByActorNumber;
+			return null;
 		}
-		return this.gameEntity.heldByActorNumber;
+		return gamePlayer.rig;
 	}
 
 	public virtual void OnEntityInit()

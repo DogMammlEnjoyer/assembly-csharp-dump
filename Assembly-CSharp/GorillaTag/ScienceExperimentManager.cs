@@ -1117,7 +1117,7 @@ namespace GorillaTag
 		[PunRPC]
 		public void PlayerTouchedLavaRPC(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PlayerTouchedLavaRPC");
+			MonkeAgent.IncrementRPCCall(info, "PlayerTouchedLavaRPC");
 			this.PlayerTouchedLava(info.Sender.ActorNumber);
 		}
 
@@ -1164,7 +1164,7 @@ namespace GorillaTag
 			this.InvokeRpc = false;
 			IL_12:
 			PhotonMessageInfoWrapped photonMessageInfoWrapped = new PhotonMessageInfoWrapped(info);
-			GorillaNot.IncrementRPCCall(photonMessageInfoWrapped, "PlayerTouchedLavaRPC");
+			MonkeAgent.IncrementRPCCall(photonMessageInfoWrapped, "PlayerTouchedLavaRPC");
 			this.PlayerTouchedLava(photonMessageInfoWrapped.Sender.ActorNumber);
 		}
 
@@ -1192,7 +1192,7 @@ namespace GorillaTag
 		[PunRPC]
 		private void PlayerTouchedRefreshWaterRPC(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PlayerTouchedRefreshWaterRPC");
+			MonkeAgent.IncrementRPCCall(info, "PlayerTouchedRefreshWaterRPC");
 			this.PlayerTouchedRefreshWater(info.Sender.ActorNumber);
 		}
 
@@ -1239,7 +1239,7 @@ namespace GorillaTag
 			this.InvokeRpc = false;
 			IL_12:
 			PhotonMessageInfoWrapped photonMessageInfoWrapped = new PhotonMessageInfoWrapped(info);
-			GorillaNot.IncrementRPCCall(photonMessageInfoWrapped, "PlayerTouchedRefreshWaterRPC");
+			MonkeAgent.IncrementRPCCall(photonMessageInfoWrapped, "PlayerTouchedRefreshWaterRPC");
 			this.PlayerTouchedRefreshWater(photonMessageInfoWrapped.Sender.ActorNumber);
 		}
 
@@ -1264,7 +1264,7 @@ namespace GorillaTag
 		[PunRPC]
 		private void ValidateLocalPlayerWaterBalloonHitRPC(int playerId, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "ValidateLocalPlayerWaterBalloonHitRPC");
+			MonkeAgent.IncrementRPCCall(info, "ValidateLocalPlayerWaterBalloonHitRPC");
 			if (playerId == NetworkSystem.Instance.LocalPlayer.ActorNumber)
 			{
 				this.ValidateLocalPlayerWaterBalloonHit(playerId);
@@ -1277,7 +1277,7 @@ namespace GorillaTag
 			if (this.InvokeRpc)
 			{
 				this.InvokeRpc = false;
-				GorillaNot.IncrementRPCCall(new PhotonMessageInfoWrapped(info), "ValidateLocalPlayerWaterBalloonHitRPC");
+				MonkeAgent.IncrementRPCCall(new PhotonMessageInfoWrapped(info), "ValidateLocalPlayerWaterBalloonHitRPC");
 				if (playerId == NetworkSystem.Instance.LocalPlayer.ActorNumber)
 				{
 					this.ValidateLocalPlayerWaterBalloonHit(playerId);
@@ -1334,7 +1334,7 @@ namespace GorillaTag
 		[PunRPC]
 		private void PlayerHitByWaterBalloonRPC(int playerId, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PlayerHitByWaterBalloonRPC");
+			MonkeAgent.IncrementRPCCall(info, "PlayerHitByWaterBalloonRPC");
 			this.PlayerHitByWaterBalloon(playerId);
 		}
 
@@ -1383,7 +1383,7 @@ namespace GorillaTag
 			}
 			this.InvokeRpc = false;
 			IL_12:
-			GorillaNot.IncrementRPCCall(new PhotonMessageInfoWrapped(info), "PlayerHitByWaterBalloonRPC");
+			MonkeAgent.IncrementRPCCall(new PhotonMessageInfoWrapped(info), "PlayerHitByWaterBalloonRPC");
 			this.PlayerHitByWaterBalloon(playerId);
 		}
 

@@ -114,7 +114,7 @@ public class DeployableObject : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "DeployRPC");
+		MonkeAgent.IncrementRPCCall(info, "DeployRPC");
 		if (!this.m_spamChecker.CheckCallTime(Time.unscaledTime))
 		{
 			return;

@@ -160,7 +160,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnReleaseEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnReleaseEvent");
 			if (!this.callLimiterRelease.CheckCallTime(Time.time))
 			{
 				return;
@@ -214,7 +214,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnReturnToDockEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnReturnToDockEvent");
 			if (!this.callLimiterReturn.CheckCallTime(Time.time))
 			{
 				return;

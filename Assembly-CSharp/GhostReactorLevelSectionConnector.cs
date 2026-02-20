@@ -53,7 +53,8 @@ public class GhostReactorLevelSectionConnector : MonoBehaviour
 							position = this.prePlacedGameEntities[i].transform.position,
 							rotation = this.prePlacedGameEntities[i].transform.rotation,
 							createData = 0L,
-							createdByEntityId = -1
+							createdByEntityId = -1,
+							slotIndex = -1
 						};
 						GhostReactorLevelSection.tempCreateEntitiesList.Add(item);
 					}

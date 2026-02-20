@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using GorillaTag;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class GameEntity : MonoBehaviour
 {
@@ -24,6 +25,19 @@ public class GameEntity : MonoBehaviour
 
 	[DebugReadout]
 	public int snappedByActorNumber { get; internal set; }
+
+	[DebugReadout]
+	public int slotIndex
+	{
+		get
+		{
+			if (this.heldByHandIndex == -1)
+			{
+				return GameSnappable.GetJointToSnapIndex(this.snappedJoint);
+			}
+			return this.heldByHandIndex;
+		}
+	}
 
 	[DebugReadout]
 	public SnapJointType snappedJoint { get; internal set; }
@@ -122,8 +136,8 @@ public class GameEntity : MonoBehaviour
 			base.GetComponentsInChildren<MeshFilter>(true, this._meshFilters);
 			base.GetComponentsInChildren<SkinnedMeshRenderer>(true, this._grabbableRenderers.skinnedRenderers);
 			List<SkinnedMeshRenderer> skinnedRenderers = this._grabbableRenderers.skinnedRenderers;
-			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|89_0<MeshFilter>(this._meshFilters);
-			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|89_0<SkinnedMeshRenderer>(skinnedRenderers);
+			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<MeshFilter>(this._meshFilters);
+			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<SkinnedMeshRenderer>(skinnedRenderers);
 			foreach (GameObject y in this.ignoreObjectGrabRenderers)
 			{
 				for (int j = 0; j < this._meshFilters.Count; j++)
@@ -297,9 +311,37 @@ public class GameEntity : MonoBehaviour
 		return this.snappedByActorNumber == NetworkSystem.Instance.LocalPlayer.ActorNumber;
 	}
 
+	public bool IsHeldOrSnappedByLocalPlayer
+	{
+		get
+		{
+			return this.AttachedPlayerActorNr == NetworkSystem.Instance.LocalPlayer.ActorNumber;
+		}
+	}
+
 	public bool IsHeld()
 	{
 		return this.heldByActorNumber != -1;
+	}
+
+	public bool IsSnappedToHand
+	{
+		get
+		{
+			return (this.snappedJoint & (SnapJointType.HandL | SnapJointType.HandR)) > SnapJointType.None;
+		}
+	}
+
+	public int AttachedPlayerActorNr
+	{
+		get
+		{
+			if (this.heldByActorNumber == -1)
+			{
+				return this.snappedByActorNumber;
+			}
+			return this.heldByActorNumber;
+		}
 	}
 
 	public int GetLastHeldByPlayerForEntityID(GameEntityId gameEntityId)
@@ -322,6 +364,26 @@ public class GameEntity : MonoBehaviour
 		return player != null && (this.heldByActorNumber == player.ActorNumber || this.snappedByActorNumber == player.ActorNumber);
 	}
 
+	public int EquippedSlotIndex
+	{
+		get
+		{
+			if (this.heldByHandIndex != -1)
+			{
+				return this.heldByHandIndex;
+			}
+			if ((this.snappedJoint & SnapJointType.HandL) != SnapJointType.None)
+			{
+				return 2;
+			}
+			if ((this.snappedJoint & SnapJointType.HandR) == SnapJointType.None)
+			{
+				return -1;
+			}
+			return 3;
+		}
+	}
+
 	public EHandedness EquippedHandedness
 	{
 		get
@@ -338,8 +400,24 @@ public class GameEntity : MonoBehaviour
 		}
 	}
 
+	public XRNode EquippedHandXRNode
+	{
+		get
+		{
+			if (this.heldByHandIndex == 0 || (this.snappedJoint & SnapJointType.HandL) != SnapJointType.None)
+			{
+				return XRNode.LeftHand;
+			}
+			if (this.heldByHandIndex != 1 && (this.snappedJoint & SnapJointType.HandR) == SnapJointType.None)
+			{
+				return (XRNode)(-1);
+			}
+			return XRNode.RightHand;
+		}
+	}
+
 	[CompilerGenerated]
-	private void <GetGrabbableRenderers>g__RemoveNotOwnedComponents|89_0<T>(List<T> components) where T : Component
+	private void <GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<T>(List<T> components) where T : Component
 	{
 		for (int i = 0; i < components.Count; i++)
 		{

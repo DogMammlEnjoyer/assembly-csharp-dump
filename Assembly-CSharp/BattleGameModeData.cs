@@ -99,7 +99,7 @@ public class BattleGameModeData : FusionGameModeData
 		this.InvokeRpc = false;
 		IL_12:
 		PhotonMessageInfoWrapped photonMessageInfoWrapped = new PhotonMessageInfoWrapped(rpcInfo);
-		GorillaNot.IncrementRPCCall(photonMessageInfoWrapped, "RPC_ReportSlinshotHit");
+		MonkeAgent.IncrementRPCCall(photonMessageInfoWrapped, "RPC_ReportSlinshotHit");
 		if (!NetworkSystem.Instance.IsMasterClient)
 		{
 			return;

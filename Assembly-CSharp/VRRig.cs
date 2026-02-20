@@ -32,33 +32,13 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 {
 	private void CosmeticsV2_Awake()
 	{
-		if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-		{
-			this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics();
-			return;
-		}
-		if (!this._isListeningFor_OnPostInstantiateAllPrefabs)
-		{
-			this._isListeningFor_OnPostInstantiateAllPrefabs = true;
-			CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
-		}
-	}
-
-	private void CosmeticsV2_OnDestroy()
-	{
-		if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-		{
-			this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics();
-			return;
-		}
-		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
+		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
 	}
 
 	internal void Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics()
 	{
 		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
 		this.CheckForEarlyAccess();
-		this.BuildInitialize_AfterCosmeticsV2Instantiated();
 		this.SetCosmeticsActive(false);
 	}
 
@@ -82,33 +62,34 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 	}
 
-	public GameObject[] cosmetics
+	public List<GameObject> cosmetics
 	{
 		get
 		{
-			return this._cosmetics;
-		}
-		set
-		{
-			this._cosmetics = value;
+			return CosmeticsV2Spawner_Dirty.RigDataForRig(this).vrRig_cosmetics;
 		}
 	}
 
-	public GameObject[] overrideCosmetics
+	public List<GameObject> overrideCosmetics
 	{
 		get
 		{
-			return this._overrideCosmetics;
-		}
-		set
-		{
-			this._overrideCosmetics = value;
+			return CosmeticsV2Spawner_Dirty.RigDataForRig(this).vrRig_override;
 		}
 	}
 
 	internal void SetTaggedBy(VRRig taggingRig)
 	{
 		this.taggedById = taggingRig.OwningNetPlayer.ActorNumber;
+	}
+
+	public int CheckCosmeticAge(string pfID)
+	{
+		if (this._playerOwnedCosmeticsAge.ContainsKey(pfID))
+		{
+			return this._playerOwnedCosmeticsAge[pfID];
+		}
+		return 0;
 	}
 
 	public HashSet<string> TemporaryCosmetics
@@ -506,14 +487,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 	}
 
-	public bool RigBuildFullyInitialized
-	{
-		get
-		{
-			return this._rigBuildFullyInitialized;
-		}
-	}
-
 	public GamePlayer GamePlayerRef
 	{
 		get
@@ -549,35 +522,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		this.myEyeExpressions = base.GetComponent<GorillaEyeExpressions>();
 	}
 
-	public void BuildInitialize_AfterCosmeticsV2Instantiated()
-	{
-		if (!this._rigBuildFullyInitialized)
-		{
-			Dictionary<string, GameObject> dictionary = new Dictionary<string, GameObject>();
-			foreach (GameObject gameObject in this.cosmetics)
-			{
-				GameObject gameObject2;
-				if (!dictionary.TryGetValue(gameObject.name, out gameObject2))
-				{
-					dictionary.Add(gameObject.name, gameObject);
-				}
-			}
-			foreach (GameObject gameObject3 in this.overrideCosmetics)
-			{
-				GameObject gameObject2;
-				if (dictionary.TryGetValue(gameObject3.name, out gameObject2) && gameObject2.name == gameObject3.name)
-				{
-					gameObject2.name = "OVERRIDDEN";
-				}
-			}
-			this.cosmetics = this.cosmetics.Concat(this.overrideCosmetics).ToArray<GameObject>();
-		}
-		this.cosmeticsObjectRegistry.Initialize(this.cosmetics);
-		this._rigBuildFullyInitialized = true;
-	}
-
 	private void Awake()
 	{
+		this.cosmeticsObjectRegistry = new CosmeticItemRegistry(this);
 		this.CosmeticsV2_Awake();
 		PlayFabAuthenticator instance = PlayFabAuthenticator.instance;
 		instance.OnSafetyUpdate = (Action<bool>)Delegate.Combine(instance.OnSafetyUpdate, new Action<bool>(this.UpdateNameSafeAccount));
@@ -2112,7 +2059,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		if (drumIndex < 0 || drumIndex >= this.musicDrums.Length || (this.senderRig.transform.position - base.transform.position).sqrMagnitude > 9f || !float.IsFinite(drumVolume))
 		{
-			GorillaNot.instance.SendReport("inappropriate tag data being sent drum", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("inappropriate tag data being sent drum", player.UserId, player.NickName);
 			return;
 		}
 		AudioSource audioSource = this.netView.IsMine ? GorillaTagger.Instance.offlineVRRig.musicDrums[drumIndex] : this.musicDrums[drumIndex];
@@ -2155,7 +2102,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			}
 			else
 			{
-				GorillaNot.instance.SendReport("inappropriate tag data being sent self only instrument", player.UserId, player.NickName);
+				MonkeAgent.instance.SendReport("inappropriate tag data being sent self only instrument", player.UserId, player.NickName);
 			}
 		}
 	}
@@ -2281,7 +2228,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 				return;
 			}
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent splash effect", player.UserId, player.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent splash effect", player.UserId, player.NickName);
 	}
 
 	[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -2309,7 +2256,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		else
 		{
-			GorillaNot.instance.SendReport("inappropriate tag data being sent Enable Non Cosmetic Hand Item", photonMessageInfoWrapped.Sender.UserId, photonMessageInfoWrapped.Sender.NickName);
+			MonkeAgent.instance.SendReport("inappropriate tag data being sent Enable Non Cosmetic Hand Item", photonMessageInfoWrapped.Sender.UserId, photonMessageInfoWrapped.Sender.NickName);
 		}
 	}
 
@@ -2338,7 +2285,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		else
 		{
-			GorillaNot.instance.SendReport("inappropriate tag data being sent Enable Non Cosmetic Hand Item", info.Sender.UserId, info.Sender.NickName);
+			MonkeAgent.instance.SendReport("inappropriate tag data being sent Enable Non Cosmetic Hand Item", info.Sender.UserId, info.Sender.NickName);
 		}
 	}
 
@@ -2424,7 +2371,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			this.LocalUpdateCosmeticsWithTryon(CosmeticsController.CosmeticSet.EmptySet, CosmeticsController.CosmeticSet.EmptySet, false);
 			return;
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent update cosmetics", info.Sender.UserId, info.Sender.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent update cosmetics", info.Sender.UserId, info.Sender.NickName);
 	}
 
 	public void UpdateCosmeticsWithTryon(string[] currentItems, string[] tryOnItems, bool playfx, PhotonMessageInfoWrapped info)
@@ -2438,7 +2385,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			this.LocalUpdateCosmeticsWithTryon(newSet, newTryOnSet, playfx);
 			return;
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent update cosmetics with tryon", player.UserId, player.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent update cosmetics with tryon", player.UserId, player.NickName);
 	}
 
 	public void UpdateCosmeticsWithTryon(int[] currentItemsPacked, int[] tryOnItemsPacked, bool playfx, PhotonMessageInfoWrapped info)
@@ -2452,7 +2399,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			this.LocalUpdateCosmeticsWithTryon(newSet, newTryOnSet, playfx);
 			return;
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent update cosmetics with tryon", player.UserId, player.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent update cosmetics with tryon", player.UserId, player.NickName);
 	}
 
 	public void LocalUpdateCosmeticsWithTryon(CosmeticsController.CosmeticSet newSet, CosmeticsController.CosmeticSet newTryOnSet, bool playfx)
@@ -2482,7 +2429,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	public void SetCosmeticsActive(bool playfx)
 	{
-		if (CosmeticsController.instance == null || !CosmeticsV2Spawner_Dirty.allPartsInstantiated)
+		if (CosmeticsController.instance == null)
 		{
 			return;
 		}
@@ -2507,7 +2454,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public void RefreshCosmetics()
 	{
 		this.mergedSet.ActivateCosmetics(this.mergedSet, this, this.myBodyDockPositions, this.cosmeticsObjectRegistry);
-		this.myBodyDockPositions.RefreshTransferrableItems();
 	}
 
 	public void GetCosmeticsPlayFabCatalogData()
@@ -2526,20 +2472,16 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 						{
 							this._playerOwnedCosmetics.Add(itemInstance.ItemId);
 							this.rawCosmeticString += itemInstance.ItemId;
+							if (itemInstance.PurchaseDate != null)
+							{
+								this._playerOwnedCosmeticsAge.Add(itemInstance.ItemId, (int)(DateTime.Now - itemInstance.PurchaseDate.Value).TotalDays);
+							}
 						}
 					}
-				}
-				if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-				{
-					this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics();
 				}
 			}, delegate(PlayFabError error)
 			{
 				this.initializedCosmetics = true;
-				if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-				{
-					this.SetCosmeticsActive(false);
-				}
 			}, null, null);
 		}
 		this.rawCosmeticString += "Slingshot";
@@ -2620,7 +2562,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	{
 		if (GorillaGameManager.instance != null)
 		{
-			GorillaNot.IncrementRPCCall(info, sourceCall);
+			MonkeAgent.IncrementRPCCall(info, sourceCall);
 		}
 	}
 
@@ -2628,7 +2570,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	{
 		if (GorillaGameManager.instance != null)
 		{
-			GorillaNot.IncrementRPCCall(info, sourceCall);
+			MonkeAgent.IncrementRPCCall(info, sourceCall);
 		}
 	}
 
@@ -3005,6 +2947,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			this.ClearPartyMemberStatus();
 			this.rawCosmeticString = "";
 			this._playerOwnedCosmetics.Clear();
+			this._playerOwnedCosmeticsAge.Clear();
 			if (this.cosmeticSet != null)
 			{
 				this.mergedSet.DeactivateAllCosmetcs(this.myBodyDockPositions, CosmeticsController.instance.nullItem, this.cosmeticsObjectRegistry);
@@ -3630,8 +3573,51 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			return;
 		}
 		this._playerOwnedCosmetics.Clear();
-		string[] ts = cosmetics.Split(',', StringSplitOptions.None);
-		this._playerOwnedCosmetics.AddAll(ts);
+		this._playerOwnedCosmeticsAge.Clear();
+		string[] array = cosmetics.Split(',', StringSplitOptions.None);
+		int i = 0;
+		while (i < array.Length)
+		{
+			if (array[i].Length <= 6)
+			{
+				goto IL_117;
+			}
+			string[] array2 = new string[5];
+			int num = 0;
+			string text = array[i];
+			int num2 = text.Length;
+			int num3 = num2 - 4;
+			array2[num] = text.Substring(num3, num2 - 2 - num3);
+			array2[1] = "/";
+			int num4 = 2;
+			string text2 = array[i];
+			num3 = text2.Length;
+			num2 = num3 - 2;
+			array2[num4] = text2.Substring(num2, num3 - num2);
+			array2[3] = "/20";
+			int num5 = 4;
+			string text3 = array[i];
+			num2 = text3.Length;
+			num3 = num2 - 6;
+			array2[num5] = text3.Substring(num3, num2 - 4 - num3);
+			DateTime d;
+			if (!DateTime.TryParse(string.Concat(array2), out d))
+			{
+				goto IL_117;
+			}
+			HashSet<string> playerOwnedCosmetics = this._playerOwnedCosmetics;
+			string text4 = array[i];
+			playerOwnedCosmetics.Add(text4.Substring(0, text4.Length - 6));
+			Dictionary<string, int> playerOwnedCosmeticsAge = this._playerOwnedCosmeticsAge;
+			text4 = array[i];
+			playerOwnedCosmeticsAge.Add(text4.Substring(0, text4.Length - 6), (int)(DateTime.Now - d).TotalDays);
+			IL_126:
+			i++;
+			continue;
+			IL_117:
+			this._playerOwnedCosmetics.Add(array[i]);
+			goto IL_126;
+		}
 		this.CheckForEarlyAccess();
 	}
 
@@ -3972,20 +3958,16 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	[Tooltip("- True in 'Gorilla Player Networked.prefab'.\n- True in 'Local VRRig.prefab/Local Gorilla Player'.\n- False in 'Local VRRig.prefab/Actual Gorilla'")]
 	public bool showName;
 
-	public CosmeticItemRegistry cosmeticsObjectRegistry = new CosmeticItemRegistry();
+	public CosmeticItemRegistry cosmeticsObjectRegistry;
 
 	[NonSerialized]
 	public PropHuntHandFollower propHuntHandFollower;
 
-	[FormerlySerializedAs("cosmetics")]
-	public GameObject[] _cosmetics;
-
-	[FormerlySerializedAs("overrideCosmetics")]
-	public GameObject[] _overrideCosmetics;
-
 	private int taggedById;
 
 	private readonly HashSet<string> _playerOwnedCosmetics = new HashSet<string>(50);
+
+	private readonly Dictionary<string, int> _playerOwnedCosmeticsAge = new Dictionary<string, int>(50);
 
 	private bool initializedCosmetics;
 
@@ -4275,6 +4257,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	[SerializeField]
 	internal VRRigSerializer rigSerializer;
 
+	[Obsolete("Deprecated, this is unreliable, use Creator", false)]
 	public NetPlayer OwningNetPlayer;
 
 	[SerializeField]
@@ -4300,8 +4283,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	[SerializeField]
 	private HandEffectContext _extraRightHandEffect;
-
-	private bool _rigBuildFullyInitialized;
 
 	[SerializeField]
 	private Transform renderTransform;

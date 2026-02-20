@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -81,14 +81,16 @@ namespace GorillaTag.Cosmetics
 
 		protected internal override void DelayedPickup()
 		{
-			base.StartCoroutine(this.DelayedPickup_Internal());
+			this.DelayedPickup_Internal();
 		}
 
-		private IEnumerator DelayedPickup_Internal()
+		private void DelayedPickup_Internal()
 		{
-			yield return new WaitForSeconds(1f);
-			this.Pickup(false);
-			yield break;
+			PickupableCosmetic.<DelayedPickup_Internal>d__45 <DelayedPickup_Internal>d__;
+			<DelayedPickup_Internal>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<DelayedPickup_Internal>d__.<>4__this = this;
+			<DelayedPickup_Internal>d__.<>1__state = -1;
+			<DelayedPickup_Internal>d__.<>t__builder.Start<PickupableCosmetic.<DelayedPickup_Internal>d__45>(ref <DelayedPickup_Internal>d__);
 		}
 
 		protected internal override void Release(HoldableObject holdable, Vector3 startPosition, Vector3 velocity, float playerScale)

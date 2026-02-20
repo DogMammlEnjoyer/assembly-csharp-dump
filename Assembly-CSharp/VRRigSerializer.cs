@@ -115,7 +115,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 		{
 			if (player != null)
 			{
-				GorillaNot.instance.SendReport("creating rigs as room objects", player.UserId, player.NickName);
+				MonkeAgent.instance.SendReport("creating rigs as room objects", player.UserId, player.NickName);
 			}
 			return false;
 		}
@@ -124,13 +124,13 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			NetPlayer player2 = NetworkSystem.Instance.GetPlayer(wrappedInfo.senderID);
 			if (player2 != null)
 			{
-				GorillaNot.instance.SendReport("creating rigs as room objects", player2.UserId, player2.NickName);
+				MonkeAgent.instance.SendReport("creating rigs as room objects", player2.UserId, player2.NickName);
 			}
 			return false;
 		}
 		if (player != this.netView.Owner)
 		{
-			GorillaNot.instance.SendReport("creating rigs for someone else", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("creating rigs for someone else", player.UserId, player.NickName);
 			return false;
 		}
 		if (VRRigCache.Instance.TryGetVrrig(player, out this.rigContainer))
@@ -433,7 +433,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 	[PunRPC]
 	public void DroppedByPlayer(Vector3 throwVelocity, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "DroppedByPlayer");
+		MonkeAgent.IncrementRPCCall(info, "DroppedByPlayer");
 		RigContainer rigContainer;
 		if (this.vrrig.isOfflineVRRig && VRRigCache.Instance.TryGetVrrig(info.Sender, out rigContainer))
 		{
@@ -463,7 +463,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 
 	private void OnHandTapRPCShared(int audioClipIndex, bool isDownTap, bool isLeftHand, StiltID stiltID, float handTapSpeed, long packedDirFromHitToHand, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "OnHandTapRPCShared");
+		MonkeAgent.IncrementRPCCall(info, "OnHandTapRPCShared");
 		if (info.Sender != this.netView.Owner)
 		{
 			return;
@@ -519,7 +519,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 
 	private void PlayHandTapShared(int soundIndex, bool isLeftHand, float tapVolume, PhotonMessageInfoWrapped info = default(PhotonMessageInfoWrapped))
 	{
-		GorillaNot.IncrementRPCCall(info, "PlayHandTapShared");
+		MonkeAgent.IncrementRPCCall(info, "PlayHandTapShared");
 		NetPlayer sender = info.Sender;
 		if (info.Sender == this.netView.Owner && float.IsFinite(tapVolume))
 		{
@@ -529,12 +529,12 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			FXSystem.PlayFX<HandTapArgs>(FXType.PlayHandTap, this, this.handTapArgs, info);
 			return;
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent hand tap", sender.UserId, sender.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent hand tap", sender.UserId, sender.NickName);
 	}
 
 	private void UpdateNativeSizeShared(float value, PhotonMessageInfoWrapped info = default(PhotonMessageInfoWrapped))
 	{
-		GorillaNot.IncrementRPCCall(info, "UpdateNativeSizeShared");
+		MonkeAgent.IncrementRPCCall(info, "UpdateNativeSizeShared");
 		NetPlayer sender = info.Sender;
 		if (info.Sender == this.netView.Owner && RPCUtil.SafeValue(value, 0.1f, 10f) && RPCUtil.NotSpam("UpdateNativeSizeShared", info, 1f))
 		{
@@ -546,13 +546,13 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 		}
 		else
 		{
-			GorillaNot.instance.SendReport("inappropriate tag data being sent native size", sender.UserId, sender.NickName);
+			MonkeAgent.instance.SendReport("inappropriate tag data being sent native size", sender.UserId, sender.NickName);
 		}
 	}
 
 	private void PlayGeodeEffectShared(Vector3 hitPosition, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "PlayGeodeEffectShared");
+		MonkeAgent.IncrementRPCCall(info, "PlayGeodeEffectShared");
 		if (info.Sender == this.netView.Owner)
 		{
 			float num = 10000f;
@@ -563,7 +563,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 				return;
 			}
 		}
-		GorillaNot.instance.SendReport("inappropriate tag data being sent geode effect", info.Sender.UserId, info.Sender.NickName);
+		MonkeAgent.instance.SendReport("inappropriate tag data being sent geode effect", info.Sender.UserId, info.Sender.NickName);
 	}
 
 	private void InitializeNoobMaterialShared(float red, float green, float blue, PhotonMessageInfoWrapped info)
@@ -588,7 +588,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 
 	private void RequestCosmeticsShared(PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestCosmetics");
+		MonkeAgent.IncrementRPCCall(info, "RequestCosmetics");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(info.Sender, out rigContainer) || !rigContainer.Rig.fxSettings.callSettings[9].CallLimitSettings.CheckCallTime(Time.unscaledTime))
 		{

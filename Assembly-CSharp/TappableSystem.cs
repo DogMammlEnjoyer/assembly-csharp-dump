@@ -7,7 +7,7 @@ public class TappableSystem : GTSystem<Tappable>
 	[PunRPC]
 	public void SendOnTapRPC(int key, float tapStrength, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SendOnTapRPC");
+		MonkeAgent.IncrementRPCCall(info, "SendOnTapRPC");
 		if (key < 0 || key >= this._instances.Count || !float.IsFinite(tapStrength))
 		{
 			return;

@@ -17,5 +17,7 @@ namespace Constants
 		public const int MAX_ROOM_SIZE_NOSUBS = 10;
 
 		public const float SPEED_TELEPORT_THRESHOLD = 100f;
+
+		public const string GTFC_APPEND = ":GTFC";
 	}
 }

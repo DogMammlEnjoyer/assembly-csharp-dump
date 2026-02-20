@@ -7,98 +7,111 @@ namespace GorillaNetworking
 {
 	public class CosmeticItemRegistry
 	{
-		public bool isInitialized
+		public VRRig Rig
 		{
 			get
 			{
-				return this._isInitialized;
+				return this.rig;
 			}
 		}
 
-		public void Initialize(GameObject[] cosmeticGObjs)
+		public void RefreshRig()
 		{
-			if (this._isInitialized)
+			this.rig.RefreshCosmetics();
+		}
+
+		public CosmeticItemRegistry(VRRig _rig)
+		{
+			this.rig = _rig;
+		}
+
+		public void InitializeCosmetic(GameObject cosmeticGObj, bool isOverride)
+		{
+			if (this.initializedCosmetics.Contains(cosmeticGObj))
 			{
 				return;
 			}
-			this._isInitialized = true;
-			foreach (GameObject gameObject in cosmeticGObjs)
+			this.initializedCosmetics.Add(cosmeticGObj);
+			if (!isOverride)
 			{
-				string text = gameObject.name.Replace("LEFT.", "").Replace("RIGHT.", "").TrimEnd();
-				CosmeticItemInstance cosmeticItemInstance;
-				if (this._nameToCosmeticMap.ContainsKey(text))
+				foreach (GameObject gameObject in this.rig.overrideCosmetics)
 				{
-					cosmeticItemInstance = this._nameToCosmeticMap[text];
+					if (cosmeticGObj.name == gameObject.name)
+					{
+						cosmeticGObj.name = "OVERRIDDEN";
+						return;
+					}
 				}
-				else
+			}
+			string text = cosmeticGObj.name.Replace("LEFT.", "").Replace("RIGHT.", "").TrimEnd();
+			CosmeticItemInstance cosmeticItemInstance;
+			if (this._nameToCosmeticMap.ContainsKey(text))
+			{
+				cosmeticItemInstance = this._nameToCosmeticMap[text];
+			}
+			else
+			{
+				cosmeticItemInstance = new CosmeticItemInstance();
+				CosmeticSO cosmeticSOFromDisplayName = CosmeticsController.instance.GetCosmeticSOFromDisplayName(text);
+				cosmeticItemInstance.clippingOffsets = ((cosmeticSOFromDisplayName != null) ? cosmeticSOFromDisplayName.info.anchorAntiIntersectOffsets : CosmeticsController.instance.defaultClipOffsets);
+				cosmeticItemInstance.isHoldableItem = (cosmeticSOFromDisplayName != null && cosmeticSOFromDisplayName.info.hasHoldableParts);
+				this._nameToCosmeticMap.Add(text, cosmeticItemInstance);
+			}
+			HoldableObject component = cosmeticGObj.GetComponent<HoldableObject>();
+			bool flag = cosmeticGObj.name.Contains("LEFT.");
+			bool flag2 = cosmeticGObj.name.Contains("RIGHT.");
+			if (cosmeticItemInstance.isHoldableItem && component != null)
+			{
+				if (component is SnowballThrowable || component is TransferrableObject)
 				{
-					cosmeticItemInstance = new CosmeticItemInstance();
-					CosmeticSO cosmeticSOFromDisplayName = CosmeticsController.instance.GetCosmeticSOFromDisplayName(text);
-					cosmeticItemInstance.clippingOffsets = ((cosmeticSOFromDisplayName != null) ? cosmeticSOFromDisplayName.info.anchorAntiIntersectOffsets : CosmeticsController.instance.defaultClipOffsets);
-					cosmeticItemInstance.isHoldableItem = (cosmeticSOFromDisplayName != null && cosmeticSOFromDisplayName.info.hasHoldableParts);
-					this._nameToCosmeticMap.Add(text, cosmeticItemInstance);
-				}
-				HoldableObject component = gameObject.GetComponent<HoldableObject>();
-				bool flag = gameObject.name.Contains("LEFT.");
-				bool flag2 = gameObject.name.Contains("RIGHT.");
-				if (cosmeticItemInstance.isHoldableItem && component != null)
-				{
-					if (component is SnowballThrowable || component is TransferrableObject)
-					{
-						cosmeticItemInstance.holdableObjects.Add(gameObject);
-					}
-					else if (flag)
-					{
-						cosmeticItemInstance.leftObjects.Add(gameObject);
-					}
-					else if (flag2)
-					{
-						cosmeticItemInstance.rightObjects.Add(gameObject);
-					}
-					else
-					{
-						cosmeticItemInstance.objects.Add(gameObject);
-					}
+					cosmeticItemInstance.holdableObjects.Add(cosmeticGObj);
 				}
 				else if (flag)
 				{
-					cosmeticItemInstance.leftObjects.Add(gameObject);
+					cosmeticItemInstance.leftObjects.Add(cosmeticGObj);
 				}
 				else if (flag2)
 				{
-					cosmeticItemInstance.rightObjects.Add(gameObject);
+					cosmeticItemInstance.rightObjects.Add(cosmeticGObj);
 				}
 				else
 				{
-					cosmeticItemInstance.objects.Add(gameObject);
+					cosmeticItemInstance.objects.Add(cosmeticGObj);
 				}
-				cosmeticItemInstance.dbgname = text;
-				Renderer[] componentsInChildren = gameObject.GetComponentsInChildren<Renderer>();
-				for (int j = 0; j < componentsInChildren.Length; j++)
+			}
+			else if (flag)
+			{
+				cosmeticItemInstance.leftObjects.Add(cosmeticGObj);
+			}
+			else if (flag2)
+			{
+				cosmeticItemInstance.rightObjects.Add(cosmeticGObj);
+			}
+			else
+			{
+				cosmeticItemInstance.objects.Add(cosmeticGObj);
+			}
+			cosmeticItemInstance.dbgname = text;
+			Renderer[] componentsInChildren = cosmeticGObj.GetComponentsInChildren<Renderer>();
+			for (int i = 0; i < componentsInChildren.Length; i++)
+			{
+				if (componentsInChildren[i].enabled)
 				{
-					if (componentsInChildren[j].enabled)
-					{
-						cosmeticItemInstance.allRenderers.Add(componentsInChildren[j]);
-					}
+					cosmeticItemInstance.allRenderers.Add(componentsInChildren[i]);
 				}
-				ParticleSystem[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystem>();
-				for (int k = 0; k < componentsInChildren2.Length; k++)
+			}
+			ParticleSystem[] componentsInChildren2 = cosmeticGObj.GetComponentsInChildren<ParticleSystem>();
+			for (int j = 0; j < componentsInChildren2.Length; j++)
+			{
+				if (componentsInChildren2[j].emission.enabled)
 				{
-					if (componentsInChildren2[k].emission.enabled)
-					{
-						cosmeticItemInstance.allParticles.Add(componentsInChildren2[k]);
-					}
+					cosmeticItemInstance.allParticles.Add(componentsInChildren2[j]);
 				}
 			}
 		}
 
 		public CosmeticItemInstance Cosmetic(string itemName)
 		{
-			if (!this._isInitialized)
-			{
-				Debug.LogError("Tried to use CosmeticItemRegistry before it was initialized!");
-				return null;
-			}
 			if (string.IsNullOrEmpty(itemName) || itemName == "NOTHING")
 			{
 				return null;
@@ -106,15 +119,18 @@ namespace GorillaNetworking
 			CosmeticItemInstance result;
 			if (!this._nameToCosmeticMap.TryGetValue(itemName, out result))
 			{
+				CosmeticsV2Spawner_Dirty.ProcessLoadOpInfos(this.rig, itemName, this);
 				return null;
 			}
 			return result;
 		}
 
-		private bool _isInitialized;
-
 		private Dictionary<string, CosmeticItemInstance> _nameToCosmeticMap = new Dictionary<string, CosmeticItemInstance>();
 
+		private HashSet<GameObject> initializedCosmetics = new HashSet<GameObject>();
+
 		private GameObject _nullItem;
+
+		private VRRig rig;
 	}
 }

@@ -70,7 +70,7 @@ public class StopwatchCosmetic : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "OnWatchToggle");
+		MonkeAgent.IncrementRPCCall(info, "OnWatchToggle");
 		if ((int)args[0] != this._photonID)
 		{
 			return;
@@ -95,7 +95,7 @@ public class StopwatchCosmetic : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "OnWatchReset");
+		MonkeAgent.IncrementRPCCall(info, "OnWatchReset");
 		if ((int)args[0] != this._photonID)
 		{
 			return;

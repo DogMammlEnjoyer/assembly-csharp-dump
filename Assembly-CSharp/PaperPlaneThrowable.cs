@@ -15,7 +15,7 @@ public class PaperPlaneThrowable : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "OnLaunchRPC");
+		MonkeAgent.IncrementRPCCall(info, "OnLaunchRPC");
 		if (sender != receiver)
 		{
 			return;
@@ -96,7 +96,7 @@ public class PaperPlaneThrowable : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(new PhotonMessageInfo(netPlayer.GetPlayerRef(), PhotonNetwork.ServerTimestamp, null), "OnPhotonEvent");
+		MonkeAgent.IncrementRPCCall(new PhotonMessageInfo(netPlayer.GetPlayerRef(), PhotonNetwork.ServerTimestamp, null), "OnPhotonEvent");
 		if (!this.m_spamCheck.CheckCallTime(Time.unscaledTime))
 		{
 			return;

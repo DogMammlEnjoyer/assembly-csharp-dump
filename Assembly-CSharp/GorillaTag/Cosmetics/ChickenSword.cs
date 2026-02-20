@@ -135,7 +135,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnReachedLastTransformationStep");
+			MonkeAgent.IncrementRPCCall(info, "OnReachedLastTransformationStep");
 			if (!this.callLimiter.CheckCallTime(Time.time))
 			{
 				return;

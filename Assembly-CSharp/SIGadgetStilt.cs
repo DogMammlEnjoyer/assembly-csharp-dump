@@ -267,7 +267,9 @@ public class SIGadgetStilt : SIGadget
 
 	private void SpinMotor(float dt)
 	{
-		this.currentMotorAngle = (this.currentMotorAngle + this.rotateSpeedFactor * dt) % 360f;
+		SuperInfectionManager activeSuperInfectionManager = SuperInfectionManager.activeSuperInfectionManager;
+		float num = (activeSuperInfectionManager != null && activeSuperInfectionManager.IsSupercharged) ? 1.5f : 1f;
+		this.currentMotorAngle = (this.currentMotorAngle + this.rotateSpeedFactor * num * dt) % 360f;
 		this.motorTransform.localRotation = Quaternion.AngleAxis(this.currentMotorAngle, Vector3.right);
 		if (!this.motorAudio.isPlaying)
 		{
@@ -294,7 +296,7 @@ public class SIGadgetStilt : SIGadget
 
 	private bool CheckInput()
 	{
-		return this.buttonActivatable.CheckInput(true, true, 0.25f, true, true);
+		return this.buttonActivatable.CheckInput(0.25f);
 	}
 
 	public override SIUpgradeSet FilterUpgradeNodes(SIUpgradeSet upgrades)
@@ -394,7 +396,7 @@ public class SIGadgetStilt : SIGadget
 		{
 			return;
 		}
-		this.attachedPlayerActorNr = base.GetAttachedPlayerActorNumber();
+		this.attachedPlayerActorNr = this.gameEntity.AttachedPlayerActorNr;
 		this.attachedNetPlayer = NetworkSystem.Instance.GetPlayer(this.attachedPlayerActorNr);
 		GamePlayer gamePlayer;
 		if (!GamePlayer.TryGetGamePlayer(this.attachedPlayerActorNr, out gamePlayer))

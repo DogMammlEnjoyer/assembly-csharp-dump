@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using GorillaExtensions;
 using GorillaNetworking;
 using GorillaTagScripts;
 using Newtonsoft.Json;
@@ -60,12 +58,8 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 		if (!this.isLookingUp)
 		{
 			TickSystem<object>.AddPreTickCallback(this);
-			if (wait)
-			{
-				this.startSearchingTime = Time.time;
-				return;
-			}
-			this.startSearchingTime = float.MinValue;
+			this.startSearchingTime = (wait ? Time.time : float.MinValue);
+			this.isLookingUp = true;
 		}
 	}
 
@@ -78,51 +72,11 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			this.isLookingUp = false;
 			return;
 		}
-		this.isLookingUp = true;
 		if (this.startSearchingTime + this.playerLookUpCooldown > Time.time)
 		{
 			return;
 		}
-		if (GorillaServer.Instance.NewCosmeticsPathShouldReadSharedGroupData())
-		{
-			this.NewCosmeticsPath();
-			return;
-		}
-		PlayerCosmeticsSystem.playerIDsList.Clear();
-		while (PlayerCosmeticsSystem.playersToLookUp.Count > 0)
-		{
-			NetPlayer netPlayer = PlayerCosmeticsSystem.playersToLookUp.Dequeue();
-			string item = netPlayer.ActorNumber.ToString();
-			if (netPlayer.InRoom() && !PlayerCosmeticsSystem.playerIDsList.Contains(item))
-			{
-				if (PlayerCosmeticsSystem.playerIDsList.Count == 0)
-				{
-					int actorNumber = netPlayer.ActorNumber;
-				}
-				PlayerCosmeticsSystem.playerIDsList.Add(item);
-				PlayerCosmeticsSystem.playersWaiting.AddSortedUnique(netPlayer.ActorNumber);
-			}
-		}
-		if (PlayerCosmeticsSystem.playerIDsList.Count > 0)
-		{
-			PlayFab.ClientModels.GetSharedGroupDataRequest getSharedGroupDataRequest = new PlayFab.ClientModels.GetSharedGroupDataRequest();
-			getSharedGroupDataRequest.Keys = PlayerCosmeticsSystem.playerIDsList;
-			getSharedGroupDataRequest.SharedGroupId = NetworkSystem.Instance.RoomName + Regex.Replace(NetworkSystem.Instance.CurrentRegion, "[^a-zA-Z0-9]", "").ToUpper();
-			PlayFabClientAPI.GetSharedGroupData(getSharedGroupDataRequest, new Action<GetSharedGroupDataResult>(this.OnGetsharedGroupData), delegate(PlayFabError error)
-			{
-				Debug.Log(error.GenerateErrorReport());
-				if (error.Error == PlayFabErrorCode.NotAuthenticated)
-				{
-					PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-					return;
-				}
-				if (error.Error == PlayFabErrorCode.AccountBanned)
-				{
-					GorillaGameManager.ForceStopGame_DisconnectAndDestroy();
-				}
-			}, null, null);
-		}
-		this.isLookingUp = false;
+		this.NewCosmeticsPath();
 	}
 
 	private void NewCosmeticsPath()
@@ -258,75 +212,6 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 		yield break;
 	}
 
-	private void UpdatePlayersWaitingAndDoLookup(bool retrying)
-	{
-		if (PlayerCosmeticsSystem.playersWaiting.Count > 0)
-		{
-			for (int i = PlayerCosmeticsSystem.playersWaiting.Count - 1; i >= 0; i--)
-			{
-				int num = PlayerCosmeticsSystem.playersWaiting[i];
-				if (!Utils.PlayerInRoom(num))
-				{
-					PlayerCosmeticsSystem.playersWaiting.RemoveAt(i);
-				}
-				else
-				{
-					PlayerCosmeticsSystem.playersToLookUp.Enqueue(NetworkSystem.Instance.GetPlayer(num));
-					retrying = true;
-				}
-			}
-		}
-		if (retrying)
-		{
-			this.LookUpPlayerCosmetics(true);
-		}
-	}
-
-	private void OnGetsharedGroupData(GetSharedGroupDataResult result)
-	{
-		if (!NetworkSystem.Instance.InRoom)
-		{
-			PlayerCosmeticsSystem.playersWaiting.Clear();
-			return;
-		}
-		bool retrying = false;
-		foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
-		{
-			this.playerTemp = null;
-			int num;
-			if (int.TryParse(keyValuePair.Key, out num))
-			{
-				if (!Utils.PlayerInRoom(num))
-				{
-					PlayerCosmeticsSystem.playersWaiting.Remove(num);
-				}
-				else
-				{
-					PlayerCosmeticsSystem.playersWaiting.Remove(num);
-					this.playerTemp = NetworkSystem.Instance.GetPlayer(num);
-					this.tempCosmetics = keyValuePair.Value.Value;
-					IUserCosmeticsCallback userCosmeticsCallback;
-					if (!PlayerCosmeticsSystem.userCosmeticCallback.TryGetValue(num, out userCosmeticsCallback))
-					{
-						PlayerCosmeticsSystem.userCosmeticsWaiting[num] = this.tempCosmetics;
-					}
-					else
-					{
-						userCosmeticsCallback.PendingUpdate = false;
-						if (!userCosmeticsCallback.OnGetUserCosmetics(this.tempCosmetics))
-						{
-							Debug.Log("retrying cosmetics for " + this.playerTemp.ToStringFull());
-							PlayerCosmeticsSystem.playersToLookUp.Enqueue(this.playerTemp);
-							retrying = true;
-							userCosmeticsCallback.PendingUpdate = true;
-						}
-					}
-				}
-			}
-		}
-		this.UpdatePlayersWaitingAndDoLookup(retrying);
-	}
-
 	private void OnNetEvent(byte code, object data, int source)
 	{
 		if (code != 199 || source < 0)
@@ -334,7 +219,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			return;
 		}
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(source);
-		GorillaNot.IncrementRPCCall(new PhotonMessageInfoWrapped(source, NetworkSystem.Instance.ServerTimestamp), "UpdatePlayerCosmetics");
+		MonkeAgent.IncrementRPCCall(new PhotonMessageInfoWrapped(source, NetworkSystem.Instance.ServerTimestamp), "UpdatePlayerCosmetics");
 		PlayerCosmeticsSystem.UpdatePlayerCosmetics(player);
 	}
 
@@ -465,6 +350,11 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 				CosmeticsController.instance.AddTempUnlockToWardrobe(text);
 			}
 		}
+		Action onCosmeticsUpdated = CosmeticsController.instance.OnCosmeticsUpdated;
+		if (onCosmeticsUpdated != null)
+		{
+			onCosmeticsUpdated();
+		}
 		if (rig.isOfflineVRRig)
 		{
 			CosmeticsController.instance.UpdateWornCosmetics(true);
@@ -492,6 +382,11 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			{
 				CosmeticsController.instance.RemoveTempUnlockFromWardrobe(text);
 			}
+		}
+		Action onCosmeticsUpdated = CosmeticsController.instance.OnCosmeticsUpdated;
+		if (onCosmeticsUpdated != null)
+		{
+			onCosmeticsUpdated();
 		}
 		if (rig.isOfflineVRRig)
 		{

@@ -42,7 +42,7 @@ public struct GroupJoinZoneAB
 
 	public bool HasAnyFlag(GroupJoinZoneAB other)
 	{
-		return (this.a & other.a) != (GroupJoinZoneA)0 || (this.b & other.b) > (GroupJoinZoneB)0;
+		return (this.a & other.a) != ~(GroupJoinZoneA.Basement | GroupJoinZoneA.Beach | GroupJoinZoneA.Cave | GroupJoinZoneA.Canyon | GroupJoinZoneA.City | GroupJoinZoneA.Clouds | GroupJoinZoneA.Forest | GroupJoinZoneA.Mountain | GroupJoinZoneA.Rotating | GroupJoinZoneA.Mines | GroupJoinZoneA.Arena | GroupJoinZoneA.ArenaTunnel | GroupJoinZoneA.Hoverboard | GroupJoinZoneA.TreeRoom | GroupJoinZoneA.MountainTunnel | GroupJoinZoneA.BasementTunnel | GroupJoinZoneA.RotatingTunnel | GroupJoinZoneA.BeachTunnel | GroupJoinZoneA.CloudsElevator | GroupJoinZoneA.MinesTunnel | GroupJoinZoneA.CavesComputer | GroupJoinZoneA.Metropolis | GroupJoinZoneA.MetropolisTunnel | GroupJoinZoneA.Attic | GroupJoinZoneA.Arcade | GroupJoinZoneA.ArcadeTunnel | GroupJoinZoneA.Bayou | GroupJoinZoneA.BayouTunnel | GroupJoinZoneA.CustomMaps | GroupJoinZoneA.MallConnector | GroupJoinZoneA.MonkeBlocks | GroupJoinZoneA.GTFC) || (this.b & other.b) > (GroupJoinZoneB)0;
 	}
 
 	public override bool Equals(object other)
@@ -69,7 +69,7 @@ public struct GroupJoinZoneAB
 		{
 			return this.a.ToString();
 		}
-		if (this.a != (GroupJoinZoneA)0)
+		if (this.a != ~(GroupJoinZoneA.Basement | GroupJoinZoneA.Beach | GroupJoinZoneA.Cave | GroupJoinZoneA.Canyon | GroupJoinZoneA.City | GroupJoinZoneA.Clouds | GroupJoinZoneA.Forest | GroupJoinZoneA.Mountain | GroupJoinZoneA.Rotating | GroupJoinZoneA.Mines | GroupJoinZoneA.Arena | GroupJoinZoneA.ArenaTunnel | GroupJoinZoneA.Hoverboard | GroupJoinZoneA.TreeRoom | GroupJoinZoneA.MountainTunnel | GroupJoinZoneA.BasementTunnel | GroupJoinZoneA.RotatingTunnel | GroupJoinZoneA.BeachTunnel | GroupJoinZoneA.CloudsElevator | GroupJoinZoneA.MinesTunnel | GroupJoinZoneA.CavesComputer | GroupJoinZoneA.Metropolis | GroupJoinZoneA.MetropolisTunnel | GroupJoinZoneA.Attic | GroupJoinZoneA.Arcade | GroupJoinZoneA.ArcadeTunnel | GroupJoinZoneA.Bayou | GroupJoinZoneA.BayouTunnel | GroupJoinZoneA.CustomMaps | GroupJoinZoneA.MallConnector | GroupJoinZoneA.MonkeBlocks | GroupJoinZoneA.GTFC))
 		{
 			return this.a.ToString() + "," + this.b.ToString();
 		}

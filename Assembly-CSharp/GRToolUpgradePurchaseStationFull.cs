@@ -864,9 +864,9 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 		GRPlayer y = GRPlayer.Get(this.currentActivePlayerActorNumber);
 		bool flag = ControllerInputPoller.GripFloat(XRNode.LeftHand) > 0.7f;
 		bool flag2 = ControllerInputPoller.GripFloat(XRNode.RightHand) > 0.7f;
-		VRRig offlineVRRig = GorillaTagger.Instance.offlineVRRig;
-		Transform handTransform = GamePlayer.GetHandTransform(offlineVRRig, 0);
-		Transform handTransform2 = GamePlayer.GetHandTransform(offlineVRRig, 1);
+		GamePlayer gamePlayer = GamePlayerLocal.instance.gamePlayer;
+		Transform handTransform = gamePlayer.GetHandTransform(0);
+		Transform handTransform2 = gamePlayer.GetHandTransform(1);
 		Vector3 position = this.pageSelectionHandle.transform.position;
 		Vector3 lhs = handTransform.position - position;
 		Vector3 lhs2 = handTransform2.position - position;

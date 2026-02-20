@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA4}</ProjectGuid>
+    <ProjectGuid>{D797127B-CA92-4ED8-858C-14DE627DA87F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Photon.Pun</RootNamespace>
     <AssemblyName>PhotonUnityNetworking</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,7 +21,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,7 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
@@ -87,31 +84,31 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768C94}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA86F}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA2}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA87D}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768CA3}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA87E}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D00}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8DB}</Project>
       <Name>UnityEngine.AnimationModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D08}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8E3}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D21}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8FC}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{F70B5A0A-6F36-4D0E-8C57-BE81F9768D22}</Project>
+      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8FD}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
   </ItemGroup>

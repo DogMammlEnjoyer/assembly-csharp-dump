@@ -140,7 +140,7 @@ public class MonkeBusinessStation : MonoBehaviourPunCallbacks
 	[PunRPC]
 	private void BroadcastRedeemQuestPoints(int redeemedPointCount, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "BroadcastRedeemQuestPoints");
+		MonkeAgent.IncrementRPCCall(info, "BroadcastRedeemQuestPoints");
 		RigContainer rigContainer;
 		if (new PhotonMessageInfoWrapped(info).Sender != null && VRRigCache.Instance.TryGetVrrig(info.Sender, out rigContainer))
 		{

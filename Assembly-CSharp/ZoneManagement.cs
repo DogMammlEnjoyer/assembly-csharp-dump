@@ -171,28 +171,31 @@ public class ZoneManagement : MonoBehaviour
 		for (int k = 0; k < this.zones.Length; k++)
 		{
 			ZoneData zoneData = this.zones[k];
-			if (zoneData == null || zoneData.rootGameObjects == null || !newActiveZones.Contains(zoneData.zone))
+			if (zoneData != null)
 			{
-				zoneData.active = false;
-			}
-			else
-			{
-				zoneData.active = true;
-				num = Mathf.Max(num, zoneData.CameraFarClipPlane);
-				if (!string.IsNullOrEmpty(zoneData.sceneName))
+				if (zoneData.rootGameObjects == null || !newActiveZones.Contains(zoneData.zone))
 				{
-					this.scenesRequested.Add(zoneData.sceneName);
+					zoneData.active = false;
 				}
-				foreach (GameObject x in zoneData.rootGameObjects)
+				else
 				{
-					if (!(x == null))
+					zoneData.active = true;
+					num = Mathf.Max(num, zoneData.CameraFarClipPlane);
+					if (!string.IsNullOrEmpty(zoneData.sceneName))
 					{
-						for (int m = 0; m < this.allObjects.Length; m++)
+						this.scenesRequested.Add(zoneData.sceneName);
+					}
+					foreach (GameObject x in zoneData.rootGameObjects)
+					{
+						if (!(x == null))
 						{
-							if (x == this.allObjects[m])
+							for (int m = 0; m < this.allObjects.Length; m++)
 							{
-								this.objectActivationState[m] = true;
-								break;
+								if (x == this.allObjects[m])
+								{
+									this.objectActivationState[m] = true;
+									break;
+								}
 							}
 						}
 					}

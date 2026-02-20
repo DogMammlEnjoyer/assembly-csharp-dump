@@ -382,7 +382,12 @@ public static class MothershipClientApiUnity
 
 	public static void TickWebSockets(float deltaTime)
 	{
-		MothershipClientApiUnity.websocket.TickWebSockets(deltaTime);
+		MothershipWebSocketWrapper mothershipWebSocketWrapper = MothershipClientApiUnity.websocket;
+		if (mothershipWebSocketWrapper == null)
+		{
+			return;
+		}
+		mothershipWebSocketWrapper.TickWebSockets(deltaTime);
 	}
 
 	private static void InvokeOpenNotificationSocket([NativeInteger] IntPtr userData)

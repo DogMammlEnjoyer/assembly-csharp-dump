@@ -97,15 +97,28 @@ public class SIGadgetPumpBlaster : MonoBehaviour, SIGadgetBlasterType
 		{
 			return;
 		}
-		bool flag;
-		if (this.blaster.FindAttachedHand(out flag, true, true))
+		GameEntity gameEntity = this.blaster.gameEntity;
+		GamePlayer gamePlayer;
+		if (GamePlayer.TryGetGamePlayer(gameEntity.AttachedPlayerActorNr, out gamePlayer))
 		{
-			if (flag)
+			EHandedness equippedHandedness = gameEntity.EquippedHandedness;
+			Transform transform;
+			if (equippedHandedness != EHandedness.Left)
 			{
-				this.pumpingTransform = SIPlayer.Get(this.blaster.GetAttachedPlayerActorNumber()).gamePlayer.rightHand;
-				return;
+				if (equippedHandedness != EHandedness.Right)
+				{
+					transform = this.pumpingTransform;
+				}
+				else
+				{
+					transform = gamePlayer.leftHand;
+				}
 			}
-			this.pumpingTransform = SIPlayer.Get(this.blaster.GetAttachedPlayerActorNumber()).gamePlayer.leftHand;
+			else
+			{
+				transform = gamePlayer.rightHand;
+			}
+			this.pumpingTransform = transform;
 		}
 	}
 

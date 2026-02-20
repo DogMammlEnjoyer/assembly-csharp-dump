@@ -42,7 +42,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnShakeEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnShakeEvent");
 			if (!this.callLimiter.CheckCallTime(Time.time))
 			{
 				return;

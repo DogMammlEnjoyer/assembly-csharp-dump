@@ -24,6 +24,10 @@ namespace GorillaTag
 
 		public static int Register(StaticLodGroup lodGroup)
 		{
+			if (lodGroup == null)
+			{
+				return -1;
+			}
 			int count;
 			if (StaticLodManager.freeSlots.TryPop(out count))
 			{
@@ -262,6 +266,10 @@ namespace GorillaTag
 		public static void SetEnabled(int index, bool enable)
 		{
 			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
+			if (StaticLodManager.groupInfos == null || index < 0 || index >= StaticLodManager.groupInfos.Count)
 			{
 				return;
 			}

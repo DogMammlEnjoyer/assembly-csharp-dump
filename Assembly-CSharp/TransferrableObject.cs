@@ -150,6 +150,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				}
 				this.myRig = (rig.isOfflineVRRig ? rig : null);
 				this.myOnlineRig = (rig.isOfflineVRRig ? null : rig);
+				this.targetDockPositions = rig.myBodyDockPositions;
 			}
 			else
 			{
@@ -158,7 +159,10 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			}
 			this.isMyRigValid = true;
 			this.isMyOnlineRigValid = true;
-			this.targetDockPositions = base.GetComponentInParent<BodyDockPositions>();
+			if (this.isSceneObject)
+			{
+				this.targetDockPositions = base.GetComponentInParent<BodyDockPositions>();
+			}
 			this.anchor = base.transform.parent;
 			if (this.rigidbodyInstance == null)
 			{
@@ -274,19 +278,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			}
 			RoomSystem.JoinedRoomEvent += new Action(this.OnJoinedRoom);
 			RoomSystem.LeftRoomEvent += new Action(this.OnLeftRoom);
-			if (!this.isSceneObject && !CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-			{
-				Debug.LogError("`TransferrableObject.OnEnable()` was called before allPartsInstantiated was true. Path: " + base.transform.GetPathQ(), this);
-				if (!this._isListeningFor_OnPostInstantiateAllPrefabs2)
-				{
-					this._isListeningFor_OnPostInstantiateAllPrefabs2 = true;
-					CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2 = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2, new Action(this.OnEnable_AfterAllCosmeticsSpawnedOrIsSceneObject));
-				}
-			}
-			else
-			{
-				this.OnEnable_AfterAllCosmeticsSpawnedOrIsSceneObject();
-			}
+			this.OnEnable_AfterAllCosmeticsSpawnedOrIsSceneObject();
 		}
 		catch (Exception exception)
 		{
@@ -313,8 +305,6 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			base.gameObject.SetActive(false);
 			return;
 		}
-		this._isListeningFor_OnPostInstantiateAllPrefabs2 = false;
-		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2 = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2, new Action(this.OnEnable_AfterAllCosmeticsSpawnedOrIsSceneObject));
 		if (!base.isActiveAndEnabled)
 		{
 			return;
@@ -358,6 +348,11 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				{
 					this.ownerRig = this.myOnlineRig;
 					this.SetTargetRig(this.myOnlineRig);
+				}
+				if (!this.IsSpawned)
+				{
+					this.IsSpawned = true;
+					this.OnSpawn((this.myRig != null) ? this.myRig : this.myOnlineRig);
 				}
 				if (this.myRig == null && this.myOnlineRig == null)
 				{
@@ -444,8 +439,6 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		}
 		RoomSystem.JoinedRoomEvent -= new Action(this.OnJoinedRoom);
 		RoomSystem.LeftRoomEvent -= new Action(this.OnLeftRoom);
-		this._isListeningFor_OnPostInstantiateAllPrefabs2 = false;
-		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2 = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs2, new Action(this.OnEnable_AfterAllCosmeticsSpawnedOrIsSceneObject));
 		this.enabledOnFrame = -1;
 		base.transform.localScale = Vector3.one;
 		try

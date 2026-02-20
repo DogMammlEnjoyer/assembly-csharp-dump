@@ -392,7 +392,7 @@ namespace GorillaTagScripts
 		[PunRPC]
 		private void NotifyNoPartyToMerge(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "NotifyNoPartyToMerge");
+			MonkeAgent.IncrementRPCCall(info, "NotifyNoPartyToMerge");
 			if (info.Sender == null || this.partyMergeIDs == null)
 			{
 				return;
@@ -442,7 +442,7 @@ namespace GorillaTagScripts
 		[PunRPC]
 		private void NotifyPartyMerging(int[] memberIDs, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "NotifyPartyMerging");
+			MonkeAgent.IncrementRPCCall(info, "NotifyPartyMerging");
 			if (memberIDs == null)
 			{
 				return;
@@ -536,7 +536,7 @@ namespace GorillaTagScripts
 		[PunRPC]
 		private void PartyMemberIsAboutToGroupJoin(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PartyMemberIsAboutToGroupJoin");
+			MonkeAgent.IncrementRPCCall(info, "PartyMemberIsAboutToGroupJoin");
 			this.PartMemberIsAboutToGroupJoinWrapped(new PhotonMessageInfoWrapped(info));
 		}
 
@@ -683,14 +683,14 @@ namespace GorillaTagScripts
 				return;
 			}
 			IL_10:
-			GorillaNot.IncrementRPCCall(info, "PartyFormedSuccessfully");
+			MonkeAgent.IncrementRPCCall(info, "PartyFormedSuccessfully");
 			FriendshipGroupDetection.Instance.PartyFormedSuccesfullyWrapped(partyGameMode, braceletColor, memberIDs, forceDebug, new PhotonMessageInfoWrapped(info));
 		}
 
 		[PunRPC]
 		private void PartyFormedSuccessfully(string partyGameMode, short braceletColor, int[] memberIDs, bool forceDebug, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PartyFormedSuccessfully");
+			MonkeAgent.IncrementRPCCall(info, "PartyFormedSuccessfully");
 			this.PartyFormedSuccesfullyWrapped(partyGameMode, braceletColor, memberIDs, forceDebug, new PhotonMessageInfoWrapped(info));
 		}
 
@@ -789,7 +789,7 @@ namespace GorillaTagScripts
 
 		private void AddPartyMembersWrapped(string partyGameMode, short braceletColor, int[] memberIDs, PhotonMessageInfoWrapped infoWrapped)
 		{
-			GorillaNot.IncrementRPCCall(infoWrapped, "AddPartyMembersWrapped");
+			MonkeAgent.IncrementRPCCall(infoWrapped, "AddPartyMembersWrapped");
 			if (!this.IsInParty || memberIDs == null || memberIDs.Length > 10 || !this.myPartyMembersHash.Contains(NetworkSystem.Instance.GetUserID(infoWrapped.senderID)) || !GorillaGameModes.GameMode.IsValidGameMode(partyGameMode))
 			{
 				return;
@@ -922,14 +922,14 @@ namespace GorillaTagScripts
 				return;
 			}
 			IL_10:
-			GorillaNot.IncrementRPCCall(info, "PlayerLeftParty");
+			MonkeAgent.IncrementRPCCall(info, "PlayerLeftParty");
 			FriendshipGroupDetection.Instance.PlayerLeftPartyWrapped(new PhotonMessageInfoWrapped(info));
 		}
 
 		[PunRPC]
 		private void PlayerLeftParty(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "PlayerLeftParty");
+			MonkeAgent.IncrementRPCCall(info, "PlayerLeftParty");
 			this.PlayerLeftPartyWrapped(new PhotonMessageInfoWrapped(info));
 		}
 
@@ -1033,7 +1033,7 @@ namespace GorillaTagScripts
 
 		private void VerifyPartyMemberWrapped(PhotonMessageInfoWrapped infoWrapped)
 		{
-			GorillaNot.IncrementRPCCall(infoWrapped, "VerifyPartyMemberWrapped");
+			MonkeAgent.IncrementRPCCall(infoWrapped, "VerifyPartyMemberWrapped");
 			RigContainer rigContainer;
 			if (!VRRigCache.Instance.TryGetVrrig(infoWrapped.Sender, out rigContainer) || !FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 15, infoWrapped.SentServerTime))
 			{
@@ -1127,7 +1127,7 @@ namespace GorillaTagScripts
 
 		private void RequestPartyGameModeWrapped(string gameMode, PhotonMessageInfoWrapped info)
 		{
-			GorillaNot.IncrementRPCCall(info, "RequestPartyGameModeWrapped");
+			MonkeAgent.IncrementRPCCall(info, "RequestPartyGameModeWrapped");
 			if (!this.IsInParty || !this.IsInMyGroup(info.Sender.UserId) || !GorillaGameModes.GameMode.IsValidGameMode(gameMode))
 			{
 				return;
@@ -1205,7 +1205,7 @@ namespace GorillaTagScripts
 
 		private void NotifyPartyGameModeChangedWrapped(string gameMode, PhotonMessageInfoWrapped info)
 		{
-			GorillaNot.IncrementRPCCall(info, "NotifyPartyGameModeChangedWrapped");
+			MonkeAgent.IncrementRPCCall(info, "NotifyPartyGameModeChangedWrapped");
 			if (!this.IsInParty || !this.IsInMyGroup(info.Sender.UserId) || !GorillaGameModes.GameMode.IsValidGameMode(gameMode))
 			{
 				return;

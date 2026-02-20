@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
 using CosmeticRoom;
 using Cosmetics;
 using ExitGames.Client.Photon;
@@ -206,10 +205,7 @@ namespace GorillaNetworking
 		public void AddWardrobeInstance(WardrobeInstance instance)
 		{
 			this.wardrobes.Add(instance);
-			if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-			{
-				this.UpdateWardrobeModelsAndButtons();
-			}
+			this.UpdateWardrobeModelsAndButtons();
 		}
 
 		public void RemoveWardrobeInstance(WardrobeInstance instance)
@@ -292,8 +288,6 @@ namespace GorillaNetworking
 				this.itemLists[10] = this.unlockedTagFX;
 				this.updateCosmeticsRetries = 0;
 				this.maxUpdateCosmeticsRetries = 5;
-				this.inventoryStringList.Clear();
-				this.inventoryStringList.Add("Inventory");
 				base.StartCoroutine(this.CheckCanGetDaily());
 			}
 			CreatorCodes.Initialize();
@@ -507,6 +501,7 @@ namespace GorillaNetworking
 			{
 				return;
 			}
+			VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(newItem.itemName);
 			if (CosmeticsController.CosmeticSet.IsHoldable(newItem))
 			{
 				BodyDockPositions.DockingResult dockingResult = GorillaTagger.Instance.offlineVRRig.GetComponent<BodyDockPositions>().ToggleWithHandedness(newItem.displayName, isLeftHand, newItem.bothHandsHoldable);
@@ -640,8 +635,45 @@ namespace GorillaNetworking
 			set.ActivateCosmetics(this.cachedSet, offlineVRRig, component, offlineVRRig.cosmeticsObjectRegistry);
 		}
 
+		private void RepressButton(FittingRoomButton pressedButton, bool isLeftHand)
+		{
+			CosmeticsController.<RepressButton>d__171 <RepressButton>d__;
+			<RepressButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<RepressButton>d__.<>4__this = this;
+			<RepressButton>d__.pressedButton = pressedButton;
+			<RepressButton>d__.isLeftHand = isLeftHand;
+			<RepressButton>d__.<>1__state = -1;
+			<RepressButton>d__.<>t__builder.Start<CosmeticsController.<RepressButton>d__171>(ref <RepressButton>d__);
+		}
+
 		public void PressFittingRoomButton(FittingRoomButton pressedFittingRoomButton, bool isLeftHand)
 		{
+			if (pressedFittingRoomButton.currentCosmeticItem.itemName == null || pressedFittingRoomButton.currentCosmeticItem.itemName == this.nullItem.itemName || pressedFittingRoomButton.currentCosmeticItem.itemName == "")
+			{
+				return;
+			}
+			if (pressedFittingRoomButton.currentCosmeticItem.itemCategory == CosmeticsController.CosmeticCategory.Set)
+			{
+				CosmeticsController.CosmeticItem currentCosmeticItem = pressedFittingRoomButton.currentCosmeticItem;
+				bool flag = false;
+				for (int i = 0; i < currentCosmeticItem.bundledItems.Length; i++)
+				{
+					if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(currentCosmeticItem.bundledItems[i]) == null)
+					{
+						flag = true;
+					}
+				}
+				if (flag)
+				{
+					this.RepressButton(pressedFittingRoomButton, isLeftHand);
+					return;
+				}
+			}
+			else if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(pressedFittingRoomButton.currentCosmeticItem.itemName) == null)
+			{
+				this.RepressButton(pressedFittingRoomButton, isLeftHand);
+				return;
+			}
 			TryOnBundlesStand tryOnBundlesStand = BundleManager.instance._tryOnBundlesStand;
 			if (tryOnBundlesStand != null)
 			{
@@ -1037,13 +1069,13 @@ namespace GorillaNetworking
 
 		public void PurchaseBundle(StoreBundle bundleToPurchase, ICreatorCodeProvider ccp)
 		{
-			CosmeticsController.<PurchaseBundle>d__187 <PurchaseBundle>d__;
+			CosmeticsController.<PurchaseBundle>d__186 <PurchaseBundle>d__;
 			<PurchaseBundle>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<PurchaseBundle>d__.<>4__this = this;
 			<PurchaseBundle>d__.bundleToPurchase = bundleToPurchase;
 			<PurchaseBundle>d__.ccp = ccp;
 			<PurchaseBundle>d__.<>1__state = -1;
-			<PurchaseBundle>d__.<>t__builder.Start<CosmeticsController.<PurchaseBundle>d__187>(ref <PurchaseBundle>d__);
+			<PurchaseBundle>d__.<>t__builder.Start<CosmeticsController.<PurchaseBundle>d__186>(ref <PurchaseBundle>d__);
 		}
 
 		private void OnCreatorCodeFailure()
@@ -1320,81 +1352,37 @@ namespace GorillaNetworking
 			this.attempts = 0;
 			while (!this.foundCosmetic && this.attempts < 10 && NetworkSystem.Instance.InRoom)
 			{
-				this.playerIDList.Clear();
-				if (this.UseNewCosmeticsPath())
+				PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
 				{
-					this.playerIDList.Add("Inventory");
-					PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
+					Keys = new List<string>
 					{
-						Keys = this.playerIDList,
-						SharedGroupId = NetworkSystem.Instance.LocalPlayer.UserId + "Inventory"
-					}, delegate(GetSharedGroupDataResult result)
-					{
-						this.attempts++;
-						foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
-						{
-							if (keyValuePair.Value.Value.Contains(itemToBuyID))
-							{
-								PhotonNetwork.RaiseEvent(199, null, new RaiseEventOptions
-								{
-									Receivers = ReceiverGroup.Others
-								}, SendOptions.SendReliable);
-								this.foundCosmetic = true;
-							}
-						}
-						if (this.foundCosmetic)
-						{
-							this.UpdateWornCosmetics(true);
-						}
-					}, delegate(PlayFabError error)
-					{
-						this.attempts++;
-						this.ReauthOrBan(error);
-					}, null, null);
-					yield return new WaitForSeconds(1f);
-				}
-				else
+						"Inventory"
+					},
+					SharedGroupId = NetworkSystem.Instance.LocalPlayer.UserId + "Inventory"
+				}, delegate(GetSharedGroupDataResult result)
 				{
-					this.playerIDList.Add(PhotonNetwork.LocalPlayer.ActorNumber.ToString());
-					PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
+					this.attempts++;
+					foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
 					{
-						Keys = this.playerIDList,
-						SharedGroupId = NetworkSystem.Instance.RoomName + Regex.Replace(NetworkSystem.Instance.CurrentRegion, "[^a-zA-Z0-9]", "").ToUpper()
-					}, delegate(GetSharedGroupDataResult result)
-					{
-						this.attempts++;
-						foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
+						if (keyValuePair.Value.Value.Contains(itemToBuyID))
 						{
-							if (keyValuePair.Value.Value.Contains(itemToBuyID))
+							PhotonNetwork.RaiseEvent(199, null, new RaiseEventOptions
 							{
-								NetworkSystemRaiseEvent.RaiseEvent(199, null, NetworkSystemRaiseEvent.neoOthers, true);
-								this.foundCosmetic = true;
-							}
-							else
-							{
-								Debug.Log("didnt find it, updating attempts and trying again in a bit. current attempt is " + this.attempts.ToString());
-							}
+								Receivers = ReceiverGroup.Others
+							}, SendOptions.SendReliable);
+							this.foundCosmetic = true;
 						}
-						if (this.foundCosmetic)
-						{
-							this.UpdateWornCosmetics(true);
-						}
-					}, delegate(PlayFabError error)
+					}
+					if (this.foundCosmetic)
 					{
-						this.attempts++;
-						if (error.Error == PlayFabErrorCode.NotAuthenticated)
-						{
-							PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-						}
-						else if (error.Error == PlayFabErrorCode.AccountBanned)
-						{
-							GorillaGameManager.ForceStopGame_DisconnectAndDestroy();
-						}
-						Debug.Log("Got error retrieving user data, on attempt " + this.attempts.ToString());
-						Debug.Log(error.GenerateErrorReport());
-					}, null, null);
-					yield return new WaitForSeconds(1f);
-				}
+						this.UpdateWornCosmetics(true);
+					}
+				}, delegate(PlayFabError error)
+				{
+					this.attempts++;
+					this.ReauthOrBan(error);
+				}, null, null);
+				yield return new WaitForSeconds(1f);
 			}
 			Debug.Log("done!");
 			yield break;
@@ -1402,10 +1390,6 @@ namespace GorillaNetworking
 
 		public void UpdateWardrobeModelsAndButtons()
 		{
-			if (!CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-			{
-				return;
-			}
 			foreach (WardrobeInstance wardrobeInstance in this.wardrobes)
 			{
 				wardrobeInstance.wardrobeItemButtons[0].currentCosmeticItem = ((this.cosmeticsPages[this.wardrobeType] * 3 < this.itemLists[this.wardrobeType].Count) ? this.itemLists[this.wardrobeType][this.cosmeticsPages[this.wardrobeType] * 3] : this.nullItem);
@@ -1552,10 +1536,7 @@ namespace GorillaNetworking
 				}
 				this.iterator++;
 			}
-			if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-			{
-				this.UpdateWardrobeModelsAndButtons();
-			}
+			this.UpdateWardrobeModelsAndButtons();
 		}
 
 		public void UpdateWornCosmetics()
@@ -1602,6 +1583,10 @@ namespace GorillaNetworking
 
 		public string GetItemNameFromDisplayName(string displayName)
 		{
+			if (displayName == "" || displayName == null)
+			{
+				return "null";
+			}
 			if (!this.allCosmeticsItemIDsfromDisplayNamesDict.TryGetValue(displayName, out this.returnString))
 			{
 				return "null";
@@ -2071,10 +2056,7 @@ namespace GorillaNetworking
 					this.ProcessPurchaseItemState(null, false);
 					this.UpdateShoppingCart();
 					this.UpdateCurrencyBoards();
-					if (this.UseNewCosmeticsPath())
-					{
-						this.ConfirmIndividualCosmeticsSharedGroup(result);
-					}
+					this.ConfirmIndividualCosmeticsSharedGroup(result);
 					Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
 					if (onCosmeticsUpdated != null)
 					{
@@ -2086,10 +2068,7 @@ namespace GorillaNetworking
 					{
 						v2_OnGetCosmeticsPlayFabCatalogData_PostSuccess();
 					}
-					if (!CosmeticsV2Spawner_Dirty.startedAllPartsInstantiated && !CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-					{
-						CosmeticsV2Spawner_Dirty.StartInstantiatingPrefabs();
-					}
+					CosmeticsV2Spawner_Dirty.StartInstantiatingPrefabs();
 				}, delegate(PlayFabError error)
 				{
 					if (error.Error == PlayFabErrorCode.NotAuthenticated)
@@ -2455,44 +2434,10 @@ namespace GorillaNetworking
 
 		public void UpdateMyCosmetics()
 		{
-			if (NetworkSystem.Instance.InRoom)
-			{
-				if (GorillaServer.Instance != null && GorillaServer.Instance.NewCosmeticsPathShouldSetSharedGroupData())
-				{
-					this.UpdateMyCosmeticsForRoom(true);
-				}
-				if (GorillaServer.Instance != null && GorillaServer.Instance.NewCosmeticsPathShouldSetRoomData())
-				{
-					this.UpdateMyCosmeticsForRoom(false);
-					return;
-				}
-			}
-			else if (GorillaServer.Instance != null && GorillaServer.Instance.NewCosmeticsPathShouldSetSharedGroupData())
-			{
-				this.UpdateMyCosmeticsNotInRoom();
-			}
-		}
-
-		private void UpdateMyCosmeticsNotInRoom()
-		{
 			if (GorillaServer.Instance != null)
 			{
 				GorillaServer.Instance.UpdateUserCosmetics();
 			}
-		}
-
-		private void UpdateMyCosmeticsForRoom(bool shouldSetSharedGroupData)
-		{
-			byte eventCode = 9;
-			if (shouldSetSharedGroupData)
-			{
-				eventCode = 10;
-			}
-			RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
-			WebFlags flags = new WebFlags(3);
-			raiseEventOptions.Flags = flags;
-			object[] eventContent = new object[0];
-			PhotonNetwork.RaiseEvent(eventCode, eventContent, raiseEventOptions, SendOptions.SendReliable);
 		}
 
 		private void AlreadyOwnAllBundleButtons()
@@ -2502,11 +2447,6 @@ namespace GorillaNetworking
 			{
 				array[i].AlreadyOwn();
 			}
-		}
-
-		private bool UseNewCosmeticsPath()
-		{
-			return GorillaServer.Instance != null && GorillaServer.Instance.NewCosmeticsPathShouldReadSharedGroupData();
 		}
 
 		public void CheckCosmeticsSharedGroup()
@@ -2537,17 +2477,16 @@ namespace GorillaNetworking
 			}
 			PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
 			{
-				Keys = this.inventoryStringList,
+				Keys = new List<string>
+				{
+					"Inventory"
+				},
 				SharedGroupId = PhotonNetwork.LocalPlayer.UserId + "Inventory"
 			}, delegate(GetSharedGroupDataResult result)
 			{
 				bool flag = true;
 				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
 				{
-					if (keyValuePair.Key != "Inventory")
-					{
-						break;
-					}
 					foreach (ItemInstance itemInstance in inventory.Inventory)
 					{
 						if (itemInstance.CatalogVersion == CosmeticsController.instance.catalog && !keyValuePair.Value.Value.Contains(itemInstance.ItemId))
@@ -2633,43 +2572,43 @@ namespace GorillaNetworking
 			{
 			case CosmeticsController.CosmeticCategory.Hat:
 				this.ModifyUnlockList(this.unlockedHats, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Badge:
 				this.ModifyUnlockList(this.unlockedBadges, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Face:
 				this.ModifyUnlockList(this.unlockedFaces, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Paw:
 				if (!this.allCosmetics[num].isThrowable)
 				{
 					this.ModifyUnlockList(this.unlockedPaws, num, false);
+					return;
 				}
-				else
-				{
-					this.ModifyUnlockList(this.unlockedThrowables, num, false);
-				}
-				break;
+				this.ModifyUnlockList(this.unlockedThrowables, num, false);
+				return;
 			case CosmeticsController.CosmeticCategory.Chest:
 				this.ModifyUnlockList(this.unlockedChests, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Fur:
 				this.ModifyUnlockList(this.unlockedFurs, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Shirt:
 				this.ModifyUnlockList(this.unlockedShirts, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Back:
 				this.ModifyUnlockList(this.unlockedBacks, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Arms:
 				this.ModifyUnlockList(this.unlockedArms, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Pants:
 				this.ModifyUnlockList(this.unlockedPants, num, false);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.TagEffect:
 				this.ModifyUnlockList(this.unlockedTagFX, num, false);
+				return;
+			case CosmeticsController.CosmeticCategory.Count:
 				break;
 			case CosmeticsController.CosmeticCategory.Set:
 				foreach (string cosmeticID2 in this.allCosmetics[num].bundledItems)
@@ -2677,13 +2616,9 @@ namespace GorillaNetworking
 					this.AddTempUnlockToWardrobe(cosmeticID2);
 				}
 				break;
-			}
-			Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
-			if (onCosmeticsUpdated == null)
-			{
+			default:
 				return;
 			}
-			onCosmeticsUpdated();
 		}
 
 		public void RemoveTempUnlockFromWardrobe(string cosmeticID)
@@ -2697,43 +2632,43 @@ namespace GorillaNetworking
 			{
 			case CosmeticsController.CosmeticCategory.Hat:
 				this.ModifyUnlockList(this.unlockedHats, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Badge:
 				this.ModifyUnlockList(this.unlockedBadges, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Face:
 				this.ModifyUnlockList(this.unlockedFaces, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Paw:
 				if (!this.allCosmetics[num].isThrowable)
 				{
 					this.ModifyUnlockList(this.unlockedPaws, num, true);
+					return;
 				}
-				else
-				{
-					this.ModifyUnlockList(this.unlockedThrowables, num, true);
-				}
-				break;
+				this.ModifyUnlockList(this.unlockedThrowables, num, true);
+				return;
 			case CosmeticsController.CosmeticCategory.Chest:
 				this.ModifyUnlockList(this.unlockedChests, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Fur:
 				this.ModifyUnlockList(this.unlockedFurs, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Shirt:
 				this.ModifyUnlockList(this.unlockedShirts, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Back:
 				this.ModifyUnlockList(this.unlockedBacks, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Arms:
 				this.ModifyUnlockList(this.unlockedArms, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.Pants:
 				this.ModifyUnlockList(this.unlockedPants, num, true);
-				break;
+				return;
 			case CosmeticsController.CosmeticCategory.TagEffect:
 				this.ModifyUnlockList(this.unlockedTagFX, num, true);
+				return;
+			case CosmeticsController.CosmeticCategory.Count:
 				break;
 			case CosmeticsController.CosmeticCategory.Set:
 				foreach (string cosmeticID2 in this.allCosmetics[num].bundledItems)
@@ -2741,13 +2676,9 @@ namespace GorillaNetworking
 					this.RemoveTempUnlockFromWardrobe(cosmeticID2);
 				}
 				break;
-			}
-			Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
-			if (onCosmeticsUpdated == null)
-			{
+			default:
 				return;
 			}
-			onCosmeticsUpdated();
 		}
 
 		public bool BuildValidationCheck()
@@ -3176,10 +3107,6 @@ namespace GorillaNetworking
 		public List<ItemCheckout> itemCheckouts = new List<ItemCheckout>();
 
 		public CosmeticsController.CosmeticItem itemToBuy;
-
-		private List<string> playerIDList = new List<string>();
-
-		private List<string> inventoryStringList = new List<string>();
 
 		private bool foundCosmetic;
 
@@ -3693,6 +3620,10 @@ namespace GorillaNetworking
 						cosmeticItemInstance3.DisableItem((CosmeticsController.CosmeticSlots)slotIndex);
 						return;
 					}
+					if (cosmeticItem2.isHoldable)
+					{
+						bDock.TransferrableItemEnableAtPosition(cosmeticItem2.displayName, dropPositions);
+					}
 					cosmeticItemInstance3.EnableItem((CosmeticsController.CosmeticSlots)slotIndex, rig);
 				}
 			}
@@ -4036,13 +3967,11 @@ namespace GorillaNetworking
 		[Serializable]
 		public class IAPRequestBody
 		{
-			public string userID;
-
-			public string nonce;
-
-			public string platform;
-
 			public string sku;
+
+			public string mothershipId;
+
+			public string mothershipToken;
 
 			public string mothershipEnvId;
 

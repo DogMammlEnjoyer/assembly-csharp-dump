@@ -104,7 +104,7 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "InitTimersMasterRPC");
+			MonkeAgent.IncrementRPCCall(info, "InitTimersMasterRPC");
 			if (!this.ValidateCallLimits(PlayerTimerManager.RPC.InitTimersMaster, info))
 			{
 				return;
@@ -244,7 +244,7 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "RequestTimerToggleRPC");
+			MonkeAgent.IncrementRPCCall(info, "RequestTimerToggleRPC");
 			CallLimiter callLimiter;
 			if (this.timerToggleLimiters.TryGetValue(info.Sender.ActorNumber, out callLimiter))
 			{
@@ -293,7 +293,7 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "TimerToggledMasterRPC");
+			MonkeAgent.IncrementRPCCall(info, "TimerToggledMasterRPC");
 			if (!this.ValidateCallLimits(PlayerTimerManager.RPC.ToggleTimerMaster, info))
 			{
 				return;

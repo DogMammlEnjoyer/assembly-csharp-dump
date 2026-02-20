@@ -130,7 +130,7 @@ namespace GorillaLocomotion.Gameplay
 		{
 			if (info.Sender != null)
 			{
-				GorillaNot.IncrementRPCCall(info, "SetVelocityShared");
+				MonkeAgent.IncrementRPCCall(info, "SetVelocityShared");
 			}
 			GorillaRopeSwing gorillaRopeSwing;
 			if (this.TryGetRope(ropeId, out gorillaRopeSwing) && gorillaRopeSwing != null)

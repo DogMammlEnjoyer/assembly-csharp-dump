@@ -79,7 +79,7 @@ public class SIGadgetDashYoyo : SIGadget
 		{
 			return;
 		}
-		this._attachedPlayerActorNr = base.GetAttachedPlayerActorNumber();
+		this._attachedPlayerActorNr = this.gameEntity.AttachedPlayerActorNr;
 		this._attachedNetPlayer = NetworkSystem.Instance.GetPlayer(this._attachedPlayerActorNr);
 		GamePlayer gamePlayer;
 		if (!GamePlayer.TryGetGamePlayer(this._attachedPlayerActorNr, out gamePlayer))
@@ -307,7 +307,7 @@ public class SIGadgetDashYoyo : SIGadget
 	private bool _CheckInput()
 	{
 		float sensitivity = this._wasActivated ? this.m_inputDeactivateThreshold : this.m_inputActivateThreshold;
-		return this.m_buttonActivatable.CheckInput(true, true, sensitivity, true, true);
+		return this.m_buttonActivatable.CheckInput(sensitivity);
 	}
 
 	private bool _ThrowYoYoTarget()
@@ -433,7 +433,7 @@ public class SIGadgetDashYoyo : SIGadget
 	private void _PlayHaptic(float strengthMultiplier)
 	{
 		bool forLeftController;
-		if (base.FindAttachedHand(out forLeftController, true, true))
+		if (base.FindAttachedHand(out forLeftController))
 		{
 			GorillaTagger.Instance.StartVibration(forLeftController, GorillaTagger.Instance.tapHapticStrength * strengthMultiplier, GorillaTagger.Instance.tapHapticDuration);
 		}

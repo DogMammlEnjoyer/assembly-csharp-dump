@@ -239,6 +239,8 @@ namespace GorillaLocomotion
 
 		public bool forcedUnderwater { get; set; }
 
+		public float siJumpMultiplier { get; set; } = 1f;
+
 		public List<WaterVolume> HeadOverlappingWaterVolumes
 		{
 			get
@@ -1585,7 +1587,7 @@ namespace GorillaLocomotion
 						this.anyHandIsSliding = false;
 						this.didAJump = true;
 						float num7 = this.ApplyNativeScaleAdjustment(Mathf.Min(this.maxJumpSpeed * this.ExtraVelMaxMultiplier(), this.jumpMultiplier * this.ExtraVelMultiplier() * Vector3.Project(this.averagedVelocity, this.slideAverageNormal).magnitude));
-						this.playerRigidBody.linearVelocity = num7 * this.slideAverageNormal.normalized + Vector3.ProjectOnPlane(this.slideVelocity, this.slideAverageNormal);
+						this.playerRigidBody.linearVelocity = num7 * this.siJumpMultiplier * this.slideAverageNormal.normalized + Vector3.ProjectOnPlane(this.slideVelocity, this.slideAverageNormal);
 						if (num7 > this.slideVelocityLimit * this.scale * this.exitMovingSurfaceThreshold)
 						{
 							this.exitMovingSurface = true;
@@ -1596,7 +1598,7 @@ namespace GorillaLocomotion
 				{
 					float num8 = (this.InWater && this.CurrentWaterVolume != null) ? this.liquidPropertiesList[(int)this.CurrentWaterVolume.LiquidType].surfaceJumpFactor : 1f;
 					float num9 = this.ApplyNativeScaleAdjustment(this.enableHoverMode ? Mathf.Min(this.hoverMaxPaddleSpeed, this.averagedVelocity.magnitude) : Mathf.Min(this.maxJumpSpeed * this.ExtraVelMaxMultiplier(), this.jumpMultiplier * this.ExtraVelMultiplier() * num8 * this.averagedVelocity.magnitude));
-					Vector3 vector4 = num9 * this.averagedVelocity.normalized;
+					Vector3 vector4 = num9 * this.siJumpMultiplier * this.averagedVelocity.normalized;
 					this.didAJump = true;
 					this.playerRigidBody.linearVelocity = vector4;
 					if (this.InWater)
@@ -2646,15 +2648,15 @@ namespace GorillaLocomotion
 			Vector3 localPosition = this.climbHelper.localPosition;
 			if (climbable.snapX)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.x, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.x, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapY)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.y, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.y, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapZ)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|429_0(ref localPosition.z, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.z, climbable.maxDistanceSnap);
 			}
 			this.climbHelperTargetPos = localPosition;
 			climbable.isBeingClimbed = true;
@@ -3202,12 +3204,12 @@ namespace GorillaLocomotion
 
 		public void DoLaunch(Vector3 velocity)
 		{
-			GTPlayer.<DoLaunch>d__465 <DoLaunch>d__;
+			GTPlayer.<DoLaunch>d__469 <DoLaunch>d__;
 			<DoLaunch>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DoLaunch>d__.<>4__this = this;
 			<DoLaunch>d__.velocity = velocity;
 			<DoLaunch>d__.<>1__state = -1;
-			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__465>(ref <DoLaunch>d__);
+			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__469>(ref <DoLaunch>d__);
 		}
 
 		private void OnEnable()
@@ -3367,7 +3369,7 @@ namespace GorillaLocomotion
 		}
 
 		[CompilerGenerated]
-		internal static void <BeginClimbing>g__SnapAxis|429_0(ref float val, float maxDist)
+		internal static void <BeginClimbing>g__SnapAxis|433_0(ref float val, float maxDist)
 		{
 			if (val > maxDist)
 			{

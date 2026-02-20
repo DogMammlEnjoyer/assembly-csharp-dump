@@ -14,6 +14,10 @@ public class SnowballMaker : MonoBehaviourPostTick
 
 	private void Awake()
 	{
+		if (this.snowballs == null)
+		{
+			this.snowballs = new SnowballThrowable[0];
+		}
 		if (this.isLeftHand)
 		{
 			if (SnowballMaker.leftHandInstance == null)
@@ -46,9 +50,12 @@ public class SnowballMaker : MonoBehaviourPostTick
 		this.snowballs = newThrowables;
 		for (int i = 0; i < this.snowballs.Length; i++)
 		{
-			for (int j = 0; j < this.snowballs[i].matDataIndexes.Count; j++)
+			if (!(this.snowballs[i] == null))
 			{
-				this.matSnowballLookup.TryAdd(this.snowballs[i].matDataIndexes[j], this.snowballs[i]);
+				for (int j = 0; j < this.snowballs[i].matDataIndexes.Count; j++)
+				{
+					this.matSnowballLookup.TryAdd(this.snowballs[i].matDataIndexes[j], this.snowballs[i]);
+				}
 			}
 		}
 	}
@@ -59,19 +66,11 @@ public class SnowballMaker : MonoBehaviourPostTick
 		{
 			return;
 		}
-		if (!CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-		{
-			return;
-		}
-		if (this.snowballs == null)
-		{
-			return;
-		}
 		if (BuilderPieceInteractor.instance != null && BuilderPieceInteractor.instance.BlockSnowballCreation())
 		{
 			return;
 		}
-		if (!GTPlayer.hasInstance || !EquipmentInteractor.hasInstance || !GorillaTagger.hasInstance || !GorillaTagger.Instance.offlineVRRig || this.snowballs.Length == 0)
+		if (!GTPlayer.hasInstance || !EquipmentInteractor.hasInstance || !GorillaTagger.hasInstance || !GorillaTagger.Instance.offlineVRRig)
 		{
 			return;
 		}
@@ -85,6 +84,7 @@ public class SnowballMaker : MonoBehaviourPostTick
 			return;
 		}
 		this.lastGroundContactTime = Time.time;
+		this.InitializeSnowballFromMatIndex(materialTouchIndex);
 		EquipmentInteractor instance = EquipmentInteractor.instance;
 		bool flag = (this.isLeftHand ? instance.leftHandHeldEquipment : instance.rightHandHeldEquipment) != null;
 		bool flag2 = this.isLeftHand ? instance.isLeftGrabbing : instance.isRightGrabbing;
@@ -95,18 +95,19 @@ public class SnowballMaker : MonoBehaviourPostTick
 			int num = -1;
 			for (int i = 0; i < this.snowballs.Length; i++)
 			{
-				if (this.snowballs[i].gameObject.activeSelf)
+				SnowballThrowable snowballThrowable = this.snowballs[i];
+				if (!(snowballThrowable == null) && snowballThrowable.gameObject.activeSelf)
 				{
 					num = i;
 					break;
 				}
 			}
-			SnowballThrowable snowballThrowable = (num > -1) ? this.snowballs[num] : null;
-			GrowingSnowballThrowable growingSnowballThrowable = snowballThrowable as GrowingSnowballThrowable;
+			SnowballThrowable snowballThrowable2 = (num > -1) ? this.snowballs[num] : null;
+			GrowingSnowballThrowable growingSnowballThrowable = snowballThrowable2 as GrowingSnowballThrowable;
 			bool flag5 = this.isLeftHand ? (!ConnectedControllerHandler.Instance.RightValid) : (!ConnectedControllerHandler.Instance.LeftValid);
 			if (growingSnowballThrowable != null && (!GrowingSnowballThrowable.twoHandedSnowballGrowing || flag5 || flag4))
 			{
-				if (snowballThrowable.matDataIndexes.Contains(materialTouchIndex))
+				if (snowballThrowable2.matDataIndexes.Contains(materialTouchIndex))
 				{
 					growingSnowballThrowable.IncreaseSize(1);
 					GorillaTagger.Instance.StartVibration(this.isLeftHand, GorillaTagger.Instance.tapHapticStrength / 8f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
@@ -116,16 +117,16 @@ public class SnowballMaker : MonoBehaviourPostTick
 			}
 			else if (!flag)
 			{
-				SnowballThrowable snowballThrowable2;
-				if (!this.matSnowballLookup.TryGetValue(materialTouchIndex, out snowballThrowable2))
+				SnowballThrowable snowballThrowable3;
+				if (!this.matSnowballLookup.TryGetValue(materialTouchIndex, out snowballThrowable3))
 				{
 					return;
 				}
-				Transform transform = snowballThrowable2.transform;
+				Transform transform = snowballThrowable3.transform;
 				Transform transform2 = this.handTransform;
-				XformOffset spawnOffset = snowballThrowable2.SpawnOffset;
-				snowballThrowable2.SetSnowballActiveLocal(true);
-				snowballThrowable2.velocityEstimator = this.velocityEstimator;
+				XformOffset spawnOffset = snowballThrowable3.SpawnOffset;
+				snowballThrowable3.SetSnowballActiveLocal(true);
+				snowballThrowable3.velocityEstimator = this.velocityEstimator;
 				transform.position = transform2.TransformPoint(spawnOffset.pos);
 				transform.rotation = transform2.rotation * spawnOffset.rot;
 				GorillaTagger.Instance.StartVibration(this.isLeftHand, GorillaTagger.Instance.tapHapticStrength * 0.5f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
@@ -142,9 +143,10 @@ public class SnowballMaker : MonoBehaviourPostTick
 			result = null;
 			return false;
 		}
+		this.InitializeSnowballFromMatIndex(materialIndex);
 		foreach (SnowballThrowable snowballThrowable in this.snowballs)
 		{
-			if (snowballThrowable.matDataIndexes.Contains(materialIndex))
+			if (!(snowballThrowable == null) && snowballThrowable.matDataIndexes.Contains(materialIndex))
 			{
 				Transform transform = snowballThrowable.transform;
 				Transform transform2 = this.handTransform;
@@ -162,6 +164,15 @@ public class SnowballMaker : MonoBehaviourPostTick
 		return false;
 	}
 
+	private void InitializeSnowballFromMatIndex(int matIndex)
+	{
+		string itemName;
+		if (CosmeticsV2Spawner_Dirty.GetThrowableIDFromMaterialIndex(this.isLeftHand, matIndex, out itemName))
+		{
+			VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(itemName);
+		}
+	}
+
 	public bool isLeftHand;
 
 	public GorillaVelocityEstimator velocityEstimator;
@@ -175,4 +186,10 @@ public class SnowballMaker : MonoBehaviourPostTick
 	private Transform handTransform;
 
 	private Dictionary<int, SnowballThrowable> matSnowballLookup = new Dictionary<int, SnowballThrowable>();
+
+	private Dictionary<int, SnowballThrowable> snowballByThrowableIndex = new Dictionary<int, SnowballThrowable>();
+
+	private Dictionary<int, string> snowballPlayfabIdByThrowableIndex = new Dictionary<int, string>();
+
+	private Dictionary<int, string> snowballPlayfabIdByMaterialIndex = new Dictionary<int, string>();
 }

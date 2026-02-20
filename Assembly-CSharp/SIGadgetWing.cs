@@ -43,7 +43,7 @@ public class SIGadgetWing : SIGadget
 	{
 		Vector3 position = this.m_wingCenter.transform.position;
 		SIGadgetWing_EState state = this._state;
-		this._state = (this.m_buttonActivatable.CheckInput(true, true, 0.25f, true, true) ? SIGadgetWing_EState.TriggerPressed : SIGadgetWing_EState.Idle);
+		this._state = (this.m_buttonActivatable.CheckInput(0.25f) ? SIGadgetWing_EState.TriggerPressed : SIGadgetWing_EState.Idle);
 		if (state != this._state)
 		{
 			this.gameEntity.RequestState(this.gameEntity.id, (long)this._state);

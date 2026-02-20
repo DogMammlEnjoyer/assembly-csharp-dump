@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using ExitGames.Client.Photon;
-using GorillaLocomotion;
 using GorillaNetworking;
 using Photon.Pun;
 using Photon.Realtime;
@@ -666,86 +664,34 @@ public class BuilderSetManager : MonoBehaviour
 		this.attempts = 0;
 		while (!this.foundCosmetic && this.attempts < 10 && PhotonNetwork.InRoom)
 		{
-			this.playerIDList.Clear();
-			if (GorillaServer.Instance != null && GorillaServer.Instance.NewCosmeticsPath())
+			PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
 			{
-				this.playerIDList.Add("Inventory");
-				PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
+				Keys = new List<string>
 				{
-					Keys = this.playerIDList,
-					SharedGroupId = PhotonNetwork.LocalPlayer.UserId + "Inventory"
-				}, delegate(GetSharedGroupDataResult result)
-				{
-					this.attempts++;
-					foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
-					{
-						if (keyValuePair.Value.Value.Contains(itemToBuyID))
-						{
-							PhotonNetwork.RaiseEvent(199, null, new RaiseEventOptions
-							{
-								Receivers = ReceiverGroup.Others
-							}, SendOptions.SendReliable);
-							this.foundCosmetic = true;
-						}
-					}
-					bool flag = this.foundCosmetic;
-				}, delegate(PlayFabError error)
-				{
-					this.attempts++;
-					CosmeticsController.instance.ReauthOrBan(error);
-				}, null, null);
-				yield return new WaitForSeconds(1f);
-			}
-			else
+					"Inventory"
+				},
+				SharedGroupId = PhotonNetwork.LocalPlayer.UserId + "Inventory"
+			}, delegate(GetSharedGroupDataResult result)
 			{
-				this.playerIDList.Add(PhotonNetwork.LocalPlayer.ActorNumber.ToString());
-				PlayFabClientAPI.GetSharedGroupData(new PlayFab.ClientModels.GetSharedGroupDataRequest
+				this.attempts++;
+				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
 				{
-					Keys = this.playerIDList,
-					SharedGroupId = PhotonNetwork.CurrentRoom.Name + Regex.Replace(PhotonNetwork.CloudRegion, "[^a-zA-Z0-9]", "").ToUpper()
-				}, delegate(GetSharedGroupDataResult result)
-				{
-					this.attempts++;
-					foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
+					if (keyValuePair.Value.Value.Contains(itemToBuyID))
 					{
-						if (keyValuePair.Value.Value.Contains(itemToBuyID))
+						PhotonNetwork.RaiseEvent(199, null, new RaiseEventOptions
 						{
-							Debug.Log("BuilderSetManager: found it! updating others cosmetic!");
-							PhotonNetwork.RaiseEvent(199, null, new RaiseEventOptions
-							{
-								Receivers = ReceiverGroup.Others
-							}, SendOptions.SendReliable);
-							this.foundCosmetic = true;
-						}
-						else
-						{
-							Debug.Log("BuilderSetManager: didnt find it, updating attempts and trying again in a bit. current attempt is " + this.attempts.ToString());
-						}
+							Receivers = ReceiverGroup.Others
+						}, SendOptions.SendReliable);
+						this.foundCosmetic = true;
 					}
-				}, delegate(PlayFabError error)
-				{
-					this.attempts++;
-					if (error.Error == PlayFabErrorCode.NotAuthenticated)
-					{
-						PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-					}
-					else if (error.Error == PlayFabErrorCode.AccountBanned)
-					{
-						Application.Quit();
-						PhotonNetwork.Disconnect();
-						Object.DestroyImmediate(PhotonNetworkController.Instance);
-						Object.DestroyImmediate(GTPlayer.Instance);
-						GameObject[] array = Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-						for (int i = 0; i < array.Length; i++)
-						{
-							Object.Destroy(array[i]);
-						}
-					}
-					Debug.Log("BuilderSetManager: Got error retrieving user data, on attempt " + this.attempts.ToString());
-					Debug.Log(error.GenerateErrorReport());
-				}, null, null);
-				yield return new WaitForSeconds(1f);
-			}
+				}
+				bool flag = this.foundCosmetic;
+			}, delegate(PlayFabError error)
+			{
+				this.attempts++;
+				CosmeticsController.instance.ReauthOrBan(error);
+			}, null, null);
+			yield return new WaitForSeconds(1f);
 		}
 		Debug.Log("BuilderSetManager: done!");
 		yield break;
@@ -820,8 +766,6 @@ public class BuilderSetManager : MonoBehaviour
 	private bool foundCosmetic;
 
 	private int attempts;
-
-	private List<string> playerIDList = new List<string>();
 
 	private static List<int> pieceTypes;
 

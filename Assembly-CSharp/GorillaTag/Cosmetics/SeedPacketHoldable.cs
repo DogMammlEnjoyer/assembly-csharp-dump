@@ -114,7 +114,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "SyncTriggerEffect");
+			MonkeAgent.IncrementRPCCall(info, "SyncTriggerEffect");
 			if (!this.callLimiter.CheckCallTime(Time.time))
 			{
 				return;

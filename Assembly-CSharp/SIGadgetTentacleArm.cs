@@ -126,7 +126,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 
 	private bool CheckInput()
 	{
-		return this.buttonActivatable.CheckInput(true, true, 0.25f, true, true);
+		return this.buttonActivatable.CheckInput(0.25f);
 	}
 
 	private Vector3 GetIdealClawPosition(VRRig rig)
@@ -369,14 +369,12 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		{
 			return;
 		}
-		int attachedPlayerActorNumber = base.GetAttachedPlayerActorNumber();
-		GamePlayer gamePlayer;
-		if (attachedPlayerActorNumber < 1 || !GamePlayer.TryGetGamePlayer(attachedPlayerActorNumber, out gamePlayer))
+		VRRig attachedPlayerRig = base.GetAttachedPlayerRig();
+		if (attachedPlayerRig == null)
 		{
 			return;
 		}
-		VRRig rig = gamePlayer.rig;
-		Vector3 idealClawPosition = this.GetIdealClawPosition(rig);
+		Vector3 idealClawPosition = this.GetIdealClawPosition(attachedPlayerRig);
 		Quaternion rotation = base.transform.rotation;
 		Vector3 position = base.transform.position;
 		if ((this.knownSafePosition - idealClawPosition).IsLongerThan(1f))
@@ -385,8 +383,8 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		}
 		if (this.isHoldingHand)
 		{
-			TakeMyHand_HandLink takeMyHand_HandLink = this.isLeftHanded ? rig.leftHandLink : rig.rightHandLink;
-			Vector3 position2 = (this.isLeftHanded ? rig.leftHand : rig.rightHand).rigTarget.position;
+			TakeMyHand_HandLink takeMyHand_HandLink = this.isLeftHanded ? attachedPlayerRig.leftHandLink : attachedPlayerRig.rightHandLink;
+			Vector3 position2 = (this.isLeftHanded ? attachedPlayerRig.leftHand : attachedPlayerRig.rightHand).rigTarget.position;
 			takeMyHand_HandLink.TentacleOffset = idealClawPosition - position2;
 			return;
 		}
@@ -539,9 +537,9 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		}
 		else if (newState != 0L)
 		{
-			int attachedPlayerActorNumber = base.GetAttachedPlayerActorNumber();
+			int attachedPlayerActorNr = this.gameEntity.AttachedPlayerActorNr;
 			GamePlayer gamePlayer2;
-			if (attachedPlayerActorNumber >= 1 && GamePlayer.TryGetGamePlayer(attachedPlayerActorNumber, out gamePlayer2))
+			if (attachedPlayerActorNr >= 1 && GamePlayer.TryGetGamePlayer(attachedPlayerActorNr, out gamePlayer2))
 			{
 				Vector3 clawPosition;
 				Quaternion clawRotation;

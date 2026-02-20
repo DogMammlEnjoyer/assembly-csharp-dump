@@ -99,7 +99,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 		{
 			return;
 		}
-		if (this.state == SIGadgetWristJet.State.Active && this.currentFuel > 0f && this.buttonActivatable.CheckInput(true, true, 0.25f, true, true))
+		if (this.state == SIGadgetWristJet.State.Active && this.currentFuel > 0f && this.buttonActivatable.CheckInput(0.25f))
 		{
 			this.gtPlayer.AddForce(-Physics.gravity * (this.gtPlayer.scale * this.gravityNegationPercent), ForceMode.Acceleration);
 			this._ApplyClampedThrust();
@@ -118,7 +118,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 	protected override void OnUpdateAuthority(float dt)
 	{
 		base.OnUpdateAuthority(dt);
-		bool flag = this.buttonActivatable.CheckInput(true, true, 0.25f, true, true);
+		bool flag = this.buttonActivatable.CheckInput(0.25f);
 		if (!this._floorTouched)
 		{
 			this._floorTouched = (this.gtPlayer.IsGroundedButt || this.gtPlayer.IsGroundedHand);

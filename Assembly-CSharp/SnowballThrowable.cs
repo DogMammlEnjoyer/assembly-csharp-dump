@@ -24,7 +24,7 @@ public class SnowballThrowable : HoldableObject
 	{
 		get
 		{
-			return PoolUtils.GameObjHashCode(this.randomModelSelection ? this.localModels[this.randModelIndex].GetProjectilePrefab() : this.projectilePrefab);
+			return PoolUtils.GameObjHashCode((this.randomModelSelection && this.localModels != null && this.randModelIndex >= 0 && this.randModelIndex <= this.localModels.Count && this.localModels[this.randModelIndex] != null) ? this.localModels[this.randModelIndex].GetProjectilePrefab() : this.projectilePrefab);
 		}
 	}
 
@@ -306,6 +306,7 @@ public class SnowballThrowable : HoldableObject
 		SlingshotProjectile component = ObjectPools.instance.Instantiate(this.randomModelSelection ? this.localModels[this.randModelIndex].GetProjectilePrefab() : this.projectilePrefab, true).GetComponent<SlingshotProjectile>();
 		int projectileCount = ProjectileTracker.AddAndIncrementLocalProjectile(component, velocity, location, scale);
 		component.Launch(location, velocity, NetworkSystem.Instance.LocalPlayer, false, false, projectileCount, scale, randomColour, colour);
+		GorillaTagger.Instance.StartVibration(this.isLeftHanded, GorillaTagger.Instance.tapHapticStrength * 0.5f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
 		if (string.IsNullOrEmpty(this.throwEventName))
 		{
 			PlayerGameEvents.LaunchedProjectile(this.projectilePrefab.name);
@@ -331,6 +332,11 @@ public class SnowballThrowable : HoldableObject
 			if (instance != null && this.projectilePrefab != null && this.projectilePrefab == instance.waterBalloonPrefab)
 			{
 				instance.OnWaterBalloonHitPlayer(hitPlayer);
+			}
+			if (hitPlayer.IsLocal)
+			{
+				GorillaTagger.Instance.StartVibration(true, GorillaTagger.Instance.tapHapticStrength * 0.5f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
+				GorillaTagger.Instance.StartVibration(true, GorillaTagger.Instance.tapHapticStrength * 0.5f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
 			}
 		}
 	}

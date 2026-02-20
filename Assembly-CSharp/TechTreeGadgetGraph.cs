@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using XNode;
 
-[CreateAssetMenu(fileName = "TechTreePage", menuName = "SuperInfection/TechTree Page")]
+[CreateAssetMenu(fileName = "TechTreeGadgetGraph", menuName = "SuperInfection/TechTree Gadget Graph")]
 public class TechTreeGadgetGraph : NodeGraph
 {
 	public GadgetNode[] GadgetNodes

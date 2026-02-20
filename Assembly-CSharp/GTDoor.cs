@@ -261,7 +261,7 @@ public class GTDoor : NetworkSceneObject
 	[PunRPC]
 	public void ChangeDoorState(GTDoor.DoorState shouldOpenState, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "ChangeDoorState");
+		MonkeAgent.IncrementRPCCall(info, "ChangeDoorState");
 		this.ChangeDoorStateShared(shouldOpenState);
 	}
 

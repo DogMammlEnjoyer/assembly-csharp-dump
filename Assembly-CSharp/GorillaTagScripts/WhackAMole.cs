@@ -541,7 +541,7 @@ namespace GorillaTagScripts
 
 		private void WhackAMoleButtonPressedShared(PhotonMessageInfoWrapped info)
 		{
-			GorillaNot.IncrementRPCCall(info, "WhackAMoleButtonPressedShared");
+			MonkeAgent.IncrementRPCCall(info, "WhackAMoleButtonPressedShared");
 			VRRig vrrig = GorillaGameManager.StaticFindRigForPlayer(info.Sender);
 			if (vrrig)
 			{

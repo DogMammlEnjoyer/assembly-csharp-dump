@@ -70,7 +70,7 @@ internal static class ProjectileTracker
 		}
 		if (projectileIndex < 0 || projectileIndex >= loopingArray.Length)
 		{
-			GorillaNot.instance.SendReport("invlProj", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("invlProj", player.UserId, player.NickName);
 			return;
 		}
 		SlingshotProjectile projectileInstance = loopingArray[projectileIndex].projectileInstance;

@@ -19,7 +19,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void DeserializeLaunchProjectile(object[] projectileData, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "LaunchSlingshotProjectile");
+		MonkeAgent.IncrementRPCCall(info, "LaunchSlingshotProjectile");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(player, out rigContainer))
 		{
@@ -57,7 +57,7 @@ internal class RoomSystem : MonoBehaviour
 				return;
 			}
 		}
-		GorillaNot.instance.SendReport("invalid projectile state", player.UserId, player.NickName);
+		MonkeAgent.instance.SendReport("invalid projectile state", player.UserId, player.NickName);
 	}
 
 	internal static void SendLaunchProjectile(Vector3 position, Vector3 velocity, RoomSystem.ProjectileSource projectileSource, int projectileCount, bool randomColour, byte r, byte g, byte b, byte a)
@@ -92,7 +92,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void DeserializeImpactEffect(object[] impactData, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "SpawnSlingshotPlayerImpactEffect");
+		MonkeAgent.IncrementRPCCall(info, "SpawnSlingshotPlayerImpactEffect");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(player, out rigContainer) || rigContainer.Rig.projectileWeapon.IsNull())
 		{
@@ -106,7 +106,7 @@ internal class RoomSystem : MonoBehaviour
 		float num5 = 10000f;
 		if (!position.IsValid(num5) || !float.IsFinite(num) || !float.IsFinite(num2) || !float.IsFinite(num3) || !float.IsFinite(num4))
 		{
-			GorillaNot.instance.SendReport("invalid impact state", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("invalid impact state", player.UserId, player.NickName);
 			return;
 		}
 		int projectileCount = Convert.ToInt32(impactData[5]);
@@ -192,21 +192,9 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.InitialJoinTrigger = GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(RoomSystem.roomGameMode);
 		if (!RoomSystem.WasRoomPrivate)
 		{
-			Hashtable customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-			if (customProperties.ContainsKey("fan_club"))
-			{
-				string text = customProperties["fan_club"] as string;
-				bool wasRoomSubscription;
-				if (text != null && bool.TryParse(text, out wasRoomSubscription))
-				{
-					RoomSystem.WasRoomSubscription = wasRoomSubscription;
-					goto IL_EA;
-				}
-			}
-			RoomSystem.WasRoomSubscription = false;
+			RoomSystem.WasRoomSubscription = PhotonNetwork.CurrentRoom.Name.EndsWith(":GTFC");
 		}
-		IL_EA:
-		bool wasRoomSubscription2 = RoomSystem.WasRoomSubscription;
+		bool wasRoomSubscription = RoomSystem.WasRoomSubscription;
 		if (NetworkSystem.Instance.IsMasterClient)
 		{
 			for (int j = 0; j < this.prefabsToInstantiateByPath.Length; j++)
@@ -611,7 +599,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void SearchForNearby(object[] shuffleData, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "JoinPubWithNearby");
+		MonkeAgent.IncrementRPCCall(info, "JoinPubWithNearby");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(player, out rigContainer) || !FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 23, NetworkSystem.Instance.SimTime))
 		{
@@ -622,7 +610,7 @@ internal class RoomSystem : MonoBehaviour
 		bool flag = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups);
 		if (!GorillaComputer.instance.friendJoinCollider.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId))
 		{
-			GorillaNot.instance.SendReport("possible kick attempt", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("possible kick attempt", player.UserId, player.NickName);
 			return;
 		}
 		if (!flag || !RoomSystem.WasRoomPrivate)
@@ -634,7 +622,7 @@ internal class RoomSystem : MonoBehaviour
 
 	internal static void SearchForParty(object[] shuffleData, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "PARTY_JOIN");
+		MonkeAgent.IncrementRPCCall(info, "PARTY_JOIN");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(info.Sender, out rigContainer) || !FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 23, NetworkSystem.Instance.SimTime))
 		{
@@ -644,7 +632,7 @@ internal class RoomSystem : MonoBehaviour
 		string newKeyStr = (string)shuffleData[1];
 		if (!FriendshipGroupDetection.Instance.IsInMyGroup(info.Sender.UserId))
 		{
-			GorillaNot.instance.SendReport("possible kick attempt", info.Sender.UserId, info.Sender.NickName);
+			MonkeAgent.instance.SendReport("possible kick attempt", info.Sender.UserId, info.Sender.NickName);
 			return;
 		}
 		if (PlayFabAuthenticator.instance.GetSafety())
@@ -657,7 +645,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void SearchForElevator(object[] shuffleData, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "JoinPubWithElevator");
+		MonkeAgent.IncrementRPCCall(info, "JoinPubWithElevator");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(player, out rigContainer) || !FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 23, NetworkSystem.Instance.SimTime))
 		{
@@ -680,7 +668,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void SearchForShuttle(object[] shuffleData, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "JoinPubWithElevator");
+		MonkeAgent.IncrementRPCCall(info, "JoinPubWithElevator");
 		RigContainer rigContainer;
 		if (!VRRigCache.Instance.TryGetVrrig(player, out rigContainer) || !FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 23, NetworkSystem.Instance.SimTime))
 		{
@@ -815,7 +803,7 @@ internal class RoomSystem : MonoBehaviour
 
 	private static void DeserializePlayerLaunched(object[] data, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "DeserializePlayerLaunched");
+		MonkeAgent.IncrementRPCCall(info, "DeserializePlayerLaunched");
 		GorillaGameManager activeGameMode = GameMode.ActiveGameMode;
 		if (activeGameMode != null && activeGameMode.GameType() == GameModeType.Guardian && info.Sender == NetworkSystem.Instance.MasterClient)
 		{
@@ -867,7 +855,7 @@ internal class RoomSystem : MonoBehaviour
 					if (vector.IsValid(num2) && VRRigCache.Instance.TryGetVrrig(info.Sender, out rigContainer) && FXSystem.CheckCallSpam(rigContainer.Rig.fxSettings, 20, info.SentServerTime))
 					{
 						float num3 = value.ClampSafe(0f, 10f);
-						GorillaNot.IncrementRPCCall(info, "DeserializePlayerHit");
+						MonkeAgent.IncrementRPCCall(info, "DeserializePlayerHit");
 						if (num == NetworkSystem.Instance.LocalPlayer.ActorNumber)
 						{
 							CosmeticEffectsOnPlayers.CosmeticEffect cosmeticEffect;
@@ -983,10 +971,10 @@ internal class RoomSystem : MonoBehaviour
 	private static void DeserializeStatusEffect(object[] data, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "DeserializeStatusEffect");
+		MonkeAgent.IncrementRPCCall(info, "DeserializeStatusEffect");
 		if (!player.IsMasterClient)
 		{
-			GorillaNot.instance.SendReport("invalid status", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("invalid status", player.UserId, player.NickName);
 			return;
 		}
 		if (!RoomSystem.callbackInstance.roomSettings.StatusEffectLimiter.CheckCallServerTime(info.SentServerTime))
@@ -1064,10 +1052,10 @@ internal class RoomSystem : MonoBehaviour
 	private static void DeserializeSoundEffect(object[] data, PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		GorillaNot.IncrementRPCCall(info, "DeserializeSoundEffect");
+		MonkeAgent.IncrementRPCCall(info, "DeserializeSoundEffect");
 		if (!player.Equals(NetworkSystem.Instance.MasterClient))
 		{
-			GorillaNot.instance.SendReport("invalid sound effect", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("invalid sound effect", player.UserId, player.NickName);
 			return;
 		}
 		RoomSystem.SoundEffect soundEffect;
@@ -1197,7 +1185,7 @@ internal class RoomSystem : MonoBehaviour
 
 	private static void DeserializePlayerEffect(object[] data, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "DeserializePlayerEffect");
+		MonkeAgent.IncrementRPCCall(info, "DeserializePlayerEffect");
 		if (!RoomSystem.callbackInstance.roomSettings.PlayerEffectLimiter.CheckCallServerTime(info.SentServerTime))
 		{
 			return;
@@ -1416,7 +1404,6 @@ internal class RoomSystem : MonoBehaviour
 			}
 			catch
 			{
-				GorillaNot.instance.SendReport("throwable error", this.messageInfo.Sender.UserId, this.messageInfo.Sender.NickName);
 				if (slingshotProjectile != null && slingshotProjectile)
 				{
 					slingshotProjectile.transform.position = Vector3.zero;

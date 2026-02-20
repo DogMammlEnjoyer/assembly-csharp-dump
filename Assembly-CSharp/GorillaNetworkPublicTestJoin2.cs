@@ -17,11 +17,11 @@ public class GorillaNetworkPublicTestJoin2 : GorillaTriggerBox
 		{
 			if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.IsVisible)
 			{
-				if (GTPlayer.Instance.GetComponent<Rigidbody>().isKinematic && !this.waiting && !GorillaNot.instance.reportedPlayers.Contains(PhotonNetwork.LocalPlayer.UserId))
+				if (GTPlayer.Instance.GetComponent<Rigidbody>().isKinematic && !this.waiting && !MonkeAgent.instance.reportedPlayers.Contains(PhotonNetwork.LocalPlayer.UserId))
 				{
 					base.StartCoroutine(this.GracePeriod());
 				}
-				if ((GTPlayer.Instance.jumpMultiplier > GorillaGameManager.instance.fastJumpMultiplier * 2f || GTPlayer.Instance.maxJumpSpeed > GorillaGameManager.instance.fastJumpLimit * 2f) && !this.waiting && !GorillaNot.instance.reportedPlayers.Contains(PhotonNetwork.LocalPlayer.UserId))
+				if ((GTPlayer.Instance.jumpMultiplier > GorillaGameManager.instance.fastJumpMultiplier * 2f || GTPlayer.Instance.maxJumpSpeed > GorillaGameManager.instance.fastJumpLimit * 2f) && !this.waiting && !MonkeAgent.instance.reportedPlayers.Contains(PhotonNetwork.LocalPlayer.UserId))
 				{
 					base.StartCoroutine(this.GracePeriod());
 				}
@@ -44,11 +44,11 @@ public class GorillaNetworkPublicTestJoin2 : GorillaTriggerBox
 			{
 				if (GTPlayer.Instance.GetComponent<Rigidbody>().isKinematic)
 				{
-					GorillaNot.instance.SendReport("gorvity bisdabled", PhotonNetwork.LocalPlayer.UserId, PhotonNetwork.LocalPlayer.NickName);
+					MonkeAgent.instance.SendReport("gorvity bisdabled", PhotonNetwork.LocalPlayer.UserId, PhotonNetwork.LocalPlayer.NickName);
 				}
 				if (GTPlayer.Instance.jumpMultiplier > GorillaGameManager.instance.fastJumpMultiplier * 2f || GTPlayer.Instance.maxJumpSpeed > GorillaGameManager.instance.fastJumpLimit * 2f)
 				{
-					GorillaNot.instance.SendReport(string.Concat(new string[]
+					MonkeAgent.instance.SendReport(string.Concat(new string[]
 					{
 						"jimp 2mcuh.",
 						GTPlayer.Instance.jumpMultiplier.ToString(),
@@ -59,7 +59,7 @@ public class GorillaNetworkPublicTestJoin2 : GorillaTriggerBox
 				}
 				if (GorillaTagger.Instance.sphereCastRadius > 0.04f)
 				{
-					GorillaNot.instance.SendReport("wack rad. " + GorillaTagger.Instance.sphereCastRadius.ToString(), PhotonNetwork.LocalPlayer.UserId, PhotonNetwork.LocalPlayer.NickName);
+					MonkeAgent.instance.SendReport("wack rad. " + GorillaTagger.Instance.sphereCastRadius.ToString(), PhotonNetwork.LocalPlayer.UserId, PhotonNetwork.LocalPlayer.NickName);
 				}
 			}
 			this.waiting = false;

@@ -4,8 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class HangingClaw : MonoBehaviourPostTick
 {
-	public new bool PostTickRunning { get; set; }
-
 	protected void Awake()
 	{
 		this.lineRenderer = base.GetComponent<LineRenderer>();

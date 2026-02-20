@@ -138,7 +138,7 @@ public class RubberDuck : TransferrableObject
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "OnSqueezeDeactivate");
+		MonkeAgent.IncrementRPCCall(info, "OnSqueezeDeactivate");
 		if (info.senderID != this.ownerRig.creator.ActorNumber)
 		{
 			return;

@@ -82,6 +82,8 @@ namespace GorillaTag.CosmeticSystem
 			this.setCosmetics = new CosmeticSO[0];
 			this.anchorAntiIntersectOffsets = default(CosmeticAnchorAntiIntersectOffsets);
 			this.debugCosmeticSOName = "__UNINITIALIZED__";
+			this.throwableMaterialGrabIndices = new int[0];
+			this.throwableIndex = -1;
 		}
 
 		void ISerializationCallbackReceiver.OnBeforeSerialize()
@@ -139,6 +141,12 @@ namespace GorillaTag.CosmeticSystem
 		public bool isHoldable;
 
 		public bool isThrowable;
+
+		[HideInInspector]
+		public int[] throwableMaterialGrabIndices;
+
+		[HideInInspector]
+		public int throwableIndex;
 
 		public bool usesBothHandSlots;
 

@@ -268,7 +268,7 @@ public class RigContainer : MonoBehaviour
 	{
 		if (this.vrrig.netView)
 		{
-			GorillaNot.instance.SendReport("inappropriate tag data being sent creating multiple vrrigs", this.Creator.UserId, this.Creator.NickName);
+			MonkeAgent.instance.SendReport("inappropriate tag data being sent creating multiple vrrigs", this.Creator.UserId, this.Creator.NickName);
 			if (this.vrrig.netView.IsMine)
 			{
 				NetworkSystem.Instance.NetDestroy(this.vrrig.gameObject);

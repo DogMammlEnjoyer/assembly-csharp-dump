@@ -84,6 +84,14 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		return null;
 	}
 
+	public bool IsSupercharged
+	{
+		get
+		{
+			return false;
+		}
+	}
+
 	public void OnZoneCreate()
 	{
 	}
@@ -289,7 +297,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 			}
 			else
 			{
-				this.progression.OnClientReady += this.<OnZoneInit>g__WhenReady|39_0;
+				this.progression.OnClientReady += this.<OnZoneInit>g__WhenReady|43_0;
 			}
 		}
 		this.allSnapPoints.Clear();
@@ -609,6 +617,8 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 			}
 			break;
 		}
+		case 5:
+			break;
 		default:
 			return;
 		}
@@ -1028,6 +1038,21 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		return flag;
 	}
 
+	public bool ValidateCreateMultipleItems(int zoneId, byte[] compressedStateData, int EntityCount)
+	{
+		return false;
+	}
+
+	public bool ValidateCreateItem(int nedId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int createdByEntityNetId)
+	{
+		return true;
+	}
+
+	public bool ValidateCreateItemBatchSize(int size)
+	{
+		return true;
+	}
+
 	public void ClearPlayerGadgets(SIPlayer siPlayer)
 	{
 		for (int i = siPlayer.activePlayerGadgets.Count - 1; i >= 0; i--)
@@ -1045,9 +1070,9 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 	}
 
 	[CompilerGenerated]
-	private void <OnZoneInit>g__WhenReady|39_0()
+	private void <OnZoneInit>g__WhenReady|43_0()
 	{
-		this.progression.OnClientReady -= this.<OnZoneInit>g__WhenReady|39_0;
+		this.progression.OnClientReady -= this.<OnZoneInit>g__WhenReady|43_0;
 		SIPlayer.SetAndBroadcastProgression();
 	}
 
@@ -1087,13 +1112,25 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 
 	private bool PendingZoneInit;
 
+	private const int roomFXTypeCount = 5;
+
 	public enum ClientToAuthorityRPC
 	{
 		CombinedTerminalButtonPress,
 		CombinedTerminalHandScan,
 		ResourceDepositDeposited,
 		CallEntityRPC,
-		CallEntityRPCData
+		CallEntityRPCData,
+		RequestStartRoomFX
+	}
+
+	public enum RoomFXType
+	{
+		Underwater,
+		LunarMode,
+		ConstLowG,
+		Bouncy,
+		Supercharge
 	}
 
 	public enum AuthorityToClientRPC
@@ -1104,7 +1141,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		CallEntityRPC,
 		CallEntityRPCData,
 		TriggerMonkeIdolDepositCelebration,
-		StartUnderwaterFX
+		StartRoomFX
 	}
 
 	public enum ClientToClientRPC

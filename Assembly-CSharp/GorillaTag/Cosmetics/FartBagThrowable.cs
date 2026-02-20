@@ -113,7 +113,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "DeflateEvent");
+			MonkeAgent.IncrementRPCCall(info, "DeflateEvent");
 			if (this.callLimiter.CheckCallTime(Time.time))
 			{
 				object obj = args[0];

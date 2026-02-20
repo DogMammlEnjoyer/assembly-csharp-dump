@@ -83,7 +83,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnEnableObject");
+			MonkeAgent.IncrementRPCCall(info, "OnEnableObject");
 			if (!this.snakeInCanCallLimiter.CheckCallTime(Time.time))
 			{
 				return;

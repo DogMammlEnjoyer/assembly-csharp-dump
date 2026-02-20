@@ -90,7 +90,7 @@ public abstract class ProjectileWeapon : TransferrableObject
 		}
 		catch
 		{
-			GorillaNot.instance.SendReport("projectile error", player.UserId, player.NickName);
+			MonkeAgent.instance.SendReport("projectile error", player.UserId, player.NickName);
 			if (slingshotProjectile != null && slingshotProjectile)
 			{
 				slingshotProjectile.transform.position = Vector3.zero;

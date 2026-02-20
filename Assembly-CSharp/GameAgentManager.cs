@@ -155,9 +155,9 @@ public class GameAgentManager : NetworkComponent, ITickSystemTick
 		return this.entityManager.IsZoneActive();
 	}
 
-	public bool IsPositionInZone(Vector3 pos)
+	public bool IsPositionInManagerBounds(Vector3 pos)
 	{
-		return this.entityManager.IsPositionInZone(pos);
+		return this.entityManager.IsPositionInManagerBounds(pos);
 	}
 
 	public bool IsValidClientRPC(Player sender)
@@ -416,7 +416,7 @@ public class GameAgentManager : NetworkComponent, ITickSystemTick
 			if (start.IsValid(num))
 			{
 				float num2 = 10000f;
-				if (end.IsValid(num2) && this.entityManager.IsPositionInZone(start) && this.entityManager.IsPositionInZone(end) && this.entityManager.IsEntityNearPosition(agentNetId, start, 16f) && heightScale <= 5f && speedScale <= 5f)
+				if (end.IsValid(num2) && this.entityManager.IsPositionInManagerBounds(start) && this.entityManager.IsPositionInManagerBounds(end) && this.entityManager.IsEntityNearPosition(agentNetId, start, 16f) && heightScale <= 5f && speedScale <= 5f)
 				{
 					if ((end - start).sqrMagnitude > 625f)
 					{
@@ -478,7 +478,7 @@ public class GameAgentManager : NetworkComponent, ITickSystemTick
 			int netId = (int)stream.ReceiveNext();
 			Vector3 vector = BitPackUtils.UnpackWorldPosFromNetwork((long)stream.ReceiveNext());
 			Quaternion rotation = BitPackUtils.UnpackQuaternionFromNetwork((int)stream.ReceiveNext());
-			if (this.IsPositionInZone(vector) && this.entityManager.IsValidNetId(netId))
+			if (this.IsPositionInManagerBounds(vector) && this.entityManager.IsValidNetId(netId))
 			{
 				GameEntityId entityIdFromNetId = this.entityManager.GetEntityIdFromNetId(netId);
 				GameAgent gameAgent = this.GetGameAgent(entityIdFromNetId);

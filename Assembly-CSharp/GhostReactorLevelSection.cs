@@ -187,7 +187,8 @@ public class GhostReactorLevelSection : MonoBehaviour
 										position = nextSpawnPoint.transform.position,
 										rotation = nextSpawnPoint.transform.rotation,
 										createData = createData,
-										createdByEntityId = -1
+										createdByEntityId = -1,
+										slotIndex = -1
 									};
 									GhostReactorLevelSection.tempCreateEntitiesList.Add(item);
 									if (GhostReactorLevelSection.tempCreateEntitiesList.Count > 25)
@@ -223,7 +224,8 @@ public class GhostReactorLevelSection : MonoBehaviour
 							position = this.prePlacedGameEntities[l].transform.position,
 							rotation = this.prePlacedGameEntities[l].transform.rotation,
 							createData = 0L,
-							createdByEntityId = -1
+							createdByEntityId = -1,
+							slotIndex = -1
 						};
 						GhostReactorLevelSection.tempCreateEntitiesList.Add(item2);
 						if (GhostReactorLevelSection.tempCreateEntitiesList.Count > 25)

@@ -107,7 +107,7 @@ namespace GorillaTagScripts.CustomMapSupport
 		[PunRPC]
 		private void RequestSyncTriggerHistory_RPC(PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "RequestSyncTriggerHistory_RPC");
+			MonkeAgent.IncrementRPCCall(info, "RequestSyncTriggerHistory_RPC");
 			if (!NetworkSystem.Instance.InRoom || !NetworkSystem.Instance.IsMasterClient)
 			{
 				return;
@@ -132,7 +132,7 @@ namespace GorillaTagScripts.CustomMapSupport
 		[PunRPC]
 		private void SyncTriggerHistory_RPC(byte[] syncedTriggerHistory, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "SyncTriggerHistory_RPC");
+			MonkeAgent.IncrementRPCCall(info, "SyncTriggerHistory_RPC");
 			if (!NetworkSystem.Instance.InRoom || !info.Sender.IsMasterClient)
 			{
 				return;
@@ -163,7 +163,7 @@ namespace GorillaTagScripts.CustomMapSupport
 		[PunRPC]
 		private void SyncTriggerCounts_RPC(Dictionary<byte, byte> syncedTriggerCounts, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "SyncTriggerCounts_RPC");
+			MonkeAgent.IncrementRPCCall(info, "SyncTriggerCounts_RPC");
 			if (!NetworkSystem.Instance.InRoom || !info.Sender.IsMasterClient)
 			{
 				return;
@@ -289,7 +289,7 @@ namespace GorillaTagScripts.CustomMapSupport
 		[PunRPC]
 		private void RequestTrigger_RPC(byte triggerID, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "RequestTrigger_RPC");
+			MonkeAgent.IncrementRPCCall(info, "RequestTrigger_RPC");
 			if (!NetworkSystem.Instance.InRoom || !NetworkSystem.Instance.IsMasterClient)
 			{
 				return;
@@ -329,7 +329,7 @@ namespace GorillaTagScripts.CustomMapSupport
 		[PunRPC]
 		private void ActivateTrigger_RPC(byte triggerID, int originatingPlayer, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "ActivateTrigger_RPC");
+			MonkeAgent.IncrementRPCCall(info, "ActivateTrigger_RPC");
 			if (!NetworkSystem.Instance.InRoom || !info.Sender.IsMasterClient)
 			{
 				return;

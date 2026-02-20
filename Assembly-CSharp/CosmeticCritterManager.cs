@@ -292,7 +292,7 @@ public class CosmeticCritterManager : NetworkSceneObject, ITickSystemTick
 	private void CosmeticCritterRPC(CosmeticCritterAction action, int holdableID, int seed, PhotonMessageInfo info)
 	{
 		PhotonMessageInfoWrapped photonMessageInfoWrapped = new PhotonMessageInfoWrapped(info);
-		GorillaNot.IncrementRPCCall(photonMessageInfoWrapped, "CosmeticCritterRPC");
+		MonkeAgent.IncrementRPCCall(photonMessageInfoWrapped, "CosmeticCritterRPC");
 		if ((action & CosmeticCritterAction.RPC) == CosmeticCritterAction.None)
 		{
 			return;

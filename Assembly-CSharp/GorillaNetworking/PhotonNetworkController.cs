@@ -280,7 +280,7 @@ namespace GorillaNetworking
 			}
 			GTPlayer.Instance.maxJumpSpeed = 6.5f;
 			GTPlayer.Instance.jumpMultiplier = 1.1f;
-			GorillaNot.instance.currentMasterClient = null;
+			MonkeAgent.instance.currentMasterClient = null;
 			GorillaTagger.Instance.offlineVRRig.huntComputer.SetActive(false);
 			this.initialGameMode = "";
 		}
@@ -333,7 +333,7 @@ namespace GorillaNetworking
 				this.keyToFollow = NetworkSystem.Instance.LocalPlayer.UserId + this.keyStr;
 				NetworkSystem.Instance.BroadcastMyRoom(true, this.keyToFollow, this.shuffler);
 			}
-			GorillaNot.instance.currentMasterClient = null;
+			MonkeAgent.instance.currentMasterClient = null;
 			this.UpdateCurrentJoinTrigger();
 			this.UpdateTriggerScreens();
 			NetworkSystem.Instance.MultiplayerStarted();

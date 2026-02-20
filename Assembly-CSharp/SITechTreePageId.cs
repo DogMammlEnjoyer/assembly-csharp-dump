@@ -9,9 +9,9 @@ public enum SITechTreePageId
 	Platform,
 	TapTeleport,
 	Tentacle,
-	AirGrab,
-	Unused8,
-	SlipMitt,
+	AirControl,
+	Prototype,
+	Unused9,
 	Blaster,
 	Count
 }

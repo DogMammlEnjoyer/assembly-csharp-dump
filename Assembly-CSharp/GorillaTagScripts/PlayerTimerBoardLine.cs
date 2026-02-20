@@ -77,7 +77,7 @@ namespace GorillaTagScripts
 			catch (Exception)
 			{
 				this.playerNameVisible = this.linePlayer.DefaultName;
-				GorillaNot.instance.SendReport("NmError", this.linePlayer.UserId, this.linePlayer.NickName);
+				MonkeAgent.instance.SendReport("NmError", this.linePlayer.UserId, this.linePlayer.NickName);
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace GorillaTagScripts
 				else
 				{
 					text = "BADGORILLA";
-					GorillaNot.instance.SendReport("evading the name ban", this.linePlayer.UserId, this.linePlayer.NickName);
+					MonkeAgent.instance.SendReport("evading the name ban", this.linePlayer.UserId, this.linePlayer.NickName);
 				}
 			}
 			return text;

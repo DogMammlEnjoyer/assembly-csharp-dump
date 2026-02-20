@@ -15,22 +15,26 @@ public class DisableOtherObjectsWhileActive : MonoBehaviour
 
 	private void SetAllActive(bool active)
 	{
-		foreach (GameObject gameObject in this.otherObjects)
+		for (int i = 0; i < this.otherObjects.Length; i++)
 		{
+			GameObject gameObject = this.otherObjects[i];
 			if (gameObject != null)
 			{
 				gameObject.SetActive(active);
 			}
 		}
-		foreach (XSceneRef xsceneRef in this.otherXSceneObjects)
+		for (int j = 0; j < this.otherXSceneObjects.Length; j++)
 		{
+			XSceneRef xsceneRef = this.otherXSceneObjects[j];
 			GameObject gameObject2;
-			if (xsceneRef.TryResolve(out gameObject2))
+			if (xsceneRef.TryResolve(out gameObject2) && gameObject2 != null)
 			{
 				gameObject2.SetActive(active);
 			}
 		}
 	}
+
+	public const string preErr = "[GT/DisableOtherObjectsWhileActive]  ERROR!!!  ";
 
 	public GameObject[] otherObjects;
 

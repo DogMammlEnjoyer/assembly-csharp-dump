@@ -6,6 +6,7 @@ using GorillaTag.Rendering;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public class GhostReactor : MonoBehaviourTick, IBuildValidation
 {
@@ -97,7 +98,7 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 			return;
 		}
 		this.grManager.reactor = this;
-		this.grManager.gameEntityManager.zoneLimit = this.zoneLimit;
+		this.grManager.gameEntityManager.boundsBoxCollider = this.boundsBoxCollider;
 		if (GameLightingManager.instance != null && this.zone != GTZone.customMaps)
 		{
 			GameLightingManager.instance.ZoneEnableCustomDynamicLighting(true);
@@ -795,7 +796,8 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 
 	public AudioClip entryRoomDeathSound;
 
-	public BoxCollider zoneLimit;
+	[FormerlySerializedAs("zoneLimit")]
+	public BoxCollider boundsBoxCollider;
 
 	public BoxCollider safeZoneLimit;
 

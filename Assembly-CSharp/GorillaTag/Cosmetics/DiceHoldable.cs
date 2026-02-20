@@ -43,7 +43,7 @@ namespace GorillaTag.Cosmetics
 
 		private void OnDiceEvent(int sender, int target, object[] args, PhotonMessageInfoWrapped info)
 		{
-			GorillaNot.IncrementRPCCall(info, "OnDiceEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnDiceEvent");
 			if (sender != target)
 			{
 				return;

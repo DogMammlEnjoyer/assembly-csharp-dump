@@ -34,6 +34,7 @@ public class DJScratchSoundPlayer : MonoBehaviour, ISpawnable
 		{
 			this._events.Activate -= this.OnPlayEvent;
 			this._events.Dispose();
+			this._events = null;
 		}
 	}
 

@@ -241,10 +241,7 @@ public class VRRigReliableState : MonoBehaviour, IWrappedSerializable, INetworkS
 				}
 			}
 		}
-		if (CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-		{
-			this.bDock.RefreshTransferrableItems();
-		}
+		this.bDock.RefreshTransferrableItems();
 		this.bDock.myRig.UpdateFriendshipBracelet();
 		this.bDock.myRig.EnableBuilderResizeWatch(this.isBuilderWatchEnabled);
 	}

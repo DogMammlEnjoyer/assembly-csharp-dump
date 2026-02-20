@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
 using GorillaLocomotion;
+using GorillaTagScripts;
 using UnityEngine;
 
 public class TeleportNode : GorillaTriggerBox
 {
 	public override void OnBoxTriggered()
 	{
+		if (this.subsOnly && !SubscriptionManager.IsLocalSubscribed())
+		{
+			return;
+		}
 		if (Time.time - this.teleportTime < 0.1f)
 		{
 			return;
@@ -50,6 +55,8 @@ public class TeleportNode : GorillaTriggerBox
 
 	[SerializeField]
 	private XSceneRef teleportToRef;
+
+	public bool subsOnly;
 
 	private float teleportTime;
 }

@@ -69,7 +69,8 @@ public class CustomMapsGameManager : MonoBehaviour, IGameEntityZoneComponent
 						position = entities[i].transform.position,
 						rotation = entities[i].transform.rotation,
 						createData = entities[i].GetPackedCreateData(),
-						createdByEntityId = -1
+						createdByEntityId = -1,
+						slotIndex = -1
 					};
 					CustomMapsGameManager.tempCreateEntitiesList.Add(item);
 				}
@@ -189,6 +190,21 @@ public class CustomMapsGameManager : MonoBehaviour, IGameEntityZoneComponent
 	public bool ValidateMigratedGameEntity(int netId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int actorNr)
 	{
 		return false;
+	}
+
+	public bool ValidateCreateMultipleItems(int zoneId, byte[] compressedStateData, int EntityCount)
+	{
+		return EntityCount <= Constants.aiAgentLimit;
+	}
+
+	public bool ValidateCreateItemBatchSize(int size)
+	{
+		return true;
+	}
+
+	public bool ValidateCreateItem(int nedId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int createdByEntityNetId)
+	{
+		return true;
 	}
 
 	private bool IsAuthority()

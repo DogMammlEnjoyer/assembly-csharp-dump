@@ -198,7 +198,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "ChangeSizeEventReceiver");
+		MonkeAgent.IncrementRPCCall(info, "ChangeSizeEventReceiver");
 		int num2 = (int)args[0];
 		if (this.GetValidSizeLevel(num2) > this.sizeLevel && this.sizeIncreaseSoundBankPlayer.gameObject.activeInHierarchy)
 		{
@@ -230,7 +230,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SnowballThrowEventReceiver");
+		MonkeAgent.IncrementRPCCall(info, "SnowballThrowEventReceiver");
 		if (!FXSystem.CheckCallSpam(this.targetRig.fxSettings, 4, info.SentServerTime))
 		{
 			return;

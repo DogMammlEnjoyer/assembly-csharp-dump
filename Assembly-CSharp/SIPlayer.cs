@@ -593,25 +593,33 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 
 	public void Tick()
 	{
-		this.ProcessHandRecharge(0);
-		this.ProcessHandRecharge(1);
+		SuperInfectionManager activeSuperInfectionManager = SuperInfectionManager.activeSuperInfectionManager;
+		bool isSupercharged = activeSuperInfectionManager != null && activeSuperInfectionManager.IsSupercharged;
+		if (!SIPlayer._TryUpdateSlotEntityCharge(this.gamePlayer, 0, isSupercharged))
+		{
+			SIPlayer._TryUpdateSlotEntityCharge(this.gamePlayer, 2, isSupercharged);
+		}
+		if (!SIPlayer._TryUpdateSlotEntityCharge(this.gamePlayer, 1, isSupercharged))
+		{
+			SIPlayer._TryUpdateSlotEntityCharge(this.gamePlayer, 3, isSupercharged);
+		}
 	}
 
-	private void ProcessHandRecharge(int handIndex)
+	private static bool _TryUpdateSlotEntityCharge(GamePlayer gamePlayer, int slotIndex, bool isSupercharged)
 	{
-		GameEntity grabbedGameEntity = this.gamePlayer.GetGrabbedGameEntity(handIndex);
-		IEnergyGadget energyGadget = (grabbedGameEntity != null) ? grabbedGameEntity.GetComponent<IEnergyGadget>() : null;
-		if (energyGadget != null && energyGadget.UsesEnergy && !energyGadget.IsFull)
+		GameEntity gameEntity;
+		if (!gamePlayer.TryGetSlotEntity(slotIndex, out gameEntity))
 		{
-			energyGadget.UpdateRecharge(Time.deltaTime);
-			return;
+			return false;
 		}
-		GameEntity snappedGameEntity = this.gamePlayer.GetSnappedGameEntity(handIndex);
-		IEnergyGadget energyGadget2 = (snappedGameEntity != null) ? snappedGameEntity.GetComponent<IEnergyGadget>() : null;
-		if (energyGadget2 != null && energyGadget2.UsesEnergy && !energyGadget2.IsFull)
+		IEnergyGadget component = gameEntity.GetComponent<IEnergyGadget>();
+		if (component == null || !component.UsesEnergy || component.IsFull)
 		{
-			energyGadget2.UpdateRecharge(Time.deltaTime);
+			return false;
 		}
+		float dt = Time.deltaTime * (isSupercharged ? 5f : 1f);
+		component.UpdateRecharge(dt);
+		return true;
 	}
 
 	private const string preLog = "[SIPlayer]  ";

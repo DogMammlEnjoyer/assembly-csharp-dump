@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using GorillaLocomotion;
 using Photon.Pun;
 using Photon.Realtime;
@@ -16,11 +17,12 @@ public class GamePlayer : MonoBehaviour
 
 	private void Awake()
 	{
-		this.handTransforms = new Transform[2];
 		this.handTransforms[0] = this.leftHand;
 		this.handTransforms[1] = this.rightHand;
-		this.hands = new GamePlayer.HandData[2];
-		this.ResetData();
+		for (int i = 0; i < this.slots.Length; i++)
+		{
+			this.slots[i].entityId = GameEntityId.Invalid;
+		}
 		this.newJoinZoneLimiter = new CallLimiter(10, 10f, 0.5f);
 		this.netImpulseLimiter = new CallLimiter(25, 1f, 0.5f);
 		this.netGrabLimiter = new CallLimiter(25, 1f, 0.5f);
@@ -39,33 +41,33 @@ public class GamePlayer : MonoBehaviour
 
 	public void Clear()
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i <= 1; i++)
 		{
-			if (this.hands[i].grabbedEntityId != GameEntityId.Invalid && this.hands[i].grabbedEntityManager != null)
+			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager != null)
 			{
-				this.hands[i].grabbedEntityManager.RequestThrowEntity(this.hands[i].grabbedEntityId, GamePlayer.IsLeftHand(i), GTPlayer.Instance.HeadCenterPosition, Vector3.zero, Vector3.zero);
+				this.slots[i].entityManager.RequestThrowEntity(this.slots[i].entityId, GamePlayer.IsLeftHand(i), GTPlayer.Instance.HeadCenterPosition, Vector3.zero, Vector3.zero);
 			}
 			this.ClearGrabbed(i);
 		}
-		for (int j = 0; j < 2; j++)
+		for (int j = 2; j <= 3; j++)
 		{
-			if (this.hands[j].snappedEntityId != GameEntityId.Invalid && this.hands[j].snappedEntityManager != null)
+			if (this.slots[j].entityId != GameEntityId.Invalid && this.slots[j].entityManager != null)
 			{
-				GameEntityId snappedEntityId = this.hands[j].snappedEntityId;
-				GameEntityManager snappedEntityManager = this.hands[j].snappedEntityManager;
-				snappedEntityManager.RequestGrabEntity(snappedEntityId, !GamePlayer.IsLeftHand(j), Vector3.zero, Quaternion.identity);
-				snappedEntityManager.RequestThrowEntity(snappedEntityId, !GamePlayer.IsLeftHand(j), GTPlayer.Instance.HeadCenterPosition, Vector3.zero, Vector3.zero);
+				bool isLeftHand = j != 2;
+				GameEntityId entityId = this.slots[j].entityId;
+				GameEntityManager entityManager = this.slots[j].entityManager;
+				entityManager.RequestGrabEntity(entityId, isLeftHand, Vector3.zero, Quaternion.identity);
+				entityManager.RequestThrowEntity(entityId, isLeftHand, GTPlayer.Instance.HeadCenterPosition, Vector3.zero, Vector3.zero);
 			}
-			this.ClearSnapped(j);
+			this.ClearSlot(j);
 		}
 	}
 
 	public void ResetData()
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			this.ClearGrabbed(i);
-			this.ClearSnapped(i);
+			this.ClearSlot(i);
 		}
 		this.DidJoinWithItems = false;
 		this.AdditionalDataInitialized = false;
@@ -84,22 +86,21 @@ public class GamePlayer : MonoBehaviour
 	public void MigrateHeldActorNumbers()
 	{
 		int actorNumber = this.rig.OwningNetPlayer.ActorNumber;
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if (this.hands[i].grabbedEntityManager != null)
+			if (this.slots[i].entityManager != null)
 			{
-				GameEntity gameEntity = this.hands[i].grabbedEntityManager.GetGameEntity(this.hands[i].grabbedEntityId);
+				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
 				if (gameEntity != null)
 				{
-					gameEntity.MigrateHeldBy(actorNumber);
-				}
-			}
-			if (this.hands[i].snappedEntityManager != null)
-			{
-				GameEntity gameEntity2 = this.hands[i].snappedEntityManager.GetGameEntity(this.hands[i].snappedEntityId);
-				if (gameEntity2 != null)
-				{
-					gameEntity2.MigrateSnappedBy(actorNumber);
+					if (i <= 1)
+					{
+						gameEntity.MigrateHeldBy(actorNumber);
+					}
+					else
+					{
+						gameEntity.MigrateSnappedBy(actorNumber);
+					}
 				}
 			}
 		}
@@ -107,36 +108,43 @@ public class GamePlayer : MonoBehaviour
 
 	public void SetGrabbed(GameEntityId gameBallId, int handIndex, GameEntityManager gameEntityManager)
 	{
-		if (gameBallId.IsValid())
+		if (handIndex < 0 || handIndex > 1)
 		{
-			this.ClearGrabbedIfHeld(gameBallId);
+			return;
 		}
-		GamePlayer.HandData handData = this.hands[handIndex];
-		handData.grabbedEntityId = gameBallId;
-		handData.grabbedEntityManager = gameEntityManager;
-		this.hands[handIndex] = handData;
+		this.SetSlot(handIndex, gameBallId, gameEntityManager);
 	}
 
-	public void SetSnapped(GameEntityId gameBallId, int handIndex, GameEntityManager gameEntityManager)
+	public void SetSnapped(GameEntityId entityId, int slotIndex, GameEntityManager gameEntityManager)
 	{
-		if (gameBallId.IsValid())
+		if (entityId.IsValid())
 		{
-			this.ClearSnappedIfSnapped(gameBallId);
-			this.ClearGrabbedIfHeld(gameBallId);
+			this.ClearSnappedIfSnapped(entityId);
+			this.ClearGrabbedIfHeld(entityId);
 		}
-		GamePlayer.HandData handData = this.hands[handIndex];
-		handData.snappedEntityId = gameBallId;
-		handData.snappedEntityManager = gameEntityManager;
-		this.hands[handIndex] = handData;
+		this.SetSlot(slotIndex, entityId, gameEntityManager);
+	}
+
+	public void SetSlot(int slotIndex, GameEntityId entityId, GameEntityManager manager)
+	{
+		if (slotIndex < 0 || slotIndex >= 4)
+		{
+			return;
+		}
+		entityId.IsValid();
+		GamePlayer.SlotData slotData = this.slots[slotIndex];
+		slotData.entityId = entityId;
+		slotData.entityManager = manager;
+		this.slots[slotIndex] = slotData;
 	}
 
 	public void ClearZone(GameEntityManager manager)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if (this.hands[i].grabbedEntityId != GameEntityId.Invalid && this.hands[i].grabbedEntityManager == manager)
+			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager == manager)
 			{
-				GameEntity gameEntity = this.hands[i].grabbedEntityManager.GetGameEntity(this.hands[i].grabbedEntityId);
+				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
 				if (gameEntity != null)
 				{
 					Action onReleased = gameEntity.OnReleased;
@@ -145,20 +153,7 @@ public class GamePlayer : MonoBehaviour
 						onReleased();
 					}
 				}
-				this.ClearGrabbed(i);
-			}
-			if (this.hands[i].snappedEntityId != GameEntityId.Invalid && this.hands[i].snappedEntityManager == manager)
-			{
-				GameEntity gameEntity2 = this.hands[i].snappedEntityManager.GetGameEntity(this.hands[i].snappedEntityId);
-				if (gameEntity2 != null)
-				{
-					Action onReleased2 = gameEntity2.OnReleased;
-					if (onReleased2 != null)
-					{
-						onReleased2();
-					}
-				}
-				this.ClearSnapped(i);
+				this.ClearSlot(i);
 			}
 		}
 		if (NetworkSystem.Instance.SessionIsPrivate)
@@ -169,9 +164,9 @@ public class GamePlayer : MonoBehaviour
 
 	public void ClearGrabbedIfHeld(GameEntityId gameBallId)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i <= 1; i++)
 		{
-			if (this.hands[i].grabbedEntityId == gameBallId)
+			if (this.slots[i].entityId == gameBallId)
 			{
 				this.ClearGrabbed(i);
 			}
@@ -180,11 +175,11 @@ public class GamePlayer : MonoBehaviour
 
 	public void ClearSnappedIfSnapped(GameEntityId gameBallId)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 2; i <= 3; i++)
 		{
-			if (this.hands[i].snappedEntityId == gameBallId)
+			if (this.slots[i].entityId == gameBallId)
 			{
-				this.ClearSnapped(i);
+				this.ClearSlot(i);
 			}
 		}
 	}
@@ -194,9 +189,9 @@ public class GamePlayer : MonoBehaviour
 		this.SetGrabbed(GameEntityId.Invalid, handIndex, null);
 	}
 
-	public void ClearSnapped(int handIndex)
+	public void ClearSlot(int slotIndex)
 	{
-		this.SetSnapped(GameEntityId.Invalid, handIndex, null);
+		this.SetSlot(slotIndex, GameEntityId.Invalid, null);
 	}
 
 	public bool IsGrabbingDisabled()
@@ -207,6 +202,11 @@ public class GamePlayer : MonoBehaviour
 	public void DisableGrabbing(bool disable)
 	{
 		this.grabbingDisabled = disable;
+	}
+
+	internal bool IsSlotOccupied(int slotIndex)
+	{
+		return this.slots[slotIndex].entityId.index != -1;
 	}
 
 	public bool IsHoldingEntity(GameEntityId gameEntityId, bool isLeftHand)
@@ -238,15 +238,11 @@ public class GamePlayer : MonoBehaviour
 	public IEnumerable<GameEntityId> IterateHeldAndSnappedItems(GameEntityManager manager)
 	{
 		int num;
-		for (int i = 0; i < 2; i = num)
+		for (int i = 0; i < 4; i = num)
 		{
-			if (this.hands[i].grabbedEntityId != GameEntityId.Invalid && this.hands[i].grabbedEntityManager == manager)
+			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager == manager)
 			{
-				yield return this.hands[i].grabbedEntityId;
-			}
-			if (this.hands[i].snappedEntityId != GameEntityId.Invalid && this.hands[i].snappedEntityManager == manager)
-			{
-				yield return this.hands[i].snappedEntityId;
+				yield return this.slots[i].entityId;
 			}
 			num = i + 1;
 		}
@@ -261,17 +257,12 @@ public class GamePlayer : MonoBehaviour
 	public IEnumerable<GameEntity> IterateHeldAndSnappedEntities(GameEntityManager ignoreEntitiesInManager = null)
 	{
 		int num;
-		for (int i = 0; i < 2; i = num)
+		for (int i = 0; i < 4; i = num)
 		{
-			if (this.hands[i].grabbedEntityId != GameEntityId.Invalid && this.hands[i].grabbedEntityManager != null && this.hands[i].grabbedEntityManager != ignoreEntitiesInManager)
+			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager != null && this.slots[i].entityManager != ignoreEntitiesInManager)
 			{
-				GameEntity gameEntity = this.hands[i].grabbedEntityManager.GetGameEntity(this.hands[i].grabbedEntityId);
+				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
 				yield return gameEntity;
-			}
-			if (this.hands[i].snappedEntityId != GameEntityId.Invalid && this.hands[i].snappedEntityManager != null && this.hands[i].snappedEntityManager != ignoreEntitiesInManager)
-			{
-				GameEntity gameEntity2 = this.hands[i].snappedEntityManager.GetGameEntity(this.hands[i].snappedEntityId);
-				yield return gameEntity2;
 			}
 			num = i + 1;
 		}
@@ -280,9 +271,9 @@ public class GamePlayer : MonoBehaviour
 
 	public void DeleteGrabbedEntityLocal(int handIndex)
 	{
-		if (this.hands[handIndex].grabbedEntityId != GameEntityId.Invalid && this.hands[handIndex].grabbedEntityManager != null)
+		if (this.slots[handIndex].entityId != GameEntityId.Invalid && this.slots[handIndex].entityManager != null)
 		{
-			GameEntity gameEntity = this.hands[handIndex].grabbedEntityManager.GetGameEntity(this.hands[handIndex].grabbedEntityId);
+			GameEntity gameEntity = this.slots[handIndex].entityManager.GetGameEntity(this.slots[handIndex].entityId);
 			if (gameEntity != null)
 			{
 				if (gameEntity != null)
@@ -293,7 +284,7 @@ public class GamePlayer : MonoBehaviour
 						onReleased();
 					}
 				}
-				this.hands[handIndex].grabbedEntityManager.DestroyItemLocal(this.hands[handIndex].grabbedEntityId);
+				this.slots[handIndex].entityManager.DestroyItemLocal(this.slots[handIndex].entityId);
 			}
 		}
 	}
@@ -301,34 +292,47 @@ public class GamePlayer : MonoBehaviour
 	public int MigrateToEntityManager(GameEntityManager newEntityManager)
 	{
 		int num = 0;
-		for (int i = 0; i < this.hands.Length; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			GameEntityId grabbedEntityId = this.hands[i].grabbedEntityId;
-			if (grabbedEntityId != GameEntityId.Invalid && this.hands[i].grabbedEntityManager != newEntityManager)
+			GameEntityId entityId = this.slots[i].entityId;
+			if (entityId != GameEntityId.Invalid && this.slots[i].entityManager != newEntityManager)
 			{
-				GameEntity gameEntity = this.hands[i].grabbedEntityManager.GetGameEntity(grabbedEntityId);
+				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(entityId);
 				if (gameEntity != null && gameEntity.IsValidToMigrate())
 				{
-					GameEntityId grabbedEntityId2 = gameEntity.MigrateToEntityManager(newEntityManager);
-					this.hands[i].grabbedEntityManager = newEntityManager;
-					this.hands[i].grabbedEntityId = grabbedEntityId2;
-					num++;
-				}
-			}
-			GameEntityId snappedEntityId = this.hands[i].snappedEntityId;
-			if (snappedEntityId != GameEntityId.Invalid && this.hands[i].snappedEntityManager != newEntityManager)
-			{
-				GameEntity gameEntity2 = this.hands[i].snappedEntityManager.GetGameEntity(snappedEntityId);
-				if (gameEntity2 != null && gameEntity2.IsValidToMigrate())
-				{
-					GameEntityId snappedEntityId2 = gameEntity2.MigrateToEntityManager(newEntityManager);
-					this.hands[i].snappedEntityManager = newEntityManager;
-					this.hands[i].snappedEntityId = snappedEntityId2;
+					GameEntityId entityId2 = gameEntity.MigrateToEntityManager(newEntityManager);
+					GamePlayer.SlotData slotData = this.slots[i];
+					slotData.entityManager = newEntityManager;
+					slotData.entityId = entityId2;
+					this.slots[i] = slotData;
 					num++;
 				}
 			}
 		}
 		return num;
+	}
+
+	internal bool IsInSlot(int slotIndex, int entityIndex)
+	{
+		return this.slots[slotIndex].entityId.index == entityIndex;
+	}
+
+	internal bool TryGetSlotData(int slotIndex, out GamePlayer.SlotData out_slotData)
+	{
+		out_slotData = this.slots[slotIndex];
+		return out_slotData.entityId.index != -1;
+	}
+
+	internal bool TryGetSlotEntity(int slotIndex, out GameEntity out_entity)
+	{
+		GamePlayer.SlotData slotData;
+		if (!this.TryGetSlotData(slotIndex, out slotData))
+		{
+			out_entity = null;
+			return false;
+		}
+		out_entity = slotData.entityManager.GetGameEntity(slotData.entityId);
+		return true;
 	}
 
 	public GameEntityId GetGameEntityId(bool isLeftHand)
@@ -338,47 +342,50 @@ public class GamePlayer : MonoBehaviour
 
 	public GameEntityId GetGrabbedGameEntityId(int handIndex)
 	{
-		if (handIndex < 0 || handIndex >= this.hands.Length)
+		if (handIndex < 0 || handIndex > 1)
 		{
 			return GameEntityId.Invalid;
 		}
-		return this.hands[handIndex].grabbedEntityId;
+		return this.slots[handIndex].entityId;
 	}
 
 	public GameEntityId GetGrabbedGameEntityIdAndManager(int handIndex, out GameEntityManager manager)
 	{
-		if (handIndex < 0 || handIndex >= this.hands.Length)
+		if (handIndex < 0 || handIndex > 1)
 		{
 			manager = null;
 			return GameEntityId.Invalid;
 		}
-		manager = this.hands[handIndex].grabbedEntityManager;
-		return this.hands[handIndex].grabbedEntityId;
+		manager = this.slots[handIndex].entityManager;
+		return this.slots[handIndex].entityId;
 	}
 
 	public GameEntity GetGrabbedGameEntity(int handIndex)
 	{
-		if (handIndex < 0 || handIndex >= this.hands.Length || this.hands[handIndex].grabbedEntityManager == null)
+		if (handIndex < 0 || handIndex > 1 || this.slots[handIndex].entityManager == null)
 		{
 			return null;
 		}
-		return this.hands[handIndex].grabbedEntityManager.GetGameEntity(this.GetGrabbedGameEntityId(handIndex));
+		return this.slots[handIndex].entityManager.GetGameEntity(this.GetGrabbedGameEntityId(handIndex));
 	}
 
-	public GameEntity GetSnappedGameEntity(int handIndex)
+	public int FindSlotIndex(GameEntityId entityId)
 	{
-		if (handIndex < 0 || handIndex >= this.hands.Length || this.hands[handIndex].snappedEntityManager == null)
+		int num = -1;
+		int num2 = 0;
+		while (num2 < 4 && num == -1)
 		{
-			return null;
+			num = ((this.slots[num2].entityId == entityId) ? num2 : -1);
+			num2++;
 		}
-		return this.hands[handIndex].snappedEntityManager.GetGameEntity(this.hands[handIndex].snappedEntityId);
+		return num;
 	}
 
-	public int FindHandIndex(GameEntityId gameBallId)
+	public int FindHandIndex(GameEntityId entityId)
 	{
-		for (int i = 0; i < this.hands.Length; i++)
+		for (int i = 0; i <= 1; i++)
 		{
-			if (this.hands[i].grabbedEntityId == gameBallId)
+			if (this.slots[i].entityId == entityId)
 			{
 				return i;
 			}
@@ -386,11 +393,11 @@ public class GamePlayer : MonoBehaviour
 		return -1;
 	}
 
-	public int FindSnapIndex(GameEntityId gameBallId)
+	public int FindSnapIndex(GameEntityId entityId)
 	{
-		for (int i = 0; i < this.hands.Length; i++)
+		for (int i = 2; i <= 3; i++)
 		{
-			if (this.hands[i].snappedEntityId == gameBallId)
+			if (this.slots[i].entityId == entityId)
 			{
 				return i;
 			}
@@ -398,23 +405,13 @@ public class GamePlayer : MonoBehaviour
 		return -1;
 	}
 
-	public GameEntityId GetGameBallId()
-	{
-		for (int i = 0; i < this.hands.Length; i++)
-		{
-			if (this.hands[i].grabbedEntityId.IsValid())
-			{
-				return this.hands[i].grabbedEntityId;
-			}
-		}
-		return GameEntityId.Invalid;
-	}
-
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool IsLeftHand(int handIndex)
 	{
 		return handIndex == 0;
 	}
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static int GetHandIndex(bool leftHand)
 	{
 		if (!leftHand)
@@ -482,14 +479,6 @@ public class GamePlayer : MonoBehaviour
 		return GamePlayer.TryGetGamePlayer(rigContainer.Rig, out out_gamePlayer);
 	}
 
-	[Obsolete("Method `GamePlayer.GetGamePlayer(VRRig)` is obsolete, use `TryGetGamePlayer(VRRig, out GamePlayer)` instead.")]
-	public static GamePlayer GetGamePlayer(VRRig rig)
-	{
-		GamePlayer result;
-		GamePlayer.TryGetGamePlayer(rig, out result);
-		return result;
-	}
-
 	public static bool TryGetGamePlayer(VRRig rig, out GamePlayer out_gamePlayer)
 	{
 		if (rig == null)
@@ -520,14 +509,32 @@ public class GamePlayer : MonoBehaviour
 		return null;
 	}
 
-	public static Transform GetHandTransform(VRRig rig, int handIndex)
+	public Transform GetHandTransform(int handIndex)
 	{
-		GamePlayer gamePlayer;
-		if (handIndex >= 0 && handIndex < 2 && GamePlayer.TryGetGamePlayer(rig, out gamePlayer))
+		if (handIndex < 0 || handIndex > 1)
 		{
-			return gamePlayer.handTransforms[handIndex];
+			return null;
 		}
-		return null;
+		return this.handTransforms[handIndex];
+	}
+
+	public bool TryGetSlotXform(int slotIndex, out Transform slotXform)
+	{
+		if (GamePlayer.IsGrabSlot(slotIndex))
+		{
+			slotXform = this.handTransforms[slotIndex];
+		}
+		else if (GamePlayer.IsSnapSlot(slotIndex))
+		{
+			SnapJointType snapIndexToJoint = GameSnappable.GetSnapIndexToJoint(slotIndex);
+			SuperInfectionSnapPoint superInfectionSnapPoint = (this.snapPointManager != null) ? this.snapPointManager.FindSnapPoint(snapIndexToJoint) : null;
+			slotXform = ((superInfectionSnapPoint != null) ? superInfectionSnapPoint.transform : null);
+		}
+		else
+		{
+			slotXform = null;
+		}
+		return slotXform != null;
 	}
 
 	public bool IsLocal()
@@ -537,16 +544,16 @@ public class GamePlayer : MonoBehaviour
 
 	public void SerializeNetworkState(BinaryWriter writer, NetPlayer player, GameEntityManager manager)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if (this.hands[i].grabbedEntityManager == manager)
+			if (this.slots[i].entityManager == manager)
 			{
-				int netIdFromEntityId = manager.GetNetIdFromEntityId(this.hands[i].grabbedEntityId);
+				int netIdFromEntityId = manager.GetNetIdFromEntityId(this.slots[i].entityId);
 				writer.Write(netIdFromEntityId);
 				long value = 0L;
 				if (netIdFromEntityId != -1)
 				{
-					GameEntity gameEntity = manager.GetGameEntity(this.hands[i].grabbedEntityId);
+					GameEntity gameEntity = manager.GetGameEntity(this.slots[i].entityId);
 					if (gameEntity != null)
 					{
 						value = BitPackUtils.PackHandPosRotForNetwork(gameEntity.transform.localPosition, gameEntity.transform.localRotation);
@@ -559,38 +566,16 @@ public class GamePlayer : MonoBehaviour
 				writer.Write(-1);
 				writer.Write(0L);
 			}
-			if (this.hands[i].snappedEntityManager == manager)
-			{
-				int netIdFromEntityId2 = manager.GetNetIdFromEntityId(this.hands[i].snappedEntityId);
-				writer.Write(netIdFromEntityId2);
-				long value2 = 0L;
-				if (netIdFromEntityId2 != -1)
-				{
-					GameEntity gameEntity2 = manager.GetGameEntity(this.hands[i].snappedEntityId);
-					if (gameEntity2 != null)
-					{
-						value2 = BitPackUtils.PackHandPosRotForNetwork(gameEntity2.transform.localPosition, gameEntity2.transform.localRotation);
-					}
-				}
-				writer.Write(value2);
-			}
-			else
-			{
-				writer.Write(-1);
-				writer.Write(0L);
-			}
 		}
 		writer.Write(this.AdditionalDataInitialized);
 	}
 
 	public static void DeserializeNetworkState(BinaryReader reader, GamePlayer gamePlayer, GameEntityManager manager)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			int num = reader.ReadInt32();
 			long num2 = reader.ReadInt64();
-			int num3 = reader.ReadInt32();
-			long num4 = reader.ReadInt64();
 			if (num != -1)
 			{
 				GameEntityId entityIdFromNetId = manager.GetEntityIdFromNetId(num);
@@ -604,26 +589,23 @@ public class GamePlayer : MonoBehaviour
 						BitPackUtils.UnpackHandPosRotFromNetwork(num2, out localPosition, out localRotation);
 						if (gamePlayer != null && gamePlayer.rig.OwningNetPlayer != null)
 						{
-							manager.GrabEntityOnCreate(entityIdFromNetId, GamePlayer.IsLeftHand(i), localPosition, localRotation, gamePlayer.rig.OwningNetPlayer);
-						}
-					}
-				}
-			}
-			if (num3 != -1)
-			{
-				GameEntityId entityIdFromNetId2 = manager.GetEntityIdFromNetId(num3);
-				if (entityIdFromNetId2.IsValid())
-				{
-					GameEntity gameEntity2 = manager.GetGameEntity(entityIdFromNetId2);
-					if (num4 != 0L && !(gameEntity2 == null))
-					{
-						Vector3 localPosition2;
-						Quaternion localRotation2;
-						BitPackUtils.UnpackHandPosRotFromNetwork(num4, out localPosition2, out localRotation2);
-						if (gamePlayer != null && gamePlayer.rig.OwningNetPlayer != null)
-						{
-							SnapJointType jointType = GamePlayer.IsLeftHand(i) ? SnapJointType.HandL : SnapJointType.HandR;
-							manager.SnapEntityOnCreate(entityIdFromNetId2, GamePlayer.IsLeftHand(i), localPosition2, localRotation2, (int)jointType, gamePlayer.rig.OwningNetPlayer);
+							if (GamePlayer.IsGrabSlot(i))
+							{
+								manager.GrabEntityOnCreate(entityIdFromNetId, GamePlayer.IsLeftHand(i), localPosition, localRotation, gamePlayer.rig.OwningNetPlayer);
+							}
+							else
+							{
+								int jointType = -1;
+								if (i == 2)
+								{
+									jointType = 1;
+								}
+								else if (i == 3)
+								{
+									jointType = 4;
+								}
+								manager.SnapEntityOnCreate(entityIdFromNetId, i == 2, localPosition, localRotation, jointType, gamePlayer.rig.OwningNetPlayer);
+							}
 						}
 					}
 				}
@@ -634,6 +616,24 @@ public class GamePlayer : MonoBehaviour
 		{
 			gamePlayer.SetInitializePlayer(initializePlayer);
 		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static bool IsSlot(int i)
+	{
+		return i >= 0 && i < 4;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static bool IsGrabSlot(int i)
+	{
+		return i >= 0 && i <= 1;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static bool IsSnapSlot(int i)
+	{
+		return i >= 2 && i <= 3;
 	}
 
 	internal static void InitializeStaticLookupCaches()
@@ -731,15 +731,31 @@ public class GamePlayer : MonoBehaviour
 
 	public SuperInfectionSnapPointManager snapPointManager;
 
-	private Transform[] handTransforms;
+	private readonly Transform[] handTransforms = new Transform[2];
 
-	private GamePlayer.HandData[] hands;
+	private readonly GamePlayer.SlotData[] slots = new GamePlayer.SlotData[4];
 
 	public const int MAX_HANDS = 2;
 
 	public const int LEFT_HAND = 0;
 
 	public const int RIGHT_HAND = 1;
+
+	public const int GRAB_SLOT_FIRST = 0;
+
+	public const int GRAB_SLOT_LAST = 1;
+
+	public const int SNAP_SLOTS_COUNT = 2;
+
+	public const int SNAP_SLOTS_FIRST = 2;
+
+	public const int SNAP_SLOTS_LAST = 3;
+
+	public const int SNAP_SLOT_HAND_L = 2;
+
+	public const int SNAP_SLOT_HAND_R = 3;
+
+	public const int SLOTS_COUNT = 4;
 
 	public CallLimiter newJoinZoneLimiter;
 
@@ -772,14 +788,10 @@ public class GamePlayer : MonoBehaviour
 
 	public const int INVALID_ACTOR_NUMBER = -2147483648;
 
-	private struct HandData
+	public struct SlotData
 	{
-		public GameEntityId grabbedEntityId;
+		public GameEntityId entityId;
 
-		public GameEntityManager grabbedEntityManager;
-
-		public GameEntityId snappedEntityId;
-
-		public GameEntityManager snappedEntityManager;
+		public GameEntityManager entityManager;
 	}
 }

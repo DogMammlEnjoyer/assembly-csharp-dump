@@ -32,10 +32,15 @@ public class Slingshot : ProjectileWeapon
 	{
 		base.OnSpawn(rig);
 		this.myRig = rig;
+		this.OnEnable();
 	}
 
 	internal override void OnEnable()
 	{
+		if (!base.IsSpawned)
+		{
+			return;
+		}
 		this.leftHandSnap = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapLeft).transform;
 		this.rightHandSnap = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapRight).transform;
 		this.currentState = TransferrableObject.PositionState.OnChest;
@@ -60,6 +65,10 @@ public class Slingshot : ProjectileWeapon
 
 	protected override void LateUpdateShared()
 	{
+		if (!base.IsSpawned)
+		{
+			return;
+		}
 		base.LateUpdateShared();
 		float num = Mathf.Abs(base.transform.lossyScale.x);
 		Vector3 vector;

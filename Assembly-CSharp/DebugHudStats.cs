@@ -174,7 +174,8 @@ public class DebugHudStats : MonoBehaviour
 			{
 				this.builder.AppendLine("Server Time Unavailable");
 			}
-			this.zones = GorillaTagger.Instance.offlineVRRig.zoneEntity.currentZone.ToString().ToUpperInvariant();
+			ZoneDef currentNode = GorillaTagger.Instance.offlineVRRig.zoneEntity.currentNode;
+			this.zones = ((currentNode != null) ? currentNode.gameObject.name.ToUpperInvariant() : null);
 			if (NetworkSystem.Instance.IsMasterClient)
 			{
 				this.builder.Append("H");

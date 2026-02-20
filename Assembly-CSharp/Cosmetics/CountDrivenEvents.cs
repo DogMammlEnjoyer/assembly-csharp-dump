@@ -275,7 +275,7 @@ namespace Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnCountChanged_SharedEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnCountChanged_SharedEvent");
 			if (!this.callLimiter.CheckCallTime(Time.time))
 			{
 				return;
@@ -345,7 +345,7 @@ namespace Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnCountReached_SharedEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnCountReached_SharedEvent");
 			if (!this.callLimiter.CheckCallTime(Time.time))
 			{
 				return;

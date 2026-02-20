@@ -221,7 +221,7 @@ namespace GorillaTagScripts
 				float num = 10000f;
 				if (_transformPos.IsValid(num) && _transformRot.IsValid() && info.Sender == NetworkSystem.Instance.MasterClient)
 				{
-					GorillaNot.IncrementRPCCall(info, "RespawnItemRPC");
+					MonkeAgent.IncrementRPCCall(info, "RespawnItemRPC");
 					this.itemsList[index].Respawn(_transformPos, _transformRot);
 					return;
 				}

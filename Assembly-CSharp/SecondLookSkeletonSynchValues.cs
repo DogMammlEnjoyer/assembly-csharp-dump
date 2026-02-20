@@ -140,7 +140,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		}
 		this.InvokeRpc = false;
 		IL_12:
-		GorillaNot.IncrementRPCCall(info, "RPC_RemoteActiveGhost");
+		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteActiveGhost");
 		if (!base.IsMine)
 		{
 			return;
@@ -191,7 +191,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		}
 		this.InvokeRpc = false;
 		IL_12:
-		GorillaNot.IncrementRPCCall(info, "RPC_RemotePlayerSeen");
+		MonkeAgent.IncrementRPCCall(info, "RPC_RemotePlayerSeen");
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Source);
 		if (!this.mySkeleton.playersSeen.Contains(player))
 		{
@@ -241,7 +241,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		}
 		this.InvokeRpc = false;
 		IL_12:
-		GorillaNot.IncrementRPCCall(info, "RPC_RemotePlayerCaught");
+		MonkeAgent.IncrementRPCCall(info, "RPC_RemotePlayerCaught");
 		if (!base.IsMine)
 		{
 			return;
@@ -256,7 +256,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 	[PunRPC]
 	public void RemoteActivateGhost(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RemoteActivateGhost");
+		MonkeAgent.IncrementRPCCall(info, "RemoteActivateGhost");
 		if (!base.IsMine)
 		{
 			return;
@@ -267,7 +267,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 	[PunRPC]
 	public void RemotePlayerSeen(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RemotePlayerSeen");
+		MonkeAgent.IncrementRPCCall(info, "RemotePlayerSeen");
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
 		if (!this.mySkeleton.playersSeen.Contains(player))
 		{
@@ -278,7 +278,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 	[PunRPC]
 	public void RemotePlayerCaught(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RemotePlayerCaught");
+		MonkeAgent.IncrementRPCCall(info, "RemotePlayerCaught");
 		if (!base.IsMine)
 		{
 			return;

@@ -99,7 +99,10 @@ namespace GorillaTag.Rendering
 			this.hasMainWaterSurfacePlane = (this.mainWaterSurfacePlane != null && (this.mainWaterSurfacePlane_overrideMode == ZoneShaderSettings.EOverrideMode.ApplyNewValue || this.isDefaultValues));
 			this.hasDynamicWaterSurfacePlane = (this.hasMainWaterSurfacePlane && !this.mainWaterSurfacePlane.gameObject.isStatic);
 			this.hasLiquidBottomTransform = (this.liquidBottomTransform != null && (this.liquidBottomTransform_overrideMode == ZoneShaderSettings.EOverrideMode.ApplyNewValue || this.isDefaultValues));
-			this.CheckDefaultsInstance();
+			if (!this.CheckDefaultsInstance())
+			{
+				return;
+			}
 			if (this._activateOnAwake)
 			{
 				this.BecomeActiveInstance(false);
@@ -211,11 +214,11 @@ namespace GorillaTag.Rendering
 			}
 		}
 
-		private void CheckDefaultsInstance()
+		private bool CheckDefaultsInstance()
 		{
 			if (!this.isDefaultValues)
 			{
-				return;
+				return true;
 			}
 			if (ZoneShaderSettings.hasDefaultsInstance && ZoneShaderSettings.defaultsInstance != null && ZoneShaderSettings.defaultsInstance != this)
 			{
@@ -229,11 +232,12 @@ namespace GorillaTag.Rendering
 					"\""
 				}), this);
 				Object.Destroy(base.gameObject);
-				return;
+				return false;
 			}
 			ZoneShaderSettings.defaultsInstance = this;
 			ZoneShaderSettings.hasDefaultsInstance = true;
 			this.BecomeActiveInstance(false);
+			return true;
 		}
 
 		public void BecomeActiveInstance(bool force = false)

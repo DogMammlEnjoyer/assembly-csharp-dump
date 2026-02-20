@@ -80,7 +80,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 	[PunRPC]
 	private void RequestRaceStart_RPC(int raceId, int laps, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestRaceStart_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestRaceStart_RPC");
 		if (!PhotonNetwork.IsMasterClient)
 		{
 			return;
@@ -98,7 +98,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 	[PunRPC]
 	private void RaceBeginCountdown_RPC(byte raceId, byte laps, double startTime, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RaceBeginCountdown_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RaceBeginCountdown_RPC");
 		if (!info.Sender.IsMasterClient)
 		{
 			return;
@@ -124,7 +124,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 	[PunRPC]
 	private void RaceLockInParticipants_RPC(byte raceId, int[] participantActorNumbers, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RaceLockInParticipants_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RaceLockInParticipants_RPC");
 		if (!info.Sender.IsMasterClient)
 		{
 			return;
@@ -158,7 +158,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 	[PunRPC]
 	private void PassCheckpoint_RPC(byte raceId, byte checkpointIndex, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "PassCheckpoint_RPC");
+		MonkeAgent.IncrementRPCCall(info, "PassCheckpoint_RPC");
 		if (raceId >= 0 && (int)raceId < this.races.Length)
 		{
 			this.races[(int)raceId].PassCheckpoint(info.Sender, (int)checkpointIndex, info.SentServerTime);
@@ -168,7 +168,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 	[PunRPC]
 	private void RaceEnded_RPC(byte raceId, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RaceEnded_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RaceEnded_RPC");
 		if (!info.Sender.IsMasterClient)
 		{
 			return;

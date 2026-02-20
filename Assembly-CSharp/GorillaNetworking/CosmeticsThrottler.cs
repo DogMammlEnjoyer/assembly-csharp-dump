@@ -90,42 +90,39 @@ namespace GorillaNetworking
 			float num2 = this.MaxDrawDistance * this.MaxDrawDistance;
 			for (int j = 0; j < this._rigHelpers.Length; j++)
 			{
-				if (this._rigHelpers[j].rig.cosmeticsObjectRegistry.isInitialized)
+				if (this._rigHelpers[j].sqrDistance >= 9999f)
 				{
-					if (this._rigHelpers[j].sqrDistance >= 9999f)
+					this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
+				}
+				else
+				{
+					if (this.DrawOnPlayerCount)
 					{
-						this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
+						if (j < this.DrawAllCount)
+						{
+							this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.All);
+							goto IL_293;
+						}
+						if (j >= this.DrawMaxCount)
+						{
+							this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
+							goto IL_293;
+						}
+					}
+					if (this._rigHelpers[j].sqrDistance <= num)
+					{
+						this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.All);
+					}
+					else if (this._rigHelpers[j].sqrDistance <= num2)
+					{
+						this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Partial);
 					}
 					else
 					{
-						if (this.DrawOnPlayerCount)
-						{
-							if (j < this.DrawAllCount)
-							{
-								this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.All);
-								goto IL_2B4;
-							}
-							if (j >= this.DrawMaxCount)
-							{
-								this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
-								goto IL_2B4;
-							}
-						}
-						if (this._rigHelpers[j].sqrDistance <= num)
-						{
-							this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.All);
-						}
-						else if (this._rigHelpers[j].sqrDistance <= num2)
-						{
-							this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Partial);
-						}
-						else
-						{
-							this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
-						}
+						this._rigHelpers[j] = this.UpdateRigState(this._rigHelpers[j], CosmeticsThrottler.RigDrawState.Min);
 					}
 				}
-				IL_2B4:;
+				IL_293:;
 			}
 		}
 

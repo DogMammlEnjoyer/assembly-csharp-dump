@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameSnappable : MonoBehaviour
@@ -30,8 +31,9 @@ public class GameSnappable : MonoBehaviour
 		{
 			return null;
 		}
-		SnapJointType snapJointType = GamePlayerLocal.IsLeftHand(heldByHandIndex) ? SnapJointType.HandL : SnapJointType.HandR;
-		SnapJointType snapJointType2 = GamePlayerLocal.IsLeftHand(heldByHandIndex) ? SnapJointType.ForearmL : SnapJointType.ForearmR;
+		bool flag = GamePlayer.IsLeftHand(heldByHandIndex);
+		SnapJointType snapJointType = flag ? SnapJointType.HandL : SnapJointType.HandR;
+		SnapJointType snapJointType2 = flag ? SnapJointType.ForearmL : SnapJointType.ForearmR;
 		List<SuperInfectionSnapPoint> snapPoints = GamePlayerLocal.instance.gamePlayer.snapPointManager.SnapPoints;
 		float num = float.MaxValue;
 		int num2 = -1;
@@ -91,8 +93,8 @@ public class GameSnappable : MonoBehaviour
 		{
 			return GameEntityId.Invalid;
 		}
-		SnapJointType snapJointType = GamePlayerLocal.IsLeftHand(heldByHandIndex) ? SnapJointType.HandL : SnapJointType.HandR;
-		SnapJointType snapJointType2 = GamePlayerLocal.IsLeftHand(heldByHandIndex) ? SnapJointType.ForearmL : SnapJointType.ForearmR;
+		SnapJointType snapJointType = GamePlayer.IsLeftHand(heldByHandIndex) ? SnapJointType.HandL : SnapJointType.HandR;
+		SnapJointType snapJointType2 = GamePlayer.IsLeftHand(heldByHandIndex) ? SnapJointType.ForearmL : SnapJointType.ForearmR;
 		List<SuperInfectionSnapPoint> snapPoints = GamePlayerLocal.instance.gamePlayer.snapPointManager.SnapPoints;
 		float num = float.MaxValue;
 		int num2 = -1;
@@ -158,6 +160,57 @@ public class GameSnappable : MonoBehaviour
 	public void OnUnsnap()
 	{
 		this.unsnapSound.Play(null);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool TryGetJointToSnapIndex(SnapJointType jointType, out int out_slot)
+	{
+		out_slot = GameSnappable.GetJointToSnapIndex(jointType);
+		return out_slot != -1;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static int GetJointToSnapIndex(SnapJointType jointType)
+	{
+		int result;
+		if (jointType != SnapJointType.HandL)
+		{
+			if (jointType != SnapJointType.HandR)
+			{
+				result = -1;
+			}
+			else
+			{
+				result = 3;
+			}
+		}
+		else
+		{
+			result = 2;
+		}
+		return result;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static SnapJointType GetSnapIndexToJoint(int snapIndex)
+	{
+		SnapJointType result;
+		if (snapIndex != 2)
+		{
+			if (snapIndex != 3)
+			{
+				result = SnapJointType.None;
+			}
+			else
+			{
+				result = SnapJointType.HandR;
+			}
+		}
+		else
+		{
+			result = SnapJointType.HandL;
+		}
+		return result;
 	}
 
 	public GameEntity gameEntity;

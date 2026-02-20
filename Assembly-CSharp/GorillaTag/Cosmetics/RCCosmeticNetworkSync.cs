@@ -16,7 +16,7 @@ namespace GorillaTag.Cosmetics
 			}
 			if (info.Sender != base.photonView.Owner || base.photonView.IsRoomView)
 			{
-				GorillaNot.instance.SendReport("spoofed rc instantiate", info.Sender.UserId, info.Sender.NickName);
+				MonkeAgent.instance.SendReport("spoofed rc instantiate", info.Sender.UserId, info.Sender.NickName);
 				this.DestroyThis();
 				return;
 			}
@@ -84,11 +84,11 @@ namespace GorillaTag.Cosmetics
 		[PunRPC]
 		public void HitRCVehicleRPC(Vector3 hitVelocity, bool isProjectile, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "HitRCVehicleRPC");
+			MonkeAgent.IncrementRPCCall(info, "HitRCVehicleRPC");
 			float num = 10000f;
 			if (!hitVelocity.IsValid(num))
 			{
-				GorillaNot.instance.SendReport("nan rc hit", info.Sender.UserId, info.Sender.NickName);
+				MonkeAgent.instance.SendReport("nan rc hit", info.Sender.UserId, info.Sender.NickName);
 				return;
 			}
 			if (this.rcRemote != null && this.rcRemote.Vehicle != null)

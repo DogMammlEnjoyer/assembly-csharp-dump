@@ -61,7 +61,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void RequestRoomInitialization_RPC(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestRoomInitialization_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestRoomInitialization_RPC");
 		if (!NetworkSystem.Instance.IsMasterClient)
 		{
 			return;
@@ -85,7 +85,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void InitializeRoom_RPC(int currentScreen, int driverID, long modDetailsID, long loadedMapModID, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "InitializeRoom_RPC");
+		MonkeAgent.IncrementRPCCall(info, "InitializeRoom_RPC");
 		if (!info.Sender.IsMasterClient || !VirtualStumpSerializer.waitingForRoomInitialization)
 		{
 			return;
@@ -129,7 +129,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void SetRoomMap_RPC(long modId, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SetRoomMap_RPC");
+		MonkeAgent.IncrementRPCCall(info, "SetRoomMap_RPC");
 		if (modId <= 0L)
 		{
 			return;
@@ -148,7 +148,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void UnloadMap_RPC(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "UnloadMap_RPC");
+		MonkeAgent.IncrementRPCCall(info, "UnloadMap_RPC");
 		if (info.Sender.ActorNumber != CustomMapsTerminal.GetDriverID())
 		{
 			return;
@@ -175,7 +175,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void RequestTerminalControlStatusChange_RPC(bool lockedStatus, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestTerminalControlStatusChange_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestTerminalControlStatusChange_RPC");
 		if (!NetworkSystem.Instance.IsMasterClient)
 		{
 			return;
@@ -208,7 +208,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void SetTerminalControlStatus_RPC(bool locked, int driverID, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SetTerminalControlStatus_RPC");
+		MonkeAgent.IncrementRPCCall(info, "SetTerminalControlStatus_RPC");
 		if (!info.Sender.IsMasterClient)
 		{
 			return;
@@ -254,7 +254,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void UpdateScreen_RPC(int currentScreen, long modDetailsID, int driverID, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "UpdateScreen_RPC");
+		MonkeAgent.IncrementRPCCall(info, "UpdateScreen_RPC");
 		if (info.Sender.ActorNumber != CustomMapsTerminal.GetDriverID() || !CustomMapManager.IsRemotePlayerInVirtualStump(info.Sender.UserId))
 		{
 			return;
@@ -288,7 +288,7 @@ internal class VirtualStumpSerializer : GorillaSerializer
 	[PunRPC]
 	private void RefreshDriverNickName_RPC(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RefreshDriverNickName_RPC");
+		MonkeAgent.IncrementRPCCall(info, "RefreshDriverNickName_RPC");
 		if (info.Sender.ActorNumber != CustomMapsTerminal.GetDriverID())
 		{
 			return;

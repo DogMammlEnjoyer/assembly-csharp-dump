@@ -342,7 +342,7 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 		{
 			if (this.grabbedPlayer != null && this.grabbedPlayer.IsLocal)
 			{
-				(grabbedHandIsLeft ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink).BreakLink();
+				(this.grabbedHandIsLeft ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink).BreakLink();
 			}
 			bool flag = this.grabbedPlayer != null;
 			this.grabbedPlayer = null;

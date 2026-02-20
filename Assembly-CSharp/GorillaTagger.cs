@@ -312,6 +312,10 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 	{
 		GorillaTagger.<>c__DisplayClass159_0 CS$<>8__locals1;
 		CS$<>8__locals1.<>4__this = this;
+		if (ApplicationQuittingState.IsQuitting)
+		{
+			return;
+		}
 		if (this.isGameOverlayActive)
 		{
 			if (this.leftHandTriggerCollider.activeSelf)

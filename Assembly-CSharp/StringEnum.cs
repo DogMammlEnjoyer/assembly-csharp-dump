@@ -50,6 +50,12 @@ public struct StringEnum<TEnum> where TEnum : struct, Enum
 		return this.m_EnumValue.GetHashCode();
 	}
 
+	public override string ToString()
+	{
+		TEnum value = this.Value;
+		return value.ToString();
+	}
+
 	[SerializeField]
 	private TEnum m_EnumValue;
 }

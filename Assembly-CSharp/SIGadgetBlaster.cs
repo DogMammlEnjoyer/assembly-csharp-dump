@@ -109,7 +109,7 @@ public class SIGadgetBlaster : SIGadget, ITickSystemTick
 	public bool CheckInput()
 	{
 		float sensitivity = this.wasActivated ? this.inputActivateThreshold : this.inputDeactivateThreshold;
-		this.wasActivated = this.buttonActivatable.CheckInput(true, true, sensitivity, true, true);
+		this.wasActivated = this.buttonActivatable.CheckInput(sensitivity);
 		return this.wasActivated;
 	}
 

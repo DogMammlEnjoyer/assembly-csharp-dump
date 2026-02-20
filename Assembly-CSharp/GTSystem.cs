@@ -6,7 +6,7 @@ using Photon.Pun;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public abstract class GTSystem<T> : MonoBehaviour, IReadOnlyList<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T> where T : MonoBehaviour
+public abstract class GTSystem<T> : MonoBehaviour, IReadOnlyList<T>, IEnumerable<!0>, IEnumerable, IReadOnlyCollection<T> where T : MonoBehaviour
 {
 	public PhotonView photonView
 	{

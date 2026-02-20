@@ -158,7 +158,7 @@ public class GhostLabReliableState : NetworkComponent
 		}
 		this.InvokeRpc = false;
 		IL_12:
-		GorillaNot.IncrementRPCCall(info, "RPC_RemoteEntranceDoorState");
+		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteEntranceDoorState");
 		if (!base.IsMine)
 		{
 			return;
@@ -211,7 +211,7 @@ public class GhostLabReliableState : NetworkComponent
 		}
 		this.InvokeRpc = false;
 		IL_12:
-		GorillaNot.IncrementRPCCall(info, "RPC_RemoteSingleDoorState");
+		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteSingleDoorState");
 		if (!base.IsMine)
 		{
 			return;
@@ -226,7 +226,7 @@ public class GhostLabReliableState : NetworkComponent
 	[PunRPC]
 	public void RemoteEntranceDoorState(GhostLab.EntranceDoorsState newState, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RemoteEntranceDoorState");
+		MonkeAgent.IncrementRPCCall(info, "RemoteEntranceDoorState");
 		if (!base.IsMine)
 		{
 			return;
@@ -237,7 +237,7 @@ public class GhostLabReliableState : NetworkComponent
 	[PunRPC]
 	public void RemoteSingleDoorState(int doorIndex, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RemoteSingleDoorState");
+		MonkeAgent.IncrementRPCCall(info, "RemoteSingleDoorState");
 		if (!base.IsMine)
 		{
 			return;

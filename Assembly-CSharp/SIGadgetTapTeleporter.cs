@@ -71,7 +71,7 @@ public class SIGadgetTapTeleporter : SIGadget
 	private void HandleOnHandTap(bool isLeft, Vector3 position, Vector3 normal)
 	{
 		bool flag;
-		if (base.FindAttachedHand(out flag, true, true) && isLeft == flag && this.isActivated)
+		if (base.FindAttachedHand(out flag) && isLeft == flag && this.isActivated)
 		{
 			this.PlaceTapTeleporter(position, normal);
 		}
@@ -103,7 +103,7 @@ public class SIGadgetTapTeleporter : SIGadget
 
 	protected override void OnUpdateAuthority(float dt)
 	{
-		this.isActivated = this.buttonActivatable.CheckInput(true, true, 0.25f, true, true);
+		this.isActivated = this.buttonActivatable.CheckInput(0.25f);
 		if (this.nextPlacementDelay > 0f)
 		{
 			this.nextPlacementDelay -= dt;

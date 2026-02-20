@@ -53,7 +53,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 
 	private void ReportRPCCall(MonkeBallGame.RPC rpcCall, PhotonMessageInfo info, string susReason)
 	{
-		GorillaNot.instance.SendReport(string.Format("Reason: {0}   RPC: {1}", susReason, rpcCall), info.Sender.UserId, info.Sender.NickName);
+		MonkeAgent.instance.SendReport(string.Format("Reason: {0}   RPC: {1}", susReason, rpcCall), info.Sender.UserId, info.Sender.NickName);
 	}
 
 	protected override void Start()
@@ -279,7 +279,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SetGameStateRPC");
+		MonkeAgent.IncrementRPCCall(info, "SetGameStateRPC");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.SetGameState, info))
 		{
 			return;
@@ -351,7 +351,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "RequestSetGameStateRPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestSetGameStateRPC");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.RequestSetGameState, info))
 		{
 			return;
@@ -451,7 +451,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 	[PunRPC]
 	private void RequestResetGameRPC(PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestResetGameRPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestResetGameRPC");
 		if (!this.IsMasterClient())
 		{
 			return;
@@ -502,7 +502,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SetResetButtonRPC");
+		MonkeAgent.IncrementRPCCall(info, "SetResetButtonRPC");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.SetResetButton, info))
 		{
 			return;
@@ -606,7 +606,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SetScoreRPC");
+		MonkeAgent.IncrementRPCCall(info, "SetScoreRPC");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.SetScore, info))
 		{
 			return;
@@ -740,7 +740,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 	[PunRPC]
 	private void RequestSetTeamRPC(int teamId, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "RequestSetTeamRPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestSetTeamRPC");
 		if (!this.IsMasterClient())
 		{
 			return;
@@ -768,7 +768,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SetTeamRPC");
+		MonkeAgent.IncrementRPCCall(info, "SetTeamRPC");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.SetTeam, info))
 		{
 			return;
@@ -907,7 +907,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		GorillaNot.IncrementRPCCall(info, "SetRestrictBallToTeam");
+		MonkeAgent.IncrementRPCCall(info, "SetRestrictBallToTeam");
 		if (!this.ValidateCallLimits(MonkeBallGame.RPC.SetRestrictBallToTeam, info))
 		{
 			return;

@@ -101,7 +101,7 @@ namespace GorillaTagScripts.ScavengerHunt
 			}
 			if (!hunt.Targets.Contains(target))
 			{
-				hunt.Targets.Add(target);
+				hunt.RegisterTarget(target);
 			}
 		}
 
@@ -174,9 +174,15 @@ namespace GorillaTagScripts.ScavengerHunt
 					ScavengerTarget target = hunt2.GetTarget(text);
 					if (target == null)
 					{
-						throw new Exception("Cannot import scavenger data, no hunt/target by name " + keyValuePair.Key + "." + text);
+						if (!hunt2.Deprecated)
+						{
+							throw new Exception("Cannot import scavenger data, no hunt/target by name " + keyValuePair.Key + "." + text);
+						}
 					}
-					hunt2.Collect(target, true);
+					else
+					{
+						hunt2.Collect(target, true);
+					}
 				}
 			}
 			int num = this.Hunts.Sum((ScavengerManager.Hunt hunt) => hunt.Targets.Count);
@@ -199,7 +205,7 @@ namespace GorillaTagScripts.ScavengerHunt
 				}
 			}
 
-			public List<ScavengerTarget> Targets
+			public IReadOnlyList<ScavengerTarget> Targets
 			{
 				get
 				{
@@ -264,8 +270,33 @@ namespace GorillaTagScripts.ScavengerHunt
 				return false;
 			}
 
+			public void RegisterTarget(ScavengerTarget target)
+			{
+				if (this.Targets.Contains(target))
+				{
+					return;
+				}
+				if (!this.TargetNames.Contains(target.TargetName))
+				{
+					Debug.LogError(string.Concat(new string[]
+					{
+						"Scavenger hunt ",
+						this.Name,
+						" tried to register target ",
+						target.TargetName,
+						" even though it is not defined in the hunt in ScavengerManager."
+					}));
+					return;
+				}
+				this._targets.Add(target);
+			}
+
 			private void SendTargetCollectedEvents(ScavengerTarget target)
 			{
+				if (this.Deprecated)
+				{
+					return;
+				}
 				this.TargetCollected.InvokeAll();
 				this.TargetCollectedArg.InvokeAll(target);
 				target.TargetCollected.InvokeAll();
@@ -274,6 +305,10 @@ namespace GorillaTagScripts.ScavengerHunt
 
 			private void SendHuntCompletedEvents()
 			{
+				if (this.Deprecated)
+				{
+					return;
+				}
 				this.HuntCompleted.InvokeAll();
 				this.HuntCompletedArg.InvokeAll(this);
 			}
@@ -306,6 +341,10 @@ namespace GorillaTagScripts.ScavengerHunt
 			public bool SendTargetCollectedEventsOnLoad;
 
 			public bool SendHuntCompletedEventsOnLoad;
+
+			public bool Deprecated;
+
+			public string[] TargetNames = new string[0];
 
 			public UnityEvent[] TargetCollected = new UnityEvent[0];
 

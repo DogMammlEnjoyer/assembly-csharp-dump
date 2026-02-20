@@ -53,21 +53,16 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 			this.remainingRechargeTime = Mathf.Max(this.remainingRechargeTime - dt, 0f);
 			int num2 = Mathf.CeilToInt(this.remainingRechargeTime / this.chargeRecoveryTime);
 			this.chargeDisplay.UpdateDisplay(this.maxCharges - num2);
-			if (num2 != num && this.IsEquippedLocal())
+			if (num2 != num && this.gameEntity.IsHeldOrSnappedByLocalPlayer)
 			{
 				this.rechargeSFX.Play();
 				bool forLeftController;
-				if (base.FindAttachedHand(out forLeftController, true, true))
+				if (base.FindAttachedHand(out forLeftController))
 				{
 					GorillaTagger.Instance.StartVibration(forLeftController, GorillaTagger.Instance.tapHapticStrength * 0.5f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
 				}
 			}
 		}
-	}
-
-	protected override bool IsEquippedLocal()
-	{
-		return (this.canActivateWhileHeld && this.gameEntity.IsHeldByLocalPlayer()) || this.gameEntity.IsSnappedByLocalPlayer();
 	}
 
 	protected override void OnUpdateAuthority(float dt)
@@ -133,7 +128,7 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 
 	private bool CheckInitInputs()
 	{
-		if (!this.buttonActivatable.CheckInput(this.canActivateWhileHeld, true, this.inputSensitivity, true, true))
+		if (!this.buttonActivatable.CheckInput(this.inputSensitivity))
 		{
 			return false;
 		}
@@ -149,7 +144,7 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 
 	private bool CheckReleaseInputs()
 	{
-		return !this.buttonActivatable.CheckInput(this.canActivateWhileHeld, true, this.inputSensitivity, true, true);
+		return !this.buttonActivatable.CheckInput(this.inputSensitivity);
 	}
 
 	private bool IsChargeAvailable()
@@ -175,7 +170,7 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 			return;
 		}
 		int num = gamePlayer.FindSnapIndex(this.gameEntity.id);
-		if (num == -1 && this.canActivateWhileHeld)
+		if (num == -1)
 		{
 			num = gamePlayer.FindHandIndex(this.gameEntity.id);
 		}
@@ -436,7 +431,7 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 	private bool TryGetGamePlayer(out GamePlayer player)
 	{
 		player = null;
-		return GamePlayer.TryGetGamePlayer(this.gameEntity.snappedByActorNumber, out player) || (this.canActivateWhileHeld && GamePlayer.TryGetGamePlayer(this.gameEntity.heldByActorNumber, out player));
+		return GamePlayer.TryGetGamePlayer(this.gameEntity.snappedByActorNumber, out player) || GamePlayer.TryGetGamePlayer(this.gameEntity.heldByActorNumber, out player);
 	}
 
 	public override void ApplyUpgradeNodes(SIUpgradeSet withUpgrades)
@@ -480,9 +475,6 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 	private GameObject platformPrefab;
 
 	[Header("Activation")]
-	[SerializeField]
-	private bool canActivateWhileHeld = true;
-
 	[SerializeField]
 	private bool isInstancePlace;
 

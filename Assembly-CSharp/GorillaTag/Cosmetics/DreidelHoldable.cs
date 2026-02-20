@@ -44,7 +44,7 @@ namespace GorillaTag.Cosmetics
 
 		private void OnDreidelSpin(int sender, int target, object[] args, PhotonMessageInfoWrapped info)
 		{
-			GorillaNot.IncrementRPCCall(info, "OnDreidelSpin");
+			MonkeAgent.IncrementRPCCall(info, "OnDreidelSpin");
 			if (sender != target)
 			{
 				return;

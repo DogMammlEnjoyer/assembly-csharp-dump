@@ -231,7 +231,7 @@ namespace GorillaTag
 		[PunRPC]
 		public void SpawnSodaBubbleRPC(Vector2 surfacePosLocal, float spawnSize, float lifetime, double spawnTime, PhotonMessageInfo info)
 		{
-			GorillaNot.IncrementRPCCall(info, "SpawnSodaBubbleRPC");
+			MonkeAgent.IncrementRPCCall(info, "SpawnSodaBubbleRPC");
 			if (info.Sender == PhotonNetwork.MasterClient)
 			{
 				if (!float.IsFinite(spawnSize) || !float.IsFinite(lifetime) || !double.IsFinite(spawnTime))

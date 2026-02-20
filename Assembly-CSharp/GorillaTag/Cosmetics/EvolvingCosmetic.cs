@@ -196,7 +196,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "ReceiveElapsedTime");
+			MonkeAgent.IncrementRPCCall(info, "ReceiveElapsedTime");
 			if (info.senderID == this.myRig.creator.ActorNumber && this.callLimiter.CheckCallServerTime((double)Time.unscaledTime) && args.Length == 1)
 			{
 				object obj = args[0];

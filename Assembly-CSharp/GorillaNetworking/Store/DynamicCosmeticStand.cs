@@ -63,6 +63,10 @@ namespace GorillaNetworking.Store
 				this.AsyncAddStandToStoreController();
 				yield break;
 			}
+			while (Application.isPlaying && (!CosmeticsController.hasInstance || !CosmeticsController.instance.v2_allCosmeticsInfoAssetRef_isLoaded))
+			{
+				yield return null;
+			}
 			this._AddStandToStoreController();
 			yield break;
 		}

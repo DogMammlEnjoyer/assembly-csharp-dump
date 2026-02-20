@@ -99,26 +99,6 @@ namespace GorillaNetworking
 			}, successCallback, errorCallback, null, null);
 		}
 
-		public bool NewCosmeticsPath()
-		{
-			return this.featureFlags.IsEnabledForUser("2024-06-CosmeticsAuthenticationV2");
-		}
-
-		public bool NewCosmeticsPathShouldSetSharedGroupData()
-		{
-			return this.featureFlags.IsEnabledForUser("2025-04-CosmeticsAuthenticationV2-SetData");
-		}
-
-		public bool NewCosmeticsPathShouldReadSharedGroupData()
-		{
-			return this.featureFlags.IsEnabledForUser("2025-04-CosmeticsAuthenticationV2-ReadData");
-		}
-
-		public bool NewCosmeticsPathShouldSetRoomData()
-		{
-			return this.featureFlags.IsEnabledForUser("2025-04-CosmeticsAuthenticationV2-Compat");
-		}
-
 		public void UpdateUserCosmetics()
 		{
 			ExecuteFunctionRequest executeFunctionRequest = new ExecuteFunctionRequest();

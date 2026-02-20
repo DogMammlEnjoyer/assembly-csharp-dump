@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GorillaLocomotion;
+using GorillaTag;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -45,13 +46,7 @@ public class SIQuestBoard : MonoBehaviour, IGorillaSliceableSimple
 			dateTime = dateTime.AddDays(1.0);
 		}
 		TimeSpan timeSpan = dateTime - utcNow;
-		if (this.lastHours != timeSpan.Hours || this.lastMinutes != timeSpan.Minutes || this.lastSeconds != timeSpan.Seconds)
-		{
-			this.timeToNewQuests.text = "NEW QUESTS IN: " + timeSpan.ToString("hh\\:mm\\:ss");
-		}
-		this.lastHours = timeSpan.Hours;
-		this.lastMinutes = timeSpan.Minutes;
-		this.lastSeconds = timeSpan.Seconds;
+		GTTime.TryUpdateTimeText(this.timeToNewQuests, timeSpan, SIQuestBoard._timeToNewQuests_chars, 15, ref SIQuestBoard._lastTotalSeconds);
 	}
 
 	private void AuthorityUpdateScreenAssignments()
@@ -142,10 +137,30 @@ public class SIQuestBoard : MonoBehaviour, IGorillaSliceableSimple
 
 	public void CheatRoomFX_Underwater()
 	{
-		this.StartRoomFX(this.roomFXDurations[this.currentDuration]);
+		this.StartRoomFX(SuperInfectionManager.RoomFXType.Underwater, this.roomFXDurations[this.currentDuration]);
 	}
 
-	public void StartRoomFX(float duration)
+	public void CheatRoomFX_LunarMode()
+	{
+		this.StartRoomFX(SuperInfectionManager.RoomFXType.LunarMode, this.roomFXDurations[this.currentDuration]);
+	}
+
+	public void CheatRoomFX_ConstLowG()
+	{
+		this.StartRoomFX(SuperInfectionManager.RoomFXType.ConstLowG, this.roomFXDurations[this.currentDuration]);
+	}
+
+	public void CheatRoomFX_Bouncy()
+	{
+		this.StartRoomFX(SuperInfectionManager.RoomFXType.Bouncy, this.roomFXDurations[this.currentDuration]);
+	}
+
+	public void CheatRoomFX_Supercharge()
+	{
+		this.StartRoomFX(SuperInfectionManager.RoomFXType.Supercharge, this.roomFXDurations[this.currentDuration]);
+	}
+
+	public void StartRoomFX(SuperInfectionManager.RoomFXType fxType, float duration)
 	{
 	}
 
@@ -161,11 +176,11 @@ public class SIQuestBoard : MonoBehaviour, IGorillaSliceableSimple
 
 	public TextMeshProUGUI timeToNewQuests;
 
-	private int lastHours;
+	private static readonly char[] _timeToNewQuests_chars = "NEW QUESTS IN: ??:??:??".ToCharArray();
 
-	private int lastMinutes;
+	private const int _timeToNewQuests_index = 15;
 
-	private int lastSeconds;
+	private static int _lastTotalSeconds;
 
 	private Dictionary<SIQuestBoard.RoomFXDurationState, float> roomFXDurations = new Dictionary<SIQuestBoard.RoomFXDurationState, float>
 	{

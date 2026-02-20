@@ -145,7 +145,7 @@ public class BodyDockPositions : MonoBehaviour
 		}
 		for (int i = 0; i < this.myRig.ActiveTransferrableObjectIndexLength(); i++)
 		{
-			if (this.myRig.ActiveTransferrableObjectIndex(i) >= 0 && this.allObjects[this.myRig.ActiveTransferrableObjectIndex(i)].gameObject.activeInHierarchy && this.allObjects[this.myRig.ActiveTransferrableObjectIndex(i)].storedZone == dropPosition)
+			if (this.myRig.ActiveTransferrableObjectIndex(i) >= 0 && this.allObjects[this.myRig.ActiveTransferrableObjectIndex(i)] != null && this.allObjects[this.myRig.ActiveTransferrableObjectIndex(i)].gameObject.activeInHierarchy && this.allObjects[this.myRig.ActiveTransferrableObjectIndex(i)].storedZone == dropPosition)
 			{
 				return this.myRig.ActiveTransferrableObjectIndex(i);
 			}
@@ -231,7 +231,7 @@ public class BodyDockPositions : MonoBehaviour
 		{
 			return BodyDockPositions.DropPositions.None;
 		}
-		if (!component.allObjects[allItemsIndex].gameObject.activeSelf)
+		if (component.allObjects[allItemsIndex] == null || !component.allObjects[allItemsIndex].gameObject.activeSelf)
 		{
 			return BodyDockPositions.DropPositions.None;
 		}
@@ -260,18 +260,21 @@ public class BodyDockPositions : MonoBehaviour
 
 	public void DisableAllTransferableItems()
 	{
-		if (!CosmeticsV2Spawner_Dirty.allPartsInstantiated)
-		{
-			return;
-		}
 		for (int i = 0; i < this.myRig.ActiveTransferrableObjectIndexLength(); i++)
 		{
 			int num = this.myRig.ActiveTransferrableObjectIndex(i);
 			if (num >= 0 && num < this.allObjects.Length)
 			{
 				TransferrableObject transferrableObject = this.allObjects[num];
-				transferrableObject.gameObject.Disable();
-				transferrableObject.storedZone = BodyDockPositions.DropPositions.None;
+				if (transferrableObject != null)
+				{
+					GameObject gameObject = transferrableObject.gameObject;
+					if (gameObject != null)
+					{
+						gameObject.Disable();
+					}
+					transferrableObject.storedZone = BodyDockPositions.DropPositions.None;
+				}
 				this.myRig.SetActiveTransferrableObjectIndex(i, -1);
 				this.myRig.SetTransferrableItemStates(i, (TransferrableObject.ItemStates)0);
 				this.myRig.SetTransferrablePosStates(i, TransferrableObject.PositionState.None);
@@ -525,6 +528,10 @@ public class BodyDockPositions : MonoBehaviour
 
 	public void EnableTransferrableGameObject(int allItemsIndex, BodyDockPositions.DropPositions dropZone, TransferrableObject.PositionState startingPosition)
 	{
+		if (this.allObjects[allItemsIndex] == null)
+		{
+			return;
+		}
 		GameObject gameObject = this.allObjects[allItemsIndex].gameObject;
 		TransferrableObject component = gameObject.GetComponent<TransferrableObject>();
 		if ((component.dockPositions & dropZone) == BodyDockPositions.DropPositions.None || !component.ValidateState(startingPosition))
@@ -555,7 +562,6 @@ public class BodyDockPositions : MonoBehaviour
 		this.objectsToDisable.Clear();
 		for (int i = 0; i < this.myRig.ActiveTransferrableObjectIndexLength(); i++)
 		{
-			bool flag = true;
 			int num = this.myRig.ActiveTransferrableObjectIndex(i);
 			if (num != -1)
 			{
@@ -563,38 +569,44 @@ public class BodyDockPositions : MonoBehaviour
 				{
 					Debug.LogError(string.Format("Transferrable object index {0} out of range, expected [0..{1})", num, this.allObjects.Length));
 				}
-				else if (this.myRig.IsItemAllowed(CosmeticsController.instance.GetItemNameFromDisplayName(this.allObjects[num].gameObject.name)))
+				else
 				{
-					for (int j = 0; j < this.allObjects.Length; j++)
+					VRRig vrrig = this.myRig;
+					CosmeticsController instance = CosmeticsController.instance;
+					TransferrableObject transferrableObject = this.allObjects[num];
+					if (vrrig.IsItemAllowed(instance.GetItemNameFromDisplayName((transferrableObject != null) ? transferrableObject.gameObject.name : null)))
 					{
-						if (j == this.myRig.ActiveTransferrableObjectIndex(i) && this.allObjects[j].gameObject.activeSelf)
+						int num2 = this.myRig.ActiveTransferrableObjectIndex(i);
+						if (!(this.allObjects[num2] == null))
 						{
-							this.allObjects[j].objectIndex = i;
-							flag = false;
+							if (this.allObjects[num2].gameObject.activeSelf)
+							{
+								this.allObjects[num2].objectIndex = i;
+							}
+							else
+							{
+								this.objectsToEnable.Add(i);
+							}
 						}
-					}
-					if (flag)
-					{
-						this.objectsToEnable.Add(i);
 					}
 				}
 			}
 		}
-		for (int k = 0; k < this.allObjects.Length; k++)
+		for (int j = 0; j < this.allObjects.Length; j++)
 		{
-			if (this.allObjects[k] != null && this.allObjects[k].gameObject.activeSelf)
+			if (this.allObjects[j] != null && this.allObjects[j].gameObject.activeSelf)
 			{
-				bool flag2 = true;
-				for (int l = 0; l < this.myRig.ActiveTransferrableObjectIndexLength(); l++)
+				bool flag = true;
+				for (int k = 0; k < this.myRig.ActiveTransferrableObjectIndexLength(); k++)
 				{
-					if (this.myRig.ActiveTransferrableObjectIndex(l) == k && this.myRig.IsItemAllowed(CosmeticsController.instance.GetItemNameFromDisplayName(this.allObjects[this.myRig.ActiveTransferrableObjectIndex(l)].gameObject.name)))
+					if (this.myRig.ActiveTransferrableObjectIndex(k) == j && this.myRig.IsItemAllowed(CosmeticsController.instance.GetItemNameFromDisplayName(this.allObjects[this.myRig.ActiveTransferrableObjectIndex(k)].gameObject.name)))
 					{
-						flag2 = false;
+						flag = false;
 					}
 				}
-				if (flag2)
+				if (flag)
 				{
-					this.objectsToDisable.Add(k);
+					this.objectsToDisable.Add(j);
 				}
 			}
 		}
@@ -693,17 +705,24 @@ public class BodyDockPositions : MonoBehaviour
 		{
 			GameObject[] array = (i == 0) ? this.leftHandThrowables : this.rightHandThrowables;
 			int num = (i == 0) ? this.myRig.LeftThrowableProjectileIndex : this.myRig.RightThrowableProjectileIndex;
+			string itemName;
+			if (num > -1 && CosmeticsV2Spawner_Dirty.GetPlayfabIdFromThrowableIndex(i == 0, num, out itemName))
+			{
+				this.myRig.cosmeticsObjectRegistry.Cosmetic(itemName);
+			}
 			for (int j = 0; j < array.Length; j++)
 			{
 				GameObject gameObject = array[j];
-				gameObject == null;
-				bool activeSelf = gameObject.activeSelf;
-				bool flag = j == num;
-				array[j].SetActive(flag);
-				if (activeSelf && !flag)
+				if (!(gameObject == null))
 				{
-					this.throwableDisabledIndex[i] = j;
-					this.throwableDisabledTime[i] = Time.time + 0.02f;
+					bool activeSelf = gameObject.activeSelf;
+					bool flag = gameObject.GetComponent<SnowballThrowable>().throwableMakerIndex == num;
+					array[j].SetActive(flag);
+					if (activeSelf && !flag)
+					{
+						this.throwableDisabledIndex[i] = j;
+						this.throwableDisabledTime[i] = Time.time + 0.02f;
+					}
 				}
 			}
 		}

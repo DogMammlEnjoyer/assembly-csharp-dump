@@ -150,7 +150,7 @@ public class TappableManager : NetworkSceneObject
 
 	private void SendOnTapShared(int key, float tapStrength, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SendOnTapShared");
+		MonkeAgent.IncrementRPCCall(info, "SendOnTapShared");
 		if (key == 0 || !float.IsFinite(tapStrength))
 		{
 			return;
@@ -216,7 +216,7 @@ public class TappableManager : NetworkSceneObject
 
 	private void SendOnGrabShared(int key, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SendOnGrabShared");
+		MonkeAgent.IncrementRPCCall(info, "SendOnGrabShared");
 		if (key == 0)
 		{
 			return;
@@ -281,7 +281,7 @@ public class TappableManager : NetworkSceneObject
 
 	public void SendOnReleaseShared(int key, PhotonMessageInfoWrapped info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SendOnReleaseShared");
+		MonkeAgent.IncrementRPCCall(info, "SendOnReleaseShared");
 		if (key == 0)
 		{
 			return;

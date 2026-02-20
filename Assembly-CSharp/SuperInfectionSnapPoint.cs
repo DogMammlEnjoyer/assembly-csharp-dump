@@ -56,7 +56,7 @@ public class SuperInfectionSnapPoint : MonoBehaviour
 	public void Unsnapped()
 	{
 		GameSnappable gameSnappable;
-		if (this.snappedEntity.TryGetComponent<GameSnappable>(out gameSnappable))
+		if (this.snappedEntity && this.snappedEntity.TryGetComponent<GameSnappable>(out gameSnappable))
 		{
 			gameSnappable.snappedToJoint = null;
 		}

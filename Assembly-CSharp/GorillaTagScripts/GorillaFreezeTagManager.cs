@@ -154,7 +154,7 @@ namespace GorillaTagScripts
 				{
 					if (!this.taggingRig.IsPositionInRange(this.taggedRig.transform.position, 6f) && !this.taggingRig.CheckTagDistanceRollback(this.taggedRig, 6f, 0.2f))
 					{
-						GorillaNot.instance.SendReport("extremely far tag", taggingPlayer.UserId, taggingPlayer.NickName);
+						MonkeAgent.instance.SendReport("extremely far tag", taggingPlayer.UserId, taggingPlayer.NickName);
 						return;
 					}
 					base.AddLastTagged(taggedPlayer, taggingPlayer);
@@ -165,7 +165,7 @@ namespace GorillaTagScripts
 				{
 					if (!this.taggingRig.IsPositionInRange(this.taggedRig.transform.position, 6f) && !this.taggingRig.CheckTagDistanceRollback(this.taggedRig, 6f, 0.2f))
 					{
-						GorillaNot.instance.SendReport("extremely far tag", taggingPlayer.UserId, taggingPlayer.NickName);
+						MonkeAgent.instance.SendReport("extremely far tag", taggingPlayer.UserId, taggingPlayer.NickName);
 						return;
 					}
 					this.UnfreezePlayer(taggedPlayer);

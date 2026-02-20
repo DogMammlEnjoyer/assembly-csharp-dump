@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Cosmetics;
 using GorillaNetworking;
 using GorillaNetworking.Store;
@@ -160,6 +161,17 @@ public class TryOnBundlesStand : MonoBehaviour, IBuildValidation
 		}
 	}
 
+	private void LoadBundle(TryOnBundleButton pressedTryOnBundleButton, bool isLeftHand)
+	{
+		TryOnBundlesStand.<LoadBundle>d__35 <LoadBundle>d__;
+		<LoadBundle>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<LoadBundle>d__.<>4__this = this;
+		<LoadBundle>d__.pressedTryOnBundleButton = pressedTryOnBundleButton;
+		<LoadBundle>d__.isLeftHand = isLeftHand;
+		<LoadBundle>d__.<>1__state = -1;
+		<LoadBundle>d__.<>t__builder.Start<TryOnBundlesStand.<LoadBundle>d__35>(ref <LoadBundle>d__);
+	}
+
 	public void PressTryOnBundleButton(TryOnBundleButton pressedTryOnBundleButton, bool isLeftHand)
 	{
 		if (pressedTryOnBundleButton.playfabBundleID == "NULL")
@@ -167,9 +179,23 @@ public class TryOnBundlesStand : MonoBehaviour, IBuildValidation
 			Debug.LogError("TryOnBundlesStand - PressTryOnBundleButton - Invalid bundle ID");
 			return;
 		}
-		if (CosmeticsController.instance.GetItemFromDict(pressedTryOnBundleButton.playfabBundleID).isNullItem)
+		CosmeticsController.CosmeticItem itemFromDict = CosmeticsController.instance.GetItemFromDict(pressedTryOnBundleButton.playfabBundleID);
+		if (itemFromDict.isNullItem)
 		{
 			Debug.LogError("TryOnBundlesStand - PressTryOnBundleButton - Bundle is Null + " + pressedTryOnBundleButton.playfabBundleID);
+			return;
+		}
+		bool flag = false;
+		for (int i = 0; i < itemFromDict.bundledItems.Length; i++)
+		{
+			if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(itemFromDict.bundledItems[i]) == null)
+			{
+				flag = true;
+			}
+		}
+		if (flag)
+		{
+			this.LoadBundle(pressedTryOnBundleButton, isLeftHand);
 			return;
 		}
 		if (this.SelectedButtonIndex != pressedTryOnBundleButton.buttonIndex)

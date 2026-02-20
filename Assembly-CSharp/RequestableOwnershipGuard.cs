@@ -320,7 +320,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	public void RequestCurrentOwnerFromAuthorityRPC(PhotonMessageInfo info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
-		GorillaNot.IncrementRPCCall(info, "RequestCurrentOwnerFromAuthorityRPC");
+		MonkeAgent.IncrementRPCCall(info, "RequestCurrentOwnerFromAuthorityRPC");
 		if (!this.PlayerHasAuthority(NetworkSystem.Instance.LocalPlayer))
 		{
 			return;
@@ -339,7 +339,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	[PunRPC]
 	public void TransferOwnershipFromToRPC([CanBeNull] Player nextplayer, string nonce, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "TransferOwnershipFromToRPC");
+		MonkeAgent.IncrementRPCCall(info, "TransferOwnershipFromToRPC");
 		if (nextplayer == null)
 		{
 			return;
@@ -409,7 +409,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	[PunRPC]
 	public void SetOwnershipFromMasterClient([CanBeNull] Player nextMaster, PhotonMessageInfo info)
 	{
-		GorillaNot.IncrementRPCCall(info, "SetOwnershipFromMasterClient");
+		MonkeAgent.IncrementRPCCall(info, "SetOwnershipFromMasterClient");
 		if (nextMaster == null)
 		{
 			return;
@@ -427,7 +427,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		}
 		if (!this.PlayerHasAuthority(sender))
 		{
-			GorillaNot.instance.SendReport("Sent an SetOwnershipFromMasterClient when they weren't the master client", sender.UserId, sender.NickName);
+			MonkeAgent.instance.SendReport("Sent an SetOwnershipFromMasterClient when they weren't the master client", sender.UserId, sender.NickName);
 			return;
 		}
 		NetworkingState networkingState;
@@ -492,7 +492,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	public void OwnershipRequested(string nonce, PhotonMessageInfo info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
-		GorillaNot.IncrementRPCCall(info, "OwnershipRequested");
+		MonkeAgent.IncrementRPCCall(info, "OwnershipRequested");
 		if (nonce != null && nonce.Length > 68)
 		{
 			return;
@@ -632,7 +632,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	public void OwnershipRequestDenied(string nonce, PhotonMessageInfo info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
-		GorillaNot.IncrementRPCCall(info, "OwnershipRequestDenied");
+		MonkeAgent.IncrementRPCCall(info, "OwnershipRequestDenied");
 		int actorNumber = info.Sender.ActorNumber;
 		NetPlayer netPlayer = this.actualOwner;
 		int? num = (netPlayer != null) ? new int?(netPlayer.ActorNumber) : null;

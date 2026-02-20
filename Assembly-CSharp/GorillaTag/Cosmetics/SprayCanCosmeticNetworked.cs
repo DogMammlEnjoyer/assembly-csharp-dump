@@ -41,7 +41,7 @@ namespace GorillaTag.Cosmetics
 			{
 				return;
 			}
-			GorillaNot.IncrementRPCCall(info, "OnShakeEvent");
+			MonkeAgent.IncrementRPCCall(info, "OnShakeEvent");
 			NetPlayer sender2 = info.Sender;
 			VRRig myOnlineRig = this.transferrableObject.myOnlineRig;
 			if (sender2 != ((myOnlineRig != null) ? myOnlineRig.creator : null))

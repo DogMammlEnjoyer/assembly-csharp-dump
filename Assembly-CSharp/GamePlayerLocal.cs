@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Cysharp.Text;
 using GorillaLocomotion;
 using GorillaLocomotion.Climbing;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class GamePlayerLocal : MonoBehaviour
+public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 {
 	private void Awake()
 	{
@@ -17,6 +19,7 @@ public class GamePlayerLocal : MonoBehaviour
 			this.inputData[i] = new GamePlayerLocal.InputData(32);
 		}
 		RoomSystem.JoinedRoomEvent += new Action(this.OnJoinRoom);
+		GamePlayerLocal._LoadSnappedPlayerPrefsToCache(this.gamePlayer);
 	}
 
 	private void OnJoinRoom()
@@ -70,30 +73,31 @@ public class GamePlayerLocal : MonoBehaviour
 			this.gamePlayer.MigrateToEntityManager(newEntityManager);
 		}
 		this.currGameEntityManager = newEntityManager;
+		List<GameEntityCreateData> entityData;
+		if (GamePlayerLocal.TryGetMigrationRecoveryList(newEntityManager, out entityData))
+		{
+			this.currGameEntityManager.RequestMigrationRecovery(entityData);
+		}
 	}
 
 	public void SetGrabbed(GameEntityId gameBallId, int handIndex)
 	{
 		GamePlayerLocal.HandData handData = this.hands[handIndex];
 		handData.gripPressedTime = (gameBallId.IsValid() ? 0.0 : handData.gripPressedTime);
-		handData.grabbedGameBallId = gameBallId;
 		this.hands[handIndex] = handData;
 		if (handIndex == 0)
 		{
 			EquipmentInteractor.instance.disableLeftGrab = gameBallId.IsValid();
 			return;
 		}
-		if (handIndex == 1)
-		{
-			EquipmentInteractor.instance.disableRightGrab = gameBallId.IsValid();
-		}
+		EquipmentInteractor.instance.disableRightGrab = gameBallId.IsValid();
 	}
 
 	public void ClearGrabbedIfHeld(GameEntityId gameBallId)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i <= 1; i++)
 		{
-			if (this.hands[i].grabbedGameBallId == gameBallId)
+			if (this.gamePlayer.IsInSlot(i, gameBallId.index))
 			{
 				this.ClearGrabbed(i);
 			}
@@ -130,35 +134,38 @@ public class GamePlayerLocal : MonoBehaviour
 			return;
 		}
 		GamePlayerLocal.HandData handData = this.hands[handIndex];
-		bool flag = GamePlayerLocal.IsLeftHand(handIndex) ? (EquipmentInteractor.instance.isLeftGrabbing && ControllerInputPoller.GetGrab(XRNode.LeftHand)) : (EquipmentInteractor.instance.isRightGrabbing && ControllerInputPoller.GetGrab(XRNode.RightHand));
+		bool flag = GamePlayer.IsLeftHand(handIndex);
+		bool flag2 = flag ? (EquipmentInteractor.instance.isLeftGrabbing && ControllerInputPoller.GetGrab(XRNode.LeftHand)) : (EquipmentInteractor.instance.isRightGrabbing && ControllerInputPoller.GetGrab(XRNode.RightHand));
 		double timeAsDouble = Time.timeAsDouble;
-		if (flag && !handData.gripWasHeld)
+		if (flag2 && !handData.gripWasHeld)
 		{
 			handData.gripPressedTime = timeAsDouble;
 		}
 		double num = timeAsDouble - handData.gripPressedTime;
-		handData.gripWasHeld = flag;
-		bool flag2 = GamePlayerLocal.IsLeftHand(handIndex) ? ControllerInputPoller.GetIndexPressed(XRNode.LeftHand) : ControllerInputPoller.GetIndexPressed(XRNode.RightHand);
-		if (flag2 && !handData.gripWasHeld)
+		handData.gripWasHeld = flag2;
+		bool flag3 = flag ? ControllerInputPoller.GetIndexPressed(XRNode.LeftHand) : ControllerInputPoller.GetIndexPressed(XRNode.RightHand);
+		if (flag3 && !handData.gripWasHeld)
 		{
 			handData.triggerPressedTime = timeAsDouble;
 		}
 		double num2 = timeAsDouble - handData.triggerPressedTime;
-		handData.triggerWasHeld = flag2;
+		handData.triggerWasHeld = flag3;
 		this.hands[handIndex] = handData;
-		if (flag && num < 0.15000000596046448)
+		if (flag2 && num < 0.15000000596046448)
 		{
-			Transform handTransform = this.GetHandTransform(handIndex);
+			Transform handTransform = this.gamePlayer.GetHandTransform(handIndex);
 			Vector3 position = handTransform.position;
+			Vector3 vector = Vector3.Lerp(position, this.GetFingerTransform(handIndex).position, 0.5f);
 			Vector3 b = position;
 			Quaternion rotation = handTransform.rotation;
-			bool isLeftHand = GamePlayerLocal.IsLeftHand(handIndex);
-			GameEntityId gameEntityId = gameEntityManager.TryGrabLocal(position, isLeftHand, out b);
+			bool flag4;
+			GameEntityId gameEntityId = gameEntityManager.TryGrabLocal(position, vector, flag, out b, out flag4);
 			if (gameEntityId.IsValid())
 			{
-				Transform handTransform2 = this.GetHandTransform(handIndex);
+				Vector3 a = flag4 ? vector : position;
+				Transform transform = handTransform;
 				GameEntity gameEntity = gameEntityManager.GetGameEntity(gameEntityId);
-				Vector3 position2 = gameEntity.transform.position + (position - b);
+				Vector3 position2 = gameEntity.transform.position + (a - b);
 				Quaternion rotation2 = gameEntity.transform.rotation;
 				GameGrabbable component = gameEntity.GetComponent<GameGrabbable>();
 				GameGrab gameGrab;
@@ -167,14 +174,15 @@ public class GamePlayerLocal : MonoBehaviour
 					position2 = gameGrab.position;
 					rotation2 = gameGrab.rotation;
 				}
-				Vector3 localPosition = handTransform2.InverseTransformPoint(position2);
-				Quaternion localRotation = Quaternion.Inverse(handTransform2.rotation) * rotation2;
-				gameEntityManager.RequestGrabEntity(gameEntityId, isLeftHand, localPosition, localRotation);
+				Vector3 vector2 = transform.InverseTransformPoint(position2);
+				Quaternion quaternion = Quaternion.Inverse(transform.rotation) * rotation2;
+				gameEntityManager.RequestGrabEntity(gameEntityId, flag, vector2, quaternion);
+				GamePlayerLocal.SetGrabSlotRecoveryData(handIndex, gameEntity.typeId, gameEntity.createData, vector2, quaternion);
 			}
 		}
-		if (flag2 && num2 < 0.15000000596046448)
+		if (flag3 && num2 < 0.15000000596046448)
 		{
-			Vector3 position3 = this.GetHandTransform(handIndex).position;
+			Vector3 position3 = this.gamePlayer.GetHandTransform(handIndex).position;
 			GameTriggerInteractable gameTriggerInteractable = null;
 			float num3 = float.MaxValue;
 			int num4 = 0;
@@ -196,7 +204,7 @@ public class GamePlayerLocal : MonoBehaviour
 				gameTriggerInteractable.BeginTriggerInteraction(handIndex);
 			}
 		}
-		if (!flag2)
+		if (!flag3)
 		{
 			this.ClearTriggerInteractables(handIndex);
 		}
@@ -209,17 +217,25 @@ public class GamePlayerLocal : MonoBehaviour
 			return;
 		}
 		XRNode xrnode = this.GetXRNode(handIndex);
-		if (!(GamePlayerLocal.IsLeftHand(handIndex) ? (EquipmentInteractor.instance.isLeftGrabbing && ControllerInputPoller.GetGrab(XRNode.LeftHand)) : (EquipmentInteractor.instance.isRightGrabbing && ControllerInputPoller.GetGrab(XRNode.RightHand))))
+		bool flag = GamePlayer.IsLeftHand(handIndex);
+		if (!(flag ? (EquipmentInteractor.instance.isLeftGrabbing && ControllerInputPoller.GetGrab(XRNode.LeftHand)) : (EquipmentInteractor.instance.isRightGrabbing && ControllerInputPoller.GetGrab(XRNode.RightHand))))
 		{
 			GameEntityId grabbedGameEntityId = this.gamePlayer.GetGrabbedGameEntityId(handIndex);
 			GameEntity gameEntity = gameEntityManager.GetGameEntity(grabbedGameEntityId);
+			GamePlayerLocal.SetSlotRecoveryData(handIndex, -1, 0L);
 			GameSnappable component = gameEntity.GetComponent<GameSnappable>();
 			if (component != null)
 			{
 				SuperInfectionSnapPoint superInfectionSnapPoint = component.BestSnapPoint();
 				if (superInfectionSnapPoint != null)
 				{
-					gameEntityManager.RequestSnapEntity(grabbedGameEntityId, GamePlayerLocal.IsLeftHand(handIndex), superInfectionSnapPoint.jointType);
+					gameEntityManager.RequestSnapEntity(grabbedGameEntityId, flag, superInfectionSnapPoint.jointType);
+					int slot;
+					if (GameSnappable.TryGetJointToSnapIndex(superInfectionSnapPoint.jointType, out slot))
+					{
+						GamePlayerLocal.SetSlotRecoveryData(slot, gameEntity.typeId, gameEntity.createData);
+						GamePlayerLocal.SaveSnapSlotsRateLimited();
+					}
 					return;
 				}
 			}
@@ -251,7 +267,7 @@ public class GamePlayerLocal : MonoBehaviour
 			}
 			Vector3 vector2 = ControllerInputPoller.DeviceAngularVelocity(xrnode);
 			Quaternion rhs2 = ControllerInputPoller.DeviceRotation(xrnode);
-			Quaternion handRotOffset = GTPlayer.Instance.GetHandRotOffset(GamePlayerLocal.IsLeftHand(handIndex));
+			Quaternion handRotOffset = GTPlayer.Instance.GetHandRotOffset(flag);
 			Transform transform = GorillaTagger.Instance.offlineVRRig.transform;
 			Quaternion rotation = GTPlayer.Instance.turnParent.transform.rotation;
 			GamePlayerLocal.InputData inputData = this.inputData[handIndex];
@@ -262,7 +278,7 @@ public class GamePlayerLocal : MonoBehaviour
 			this.gamePlayer.GetGrabbedGameEntityId(handIndex);
 			GorillaVelocityTracker bodyVelocityTracker = GTPlayer.Instance.bodyVelocityTracker;
 			vector3 += bodyVelocityTracker.GetAverageVelocity(true, 0.05f, false);
-			gameEntityManager.RequestThrowEntity(grabbedGameEntityId, GamePlayerLocal.IsLeftHand(handIndex), GTPlayer.Instance.HeadCenterPosition, vector3, vector2);
+			gameEntityManager.RequestThrowEntity(grabbedGameEntityId, flag, GTPlayer.Instance.HeadCenterPosition, vector3, vector2);
 		}
 		this.ClearTriggerInteractables(handIndex);
 	}
@@ -274,11 +290,6 @@ public class GamePlayerLocal : MonoBehaviour
 			return XRNode.RightHand;
 		}
 		return XRNode.LeftHand;
-	}
-
-	public Transform GetHandTransform(int handIndex)
-	{
-		return GamePlayer.GetHandTransform(GorillaTagger.Instance.offlineVRRig, handIndex);
 	}
 
 	private Transform GetFingerTransform(int handIndex)
@@ -327,29 +338,9 @@ public class GamePlayerLocal : MonoBehaviour
 		return this.inputData[handIndex].GetMaxSpeed(0f, 0.05f);
 	}
 
-	public static bool IsLeftHand(int handIndex)
-	{
-		return handIndex == 0;
-	}
-
-	public static int GetHandIndex(bool leftHand)
-	{
-		if (!leftHand)
-		{
-			return 1;
-		}
-		return 0;
-	}
-
-	public static bool IsHandHolding(int handIndex)
-	{
-		GameEntityManager gameEntityManager;
-		return GamePlayerLocal.instance.gamePlayer.GetGrabbedGameEntityIdAndManager(handIndex, out gameEntityManager).IsValid();
-	}
-
 	public static bool IsHandHolding(XRNode xrNode)
 	{
-		return GamePlayerLocal.IsHandHolding((xrNode == XRNode.LeftHand) ? 0 : 1);
+		return GamePlayerLocal.instance.gamePlayer.IsSlotOccupied((xrNode == XRNode.LeftHand) ? 0 : 1);
 	}
 
 	public void PlayCatchFx(bool isLeftHand)
@@ -373,6 +364,183 @@ public class GamePlayerLocal : MonoBehaviour
 		}
 	}
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void SetSlotRecoveryData(int slot, int typeId, long createData)
+	{
+		if (!GamePlayer.IsSlot(slot))
+		{
+			return;
+		}
+		GamePlayerLocal.SlotRecoveryData slotRecoveryData = GamePlayerLocal.slotsRecoveryData[slot];
+		slotRecoveryData.entityTypeId = typeId;
+		slotRecoveryData.createData = createData;
+		GamePlayerLocal.slotsRecoveryData[slot] = slotRecoveryData;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void SetGrabSlotRecoveryData(int slot, int typeId, long createData, Vector3 pos, Quaternion rot)
+	{
+		if (!GamePlayer.IsGrabSlot(slot))
+		{
+			return;
+		}
+		GamePlayerLocal.SetSlotRecoveryData(slot, typeId, createData);
+		GamePlayerLocal.GrabSlotExtraRecoveryData grabSlotExtraRecoveryData = GamePlayerLocal.grabSlotsExtraRecoveryData[slot];
+		grabSlotExtraRecoveryData.pos = pos;
+		grabSlotExtraRecoveryData.rot = rot;
+		GamePlayerLocal.grabSlotsExtraRecoveryData[slot] = grabSlotExtraRecoveryData;
+	}
+
+	internal static void SaveSnapSlotsRateLimited()
+	{
+		if (GamePlayerLocal.snapSlotsSave_isQueued)
+		{
+			return;
+		}
+		if (GamePlayerLocal.snapSlotsSave_lastTime + 2f < Time.unscaledTime)
+		{
+			GamePlayerLocal._SaveSnapSlotsImmediately();
+			return;
+		}
+		GamePlayerLocal.snapSlotsSave_isQueued = true;
+		GTDelayedExec.Add(GamePlayerLocal.instance, 2f, 0);
+	}
+
+	void IDelayedExecListener.OnDelayedAction(int contextId)
+	{
+		GamePlayerLocal._SaveSnapSlotsImmediately();
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void _SaveSnapSlotsImmediately()
+	{
+		GamePlayerLocal.snapSlotsSave_isQueued = false;
+		GamePlayerLocal.snapSlotsSave_lastTime = Time.unscaledTime;
+		int num = GamePlayerLocal._SnapSlotsSave_GetHash(GamePlayerLocal.slotsRecoveryData);
+		if (num == GamePlayerLocal.snapSlotsSave_lastSavedHash)
+		{
+			return;
+		}
+		GamePlayerLocal.snapSlotsSave_lastSavedHash = num;
+		using (Utf16ValueStringBuilder utf16ValueStringBuilder = ZString.CreateStringBuilder(true))
+		{
+			for (int i = 2; i <= 3; i++)
+			{
+				GamePlayerLocal.SlotRecoveryData slotRecoveryData = GamePlayerLocal.slotsRecoveryData[i];
+				if (slotRecoveryData.entityTypeId != -1)
+				{
+					utf16ValueStringBuilder.Append(i);
+					utf16ValueStringBuilder.Append(",");
+					utf16ValueStringBuilder.Append(slotRecoveryData.entityTypeId);
+					utf16ValueStringBuilder.Append(",");
+					utf16ValueStringBuilder.Append(slotRecoveryData.createData);
+					utf16ValueStringBuilder.Append("|");
+				}
+			}
+			Debug.Log("POOP - _SaveSnapSlotsImmediately - sb=" + utf16ValueStringBuilder.ToString() + "\n(keywords: gameentitymanager, gameplayer, save)");
+			PlayerPrefs.SetString("GT_SnappedItems_V1", utf16ValueStringBuilder.ToString());
+			PlayerPrefs.Save();
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void _LoadSnappedPlayerPrefsToCache(GamePlayer gamePlayer)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			GamePlayerLocal.slotsRecoveryData[i] = new GamePlayerLocal.SlotRecoveryData
+			{
+				entityTypeId = -1,
+				createData = 0L
+			};
+		}
+		for (int j = 0; j < 2; j++)
+		{
+			GamePlayerLocal.grabSlotsExtraRecoveryData[j] = new GamePlayerLocal.GrabSlotExtraRecoveryData
+			{
+				pos = Vector3.zero,
+				rot = Quaternion.identity
+			};
+		}
+		string @string = PlayerPrefs.GetString("GT_SnappedItems_V1");
+		string[] array = @string.Split('|', StringSplitOptions.RemoveEmptyEntries);
+		Debug.Log("POOP - _LoadSnappedPlayerPrefsToCache - rawString=\"" + @string + "\"\n(keywords: gameentitymanager, gameplayer, save)");
+		string[] array2 = array;
+		for (int k = 0; k < array2.Length; k++)
+		{
+			string[] array3 = array2[k].Split(',', StringSplitOptions.None);
+			int num;
+			int entityTypeId;
+			long createData;
+			if (array3.Length >= 3 && int.TryParse(array3[0], out num) && num < 4 && GamePlayer.IsSnapSlot(num) && int.TryParse(array3[1], out entityTypeId) && long.TryParse(array3[2], out createData))
+			{
+				GamePlayerLocal.slotsRecoveryData[num] = new GamePlayerLocal.SlotRecoveryData
+				{
+					entityTypeId = entityTypeId,
+					createData = createData
+				};
+			}
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static int _SnapSlotsSave_GetHash(GamePlayerLocal.SlotRecoveryData[] slotsCache)
+	{
+		int num = 67466746;
+		for (int i = 2; i <= 3; i++)
+		{
+			GamePlayerLocal.SlotRecoveryData slotRecoveryData = slotsCache[i];
+			num = StaticHash.Compute(num, i.GetStaticHash(), slotRecoveryData.entityTypeId.GetStaticHash(), slotRecoveryData.createData.GetStaticHash());
+		}
+		return num;
+	}
+
+	public static bool TryGetMigrationRecoveryList(GameEntityManager newEntityManager, out List<GameEntityCreateData> out_recoveryList)
+	{
+		out_recoveryList = GamePlayerLocal._migrationRecoveryList;
+		GamePlayerLocal._migrationRecoveryList.Clear();
+		GamePlayer gamePlayer = GamePlayerLocal.instance.gamePlayer;
+		for (int i = 0; i < 4; i++)
+		{
+			GamePlayerLocal.SlotRecoveryData slotRecoveryData = GamePlayerLocal.slotsRecoveryData[i];
+			int entityTypeId = slotRecoveryData.entityTypeId;
+			bool flag = entityTypeId != -1;
+			GamePlayer.SlotData slotData;
+			bool flag2 = gamePlayer.TryGetSlotData(i, out slotData);
+			if (flag || flag2)
+			{
+				bool flag3 = newEntityManager != null && newEntityManager == slotData.entityManager;
+				GameEntity gameEntity = flag3 ? newEntityManager.GetGameEntity(slotData.entityId) : null;
+				bool flag4 = gameEntity != null;
+				int num = flag4 ? gameEntity.typeId : -1;
+				bool flag5 = num != -1;
+				bool flag6 = entityTypeId == num;
+				if (!flag3 || !flag4 || !flag6)
+				{
+					string message = flag ? "[GamePlayerLocal]  TryGetMigrationRecoveryList: Recovering from mismatch between migrated entities and recovery data." : "[GamePlayerLocal]  ERROR!!!  TryGetMigrationRecoveryList: UNRECOVERABLE mismatch between migrated entities and recovery data.";
+					Debug.unityLogger.Log(flag ? LogType.Log : LogType.Error, message);
+					if (flag)
+					{
+						GamePlayerLocal._migrationRecoveryList.Add(new GameEntityCreateData
+						{
+							entityTypeId = entityTypeId,
+							position = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].pos : Vector3.zero),
+							rotation = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].rot : Quaternion.identity),
+							createData = slotRecoveryData.createData,
+							createdByEntityId = -1,
+							slotIndex = i
+						});
+					}
+				}
+			}
+		}
+		return GamePlayerLocal._migrationRecoveryList.Count > 0;
+	}
+
+	private const string preLog = "[GamePlayerLocal]  ";
+
+	private const string preErr = "[GamePlayerLocal]  ERROR!!!  ";
+
 	public GamePlayer gamePlayer;
 
 	private GamePlayerLocal.HandData[] hands;
@@ -381,11 +549,33 @@ public class GamePlayerLocal : MonoBehaviour
 
 	private GamePlayerLocal.InputData[] inputData;
 
+	private const string SNAP_SLOTS_SAVE_KEY = "GT_SnappedItems_V1";
+
+	private const float SNAP_SLOTS_SAVE__INTERVAL = 2f;
+
+	[OnEnterPlay_Set(false)]
+	private static bool snapSlotsSave_isQueued;
+
+	[OnEnterPlay_Set(0)]
+	private static int snapSlotsSave_lastSavedHash;
+
+	[OnEnterPlay_Set(0)]
+	private static int snapSlotsSave_frameWhenQueued;
+
+	[OnEnterPlay_Set(0f)]
+	private static float snapSlotsSave_lastTime;
+
+	private static readonly GamePlayerLocal.SlotRecoveryData[] slotsRecoveryData = new GamePlayerLocal.SlotRecoveryData[4];
+
+	private static readonly GamePlayerLocal.GrabSlotExtraRecoveryData[] grabSlotsExtraRecoveryData = new GamePlayerLocal.GrabSlotExtraRecoveryData[2];
+
 	[OnEnterPlay_SetNull]
 	public static volatile GamePlayerLocal instance;
 
 	[NonSerialized]
 	public GameEntityManager currGameEntityManager;
+
+	private static readonly List<GameEntityCreateData> _migrationRecoveryList = new List<GameEntityCreateData>(4);
 
 	private enum HandGrabState
 	{
@@ -404,8 +594,6 @@ public class GamePlayerLocal : MonoBehaviour
 		public double gripPressedTime;
 
 		public double triggerPressedTime;
-
-		public GameEntityId grabbedGameBallId;
 	}
 
 	public struct InputDataMotion
@@ -493,5 +681,19 @@ public class GamePlayerLocal : MonoBehaviour
 		public int maxInputs;
 
 		public List<GamePlayerLocal.InputDataMotion> inputMotionHistory;
+	}
+
+	public struct SlotRecoveryData
+	{
+		public int entityTypeId;
+
+		public long createData;
+	}
+
+	public struct GrabSlotExtraRecoveryData
+	{
+		public Vector3 pos;
+
+		public Quaternion rot;
 	}
 }
