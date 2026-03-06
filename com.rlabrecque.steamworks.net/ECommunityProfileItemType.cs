@@ -1,0 +1,13 @@
+﻿using System;
+
+namespace Steamworks
+{
+	public enum ECommunityProfileItemType
+	{
+		k_ECommunityProfileItemType_AnimatedAvatar,
+		k_ECommunityProfileItemType_AvatarFrame,
+		k_ECommunityProfileItemType_ProfileModifier,
+		k_ECommunityProfileItemType_ProfileBackground,
+		k_ECommunityProfileItemType_MiniProfileBackground
+	}
+}

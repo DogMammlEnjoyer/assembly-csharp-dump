@@ -1,0 +1,32 @@
+﻿using System;
+using System.Globalization;
+
+namespace System.ComponentModel
+{
+	/// <summary>Provides a type converter to convert 16-bit signed integer objects to and from other representations.</summary>
+	public class Int16Converter : BaseNumberConverter
+	{
+		internal override Type TargetType
+		{
+			get
+			{
+				return typeof(short);
+			}
+		}
+
+		internal override object FromString(string value, int radix)
+		{
+			return Convert.ToInt16(value, radix);
+		}
+
+		internal override object FromString(string value, NumberFormatInfo formatInfo)
+		{
+			return short.Parse(value, NumberStyles.Integer, formatInfo);
+		}
+
+		internal override string ToString(object value, NumberFormatInfo formatInfo)
+		{
+			return ((short)value).ToString("G", formatInfo);
+		}
+	}
+}

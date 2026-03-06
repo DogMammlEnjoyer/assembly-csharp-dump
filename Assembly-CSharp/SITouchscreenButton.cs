@@ -9,11 +9,12 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 	{
 		get
 		{
-			if (!this._screenRegion)
+			bool flag = Time.time - this._enableTime >= 0.2f;
+			if (this._screenRegion)
 			{
-				return Time.time - this._enableTime >= 0.2f;
+				flag = (flag && !this._screenRegion.HasPressedButton);
 			}
-			return !this._screenRegion.HasPressedButton;
+			return flag;
 		}
 	}
 

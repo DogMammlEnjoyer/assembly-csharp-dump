@@ -18,6 +18,8 @@ public struct GTUberShader_MaterialKeywordStates
 		this._COLOR_GRADE_TRITANOMALY = mat.IsKeywordEnabled("_COLOR_GRADE_TRITANOMALY");
 		this._COLOR_GRADE_TRITANOPIA = mat.IsKeywordEnabled("_COLOR_GRADE_TRITANOPIA");
 		this._CRYSTAL_EFFECT = mat.IsKeywordEnabled("_CRYSTAL_EFFECT");
+		this._DAY_CYCLE_BRIGHTNESS__OPTION_1 = mat.IsKeywordEnabled("_DAY_CYCLE_BRIGHTNESS__OPTION_1");
+		this._DAY_CYCLE_BRIGHTNESS__OPTION_2 = mat.IsKeywordEnabled("_DAY_CYCLE_BRIGHTNESS__OPTION_2");
 		this._DEBUG_PAWN_DATA = mat.IsKeywordEnabled("_DEBUG_PAWN_DATA");
 		this._EMISSION = mat.IsKeywordEnabled("_EMISSION");
 		this._EMISSION_USE_UV_WAVE_WARP = mat.IsKeywordEnabled("_EMISSION_USE_UV_WAVE_WARP");
@@ -97,6 +99,8 @@ public struct GTUberShader_MaterialKeywordStates
 		this._COLOR_GRADE_TRITANOMALY = material.IsKeywordEnabled("_COLOR_GRADE_TRITANOMALY");
 		this._COLOR_GRADE_TRITANOPIA = material.IsKeywordEnabled("_COLOR_GRADE_TRITANOPIA");
 		this._CRYSTAL_EFFECT = material.IsKeywordEnabled("_CRYSTAL_EFFECT");
+		this._DAY_CYCLE_BRIGHTNESS__OPTION_1 = material.IsKeywordEnabled("_DAY_CYCLE_BRIGHTNESS__OPTION_1");
+		this._DAY_CYCLE_BRIGHTNESS__OPTION_2 = material.IsKeywordEnabled("_DAY_CYCLE_BRIGHTNESS__OPTION_2");
 		this._DEBUG_PAWN_DATA = material.IsKeywordEnabled("_DEBUG_PAWN_DATA");
 		this._EMISSION = material.IsKeywordEnabled("_EMISSION");
 		this._EMISSION_USE_UV_WAVE_WARP = material.IsKeywordEnabled("_EMISSION_USE_UV_WAVE_WARP");
@@ -186,6 +190,10 @@ public struct GTUberShader_MaterialKeywordStates
 	public bool _COLOR_GRADE_TRITANOPIA;
 
 	public bool _CRYSTAL_EFFECT;
+
+	public bool _DAY_CYCLE_BRIGHTNESS__OPTION_1;
+
+	public bool _DAY_CYCLE_BRIGHTNESS__OPTION_2;
 
 	public bool _DEBUG_PAWN_DATA;
 

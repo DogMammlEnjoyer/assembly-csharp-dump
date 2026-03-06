@@ -1,0 +1,146 @@
+﻿using System;
+using UnityEngine.Playables;
+
+namespace UnityEngine.Timeline
+{
+	internal class RuntimeClip : RuntimeClipBase
+	{
+		public override double start
+		{
+			get
+			{
+				return this.m_Clip.extrapolatedStart;
+			}
+		}
+
+		public override double duration
+		{
+			get
+			{
+				return this.m_Clip.extrapolatedDuration;
+			}
+		}
+
+		public RuntimeClip(TimelineClip clip, Playable clipPlayable, Playable parentMixer)
+		{
+			this.Create(clip, clipPlayable, parentMixer);
+		}
+
+		private void Create(TimelineClip clip, Playable clipPlayable, Playable parentMixer)
+		{
+			this.m_Clip = clip;
+			this.m_Playable = clipPlayable;
+			this.m_ParentMixer = parentMixer;
+			clipPlayable.Pause<Playable>();
+		}
+
+		public TimelineClip clip
+		{
+			get
+			{
+				return this.m_Clip;
+			}
+		}
+
+		public Playable mixer
+		{
+			get
+			{
+				return this.m_ParentMixer;
+			}
+		}
+
+		public Playable playable
+		{
+			get
+			{
+				return this.m_Playable;
+			}
+		}
+
+		public override bool enable
+		{
+			set
+			{
+				if (value && this.m_Playable.GetPlayState<Playable>() != PlayState.Playing)
+				{
+					this.m_Playable.Play<Playable>();
+					this.SetTime(this.m_Clip.clipIn);
+					return;
+				}
+				if (!value && this.m_Playable.GetPlayState<Playable>() != PlayState.Paused)
+				{
+					this.m_Playable.Pause<Playable>();
+					if (this.m_ParentMixer.IsValid<Playable>())
+					{
+						this.m_ParentMixer.SetInputWeight(this.m_Playable, 0f);
+					}
+				}
+			}
+		}
+
+		public void SetTime(double time)
+		{
+			this.m_Playable.SetTime(time);
+		}
+
+		public void SetDuration(double duration)
+		{
+			this.m_Playable.SetDuration(duration);
+		}
+
+		public override void EvaluateAt(double localTime, FrameData frameData)
+		{
+			this.enable = true;
+			if (frameData.timeLooped)
+			{
+				this.SetTime(this.clip.clipIn);
+				this.SetTime(this.clip.clipIn);
+			}
+			float weight;
+			if (this.clip.IsPreExtrapolatedTime(localTime))
+			{
+				weight = this.clip.EvaluateMixIn((double)((float)this.clip.start));
+			}
+			else if (this.clip.IsPostExtrapolatedTime(localTime))
+			{
+				weight = this.clip.EvaluateMixOut((double)((float)this.clip.end));
+			}
+			else
+			{
+				weight = this.clip.EvaluateMixIn(localTime) * this.clip.EvaluateMixOut(localTime);
+			}
+			if (this.mixer.IsValid<Playable>())
+			{
+				this.mixer.SetInputWeight(this.playable, weight);
+			}
+			double num = this.clip.ToLocalTime(localTime);
+			if (num >= -DiscreteTime.tickValue / 2.0)
+			{
+				this.SetTime(num);
+			}
+			this.SetDuration(this.clip.extrapolatedDuration);
+		}
+
+		public override void DisableAt(double localTime, double rootDuration, FrameData frameData)
+		{
+			double num = Math.Min(localTime, (double)DiscreteTime.FromTicks(this.intervalEnd));
+			if (frameData.timeLooped)
+			{
+				num = Math.Min(num, rootDuration);
+			}
+			double num2 = this.clip.ToLocalTime(num);
+			if (num2 > -DiscreteTime.tickValue / 2.0)
+			{
+				this.SetTime(num2);
+			}
+			this.enable = false;
+		}
+
+		private TimelineClip m_Clip;
+
+		private Playable m_Playable;
+
+		private Playable m_ParentMixer;
+	}
+}

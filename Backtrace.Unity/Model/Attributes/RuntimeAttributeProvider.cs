@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using UnityEngine;
+
+namespace Backtrace.Unity.Model.Attributes
+{
+	internal sealed class RuntimeAttributeProvider : IScopeAttributeProvider
+	{
+		public void GetAttributes(IDictionary<string, string> attributes)
+		{
+			if (attributes == null)
+			{
+				return;
+			}
+			attributes["backtrace.agent"] = "backtrace-unity";
+			attributes["backtrace.version"] = "3.9.1";
+			attributes["api.compatibility"] = this.GetApiCompatibility();
+			attributes["scripting.backend"] = this.GetScriptingBackend();
+			attributes["application"] = Application.productName;
+			attributes["application.version"] = Application.version;
+			attributes["application.url"] = Application.absoluteURL;
+			attributes["application.company.name"] = Application.companyName;
+			attributes["application.data_path"] = Application.dataPath;
+			attributes["application.id"] = Application.identifier;
+			attributes["application.package"] = Application.identifier;
+			attributes["application.installer.name"] = Application.installerName;
+			attributes["application.editor"] = Application.isEditor.ToString(CultureInfo.InvariantCulture);
+			attributes["application.mobile"] = Application.isMobilePlatform.ToString(CultureInfo.InvariantCulture);
+			attributes["application.sandboxType"] = Application.sandboxType.ToString();
+			attributes["application.system.language"] = Application.systemLanguage.ToString();
+			attributes["application.unity.version"] = Application.unityVersion;
+			attributes["application.debug"] = Debug.isDebugBuild.ToString(CultureInfo.InvariantCulture);
+			attributes["application.temporary_cache"] = Application.temporaryCachePath;
+		}
+
+		private string GetScriptingBackend()
+		{
+			return "Mono";
+		}
+
+		private string GetApiCompatibility()
+		{
+			return ".NET Standard 2.0";
+		}
+	}
+}

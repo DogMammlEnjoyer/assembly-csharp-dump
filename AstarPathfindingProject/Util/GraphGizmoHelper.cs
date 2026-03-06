@@ -1,0 +1,180 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Pathfinding.Util
+{
+	public class GraphGizmoHelper : IAstarPooledObject, IDisposable
+	{
+		public RetainedGizmos.Hasher hasher { get; private set; }
+
+		public RetainedGizmos.Builder builder { get; private set; }
+
+		public GraphGizmoHelper()
+		{
+			this.drawConnection = new Action<GraphNode>(this.DrawConnection);
+		}
+
+		public void Init(AstarPath active, RetainedGizmos.Hasher hasher, RetainedGizmos gizmos)
+		{
+			if (active != null)
+			{
+				this.debugData = active.debugPathData;
+				this.debugPathID = active.debugPathID;
+				this.debugMode = active.debugMode;
+				this.debugFloor = active.debugFloor;
+				this.debugRoof = active.debugRoof;
+				this.showSearchTree = (active.showSearchTree && this.debugData != null);
+			}
+			this.gizmos = gizmos;
+			this.hasher = hasher;
+			this.builder = ObjectPool<RetainedGizmos.Builder>.Claim();
+		}
+
+		public void OnEnterPool()
+		{
+			RetainedGizmos.Builder builder = this.builder;
+			ObjectPool<RetainedGizmos.Builder>.Release(ref builder);
+			this.builder = null;
+			this.debugData = null;
+		}
+
+		public void DrawConnections(GraphNode node)
+		{
+			if (this.showSearchTree)
+			{
+				if (GraphGizmoHelper.InSearchTree(node, this.debugData, this.debugPathID) && this.debugData.GetPathNode(node).parent != null)
+				{
+					this.builder.DrawLine((Vector3)node.position, (Vector3)this.debugData.GetPathNode(node).parent.node.position, this.NodeColor(node));
+					return;
+				}
+			}
+			else
+			{
+				this.drawConnectionColor = this.NodeColor(node);
+				this.drawConnectionStart = (Vector3)node.position;
+				node.GetConnections(this.drawConnection);
+			}
+		}
+
+		private void DrawConnection(GraphNode other)
+		{
+			this.builder.DrawLine(this.drawConnectionStart, Vector3.Lerp((Vector3)other.position, this.drawConnectionStart, 0.5f), this.drawConnectionColor);
+		}
+
+		public Color NodeColor(GraphNode node)
+		{
+			if (this.showSearchTree && !GraphGizmoHelper.InSearchTree(node, this.debugData, this.debugPathID))
+			{
+				return Color.clear;
+			}
+			Color result;
+			if (node.Walkable)
+			{
+				switch (this.debugMode)
+				{
+				case GraphDebugMode.SolidColor:
+					return AstarColor.SolidColor;
+				case GraphDebugMode.Penalty:
+					return Color.Lerp(AstarColor.ConnectionLowLerp, AstarColor.ConnectionHighLerp, (node.Penalty - this.debugFloor) / (this.debugRoof - this.debugFloor));
+				case GraphDebugMode.Areas:
+					return AstarColor.GetAreaColor(node.Area);
+				case GraphDebugMode.Tags:
+					return AstarColor.GetTagColor(node.Tag);
+				case GraphDebugMode.HierarchicalNode:
+					return AstarColor.GetTagColor((uint)node.HierarchicalNodeIndex);
+				}
+				if (this.debugData == null)
+				{
+					result = AstarColor.SolidColor;
+				}
+				else
+				{
+					PathNode pathNode = this.debugData.GetPathNode(node);
+					float num;
+					if (this.debugMode == GraphDebugMode.G)
+					{
+						num = pathNode.G;
+					}
+					else if (this.debugMode == GraphDebugMode.H)
+					{
+						num = pathNode.H;
+					}
+					else
+					{
+						num = pathNode.F;
+					}
+					result = Color.Lerp(AstarColor.ConnectionLowLerp, AstarColor.ConnectionHighLerp, (num - this.debugFloor) / (this.debugRoof - this.debugFloor));
+				}
+			}
+			else
+			{
+				result = AstarColor.UnwalkableNode;
+			}
+			return result;
+		}
+
+		public static bool InSearchTree(GraphNode node, PathHandler handler, ushort pathID)
+		{
+			return handler.GetPathNode(node).pathID == pathID;
+		}
+
+		public void DrawWireTriangle(Vector3 a, Vector3 b, Vector3 c, Color color)
+		{
+			this.builder.DrawLine(a, b, color);
+			this.builder.DrawLine(b, c, color);
+			this.builder.DrawLine(c, a, color);
+		}
+
+		public void DrawTriangles(Vector3[] vertices, Color[] colors, int numTriangles)
+		{
+			List<int> list = ListPool<int>.Claim(numTriangles);
+			for (int i = 0; i < numTriangles * 3; i++)
+			{
+				list.Add(i);
+			}
+			this.builder.DrawMesh(this.gizmos, vertices, list, colors);
+			ListPool<int>.Release(ref list);
+		}
+
+		public void DrawWireTriangles(Vector3[] vertices, Color[] colors, int numTriangles)
+		{
+			for (int i = 0; i < numTriangles; i++)
+			{
+				this.DrawWireTriangle(vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2], colors[i * 3]);
+			}
+		}
+
+		public void Submit()
+		{
+			this.builder.Submit(this.gizmos, this.hasher);
+		}
+
+		void IDisposable.Dispose()
+		{
+			GraphGizmoHelper graphGizmoHelper = this;
+			this.Submit();
+			ObjectPool<GraphGizmoHelper>.Release(ref graphGizmoHelper);
+		}
+
+		private RetainedGizmos gizmos;
+
+		private PathHandler debugData;
+
+		private ushort debugPathID;
+
+		private GraphDebugMode debugMode;
+
+		private bool showSearchTree;
+
+		private float debugFloor;
+
+		private float debugRoof;
+
+		private Vector3 drawConnectionStart;
+
+		private Color drawConnectionColor;
+
+		private readonly Action<GraphNode> drawConnection;
+	}
+}

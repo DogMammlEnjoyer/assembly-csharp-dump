@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace GorillaTagScripts.Subscription
 {
-	public class HandScanner : ObservableBehavior
+	public class HandScanner : ObservableBehavior, IClickable
 	{
 		protected override void ObservableSliceUpdate()
 		{
@@ -81,6 +81,21 @@ namespace GorillaTagScripts.Subscription
 				}
 				this.scanningRig = null;
 			}
+		}
+
+		public void Click(bool leftHand = false)
+		{
+			UnityEvent<NetPlayer> unityEvent = this.onHandScanStart;
+			if (unityEvent != null)
+			{
+				unityEvent.Invoke(VRRig.LocalRig.creator);
+			}
+			UnityEvent<NetPlayer> unityEvent2 = this.onHandScanSuccess;
+			if (unityEvent2 == null)
+			{
+				return;
+			}
+			unityEvent2.Invoke(VRRig.LocalRig.creator);
 		}
 
 		[SerializeField]

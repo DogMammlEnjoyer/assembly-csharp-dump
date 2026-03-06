@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA085}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Oculus.Interaction</RootNamespace>
+    <AssemblyName>Oculus.Interaction</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveStateFingerVisual.cs" />
+    <Compile Include="ActiveStateGate.cs" />
+    <Compile Include="ActiveStateGroup.cs" />
+    <Compile Include="ActiveStateNot.cs" />
+    <Compile Include="ActiveStateSelector.cs" />
+    <Compile Include="ActiveStateToggle.cs" />
+    <Compile Include="ActiveStateTracker.cs" />
+    <Compile Include="ActiveStateUnityEventWrapper.cs" />
+    <Compile Include="ArcTubeVisual.cs" />
+    <Compile Include="AssertUtils.cs" />
+    <Compile Include="AutoMoveTowardsTarget.cs" />
+    <Compile Include="AutoMoveTowardsTargetProvider.cs" />
+    <Compile Include="Axis1DFingerUseAPI.cs" />
+    <Compile Include="Axis1DPrioritySelector.cs" />
+    <Compile Include="Axis1DSwitch.cs" />
+    <Compile Include="Axis2DActiveState.cs" />
+    <Compile Include="BecomeChildOfTargetOnStart.cs" />
+    <Compile Include="BestHoverInteractorGroup.cs" />
+    <Compile Include="BestSelectInteractorGroup.cs" />
+    <Compile Include="Body\BodyDebugGizmos.cs" />
+    <Compile Include="Body\Input\Body.cs" />
+    <Compile Include="Body\Input\BodyDataAsset.cs" />
+    <Compile Include="Body\Input\BodyJointId.cs" />
+    <Compile Include="Body\Input\BodyJointsCache.cs" />
+    <Compile Include="Body\Input\BodySkeletonMapping.cs" />
+    <Compile Include="Body\Input\Constants.cs" />
+    <Compile Include="Body\Input\IBody.cs" />
+    <Compile Include="Body\Input\ISkeletonMapping.cs" />
+    <Compile Include="Body\Input\ReadOnlyBodyJointPoses.cs" />
+    <Compile Include="Body\PoseDetection\BodyPoseComparerActiveState.cs" />
+    <Compile Include="Body\PoseDetection\BodyPoseComparerActiveStateDebugVisual.cs" />
+    <Compile Include="Body\PoseDetection\BodyPoseData.cs" />
+    <Compile Include="Body\PoseDetection\BodyPoseDebugGizmos.cs" />
+    <Compile Include="Body\PoseDetection\IBodyPose.cs" />
+    <Compile Include="Body\PoseDetection\PoseFromBody.cs" />
+    <Compile Include="BoundsExtensions.cs" />
+    <Compile Include="CandidateComparer.cs" />
+    <Compile Include="CandidatePositionComparer.cs" />
+    <Compile Include="CenterEyeOffset.cs" />
+    <Compile Include="ClassToClassDecorator.cs" />
+    <Compile Include="ClassToValueDecorator.cs" />
+    <Compile Include="Collections\EnumerableHashSet.cs" />
+    <Compile Include="Collections\IEnumerableHashSet.cs" />
+    <Compile Include="ColliderGroup.cs" />
+    <Compile Include="CollisionInteractionRegistry.cs" />
+    <Compile Include="Collisions.cs" />
+    <Compile Include="ConditionalHideAttribute.cs" />
+    <Compile Include="ConeUtils.cs" />
+    <Compile Include="ConicalFrustum.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="ControllerActiveState.cs" />
+    <Compile Include="ControllerAxis2D.cs" />
+    <Compile Include="ControllerOffset.cs" />
+    <Compile Include="ControllerPointerPose.cs" />
+    <Compile Include="ControllerRayVisual.cs" />
+    <Compile Include="ControllerSelector.cs" />
+    <Compile Include="Cylinder.cs" />
+    <Compile Include="CylinderOrientation.cs" />
+    <Compile Include="DebugGizmos.cs" />
+    <Compile Include="DebugTree\DebugTree.cs" />
+    <Compile Include="DebugTree\DebugTreeUI.cs" />
+    <Compile Include="DebugTree\INodeUI.cs" />
+    <Compile Include="DebugTree\InteractorGroupDebugTreeUI.cs" />
+    <Compile Include="DebugTree\InteractorGroupNodeUI.cs" />
+    <Compile Include="DebugTree\ITreeNode.cs" />
+    <Compile Include="DecoratorBase.cs" />
+    <Compile Include="DeprecatedPrefab.cs" />
+    <Compile Include="Deprecated\PointableDebugPolylineGizmos.cs" />
+    <Compile Include="Deprecated\PolylineGizmos.cs" />
+    <Compile Include="Deprecated\RayInteractorDebugPolylineGizmos.cs" />
+    <Compile Include="DistanceGrabInteractable.cs" />
+    <Compile Include="DistanceGrabInteractor.cs" />
+    <Compile Include="DistanceReticles\DistantInteractionLineRendererVisual.cs" />
+    <Compile Include="DistanceReticles\DistantInteractionLineVisual.cs" />
+    <Compile Include="DistanceReticles\DistantInteractionPolylineVisual.cs" />
+    <Compile Include="DistanceReticles\DistantInteractionTubeVisual.cs" />
+    <Compile Include="DistanceReticles\InteractorReticle.cs" />
+    <Compile Include="DistanceReticles\IReticleData.cs" />
+    <Compile Include="DistanceReticles\ReticleDataGhost.cs" />
+    <Compile Include="DistanceReticles\ReticleDataIcon.cs" />
+    <Compile Include="DistanceReticles\ReticleDataMesh.cs" />
+    <Compile Include="DistanceReticles\ReticleDataTeleport.cs" />
+    <Compile Include="DistanceReticles\ReticleGhostDrawer.cs" />
+    <Compile Include="DistanceReticles\ReticleIconDrawer.cs" />
+    <Compile Include="DistanceReticles\ReticleMeshDrawer.cs" />
+    <Compile Include="DistanceReticles\TeleportReticleDrawer.cs" />
+    <Compile Include="DistantCandidateComputer.cs" />
+    <Compile Include="DistantPointDetector.cs" />
+    <Compile Include="DistantPointDetectorFrustums.cs" />
+    <Compile Include="DotGridProperties.cs" />
+    <Compile Include="DPadUnityEventWrapper.cs" />
+    <Compile Include="FinalAction.cs" />
+    <Compile Include="FingerFeatureStateProviderRef.cs" />
+    <Compile Include="FingerPinchValue.cs" />
+    <Compile Include="FirstHoverInteractorGroup.cs" />
+    <Compile Include="FloatConstraint.cs" />
+    <Compile Include="FollowTarget.cs" />
+    <Compile Include="FollowTargetProvider.cs" />
+    <Compile Include="GameObjectActiveState.cs" />
+    <Compile Include="GrabAPI\ControllerPinchInjector.cs" />
+    <Compile Include="GrabAPI\FingerPalmGrabAPI.cs" />
+    <Compile Include="GrabAPI\FingerPinchGrabAPI.cs" />
+    <Compile Include="GrabAPI\FingerRawPinchAPI.cs" />
+    <Compile Include="GrabAPI\FingerRawPinchInjector.cs" />
+    <Compile Include="GrabAPI\FingerRequirement.cs" />
+    <Compile Include="GrabAPI\FingerUnselectMode.cs" />
+    <Compile Include="GrabAPI\GrabbingRule.cs" />
+    <Compile Include="GrabAPI\HandGrabAPI.cs" />
+    <Compile Include="GrabAPI\HandPinchData.cs" />
+    <Compile Include="GrabAPI\PalmGrabAPI.cs" />
+    <Compile Include="GrabAPI\PinchGrabAPI.cs" />
+    <Compile Include="Grabbable.cs" />
+    <Compile Include="GrabFreePhysicsTransformer.cs" />
+    <Compile Include="GrabFreeTransformer.cs" />
+    <Compile Include="GrabInteractable.cs" />
+    <Compile Include="GrabInteractor.cs" />
+    <Compile Include="GrabStrengthIndicator.cs" />
+    <Compile Include="Grab\GrabPoseHelper.cs" />
+    <Compile Include="Grab\GrabPoseScore.cs" />
+    <Compile Include="Grab\GrabSurfaces\BezierControlPoint.cs" />
+    <Compile Include="Grab\GrabSurfaces\BezierGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\BoxGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\BoxGrabSurfaceData.cs" />
+    <Compile Include="Grab\GrabSurfaces\ColliderGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\CylinderGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\CylinderSurfaceData.cs" />
+    <Compile Include="Grab\GrabSurfaces\IGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\SphereGrabSurface.cs" />
+    <Compile Include="Grab\GrabSurfaces\SphereGrabSurfaceData.cs" />
+    <Compile Include="Grab\GrabTypeFlags.cs" />
+    <Compile Include="Grab\PoseMeasureParameters.cs" />
+    <Compile Include="HandActiveState.cs" />
+    <Compile Include="HandConfidenceVisual.cs" />
+    <Compile Include="HandDebugGizmos.cs" />
+    <Compile Include="HandDebugVisual.cs" />
+    <Compile Include="HandFingerMaskGenerator.cs" />
+    <Compile Include="HandGrabGlow.cs" />
+    <Compile Include="HandGrab\DistanceHandGrabInteractable.cs" />
+    <Compile Include="HandGrab\DistanceHandGrabInteractor.cs" />
+    <Compile Include="HandGrab\GrabPoseFinder.cs" />
+    <Compile Include="HandGrab\HandAlignType.cs" />
+    <Compile Include="HandGrab\HandGrabInteractable.cs" />
+    <Compile Include="HandGrab\HandGrabInteractableDataCollection.cs" />
+    <Compile Include="HandGrab\HandGrabInteraction.cs" />
+    <Compile Include="HandGrab\HandGrabInteractor.cs" />
+    <Compile Include="HandGrab\HandGrabPose.cs" />
+    <Compile Include="HandGrab\HandGrabResult.cs" />
+    <Compile Include="HandGrab\HandGrabStateExtensions.cs" />
+    <Compile Include="HandGrab\HandGrabStateVisual.cs" />
+    <Compile Include="HandGrab\HandGrabTarget.cs" />
+    <Compile Include="HandGrab\HandGrabUseInteractable.cs" />
+    <Compile Include="HandGrab\HandGrabUseInteractor.cs" />
+    <Compile Include="HandGrab\HandGrabUtils.cs" />
+    <Compile Include="HandGrab\HandPose.cs" />
+    <Compile Include="HandGrab\IHandGrabInteractable.cs" />
+    <Compile Include="HandGrab\IHandGrabInteractor.cs" />
+    <Compile Include="HandGrab\IHandGrabState.cs" />
+    <Compile Include="HandGrab\IHandGrabUseDelegate.cs" />
+    <Compile Include="HandGrab\Visuals\HandGhost.cs" />
+    <Compile Include="HandGrab\Visuals\HandGhostProvider.cs" />
+    <Compile Include="HandGrab\Visuals\HandJointMap.cs" />
+    <Compile Include="HandGrab\Visuals\HandPuppet.cs" />
+    <Compile Include="HandGrab\Visuals\JointCollection.cs" />
+    <Compile Include="HandJoint.cs" />
+    <Compile Include="HandJointsPose.cs" />
+    <Compile Include="HandPinchOffset.cs" />
+    <Compile Include="HandPointerPose.cs" />
+    <Compile Include="HandPokeLimiterVisual.cs" />
+    <Compile Include="HandPokeOvershootGlow.cs" />
+    <Compile Include="HandRayInteractorCursorVisual.cs" />
+    <Compile Include="HandRayPinchGlow.cs" />
+    <Compile Include="HandRootOffset.cs" />
+    <Compile Include="HandSphere.cs" />
+    <Compile Include="HandSphereMap.cs" />
+    <Compile Include="HandTrackingConfidenceProvider.cs" />
+    <Compile Include="HandTransformScaler.cs" />
+    <Compile Include="HandTranslationUtils.cs" />
+    <Compile Include="HandVisual.cs" />
+    <Compile Include="HashSetExtensions.cs" />
+    <Compile Include="HelpBoxAttribute.cs" />
+    <Compile Include="HoverInteractorsGate.cs" />
+    <Compile Include="IActiveState.cs" />
+    <Compile Include="ICandidateComparer.cs" />
+    <Compile Include="ICandidatePosition.cs" />
+    <Compile Include="ICollidersRef.cs" />
+    <Compile Include="ICurvedPlane.cs" />
+    <Compile Include="IDeltaTimeConsumer.cs" />
+    <Compile Include="IDistanceInteractor.cs" />
+    <Compile Include="IEvent.cs" />
+    <Compile Include="IFingerAPI.cs" />
+    <Compile Include="IFingerUseAPI.cs" />
+    <Compile Include="IGameObjectFilter.cs" />
+    <Compile Include="IGrabbable.cs" />
+    <Compile Include="IHandSphereMap.cs" />
+    <Compile Include="IHandVisual.cs" />
+    <Compile Include="IInteractable.cs" />
+    <Compile Include="IInteractableView.cs" />
+    <Compile Include="IInteractor.cs" />
+    <Compile Include="IInteractorView.cs" />
+    <Compile Include="IMovement.cs" />
+    <Compile Include="IMovementProvider.cs" />
+    <Compile Include="IndexPinchSafeReleaseSelector.cs" />
+    <Compile Include="IndexPinchSelector.cs" />
+    <Compile Include="Input\BoneCapsule.cs" />
+    <Compile Include="Input\Compatibility\OVR\Constants.cs" />
+    <Compile Include="Input\Compatibility\OVR\Handedness.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandFinger.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandFingerFlags.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandFingerJointFlags.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandFingerUtils.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandJointId.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandJointUtils.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandSkeleton.cs" />
+    <Compile Include="Input\Compatibility\OVR\HandSkeletonJoint.cs" />
+    <Compile Include="Input\Compatibility\OVR\ICopyFrom.cs" />
+    <Compile Include="Input\Compatibility\OVR\IReadOnlyHandSkeleton.cs" />
+    <Compile Include="Input\Compatibility\OVR\IReadOnlyHandSkeletonJointList.cs" />
+    <Compile Include="Input\Compatibility\OVR\PalmGrabParamID.cs" />
+    <Compile Include="Input\Compatibility\OVR\PinchGrabParam.cs" />
+    <Compile Include="Input\Compatibility\OVR\ReadOnlyHandJointPoses.cs" />
+    <Compile Include="Input\Constants.cs" />
+    <Compile Include="Input\Controller.cs" />
+    <Compile Include="Input\ControllerAnimatedHand.cs" />
+    <Compile Include="Input\ControllerAxis1DUsage.cs" />
+    <Compile Include="Input\ControllerAxis2DUsage.cs" />
+    <Compile Include="Input\ControllerButtonUsage.cs" />
+    <Compile Include="Input\ControllerButtonUsageActiveState.cs" />
+    <Compile Include="Input\ControllerDataAsset.cs" />
+    <Compile Include="Input\ControllerDataSourceConfig.cs" />
+    <Compile Include="Input\ControllerHandDataSource.cs" />
+    <Compile Include="Input\ControllerInput.cs" />
+    <Compile Include="Input\ControllerRef.cs" />
+    <Compile Include="Input\DataModifier.cs" />
+    <Compile Include="Input\DataSource.cs" />
+    <Compile Include="Input\DominantHandRef.cs" />
+    <Compile Include="Input\Filter\HandFilter.cs" />
+    <Compile Include="Input\FingersMetadata.cs" />
+    <Compile Include="Input\FixedScaleHand.cs" />
+    <Compile Include="Input\FromHandPrefabDataSource.cs" />
+    <Compile Include="Input\Hand.cs" />
+    <Compile Include="Input\HandDataAsset.cs" />
+    <Compile Include="Input\HandDataSourceConfig.cs" />
+    <Compile Include="Input\Handedness.cs" />
+    <Compile Include="Input\HandFilterParameterBlock.cs" />
+    <Compile Include="Input\HandFinger.cs" />
+    <Compile Include="Input\HandFingerFlags.cs" />
+    <Compile Include="Input\HandFingerJointFlags.cs" />
+    <Compile Include="Input\HandFingerUtils.cs" />
+    <Compile Include="Input\HandJointCache.cs" />
+    <Compile Include="Input\HandJointId.cs" />
+    <Compile Include="Input\HandJointUtils.cs" />
+    <Compile Include="Input\HandMirroring.cs" />
+    <Compile Include="Input\HandPhysicsCapsules.cs" />
+    <Compile Include="Input\HandRef.cs" />
+    <Compile Include="Input\HandSkeleton.cs" />
+    <Compile Include="Input\HandSkeletonJoint.cs" />
+    <Compile Include="Input\HandSourceInjector.cs" />
+    <Compile Include="Input\Hmd.cs" />
+    <Compile Include="Input\HmdDataAsset.cs" />
+    <Compile Include="Input\HmdDataSourceConfig.cs" />
+    <Compile Include="Input\HmdRef.cs" />
+    <Compile Include="Input\IAxis1D.cs" />
+    <Compile Include="Input\IAxis2D.cs" />
+    <Compile Include="Input\IButton.cs" />
+    <Compile Include="Input\IController.cs" />
+    <Compile Include="Input\IControllerDataModifier.cs" />
+    <Compile Include="Input\ICopyFrom.cs" />
+    <Compile Include="Input\IDataSource.2.cs" />
+    <Compile Include="Input\IDataSource.cs" />
+    <Compile Include="Input\IHand.cs" />
+    <Compile Include="Input\IHandSkeletonProvider.cs" />
+    <Compile Include="Input\IHmd.cs" />
+    <Compile Include="Input\IOneEuroFilter.cs" />
+    <Compile Include="Input\IReadOnlyHandSkeleton.cs" />
+    <Compile Include="Input\IReadOnlyHandSkeletonJointList.cs" />
+    <Compile Include="Input\ITrackingToWorldTransformer.cs" />
+    <Compile Include="Input\JointFreedom.cs" />
+    <Compile Include="Input\JointRotationHistoryHand.cs" />
+    <Compile Include="Input\JointsRadiusFeature.cs" />
+    <Compile Include="Input\LastKnownGoodHand.cs" />
+    <Compile Include="Input\OneEuroFilter.cs" />
+    <Compile Include="Input\OneEuroFilterPropertyBlock.cs" />
+    <Compile Include="Input\PalmGrabParamID.cs" />
+    <Compile Include="Input\PinchGrabParam.cs" />
+    <Compile Include="Input\PoseOrigin.cs" />
+    <Compile Include="Input\ReadOnlyHandJointPoses.cs" />
+    <Compile Include="Input\ScrollInputProvider.cs" />
+    <Compile Include="Input\ShadowHand.cs" />
+    <Compile Include="Input\ShadowHandExtensions.cs" />
+    <Compile Include="Input\SkeletonJointsCache.cs" />
+    <Compile Include="Input\SyntheticControllerInHand.cs" />
+    <Compile Include="Input\SyntheticHand.cs" />
+    <Compile Include="Input\Visuals\ControllerVisual.cs" />
+    <Compile Include="InspectorButtonAttribute.cs" />
+    <Compile Include="Interactable.cs" />
+    <Compile Include="InteractableColorVisual.cs" />
+    <Compile Include="InteractableDebugVisual.cs" />
+    <Compile Include="InteractableGroup.cs" />
+    <Compile Include="InteractableGroupView.cs" />
+    <Compile Include="InteractableRegistry.cs" />
+    <Compile Include="InteractableState.cs" />
+    <Compile Include="InteractableStateChangeArgs.cs" />
+    <Compile Include="InteractableTriggerBroadcaster.cs" />
+    <Compile Include="InteractableUnityEventWrapper.cs" />
+    <Compile Include="Interactor.cs" />
+    <Compile Include="InteractorActiveState.cs" />
+    <Compile Include="InteractorControllerDecorator.cs" />
+    <Compile Include="InteractorDebugVisual.cs" />
+    <Compile Include="InteractorGroup.cs" />
+    <Compile Include="InteractorState.cs" />
+    <Compile Include="InteractorStateChangeArgs.cs" />
+    <Compile Include="InteractorUnityEventWrapper.cs" />
+    <Compile Include="InterfaceAttribute.cs" />
+    <Compile Include="IPointable.cs" />
+    <Compile Include="IPointableCanvas.cs" />
+    <Compile Include="IPointableElement.cs" />
+    <Compile Include="IPolyline.cs" />
+    <Compile Include="IRelativeToRef.cs" />
+    <Compile Include="IRigidbodyRef.cs" />
+    <Compile Include="ISelector.cs" />
+    <Compile Include="ISnapPoseDelegate.cs" />
+    <Compile Include="ITimeConsumer.cs" />
+    <Compile Include="ITransformer.cs" />
+    <Compile Include="IUpdateDriver.cs" />
+    <Compile Include="JointDeltaProviderRef.cs" />
+    <Compile Include="JoystickPoseMovement.cs" />
+    <Compile Include="JoystickPoseMovementProvider.cs" />
+    <Compile Include="ListLayout.cs" />
+    <Compile Include="ListLayoutEase.cs" />
+    <Compile Include="ListSnapPoseDelegate.cs" />
+    <Compile Include="Locomotion\AnimatedSnapTurnVisuals.cs" />
+    <Compile Include="Locomotion\CapsuleLocomotionHandler.cs" />
+    <Compile Include="Locomotion\CharacterController.cs" />
+    <Compile Include="Locomotion\FirstPersonLocomotor.cs" />
+    <Compile Include="Locomotion\FlyingLocomotor.cs" />
+    <Compile Include="Locomotion\ILocomotionEventBroadcaster.cs" />
+    <Compile Include="Locomotion\ILocomotionEventHandler.cs" />
+    <Compile Include="Locomotion\LocomotionActionsBroadcaster.cs" />
+    <Compile Include="Locomotion\LocomotionActiveState.cs" />
+    <Compile Include="Locomotion\LocomotionAxisTurnerInteractable.cs" />
+    <Compile Include="Locomotion\LocomotionAxisTurnerInteractor.cs" />
+    <Compile Include="Locomotion\LocomotionEvent.cs" />
+    <Compile Include="Locomotion\LocomotionEventsConnection.cs" />
+    <Compile Include="Locomotion\LocomotionGate.cs" />
+    <Compile Include="Locomotion\LocomotionGateUnityEventWrapper.cs" />
+    <Compile Include="Locomotion\LocomotionTunneling.cs" />
+    <Compile Include="Locomotion\LocomotionTurnerInteractable.cs" />
+    <Compile Include="Locomotion\LocomotionTurnerInteractor.cs" />
+    <Compile Include="Locomotion\LocomotionTurnerInteractorEventsWrapper.cs" />
+    <Compile Include="Locomotion\LocomotionTurnerInteractorVisual.cs" />
+    <Compile Include="Locomotion\PlayerLocomotor.cs" />
+    <Compile Include="Locomotion\SlideLocomotionBroadcaster.cs" />
+    <Compile Include="Locomotion\StepLocomotionBroadcaster.cs" />
+    <Compile Include="Locomotion\TeleportArcGravity.cs" />
+    <Compile Include="Locomotion\TeleportArcVisual.cs" />
+    <Compile Include="Locomotion\TeleportCandidateComputer.cs" />
+    <Compile Include="Locomotion\TeleportHit.cs" />
+    <Compile Include="Locomotion\TeleportInteractable.cs" />
+    <Compile Include="Locomotion\TeleportInteractor.cs" />
+    <Compile Include="Locomotion\TeleportProceduralArcVisual.cs" />
+    <Compile Include="Locomotion\TurnArrowVisuals.cs" />
+    <Compile Include="Locomotion\TurnerEventBroadcaster.cs" />
+    <Compile Include="Locomotion\TurnLocomotionBroadcaster.cs" />
+    <Compile Include="Locomotion\VirtualActiveState.cs" />
+    <Compile Include="Locomotion\WallPenetrationTunneling.cs" />
+    <Compile Include="Locomotion\WristAngleActiveState.cs" />
+    <Compile Include="MAction.cs" />
+    <Compile Include="MaterialPropertyBlockEditor.cs" />
+    <Compile Include="MaterialPropertyColor.cs" />
+    <Compile Include="MaterialPropertyFloat.cs" />
+    <Compile Include="MaterialPropertyVector.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="MonoBehaviourEndOfFrameExtensions.cs" />
+    <Compile Include="MonoBehaviourStartExtensions.cs" />
+    <Compile Include="MoveAtSourceProvider.cs" />
+    <Compile Include="MoveFromTarget.cs" />
+    <Compile Include="MoveFromTargetProvider.cs" />
+    <Compile Include="MoveRelativeToTarget.cs" />
+    <Compile Include="MoveTowardsTarget.cs" />
+    <Compile Include="MoveTowardsTargetProvider.cs" />
+    <Compile Include="MultiAction.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="ObjectPull.cs" />
+    <Compile Include="ObjectPullProvider.cs" />
+    <Compile Include="OneGrabFreeTransformer.cs" />
+    <Compile Include="OneGrabPhysicsJointTransformer.cs" />
+    <Compile Include="OneGrabRotateTransformer.cs" />
+    <Compile Include="OneGrabSphereTransformer.cs" />
+    <Compile Include="OneGrabTranslateTransformer.cs" />
+    <Compile Include="OptionalAttribute.cs" />
+    <Compile Include="PhysicsGrabbable.cs" />
+    <Compile Include="PinchPointerVisual.cs" />
+    <Compile Include="PointableCanvas.cs" />
+    <Compile Include="PointableCanvasEventArgs.cs" />
+    <Compile Include="PointableCanvasMesh.cs" />
+    <Compile Include="PointableCanvasModule.cs" />
+    <Compile Include="PointableCanvasUnityEventWrapper.cs" />
+    <Compile Include="PointableDebugGizmos.cs" />
+    <Compile Include="PointableDebugVisual.cs" />
+    <Compile Include="PointableElement.cs" />
+    <Compile Include="PointableUnityEventWrapper.cs" />
+    <Compile Include="PointerEvent.cs" />
+    <Compile Include="PointerEventType.cs" />
+    <Compile Include="PointerInteractable.cs" />
+    <Compile Include="PointerInteractor.cs" />
+    <Compile Include="PokeInteractable.cs" />
+    <Compile Include="PokeInteractableVisual.cs" />
+    <Compile Include="PokeInteractor.cs" />
+    <Compile Include="PolylineRenderer.cs" />
+    <Compile Include="PoseDetection\ColliderContainsHandJointActiveState.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateDebugTree.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateDebugTreeUI.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateModel.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateNodeUIHorizontal.cs" />
+    <Compile Include="PoseDetection\Debug\ActiveStateNodeUIVertical.cs" />
+    <Compile Include="PoseDetection\Debug\FingerFeatureDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\FingerFeatureSkeletalDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\HandShapeDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\HandShapeSkeletalDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\IActiveStateModel.cs" />
+    <Compile Include="PoseDetection\Debug\JointRotationDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\JointVelocityDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\TransformFeatureDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\TransformFeatureVectorDebugParentVisual.cs" />
+    <Compile Include="PoseDetection\Debug\TransformFeatureVectorDebugVisual.cs" />
+    <Compile Include="PoseDetection\Debug\TransformRecognizerDebugVisual.cs" />
+    <Compile Include="PoseDetection\FeatureConfigBase.cs" />
+    <Compile Include="PoseDetection\FeatureConfigBuilder.cs" />
+    <Compile Include="PoseDetection\FeatureDescription.cs" />
+    <Compile Include="PoseDetection\FeatureStateActiveMode.cs" />
+    <Compile Include="PoseDetection\FeatureStateDescription.cs" />
+    <Compile Include="PoseDetection\FeatureStateProvider.cs" />
+    <Compile Include="PoseDetection\FingerFeature.cs" />
+    <Compile Include="PoseDetection\FingerFeatureConfigBuilder.cs" />
+    <Compile Include="PoseDetection\FingerFeatureProperties.cs" />
+    <Compile Include="PoseDetection\FingerFeatureStateDictionary.cs" />
+    <Compile Include="PoseDetection\FingerFeatureStateProvider.cs" />
+    <Compile Include="PoseDetection\FingerFeatureStateThreshold.cs" />
+    <Compile Include="PoseDetection\FingerFeatureStateThresholds.cs" />
+    <Compile Include="PoseDetection\FingerFeatureThresholds.cs" />
+    <Compile Include="PoseDetection\FingerShapes.cs" />
+    <Compile Include="PoseDetection\HmdOffset.cs" />
+    <Compile Include="PoseDetection\IFeatureStateThreshold.cs" />
+    <Compile Include="PoseDetection\IFeatureStateThresholds.cs" />
+    <Compile Include="PoseDetection\IFeatureThresholds.cs" />
+    <Compile Include="PoseDetection\IFingerFeatureStateProvider.cs" />
+    <Compile Include="PoseDetection\IJointDeltaProvider.cs" />
+    <Compile Include="PoseDetection\ITransformFeatureStateProvider.cs" />
+    <Compile Include="PoseDetection\JointDeltaConfig.cs" />
+    <Compile Include="PoseDetection\JointDeltaProvider.cs" />
+    <Compile Include="PoseDetection\JointDistanceActiveState.cs" />
+    <Compile Include="PoseDetection\JointRotationActiveState.cs" />
+    <Compile Include="PoseDetection\JointVelocityActiveState.cs" />
+    <Compile Include="PoseDetection\Sequence.cs" />
+    <Compile Include="PoseDetection\SequenceActiveState.cs" />
+    <Compile Include="PoseDetection\ShapeRecognizer.cs" />
+    <Compile Include="PoseDetection\ShapeRecognizerActiveState.cs" />
+    <Compile Include="PoseDetection\TransformConfig.cs" />
+    <Compile Include="PoseDetection\TransformFeature.cs" />
+    <Compile Include="PoseDetection\TransformFeatureConfig.cs" />
+    <Compile Include="PoseDetection\TransformFeatureConfigBuilder.cs" />
+    <Compile Include="PoseDetection\TransformFeatureConfigList.cs" />
+    <Compile Include="PoseDetection\TransformFeatureProperties.cs" />
+    <Compile Include="PoseDetection\TransformFeatureStateCollection.cs" />
+    <Compile Include="PoseDetection\TransformFeatureStateProvider.cs" />
+    <Compile Include="PoseDetection\TransformFeatureStateThreshold.cs" />
+    <Compile Include="PoseDetection\TransformFeatureStateThresholds.cs" />
+    <Compile Include="PoseDetection\TransformFeatureThresholds.cs" />
+    <Compile Include="PoseDetection\TransformFeatureValueProvider.cs" />
+    <Compile Include="PoseDetection\TransformJointData.cs" />
+    <Compile Include="PoseDetection\TransformRecognizerActiveState.cs" />
+    <Compile Include="PoseDetection\UpVectorType.cs" />
+    <Compile Include="PoseTravelData.cs" />
+    <Compile Include="PoseUtils.cs" />
+    <Compile Include="ProgressCurve.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomSampleConsensus.cs" />
+    <Compile Include="RayInteractable.cs" />
+    <Compile Include="RayInteractor.cs" />
+    <Compile Include="RayInteractorCursorVisual.cs" />
+    <Compile Include="RayInteractorDebugGizmos.cs" />
+    <Compile Include="RayInteractorPinchVisual.cs" />
+    <Compile Include="RectTransformBoundsClipperDriver.cs" />
+    <Compile Include="RigidbodyKinematicLocker.cs" />
+    <Compile Include="RigidbodyKinematicLockerExtension.cs" />
+    <Compile Include="RingBuffer.cs" />
+    <Compile Include="RoundedBoxProperties.cs" />
+    <Compile Include="SecondaryInteractorConnection.cs" />
+    <Compile Include="SecondaryInteractorFilter.cs" />
+    <Compile Include="SectionAttribute.cs" />
+    <Compile Include="SelectorDebugVisual.cs" />
+    <Compile Include="SelectorUnityEventWrapper.cs" />
+    <Compile Include="SequentialSlotsProvider.cs" />
+    <Compile Include="ShoulderEstimatePosition.cs" />
+    <Compile Include="SkeletonDebugGizmos.cs" />
+    <Compile Include="SnapInteractable.cs" />
+    <Compile Include="SnapInteractor.cs" />
+    <Compile Include="SnapInteractorFollowVisual.cs" />
+    <Compile Include="SurfaceSnapPoseDelegate.cs" />
+    <Compile Include="Surfaces\AxisAlignedBox.cs" />
+    <Compile Include="Surfaces\BoundsClipper.cs" />
+    <Compile Include="Surfaces\CircleSurface.cs" />
+    <Compile Include="Surfaces\ClippedCylinderSurface.cs" />
+    <Compile Include="Surfaces\ClippedPlaneSurface.cs" />
+    <Compile Include="Surfaces\ColliderSurface.cs" />
+    <Compile Include="Surfaces\CylinderClipper.cs" />
+    <Compile Include="Surfaces\CylinderSegment.cs" />
+    <Compile Include="Surfaces\CylinderSurface.cs" />
+    <Compile Include="Surfaces\IBounds.cs" />
+    <Compile Include="Surfaces\IBoundsClipper.cs" />
+    <Compile Include="Surfaces\IClippedSurface.cs" />
+    <Compile Include="Surfaces\ICylinderClipper.cs" />
+    <Compile Include="Surfaces\ISurface.cs" />
+    <Compile Include="Surfaces\ISurfacePatch.cs" />
+    <Compile Include="Surfaces\NavMeshSurface.cs" />
+    <Compile Include="Surfaces\PhysicsLayerSurface.cs" />
+    <Compile Include="Surfaces\PlaneSurface.cs" />
+    <Compile Include="Surfaces\SurfaceHit.cs" />
+    <Compile Include="SurfaceUtils.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="TagSet.cs" />
+    <Compile Include="TagSetFilter.cs" />
+    <Compile Include="Throw\ControllerPoseInputDevice.cs" />
+    <Compile Include="Throw\HandPoseInputDevice.cs" />
+    <Compile Include="Throw\IPoseInputDevice.cs" />
+    <Compile Include="Throw\IThrowVelocityCalculator.cs" />
+    <Compile Include="Throw\IVelocityCalculator.cs" />
+    <Compile Include="Throw\RANSACVelocity.cs" />
+    <Compile Include="Throw\RANSACVelocityCalculator.cs" />
+    <Compile Include="Throw\ReleaseVelocityInformation.cs" />
+    <Compile Include="Throw\StandardVelocityCalculator.cs" />
+    <Compile Include="Throw\TransformSample.cs" />
+    <Compile Include="Throw\VelocityCalculatorUtilMethods.cs" />
+    <Compile Include="ToggleDeselect.cs" />
+    <Compile Include="TouchHandGrabInteractable.cs" />
+    <Compile Include="TouchHandGrabInteractor.cs" />
+    <Compile Include="TouchHandGrabInteractorVisual.cs" />
+    <Compile Include="TouchShadowHand.cs" />
+    <Compile Include="TransformerUtils.cs" />
+    <Compile Include="TransformExtensions.cs" />
+    <Compile Include="TransformFeatureStateProviderRef.cs" />
+    <Compile Include="TransformsPolyline.cs" />
+    <Compile Include="TransformTrackingToWorldTransformer.cs" />
+    <Compile Include="TubePoint.cs" />
+    <Compile Include="TubeRenderer.cs" />
+    <Compile Include="TunnelingEffect.cs" />
+    <Compile Include="Tween.cs" />
+    <Compile Include="TwoGrabFreeTransformer.cs" />
+    <Compile Include="TwoGrabPlaneTransformer.cs" />
+    <Compile Include="TwoGrabRotateTransformer.cs" />
+    <Compile Include="UniqueIdentifier.cs" />
+    <Compile Include="UnityCanvas\CanvasCylinder.cs" />
+    <Compile Include="UnityCanvas\CanvasMesh.cs" />
+    <Compile Include="UnityCanvas\CanvasMeshRenderer.cs" />
+    <Compile Include="UnityCanvas\CanvasRect.cs" />
+    <Compile Include="UnityCanvas\CanvasRenderTexture.cs" />
+    <Compile Include="UnityCanvas\RenderingMode.cs" />
+    <Compile Include="UnityCanvas\UpdateCanvasSortingOrder.cs" />
+    <Compile Include="UnityInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Unity\Input\InputAxis.cs" />
+    <Compile Include="Unity\Input\InputButton.cs" />
+    <Compile Include="Unity\Input\InputKey.cs" />
+    <Compile Include="Unity\Input\InputMouseButton.cs" />
+    <Compile Include="UpdateDriverAfterDataSource.cs" />
+    <Compile Include="UpdateDriverGroup.cs" />
+    <Compile Include="UseFingerControllerAPI.cs" />
+    <Compile Include="UseFingerCurlAPI.cs" />
+    <Compile Include="UseFingerRawPinchAPI.cs" />
+    <Compile Include="Utils\FilteredTransform.cs" />
+    <Compile Include="ValueToClassDecorator.cs" />
+    <Compile Include="ValueToValueDecorator.cs" />
+    <Compile Include="VectorExtensions.cs" />
+    <Compile Include="VersionTextVisual.cs" />
+    <Compile Include="VirtualPointable.cs" />
+    <Compile Include="VirtualSelector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AIModule\UnityEngine.AIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EA}</Project>
+      <Name>UnityEngine.AIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA102}</Project>
+      <Name>UnityEngine.IMGUIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA104}</Project>
+      <Name>UnityEngine.InputLegacyModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

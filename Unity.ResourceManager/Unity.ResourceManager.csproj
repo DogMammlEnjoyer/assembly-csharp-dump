@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.ResourceManager</RootNamespace>
+    <AssemblyName>Unity.ResourceManager</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DelegateList.cs" />
+    <Compile Include="ListWithEvents.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="MonoBehaviourCallbackHooks.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\AsyncOperationBase.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\AsyncOperationHandle.2.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\AsyncOperationHandle.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\AsyncOperationStatus.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\DownloadStatus.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\GetDownloadSizeOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\GroupOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\IAsyncOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\ICachable.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\IGenericProviderOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\ProviderOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\AsyncOperations\UnityWebRequestOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ChainOperation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ChainOperationTypelessDepedency.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Exceptions\OperationException.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Exceptions\ProviderException.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Exceptions\RemoteProviderException.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Exceptions\ResourceManagerException.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Exceptions\UnknownResourceProviderException.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\IUpdateReceiver.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\AssetFrameData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\BundleFrameData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\BundleOptions.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\CatalogFrameData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\ContentStatus.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\EngineEmitter.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\IProfilerEmitter.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Profiling\ProfilerFrameData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceLocations\ILocationSizeData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceLocations\IResourceLocation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceLocations\LocationWrapper.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceLocations\ResourceLocationBase.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceLocations\ResourceLocationComparer.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceManager.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\AssetBundleProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\AssetBundleRequestOptions.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\AssetBundleResource.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\AssetLoadMode.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\AtlasSpriteProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\BinaryAssetProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\BinaryCatalogInitialization.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\BinaryCatalogInitializationData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\BinaryDataProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\BundledAssetProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\DownloadOnlyLocation.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\IAssetBundleResource.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\IInstanceProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\InstanceProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\InstantiationParameters.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\IResourceProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ISceneProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ISceneProvider2.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\JsonAssetProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ProvideHandle.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ProviderBehaviourFlags.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ProviderLoadRequestOptions.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\ResourceProviderBase.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\SceneInstance.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\SceneProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\SceneProviderExtensions.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\SceneReleaseMode.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\ResourceProviders\TextDataProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\AsyncOpHandlesCacheKey.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\BinaryStorageBuffer.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\BundleSource.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\ComponentSingleton.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\DefaultAllocationStrategy.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\DelayedActionManager.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\DependenciesCacheKey.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\GlobalLinkedListNodeCache.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\IAllocationStrategy.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\IdCacheKey.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\IInitializableObject.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\IObjectInitializationDataProvider.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\IOperationCacheKey.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\LinkedListNodeCache.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\LocationCacheKey.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\LocationUtils.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\LRUCache.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\LRUCacheAllocationStrategy.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\ObjectInitializationData.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\PlatformUtilities.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\ResourceManagerConfig.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\SerializedType.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\SerializedTypeRestrictionAttribute.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\UnityWebRequestResult.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\Util\UnityWebRequestUtilities.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\WebRequestQueue.cs" />
+    <Compile Include="UnityEngine\ResourceManagement\WebRequestQueueOperation.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EF}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA107}</Project>
+      <Name>UnityEngine.JSONSerializeModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestAssetBundleModule\UnityEngine.UnityWebRequestAssetBundleModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12C}</Project>
+      <Name>UnityEngine.UnityWebRequestAssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12E}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

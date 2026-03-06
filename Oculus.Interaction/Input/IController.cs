@@ -1,0 +1,28 @@
+﻿using System;
+using UnityEngine;
+
+namespace Oculus.Interaction.Input
+{
+	public interface IController
+	{
+		Handedness Handedness { get; }
+
+		float Scale { get; }
+
+		bool IsConnected { get; }
+
+		bool IsPoseValid { get; }
+
+		bool TryGetPose(out Pose pose);
+
+		bool TryGetPointerPose(out Pose pose);
+
+		ControllerInput ControllerInput { get; }
+
+		bool IsButtonUsageAnyActive(ControllerButtonUsage buttonUsage);
+
+		bool IsButtonUsageAllActive(ControllerButtonUsage buttonUsage);
+
+		event Action WhenUpdated;
+	}
+}

@@ -1,0 +1,27 @@
+﻿using System;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
+
+namespace UnityEngine.Localization
+{
+	[Serializable]
+	public class LocalizedAssetTable : LocalizedTable<AssetTable, AssetTableEntry>
+	{
+		protected override LocalizedDatabase<AssetTable, AssetTableEntry> Database
+		{
+			get
+			{
+				return LocalizationSettings.AssetDatabase;
+			}
+		}
+
+		public LocalizedAssetTable()
+		{
+		}
+
+		public LocalizedAssetTable(TableReference tableReference)
+		{
+			base.TableReference = tableReference;
+		}
+	}
+}

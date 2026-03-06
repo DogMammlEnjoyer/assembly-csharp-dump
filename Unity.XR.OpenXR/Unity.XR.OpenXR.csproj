@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine.XR.OpenXR</RootNamespace>
+    <AssemblyName>Unity.XR.OpenXR</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\UnityXRDepthTextureFormat.cs" />
+    <Compile Include="API\UnityXRDisplay.cs" />
+    <Compile Include="API\UnityXRRenderTextureDesc.cs" />
+    <Compile Include="API\UnityXRRenderTextureFlags.cs" />
+    <Compile Include="API\UnityXRRenderTextureFormat.cs" />
+    <Compile Include="API\UnityXRShadingRateFormat.cs" />
+    <Compile Include="API\UnityXRTextureData.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DiagnosticReport.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\PerformanceChangeNotification.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\PerformanceDomain.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\PerformanceLevelHint.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\PerformanceNotificationLevel.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\PerformanceSubDomain.cs" />
+    <Compile Include="Features\Extensions\PerformanceSettings\XrPerformanceSettingsFeature.cs" />
+    <Compile Include="Features\FoveatedRenderingFeature.cs" />
+    <Compile Include="Features\Interactions\DPadInteraction.cs" />
+    <Compile Include="Features\Interactions\EyeGazeInteraction.cs" />
+    <Compile Include="Features\Interactions\EyeTrackingUsages.cs" />
+    <Compile Include="Features\Interactions\HandCommonPosesInteraction.cs" />
+    <Compile Include="Features\Interactions\HandInteractionProfile.cs" />
+    <Compile Include="Features\Interactions\HPReverbG2ControllerProfile.cs" />
+    <Compile Include="Features\Interactions\HTCViveControllerProfile.cs" />
+    <Compile Include="Features\Interactions\KHRSimpleControllerProfile.cs" />
+    <Compile Include="Features\Interactions\MetaQuestTouchPlusControllerProfile.cs" />
+    <Compile Include="Features\Interactions\MetaQuestTouchProControllerProfile.cs" />
+    <Compile Include="Features\Interactions\MicrosoftHandInteraction.cs" />
+    <Compile Include="Features\Interactions\MicrosoftMotionControllerProfile.cs" />
+    <Compile Include="Features\Interactions\OculusTouchControllerProfile.cs" />
+    <Compile Include="Features\Interactions\PalmPoseInteraction.cs" />
+    <Compile Include="Features\Interactions\ValveIndexControllerProfile.cs" />
+    <Compile Include="Features\OpenXRFeature.cs" />
+    <Compile Include="Features\OpenXRInteractionFeature.cs" />
+    <Compile Include="Features\SpaceWarpFeature.cs" />
+    <Compile Include="Input\Haptic.cs" />
+    <Compile Include="Input\HapticControl.cs" />
+    <Compile Include="Input\OpenXRDevice.cs" />
+    <Compile Include="Input\OpenXRHmd.cs" />
+    <Compile Include="Input\OpenXRInput.cs" />
+    <Compile Include="Input\Pose.cs" />
+    <Compile Include="Input\PoseControl.cs" />
+    <Compile Include="NativeTypes\XrBaseInStructure.cs" />
+    <Compile Include="NativeTypes\XrEnvironmentBlendMode.cs" />
+    <Compile Include="NativeTypes\XrPosef.cs" />
+    <Compile Include="NativeTypes\XrQuaternionf.cs" />
+    <Compile Include="NativeTypes\XrReferenceSpaceType.cs" />
+    <Compile Include="NativeTypes\XrResult.cs" />
+    <Compile Include="NativeTypes\XrResultExtensions.cs" />
+    <Compile Include="NativeTypes\XrSessionState.cs" />
+    <Compile Include="NativeTypes\XrSpaceLocationFlags.cs" />
+    <Compile Include="NativeTypes\XrStructureType.cs" />
+    <Compile Include="NativeTypes\XrSwapchainCreateInfo.cs" />
+    <Compile Include="NativeTypes\XrSwapchainUsageFlags.cs" />
+    <Compile Include="NativeTypes\XrVector2f.cs" />
+    <Compile Include="NativeTypes\XrVector3f.cs" />
+    <Compile Include="NativeTypes\XrViewConfigurationType.cs" />
+    <Compile Include="NativeTypes\XrViewStateFlags.cs" />
+    <Compile Include="OpenXRAnalytics.cs" />
+    <Compile Include="OpenXRLoader.cs" />
+    <Compile Include="OpenXRLoaderBase.cs" />
+    <Compile Include="OpenXRLoaderNoPreInit.cs" />
+    <Compile Include="OpenXRRestarter.cs" />
+    <Compile Include="OpenXRRuntime.cs" />
+    <Compile Include="OpenXRSettings.cs" />
+    <Compile Include="OpenXRUtility.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="WaitForRestartFinish.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.Management\Unity.XR.Management.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E1}</Project>
+      <Name>Unity.XR.Management</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SubsystemsModule\UnityEngine.SubsystemsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11A}</Project>
+      <Name>UnityEngine.SubsystemsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityAnalyticsCommonModule\UnityEngine.UnityAnalyticsCommonModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA126}</Project>
+      <Name>UnityEngine.UnityAnalyticsCommonModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityAnalyticsModule\UnityEngine.UnityAnalyticsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA127}</Project>
+      <Name>UnityEngine.UnityAnalyticsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

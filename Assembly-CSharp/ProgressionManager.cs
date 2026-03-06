@@ -488,7 +488,7 @@ public class ProgressionManager : MonoBehaviour
 			Dictionary<ProgressionManager.RequestType, int> dictionary = this.retryCounters;
 			int num2 = dictionary[requestType];
 			dictionary[requestType] = num2 + 1;
-			yield return new WaitForSeconds(num);
+			yield return new WaitForSecondsRealtime(num);
 			actionToTake(data);
 		}
 		else

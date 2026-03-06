@@ -400,7 +400,7 @@ namespace GorillaTagScripts
 		public override void StopPlaying()
 		{
 			base.StopPlaying();
-			foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+			foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 			{
 				vrrig.ForceResetFrozenEffect();
 			}

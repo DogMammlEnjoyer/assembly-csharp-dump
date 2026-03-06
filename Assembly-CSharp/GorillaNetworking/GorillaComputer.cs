@@ -198,17 +198,17 @@ namespace GorillaNetworking
 
 		public void SliceUpdate()
 		{
-			if ((this.internetFailure && Time.time < this.lastCheckedWifi + this.checkIfConnectedSeconds) || (!this.internetFailure && Time.time < this.lastCheckedWifi + this.checkIfDisconnectedSeconds))
+			if ((this.internetFailure && Time.realtimeSinceStartup < this.lastCheckedWifi + this.checkIfConnectedSeconds) || (!this.internetFailure && Time.realtimeSinceStartup < this.lastCheckedWifi + this.checkIfDisconnectedSeconds))
 			{
-				if (!this.internetFailure && this.isConnectedToMaster && Time.time > this.lastUpdateTime + this.updateCooldown)
+				if (!this.internetFailure && this.isConnectedToMaster && Time.realtimeSinceStartup > this.lastUpdateTime + this.updateCooldown)
 				{
-					this.deltaTime = Time.time - this.lastUpdateTime;
-					this.lastUpdateTime = Time.time;
+					this.deltaTime = Time.realtimeSinceStartup - this.lastUpdateTime;
+					this.lastUpdateTime = Time.realtimeSinceStartup;
 					this.UpdateScreen();
 				}
 				return;
 			}
-			this.lastCheckedWifi = Time.time;
+			this.lastCheckedWifi = Time.realtimeSinceStartup;
 			this.stateUpdated = false;
 			if (!this.CheckInternetConnection())
 			{
@@ -229,10 +229,10 @@ namespace GorillaNetworking
 				this.UpdateScreen();
 				return;
 			}
-			if (this.isConnectedToMaster && Time.time > this.lastUpdateTime + this.updateCooldown)
+			if (this.isConnectedToMaster && Time.realtimeSinceStartup > this.lastUpdateTime + this.updateCooldown)
 			{
-				this.deltaTime = Time.time - this.lastUpdateTime;
-				this.lastUpdateTime = Time.time;
+				this.deltaTime = Time.realtimeSinceStartup - this.lastUpdateTime;
+				this.lastUpdateTime = Time.realtimeSinceStartup;
 				this.UpdateScreen();
 			}
 		}
@@ -1190,11 +1190,11 @@ namespace GorillaNetworking
 			}
 			if (!this.hasRequestedInitialTroopPopulation || forceUpdate)
 			{
-				if (this.nextPopulationCheckTime > Time.time)
+				if (this.nextPopulationCheckTime > Time.realtimeSinceStartup)
 				{
 					return;
 				}
-				this.nextPopulationCheckTime = Time.time + this.troopPopulationCheckCooldown;
+				this.nextPopulationCheckTime = Time.realtimeSinceStartup + this.troopPopulationCheckCooldown;
 				this.hasRequestedInitialTroopPopulation = true;
 				GorillaServer.Instance.ReturnQueueStats(new ReturnQueueStatsRequest
 				{
@@ -3282,7 +3282,7 @@ namespace GorillaNetworking
 			{
 				return;
 			}
-			if (Time.time < this._nextUpdateAttemptTime)
+			if (Time.realtimeSinceStartup < this._nextUpdateAttemptTime)
 			{
 				return;
 			}
@@ -3328,7 +3328,7 @@ namespace GorillaNetworking
 				this.screenText.Append(text);
 				return true;
 			}
-			if (Time.time >= this._nextUpdateAttemptTime)
+			if (Time.realtimeSinceStartup >= this._nextUpdateAttemptTime)
 			{
 				defaultResult = "\n\nPRESS OPTION 2 TO REFRESH PERMISSIONS!";
 				LocalisationManager.TryGetKeyForCurrentLocale("KID_REFRESH_PERMISSIONS", out text, defaultResult);
@@ -3338,7 +3338,7 @@ namespace GorillaNetworking
 			{
 				defaultResult = "CHECK AGAIN IN {time} SECONDS!";
 				LocalisationManager.TryGetKeyForCurrentLocale("KID_CHECK_AGAIN_COOLDOWN", out text, defaultResult);
-				text = text.Replace("{time}", ((int)(this._nextUpdateAttemptTime - Time.time)).ToString());
+				text = text.Replace("{time}", ((int)(this._nextUpdateAttemptTime - Time.realtimeSinceStartup)).ToString());
 				this.screenText.Append(text);
 			}
 			return false;

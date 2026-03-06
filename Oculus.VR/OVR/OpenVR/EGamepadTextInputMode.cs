@@ -1,0 +1,11 @@
+﻿using System;
+
+namespace OVR.OpenVR
+{
+	public enum EGamepadTextInputMode
+	{
+		k_EGamepadTextInputModeNormal,
+		k_EGamepadTextInputModePassword,
+		k_EGamepadTextInputModeSubmit
+	}
+}

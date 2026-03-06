@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
 {
-	private static event Action<float, float, Vector2, bool> ShakeRequested;
+	private static event Action<float, float, Vector2, bool, Transform, float> ShakeRequested;
 
 	private static event Action HaltRequested;
 
@@ -12,7 +12,7 @@ public class CameraShaker : MonoBehaviour
 	{
 		if (CameraShaker.ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, new Vector2(0.02f, 0.1f), true);
+			CameraShaker.ShakeRequested(duration, magnitude, new Vector2(0.02f, 0.1f), true, null, 0f);
 		}
 	}
 
@@ -20,7 +20,7 @@ public class CameraShaker : MonoBehaviour
 	{
 		if (CameraShaker.ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, freqRange, true);
+			CameraShaker.ShakeRequested(duration, magnitude, freqRange, true, null, 0f);
 		}
 	}
 
@@ -28,7 +28,15 @@ public class CameraShaker : MonoBehaviour
 	{
 		if (CameraShaker.ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration);
+			CameraShaker.ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, null, 0f);
+		}
+	}
+
+	public static void ShakeInProximity(float duration, float magnitude, Vector2 freqRange, bool rollOffOverDuration, Transform source, float distance)
+	{
+		if (CameraShaker.ShakeRequested != null)
+		{
+			CameraShaker.ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, source, distance);
 		}
 	}
 
@@ -46,14 +54,14 @@ public class CameraShaker : MonoBehaviour
 		CameraShaker.HaltRequested += this._HaltRequested;
 	}
 
-	private void _ShakeRequested(float _duration, float _magnitude, Vector2 _freqRange, bool _rollOff)
+	private void _ShakeRequested(float _duration, float _magnitude, Vector2 _freqRange, bool _rollOff, Transform source, float distance)
 	{
 		this.stopTime = Time.time + _duration;
 		this.duration = _duration;
 		this.magnitude = _magnitude;
 		this.freqRange = _freqRange;
 		this.rollOff = _rollOff;
-		if (!this.rumbling)
+		if (!this.rumbling && (source == null || (base.transform.position - source.transform.position).sqrMagnitude < distance * distance))
 		{
 			base.StartCoroutine(this.crRumble());
 		}

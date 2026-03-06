@@ -1,4 +1,5 @@
 ﻿using System;
+using GorillaTagScripts;
 using UnityEngine;
 
 public class HandTrackingFingerCurl : MonoBehaviour
@@ -11,13 +12,28 @@ public class HandTrackingFingerCurl : MonoBehaviour
 
 	private void Awake()
 	{
-		this.skeleton = base.GetComponent<OVRSkeleton>();
+		if (this.isLeft)
+		{
+			HandTrackingFingerCurl.leftCurl = this;
+		}
+		else
+		{
+			HandTrackingFingerCurl.rightCurl = this;
+		}
+		if (this.skeleton == null)
+		{
+			this.skeleton = base.GetComponent<OVRSkeleton>();
+		}
 		this.boneXforms = new Transform[84];
 	}
 
 	private void LateUpdate()
 	{
 		if (this.skeleton == null || this.skeleton.Bones == null || this.skeleton.Bones.Count == 0)
+		{
+			return;
+		}
+		if (!SubscriptionManager.IsLocalSubscribed() || !SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.HandTracking))
 		{
 			return;
 		}
@@ -54,6 +70,7 @@ public class HandTrackingFingerCurl : MonoBehaviour
 		return Mathf.Clamp01(num3);
 	}
 
+	[SerializeField]
 	private OVRSkeleton skeleton;
 
 	public float ActivationStart = 5f;
@@ -63,4 +80,11 @@ public class HandTrackingFingerCurl : MonoBehaviour
 	public float CurlMultiplier = 1.2f;
 
 	private Transform[] boneXforms;
+
+	public static HandTrackingFingerCurl leftCurl;
+
+	public static HandTrackingFingerCurl rightCurl;
+
+	[SerializeField]
+	private bool isLeft;
 }

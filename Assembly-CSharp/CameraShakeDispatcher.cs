@@ -7,6 +7,11 @@ public class CameraShakeDispatcher : MonoBehaviour
 	{
 		if (this.shakeOnEnable)
 		{
+			if (this.maxDistance > 0f)
+			{
+				this.ShakeInProximity(this.maxDistance);
+				return;
+			}
 			this.Shake();
 		}
 	}
@@ -22,6 +27,11 @@ public class CameraShakeDispatcher : MonoBehaviour
 	public void Shake()
 	{
 		CameraShaker.Shake(this.duration, this.magnitude, this.freqRange, this.rollOffOverDuration);
+	}
+
+	public void ShakeInProximity(float distance)
+	{
+		CameraShaker.ShakeInProximity(this.duration, this.magnitude, this.freqRange, this.rollOffOverDuration, base.transform, distance);
 	}
 
 	public void Halt()
@@ -46,4 +56,7 @@ public class CameraShakeDispatcher : MonoBehaviour
 
 	[SerializeField]
 	private Vector2 freqRange = new Vector2(0.02f, 0.1f);
+
+	[SerializeField]
+	private float maxDistance;
 }

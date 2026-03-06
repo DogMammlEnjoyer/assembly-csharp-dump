@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meta.WitAi.TTS</RootNamespace>
+    <AssemblyName>Meta.WitAi.TTS</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\ITTSEvent.cs" />
+    <Compile Include="Data\TTSActionEvent.cs" />
+    <Compile Include="Data\TTSClipData.cs" />
+    <Compile Include="Data\TTSClipLoadState.cs" />
+    <Compile Include="Data\TTSDiskCacheLocation.cs" />
+    <Compile Include="Data\TTSDiskCacheSettings.cs" />
+    <Compile Include="Data\TTSEmoteEvent.cs" />
+    <Compile Include="Data\TTSEvent.cs" />
+    <Compile Include="Data\TTSEventContainer.cs" />
+    <Compile Include="Data\TTSEventContainerDelegate.cs" />
+    <Compile Include="Data\TTSPhonemeEvent.cs" />
+    <Compile Include="Data\TTSStringEvent.cs" />
+    <Compile Include="Data\TTSVisemeEvent.cs" />
+    <Compile Include="Data\TTSVoiceSettings.cs" />
+    <Compile Include="Data\TTSWordEvent.cs" />
+    <Compile Include="Data\Viseme.cs" />
+    <Compile Include="Debugger\TTSDebugger.cs" />
+    <Compile Include="Events\EventHandlers\ActionEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\EmoteEventHandler.cs" />
+    <Compile Include="Events\TTSClipDownloadErrorEvent.cs" />
+    <Compile Include="Events\TTSClipDownloadEvent.cs" />
+    <Compile Include="Events\TTSClipErrorEvent.cs" />
+    <Compile Include="Events\TTSClipEvent.cs" />
+    <Compile Include="Events\TTSDownloadEvents.cs" />
+    <Compile Include="Events\TTSServiceEvents.cs" />
+    <Compile Include="Events\TTSStreamEvents.cs" />
+    <Compile Include="Events\TTSWebRequestEvents.cs" />
+    <Compile Include="Integrations\BaseTTSRuntimeCache.cs" />
+    <Compile Include="Integrations\TTSDiskCache.cs" />
+    <Compile Include="Integrations\TTSEventAnimator.cs" />
+    <Compile Include="Integrations\TTSEventTrigger.cs" />
+    <Compile Include="Integrations\TTSRuntimeLRUCache.cs" />
+    <Compile Include="Integrations\TTSRuntimePlaybackCache.cs" />
+    <Compile Include="Integrations\TTSWit.cs" />
+    <Compile Include="Integrations\TTSWitRequestSettings.cs" />
+    <Compile Include="Integrations\TTSWitVoiceSettings.cs" />
+    <Compile Include="Interfaces\ISpeaker.cs" />
+    <Compile Include="Interfaces\ISpeakerTextPostprocessor.cs" />
+    <Compile Include="Interfaces\ISpeakerTextPreprocessor.cs" />
+    <Compile Include="Interfaces\ITTSDiskCacheHandler.cs" />
+    <Compile Include="Interfaces\ITTSEventPlayer.cs" />
+    <Compile Include="Interfaces\ITTSRuntimeCacheHandler.cs" />
+    <Compile Include="Interfaces\ITTSVoiceProvider.cs" />
+    <Compile Include="Interfaces\ITTSWebHandler.cs" />
+    <Compile Include="Interfaces\TTSClipCallback.cs" />
+    <Compile Include="Interfaces\TTSEventSampleDelegate.cs" />
+    <Compile Include="LipSync\BaseTextureFlipLipSync.cs" />
+    <Compile Include="LipSync\BaseVisemeBlendShapeLipSync.cs" />
+    <Compile Include="LipSync\ILipsyncAnimator.cs" />
+    <Compile Include="LipSync\IVisemeAnimatorProvider.cs" />
+    <Compile Include="LipSync\VisemeBlendShapeLipSync.cs" />
+    <Compile Include="LipSync\VisemeChangedEvent.cs" />
+    <Compile Include="LipSync\VisemeLerpEvent.cs" />
+    <Compile Include="LipSync\VisemeLipSyncAnimator.cs" />
+    <Compile Include="LipSync\VisemeTextureFlipLipSync.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TTSService.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Utilities\ITTSPhraseProvider.cs" />
+    <Compile Include="Utilities\TTSSpeaker.cs" />
+    <Compile Include="Utilities\TTSSpeakerAutoLoader.cs" />
+    <Compile Include="Utilities\TTSSpeakerBodyAnimator.cs" />
+    <Compile Include="Utilities\TTSSpeakerClipDataEvent.cs" />
+    <Compile Include="Utilities\TTSSpeakerClipEvent.cs" />
+    <Compile Include="Utilities\TTSSpeakerClipEvents.cs" />
+    <Compile Include="Utilities\TTSSpeakerClipMessageEvent.cs" />
+    <Compile Include="Utilities\TTSSpeakerEvent.cs" />
+    <Compile Include="Utilities\TTSSpeakerEvents.cs" />
+    <Compile Include="Utilities\TTSSpeechSplitter.cs" />
+    <Compile Include="UX\TTSSpeakerErrorLabel.cs" />
+    <Compile Include="UX\TTSSpeakerInput.cs" />
+    <Compile Include="UX\TTSSpeakerObserver.cs" />
+    <Compile Include="UX\TTSSpeakerStatusLabel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06E}</Project>
+      <Name>Meta.WitAi.Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.WitAi\Meta.WitAi.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06D}</Project>
+      <Name>Meta.WitAi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

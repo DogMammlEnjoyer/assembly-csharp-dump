@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine.XR.Interaction.Toolkit</RootNamespace>
+    <AssemblyName>Unity.XR.Interaction.Toolkit</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$BurstDirectCallInitializer.cs" />
+    <Compile Include="ActionBasedContinuousMoveProvider.cs" />
+    <Compile Include="ActionBasedContinuousTurnProvider.cs" />
+    <Compile Include="ActionBasedController.cs" />
+    <Compile Include="ActionBasedSnapTurnProvider.cs" />
+    <Compile Include="ActivateEvent.cs" />
+    <Compile Include="ActivateEventArgs.cs" />
+    <Compile Include="AffordanceSystem\Jobs\ColorTweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\Float2TweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\Float3TweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\Float4TweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\FloatTweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\ITweenJob.cs" />
+    <Compile Include="AffordanceSystem\Jobs\TweenJobData.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Audio\AudioAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\BaseAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\BaseAsyncAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\BaseSynchronousAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\IAffordanceStateReceiver.2.cs" />
+    <Compile Include="AffordanceSystem\Receiver\IAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\IAsyncAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\ISynchronousAffordanceStateReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\ColorAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\FloatAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\QuaternionAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\QuaternionEulerAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\Vector2AffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\Vector3AffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Primitives\Vector4AffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\BlendShapeAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\ColorGradientLineRendererAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\ColorMaterialPropertyAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\FloatMaterialPropertyAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\Vector2MaterialPropertyAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\Vector3MaterialPropertyAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Rendering\Vector4MaterialPropertyAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\Transformation\UniformTransformScaleAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Receiver\UI\ImageColorAffordanceReceiver.cs" />
+    <Compile Include="AffordanceSystem\Rendering\MaterialHelperBase.cs" />
+    <Compile Include="AffordanceSystem\Rendering\MaterialInstanceHelper.cs" />
+    <Compile Include="AffordanceSystem\Rendering\MaterialPropertyBlockHelper.cs" />
+    <Compile Include="AffordanceSystem\State\AffordanceStateData.cs" />
+    <Compile Include="AffordanceSystem\State\AffordanceStateShortcuts.cs" />
+    <Compile Include="AffordanceSystem\State\BaseAffordanceStateProvider.cs" />
+    <Compile Include="AffordanceSystem\State\XRInteractableAffordanceStateProvider.cs" />
+    <Compile Include="AffordanceSystem\State\XRInteractorAffordanceStateProvider.cs" />
+    <Compile Include="AffordanceSystem\Theme\AffordanceThemeData.cs" />
+    <Compile Include="AffordanceSystem\Theme\Audio\AudioAffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Audio\AudioAffordanceThemeData.cs" />
+    <Compile Include="AffordanceSystem\Theme\Audio\AudioAffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Audio\AudioAffordanceThemeDatumProperty.cs" />
+    <Compile Include="AffordanceSystem\Theme\BaseAffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\ColorAffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\ColorAffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\ColorAffordanceThemeDatumProperty.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\ColorBlendMode.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\FloatAffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\FloatAffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\FloatAffordanceThemeDatumProperty.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector2AffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector2AffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector2AffordanceThemeDatumProperty.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector3AffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector3AffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector3AffordanceThemeDatumProperty.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector4AffordanceTheme.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector4AffordanceThemeDatum.cs" />
+    <Compile Include="AffordanceSystem\Theme\Primitives\Vector4AffordanceThemeDatumProperty.cs" />
+    <Compile Include="AR\ARAnnotationInteractable.cs" />
+    <Compile Include="AR\ARBaseGestureInteractable.cs" />
+    <Compile Include="AR\ARGestureInteractor.cs" />
+    <Compile Include="AR\ARPlacementInteractable.cs" />
+    <Compile Include="AR\ARRotationInteractable.cs" />
+    <Compile Include="AR\ARScaleInteractable.cs" />
+    <Compile Include="AR\ARSelectionInteractable.cs" />
+    <Compile Include="AR\ARTranslationInteractable.cs" />
+    <Compile Include="AR\Inputs\ScreenSpacePinchScaleInput.cs" />
+    <Compile Include="AR\Inputs\ScreenSpaceRayPoseDriver.cs" />
+    <Compile Include="AR\Inputs\ScreenSpaceRotateInput.cs" />
+    <Compile Include="AR\Inputs\ScreenSpaceSelectInput.cs" />
+    <Compile Include="AR\Inputs\TouchscreenGestureInputLoader.cs" />
+    <Compile Include="Attachment\AttachPointVelocityProviderExtensions.cs" />
+    <Compile Include="Attachment\AttachPointVelocityTracker.cs" />
+    <Compile Include="Attachment\IAttachPointVelocityProvider.cs" />
+    <Compile Include="Attachment\IAttachPointVelocityTracker.cs" />
+    <Compile Include="Attachment\IFarAttachProvider.cs" />
+    <Compile Include="Attachment\IInteractionAttachController.cs" />
+    <Compile Include="Attachment\InteractableFarAttachMode.cs" />
+    <Compile Include="Attachment\InteractionAttachController.cs" />
+    <Compile Include="Attachment\InteractorFarAttachMode.cs" />
+    <Compile Include="Attachment\MotionStabilizationMode.cs" />
+    <Compile Include="BaseInteractionEventArgs.cs" />
+    <Compile Include="BaseRegistrationEventArgs.cs" />
+    <Compile Include="CanFocusMultipleAttribute.cs" />
+    <Compile Include="CanSelectMultipleAttribute.cs" />
+    <Compile Include="CharacterControllerDriver.cs" />
+    <Compile Include="ContinuousMoveProviderBase.cs" />
+    <Compile Include="ContinuousTurnProviderBase.cs" />
+    <Compile Include="DeactivateEvent.cs" />
+    <Compile Include="DeactivateEventArgs.cs" />
+    <Compile Include="DeviceBasedContinuousMoveProvider.cs" />
+    <Compile Include="DeviceBasedContinuousTurnProvider.cs" />
+    <Compile Include="DeviceBasedSnapTurnProvider.cs" />
+    <Compile Include="Feedback\HapticImpulseData.cs" />
+    <Compile Include="Feedback\SimpleAudioFeedback.cs" />
+    <Compile Include="Feedback\SimpleHapticFeedback.cs" />
+    <Compile Include="Filtering\IMultiPokeStateDataProvider.cs" />
+    <Compile Include="Filtering\IPokeStateDataProvider.cs" />
+    <Compile Include="Filtering\IXRFilterList.cs" />
+    <Compile Include="Filtering\IXRHoverFilter.cs" />
+    <Compile Include="Filtering\IXRInteractionStrengthFilter.cs" />
+    <Compile Include="Filtering\IXRPokeFilter.cs" />
+    <Compile Include="Filtering\IXRSelectFilter.cs" />
+    <Compile Include="Filtering\IXRTargetEvaluatorLinkable.cs" />
+    <Compile Include="Filtering\IXRTargetFilter.cs" />
+    <Compile Include="Filtering\PokeAxis.cs" />
+    <Compile Include="Filtering\PokeStateData.cs" />
+    <Compile Include="Filtering\PokeThresholdData.cs" />
+    <Compile Include="Filtering\PokeThresholdDatum.cs" />
+    <Compile Include="Filtering\PokeThresholdDatumProperty.cs" />
+    <Compile Include="Filtering\TouchscreenHoverFilter.cs" />
+    <Compile Include="Filtering\XRAngleGazeEvaluator.cs" />
+    <Compile Include="Filtering\XRBaseTargetFilter.cs" />
+    <Compile Include="Filtering\XRDistanceEvaluator.cs" />
+    <Compile Include="Filtering\XRHoverFilterDelegate.cs" />
+    <Compile Include="Filtering\XRInteractionStrengthFilterDelegate.cs" />
+    <Compile Include="Filtering\XRLastSelectedEvaluator.cs" />
+    <Compile Include="Filtering\XRPokeFilter.cs" />
+    <Compile Include="Filtering\XRPokeLogic.cs" />
+    <Compile Include="Filtering\XRSelectFilterDelegate.cs" />
+    <Compile Include="Filtering\XRTargetEvaluator.cs" />
+    <Compile Include="Filtering\XRTargetEvaluatorEnabledAttribute.cs" />
+    <Compile Include="Filtering\XRTargetFilter.cs" />
+    <Compile Include="FocusEnterEvent.cs" />
+    <Compile Include="FocusEnterEventArgs.cs" />
+    <Compile Include="FocusExitEvent.cs" />
+    <Compile Include="FocusExitEventArgs.cs" />
+    <Compile Include="Gaze\IXRAimAssist.cs" />
+    <Compile Include="Gaze\IXROverridesGazeAutoSelect.cs" />
+    <Compile Include="Gaze\XRGazeAssistance.cs" />
+    <Compile Include="GizmoHelpers.cs" />
+    <Compile Include="HoverEnterEvent.cs" />
+    <Compile Include="HoverEnterEventArgs.cs" />
+    <Compile Include="HoverExitEvent.cs" />
+    <Compile Include="HoverExitEventArgs.cs" />
+    <Compile Include="IInteractorDistanceEvaluator.cs" />
+    <Compile Include="InputHelpers.cs" />
+    <Compile Include="Inputs\Cardinal.cs" />
+    <Compile Include="Inputs\CardinalUtility.cs" />
+    <Compile Include="Inputs\Composites\ButtonFallbackComposite.cs" />
+    <Compile Include="Inputs\Composites\FallbackComposite.cs" />
+    <Compile Include="Inputs\Composites\IntegerFallbackComposite.cs" />
+    <Compile Include="Inputs\Composites\QuaternionFallbackComposite.cs" />
+    <Compile Include="Inputs\Composites\Vector3FallbackComposite.cs" />
+    <Compile Include="Inputs\Haptics\HapticControlActionManager.cs" />
+    <Compile Include="Inputs\Haptics\HapticImpulseCommandChannel.cs" />
+    <Compile Include="Inputs\Haptics\HapticImpulseCommandChannelGroup.cs" />
+    <Compile Include="Inputs\Haptics\HapticImpulsePlayer.cs" />
+    <Compile Include="Inputs\Haptics\HapticImpulseSingleChannelGroup.cs" />
+    <Compile Include="Inputs\Haptics\HapticsUtility.cs" />
+    <Compile Include="Inputs\Haptics\IXRHapticImpulseChannel.cs" />
+    <Compile Include="Inputs\Haptics\IXRHapticImpulseChannelGroup.cs" />
+    <Compile Include="Inputs\Haptics\IXRHapticImpulseProvider.cs" />
+    <Compile Include="Inputs\Haptics\OpenXR\OpenXRHapticImpulseChannel.cs" />
+    <Compile Include="Inputs\Haptics\XRInputDeviceHapticImpulseChannel.cs" />
+    <Compile Include="Inputs\Haptics\XRInputDeviceHapticImpulseChannelGroup.cs" />
+    <Compile Include="Inputs\Haptics\XRInputDeviceHapticImpulseProvider.cs" />
+    <Compile Include="Inputs\Haptics\XRInputHapticImpulseProvider.cs" />
+    <Compile Include="Inputs\InputActionManager.cs" />
+    <Compile Include="Inputs\InputActionPropertyExtensions.cs" />
+    <Compile Include="Inputs\InputActionUtility.cs" />
+    <Compile Include="Inputs\Interactions\SectorInteraction.cs" />
+    <Compile Include="Inputs\Readers\InputFeatureUsageString.cs" />
+    <Compile Include="Inputs\Readers\IXRInputButtonReader.cs" />
+    <Compile Include="Inputs\Readers\IXRInputValueReader.2.cs" />
+    <Compile Include="Inputs\Readers\IXRInputValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputButtonReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceBoolValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceButtonReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceFloatValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceInputTrackingStateValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceQuaternionValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceValueReader.2.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceVector2ValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputDeviceVector3ValueReader.cs" />
+    <Compile Include="Inputs\Readers\XRInputReaderUtility.cs" />
+    <Compile Include="Inputs\Readers\XRInputValueReader.2.cs" />
+    <Compile Include="Inputs\Readers\XRInputValueReader.cs" />
+    <Compile Include="Inputs\Simulation\Axis2DTargets.cs" />
+    <Compile Include="Inputs\Simulation\ControllerButton.cs" />
+    <Compile Include="Inputs\Simulation\ControllerInputMode.cs" />
+    <Compile Include="Inputs\Simulation\Hands\HandExpressionCapture.cs" />
+    <Compile Include="Inputs\Simulation\Hands\HandExpressionName.cs" />
+    <Compile Include="Inputs\Simulation\Hands\XRSimulatedHandState.cs" />
+    <Compile Include="Inputs\Simulation\SimulatedDeviceLifecycleManager.cs" />
+    <Compile Include="Inputs\Simulation\SimulatedHandExpression.cs" />
+    <Compile Include="Inputs\Simulation\SimulatedHandExpressionManager.cs" />
+    <Compile Include="Inputs\Simulation\SimulatedInputLayoutLoader.cs" />
+    <Compile Include="Inputs\Simulation\Space.cs" />
+    <Compile Include="Inputs\Simulation\TargetedDeviceExtensions.cs" />
+    <Compile Include="Inputs\Simulation\TargetedDevices.cs" />
+    <Compile Include="Inputs\Simulation\TargetedDevicesExtensions.cs" />
+    <Compile Include="Inputs\Simulation\XRDeviceSimulator.cs" />
+    <Compile Include="Inputs\Simulation\XRDeviceSimulatorLoader.cs" />
+    <Compile Include="Inputs\Simulation\XRDeviceSimulatorSettings.cs" />
+    <Compile Include="Inputs\Simulation\XRInteractionSimulator.cs" />
+    <Compile Include="Inputs\Simulation\XRInteractionSimulatorLoader.cs" />
+    <Compile Include="Inputs\Simulation\XRSimulatedController.cs" />
+    <Compile Include="Inputs\Simulation\XRSimulatedControllerState.cs" />
+    <Compile Include="Inputs\Simulation\XRSimulatedHMD.cs" />
+    <Compile Include="Inputs\Simulation\XRSimulatedHMDState.cs" />
+    <Compile Include="Inputs\Simulation\XRSimulatorUtility.cs" />
+    <Compile Include="Inputs\TrackingStatus.cs" />
+    <Compile Include="Inputs\XRHandSkeletonPokeDisplacer.cs" />
+    <Compile Include="Inputs\XRInputModalityManager.cs" />
+    <Compile Include="Inputs\XRInputTrackingAggregator.cs" />
+    <Compile Include="Inputs\XRTransformStabilizer.cs" />
+    <Compile Include="InteractableRegisteredEventArgs.cs" />
+    <Compile Include="Interactables\DistanceInfo.cs" />
+    <Compile Include="Interactables\InteractableFocusMode.cs" />
+    <Compile Include="Interactables\InteractableSelectMode.cs" />
+    <Compile Include="Interactables\IXRActivateInteractable.cs" />
+    <Compile Include="Interactables\IXRFocusInteractable.cs" />
+    <Compile Include="Interactables\IXRHoverInteractable.cs" />
+    <Compile Include="Interactables\IXRInteractable.cs" />
+    <Compile Include="Interactables\IXRInteractionStrengthInteractable.cs" />
+    <Compile Include="Interactables\IXRSelectInteractable.cs" />
+    <Compile Include="Interactables\Visuals\IXRInteractableCustomReticle.cs" />
+    <Compile Include="Interactables\Visuals\XRTintInteractableVisual.cs" />
+    <Compile Include="Interactables\XRBaseInteractable.cs" />
+    <Compile Include="Interactables\XRFocusInteractableExtensions.cs" />
+    <Compile Include="Interactables\XRGrabInteractable.cs" />
+    <Compile Include="Interactables\XRHoverInteractableExtensions.cs" />
+    <Compile Include="Interactables\XRInteractableSnapVolume.cs" />
+    <Compile Include="Interactables\XRSelectInteractableExtensions.cs" />
+    <Compile Include="Interactables\XRSimpleInteractable.cs" />
+    <Compile Include="InteractableUnregisteredEventArgs.cs" />
+    <Compile Include="InteractionGroupRegisteredEventArgs.cs" />
+    <Compile Include="InteractionGroupUnregisteredEventArgs.cs" />
+    <Compile Include="InteractionLayerMask.cs" />
+    <Compile Include="InteractionLayerSettings.cs" />
+    <Compile Include="InteractionState.cs" />
+    <Compile Include="InteractorRegisteredEventArgs.cs" />
+    <Compile Include="Interactors\Casters\CurveInteractionCaster.cs" />
+    <Compile Include="Interactors\Casters\ICurveInteractionCaster.cs" />
+    <Compile Include="Interactors\Casters\IInteractionCaster.cs" />
+    <Compile Include="Interactors\Casters\InteractionCasterBase.cs" />
+    <Compile Include="Interactors\Casters\SphereInteractionCaster.cs" />
+    <Compile Include="Interactors\InteractorHandedness.cs" />
+    <Compile Include="Interactors\IXRActivateInteractor.cs" />
+    <Compile Include="Interactors\IXRGroupMember.cs" />
+    <Compile Include="Interactors\IXRHoverInteractor.cs" />
+    <Compile Include="Interactors\IXRInteractionGroup.cs" />
+    <Compile Include="Interactors\IXRInteractionOverrideGroup.cs" />
+    <Compile Include="Interactors\IXRInteractionStrengthInteractor.cs" />
+    <Compile Include="Interactors\IXRInteractor.cs" />
+    <Compile Include="Interactors\IXRRayProvider.cs" />
+    <Compile Include="Interactors\IXRScaleValueProvider.cs" />
+    <Compile Include="Interactors\IXRSelectInteractor.cs" />
+    <Compile Include="Interactors\IXRTargetPriorityInteractor.cs" />
+    <Compile Include="Interactors\NearFarInteractor.cs" />
+    <Compile Include="Interactors\ScaleMode.cs" />
+    <Compile Include="Interactors\SocketScaleMode.cs" />
+    <Compile Include="Interactors\TargetPriorityMode.cs" />
+    <Compile Include="Interactors\Visuals\CurveVisualController.cs" />
+    <Compile Include="Interactors\Visuals\EndPointType.cs" />
+    <Compile Include="Interactors\Visuals\IAdvancedLineRenderable.cs" />
+    <Compile Include="Interactors\Visuals\ICurveInteractionDataProvider.cs" />
+    <Compile Include="Interactors\Visuals\ILineRenderable.cs" />
+    <Compile Include="Interactors\Visuals\IXRCustomReticleProvider.cs" />
+    <Compile Include="Interactors\Visuals\IXRReticleDirectionProvider.cs" />
+    <Compile Include="Interactors\Visuals\LineDynamicsMode.cs" />
+    <Compile Include="Interactors\Visuals\LineProperties.cs" />
+    <Compile Include="Interactors\Visuals\XRInteractorLineVisual.cs" />
+    <Compile Include="Interactors\Visuals\XRInteractorReticleVisual.cs" />
+    <Compile Include="Interactors\XRBaseInputInteractor.cs" />
+    <Compile Include="Interactors\XRBaseInteractor.cs" />
+    <Compile Include="Interactors\XRDirectInteractor.cs" />
+    <Compile Include="Interactors\XRGazeInteractor.cs" />
+    <Compile Include="Interactors\XRGroupMemberExtensions.cs" />
+    <Compile Include="Interactors\XRHoverInteractorExtensions.cs" />
+    <Compile Include="Interactors\XRInteractionGroup.cs" />
+    <Compile Include="Interactors\XRInteractorExtensions.cs" />
+    <Compile Include="Interactors\XRPokeInteractor.cs" />
+    <Compile Include="Interactors\XRRayInteractor.cs" />
+    <Compile Include="Interactors\XRSelectInteractorExtensions.cs" />
+    <Compile Include="Interactors\XRSocketInteractor.cs" />
+    <Compile Include="InteractorUnregisteredEventArgs.cs" />
+    <Compile Include="LocomotionPhase.cs" />
+    <Compile Include="LocomotionSystem.cs" />
+    <Compile Include="Locomotion\ApplyBodyTransformationsEventArgs.cs" />
+    <Compile Include="Locomotion\CharacterControllerBodyManipulator.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbInteractable.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbProvider.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbSettings.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbSettingsDatum.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbSettingsDatumProperty.cs" />
+    <Compile Include="Locomotion\Climbing\ClimbTeleportInteractor.cs" />
+    <Compile Include="Locomotion\Comfort\EaseState.cs" />
+    <Compile Include="Locomotion\Comfort\ITunnelingVignetteProvider.cs" />
+    <Compile Include="Locomotion\Comfort\LocomotionVignetteProvider.cs" />
+    <Compile Include="Locomotion\Comfort\TunnelingVignetteController.cs" />
+    <Compile Include="Locomotion\Comfort\VignetteParameters.cs" />
+    <Compile Include="Locomotion\DelegateXRBodyTransformation.cs" />
+    <Compile Include="Locomotion\Gravity\GravityOverride.cs" />
+    <Compile Include="Locomotion\Gravity\GravityProvider.cs" />
+    <Compile Include="Locomotion\Gravity\IGravityController.cs" />
+    <Compile Include="Locomotion\IConstrainedXRBodyManipulator.cs" />
+    <Compile Include="Locomotion\IXRBodyPositionEvaluator.cs" />
+    <Compile Include="Locomotion\IXRBodyTransformation.cs" />
+    <Compile Include="Locomotion\Jump\JumpProvider.cs" />
+    <Compile Include="Locomotion\LocomotionMediator.cs" />
+    <Compile Include="Locomotion\LocomotionProvider.cs" />
+    <Compile Include="Locomotion\LocomotionState.cs" />
+    <Compile Include="Locomotion\LocomotionStateExtensions.cs" />
+    <Compile Include="Locomotion\Movement\ConstrainedMoveProvider.cs" />
+    <Compile Include="Locomotion\Movement\ContinuousMoveProvider.cs" />
+    <Compile Include="Locomotion\Movement\GrabMoveProvider.cs" />
+    <Compile Include="Locomotion\Movement\TwoHandedGrabMoveProvider.cs" />
+    <Compile Include="Locomotion\ScriptableConstrainedBodyManipulator.cs" />
+    <Compile Include="Locomotion\Teleportation\BaseTeleportationInteractable.cs" />
+    <Compile Include="Locomotion\Teleportation\FurthestTeleportationAnchorFilter.cs" />
+    <Compile Include="Locomotion\Teleportation\GazeTeleportationAnchorFilter.cs" />
+    <Compile Include="Locomotion\Teleportation\ITeleportationVolumeAnchorFilter.cs" />
+    <Compile Include="Locomotion\Teleportation\MatchOrientation.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportationAnchor.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportationArea.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportationMultiAnchorVolume.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportationProvider.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportingEvent.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportingEventArgs.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportRequest.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportVolumeDestinationSettings.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportVolumeDestinationSettingsDatum.cs" />
+    <Compile Include="Locomotion\Teleportation\TeleportVolumeDestinationSettingsDatumProperty.cs" />
+    <Compile Include="Locomotion\Turning\ContinuousTurnProvider.cs" />
+    <Compile Include="Locomotion\Turning\SnapTurnProvider.cs" />
+    <Compile Include="Locomotion\UnderCameraBodyPositionEvaluator.cs" />
+    <Compile Include="Locomotion\XRBodyGroundPosition.cs" />
+    <Compile Include="Locomotion\XRBodyPositionEvaluatorExtensions.cs" />
+    <Compile Include="Locomotion\XRBodyScale.cs" />
+    <Compile Include="Locomotion\XRBodyTransformer.cs" />
+    <Compile Include="Locomotion\XRBodyYawRotation.cs" />
+    <Compile Include="Locomotion\XRCameraForwardXZAlignment.cs" />
+    <Compile Include="Locomotion\XRMovableBody.cs" />
+    <Compile Include="Locomotion\XROriginMovement.cs" />
+    <Compile Include="Locomotion\XROriginUpAlignment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestResult.cs" />
+    <Compile Include="SelectEnterEvent.cs" />
+    <Compile Include="SelectEnterEventArgs.cs" />
+    <Compile Include="SelectExitEvent.cs" />
+    <Compile Include="SelectExitEventArgs.cs" />
+    <Compile Include="SnapTurnProviderBase.cs" />
+    <Compile Include="SortingHelpers.cs" />
+    <Compile Include="Transformers\DropEventArgs.cs" />
+    <Compile Include="Transformers\IXRDropTransformer.cs" />
+    <Compile Include="Transformers\IXRGrabTransformer.cs" />
+    <Compile Include="Transformers\XRBaseGrabTransformer.cs" />
+    <Compile Include="Transformers\XRDualGrabFreeTransformer.cs" />
+    <Compile Include="Transformers\XRGeneralGrabTransformer.cs" />
+    <Compile Include="Transformers\XRLegacyGrabTransformer.cs" />
+    <Compile Include="Transformers\XRSingleGrabFreeTransformer.cs" />
+    <Compile Include="Transformers\XRSocketGrabTransformer.cs" />
+    <Compile Include="UI\BodyUI\FollowPreset.cs" />
+    <Compile Include="UI\BodyUI\FollowPresetDatum.cs" />
+    <Compile Include="UI\BodyUI\FollowPresetDatumProperty.cs" />
+    <Compile Include="UI\BodyUI\FollowReferenceAxis.cs" />
+    <Compile Include="UI\BodyUI\HandMenu.cs" />
+    <Compile Include="UI\ButtonDeltaState.cs" />
+    <Compile Include="UI\CanvasOptimizer.cs" />
+    <Compile Include="UI\CanvasTracker.cs" />
+    <Compile Include="UI\InteractorHitData.cs" />
+    <Compile Include="UI\IUIHoverInteractor.cs" />
+    <Compile Include="UI\IUIInteractor.cs" />
+    <Compile Include="UI\IUIModelUpdater.cs" />
+    <Compile Include="UI\LazyFollow.cs" />
+    <Compile Include="UI\MouseButtonModel.cs" />
+    <Compile Include="UI\NavigationModel.cs" />
+    <Compile Include="UI\PointerHitData.cs" />
+    <Compile Include="UI\PointerModel.cs" />
+    <Compile Include="UI\QueryUIDocumentInteraction.cs" />
+    <Compile Include="UI\RegisteredUIInteractorCache.cs" />
+    <Compile Include="UI\TouchModel.cs" />
+    <Compile Include="UI\TrackedDeviceEventData.cs" />
+    <Compile Include="UI\TrackedDeviceGraphicRaycaster.cs" />
+    <Compile Include="UI\TrackedDeviceModel.cs" />
+    <Compile Include="UI\TrackedDevicePhysicsRaycaster.cs" />
+    <Compile Include="UI\UIHoverEnterEvent.cs" />
+    <Compile Include="UI\UIHoverEventArgs.cs" />
+    <Compile Include="UI\UIHoverExitEvent.cs" />
+    <Compile Include="UI\UIInputModule.cs" />
+    <Compile Include="UI\UIInteractionType.cs" />
+    <Compile Include="UI\XRUIInputModule.cs" />
+    <Compile Include="UI\XRUIToolkitHandler.cs" />
+    <Compile Include="UI\XRUIToolkitManager.cs" />
+    <Compile Include="UI\XRUIToolkitPokeHandler.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Utilities\BaseRegistrationList.cs" />
+    <Compile Include="Utilities\BurstGazeUtility.cs" />
+    <Compile Include="Utilities\BurstLerpUtility.cs" />
+    <Compile Include="Utilities\BurstMathUtility.cs" />
+    <Compile Include="Utilities\BurstPhysicsUtils.cs" />
+    <Compile Include="Utilities\Collections\CircularBuffer.cs" />
+    <Compile Include="Utilities\Collections\NativeCurve.cs" />
+    <Compile Include="Utilities\ComponentLocatorUtility.cs" />
+    <Compile Include="Utilities\Curves\CurveUtility.cs" />
+    <Compile Include="Utilities\DisplayUtility.cs" />
+    <Compile Include="Utilities\DisposableManagerSingleton.cs" />
+    <Compile Include="Utilities\ExposedRegistrationList.cs" />
+    <Compile Include="Utilities\GradientUtility.cs" />
+    <Compile Include="Utilities\Internal\RequireInterfaceAttribute.cs" />
+    <Compile Include="Utilities\LocomotionUtility.cs" />
+    <Compile Include="Utilities\MatrixUtility.cs" />
+    <Compile Include="Utilities\Pooling\LinkedPool.cs" />
+    <Compile Include="Utilities\Pooling\PooledObject.cs" />
+    <Compile Include="Utilities\ProjectPath.cs" />
+    <Compile Include="Utilities\RegistrationList.cs" />
+    <Compile Include="Utilities\ScriptableSingletonCache.cs" />
+    <Compile Include="Utilities\SmallRegistrationList.cs" />
+    <Compile Include="Utilities\TeleportationMonitor.cs" />
+    <Compile Include="Utilities\TriggerContactMonitor.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\ColorTweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\FloatTweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\QuaternionTweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\Vector2TweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\Vector3TweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\Primitives\Vector4TweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\SmartTweenableVariables\SmartFollowQuaternionTweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\SmartTweenableVariables\SmartFollowVector3TweenableVariable.cs" />
+    <Compile Include="Utilities\Tweenables\TweenableVariableAsyncBase.cs" />
+    <Compile Include="Utilities\Tweenables\TweenableVariableBase.cs" />
+    <Compile Include="Utilities\Tweenables\TweenableVariableSynchronousBase.cs" />
+    <Compile Include="Utilities\UnityObjectReferenceCache.2.cs" />
+    <Compile Include="Utilities\UnityObjectReferenceCache.cs" />
+    <Compile Include="Utilities\XRDebugLineVisualizer.cs" />
+    <Compile Include="Utilities\XRFilterUtility.cs" />
+    <Compile Include="Utilities\XRInteractableUtility.cs" />
+    <Compile Include="XRBaseController.cs" />
+    <Compile Include="XRBaseControllerInteractor.cs" />
+    <Compile Include="XRController.cs" />
+    <Compile Include="XRControllerRecorder.cs" />
+    <Compile Include="XRControllerRecording.cs" />
+    <Compile Include="XRControllerState.cs" />
+    <Compile Include="XRHelpURLConstants.cs" />
+    <Compile Include="XRInteractableEvent.cs" />
+    <Compile Include="XRInteractionManager.cs" />
+    <Compile Include="XRInteractionUpdateOrder.cs" />
+    <Compile Include="XRInteractorEvent.cs" />
+    <Compile Include="XRRig.cs" />
+    <Compile Include="XRScreenSpaceController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.CoreUtils\Unity.XR.CoreUtils.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DF}</Project>
+      <Name>Unity.XR.CoreUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.OpenXR\Unity.XR.OpenXR.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E3}</Project>
+      <Name>Unity.XR.OpenXR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputForUIModule\UnityEngine.InputForUIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA103}</Project>
+      <Name>UnityEngine.InputForUIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA104}</Project>
+      <Name>UnityEngine.InputLegacyModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SpatialTracking\UnityEngine.SpatialTracking.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA115}</Project>
+      <Name>UnityEngine.SpatialTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIElementsModule\UnityEngine.UIElementsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA123}</Project>
+      <Name>UnityEngine.UIElementsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

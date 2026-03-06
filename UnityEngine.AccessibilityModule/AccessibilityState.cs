@@ -1,0 +1,14 @@
+﻿using System;
+using UnityEngine.Bindings;
+
+namespace UnityEngine.Accessibility
+{
+	[NativeHeader("Modules/Accessibility/Native/AccessibilityNodeData.h")]
+	[Flags]
+	public enum AccessibilityState : ushort
+	{
+		None = 0,
+		Disabled = 1,
+		Selected = 2
+	}
+}

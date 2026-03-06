@@ -1,0 +1,15 @@
+﻿using System;
+using Valve.Newtonsoft.Json.Utilities;
+
+namespace Valve.Newtonsoft.Json.Serialization
+{
+	internal static class CachedAttributeGetter<T> where T : Attribute
+	{
+		public static T GetAttribute(object type)
+		{
+			return CachedAttributeGetter<T>.TypeAttributeCache.Get(type);
+		}
+
+		private static readonly ThreadSafeStore<object, T> TypeAttributeCache = new ThreadSafeStore<object, T>(new Func<object, T>(JsonTypeReflector.GetAttribute<T>));
+	}
+}

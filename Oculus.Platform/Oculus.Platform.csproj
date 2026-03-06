@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Oculus.Platform</RootNamespace>
+    <AssemblyName>Oculus.Platform</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbuseReport.cs" />
+    <Compile Include="AbuseReportOptions.cs" />
+    <Compile Include="AbuseReportType.cs" />
+    <Compile Include="AbuseReportVideoMode.cs" />
+    <Compile Include="AccountAgeCategory.cs" />
+    <Compile Include="Achievements.cs" />
+    <Compile Include="AchievementType.cs" />
+    <Compile Include="AdvancedAbuseReportOptions.cs" />
+    <Compile Include="AndroidPlatform.cs" />
+    <Compile Include="AppAgeCategory.cs" />
+    <Compile Include="AppInstallResult.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="ApplicationLifecycle.cs" />
+    <Compile Include="ApplicationOptions.cs" />
+    <Compile Include="AppStatus.cs" />
+    <Compile Include="AssetFile.cs" />
+    <Compile Include="Avatar.cs" />
+    <Compile Include="AvatarEditorOptions.cs" />
+    <Compile Include="BufferedAudioStream.cs" />
+    <Compile Include="BuildingBlocks\EntitlementCheck.cs" />
+    <Compile Include="Callback.cs" />
+    <Compile Include="CallbackRunner.cs" />
+    <Compile Include="CAPI.cs" />
+    <Compile Include="ChallengeCreationType.cs" />
+    <Compile Include="ChallengeOptions.cs" />
+    <Compile Include="Challenges.cs" />
+    <Compile Include="ChallengeViewerFilter.cs" />
+    <Compile Include="ChallengeVisibility.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Cowatching.cs" />
+    <Compile Include="DeviceApplicationIntegrity.cs" />
+    <Compile Include="Entitlements.cs" />
+    <Compile Include="GroupPresence.cs" />
+    <Compile Include="GroupPresenceOptions.cs" />
+    <Compile Include="IAP.cs" />
+    <Compile Include="IMicrophone.cs" />
+    <Compile Include="InitConfigOptions.cs" />
+    <Compile Include="InviteOptions.cs" />
+    <Compile Include="IVoipPCMSource.cs" />
+    <Compile Include="KeyValuePairType.cs" />
+    <Compile Include="LanguagePack.cs" />
+    <Compile Include="LaunchResult.cs" />
+    <Compile Include="LaunchType.cs" />
+    <Compile Include="LeaderboardFilterType.cs" />
+    <Compile Include="Leaderboards.cs" />
+    <Compile Include="LeaderboardStartAt.cs" />
+    <Compile Include="Livestreaming.cs" />
+    <Compile Include="LivestreamingAudience.cs" />
+    <Compile Include="LivestreamingMicrophoneStatus.cs" />
+    <Compile Include="LivestreamingStartStatus.cs" />
+    <Compile Include="LogEventName.cs" />
+    <Compile Include="LogEventParameter.cs" />
+    <Compile Include="Media.cs" />
+    <Compile Include="MediaContentType.cs" />
+    <Compile Include="Message.2.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageWithAbuseReportRecording.cs" />
+    <Compile Include="MessageWithAchievementDefinitions.cs" />
+    <Compile Include="MessageWithAchievementProgressList.cs" />
+    <Compile Include="MessageWithAchievementUpdate.cs" />
+    <Compile Include="MessageWithAppDownloadProgressResult.cs" />
+    <Compile Include="MessageWithAppDownloadResult.cs" />
+    <Compile Include="MessageWithApplicationInviteList.cs" />
+    <Compile Include="MessageWithApplicationVersion.cs" />
+    <Compile Include="MessageWithAssetDetails.cs" />
+    <Compile Include="MessageWithAssetDetailsList.cs" />
+    <Compile Include="MessageWithAssetFileDeleteResult.cs" />
+    <Compile Include="MessageWithAssetFileDownloadCancelResult.cs" />
+    <Compile Include="MessageWithAssetFileDownloadResult.cs" />
+    <Compile Include="MessageWithAssetFileDownloadUpdate.cs" />
+    <Compile Include="MessageWithAvatarEditorResult.cs" />
+    <Compile Include="MessageWithBlockedUserList.cs" />
+    <Compile Include="MessageWithChallenge.cs" />
+    <Compile Include="MessageWithChallengeEntryList.cs" />
+    <Compile Include="MessageWithChallengeList.cs" />
+    <Compile Include="MessageWithCowatchingState.cs" />
+    <Compile Include="MessageWithCowatchViewerList.cs" />
+    <Compile Include="MessageWithCowatchViewerUpdate.cs" />
+    <Compile Include="MessageWithDestinationList.cs" />
+    <Compile Include="MessageWithGroupPresenceJoinIntent.cs" />
+    <Compile Include="MessageWithGroupPresenceLeaveIntent.cs" />
+    <Compile Include="MessageWithHttpTransferUpdate.cs" />
+    <Compile Include="MessageWithInstalledApplicationList.cs" />
+    <Compile Include="MessageWithInvitePanelResultInfo.cs" />
+    <Compile Include="MessageWithLaunchBlockFlowResult.cs" />
+    <Compile Include="MessageWithLaunchFriendRequestFlowResult.cs" />
+    <Compile Include="MessageWithLaunchInvitePanelFlowResult.cs" />
+    <Compile Include="MessageWithLaunchReportFlowResult.cs" />
+    <Compile Include="MessageWithLaunchUnblockFlowResult.cs" />
+    <Compile Include="MessageWithLeaderboardDidUpdate.cs" />
+    <Compile Include="MessageWithLeaderboardEntryList.cs" />
+    <Compile Include="MessageWithLeaderboardList.cs" />
+    <Compile Include="MessageWithLinkedAccountList.cs" />
+    <Compile Include="MessageWithLivestreamingApplicationStatus.cs" />
+    <Compile Include="MessageWithLivestreamingStartResult.cs" />
+    <Compile Include="MessageWithLivestreamingStatus.cs" />
+    <Compile Include="MessageWithLivestreamingVideoStats.cs" />
+    <Compile Include="MessageWithMicrophoneAvailabilityState.cs" />
+    <Compile Include="MessageWithNetSyncConnection.cs" />
+    <Compile Include="MessageWithNetSyncSessionList.cs" />
+    <Compile Include="MessageWithNetSyncSessionsChangedNotification.cs" />
+    <Compile Include="MessageWithNetSyncSetSessionPropertyResult.cs" />
+    <Compile Include="MessageWithNetSyncVoipAttenuationValueList.cs" />
+    <Compile Include="MessageWithOrgScopedID.cs" />
+    <Compile Include="MessageWithParty.cs" />
+    <Compile Include="MessageWithPartyID.cs" />
+    <Compile Include="MessageWithPartyUnderCurrentParty.cs" />
+    <Compile Include="MessageWithPartyUpdateNotification.cs" />
+    <Compile Include="MessageWithPidList.cs" />
+    <Compile Include="MessageWithPlatformInitialize.cs" />
+    <Compile Include="MessageWithProductList.cs" />
+    <Compile Include="MessageWithPurchase.cs" />
+    <Compile Include="MessageWithPurchaseList.cs" />
+    <Compile Include="MessageWithPushNotificationResult.cs" />
+    <Compile Include="MessageWithRejoinDialogResult.cs" />
+    <Compile Include="MessageWithSdkAccountList.cs" />
+    <Compile Include="MessageWithSendInvitesResult.cs" />
+    <Compile Include="MessageWithShareMediaResult.cs" />
+    <Compile Include="MessageWithString.cs" />
+    <Compile Include="MessageWithSystemVoipState.cs" />
+    <Compile Include="MessageWithUser.cs" />
+    <Compile Include="MessageWithUserAccountAgeCategory.cs" />
+    <Compile Include="MessageWithUserCapabilityList.cs" />
+    <Compile Include="MessageWithUserList.cs" />
+    <Compile Include="MessageWithUserProof.cs" />
+    <Compile Include="MessageWithUserReportID.cs" />
+    <Compile Include="Models\AbuseReportRecording.cs" />
+    <Compile Include="Models\AchievementDefinition.cs" />
+    <Compile Include="Models\AchievementDefinitionList.cs" />
+    <Compile Include="Models\AchievementProgress.cs" />
+    <Compile Include="Models\AchievementProgressList.cs" />
+    <Compile Include="Models\AchievementUpdate.cs" />
+    <Compile Include="Models\AppDownloadProgressResult.cs" />
+    <Compile Include="Models\AppDownloadResult.cs" />
+    <Compile Include="Models\ApplicationInvite.cs" />
+    <Compile Include="Models\ApplicationInviteList.cs" />
+    <Compile Include="Models\ApplicationVersion.cs" />
+    <Compile Include="Models\AssetDetails.cs" />
+    <Compile Include="Models\AssetDetailsList.cs" />
+    <Compile Include="Models\AssetFileDeleteResult.cs" />
+    <Compile Include="Models\AssetFileDownloadCancelResult.cs" />
+    <Compile Include="Models\AssetFileDownloadResult.cs" />
+    <Compile Include="Models\AssetFileDownloadUpdate.cs" />
+    <Compile Include="Models\AvatarEditorResult.cs" />
+    <Compile Include="Models\BillingPlan.cs" />
+    <Compile Include="Models\BillingPlanList.cs" />
+    <Compile Include="Models\BlockedUser.cs" />
+    <Compile Include="Models\BlockedUserList.cs" />
+    <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\ChallengeEntry.cs" />
+    <Compile Include="Models\ChallengeEntryList.cs" />
+    <Compile Include="Models\ChallengeList.cs" />
+    <Compile Include="Models\ContentRating.cs" />
+    <Compile Include="Models\CowatchingState.cs" />
+    <Compile Include="Models\CowatchViewer.cs" />
+    <Compile Include="Models\CowatchViewerList.cs" />
+    <Compile Include="Models\CowatchViewerUpdate.cs" />
+    <Compile Include="Models\DeserializableList.cs" />
+    <Compile Include="Models\Destination.cs" />
+    <Compile Include="Models\DestinationList.cs" />
+    <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\GroupPresenceJoinIntent.cs" />
+    <Compile Include="Models\GroupPresenceLeaveIntent.cs" />
+    <Compile Include="Models\HttpTransferUpdate.cs" />
+    <Compile Include="Models\InstalledApplication.cs" />
+    <Compile Include="Models\InstalledApplicationList.cs" />
+    <Compile Include="Models\InvitePanelResultInfo.cs" />
+    <Compile Include="Models\LanguagePackInfo.cs" />
+    <Compile Include="Models\LaunchBlockFlowResult.cs" />
+    <Compile Include="Models\LaunchDetails.cs" />
+    <Compile Include="Models\LaunchFriendRequestFlowResult.cs" />
+    <Compile Include="Models\LaunchInvitePanelFlowResult.cs" />
+    <Compile Include="Models\LaunchReportFlowResult.cs" />
+    <Compile Include="Models\LaunchUnblockFlowResult.cs" />
+    <Compile Include="Models\Leaderboard.cs" />
+    <Compile Include="Models\LeaderboardEntry.cs" />
+    <Compile Include="Models\LeaderboardEntryList.cs" />
+    <Compile Include="Models\LeaderboardList.cs" />
+    <Compile Include="Models\LinkedAccount.cs" />
+    <Compile Include="Models\LinkedAccountList.cs" />
+    <Compile Include="Models\LivestreamingApplicationStatus.cs" />
+    <Compile Include="Models\LivestreamingStartResult.cs" />
+    <Compile Include="Models\LivestreamingStatus.cs" />
+    <Compile Include="Models\LivestreamingVideoStats.cs" />
+    <Compile Include="Models\ManagedInfo.cs" />
+    <Compile Include="Models\MicrophoneAvailabilityState.cs" />
+    <Compile Include="Models\NetSyncConnection.cs" />
+    <Compile Include="Models\NetSyncSession.cs" />
+    <Compile Include="Models\NetSyncSessionList.cs" />
+    <Compile Include="Models\NetSyncSessionsChangedNotification.cs" />
+    <Compile Include="Models\NetSyncSetSessionPropertyResult.cs" />
+    <Compile Include="Models\NetSyncVoipAttenuationValue.cs" />
+    <Compile Include="Models\NetSyncVoipAttenuationValueList.cs" />
+    <Compile Include="Models\OrgScopedID.cs" />
+    <Compile Include="Models\PaidOffer.cs" />
+    <Compile Include="Models\Party.cs" />
+    <Compile Include="Models\PartyID.cs" />
+    <Compile Include="Models\PartyUpdateNotification.cs" />
+    <Compile Include="Models\Pid.cs" />
+    <Compile Include="Models\PidList.cs" />
+    <Compile Include="Models\PingResult.cs" />
+    <Compile Include="Models\PlatformInitialize.cs" />
+    <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductList.cs" />
+    <Compile Include="Models\Purchase.cs" />
+    <Compile Include="Models\PurchaseList.cs" />
+    <Compile Include="Models\PushNotificationResult.cs" />
+    <Compile Include="Models\RejoinDialogResult.cs" />
+    <Compile Include="Models\SdkAccount.cs" />
+    <Compile Include="Models\SdkAccountList.cs" />
+    <Compile Include="Models\SendInvitesResult.cs" />
+    <Compile Include="Models\ShareMediaResult.cs" />
+    <Compile Include="Models\SupplementaryMetric.cs" />
+    <Compile Include="Models\SystemVoipState.cs" />
+    <Compile Include="Models\TrialOffer.cs" />
+    <Compile Include="Models\TrialOfferList.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAccountAgeCategory.cs" />
+    <Compile Include="Models\UserCapability.cs" />
+    <Compile Include="Models\UserCapabilityList.cs" />
+    <Compile Include="Models\UserDataStoreUpdateResponse.cs" />
+    <Compile Include="Models\UserList.cs" />
+    <Compile Include="Models\UserProof.cs" />
+    <Compile Include="Models\UserReportID.cs" />
+    <Compile Include="MultiplayerErrorErrorKey.cs" />
+    <Compile Include="MultiplayerErrorOptions.cs" />
+    <Compile Include="NetSync.cs" />
+    <Compile Include="NetSyncConnectionStatus.cs" />
+    <Compile Include="NetSyncDisconnectReason.cs" />
+    <Compile Include="NetSyncOptions.cs" />
+    <Compile Include="NetSyncVoipMicSource.cs" />
+    <Compile Include="NetSyncVoipStreamMode.cs" />
+    <Compile Include="Notifications.cs" />
+    <Compile Include="OfferTerm.cs" />
+    <Compile Include="OfferType.cs" />
+    <Compile Include="Packet.cs" />
+    <Compile Include="Parties.cs" />
+    <Compile Include="PartyMicState.cs" />
+    <Compile Include="PartyUpdateAction.cs" />
+    <Compile Include="PermissionGrantStatus.cs" />
+    <Compile Include="PermissionType.cs" />
+    <Compile Include="PlatformInitializeResult.cs" />
+    <Compile Include="PlatformInternal.cs" />
+    <Compile Include="PlatformSettings.cs" />
+    <Compile Include="ProductType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotification.cs" />
+    <Compile Include="ReportRequestResponse.cs" />
+    <Compile Include="Request.2.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RichPresence.cs" />
+    <Compile Include="RichPresenceExtraContext.cs" />
+    <Compile Include="RichPresenceOptions.cs" />
+    <Compile Include="RosterOptions.cs" />
+    <Compile Include="SdkAccountType.cs" />
+    <Compile Include="ServiceProvider.cs" />
+    <Compile Include="ShareMediaStatus.cs" />
+    <Compile Include="StandalonePlatform.cs" />
+    <Compile Include="StandalonePlatformSettings.cs" />
+    <Compile Include="SystemVoipStatus.cs" />
+    <Compile Include="TimeWindow.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="UserAgeCategory.cs" />
+    <Compile Include="UserOptions.cs" />
+    <Compile Include="UserOrdering.cs" />
+    <Compile Include="UserPresenceStatus.cs" />
+    <Compile Include="Users.cs" />
+    <Compile Include="Voip.cs" />
+    <Compile Include="VoipAudioSourceHiLevel.cs" />
+    <Compile Include="VoipBitrate.cs" />
+    <Compile Include="VoipDtxState.cs" />
+    <Compile Include="VoipMuteState.cs" />
+    <Compile Include="VoipOptions.cs" />
+    <Compile Include="VoipPCMSourceNative.cs" />
+    <Compile Include="VoipSampleRate.cs" />
+    <Compile Include="Vrcamera.cs" />
+    <Compile Include="WindowsPlatform.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

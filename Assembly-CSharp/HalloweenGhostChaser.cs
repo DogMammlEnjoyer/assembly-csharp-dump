@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Fusion;
 using Fusion.CodeGen;
+using GorillaExtensions;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -68,11 +69,11 @@ public class HalloweenGhostChaser : NetworkComponent
 					while (i < this.spawnTransforms.Length)
 					{
 						int num2 = 0;
-						for (int j = 0; j < GorillaParent.instance.vrrigs.Count; j++)
+						for (int j = 0; j < VRRigCache.ActiveRigContainers.Count; j++)
 						{
-							if ((GorillaParent.instance.vrrigs[j].transform.position - this.spawnTransforms[i].position).magnitude < this.summonDistance)
+							if ((VRRigCache.ActiveRigContainers[j].transform.position - this.spawnTransforms[i].position).magnitude < this.summonDistance)
 							{
-								this.possibleTarget.Add(GorillaParent.instance.vrrigs[j].creator);
+								this.possibleTarget.Add(VRRigCache.ActiveRigContainers[j].Creator);
 								num2++;
 								if (num2 >= this.summonCount)
 								{
@@ -352,18 +353,19 @@ public class HalloweenGhostChaser : NetworkComponent
 		if (this.possibleTarget.Count >= this.summonCount)
 		{
 			int randomTarget = Random.Range(0, this.possibleTarget.Count);
-			num = GorillaParent.instance.vrrigs.FindIndex((VRRig x) => x.creator != null && x.creator == this.possibleTarget[randomTarget]);
+			num = VRRigCache.ActiveRigContainers.FindIndex((RigContainer x) => x.Creator != null && x.Creator == this.possibleTarget[randomTarget]);
 			this.currentSpeed = 3f;
 		}
 		if (num == -1)
 		{
-			num = Random.Range(0, GorillaParent.instance.vrrigs.Count);
+			num = Random.Range(0, VRRigCache.ActiveRigContainers.Count);
 		}
 		this.possibleTarget.Clear();
-		if (num < GorillaParent.instance.vrrigs.Count)
+		if (num < VRRigCache.ActiveRigContainers.Count)
 		{
-			this.targetPlayer = GorillaParent.instance.vrrigs[num].creator;
-			this.followTarget = GorillaParent.instance.vrrigs[num].head.rigTarget;
+			VRRig rig = VRRigCache.ActiveRigContainers[num].Rig;
+			this.targetPlayer = rig.creator;
+			this.followTarget = rig.head.rigTarget;
 			NavMeshHit navMeshHit;
 			this.targetIsOnNavMesh = NavMesh.SamplePosition(this.followTarget.position, out navMeshHit, 5f, 1);
 			return;

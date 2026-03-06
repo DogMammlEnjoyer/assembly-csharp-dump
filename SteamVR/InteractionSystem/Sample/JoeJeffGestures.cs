@@ -1,0 +1,63 @@
+﻿using System;
+using UnityEngine;
+
+namespace Valve.VR.InteractionSystem.Sample
+{
+	public class JoeJeffGestures : MonoBehaviour
+	{
+		private void Awake()
+		{
+			this.joeJeff = base.GetComponent<JoeJeff>();
+		}
+
+		private void Update()
+		{
+			if (Player.instance == null)
+			{
+				return;
+			}
+			Transform transform = Camera.main.transform;
+			if (Vector3.Angle(transform.forward, base.transform.position - transform.position) >= 90f)
+			{
+				return;
+			}
+			for (int i = 0; i < Player.instance.hands.Length; i++)
+			{
+				if (Player.instance.hands[i] != null)
+				{
+					SteamVR_Behaviour_Skeleton skeleton = Player.instance.hands[i].skeleton;
+					if (skeleton != null)
+					{
+						if (skeleton.indexCurl <= 0.1f && skeleton.middleCurl <= 0.1f && skeleton.thumbCurl >= 0.4f && skeleton.ringCurl >= 0.9f && skeleton.pinkyCurl >= 0.9f)
+						{
+							this.PeaceSignRecognized(true);
+						}
+						else
+						{
+							this.PeaceSignRecognized(false);
+						}
+					}
+				}
+			}
+		}
+
+		private void PeaceSignRecognized(bool currentPeaceSignState)
+		{
+			if (!this.lastPeaceSignState && currentPeaceSignState)
+			{
+				this.joeJeff.Jump();
+			}
+			this.lastPeaceSignState = currentPeaceSignState;
+		}
+
+		private const float openFingerAmount = 0.1f;
+
+		private const float closedFingerAmount = 0.9f;
+
+		private const float closedThumbAmount = 0.4f;
+
+		private JoeJeff joeJeff;
+
+		private bool lastPeaceSignState;
+	}
+}

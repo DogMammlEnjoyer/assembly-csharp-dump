@@ -6,6 +6,14 @@ using UnityEngine;
 
 public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 {
+	public bool IsDynamicLightingEnabled
+	{
+		get
+		{
+			return this.customVertexLightingEnabled;
+		}
+	}
+
 	private void Awake()
 	{
 		this.InitData();

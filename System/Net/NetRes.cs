@@ -1,0 +1,72 @@
+﻿using System;
+using System.Globalization;
+
+namespace System.Net
+{
+	internal class NetRes
+	{
+		private NetRes()
+		{
+		}
+
+		public static string GetWebStatusString(string Res, WebExceptionStatus Status)
+		{
+			string @string = SR.GetString(WebExceptionMapping.GetWebStatusString(Status));
+			string string2 = SR.GetString(Res);
+			return string.Format(CultureInfo.CurrentCulture, string2, @string);
+		}
+
+		public static string GetWebStatusString(WebExceptionStatus Status)
+		{
+			return SR.GetString(WebExceptionMapping.GetWebStatusString(Status));
+		}
+
+		public static string GetWebStatusCodeString(HttpStatusCode statusCode, string statusDescription)
+		{
+			string str = "(";
+			int num = (int)statusCode;
+			string text = str + num.ToString(NumberFormatInfo.InvariantInfo) + ")";
+			string text2 = null;
+			try
+			{
+				text2 = SR.GetString("net_httpstatuscode_" + statusCode.ToString(), null);
+			}
+			catch
+			{
+			}
+			if (text2 != null && text2.Length > 0)
+			{
+				text = text + " " + text2;
+			}
+			else if (statusDescription != null && statusDescription.Length > 0)
+			{
+				text = text + " " + statusDescription;
+			}
+			return text;
+		}
+
+		public static string GetWebStatusCodeString(FtpStatusCode statusCode, string statusDescription)
+		{
+			string str = "(";
+			int num = (int)statusCode;
+			string text = str + num.ToString(NumberFormatInfo.InvariantInfo) + ")";
+			string text2 = null;
+			try
+			{
+				text2 = SR.GetString("net_ftpstatuscode_" + statusCode.ToString(), null);
+			}
+			catch
+			{
+			}
+			if (text2 != null && text2.Length > 0)
+			{
+				text = text + " " + text2;
+			}
+			else if (statusDescription != null && statusDescription.Length > 0)
+			{
+				text = text + " " + statusDescription;
+			}
+			return text;
+		}
+	}
+}

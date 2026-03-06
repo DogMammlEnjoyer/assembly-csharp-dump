@@ -1,0 +1,579 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Serialization;
+
+namespace Unity.AI.Navigation
+{
+	[ExecuteAlways]
+	[DefaultExecutionOrder(-102)]
+	[AddComponentMenu("Navigation/NavMesh Surface", 30)]
+	[HelpURL("https://docs.unity3d.com/Packages/com.unity.ai.navigation@2.0/manual/NavMeshSurface.html")]
+	public class NavMeshSurface : MonoBehaviour
+	{
+		public int agentTypeID
+		{
+			get
+			{
+				return this.m_AgentTypeID;
+			}
+			set
+			{
+				this.m_AgentTypeID = value;
+			}
+		}
+
+		public CollectObjects collectObjects
+		{
+			get
+			{
+				return this.m_CollectObjects;
+			}
+			set
+			{
+				this.m_CollectObjects = value;
+			}
+		}
+
+		public Vector3 size
+		{
+			get
+			{
+				return this.m_Size;
+			}
+			set
+			{
+				this.m_Size = value;
+			}
+		}
+
+		public Vector3 center
+		{
+			get
+			{
+				return this.m_Center;
+			}
+			set
+			{
+				this.m_Center = value;
+			}
+		}
+
+		public LayerMask layerMask
+		{
+			get
+			{
+				return this.m_LayerMask;
+			}
+			set
+			{
+				this.m_LayerMask = value;
+			}
+		}
+
+		public NavMeshCollectGeometry useGeometry
+		{
+			get
+			{
+				return this.m_UseGeometry;
+			}
+			set
+			{
+				this.m_UseGeometry = value;
+			}
+		}
+
+		public int defaultArea
+		{
+			get
+			{
+				return this.m_DefaultArea;
+			}
+			set
+			{
+				this.m_DefaultArea = value;
+			}
+		}
+
+		public bool ignoreNavMeshAgent
+		{
+			get
+			{
+				return this.m_IgnoreNavMeshAgent;
+			}
+			set
+			{
+				this.m_IgnoreNavMeshAgent = value;
+			}
+		}
+
+		public bool ignoreNavMeshObstacle
+		{
+			get
+			{
+				return this.m_IgnoreNavMeshObstacle;
+			}
+			set
+			{
+				this.m_IgnoreNavMeshObstacle = value;
+			}
+		}
+
+		public bool overrideTileSize
+		{
+			get
+			{
+				return this.m_OverrideTileSize;
+			}
+			set
+			{
+				this.m_OverrideTileSize = value;
+			}
+		}
+
+		public int tileSize
+		{
+			get
+			{
+				return this.m_TileSize;
+			}
+			set
+			{
+				this.m_TileSize = value;
+			}
+		}
+
+		public bool overrideVoxelSize
+		{
+			get
+			{
+				return this.m_OverrideVoxelSize;
+			}
+			set
+			{
+				this.m_OverrideVoxelSize = value;
+			}
+		}
+
+		public float voxelSize
+		{
+			get
+			{
+				return this.m_VoxelSize;
+			}
+			set
+			{
+				this.m_VoxelSize = value;
+			}
+		}
+
+		public float minRegionArea
+		{
+			get
+			{
+				return this.m_MinRegionArea;
+			}
+			set
+			{
+				this.m_MinRegionArea = value;
+			}
+		}
+
+		public bool buildHeightMesh
+		{
+			get
+			{
+				return this.m_BuildHeightMesh;
+			}
+			set
+			{
+				this.m_BuildHeightMesh = value;
+			}
+		}
+
+		public NavMeshData navMeshData
+		{
+			get
+			{
+				return this.m_NavMeshData;
+			}
+			set
+			{
+				this.m_NavMeshData = value;
+			}
+		}
+
+		internal NavMeshDataInstance navMeshDataInstance
+		{
+			get
+			{
+				return this.m_NavMeshDataInstance;
+			}
+		}
+
+		public static List<NavMeshSurface> activeSurfaces
+		{
+			get
+			{
+				return NavMeshSurface.s_NavMeshSurfaces;
+			}
+		}
+
+		private Bounds GetInflatedBounds()
+		{
+			NavMeshBuildSettings settingsByID = NavMesh.GetSettingsByID(this.m_AgentTypeID);
+			float num = (settingsByID.agentTypeID != -1) ? settingsByID.agentRadius : 0f;
+			Bounds result = new Bounds(this.center, this.size);
+			result.Expand(new Vector3(num, 0f, num));
+			return result;
+		}
+
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+		private static void ClearNavMeshSurfaces()
+		{
+			NavMeshSurface.s_NavMeshSurfaces.Clear();
+		}
+
+		private void OnEnable()
+		{
+			NavMeshSurface.Register(this);
+			this.AddData();
+		}
+
+		private void OnDisable()
+		{
+			this.RemoveData();
+			NavMeshSurface.Unregister(this);
+		}
+
+		public void AddData()
+		{
+			if (this.m_NavMeshDataInstance.valid)
+			{
+				return;
+			}
+			if (this.m_NavMeshData != null)
+			{
+				this.m_NavMeshDataInstance = NavMesh.AddNavMeshData(this.m_NavMeshData, base.transform.position, base.transform.rotation);
+				this.m_NavMeshDataInstance.owner = this;
+			}
+			this.m_LastPosition = base.transform.position;
+			this.m_LastRotation = base.transform.rotation;
+		}
+
+		public void RemoveData()
+		{
+			this.m_NavMeshDataInstance.Remove();
+			this.m_NavMeshDataInstance = default(NavMeshDataInstance);
+		}
+
+		public NavMeshBuildSettings GetBuildSettings()
+		{
+			NavMeshBuildSettings settingsByID = NavMesh.GetSettingsByID(this.m_AgentTypeID);
+			if (settingsByID.agentTypeID == -1)
+			{
+				Debug.LogWarning("No build settings for agent type ID " + this.agentTypeID.ToString(), this);
+				settingsByID.agentTypeID = this.m_AgentTypeID;
+			}
+			if (this.overrideTileSize)
+			{
+				settingsByID.overrideTileSize = true;
+				settingsByID.tileSize = this.tileSize;
+			}
+			if (this.overrideVoxelSize)
+			{
+				settingsByID.overrideVoxelSize = true;
+				settingsByID.voxelSize = this.voxelSize;
+			}
+			settingsByID.minRegionArea = this.minRegionArea;
+			settingsByID.buildHeightMesh = this.buildHeightMesh;
+			return settingsByID;
+		}
+
+		public void BuildNavMesh()
+		{
+			List<NavMeshBuildSource> sources = this.CollectSources();
+			Bounds localBounds = new Bounds(this.m_Center, NavMeshSurface.Abs(this.m_Size));
+			if (this.m_CollectObjects != CollectObjects.Volume)
+			{
+				localBounds = this.CalculateWorldBounds(sources);
+			}
+			NavMeshData navMeshData = NavMeshBuilder.BuildNavMeshData(this.GetBuildSettings(), sources, localBounds, base.transform.position, base.transform.rotation);
+			if (navMeshData != null)
+			{
+				navMeshData.name = base.gameObject.name;
+				this.RemoveData();
+				this.m_NavMeshData = navMeshData;
+				if (base.isActiveAndEnabled)
+				{
+					this.AddData();
+				}
+			}
+		}
+
+		public AsyncOperation UpdateNavMesh(NavMeshData data)
+		{
+			List<NavMeshBuildSource> sources = this.CollectSources();
+			Bounds localBounds = new Bounds(this.m_Center, NavMeshSurface.Abs(this.m_Size));
+			if (this.m_CollectObjects != CollectObjects.Volume)
+			{
+				localBounds = this.CalculateWorldBounds(sources);
+			}
+			return NavMeshBuilder.UpdateNavMeshDataAsync(data, this.GetBuildSettings(), sources, localBounds);
+		}
+
+		private static void Register(NavMeshSurface surface)
+		{
+			if (NavMeshSurface.s_NavMeshSurfaces.Count == 0)
+			{
+				NavMesh.onPreUpdate = (NavMesh.OnNavMeshPreUpdate)Delegate.Combine(NavMesh.onPreUpdate, new NavMesh.OnNavMeshPreUpdate(NavMeshSurface.UpdateActive));
+			}
+			if (!NavMeshSurface.s_NavMeshSurfaces.Contains(surface))
+			{
+				NavMeshSurface.s_NavMeshSurfaces.Add(surface);
+			}
+		}
+
+		private static void Unregister(NavMeshSurface surface)
+		{
+			NavMeshSurface.s_NavMeshSurfaces.Remove(surface);
+			if (NavMeshSurface.s_NavMeshSurfaces.Count == 0)
+			{
+				NavMesh.onPreUpdate = (NavMesh.OnNavMeshPreUpdate)Delegate.Remove(NavMesh.onPreUpdate, new NavMesh.OnNavMeshPreUpdate(NavMeshSurface.UpdateActive));
+			}
+		}
+
+		private static void UpdateActive()
+		{
+			for (int i = 0; i < NavMeshSurface.s_NavMeshSurfaces.Count; i++)
+			{
+				NavMeshSurface.s_NavMeshSurfaces[i].UpdateDataIfTransformChanged();
+			}
+		}
+
+		private void AppendModifierVolumes(ref List<NavMeshBuildSource> sources)
+		{
+			List<NavMeshModifierVolume> list;
+			if (this.m_CollectObjects == CollectObjects.Children)
+			{
+				list = new List<NavMeshModifierVolume>(base.GetComponentsInChildren<NavMeshModifierVolume>());
+				list.RemoveAll((NavMeshModifierVolume x) => !x.isActiveAndEnabled);
+			}
+			else
+			{
+				list = NavMeshModifierVolume.activeModifiers;
+			}
+			foreach (NavMeshModifierVolume navMeshModifierVolume in list)
+			{
+				if ((this.m_LayerMask & 1 << navMeshModifierVolume.gameObject.layer) != 0 && navMeshModifierVolume.AffectsAgentType(this.m_AgentTypeID))
+				{
+					Vector3 pos = navMeshModifierVolume.transform.TransformPoint(navMeshModifierVolume.center);
+					Vector3 lossyScale = navMeshModifierVolume.transform.lossyScale;
+					Vector3 size = new Vector3(navMeshModifierVolume.size.x * Mathf.Abs(lossyScale.x), navMeshModifierVolume.size.y * Mathf.Abs(lossyScale.y), navMeshModifierVolume.size.z * Mathf.Abs(lossyScale.z));
+					NavMeshBuildSource item = default(NavMeshBuildSource);
+					item.shape = NavMeshBuildSourceShape.ModifierBox;
+					item.transform = Matrix4x4.TRS(pos, navMeshModifierVolume.transform.rotation, Vector3.one);
+					item.size = size;
+					item.area = navMeshModifierVolume.area;
+					sources.Add(item);
+				}
+			}
+		}
+
+		private List<NavMeshBuildSource> CollectSources()
+		{
+			List<NavMeshBuildSource> list = new List<NavMeshBuildSource>();
+			List<NavMeshBuildMarkup> list2 = new List<NavMeshBuildMarkup>();
+			List<NavMeshModifier> list3;
+			if (this.m_CollectObjects == CollectObjects.Children)
+			{
+				list3 = new List<NavMeshModifier>(base.GetComponentsInChildren<NavMeshModifier>());
+				list3.RemoveAll((NavMeshModifier x) => !x.isActiveAndEnabled);
+			}
+			else
+			{
+				list3 = NavMeshModifier.activeModifiers;
+			}
+			foreach (NavMeshModifier navMeshModifier in list3)
+			{
+				if ((this.m_LayerMask & 1 << navMeshModifier.gameObject.layer) != 0 && navMeshModifier.AffectsAgentType(this.m_AgentTypeID))
+				{
+					list2.Add(new NavMeshBuildMarkup
+					{
+						root = navMeshModifier.transform,
+						overrideArea = navMeshModifier.overrideArea,
+						area = navMeshModifier.area,
+						ignoreFromBuild = navMeshModifier.ignoreFromBuild,
+						applyToChildren = navMeshModifier.applyToChildren,
+						overrideGenerateLinks = navMeshModifier.overrideGenerateLinks,
+						generateLinks = navMeshModifier.generateLinks
+					});
+				}
+			}
+			switch (this.m_CollectObjects)
+			{
+			default:
+				this.CollectSourcesInHierarchy(null, this.m_LayerMask, this.m_UseGeometry, this.m_DefaultArea, this.m_GenerateLinks, list2, false, list);
+				break;
+			case CollectObjects.Volume:
+			{
+				Bounds worldBounds = NavMeshSurface.GetWorldBounds(Matrix4x4.TRS(base.transform.position, base.transform.rotation, Vector3.one), this.GetInflatedBounds());
+				this.CollectSourcesInVolume(worldBounds, this.m_LayerMask, this.m_UseGeometry, this.m_DefaultArea, this.m_GenerateLinks, list2, false, list);
+				break;
+			}
+			case CollectObjects.Children:
+				this.CollectSourcesInHierarchy(base.transform, this.m_LayerMask, this.m_UseGeometry, this.m_DefaultArea, this.m_GenerateLinks, list2, false, list);
+				break;
+			case CollectObjects.MarkedWithModifier:
+				this.CollectSourcesInHierarchy(null, this.m_LayerMask, this.m_UseGeometry, this.m_DefaultArea, this.m_GenerateLinks, list2, true, list);
+				break;
+			}
+			if (this.m_IgnoreNavMeshAgent)
+			{
+				list.RemoveAll((NavMeshBuildSource x) => x.component != null && x.component.gameObject.GetComponent<NavMeshAgent>() != null);
+			}
+			if (this.m_IgnoreNavMeshObstacle)
+			{
+				list.RemoveAll((NavMeshBuildSource x) => x.component != null && x.component.gameObject.GetComponent<NavMeshObstacle>() != null);
+			}
+			this.AppendModifierVolumes(ref list);
+			return list;
+		}
+
+		private static Vector3 Abs(Vector3 v)
+		{
+			return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+		}
+
+		private static Bounds GetWorldBounds(Matrix4x4 mat, Bounds bounds)
+		{
+			Vector3 a = NavMeshSurface.Abs(mat.MultiplyVector(Vector3.right));
+			Vector3 a2 = NavMeshSurface.Abs(mat.MultiplyVector(Vector3.up));
+			Vector3 a3 = NavMeshSurface.Abs(mat.MultiplyVector(Vector3.forward));
+			Vector3 center = mat.MultiplyPoint(bounds.center);
+			Vector3 size = a * bounds.size.x + a2 * bounds.size.y + a3 * bounds.size.z;
+			return new Bounds(center, size);
+		}
+
+		private Bounds CalculateWorldBounds(List<NavMeshBuildSource> sources)
+		{
+			Matrix4x4 inverse = Matrix4x4.TRS(base.transform.position, base.transform.rotation, Vector3.one).inverse;
+			Bounds result = default(Bounds);
+			foreach (NavMeshBuildSource navMeshBuildSource in sources)
+			{
+				switch (navMeshBuildSource.shape)
+				{
+				case NavMeshBuildSourceShape.Mesh:
+				{
+					Mesh mesh = navMeshBuildSource.sourceObject as Mesh;
+					result.Encapsulate(NavMeshSurface.GetWorldBounds(inverse * navMeshBuildSource.transform, mesh.bounds));
+					break;
+				}
+				case NavMeshBuildSourceShape.Terrain:
+				{
+					TerrainData terrainData = navMeshBuildSource.sourceObject as TerrainData;
+					result.Encapsulate(NavMeshSurface.GetWorldBounds(inverse * navMeshBuildSource.transform, new Bounds(0.5f * terrainData.size, terrainData.size)));
+					break;
+				}
+				case NavMeshBuildSourceShape.Box:
+				case NavMeshBuildSourceShape.Sphere:
+				case NavMeshBuildSourceShape.Capsule:
+				case NavMeshBuildSourceShape.ModifierBox:
+					result.Encapsulate(NavMeshSurface.GetWorldBounds(inverse * navMeshBuildSource.transform, new Bounds(Vector3.zero, navMeshBuildSource.size)));
+					break;
+				}
+			}
+			result.Expand(0.1f);
+			return result;
+		}
+
+		private bool HasTransformChanged()
+		{
+			return this.m_LastPosition != base.transform.position || this.m_LastRotation != base.transform.rotation;
+		}
+
+		private void UpdateDataIfTransformChanged()
+		{
+			if (this.HasTransformChanged())
+			{
+				this.RemoveData();
+				this.AddData();
+			}
+		}
+
+		private void CollectSourcesInVolume(Bounds includedWorldBounds, int includedLayerMask, NavMeshCollectGeometry geometry, int areaByDefault, bool generateLinksByDefault, List<NavMeshBuildMarkup> markups, bool includeOnlyMarkedObjects, List<NavMeshBuildSource> results)
+		{
+			NavMeshBuilder.CollectSources(includedWorldBounds, includedLayerMask, geometry, areaByDefault, generateLinksByDefault, markups, includeOnlyMarkedObjects, results);
+		}
+
+		private void CollectSourcesInHierarchy(Transform root, int includedLayerMask, NavMeshCollectGeometry geometry, int areaByDefault, bool generateLinksByDefault, List<NavMeshBuildMarkup> markups, bool includeOnlyMarkedObjects, List<NavMeshBuildSource> results)
+		{
+			NavMeshBuilder.CollectSources(root, includedLayerMask, geometry, areaByDefault, generateLinksByDefault, markups, includeOnlyMarkedObjects, results);
+		}
+
+		[SerializeField]
+		[HideInInspector]
+		private byte m_SerializedVersion;
+
+		[SerializeField]
+		private int m_AgentTypeID;
+
+		[SerializeField]
+		private CollectObjects m_CollectObjects;
+
+		[SerializeField]
+		private Vector3 m_Size = new Vector3(10f, 10f, 10f);
+
+		[SerializeField]
+		private Vector3 m_Center = new Vector3(0f, 2f, 0f);
+
+		[SerializeField]
+		private LayerMask m_LayerMask = -1;
+
+		[SerializeField]
+		private NavMeshCollectGeometry m_UseGeometry;
+
+		[SerializeField]
+		private int m_DefaultArea;
+
+		[SerializeField]
+		private bool m_GenerateLinks;
+
+		[SerializeField]
+		private bool m_IgnoreNavMeshAgent = true;
+
+		[SerializeField]
+		private bool m_IgnoreNavMeshObstacle = true;
+
+		[SerializeField]
+		private bool m_OverrideTileSize;
+
+		[SerializeField]
+		private int m_TileSize = 256;
+
+		[SerializeField]
+		private bool m_OverrideVoxelSize;
+
+		[SerializeField]
+		private float m_VoxelSize;
+
+		[SerializeField]
+		private float m_MinRegionArea = 2f;
+
+		[FormerlySerializedAs("m_BakedNavMeshData")]
+		[SerializeField]
+		private NavMeshData m_NavMeshData;
+
+		[SerializeField]
+		private bool m_BuildHeightMesh;
+
+		private NavMeshDataInstance m_NavMeshDataInstance;
+
+		private Vector3 m_LastPosition = Vector3.zero;
+
+		private Quaternion m_LastRotation = Quaternion.identity;
+
+		private static readonly List<NavMeshSurface> s_NavMeshSurfaces = new List<NavMeshSurface>();
+	}
+}

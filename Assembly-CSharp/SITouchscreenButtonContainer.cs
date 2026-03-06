@@ -22,6 +22,11 @@ public class SITouchscreenButtonContainer : MonoBehaviour
 		this.UpdateToggleVisual(isToggledOn);
 	}
 
+	public void UpdateToggleVisual()
+	{
+		this.UpdateToggleVisual(this.button.IsToggledOn);
+	}
+
 	private void UpdateToggleVisual(bool isToggledOn)
 	{
 		if (this._cachedForegroundColor.r < 0f)

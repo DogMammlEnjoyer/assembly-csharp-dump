@@ -29,6 +29,11 @@ namespace GorillaTag.Cosmetics
 			{
 				unityEvent.Invoke();
 			}
+			UnityEvent unityEvent2 = this.onStartListening;
+			if (unityEvent2 != null)
+			{
+				unityEvent2.Invoke();
+			}
 			this.wearable.OnCosmeticStartListening();
 			this.lastSliceUpdateTime = Time.time;
 			GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.LateUpdate);

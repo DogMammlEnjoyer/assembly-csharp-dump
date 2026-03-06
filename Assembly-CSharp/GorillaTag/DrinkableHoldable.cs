@@ -1,5 +1,6 @@
 ﻿using System;
 using emotitron.Compression;
+using GorillaExtensions;
 using GorillaNetworking;
 using UnityEngine;
 
@@ -31,19 +32,20 @@ namespace GorillaTag
 			bool flag = (GorillaTagger.Instance.offlineVRRig.head.rigTarget.transform.TransformPoint(this.headToMouthOffset) - this.containerLiquid.cupTopWorldPos).sqrMagnitude < num2;
 			if (!flag)
 			{
-				foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+				foreach (RigContainer rigContainer in VRRigCache.ActiveRigContainers)
 				{
-					if (!vrrig.isOfflineVRRig)
+					VRRig rig = rigContainer.Rig;
+					if (!rig.isOfflineVRRig)
 					{
-						if (flag || vrrig.head == null)
+						if (flag || rig.head == null)
 						{
 							break;
 						}
-						if (vrrig.head.rigTarget == null)
+						if (rig.head.rigTarget.IsNull())
 						{
 							break;
 						}
-						flag = ((vrrig.head.rigTarget.transform.TransformPoint(this.headToMouthOffset) - this.containerLiquid.cupTopWorldPos).sqrMagnitude < num2);
+						flag = ((rig.head.rigTarget.transform.TransformPoint(this.headToMouthOffset) - this.containerLiquid.cupTopWorldPos).sqrMagnitude < num2);
 					}
 				}
 			}

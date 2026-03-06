@@ -23,6 +23,11 @@ namespace GorillaTagScripts
 			}
 		}
 
+		public static string GetSubsFeatureKey(SubscriptionManager.SubscriptionFeatures feature)
+		{
+			return SubscriptionManager.SUBS_KEYS[(int)feature];
+		}
+
 		private void Awake()
 		{
 			SubscriptionManager.<Awake>d__21 <Awake>d__;
@@ -70,6 +75,16 @@ namespace GorillaTagScripts
 				return default(SubscriptionManager.SubscriptionDetails);
 			}
 			return result;
+		}
+
+		public static bool IsPlayerSubscribed(VRRig rig)
+		{
+			return SubscriptionManager.GetSubscriptionDetails(rig).active;
+		}
+
+		public static bool IsPlayerSubscribed(NetPlayer np)
+		{
+			return SubscriptionManager.GetSubscriptionDetails(np).active;
 		}
 
 		public static SubscriptionManager.SubscriptionDetails GetSubscriptionDetails()
@@ -230,22 +245,52 @@ namespace GorillaTagScripts
 			}
 		}
 
-		public static void SetSubscriptionSettingValue(string settingKey, int settingValue)
+		public static void SetSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures feature, int settingValue)
 		{
-			PlayerPrefs.SetInt(settingKey, settingValue);
-			SubscriptionManager.subSettings[settingKey] = settingValue;
+			string subsFeatureKey = SubscriptionManager.GetSubsFeatureKey(feature);
+			PlayerPrefs.SetInt(subsFeatureKey, settingValue);
+			SubscriptionManager.subSettings[subsFeatureKey] = settingValue;
 			PlayerPrefs.Save();
 		}
 
-		public static int GetSubscriptionSettingValue(string settingKey)
+		public static int GetSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures feature)
 		{
+			string subsFeatureKey = SubscriptionManager.GetSubsFeatureKey(feature);
 			int result;
-			if (SubscriptionManager.subSettings.TryGetValue(settingKey, out result))
+			if (SubscriptionManager.subSettings.TryGetValue(subsFeatureKey, out result))
 			{
 				return result;
 			}
-			SubscriptionManager.subSettings[settingKey] = PlayerPrefs.GetInt(settingKey, 1);
-			return SubscriptionManager.subSettings[settingKey];
+			SubscriptionManager.subSettings[subsFeatureKey] = PlayerPrefs.GetInt(subsFeatureKey, 1);
+			return SubscriptionManager.subSettings[subsFeatureKey];
+		}
+
+		public static bool GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures feature)
+		{
+			return SubscriptionManager.GetSubscriptionSettingValue(feature) >= 1;
+		}
+
+		public static bool IsSubscriptionFeatureAvailable(SubscriptionManager.SubscriptionFeatures feature)
+		{
+			if (feature != SubscriptionManager.SubscriptionFeatures.IOBT)
+			{
+				return feature != SubscriptionManager.SubscriptionFeatures.HandTracking || UnityEngine.Application.platform == RuntimePlatform.Android;
+			}
+			if (UnityEngine.Application.platform != RuntimePlatform.Android)
+			{
+				return false;
+			}
+			OVRPlugin.SystemHeadset systemHeadsetType = OVRPlugin.GetSystemHeadsetType();
+			return systemHeadsetType == OVRPlugin.SystemHeadset.Meta_Quest_3 || systemHeadsetType == OVRPlugin.SystemHeadset.Meta_Quest_3S || systemHeadsetType == OVRPlugin.SystemHeadset.Meta_Link_Quest_3 || systemHeadsetType == OVRPlugin.SystemHeadset.Meta_Link_Quest_3S;
+		}
+
+		public static bool CheckSubscriptionFeaturePermission(SubscriptionManager.SubscriptionFeatures feature)
+		{
+			if (feature != SubscriptionManager.SubscriptionFeatures.IOBT)
+			{
+				return feature != SubscriptionManager.SubscriptionFeatures.HandTracking || OVRPermissionsRequester.IsPermissionGranted(OVRPermissionsRequester.Permission.BodyTracking);
+			}
+			return OVRPermissionsRequester.IsPermissionGranted(OVRPermissionsRequester.Permission.BodyTracking);
 		}
 
 		[RuntimeInitializeOnLoadMethod]
@@ -298,9 +343,7 @@ namespace GorillaTagScripts
 
 		public const string SUB_PREFIX = "SMKEYPREFIX";
 
-		public const string GOLDEN_NAME_KEY = "SMKEYPREFIXGOLDEN_NAME_KEY";
-
-		public const string IOBT_ENABLE_KEY = "SMKEYPREFIXIOBT_ENABLE_KEY";
+		public static string[] SUBS_KEYS;
 
 		private static int maxRetries = 3;
 
@@ -327,6 +370,7 @@ namespace GorillaTagScripts
 		{
 			GoldenName,
 			IOBT,
+			HandTracking,
 			SubscriptionFeatureCount
 		}
 

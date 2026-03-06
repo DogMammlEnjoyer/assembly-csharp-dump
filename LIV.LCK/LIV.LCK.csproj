@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA05E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Liv</RootNamespace>
+    <AssemblyName>LIV.LCK</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ILckCaptureStateProvider.cs" />
+    <Compile Include="ILckVideoTextureProvider.cs" />
+    <Compile Include="LckAudioMarker.cs" />
+    <Compile Include="Lck\AnotherExamplePlugin.cs" />
+    <Compile Include="Lck\CameraResolutionDescriptor.cs" />
+    <Compile Include="Lck\CameraTrackDescriptor.cs" />
+    <Compile Include="Lck\Collections\AudioBuffer.cs" />
+    <Compile Include="Lck\Core\LckCoreHandler.cs" />
+    <Compile Include="Lck\Cosmetics\ILckCosmeticDependant.cs" />
+    <Compile Include="Lck\Cosmetics\ILckCosmeticsManager.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticDefinition.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticDependantBehaviourBase.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticsFeatureFlagManagerDefault.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticsManager.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticType.cs" />
+    <Compile Include="Lck\Cosmetics\LckCosmeticUtils.cs" />
+    <Compile Include="Lck\Cosmetics\LckGameObjectSwapCosmetic.cs" />
+    <Compile Include="Lck\Cosmetics\RootCosmetic.cs" />
+    <Compile Include="Lck\DependencyInjection\InjectLckAttribute.cs" />
+    <Compile Include="Lck\DependencyInjection\LckDependencyResolver.cs" />
+    <Compile Include="Lck\DependencyInjection\LckDiCollection.cs" />
+    <Compile Include="Lck\DependencyInjection\LckDiContainer.cs" />
+    <Compile Include="Lck\DependencyInjection\LckDiRegistry.cs" />
+    <Compile Include="Lck\DependencyInjection\LckDiServiceRegistration.cs" />
+    <Compile Include="Lck\DependencyInjection\LckMonoBehaviourDependencyInjector.cs" />
+    <Compile Include="Lck\DependencyInjection\LckServiceProvider.cs" />
+    <Compile Include="Lck\DeviceModel.cs" />
+    <Compile Include="Lck\Encoding\EncoderSessionData.cs" />
+    <Compile Include="Lck\Encoding\ILckEncoder.cs" />
+    <Compile Include="Lck\Encoding\LckEncodedPacketCallback.cs" />
+    <Compile Include="Lck\Encoding\LckEncodedPacketHandler.cs" />
+    <Compile Include="Lck\Encoding\LckEncoder.cs" />
+    <Compile Include="Lck\Encoding\LckNativeEncodingApi.cs" />
+    <Compile Include="Lck\ErrorHandling\CaptureErrorType.cs" />
+    <Compile Include="Lck\ErrorHandling\ILckCaptureErrorDispatcher.cs" />
+    <Compile Include="Lck\ErrorHandling\LckCaptureError.cs" />
+    <Compile Include="Lck\ErrorHandling\MainThreadCaptureErrorDispatcher.cs" />
+    <Compile Include="Lck\ExamplePlugin.cs" />
+    <Compile Include="Lck\ILckActiveCameraConfigurer.cs" />
+    <Compile Include="Lck\ILckAudioLimiter.cs" />
+    <Compile Include="Lck\ILckAudioMixer.cs" />
+    <Compile Include="Lck\ILckAudioSource.cs" />
+    <Compile Include="Lck\ILckCamera.cs" />
+    <Compile Include="Lck\ILckEarlyUpdate.cs" />
+    <Compile Include="Lck\ILckEncodeLooper.cs" />
+    <Compile Include="Lck\ILckEventBus.cs" />
+    <Compile Include="Lck\ILckLateUpdate.cs" />
+    <Compile Include="Lck\ILckMonitor.cs" />
+    <Compile Include="Lck\ILckOutputConfigurer.cs" />
+    <Compile Include="Lck\ILckPhotoCapture.cs" />
+    <Compile Include="Lck\ILCKPlugin.cs" />
+    <Compile Include="Lck\ILckPreviewer.cs" />
+    <Compile Include="Lck\ILckQualityConfig.cs" />
+    <Compile Include="Lck\ILckResult.cs" />
+    <Compile Include="Lck\ILckService.cs" />
+    <Compile Include="Lck\ILckStorageWatcher.cs" />
+    <Compile Include="Lck\ILckVideoCapturer.cs" />
+    <Compile Include="Lck\ILckVideoMixer.cs" />
+    <Compile Include="Lck\LckAudioCapture.cs" />
+    <Compile Include="Lck\LckAudioCaptureFMOD.cs" />
+    <Compile Include="Lck\LckAudioCaptureWwise.cs" />
+    <Compile Include="Lck\LckAudioHardLimiter.cs" />
+    <Compile Include="Lck\LckAudioLimiterUtils.cs" />
+    <Compile Include="Lck\LckAudioMixer.cs" />
+    <Compile Include="Lck\LckAudioSoftLimiter.cs" />
+    <Compile Include="Lck\LckCamera.cs" />
+    <Compile Include="Lck\LckCameraOrientation.cs" />
+    <Compile Include="Lck\LckCaptureState.cs" />
+    <Compile Include="Lck\LckCaptureType.cs" />
+    <Compile Include="Lck\LckDescriptor.cs" />
+    <Compile Include="Lck\LckDiscreetAudioController.cs" />
+    <Compile Include="Lck\LckEarlyUpdate.cs" />
+    <Compile Include="Lck\LckEncodeLooper.cs" />
+    <Compile Include="Lck\LckError.cs" />
+    <Compile Include="Lck\LckErrorEventTelemetryBridge.cs" />
+    <Compile Include="Lck\LckEventBus.cs" />
+    <Compile Include="Lck\LckEventForwarder.cs" />
+    <Compile Include="Lck\LckEvents.cs" />
+    <Compile Include="Lck\LckHideObjectFromCamera.cs" />
+    <Compile Include="Lck\LckLateUpdate.cs" />
+    <Compile Include="Lck\LckLog.cs" />
+    <Compile Include="Lck\LckMediator.cs" />
+    <Compile Include="Lck\LckModuleLoader.cs" />
+    <Compile Include="Lck\LckMonitor.cs" />
+    <Compile Include="Lck\LckMonitorWithRawImage.cs" />
+    <Compile Include="Lck\LckMonoBehaviourMediator.cs" />
+    <Compile Include="Lck\LckOutputConfigurer.cs" />
+    <Compile Include="Lck\LckPhotoCapture.cs" />
+    <Compile Include="Lck\LCKPluginBase.cs" />
+    <Compile Include="Lck\LCKPluginIntegration.cs" />
+    <Compile Include="Lck\LCKPluginManager.cs" />
+    <Compile Include="Lck\LCKPlugins.cs" />
+    <Compile Include="Lck\LckPreviewer.cs" />
+    <Compile Include="Lck\LckPublicApiEventBridge.cs" />
+    <Compile Include="Lck\LckQualityConfig.cs" />
+    <Compile Include="Lck\LckResult.2.cs" />
+    <Compile Include="Lck\LckResult.cs" />
+    <Compile Include="Lck\LckResultMessageBuilder.cs" />
+    <Compile Include="Lck\LckRigidbodyExtensions.cs" />
+    <Compile Include="Lck\LckService.cs" />
+    <Compile Include="Lck\LckServiceInitializer.cs" />
+    <Compile Include="Lck\LckStorageWatcher.cs" />
+    <Compile Include="Lck\LckTabletFollow.cs" />
+    <Compile Include="Lck\LckTargetEyeSetter.cs" />
+    <Compile Include="Lck\LckUpdateManager.cs" />
+    <Compile Include="Lck\LckVideoCapturer.cs" />
+    <Compile Include="Lck\LckVideoMixer.cs" />
+    <Compile Include="Lck\LogLevel.cs" />
+    <Compile Include="Lck\NativeMicrophone\LckNativeMicrophone.cs" />
+    <Compile Include="Lck\NativeMicrophone\LogLevel.cs" />
+    <Compile Include="Lck\QualityOption.cs" />
+    <Compile Include="Lck\QualityOptionOverride.cs" />
+    <Compile Include="Lck\Recorder\ILckNativeRecordingService.cs" />
+    <Compile Include="Lck\Recorder\ILckRecorder.cs" />
+    <Compile Include="Lck\Recorder\LckNativeRecordingService.cs" />
+    <Compile Include="Lck\Recorder\LckRecorder.cs" />
+    <Compile Include="Lck\Recorder\MuxerConfig.cs" />
+    <Compile Include="Lck\Recorder\RecordingData.cs" />
+    <Compile Include="Lck\Rendering\ILckCompositionLayer.cs" />
+    <Compile Include="Lck\Rendering\ILckOrientationAwareLayer.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionEngine.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionLayer.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionProfile.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionRenderFeature.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionRenderPass.cs" />
+    <Compile Include="Lck\Rendering\LckCompositionTarget.cs" />
+    <Compile Include="Lck\Rendering\LckOrientedCompositionLayer.cs" />
+    <Compile Include="Lck\Settings\LckSettings.cs" />
+    <Compile Include="Lck\Smoothing\KalmanFilter.cs" />
+    <Compile Include="Lck\Smoothing\KalmanFilterQuaternion.cs" />
+    <Compile Include="Lck\Smoothing\KalmanFilterVector3.cs" />
+    <Compile Include="Lck\Smoothing\LckSimpleStabilizer.cs" />
+    <Compile Include="Lck\Smoothing\LckStabilizer.cs" />
+    <Compile Include="Lck\Smoothing\SmoothingUtils.cs" />
+    <Compile Include="Lck\Streaming\ILckStreamer.cs" />
+    <Compile Include="Lck\Streaming\LckInternalErrorState.cs" />
+    <Compile Include="Lck\Streaming\LckInvalidArgumentState.cs" />
+    <Compile Include="Lck\Streaming\LckMissingTrackingIdState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingBaseState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingCheckSubscribedState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingConfiguredCorrectlyState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingController.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingGetCurrentState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingShowCodeState.cs" />
+    <Compile Include="Lck\Streaming\LckStreamingWaitingForConfigureState.cs" />
+    <Compile Include="Lck\Streaming\NullLckStreamer.cs" />
+    <Compile Include="Lck\Tablet\CameraMode.cs" />
+    <Compile Include="Lck\Tablet\ILckTopButtons.cs" />
+    <Compile Include="Lck\Tablet\InitializerNotification.cs" />
+    <Compile Include="Lck\Tablet\LckBaseNotification.cs" />
+    <Compile Include="Lck\Tablet\LCKCameraController.cs" />
+    <Compile Include="Lck\Tablet\LCKCameraModeHelper.cs" />
+    <Compile Include="Lck\Tablet\LckLivHubButton.cs" />
+    <Compile Include="Lck\Tablet\LCKMicVolume.cs" />
+    <Compile Include="Lck\Tablet\LckNormalNotification.cs" />
+    <Compile Include="Lck\Tablet\LckNotificationController.cs" />
+    <Compile Include="Lck\Tablet\LckOnScreenUIController.cs" />
+    <Compile Include="Lck\Tablet\LckRecordButton.cs" />
+    <Compile Include="Lck\Tablet\LCKSettingsButtonsController.cs" />
+    <Compile Include="Lck\Tablet\LckSplitNotification.cs" />
+    <Compile Include="Lck\Tablet\LckStreamButton.cs" />
+    <Compile Include="Lck\Tablet\LckTopButtonsController.cs" />
+    <Compile Include="Lck\Tablet\LckTopButtonsHelper.cs" />
+    <Compile Include="Lck\Tablet\NotificationType.cs" />
+    <Compile Include="Lck\Telemetry\ILckTelemetryClient.cs" />
+    <Compile Include="Lck\Telemetry\LckTelemetryClient.cs" />
+    <Compile Include="Lck\Telemetry\LckTelemetryEvent.cs" />
+    <Compile Include="Lck\UI\LckButton.cs" />
+    <Compile Include="Lck\UI\LckButtonColors.cs" />
+    <Compile Include="Lck\UI\LckDoubleButton.cs" />
+    <Compile Include="Lck\UI\LckDoubleButtonTrigger.cs" />
+    <Compile Include="Lck\UI\LckIconRotator.cs" />
+    <Compile Include="Lck\UI\LckMicTogglePermissionHelper.cs" />
+    <Compile Include="Lck\UI\LckPhotoModeController.cs" />
+    <Compile Include="Lck\UI\LckQualitySelector.cs" />
+    <Compile Include="Lck\UI\LckScreenButton.cs" />
+    <Compile Include="Lck\UI\LckSlider.cs" />
+    <Compile Include="Lck\UI\LckToggle.cs" />
+    <Compile Include="Lck\UI\LckToggleHelper.cs" />
+    <Compile Include="Lck\UnityAsyncOperationExtensions.cs" />
+    <Compile Include="Lck\UpdateTimingMode.cs" />
+    <Compile Include="Lck\Utilities\FileUtility.cs" />
+    <Compile Include="NGFX\EventType.cs" />
+    <Compile Include="NGFX\Handle.cs" />
+    <Compile Include="NGFX\LogLevel.cs" />
+    <Compile Include="NGFX\NativeGraphicsBuffer.cs" />
+    <Compile Include="NGFX\NativeRenderBuffer.cs" />
+    <Compile Include="NGFX\NativeTexture.cs" />
+    <Compile Include="NGFX\NI.cs" />
+    <Compile Include="NGFX\ResourceDestroyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LIV.LCKCore\LIV.LCKCore.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA060}</Project>
+      <Name>LIV.LCKCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LIV.NativeAudioBridge\LIV.NativeAudioBridge.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA062}</Project>
+      <Name>LIV.NativeAudioBridge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NativeGallery\NativeGallery.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA07F}</Project>
+      <Name>NativeGallery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D0}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D7}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EC}</Project>
+      <Name>UnityEngine.AndroidJNIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EF}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.ImageConversionModule\UnityEngine.ImageConversionModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA101}</Project>
+      <Name>UnityEngine.ImageConversionModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

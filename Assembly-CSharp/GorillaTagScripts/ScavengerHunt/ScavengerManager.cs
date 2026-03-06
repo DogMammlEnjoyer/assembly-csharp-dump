@@ -38,24 +38,15 @@ namespace GorillaTagScripts.ScavengerHunt
 
 		private IEnumerator ImportMothershipUserData()
 		{
-			int i = 0;
-			while (i < 10)
+			while (!MothershipClientContext.IsClientLoggedIn())
 			{
-				if (!MothershipClientContext.IsClientLoggedIn())
+				PlayFabAuthenticator instance = PlayFabAuthenticator.instance;
+				if (instance != null && instance.loginFailed)
 				{
-					yield return new WaitForSeconds(1f);
-					int num = i + 1;
-					i = num;
+					Debug.LogError("ScavengerManager critical error, could not log into Mothership.");
+					yield break;
 				}
-				else
-				{
-					if (PlayFabAuthenticator.instance != null && PlayFabAuthenticator.instance.loginFailed)
-					{
-						Debug.LogError("ScavengerManager critical error, could not log into Mothership.");
-						yield break;
-					}
-					break;
-				}
+				yield return new WaitForSecondsRealtime(0.5f);
 			}
 			MothershipClientApiUnity.GetUserDataValue("ScavengerHunt", new Action<MothershipUserData>(this.OnGetUserDataSuccess), new Action<MothershipError, int>(this.OnGetUserDataFailure), "");
 			yield break;

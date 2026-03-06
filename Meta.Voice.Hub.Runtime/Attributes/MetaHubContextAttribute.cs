@@ -1,0 +1,21 @@
+﻿using System;
+
+namespace Meta.Voice.Hub.Attributes
+{
+	[AttributeUsage(AttributeTargets.Class)]
+	public class MetaHubContextAttribute : Attribute
+	{
+		public string Context { get; private set; }
+
+		public int Priority { get; private set; }
+
+		public string LogoPath { get; private set; }
+
+		public MetaHubContextAttribute(string context, int priority = 1000, string pathToLogo = "")
+		{
+			this.Context = context;
+			this.Priority = priority;
+			this.LogoPath = pathToLogo;
+		}
+	}
+}

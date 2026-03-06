@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA070}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meta.XR</RootNamespace>
+    <AssemblyName>Meta.XR.Audio</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Acoustics\AcousticMapFlags.cs" />
+    <Compile Include="Acoustics\AcousticMapStatus.cs" />
+    <Compile Include="Acoustics\AcousticModel.cs" />
+    <Compile Include="Acoustics\ControlZoneProperty.cs" />
+    <Compile Include="Acoustics\EnableFlagInternal.cs" />
+    <Compile Include="Acoustics\FaceType.cs" />
+    <Compile Include="Acoustics\IMaterialDataProvider.cs" />
+    <Compile Include="Acoustics\MapParameters.cs" />
+    <Compile Include="Acoustics\MaterialData.cs" />
+    <Compile Include="Acoustics\MaterialProperty.cs" />
+    <Compile Include="Acoustics\MeshFlags.cs" />
+    <Compile Include="Acoustics\MeshGroup.cs" />
+    <Compile Include="Acoustics\MeshSimplification.cs" />
+    <Compile Include="Acoustics\ObjectFlags.cs" />
+    <Compile Include="Acoustics\ProgressCallback.cs" />
+    <Compile Include="Acoustics\SceneIRCallbacks.cs" />
+    <Compile Include="Acoustics\Spectrum.cs" />
+    <Compile Include="Audio\EnableFlag.cs" />
+    <Compile Include="MetaXRAcousticControlZone.cs" />
+    <Compile Include="MetaXRAcousticGeometry.cs" />
+    <Compile Include="MetaXRAcousticMap.cs" />
+    <Compile Include="MetaXRAcousticMaterial.cs" />
+    <Compile Include="MetaXRAcousticMaterialMapping.cs" />
+    <Compile Include="MetaXRAcousticMaterialProperties.cs" />
+    <Compile Include="MetaXRAcousticNativeInterface.cs" />
+    <Compile Include="MetaXRAcousticSceneGroup.cs" />
+    <Compile Include="MetaXRAcousticSettings.cs" />
+    <Compile Include="MetaXRAudioNativeInterface.cs" />
+    <Compile Include="MetaXRAudioRoomAcousticProperties.cs" />
+    <Compile Include="MetaXRAudioSettings.cs" />
+    <Compile Include="MetaXRAudioSource.cs" />
+    <Compile Include="MetaXRAudioSourceExperimentalFeatures.cs" />
+    <Compile Include="MetaXRAudioUtils.cs" />
+    <Compile Include="MetaXRAudioVersion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TerrainModule\UnityEngine.TerrainModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11B}</Project>
+      <Name>UnityEngine.TerrainModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12E}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

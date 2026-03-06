@@ -148,7 +148,7 @@ public class ProgressionController : MonoBehaviour
 			{
 				int num = (int)Mathf.Pow(2f, (float)(this._fetchStatusRetryCount + 1));
 				this._fetchStatusRetryCount++;
-				yield return new WaitForSeconds((float)num);
+				yield return new WaitForSecondsRealtime((float)num);
 				this.FetchStatus();
 			}
 			else
@@ -236,7 +236,7 @@ public class ProgressionController : MonoBehaviour
 			{
 				int num = (int)Mathf.Pow(2f, (float)(this._sendQuestCompleteRetryCount + 1));
 				this._sendQuestCompleteRetryCount++;
-				yield return new WaitForSeconds((float)num);
+				yield return new WaitForSecondsRealtime((float)num);
 				this.StartSendQuestComplete(data.QuestId);
 			}
 			else

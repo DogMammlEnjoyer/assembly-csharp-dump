@@ -33,6 +33,7 @@ namespace GorillaTagScripts.Subscription
 			this.screensByState.Add(SubscriptionKiosk.ScreenState.PurchaseSubscription, this.purchaseSubScreen);
 			this.screensByState.Add(SubscriptionKiosk.ScreenState.SubscriptionPurchaseInProgress, this.purchaseProgressScreen);
 			this.screensByState.Add(SubscriptionKiosk.ScreenState.SubscriptionPurchaseResult, this.purchaseResultScreen);
+			this.screensByState.Add(SubscriptionKiosk.ScreenState.FeatureToggles, this.featureTogglesScreen);
 		}
 
 		private void OnEnable()
@@ -115,7 +116,17 @@ namespace GorillaTagScripts.Subscription
 				return;
 			case SubscriptionKiosk.ScreenState.SubscriptionData:
 				this.UpdateSubscriptionData();
+				return;
+			case SubscriptionKiosk.ScreenState.FeatureToggles:
+			{
+				FeatureTogglesScreen component = this.screensByState[SubscriptionKiosk.ScreenState.FeatureToggles].GetComponent<FeatureTogglesScreen>();
+				if (component != null)
+				{
+					component.enabled = true;
+					component.MarkDirty();
+				}
 				break;
+			}
 			default:
 				return;
 			}
@@ -147,7 +158,12 @@ namespace GorillaTagScripts.Subscription
 					this.UpdateState(SubscriptionKiosk.ScreenState.SubscriptionData);
 					return;
 				}
-				break;
+				if (buttonType != SITouchscreenButton.SITouchscreenButtonType.PageSelect)
+				{
+					return;
+				}
+				this.UpdateState(SubscriptionKiosk.ScreenState.FeatureToggles);
+				return;
 			case SubscriptionKiosk.ScreenState.MainMenuUnsubscribed:
 				if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Subscribe)
 				{
@@ -199,28 +215,16 @@ namespace GorillaTagScripts.Subscription
 
 		public void TouchscreenToggleButtonPressed(SITouchscreenButton.SITouchscreenButtonType buttonType, int data, int actorNr, bool isToggledOn)
 		{
+			int actorNumber = NetworkSystem.Instance.LocalPlayer.ActorNumber;
+		}
+
+		public void OnToggleFeaturesExitButtonPressed(SITouchscreenButton.SITouchscreenButtonType buttonType, int data, int actorNr)
+		{
 			if (actorNr != NetworkSystem.Instance.LocalPlayer.ActorNumber)
 			{
 				return;
 			}
-			if (this.currentState != SubscriptionKiosk.ScreenState.MainMenuSubscribed)
-			{
-				return;
-			}
-			if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Select)
-			{
-				this.HandleSubscriptionToggle(data, isToggledOn);
-			}
-		}
-
-		private void HandleSubscriptionToggle(int buttonData, bool requestedState)
-		{
-			if (!SubscriptionManager.IsLocalSubscribed())
-			{
-				return;
-			}
-			bool state = this.UpdateSubscriptionFeatureState(buttonData, requestedState);
-			this.UpdateToggleButtonState(buttonData, state);
+			this.UpdateState(SubscriptionKiosk.ScreenState.MainMenuSubscribed);
 		}
 
 		private void UpdateToggleButtonState(int buttonData, bool state)
@@ -235,40 +239,25 @@ namespace GorillaTagScripts.Subscription
 			}
 		}
 
-		private bool UpdateSubscriptionFeatureState(int buttonData, bool newState)
-		{
-			if (buttonData != 0)
-			{
-				if (buttonData == 1)
-				{
-					this.UpdateExperimentalFeature(newState);
-				}
-			}
-			else
-			{
-				this.UpdateGoldNameTag(newState);
-			}
-			Debug.Log(string.Format("Updating subscription kiosk {0} to state: {1}", buttonData, newState));
-			return newState;
-		}
-
 		private bool GetSubscriptionFeatureState(int buttonData)
 		{
-			if (buttonData == 0)
+			switch (buttonData)
 			{
-				return SubscriptionManager.GetSubscriptionSettingValue("SMKEYPREFIXGOLDEN_NAME_KEY") >= 1;
-			}
-			if (buttonData != 1)
-			{
+			case 0:
+				return SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.GoldenName);
+			case 1:
+				return SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.IOBT);
+			case 2:
+				return SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.HandTracking);
+			default:
 				Debug.Log(string.Format("Getting current state for subscription kiosk {0}", buttonData));
 				return false;
 			}
-			return SubscriptionManager.GetSubscriptionSettingValue("SMKEYPREFIXIOBT_ENABLE_KEY") >= 1;
 		}
 
-		private void UpdateGoldNameTag(bool state)
+		public void UpdateGoldNameTag(bool state)
 		{
-			SubscriptionManager.SetSubscriptionSettingValue("SMKEYPREFIXGOLDEN_NAME_KEY", state ? 1 : 0);
+			this.ToggleSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures.GoldenName, state);
 			VRRig.LocalRig.OnSubscriptionData();
 			if (GorillaScoreboardTotalUpdater.instance != null)
 			{
@@ -276,14 +265,24 @@ namespace GorillaTagScripts.Subscription
 			}
 		}
 
-		private void UpdateExperimentalFeature(bool state)
+		public void UpdateIOTBExperimentalFeature(bool state)
 		{
-			SubscriptionManager.SetSubscriptionSettingValue("SMKEYPREFIXIOBT_ENABLE_KEY", state ? 1 : 0);
+			this.ToggleSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures.IOBT, state);
 			if (GorillaIK.playerIK != null)
 			{
 				GorillaIK.playerIK.ResetIKData();
 				GorillaIK.playerIK.usingUpdatedIK = state;
 			}
+		}
+
+		public void UpdateHandTrackingExperimentalFeature(bool state)
+		{
+			this.ToggleSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures.HandTracking, state);
+		}
+
+		private void ToggleSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures feature, bool state)
+		{
+			SubscriptionManager.SetSubscriptionSettingValue(feature, state ? 1 : 0);
 		}
 
 		private void UpdateSubscribedMenu()
@@ -449,6 +448,9 @@ namespace GorillaTagScripts.Subscription
 		[SerializeField]
 		private GameObject purchaseResultScreen;
 
+		[SerializeField]
+		private GameObject featureTogglesScreen;
+
 		private List<SITouchscreenButtonContainer> toggleButtonContainers;
 
 		private Dictionary<SubscriptionKiosk.ScreenState, GameObject> screensByState;
@@ -504,6 +506,7 @@ namespace GorillaTagScripts.Subscription
 			PurchaseSubscription,
 			SubscriptionPurchaseInProgress,
 			SubscriptionPurchaseResult,
+			FeatureToggles,
 			None
 		}
 

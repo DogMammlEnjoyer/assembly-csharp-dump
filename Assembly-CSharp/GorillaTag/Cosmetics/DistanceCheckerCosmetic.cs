@@ -72,7 +72,7 @@ namespace GorillaTag.Cosmetics
 			VRRig y = this.currentClosestPlayer;
 			this.closestDistance = Vector3.positiveInfinity;
 			this.currentClosestPlayer = null;
-			foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+			foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 			{
 				if (!others || !(this.ownerRig != null) || !(vrrig == this.ownerRig))
 				{
@@ -126,7 +126,7 @@ namespace GorillaTag.Cosmetics
 				{
 					return;
 				}
-				foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+				foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 				{
 					if (!(this.ownerRig != null) || !(vrrig == this.ownerRig))
 					{
@@ -150,7 +150,7 @@ namespace GorillaTag.Cosmetics
 				{
 					return;
 				}
-				foreach (VRRig vrrig2 in GorillaParent.instance.vrrigs)
+				foreach (VRRig vrrig2 in VRRigCache.ActiveRigs)
 				{
 					Vector3 distance3 = vrrig2.transform.position - this.distanceFrom.position;
 					if (this.IsBelowThreshold(distance3))

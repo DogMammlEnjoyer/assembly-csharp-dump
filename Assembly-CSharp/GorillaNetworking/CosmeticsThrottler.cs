@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace GorillaNetworking
@@ -167,35 +168,24 @@ namespace GorillaNetworking
 
 		private void ToggleRenderersOnRig(VRRig rig, bool toggle)
 		{
-			CosmeticsController.CosmeticSet cosmeticSet = rig.cosmeticSet;
-			int num = cosmeticSet.items.Length;
-			for (int i = 0; i < num; i++)
-			{
-				CosmeticItemInstance cosmeticItemInstance = rig.cosmeticsObjectRegistry.Cosmetic(cosmeticSet.items[i].displayName);
-				if (cosmeticItemInstance != null)
-				{
-					cosmeticItemInstance.ToggleRenderers(toggle);
-					cosmeticItemInstance.ToggleParticles(toggle);
-				}
-			}
+			CosmeticsThrottler.<ToggleRenderersOnRig>d__20 <ToggleRenderersOnRig>d__;
+			<ToggleRenderersOnRig>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<ToggleRenderersOnRig>d__.rig = rig;
+			<ToggleRenderersOnRig>d__.toggle = toggle;
+			<ToggleRenderersOnRig>d__.<>1__state = -1;
+			<ToggleRenderersOnRig>d__.<>t__builder.Start<CosmeticsThrottler.<ToggleRenderersOnRig>d__20>(ref <ToggleRenderersOnRig>d__);
 		}
 
 		private void ToggleRenderersOnRigForSlots(VRRig rig, bool toggle, bool includesSlots = true)
 		{
-			CosmeticsController.CosmeticSet cosmeticSet = rig.cosmeticSet;
-			int num = cosmeticSet.items.Length;
-			for (int i = 0; i < num; i++)
-			{
-				CosmeticItemInstance cosmeticItemInstance = rig.cosmeticsObjectRegistry.Cosmetic(cosmeticSet.items[i].displayName);
-				if (cosmeticItemInstance != null)
-				{
-					cosmeticItemInstance.ToggleParticles(toggle);
-					if (this.ContainsSlot(cosmeticItemInstance.ActiveSlot) == includesSlots)
-					{
-						cosmeticItemInstance.ToggleRenderers(toggle);
-					}
-				}
-			}
+			CosmeticsThrottler.<ToggleRenderersOnRigForSlots>d__21 <ToggleRenderersOnRigForSlots>d__;
+			<ToggleRenderersOnRigForSlots>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<ToggleRenderersOnRigForSlots>d__.<>4__this = this;
+			<ToggleRenderersOnRigForSlots>d__.rig = rig;
+			<ToggleRenderersOnRigForSlots>d__.toggle = toggle;
+			<ToggleRenderersOnRigForSlots>d__.includesSlots = includesSlots;
+			<ToggleRenderersOnRigForSlots>d__.<>1__state = -1;
+			<ToggleRenderersOnRigForSlots>d__.<>t__builder.Start<CosmeticsThrottler.<ToggleRenderersOnRigForSlots>d__21>(ref <ToggleRenderersOnRigForSlots>d__);
 		}
 
 		private bool ContainsSlot(CosmeticsController.CosmeticSlots slot)

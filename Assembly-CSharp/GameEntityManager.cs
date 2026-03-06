@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Cysharp.Text;
-using ExitGames.Client.Photon;
 using Fusion;
 using GorillaExtensions;
 using GorillaLocomotion;
@@ -15,7 +14,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [NetworkBehaviourWeaved(0)]
-public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoomCallbacks, IRequestableOwnershipGuardCallbacks, ITickSystemTick, IGorillaSliceableSimple
+public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCallbacks, ITickSystemTick, IGorillaSliceableSimple
 {
 	public event GameEntityManager.ZoneStartEvent onZoneStart;
 
@@ -78,6 +77,9 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 		TickSystem<object>.AddTickCallback(this);
 		VRRigCache.OnRigDeactivated += this.OnRigDeactivated;
 		VRRigCache.OnActiveRigsChanged += this.RefreshRigList;
+		RoomSystem.JoinedRoomEvent += new Action(this.OnNetworkJoinedRoom);
+		RoomSystem.LeftRoomEvent += new Action(this.OnNetworkLeftRoom);
+		RoomSystem.PlayerLeftEvent += new Action<NetPlayer>(this.OnNetworkPlayerLeft);
 		this.RefreshRigList();
 		GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
 	}
@@ -89,6 +91,9 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 		TickSystem<object>.RemoveTickCallback(this);
 		VRRigCache.OnRigDeactivated -= this.OnRigDeactivated;
 		VRRigCache.OnActiveRigsChanged -= this.RefreshRigList;
+		RoomSystem.JoinedRoomEvent -= new Action(this.OnNetworkJoinedRoom);
+		RoomSystem.LeftRoomEvent -= new Action(this.OnNetworkLeftRoom);
+		RoomSystem.PlayerLeftEvent -= new Action<NetPlayer>(this.OnNetworkPlayerLeft);
 		GorillaSlicerSimpleManager.UnregisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
 	}
 
@@ -197,7 +202,10 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 		if (this.netIdToIndex.TryGetValue(netId, out num) && num != -1)
 		{
 			GameEntity gameEntity2 = this.GetGameEntity(num);
-			Debug.LogError("[GT/GameEntityManager]  ERROR!!!  AddGameEntity: " + string.Format(": UH OH!!!! NetId {0} is in use by '{1}' but will be overwritten by '{2}'! (should probably abort but this is how it worked before so don't want to break existing behavior)", netId, gameEntity2.name, gameEntity.name));
+			if (gameEntity2 != null)
+			{
+				Debug.LogError("[GT/GameEntityManager]  ERROR!!!  AddGameEntity: " + string.Format("UH OH!!!! NetId {0} is in use by '{1}' but will be overwritten by '{2}'! Meaning there will be a zombie gameEntity on at least this client! (should probably abort but this is how it worked before so don't want to break existing behavior)", netId, gameEntity2.name, gameEntity.name));
+			}
 		}
 		int num2 = this.FindNewEntityIndex();
 		this.entities[num2] = gameEntity;
@@ -860,11 +868,11 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 												SnapJointType snapIndexToJoint = GameSnappable.GetSnapIndexToJoint(num4);
 												if (snapIndexToJoint != SnapJointType.None)
 												{
-													this.SnapEntityLocal(gameEntityId, isLeftHand, vector, quaternion, (int)snapIndexToJoint, joiningPlayer.rig.OwningNetPlayer);
+													this.SnapEntityLocal(gameEntityId, isLeftHand, vector, quaternion, (int)snapIndexToJoint, joiningPlayer.rig.Creator);
 												}
 												else
 												{
-													this.GrabEntityOnCreate(gameEntityId, isLeftHand, vector, quaternion, joiningPlayer.rig.OwningNetPlayer);
+													this.GrabEntityOnCreate(gameEntityId, isLeftHand, vector, quaternion, joiningPlayer.rig.Creator);
 												}
 											}
 										}
@@ -1088,19 +1096,22 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 		int typeId = gameEntity.typeId;
 		int num = dictionary[typeId];
 		dictionary[typeId] = num - 1;
-		GamePlayer gamePlayer;
-		if (GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
+		if (RoomSystem.JoinedRoom)
 		{
-			gamePlayer.ClearGrabbedIfHeld(gameEntity.id);
-			if (gamePlayer.IsLocal())
+			GamePlayer gamePlayer;
+			if (gameEntity.heldByActorNumber != -1 && GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
 			{
-				GamePlayerLocal.instance.ClearGrabbedIfHeld(gameEntity.id);
+				gamePlayer.ClearGrabbedIfHeld(gameEntity.id);
+				if (gamePlayer.IsLocal())
+				{
+					GamePlayerLocal.instance.ClearGrabbedIfHeld(gameEntity.id);
+				}
 			}
-		}
-		GamePlayer gamePlayer2;
-		if (GamePlayer.TryGetGamePlayer(gameEntity.snappedByActorNumber, out gamePlayer2))
-		{
-			gamePlayer2.ClearSnappedIfSnapped(gameEntity.id);
+			GamePlayer gamePlayer2;
+			if (gameEntity.snappedByActorNumber != -1 && GamePlayer.TryGetGamePlayer(gameEntity.snappedByActorNumber, out gamePlayer2))
+			{
+				gamePlayer2.ClearSnappedIfSnapped(gameEntity.id);
+			}
 		}
 		this.RemoveGameEntity(gameEntity);
 		if (gameEntity.isBuiltIn)
@@ -2536,7 +2547,7 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 				this.entities[l] = null;
 			}
 		}
-		foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+		foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 		{
 			GamePlayer component = vrrig.GetComponent<GamePlayer>();
 			if (!component.IsLocal())
@@ -3212,62 +3223,22 @@ public class GameEntityManager : NetworkComponent, IMatchmakingCallbacks, IInRoo
 		}
 	}
 
-	void IMatchmakingCallbacks.OnJoinedRoom()
+	private void OnNetworkJoinedRoom()
 	{
 		this.zoneClearReason = ZoneClearReason.JoinZone;
 		this.SetZoneState(GameEntityManager.ZoneState.WaitingToEnterZone);
 	}
 
-	void IMatchmakingCallbacks.OnLeftRoom()
+	private void OnNetworkLeftRoom()
 	{
 		this.zoneClearReason = ZoneClearReason.Disconnect;
 		this.SetZoneState(GameEntityManager.ZoneState.WaitingToEnterZone);
 		this.playerZoneJoinTimes.Clear();
 	}
 
-	void IMatchmakingCallbacks.OnCreateRoomFailed(short returnCode, string message)
-	{
-	}
-
-	void IMatchmakingCallbacks.OnJoinRoomFailed(short returnCode, string message)
-	{
-	}
-
-	void IMatchmakingCallbacks.OnCreatedRoom()
-	{
-	}
-
-	void IMatchmakingCallbacks.OnPreLeavingRoom()
-	{
-	}
-
-	void IMatchmakingCallbacks.OnJoinRandomFailed(short returnCode, string message)
-	{
-	}
-
-	void IMatchmakingCallbacks.OnFriendListUpdate(List<FriendInfo> friendList)
-	{
-	}
-
-	void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)
-	{
-	}
-
-	void IInRoomCallbacks.OnPlayerEnteredRoom(Player newPlayer)
-	{
-	}
-
-	void IInRoomCallbacks.OnPlayerLeftRoom(Player leavingPlayer)
+	private void OnNetworkPlayerLeft(NetPlayer leavingPlayer)
 	{
 		this.playerZoneJoinTimes.Remove(leavingPlayer.ActorNumber);
-	}
-
-	void IInRoomCallbacks.OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-	{
-	}
-
-	void IInRoomCallbacks.OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-	{
 	}
 
 	public void OnRigDeactivated(RigContainer container)

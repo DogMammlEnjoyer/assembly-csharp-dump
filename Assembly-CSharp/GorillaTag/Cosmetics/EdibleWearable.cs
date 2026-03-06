@@ -80,19 +80,20 @@ namespace GorillaTag.Cosmetics
 				{
 					flag = true;
 				}
-				foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+				foreach (RigContainer rigContainer in VRRigCache.ActiveRigContainers)
 				{
+					VRRig rig = rigContainer.Rig;
 					if (!flag)
 					{
-						if (vrrig.head == null)
+						if (rig.head == null)
 						{
 							break;
 						}
-						if (vrrig.head.rigTarget == null)
+						if (rig.head.rigTarget.IsNull())
 						{
 							break;
 						}
-						if ((vrrig.head.rigTarget.transform.TransformPoint(this.gorillaHeadMouthOffset) - b).sqrMagnitude < num)
+						if ((rig.head.rigTarget.transform.TransformPoint(this.gorillaHeadMouthOffset) - b).sqrMagnitude < num)
 						{
 							flag = true;
 						}

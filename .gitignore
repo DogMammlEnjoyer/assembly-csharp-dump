@@ -1,0 +1,7 @@
+﻿.vs/
+.claude/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs

@@ -1,0 +1,485 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace System.Text.RegularExpressions
+{
+	internal sealed class RegexNode
+	{
+		public RegexNode(int type, RegexOptions options)
+		{
+			this.NType = type;
+			this.Options = options;
+		}
+
+		public RegexNode(int type, RegexOptions options, char ch)
+		{
+			this.NType = type;
+			this.Options = options;
+			this.Ch = ch;
+		}
+
+		public RegexNode(int type, RegexOptions options, string str)
+		{
+			this.NType = type;
+			this.Options = options;
+			this.Str = str;
+		}
+
+		public RegexNode(int type, RegexOptions options, int m)
+		{
+			this.NType = type;
+			this.Options = options;
+			this.M = m;
+		}
+
+		public RegexNode(int type, RegexOptions options, int m, int n)
+		{
+			this.NType = type;
+			this.Options = options;
+			this.M = m;
+			this.N = n;
+		}
+
+		public bool UseOptionR()
+		{
+			return (this.Options & RegexOptions.RightToLeft) > RegexOptions.None;
+		}
+
+		public RegexNode ReverseLeft()
+		{
+			if (this.UseOptionR() && this.NType == 25 && this.Children != null)
+			{
+				this.Children.Reverse(0, this.Children.Count);
+			}
+			return this;
+		}
+
+		private void MakeRep(int type, int min, int max)
+		{
+			this.NType += type - 9;
+			this.M = min;
+			this.N = max;
+		}
+
+		private RegexNode Reduce()
+		{
+			int num = this.Type();
+			RegexNode result;
+			if (num != 5 && num != 11)
+			{
+				switch (num)
+				{
+				case 24:
+					return this.ReduceAlternation();
+				case 25:
+					return this.ReduceConcatenation();
+				case 26:
+				case 27:
+					return this.ReduceRep();
+				case 29:
+					return this.ReduceGroup();
+				}
+				result = this;
+			}
+			else
+			{
+				result = this.ReduceSet();
+			}
+			return result;
+		}
+
+		private RegexNode StripEnation(int emptyType)
+		{
+			int num = this.ChildCount();
+			if (num == 0)
+			{
+				return new RegexNode(emptyType, this.Options);
+			}
+			if (num != 1)
+			{
+				return this;
+			}
+			return this.Child(0);
+		}
+
+		private RegexNode ReduceGroup()
+		{
+			RegexNode regexNode = this;
+			while (regexNode.Type() == 29)
+			{
+				regexNode = regexNode.Child(0);
+			}
+			return regexNode;
+		}
+
+		private RegexNode ReduceRep()
+		{
+			RegexNode regexNode = this;
+			int num = this.Type();
+			int num2 = this.M;
+			int num3 = this.N;
+			while (regexNode.ChildCount() != 0)
+			{
+				RegexNode regexNode2 = regexNode.Child(0);
+				if (regexNode2.Type() != num)
+				{
+					int num4 = regexNode2.Type();
+					if ((num4 < 3 || num4 > 5 || num != 26) && (num4 < 6 || num4 > 8 || num != 27))
+					{
+						break;
+					}
+				}
+				if ((regexNode.M == 0 && regexNode2.M > 1) || regexNode2.N < regexNode2.M * 2)
+				{
+					break;
+				}
+				regexNode = regexNode2;
+				if (regexNode.M > 0)
+				{
+					num2 = (regexNode.M = ((2147483646 / regexNode.M < num2) ? int.MaxValue : (regexNode.M * num2)));
+				}
+				if (regexNode.N > 0)
+				{
+					num3 = (regexNode.N = ((2147483646 / regexNode.N < num3) ? int.MaxValue : (regexNode.N * num3)));
+				}
+			}
+			if (num2 != 2147483647)
+			{
+				return regexNode;
+			}
+			return new RegexNode(22, this.Options);
+		}
+
+		private RegexNode ReduceSet()
+		{
+			if (RegexCharClass.IsEmpty(this.Str))
+			{
+				this.NType = 22;
+				this.Str = null;
+			}
+			else if (RegexCharClass.IsSingleton(this.Str))
+			{
+				this.Ch = RegexCharClass.SingletonChar(this.Str);
+				this.Str = null;
+				this.NType += -2;
+			}
+			else if (RegexCharClass.IsSingletonInverse(this.Str))
+			{
+				this.Ch = RegexCharClass.SingletonChar(this.Str);
+				this.Str = null;
+				this.NType += -1;
+			}
+			return this;
+		}
+
+		private RegexNode ReduceAlternation()
+		{
+			if (this.Children == null)
+			{
+				return new RegexNode(22, this.Options);
+			}
+			bool flag = false;
+			bool flag2 = false;
+			RegexOptions regexOptions = RegexOptions.None;
+			int i = 0;
+			int num = 0;
+			while (i < this.Children.Count)
+			{
+				RegexNode regexNode = this.Children[i];
+				if (num < i)
+				{
+					this.Children[num] = regexNode;
+				}
+				if (regexNode.NType == 24)
+				{
+					for (int j = 0; j < regexNode.Children.Count; j++)
+					{
+						regexNode.Children[j].Next = this;
+					}
+					this.Children.InsertRange(i + 1, regexNode.Children);
+					num--;
+				}
+				else if (regexNode.NType == 11 || regexNode.NType == 9)
+				{
+					RegexOptions regexOptions2 = regexNode.Options & (RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+					if (regexNode.NType == 11)
+					{
+						if (!flag || regexOptions != regexOptions2 || flag2 || !RegexCharClass.IsMergeable(regexNode.Str))
+						{
+							flag = true;
+							flag2 = !RegexCharClass.IsMergeable(regexNode.Str);
+							regexOptions = regexOptions2;
+							goto IL_1D0;
+						}
+					}
+					else if (!flag || regexOptions != regexOptions2 || flag2)
+					{
+						flag = true;
+						flag2 = false;
+						regexOptions = regexOptions2;
+						goto IL_1D0;
+					}
+					num--;
+					RegexNode regexNode2 = this.Children[num];
+					RegexCharClass regexCharClass;
+					if (regexNode2.NType == 9)
+					{
+						regexCharClass = new RegexCharClass();
+						regexCharClass.AddChar(regexNode2.Ch);
+					}
+					else
+					{
+						regexCharClass = RegexCharClass.Parse(regexNode2.Str);
+					}
+					if (regexNode.NType == 9)
+					{
+						regexCharClass.AddChar(regexNode.Ch);
+					}
+					else
+					{
+						RegexCharClass cc = RegexCharClass.Parse(regexNode.Str);
+						regexCharClass.AddCharClass(cc);
+					}
+					regexNode2.NType = 11;
+					regexNode2.Str = regexCharClass.ToStringClass();
+				}
+				else if (regexNode.NType == 22)
+				{
+					num--;
+				}
+				else
+				{
+					flag = false;
+					flag2 = false;
+				}
+				IL_1D0:
+				i++;
+				num++;
+			}
+			if (num < i)
+			{
+				this.Children.RemoveRange(num, i - num);
+			}
+			return this.StripEnation(22);
+		}
+
+		private RegexNode ReduceConcatenation()
+		{
+			if (this.Children == null)
+			{
+				return new RegexNode(23, this.Options);
+			}
+			bool flag = false;
+			RegexOptions regexOptions = RegexOptions.None;
+			int i = 0;
+			int num = 0;
+			while (i < this.Children.Count)
+			{
+				RegexNode regexNode = this.Children[i];
+				if (num < i)
+				{
+					this.Children[num] = regexNode;
+				}
+				if (regexNode.NType == 25 && (regexNode.Options & RegexOptions.RightToLeft) == (this.Options & RegexOptions.RightToLeft))
+				{
+					for (int j = 0; j < regexNode.Children.Count; j++)
+					{
+						regexNode.Children[j].Next = this;
+					}
+					this.Children.InsertRange(i + 1, regexNode.Children);
+					num--;
+				}
+				else if (regexNode.NType == 12 || regexNode.NType == 9)
+				{
+					RegexOptions regexOptions2 = regexNode.Options & (RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+					if (!flag || regexOptions != regexOptions2)
+					{
+						flag = true;
+						regexOptions = regexOptions2;
+					}
+					else
+					{
+						RegexNode regexNode2 = this.Children[--num];
+						if (regexNode2.NType == 9)
+						{
+							regexNode2.NType = 12;
+							regexNode2.Str = Convert.ToString(regexNode2.Ch, CultureInfo.InvariantCulture);
+						}
+						if ((regexOptions2 & RegexOptions.RightToLeft) == RegexOptions.None)
+						{
+							if (regexNode.NType == 9)
+							{
+								RegexNode regexNode3 = regexNode2;
+								regexNode3.Str += regexNode.Ch.ToString();
+							}
+							else
+							{
+								RegexNode regexNode4 = regexNode2;
+								regexNode4.Str += regexNode.Str;
+							}
+						}
+						else if (regexNode.NType == 9)
+						{
+							regexNode2.Str = regexNode.Ch.ToString() + regexNode2.Str;
+						}
+						else
+						{
+							regexNode2.Str = regexNode.Str + regexNode2.Str;
+						}
+					}
+				}
+				else if (regexNode.NType == 23)
+				{
+					num--;
+				}
+				else
+				{
+					flag = false;
+				}
+				i++;
+				num++;
+			}
+			if (num < i)
+			{
+				this.Children.RemoveRange(num, i - num);
+			}
+			return this.StripEnation(23);
+		}
+
+		public RegexNode MakeQuantifier(bool lazy, int min, int max)
+		{
+			if (min == 0 && max == 0)
+			{
+				return new RegexNode(23, this.Options);
+			}
+			if (min == 1 && max == 1)
+			{
+				return this;
+			}
+			int ntype = this.NType;
+			if (ntype - 9 <= 2)
+			{
+				this.MakeRep(lazy ? 6 : 3, min, max);
+				return this;
+			}
+			RegexNode regexNode = new RegexNode(lazy ? 27 : 26, this.Options, min, max);
+			regexNode.AddChild(this);
+			return regexNode;
+		}
+
+		public void AddChild(RegexNode newChild)
+		{
+			if (this.Children == null)
+			{
+				this.Children = new List<RegexNode>(4);
+			}
+			RegexNode regexNode = newChild.Reduce();
+			this.Children.Add(regexNode);
+			regexNode.Next = this;
+		}
+
+		public RegexNode Child(int i)
+		{
+			return this.Children[i];
+		}
+
+		public int ChildCount()
+		{
+			if (this.Children != null)
+			{
+				return this.Children.Count;
+			}
+			return 0;
+		}
+
+		public int Type()
+		{
+			return this.NType;
+		}
+
+		public const int Oneloop = 3;
+
+		public const int Notoneloop = 4;
+
+		public const int Setloop = 5;
+
+		public const int Onelazy = 6;
+
+		public const int Notonelazy = 7;
+
+		public const int Setlazy = 8;
+
+		public const int One = 9;
+
+		public const int Notone = 10;
+
+		public const int Set = 11;
+
+		public const int Multi = 12;
+
+		public const int Ref = 13;
+
+		public const int Bol = 14;
+
+		public const int Eol = 15;
+
+		public const int Boundary = 16;
+
+		public const int Nonboundary = 17;
+
+		public const int ECMABoundary = 41;
+
+		public const int NonECMABoundary = 42;
+
+		public const int Beginning = 18;
+
+		public const int Start = 19;
+
+		public const int EndZ = 20;
+
+		public const int End = 21;
+
+		public const int Nothing = 22;
+
+		public const int Empty = 23;
+
+		public const int Alternate = 24;
+
+		public const int Concatenate = 25;
+
+		public const int Loop = 26;
+
+		public const int Lazyloop = 27;
+
+		public const int Capture = 28;
+
+		public const int Group = 29;
+
+		public const int Require = 30;
+
+		public const int Prevent = 31;
+
+		public const int Greedy = 32;
+
+		public const int Testref = 33;
+
+		public const int Testgroup = 34;
+
+		public int NType;
+
+		public List<RegexNode> Children;
+
+		public string Str;
+
+		public char Ch;
+
+		public int M;
+
+		public int N;
+
+		public readonly RegexOptions Options;
+
+		public RegexNode Next;
+	}
+}

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine</RootNamespace>
+    <AssemblyName>UnityEngine.PhysicsModule</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArticulationBody.cs" />
+    <Compile Include="ArticulationDofLock.cs" />
+    <Compile Include="ArticulationDrive.cs" />
+    <Compile Include="ArticulationDriveAxis.cs" />
+    <Compile Include="ArticulationDriveType.cs" />
+    <Compile Include="ArticulationJacobian.cs" />
+    <Compile Include="ArticulationJointType.cs" />
+    <Compile Include="ArticulationReducedSpace.cs" />
+    <Compile Include="BoxcastCommand.cs" />
+    <Compile Include="BoxCollider.cs" />
+    <Compile Include="CapsulecastCommand.cs" />
+    <Compile Include="CapsuleCollider.cs" />
+    <Compile Include="CharacterController.cs" />
+    <Compile Include="CharacterJoint.cs" />
+    <Compile Include="ClosestPointCommand.cs" />
+    <Compile Include="Collider.cs" />
+    <Compile Include="ColliderHit.cs" />
+    <Compile Include="Collision.cs" />
+    <Compile Include="CollisionDetectionMode.cs" />
+    <Compile Include="CollisionFlags.cs" />
+    <Compile Include="CollisionPairEventFlags.cs" />
+    <Compile Include="CollisionPairFlags.cs" />
+    <Compile Include="CollisionPairHeaderFlags.cs" />
+    <Compile Include="ConfigurableJoint.cs" />
+    <Compile Include="ConfigurableJointMotion.cs" />
+    <Compile Include="ConstantForce.cs" />
+    <Compile Include="ContactPair.cs" />
+    <Compile Include="ContactPairHeader.cs" />
+    <Compile Include="ContactPairPoint.cs" />
+    <Compile Include="ContactPoint.cs" />
+    <Compile Include="ControllerColliderHit.cs" />
+    <Compile Include="FixedJoint.cs" />
+    <Compile Include="ForceMode.cs" />
+    <Compile Include="HingeJoint.cs" />
+    <Compile Include="IntegrationInfo.cs" />
+    <Compile Include="Joint.cs" />
+    <Compile Include="JointDrive.cs" />
+    <Compile Include="JointLimits.cs" />
+    <Compile Include="JointMotor.cs" />
+    <Compile Include="JointProjectionMode.cs" />
+    <Compile Include="JointSpring.cs" />
+    <Compile Include="LowLevelPhysics\BoxGeometry.cs" />
+    <Compile Include="LowLevelPhysics\CapsuleGeometry.cs" />
+    <Compile Include="LowLevelPhysics\ConvexMeshGeometry.cs" />
+    <Compile Include="LowLevelPhysics\GeometryHolder.cs" />
+    <Compile Include="LowLevelPhysics\GeometryType.cs" />
+    <Compile Include="LowLevelPhysics\IGeometry.cs" />
+    <Compile Include="LowLevelPhysics\ImmediateContact.cs" />
+    <Compile Include="LowLevelPhysics\ImmediatePhysics.cs" />
+    <Compile Include="LowLevelPhysics\ImmediateTransform.cs" />
+    <Compile Include="LowLevelPhysics\SphereGeometry.cs" />
+    <Compile Include="LowLevelPhysics\TerrainGeometry.cs" />
+    <Compile Include="LowLevelPhysics\TriangleMeshGeometry.cs" />
+    <Compile Include="MeshCollider.cs" />
+    <Compile Include="MeshColliderCookingOptions.cs" />
+    <Compile Include="ModifiableContact.cs" />
+    <Compile Include="ModifiableContactPair.cs" />
+    <Compile Include="ModifiableContactPatch.cs" />
+    <Compile Include="ModifiableMassProperties.cs" />
+    <Compile Include="OverlapBoxCommand.cs" />
+    <Compile Include="OverlapCapsuleCommand.cs" />
+    <Compile Include="OverlapSphereCommand.cs" />
+    <Compile Include="PhysicMaterial.cs" />
+    <Compile Include="PhysicMaterialCombine.cs" />
+    <Compile Include="Physics.cs" />
+    <Compile Include="PhysicsMaterial.cs" />
+    <Compile Include="PhysicsMaterialCombine.cs" />
+    <Compile Include="PhysicsScene.cs" />
+    <Compile Include="PhysicsSceneExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryParameters.cs" />
+    <Compile Include="QueryTriggerInteraction.cs" />
+    <Compile Include="RaycastCommand.cs" />
+    <Compile Include="RaycastHit.cs" />
+    <Compile Include="Rigidbody.cs" />
+    <Compile Include="RigidbodyConstraints.cs" />
+    <Compile Include="RigidbodyInterpolation.cs" />
+    <Compile Include="RotationDriveMode.cs" />
+    <Compile Include="SimulationMode.cs" />
+    <Compile Include="SimulationOption.cs" />
+    <Compile Include="SimulationStage.cs" />
+    <Compile Include="SoftJointLimit.cs" />
+    <Compile Include="SoftJointLimitSpring.cs" />
+    <Compile Include="SpherecastCommand.cs" />
+    <Compile Include="SphereCollider.cs" />
+    <Compile Include="SpringJoint.cs" />
+    <Compile Include="WheelFrictionCurve.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SharedInternalsModule\UnityEngine.SharedInternalsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA114}</Project>
+      <Name>UnityEngine.SharedInternalsModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

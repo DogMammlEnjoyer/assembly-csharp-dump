@@ -1,0 +1,306 @@
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using UnityEngine.Bindings;
+using UnityEngine.Rendering;
+
+namespace UnityEngine
+{
+	[StaticAccessor("GetRenderSettings()", StaticAccessorType.Dot)]
+	[NativeHeader("Runtime/Graphics/QualitySettingsTypes.h")]
+	[NativeHeader("Runtime/Camera/RenderSettings.h")]
+	public sealed class RenderSettings : Object
+	{
+		[Obsolete("Use RenderSettings.ambientIntensity instead (UnityUpgradable) -> ambientIntensity", false)]
+		public static float ambientSkyboxAmount
+		{
+			get
+			{
+				return RenderSettings.ambientIntensity;
+			}
+			set
+			{
+				RenderSettings.ambientIntensity = value;
+			}
+		}
+
+		private RenderSettings()
+		{
+		}
+
+		[NativeProperty("UseFog")]
+		public static extern bool fog { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("LinearFogStart")]
+		public static extern float fogStartDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("LinearFogEnd")]
+		public static extern float fogEndDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern FogMode fogMode { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static Color fogColor
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_fogColor_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_fogColor_Injected(ref value);
+			}
+		}
+
+		public static extern float fogDensity { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern AmbientMode ambientMode { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static Color ambientSkyColor
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_ambientSkyColor_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_ambientSkyColor_Injected(ref value);
+			}
+		}
+
+		public static Color ambientEquatorColor
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_ambientEquatorColor_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_ambientEquatorColor_Injected(ref value);
+			}
+		}
+
+		public static Color ambientGroundColor
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_ambientGroundColor_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_ambientGroundColor_Injected(ref value);
+			}
+		}
+
+		public static extern float ambientIntensity { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("AmbientSkyColor")]
+		public static Color ambientLight
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_ambientLight_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_ambientLight_Injected(ref value);
+			}
+		}
+
+		public static Color subtractiveShadowColor
+		{
+			get
+			{
+				Color result;
+				RenderSettings.get_subtractiveShadowColor_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_subtractiveShadowColor_Injected(ref value);
+			}
+		}
+
+		[NativeProperty("SkyboxMaterial")]
+		public static Material skybox
+		{
+			get
+			{
+				return Unmarshal.UnmarshalUnityObject<Material>(RenderSettings.get_skybox_Injected());
+			}
+			set
+			{
+				RenderSettings.set_skybox_Injected(Object.MarshalledUnityObject.Marshal<Material>(value));
+			}
+		}
+
+		public static Light sun
+		{
+			get
+			{
+				return Unmarshal.UnmarshalUnityObject<Light>(RenderSettings.get_sun_Injected());
+			}
+			set
+			{
+				RenderSettings.set_sun_Injected(Object.MarshalledUnityObject.Marshal<Light>(value));
+			}
+		}
+
+		public static SphericalHarmonicsL2 ambientProbe
+		{
+			[NativeMethod("GetFinalAmbientProbe")]
+			get
+			{
+				SphericalHarmonicsL2 result;
+				RenderSettings.get_ambientProbe_Injected(out result);
+				return result;
+			}
+			set
+			{
+				RenderSettings.set_ambientProbe_Injected(ref value);
+			}
+		}
+
+		[Obsolete("RenderSettings.customReflection has been deprecated in favor of RenderSettings.customReflectionTexture.", false)]
+		public static Cubemap customReflection
+		{
+			get
+			{
+				Cubemap cubemap = RenderSettings.customReflectionTexture as Cubemap;
+				bool flag = cubemap == null;
+				if (flag)
+				{
+					throw new ArgumentException("RenderSettings.customReflection is currently not referencing a cubemap.");
+				}
+				return cubemap;
+			}
+			[NativeThrows]
+			set
+			{
+				RenderSettings.customReflectionTexture = value;
+			}
+		}
+
+		[NativeProperty("CustomReflection")]
+		public static Texture customReflectionTexture
+		{
+			get
+			{
+				return Unmarshal.UnmarshalUnityObject<Texture>(RenderSettings.get_customReflectionTexture_Injected());
+			}
+			[NativeThrows]
+			set
+			{
+				RenderSettings.set_customReflectionTexture_Injected(Object.MarshalledUnityObject.Marshal<Texture>(value));
+			}
+		}
+
+		public static extern float reflectionIntensity { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int reflectionBounces { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("GeneratedSkyboxReflection")]
+		internal static Cubemap defaultReflection
+		{
+			get
+			{
+				return Unmarshal.UnmarshalUnityObject<Cubemap>(RenderSettings.get_defaultReflection_Injected());
+			}
+		}
+
+		public static extern DefaultReflectionMode defaultReflectionMode { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int defaultReflectionResolution { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float haloStrength { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float flareStrength { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float flareFadeSpeed { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[FreeFunction("GetRenderSettings")]
+		internal static Object GetRenderSettings()
+		{
+			return Unmarshal.UnmarshalUnityObject<Object>(RenderSettings.GetRenderSettings_Injected());
+		}
+
+		[StaticAccessor("RenderSettingsScripting", StaticAccessorType.DoubleColon)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		internal static extern void Reset();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_fogColor_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_fogColor_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_ambientSkyColor_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_ambientSkyColor_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_ambientEquatorColor_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_ambientEquatorColor_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_ambientGroundColor_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_ambientGroundColor_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_ambientLight_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_ambientLight_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_subtractiveShadowColor_Injected(out Color ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_subtractiveShadowColor_Injected([In] ref Color value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr get_skybox_Injected();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_skybox_Injected(IntPtr value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr get_sun_Injected();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_sun_Injected(IntPtr value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_ambientProbe_Injected(out SphericalHarmonicsL2 ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_ambientProbe_Injected([In] ref SphericalHarmonicsL2 value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr get_customReflectionTexture_Injected();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_customReflectionTexture_Injected(IntPtr value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr get_defaultReflection_Injected();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr GetRenderSettings_Injected();
+	}
+}

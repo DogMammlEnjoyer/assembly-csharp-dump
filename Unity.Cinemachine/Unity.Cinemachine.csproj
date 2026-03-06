@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.Cinemachine</RootNamespace>
+    <AssemblyName>Unity.Cinemachine</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Active.cs" />
+    <Compile Include="AxisBase.cs" />
+    <Compile Include="AxisState.cs" />
+    <Compile Include="BlendManager.cs" />
+    <Compile Include="CachedScaledSpline.cs" />
+    <Compile Include="CameraBlendStack.cs" />
+    <Compile Include="CameraPipelineAttribute.cs" />
+    <Compile Include="CameraState.cs" />
+    <Compile Include="CameraStateExtensions.cs" />
+    <Compile Include="CameraTarget.cs" />
+    <Compile Include="CameraUpdateManager.cs" />
+    <Compile Include="ChildCameraPropertyAttribute.cs" />
+    <Compile Include="Cinemachine3OrbitRig.cs" />
+    <Compile Include="Cinemachine3rdPersonFollow.cs" />
+    <Compile Include="CinemachineAutoFocus.cs" />
+    <Compile Include="CinemachineBasicMultiChannelPerlin.cs" />
+    <Compile Include="CinemachineBlend.cs" />
+    <Compile Include="CinemachineBlendDefinition.cs" />
+    <Compile Include="CinemachineBlenderSettings.cs" />
+    <Compile Include="CinemachineBrain.cs" />
+    <Compile Include="CinemachineBrainEvents.cs" />
+    <Compile Include="CinemachineCamera.cs" />
+    <Compile Include="CinemachineCameraEvents.cs" />
+    <Compile Include="CinemachineCameraManagerBase.cs" />
+    <Compile Include="CinemachineCameraManagerEvents.cs" />
+    <Compile Include="CinemachineCameraOffset.cs" />
+    <Compile Include="CinemachineClearShot.cs" />
+    <Compile Include="CinemachineCollider.cs" />
+    <Compile Include="CinemachineCollisionImpulseSource.cs" />
+    <Compile Include="CinemachineComponentBase.cs" />
+    <Compile Include="CinemachineComposer.cs" />
+    <Compile Include="CinemachineConfiner.cs" />
+    <Compile Include="CinemachineConfiner2D.cs" />
+    <Compile Include="CinemachineConfiner3D.cs" />
+    <Compile Include="CinemachineCore.cs" />
+    <Compile Include="CinemachineDebug.cs" />
+    <Compile Include="CinemachineDecollider.cs" />
+    <Compile Include="CinemachineDeoccluder.cs" />
+    <Compile Include="CinemachineDollyCart.cs" />
+    <Compile Include="CinemachineDoNotUpgrade.cs" />
+    <Compile Include="CinemachineEmbeddedAssetPropertyAttribute.cs" />
+    <Compile Include="CinemachineExtension.cs" />
+    <Compile Include="CinemachineExternalCamera.cs" />
+    <Compile Include="CinemachineExternalImpulseListener.cs" />
+    <Compile Include="CinemachineFixedSignal.cs" />
+    <Compile Include="CinemachineFollow.cs" />
+    <Compile Include="CinemachineFollowZoom.cs" />
+    <Compile Include="CinemachineFramingTransposer.cs" />
+    <Compile Include="CinemachineFreeLook.cs" />
+    <Compile Include="CinemachineFreeLookModifier.cs" />
+    <Compile Include="CinemachineGroupComposer.cs" />
+    <Compile Include="CinemachineGroupFraming.cs" />
+    <Compile Include="CinemachineHardLockToTarget.cs" />
+    <Compile Include="CinemachineHardLookAt.cs" />
+    <Compile Include="CinemachineImpulseChannelPropertyAttribute.cs" />
+    <Compile Include="CinemachineImpulseDefinition.cs" />
+    <Compile Include="CinemachineImpulseListener.cs" />
+    <Compile Include="CinemachineImpulseManager.cs" />
+    <Compile Include="CinemachineImpulseSource.cs" />
+    <Compile Include="CinemachineInputAxisController.cs" />
+    <Compile Include="CinemachineInputAxisDriver.cs" />
+    <Compile Include="CinemachineInputProvider.cs" />
+    <Compile Include="CinemachineInputProviderExtensions.cs" />
+    <Compile Include="CinemachineLegacyCameraEvents.cs" />
+    <Compile Include="CinemachineMixerEventsBase.cs" />
+    <Compile Include="CinemachineMixingCamera.cs" />
+    <Compile Include="CinemachineOrbitalFollow.cs" />
+    <Compile Include="CinemachineOrbitalTransposer.cs" />
+    <Compile Include="CinemachinePanTilt.cs" />
+    <Compile Include="CinemachinePath.cs" />
+    <Compile Include="CinemachinePathBase.cs" />
+    <Compile Include="CinemachinePipeline.cs" />
+    <Compile Include="CinemachinePixelPerfect.cs" />
+    <Compile Include="CinemachinePlayableMixer.cs" />
+    <Compile Include="CinemachinePositionComposer.cs" />
+    <Compile Include="CinemachinePOV.cs" />
+    <Compile Include="CinemachineRecomposer.cs" />
+    <Compile Include="CinemachineRotateWithFollowTarget.cs" />
+    <Compile Include="CinemachineRotationComposer.cs" />
+    <Compile Include="CinemachineSameAsFollowTarget.cs" />
+    <Compile Include="CinemachineSequencerCamera.cs" />
+    <Compile Include="CinemachineShot.cs" />
+    <Compile Include="CinemachineShotPlayable.cs" />
+    <Compile Include="CinemachineShotQualityEvaluator.cs" />
+    <Compile Include="CinemachineSmoothPath.cs" />
+    <Compile Include="CinemachineSplineCart.cs" />
+    <Compile Include="CinemachineSplineDolly.cs" />
+    <Compile Include="CinemachineSplineDollyLookAtTargets.cs" />
+    <Compile Include="CinemachineSplineRoll.cs" />
+    <Compile Include="CinemachineSplineSmoother.cs" />
+    <Compile Include="CinemachineStateDrivenCamera.cs" />
+    <Compile Include="CinemachineStoryboard.cs" />
+    <Compile Include="CinemachineTargetGroup.cs" />
+    <Compile Include="CinemachineThirdPersonAim.cs" />
+    <Compile Include="CinemachineThirdPersonFollow.cs" />
+    <Compile Include="CinemachineTouchInputMapper.cs" />
+    <Compile Include="CinemachineTrack.cs" />
+    <Compile Include="CinemachineTrackedDolly.cs" />
+    <Compile Include="CinemachineTransposer.cs" />
+    <Compile Include="CinemachineTriggerAction.cs" />
+    <Compile Include="CinemachineVirtualCamera.cs" />
+    <Compile Include="CinemachineVirtualCameraBase.cs" />
+    <Compile Include="CinemachineVolumeSettings.cs" />
+    <Compile Include="Clipper.cs" />
+    <Compile Include="Clipper64.cs" />
+    <Compile Include="ClipperBase.cs" />
+    <Compile Include="ClipperD.cs" />
+    <Compile Include="ClipperLibException.cs" />
+    <Compile Include="ClipperOffset.cs" />
+    <Compile Include="ClipType.cs" />
+    <Compile Include="ConfinerOven.cs" />
+    <Compile Include="Damper.cs" />
+    <Compile Include="DefaultInputAxisDriver.cs" />
+    <Compile Include="DelayedVectorAttribute.cs" />
+    <Compile Include="DeltaTimeScaleProcessor.cs" />
+    <Compile Include="Documentation.cs" />
+    <Compile Include="EmbeddedBlenderSettingsPropertyAttribute.cs" />
+    <Compile Include="EnabledPropertyAttribute.cs" />
+    <Compile Include="EndType.cs" />
+    <Compile Include="FillRule.cs" />
+    <Compile Include="FoldoutWithEnabledButtonAttribute.cs" />
+    <Compile Include="GaussianWindow1d.cs" />
+    <Compile Include="GaussianWindow1D_CameraRotation.cs" />
+    <Compile Include="GaussianWindow1D_Quaternion.cs" />
+    <Compile Include="GaussianWindow1D_Vector3.cs" />
+    <Compile Include="GroupWeightManipulator.cs" />
+    <Compile Include="HeadingTracker.cs" />
+    <Compile Include="HideFoldoutAttribute.cs" />
+    <Compile Include="HideIfNoComponentAttribute.cs" />
+    <Compile Include="ICameraOverrideStack.cs" />
+    <Compile Include="ICinemachineCamera.cs" />
+    <Compile Include="ICinemachineMixer.cs" />
+    <Compile Include="ICinemachineTargetGroup.cs" />
+    <Compile Include="IInputAxisController.cs" />
+    <Compile Include="IInputAxisOwner.cs" />
+    <Compile Include="IInputAxisReader.cs" />
+    <Compile Include="IInputAxisResetSource.cs" />
+    <Compile Include="InputAxis.cs" />
+    <Compile Include="InputAxisControllerBase.cs" />
+    <Compile Include="InputAxisControllerManager.cs" />
+    <Compile Include="InputAxisControllerManagerAttribute.cs" />
+    <Compile Include="InputAxisNamePropertyAttribute.cs" />
+    <Compile Include="InternalClipper.cs" />
+    <Compile Include="IntersectNode.cs" />
+    <Compile Include="IShotQualityEvaluator.cs" />
+    <Compile Include="ISignalSource6D.cs" />
+    <Compile Include="ISplineReferencer.cs" />
+    <Compile Include="Joiner.cs" />
+    <Compile Include="JoinType.cs" />
+    <Compile Include="LegacyLensSettings.cs" />
+    <Compile Include="LensSettings.cs" />
+    <Compile Include="LensSettingsHideModeOverridePropertyAttribute.cs" />
+    <Compile Include="LocalMinima.cs" />
+    <Compile Include="LocMinSorter.cs" />
+    <Compile Include="LookaheadSettings.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Minkowski.cs" />
+    <Compile Include="MinMaxRangeSliderAttribute.cs" />
+    <Compile Include="NestedBlendSource.cs" />
+    <Compile Include="NoiseSettings.cs" />
+    <Compile Include="NoSaveDuringPlayAttribute.cs" />
+    <Compile Include="OutPt.cs" />
+    <Compile Include="OutputChannels.cs" />
+    <Compile Include="OutRec.cs" />
+    <Compile Include="PathGroup.cs" />
+    <Compile Include="PathType.cs" />
+    <Compile Include="PipResult.cs" />
+    <Compile Include="Point64.cs" />
+    <Compile Include="PointD.cs" />
+    <Compile Include="PointInPolygonResult.cs" />
+    <Compile Include="PolyPath64.cs" />
+    <Compile Include="PolyPathBase.cs" />
+    <Compile Include="PolyPathD.cs" />
+    <Compile Include="PolyPathEnum.cs" />
+    <Compile Include="PolyTree64.cs" />
+    <Compile Include="PolyTreeD.cs" />
+    <Compile Include="PositionPredictor.cs" />
+    <Compile Include="PrioritySettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeSliderAttribute.cs" />
+    <Compile Include="Rect64.cs" />
+    <Compile Include="RectD.cs" />
+    <Compile Include="RequiredTargetAttribute.cs" />
+    <Compile Include="RuntimeUtility.cs" />
+    <Compile Include="SaveDuringPlayAttribute.cs" />
+    <Compile Include="ScreenComposerSettings.cs" />
+    <Compile Include="SensorSizePropertyAttribute.cs" />
+    <Compile Include="SignalSourceAsset.cs" />
+    <Compile Include="SplineAutoDolly.cs" />
+    <Compile Include="SplineContainerExtensions.cs" />
+    <Compile Include="SplineHelpers.cs" />
+    <Compile Include="SplineSettings.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="TagFieldAttribute.cs" />
+    <Compile Include="TargetPositionCache.cs" />
+    <Compile Include="TargetTracking\AngularDampingMode.cs" />
+    <Compile Include="TargetTracking\BindingMode.cs" />
+    <Compile Include="TargetTracking\Tracker.cs" />
+    <Compile Include="TargetTracking\TrackerSettings.cs" />
+    <Compile Include="TargetTracking\TrackerSettingsExtensions.cs" />
+    <Compile Include="UnityQuaternionExtensions.cs" />
+    <Compile Include="UnityRectExtensions.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="UnityVectorExtensions.cs" />
+    <Compile Include="UpdateTracker.cs" />
+    <Compile Include="VcamTargetPropertyAttribute.cs" />
+    <Compile Include="Vector2AsRangeAttribute.cs" />
+    <Compile Include="Vertex.cs" />
+    <Compile Include="VertexFlags.cs" />
+    <Compile Include="VirtualCameraRegistry.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D0}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.2D.Runtime\Unity.RenderPipelines.Universal.2D.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D5}</Project>
+      <Name>Unity.RenderPipelines.Universal.2D.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D7}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Splines\Unity.Splines.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DB}</Project>
+      <Name>Unity.Splines</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Timeline\Unity.Timeline.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DD}</Project>
+      <Name>Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.DirectorModule\UnityEngine.DirectorModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F7}</Project>
+      <Name>UnityEngine.DirectorModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA104}</Project>
+      <Name>UnityEngine.InputLegacyModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

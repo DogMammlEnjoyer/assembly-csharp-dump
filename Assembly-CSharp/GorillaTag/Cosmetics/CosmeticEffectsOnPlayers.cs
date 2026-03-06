@@ -121,21 +121,20 @@ namespace GorillaTag.Cosmetics
 				return;
 			}
 			effect.Value.EffectStartedTime = Time.time;
-			IEnumerable<VRRig> enumerable2;
+			IEnumerable<VRRig> enumerable;
 			if (!PhotonNetwork.InRoom)
 			{
-				IEnumerable<VRRig> enumerable = new VRRig[]
+				IReadOnlyList<VRRig> readOnlyList = new VRRig[]
 				{
 					GorillaTagger.Instance.offlineVRRig
 				};
-				enumerable2 = enumerable;
+				enumerable = readOnlyList;
 			}
 			else
 			{
-				IEnumerable<VRRig> enumerable = GorillaParent.instance.vrrigs;
-				enumerable2 = enumerable;
+				enumerable = VRRigCache.ActiveRigs;
 			}
-			foreach (VRRig vrrig in enumerable2)
+			foreach (VRRig vrrig in enumerable)
 			{
 				if (this.ShouldAffectRig(vrrig, effect.Value.target) && (vrrig.transform.position - position).IsShorterThan(effect.Value.effectDistanceRadius))
 				{
@@ -183,21 +182,20 @@ namespace GorillaTag.Cosmetics
 				return;
 			}
 			effect.Value.EffectStartedTime = Time.time;
-			IEnumerable<VRRig> enumerable2;
+			IEnumerable<VRRig> enumerable;
 			if (!PhotonNetwork.InRoom)
 			{
-				IEnumerable<VRRig> enumerable = new VRRig[]
+				IReadOnlyList<VRRig> readOnlyList = new VRRig[]
 				{
 					GorillaTagger.Instance.offlineVRRig
 				};
-				enumerable2 = enumerable;
+				enumerable = readOnlyList;
 			}
 			else
 			{
-				IEnumerable<VRRig> enumerable = GorillaParent.instance.vrrigs;
-				enumerable2 = enumerable;
+				enumerable = VRRigCache.ActiveRigs;
 			}
-			foreach (VRRig vrrig in enumerable2)
+			foreach (VRRig vrrig in enumerable)
 			{
 				if (this.ShouldAffectRig(vrrig, effect.Value.target) && (vrrig.transform.position - position).IsShorterThan(effect.Value.effectDistanceRadius))
 				{
@@ -298,21 +296,20 @@ namespace GorillaTag.Cosmetics
 				return;
 			}
 			effect.Value.EffectStartedTime = Time.time;
-			IEnumerable<VRRig> enumerable2;
+			IEnumerable<VRRig> enumerable;
 			if (!PhotonNetwork.InRoom)
 			{
-				IEnumerable<VRRig> enumerable = new VRRig[]
+				IReadOnlyList<VRRig> readOnlyList = new VRRig[]
 				{
 					GorillaTagger.Instance.offlineVRRig
 				};
-				enumerable2 = enumerable;
+				enumerable = readOnlyList;
 			}
 			else
 			{
-				IEnumerable<VRRig> enumerable = GorillaParent.instance.vrrigs;
-				enumerable2 = enumerable;
+				enumerable = VRRigCache.ActiveRigs;
 			}
-			foreach (VRRig vrrig in enumerable2)
+			foreach (VRRig vrrig in enumerable)
 			{
 				if (this.ShouldAffectRig(vrrig, effect.Value.target) && (vrrig.transform.position - position).IsShorterThan(effect.Value.effectDistanceRadius))
 				{
@@ -346,21 +343,20 @@ namespace GorillaTag.Cosmetics
 				return;
 			}
 			effect.Value.EffectStartedTime = Time.time;
-			IEnumerable<VRRig> enumerable2;
+			IEnumerable<VRRig> enumerable;
 			if (!PhotonNetwork.InRoom)
 			{
-				IEnumerable<VRRig> enumerable = new VRRig[]
+				IReadOnlyList<VRRig> readOnlyList = new VRRig[]
 				{
 					GorillaTagger.Instance.offlineVRRig
 				};
-				enumerable2 = enumerable;
+				enumerable = readOnlyList;
 			}
 			else
 			{
-				IEnumerable<VRRig> enumerable = GorillaParent.instance.vrrigs;
-				enumerable2 = enumerable;
+				enumerable = VRRigCache.ActiveRigs;
 			}
-			foreach (VRRig vrrig in enumerable2)
+			foreach (VRRig vrrig in enumerable)
 			{
 				if (this.ShouldAffectRig(vrrig, effect.Value.target) && (vrrig.transform.position - position).IsShorterThan(effect.Value.effectDistanceRadius))
 				{

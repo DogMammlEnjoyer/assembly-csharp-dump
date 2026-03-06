@@ -15,6 +15,18 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		}
 	}
 
+	public int TotalGadgetLimit
+	{
+		get
+		{
+			if (!this.gamePlayer.IsSubscribed)
+			{
+				return 3;
+			}
+			return 6;
+		}
+	}
+
 	public bool TickRunning { get; set; }
 
 	public int ActorNr
@@ -653,8 +665,9 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 
 	private int lastQuestsAvailableToClaim;
 
-	[NonSerialized]
-	public int totalGadgetLimit = 3;
+	private const int STANDARD_GADGET_LIMIT = 3;
+
+	private const int SUBSCRIBER_GADGET_LIMIT = 6;
 
 	[NonSerialized]
 	public int exclusionZoneCount;

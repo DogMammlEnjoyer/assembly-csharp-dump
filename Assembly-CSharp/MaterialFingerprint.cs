@@ -46,9 +46,6 @@ public struct MaterialFingerprint
 		this._WaveFrequency = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WaveFrequency), 100, used._WaveFrequency);
 		this._WaveScale = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WaveScale), 100, used._WaveScale);
 		this._WaveTimeScale = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WaveTimeScale), 100, used._WaveTimeScale);
-		this._UseWeatherMap = MaterialFingerprint._Round(material.GetFloat(ShaderProps._UseWeatherMap), 100, used._UseWeatherMap);
-		this._WeatherMap = MaterialFingerprint._GetTexPropGuid(material, ShaderProps._WeatherMap, used._WeatherMap);
-		this._WeatherMapDissolveEdgeSize = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WeatherMapDissolveEdgeSize), 100, used._WeatherMapDissolveEdgeSize);
 		this._ReflectToggle = MaterialFingerprint._Round(material.GetFloat(ShaderProps._ReflectToggle), 100, used._ReflectToggle);
 		this._ReflectBoxProjectToggle = MaterialFingerprint._Round(material.GetFloat(ShaderProps._ReflectBoxProjectToggle), 100, used._ReflectBoxProjectToggle);
 		this._ReflectBoxCubePos = MaterialFingerprint._Round(material.GetVector(ShaderProps._ReflectBoxCubePos), 100, used._ReflectBoxCubePos);
@@ -128,6 +125,10 @@ public struct MaterialFingerprint
 		this._HeightBasedWaterEffect = MaterialFingerprint._Round(material.GetFloat(ShaderProps._HeightBasedWaterEffect), 100, used._HeightBasedWaterEffect);
 		this._WaterCaustics = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WaterCaustics), 100, used._WaterCaustics);
 		this._UseDayNightLightmap = MaterialFingerprint._Round(material.GetFloat(ShaderProps._UseDayNightLightmap), 100, used._UseDayNightLightmap);
+		this._DAY_CYCLE_BRIGHTNESS_ = MaterialFingerprint._Round(material.GetFloat(ShaderProps._DAY_CYCLE_BRIGHTNESS_), 100, used._DAY_CYCLE_BRIGHTNESS_);
+		this._UseWeatherMap = MaterialFingerprint._Round(material.GetFloat(ShaderProps._UseWeatherMap), 100, used._UseWeatherMap);
+		this._WeatherMap = MaterialFingerprint._GetTexPropGuid(material, ShaderProps._WeatherMap, used._WeatherMap);
+		this._WeatherMapDissolveEdgeSize = MaterialFingerprint._Round(material.GetFloat(ShaderProps._WeatherMapDissolveEdgeSize), 100, used._WeatherMapDissolveEdgeSize);
 		this._UseSpecular = MaterialFingerprint._Round(material.GetFloat(ShaderProps._UseSpecular), 100, used._UseSpecular);
 		this._UseSpecularAlphaChannel = MaterialFingerprint._Round(material.GetFloat(ShaderProps._UseSpecularAlphaChannel), 100, used._UseSpecularAlphaChannel);
 		this._Smoothness = MaterialFingerprint._Round(material.GetFloat(ShaderProps._Smoothness), 100, used._Smoothness);
@@ -324,12 +325,6 @@ public struct MaterialFingerprint
 
 	public int _WaveTimeScale;
 
-	public int _UseWeatherMap;
-
-	public string _WeatherMap;
-
-	public int _WeatherMapDissolveEdgeSize;
-
 	public int _ReflectToggle;
 
 	public int _ReflectBoxProjectToggle;
@@ -487,6 +482,14 @@ public struct MaterialFingerprint
 	public int _WaterCaustics;
 
 	public int _UseDayNightLightmap;
+
+	public int _DAY_CYCLE_BRIGHTNESS_;
+
+	public int _UseWeatherMap;
+
+	public string _WeatherMap;
+
+	public int _WeatherMapDissolveEdgeSize;
 
 	public int _UseSpecular;
 

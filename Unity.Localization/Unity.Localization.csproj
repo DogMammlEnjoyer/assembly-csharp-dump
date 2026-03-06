@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine.Localization</RootNamespace>
+    <AssemblyName>Unity.Localization</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressablesInterface.cs" />
+    <Compile Include="AddressHelper.cs" />
+    <Compile Include="AssetAddress.cs" />
+    <Compile Include="CallbackArray.cs" />
+    <Compile Include="Components\LocalizeAudioClipEvent.cs" />
+    <Compile Include="Components\LocalizedAssetBehaviour.cs" />
+    <Compile Include="Components\LocalizedAssetEvent.cs" />
+    <Compile Include="Components\LocalizedGameObjectEvent.cs" />
+    <Compile Include="Components\LocalizedMonoBehaviour.cs" />
+    <Compile Include="Components\LocalizeSpriteEvent.cs" />
+    <Compile Include="Components\LocalizeStringEvent.cs" />
+    <Compile Include="Components\LocalizeTextureEvent.cs" />
+    <Compile Include="DisplayNameAttribute.cs" />
+    <Compile Include="EditorPropertyDriver.cs" />
+    <Compile Include="Events\UnityEventAudioClip.cs" />
+    <Compile Include="Events\UnityEventGameObject.cs" />
+    <Compile Include="Events\UnityEventSprite.cs" />
+    <Compile Include="Events\UnityEventString.cs" />
+    <Compile Include="Events\UnityEventTexture.cs" />
+    <Compile Include="IPreloadRequired.cs" />
+    <Compile Include="Locale.cs" />
+    <Compile Include="LocaleIdentifier.cs" />
+    <Compile Include="LocalizationBehaviour.cs" />
+    <Compile Include="LocalizedAsset.cs" />
+    <Compile Include="LocalizedAssetBase.cs" />
+    <Compile Include="LocalizedAssetTable.cs" />
+    <Compile Include="LocalizedAudioClip.cs" />
+    <Compile Include="LocalizedFont.cs" />
+    <Compile Include="LocalizedGameObject.cs" />
+    <Compile Include="LocalizedMaterial.cs" />
+    <Compile Include="LocalizedMesh.cs" />
+    <Compile Include="LocalizedObject.cs" />
+    <Compile Include="LocalizedReference.cs" />
+    <Compile Include="LocalizedSprite.cs" />
+    <Compile Include="LocalizedString.cs" />
+    <Compile Include="LocalizedStringTable.cs" />
+    <Compile Include="LocalizedTable.cs" />
+    <Compile Include="LocalizedTexture.cs" />
+    <Compile Include="LocalizedTmpFont.cs" />
+    <Compile Include="LocalVariable.cs" />
+    <Compile Include="Metadata\AssetTypeMetadata.cs" />
+    <Compile Include="Metadata\Comment.cs" />
+    <Compile Include="Metadata\EntryOverrideType.cs" />
+    <Compile Include="Metadata\ExcludeEntryFromExport.cs" />
+    <Compile Include="Metadata\FallbackLocale.cs" />
+    <Compile Include="Metadata\IEntryOverride.cs" />
+    <Compile Include="Metadata\IMetadata.cs" />
+    <Compile Include="Metadata\IMetadataCollection.cs" />
+    <Compile Include="Metadata\ISharedMetadata.cs" />
+    <Compile Include="Metadata\MetadataAttribute.cs" />
+    <Compile Include="Metadata\MetadataCollection.cs" />
+    <Compile Include="Metadata\MetadataType.cs" />
+    <Compile Include="Metadata\MetadataTypeAttribute.cs" />
+    <Compile Include="Metadata\PlatformOverride.cs" />
+    <Compile Include="Metadata\PreloadAssetTableMetadata.cs" />
+    <Compile Include="Metadata\SharedTableCollectionMetadata.cs" />
+    <Compile Include="Metadata\SharedTableEntryMetadata.cs" />
+    <Compile Include="Metadata\SmartFormatTag.cs" />
+    <Compile Include="Operations\GetLocalizedStringOperation.cs" />
+    <Compile Include="Operations\GetTableEntryOperation.cs" />
+    <Compile Include="Operations\InitializationOperation.cs" />
+    <Compile Include="Operations\LoadAllTablesOperation.cs" />
+    <Compile Include="Operations\LoadAssetOperation.cs" />
+    <Compile Include="Operations\LoadSubAssetOperation.cs" />
+    <Compile Include="Operations\LoadTableOperation.cs" />
+    <Compile Include="Operations\LocalizationGroupOperation.cs" />
+    <Compile Include="Operations\PreloadDatabaseOperation.cs" />
+    <Compile Include="Operations\PreloadLocaleOperation.cs" />
+    <Compile Include="Operations\PreloadTablesOperation.cs" />
+    <Compile Include="Operations\WaitForCurrentOperationAsyncOperationBase.cs" />
+    <Compile Include="Platform\Android\AdaptiveIcon.cs" />
+    <Compile Include="Platform\Android\AdaptiveIconsInfo.cs" />
+    <Compile Include="Platform\Android\AppInfo.cs" />
+    <Compile Include="Platform\Android\LegacyIconsInfo.cs" />
+    <Compile Include="Platform\Android\RoundIconsInfo.cs" />
+    <Compile Include="Platform\iOS\AppInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyVariants\CustomTrackedObjectAttribute.cs" />
+    <Compile Include="PropertyVariants\GameObjectLocalizer.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\JsonSerializerTrackedObject.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedLayoutGroup.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedMeshFilter.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedMonoBehaviourObject.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedObject.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedRectTransform.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedTmpDropdown.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedTransform.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedUGuiDropdown.cs" />
+    <Compile Include="PropertyVariants\TrackedObjects\TrackedUGuiGraphic.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ArraySizeTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\BoolTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ByteTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\CharTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\DoubleTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\EnumTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\FloatTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\IntTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\IStringProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ITrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ITrackedPropertyRemoveVariant.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ITrackedPropertyValue.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\LocalizedAssetProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\LocalizedStringProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\LongTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\SByteTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ShortTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\StringTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\TrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\UIntTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\ULongTrackedProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\UnityObjectProperty.cs" />
+    <Compile Include="PropertyVariants\TrackedProperties\UShortTrackedProperty.cs" />
+    <Compile Include="Pseudo\Accenter.cs" />
+    <Compile Include="Pseudo\CharacterSubstitutor.cs" />
+    <Compile Include="Pseudo\Encapsulator.cs" />
+    <Compile Include="Pseudo\Expander.cs" />
+    <Compile Include="Pseudo\IPseudoLocalizationMethod.cs" />
+    <Compile Include="Pseudo\Message.cs" />
+    <Compile Include="Pseudo\MessageFragment.cs" />
+    <Compile Include="Pseudo\Mirror.cs" />
+    <Compile Include="Pseudo\PreserveTags.cs" />
+    <Compile Include="Pseudo\PseudoLocale.cs" />
+    <Compile Include="Pseudo\ReadOnlyMessageFragment.cs" />
+    <Compile Include="Pseudo\TypicalCharacterSets.cs" />
+    <Compile Include="Pseudo\WritableMessageFragment.cs" />
+    <Compile Include="Settings\AsynchronousBehaviour.cs" />
+    <Compile Include="Settings\CommandLineLocaleSelector.cs" />
+    <Compile Include="Settings\FallbackBehavior.cs" />
+    <Compile Include="Settings\IInitialize.cs" />
+    <Compile Include="Settings\ILocalesProvider.cs" />
+    <Compile Include="Settings\IReset.cs" />
+    <Compile Include="Settings\IStartupLocaleSelector.cs" />
+    <Compile Include="Settings\ITablePostprocessor.cs" />
+    <Compile Include="Settings\ITableProvider.cs" />
+    <Compile Include="Settings\LocalesProvider.cs" />
+    <Compile Include="Settings\LocalizationSettings.cs" />
+    <Compile Include="Settings\LocalizedAssetDatabase.cs" />
+    <Compile Include="Settings\LocalizedDatabase.cs" />
+    <Compile Include="Settings\LocalizedStringDatabase.cs" />
+    <Compile Include="Settings\MissingTranslationBehavior.cs" />
+    <Compile Include="Settings\PlayerPrefLocaleSelector.cs" />
+    <Compile Include="Settings\PreloadBehavior.cs" />
+    <Compile Include="Settings\SpecificLocaleSelector.cs" />
+    <Compile Include="Settings\SystemLocaleSelector.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\FormatterBase.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\IFormatter.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\IFormatterLiteralExtractor.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\IFormattingInfo.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\ISelectorInfo.cs" />
+    <Compile Include="SmartFormat\Core\Extensions\ISource.cs" />
+    <Compile Include="SmartFormat\Core\Formatting\DataNotReadyException.cs" />
+    <Compile Include="SmartFormat\Core\Formatting\FormatCache.cs" />
+    <Compile Include="SmartFormat\Core\Formatting\FormatDetails.cs" />
+    <Compile Include="SmartFormat\Core\Formatting\FormattingException.cs" />
+    <Compile Include="SmartFormat\Core\Formatting\FormattingInfo.cs" />
+    <Compile Include="SmartFormat\Core\Output\IOutput.cs" />
+    <Compile Include="SmartFormat\Core\Output\StringOutput.cs" />
+    <Compile Include="SmartFormat\Core\Output\TextWriterOutput.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\Format.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\FormatItem.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\LiteralText.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\Parser.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\ParsingErrorEventArgs.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\ParsingErrors.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\Placeholder.cs" />
+    <Compile Include="SmartFormat\Core\Parsing\Selector.cs" />
+    <Compile Include="SmartFormat\Core\Settings\CaseSensitivityType.cs" />
+    <Compile Include="SmartFormat\Core\Settings\ErrorAction.cs" />
+    <Compile Include="SmartFormat\Core\Settings\SmartSettings.cs" />
+    <Compile Include="SmartFormat\Extensions\ChooseFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\ConditionalFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\CustomPluralRuleProvider.cs" />
+    <Compile Include="SmartFormat\Extensions\DefaultFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\DefaultSource.cs" />
+    <Compile Include="SmartFormat\Extensions\DictionarySource.cs" />
+    <Compile Include="SmartFormat\Extensions\GlobalVariablesSource.cs" />
+    <Compile Include="SmartFormat\Extensions\IsMatchFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\ListFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\PersistentVariablesSource.cs" />
+    <Compile Include="SmartFormat\Extensions\PluralLocalizationFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\ReflectionSource.cs" />
+    <Compile Include="SmartFormat\Extensions\SubStringFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\TemplateFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\TimeFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\ValueTupleSource.cs" />
+    <Compile Include="SmartFormat\Extensions\XElementFormatter.cs" />
+    <Compile Include="SmartFormat\Extensions\XmlSource.cs" />
+    <Compile Include="SmartFormat\FormatCachePool.cs" />
+    <Compile Include="SmartFormat\FormatDetailsPool.cs" />
+    <Compile Include="SmartFormat\FormatItemPool.cs" />
+    <Compile Include="SmartFormat\FormattingErrorEventArgs.cs" />
+    <Compile Include="SmartFormat\FormattingInfoPool.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\BoolGlobalVariable.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\FloatGlobalVariable.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\GlobalVariable.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\GlobalVariablesGroup.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\IGlobalVariable.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\IGlobalVariableValueChanged.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\IntGlobalVariable.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\IVariableGroup.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\NestedGlobalVariablesGroup.cs" />
+    <Compile Include="SmartFormat\GlobalVariables\StringGlobalVariable.cs" />
+    <Compile Include="SmartFormat\Net\Utilities\SystemTime.cs" />
+    <Compile Include="SmartFormat\ParsingErrorsPool.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\BoolVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\ByteVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\DoubleVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\FloatVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\IMetadataVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\IntVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\IVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\IVariableGroup.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\IVariableValueChanged.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\LongVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\NestedVariablesGroup.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\ObjectVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\SByteVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\ShortVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\StringVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\UIntVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\ULongVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\UShortVariable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\Variable.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\VariableNameValuePair.cs" />
+    <Compile Include="SmartFormat\PersistentVariables\VariablesGroupAsset.cs" />
+    <Compile Include="SmartFormat\Smart.cs" />
+    <Compile Include="SmartFormat\SmartExtensions.cs" />
+    <Compile Include="SmartFormat\SmartFormatter.cs" />
+    <Compile Include="SmartFormat\SmartFormatterLiteralCharacterExtractor.cs" />
+    <Compile Include="SmartFormat\SplitListPool.cs" />
+    <Compile Include="SmartFormat\StringOutputPool.cs" />
+    <Compile Include="SmartFormat\Utilities\CommonLanguagesTimeTextInfo.cs" />
+    <Compile Include="SmartFormat\Utilities\FormatDelegate.cs" />
+    <Compile Include="SmartFormat\Utilities\PluralRules.cs" />
+    <Compile Include="SmartFormat\Utilities\TimeSpanFormatOptions.cs" />
+    <Compile Include="SmartFormat\Utilities\TimeSpanFormatOptionsConverter.cs" />
+    <Compile Include="SmartFormat\Utilities\TimeSpanUtility.cs" />
+    <Compile Include="SmartFormat\Utilities\TimeTextInfo.cs" />
+    <Compile Include="SmartFormat\Utilities\TupleExtensions.cs" />
+    <Compile Include="StringBuilderPool.cs" />
+    <Compile Include="StringExtensionMethods.cs" />
+    <Compile Include="SystemLanguageConverter.cs" />
+    <Compile Include="Tables\AssetTable.cs" />
+    <Compile Include="Tables\AssetTableEntry.cs" />
+    <Compile Include="Tables\DetailedLocalizationTable.cs" />
+    <Compile Include="Tables\DistributedUIDGenerator.cs" />
+    <Compile Include="Tables\IKeyGenerator.cs" />
+    <Compile Include="Tables\LocalizationTable.cs" />
+    <Compile Include="Tables\MissingEntryAction.cs" />
+    <Compile Include="Tables\SequentialIDGenerator.cs" />
+    <Compile Include="Tables\SharedTableData.cs" />
+    <Compile Include="Tables\StringTable.cs" />
+    <Compile Include="Tables\StringTableEntry.cs" />
+    <Compile Include="Tables\TableEntry.cs" />
+    <Compile Include="Tables\TableEntryData.cs" />
+    <Compile Include="Tables\TableEntryReference.cs" />
+    <Compile Include="Tables\TableReference.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA082}</Project>
+      <Name>Newtonsoft.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Addressables\Unity.Addressables.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B3}</Project>
+      <Name>Unity.Addressables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.ResourceManager\Unity.ResourceManager.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D9}</Project>
+      <Name>Unity.ResourceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EF}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA107}</Project>
+      <Name>UnityEngine.JSONSerializeModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PropertiesModule\UnityEngine.PropertiesModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA110}</Project>
+      <Name>UnityEngine.PropertiesModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11F}</Project>
+      <Name>UnityEngine.TextRenderingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIElementsModule\UnityEngine.UIElementsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA123}</Project>
+      <Name>UnityEngine.UIElementsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

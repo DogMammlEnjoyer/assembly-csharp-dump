@@ -318,7 +318,7 @@ public abstract class NetworkSystem : MonoBehaviour
 
 	private IEnumerator ReGetNonce()
 	{
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSecondsRealtime(3f);
 		PlayFabAuthenticator.instance.RefreshSteamAuthTicketForPhoton(new Action<string>(this.GetSteamAuthTicketSuccessCallback), new Action<EResult>(this.GetSteamAuthTicketFailureCallback));
 		yield return null;
 		yield break;

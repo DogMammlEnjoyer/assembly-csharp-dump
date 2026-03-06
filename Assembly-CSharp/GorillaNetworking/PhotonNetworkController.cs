@@ -120,7 +120,7 @@ namespace GorillaNetworking
 			this.lastHeadRightHandDistance = this.headRightHandDistance;
 			this.lastHeadLeftHandDistance = this.headLeftHandDistance;
 			this.lastHeadQuat = this.headQuat;
-			if (this.deferredJoin && Time.time >= this.partyJoinDeferredUntilTimestamp)
+			if (this.deferredJoin && Time.realtimeSinceStartup >= this.partyJoinDeferredUntilTimestamp)
 			{
 				if ((this.partyJoinDeferredUntilTimestamp != 0f || NetworkSystem.Instance.netState == NetSystemState.Idle) && this.currentJoinTrigger != null)
 				{
@@ -149,7 +149,7 @@ namespace GorillaNetworking
 
 		public void DeferJoining(float duration)
 		{
-			this.partyJoinDeferredUntilTimestamp = Mathf.Max(this.partyJoinDeferredUntilTimestamp, Time.time + duration);
+			this.partyJoinDeferredUntilTimestamp = Mathf.Max(this.partyJoinDeferredUntilTimestamp, Time.realtimeSinceStartup + duration);
 		}
 
 		public void ClearDeferredJoin()

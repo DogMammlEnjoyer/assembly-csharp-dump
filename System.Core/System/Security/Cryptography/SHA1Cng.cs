@@ -1,0 +1,47 @@
+﻿using System;
+
+namespace System.Security.Cryptography
+{
+	/// <summary>Provides a Cryptography Next Generation (CNG) implementation of the Secure Hash Algorithm (SHA).</summary>
+	public sealed class SHA1Cng : SHA1
+	{
+		/// <summary>Initializes a new instance of the <see cref="T:System.Security.Cryptography.SHA1Cng" /> class. </summary>
+		[SecurityCritical]
+		public SHA1Cng()
+		{
+			this.hash = new SHA1Managed();
+		}
+
+		/// <summary>Initializes, or re-initializes, the instance of the hash algorithm. </summary>
+		[SecurityCritical]
+		public override void Initialize()
+		{
+			this.hash.Initialize();
+		}
+
+		[SecurityCritical]
+		protected override void HashCore(byte[] array, int ibStart, int cbSize)
+		{
+			this.hash.TransformBlock(array, ibStart, cbSize, null, 0);
+		}
+
+		[SecurityCritical]
+		protected override byte[] HashFinal()
+		{
+			this.hash.TransformFinalBlock(SHA1Cng.Empty, 0, 0);
+			this.HashValue = this.hash.Hash;
+			return this.HashValue;
+		}
+
+		[SecurityCritical]
+		protected override void Dispose(bool disposing)
+		{
+			((IDisposable)this.hash).Dispose();
+			base.Dispose(disposing);
+		}
+
+		private static byte[] Empty = new byte[0];
+
+		private SHA1 hash;
+	}
+}

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using GorillaExtensions;
+using GorillaTagScripts;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -18,12 +20,30 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 	protected virtual void OnEnable()
 	{
 		LocalisationManager.RegisterOnLanguageChanged(new Action(this.RefreshText));
+		if (this.isSubscriberOnlyButton)
+		{
+			SubscriptionManager.OnLocalSubscriptionData = (Action)Delegate.Combine(SubscriptionManager.OnLocalSubscriptionData, new Action(this.CheckSubscription));
+			this.CheckSubscription();
+		}
 		this.RefreshText();
 	}
 
 	protected virtual void OnDisable()
 	{
 		LocalisationManager.UnregisterOnLanguageChanged(new Action(this.RefreshText));
+		if (this.isSubscriberOnlyButton)
+		{
+			SubscriptionManager.OnLocalSubscriptionData = (Action)Delegate.Remove(SubscriptionManager.OnLocalSubscriptionData, new Action(this.CheckSubscription));
+		}
+	}
+
+	private void CheckSubscription()
+	{
+		bool flag = SubscriptionManager.IsLocalSubscribed();
+		if (!this._subscriptionChecked || flag != this._localPlayerSubscribed)
+		{
+			this.<CheckSubscription>g__UpdateSubscriptionState|31_0(flag);
+		}
 	}
 
 	protected virtual void RefreshText()
@@ -157,6 +177,10 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 
 	private void PressButton(bool isLeftHand)
 	{
+		if (this.isSubscriberOnlyButton && !this._localPlayerSubscribed)
+		{
+			return;
+		}
 		this.touchTime = Time.time;
 		UnityEvent unityEvent = this.onPressButton;
 		if (unityEvent != null)
@@ -195,6 +219,12 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 
 	protected void UpdateColorWithState(bool state)
 	{
+		if (this.isSubscriberOnlyButton && !this._localPlayerSubscribed)
+		{
+			this.SetUnsubscribedMaterial();
+			this.SetOffText(this.myText.IsNotNull(), this.myTmpText.IsNotNull(), this.myTmpText2.IsNotNull());
+			return;
+		}
 		if (state)
 		{
 			this.SetPressedMaterial();
@@ -218,6 +248,11 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 	public void SetUnpressedMaterial()
 	{
 		this.SetRendererMaterial(this.unpressedMaterial);
+	}
+
+	public void SetUnsubscribedMaterial()
+	{
+		this.SetRendererMaterial(this.nonSubscriberMaterial ? this.nonSubscriberMaterial : this.unpressedMaterial);
 	}
 
 	public virtual void ButtonActivation()
@@ -248,6 +283,14 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 		{
 			this.myText.text = newText;
 		}
+	}
+
+	[CompilerGenerated]
+	private void <CheckSubscription>g__UpdateSubscriptionState|31_0(bool subscribed)
+	{
+		this._localPlayerSubscribed = subscribed;
+		this.UpdateColor();
+		this._subscriptionChecked = true;
 	}
 
 	public Material pressedMaterial;
@@ -292,6 +335,14 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 	public TMP_Text myTmpText2;
 
 	public Text myText;
+
+	public bool isSubscriberOnlyButton;
+
+	public Material nonSubscriberMaterial;
+
+	private bool _localPlayerSubscribed;
+
+	private bool _subscriptionChecked;
 
 	[Space]
 	public UnityEvent onPressButton;

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meta.WitAi.Lib</RootNamespace>
+    <AssemblyName>Meta.WitAi.Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lib\Wit\Runtime\Utilities\Logging\ILogSource.cs" />
+    <Compile Include="Meta\Voice\Logging\CorrelationID.cs" />
+    <Compile Include="Meta\Voice\Logging\ErrorCode.cs" />
+    <Compile Include="Meta\Voice\Logging\ErrorMitigator.cs" />
+    <Compile Include="Meta\Voice\Logging\ICoreLogger.cs" />
+    <Compile Include="Meta\Voice\Logging\IErrorMitigator.cs" />
+    <Compile Include="Meta\Voice\Logging\ILoggerRegistry.cs" />
+    <Compile Include="Meta\Voice\Logging\ILogScope.cs" />
+    <Compile Include="Meta\Voice\Logging\ILogSink.cs" />
+    <Compile Include="Meta\Voice\Logging\ILogWriter.cs" />
+    <Compile Include="Meta\Voice\Logging\IVLogger.cs" />
+    <Compile Include="Meta\Voice\Logging\IVLoggerFactory.cs" />
+    <Compile Include="Meta\Voice\Logging\KnownErrorCode.cs" />
+    <Compile Include="Meta\Voice\Logging\LazyLogger.cs" />
+    <Compile Include="Meta\Voice\Logging\LogCategory.cs" />
+    <Compile Include="Meta\Voice\Logging\LogCategoryAttribute.cs" />
+    <Compile Include="Meta\Voice\Logging\LogEntry.cs" />
+    <Compile Include="Meta\Voice\Logging\LoggerOptions.cs" />
+    <Compile Include="Meta\Voice\Logging\LoggerRegistry.cs" />
+    <Compile Include="Meta\Voice\Logging\LoggingContext.cs" />
+    <Compile Include="Meta\Voice\Logging\LogScope.cs" />
+    <Compile Include="Meta\Voice\Logging\LogSink.cs" />
+    <Compile Include="Meta\Voice\Logging\RingDictionaryBuffer.cs" />
+    <Compile Include="Meta\Voice\Logging\UnityLogWriter.cs" />
+    <Compile Include="Meta\Voice\Logging\VLogger.cs" />
+    <Compile Include="Meta\Voice\Logging\VLoggerFactory.cs" />
+    <Compile Include="Meta\Voice\Logging\VLoggerVerbosity.cs" />
+    <Compile Include="Meta\Voice\VoiceAudioInputState.cs" />
+    <Compile Include="Meta\WitAi\ArrayPool.cs" />
+    <Compile Include="Meta\WitAi\ComponentExtensions.cs" />
+    <Compile Include="Meta\WitAi\CoroutineUtility.cs" />
+    <Compile Include="Meta\WitAi\Data\Configuration\WitConfigurationAssetData.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitAppInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitAppTrainingStatus.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitContextMapInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitEntityInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitEntityKeywordInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitEntityRoleInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitExportInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitIntentEntityInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitIntentInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitTraitInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitTraitValueInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitVersionTagInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\Info\WitVoiceInfo.cs" />
+    <Compile Include="Meta\WitAi\Data\SimulatedResponse.cs" />
+    <Compile Include="Meta\WitAi\Data\SimulatedResponseMessage.cs" />
+    <Compile Include="Meta\WitAi\EnumerableExtensions.cs" />
+    <Compile Include="Meta\WitAi\Json\BaseJsonVariableInfo.cs" />
+    <Compile Include="Meta\WitAi\Json\ColorConverter.cs" />
+    <Compile Include="Meta\WitAi\Json\DateTimeConverter.cs" />
+    <Compile Include="Meta\WitAi\Json\HashSetConverter.cs" />
+    <Compile Include="Meta\WitAi\Json\IJsonDeserializer.cs" />
+    <Compile Include="Meta\WitAi\Json\IJsonSerializer.cs" />
+    <Compile Include="Meta\WitAi\Json\IJsonVariableInfo.cs" />
+    <Compile Include="Meta\WitAi\Json\JSONBinaryTag.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonConvert.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonConverter.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonFieldInfo.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonIgnoreAttribute.cs" />
+    <Compile Include="Meta\WitAi\Json\JSONParseException.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonPropertyAttribute.cs" />
+    <Compile Include="Meta\WitAi\Json\JsonPropertyInfo.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseArray.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseClass.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseData.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseJson.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseLazyCreator.cs" />
+    <Compile Include="Meta\WitAi\Json\WitResponseNode.cs" />
+    <Compile Include="Meta\WitAi\ObjectPool.cs" />
+    <Compile Include="Meta\WitAi\Speech\ISpeechEventProvider.cs" />
+    <Compile Include="Meta\WitAi\Speech\VoiceAudioEvent.cs" />
+    <Compile Include="Meta\WitAi\Speech\VoiceSpeechEvents.cs" />
+    <Compile Include="Meta\WitAi\Speech\VoiceTextEvent.cs" />
+    <Compile Include="Meta\WitAi\TaskExtensions.cs" />
+    <Compile Include="Meta\WitAi\TaskUtility.cs" />
+    <Compile Include="Meta\WitAi\ThreadUtility.cs" />
+    <Compile Include="Meta\WitAi\TTSWitAudioType.cs" />
+    <Compile Include="Meta\WitAi\TypeExtensions.cs" />
+    <Compile Include="Meta\WitAi\UnityEventExtensions.cs" />
+    <Compile Include="Meta\WitAi\UnityObjectExtensions.cs" />
+    <Compile Include="Meta\WitAi\VLog.cs" />
+    <Compile Include="Meta\WitAi\WitConstants.cs" />
+    <Compile Include="Meta\WitAi\WitRequestType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VoiceSDK.Telemetry.Runtime\VoiceSDK.Telemetry.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13D}</Project>
+      <Name>VoiceSDK.Telemetry.Runtime</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

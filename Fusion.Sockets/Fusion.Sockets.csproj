@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA058}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fusion.Sockets</RootNamespace>
+    <AssemblyName>Fusion.Sockets</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fusion\EncryptionConfig.cs" />
+    <Compile Include="Fusion\Encryption\DataEncryptor.cs" />
+    <Compile Include="Fusion\Encryption\EncryptionManager.cs" />
+    <Compile Include="Fusion\Encryption\EncryptionToken.cs" />
+    <Compile Include="Fusion\Encryption\IDataEncryption.cs" />
+    <Compile Include="Fusion\Protocol\BitStream.cs" />
+    <Compile Include="Fusion\Protocol\ChangeMasterClient.cs" />
+    <Compile Include="Fusion\Protocol\CommunicatorBase.cs" />
+    <Compile Include="Fusion\Protocol\Disconnect.cs" />
+    <Compile Include="Fusion\Protocol\DisconnectReason.cs" />
+    <Compile Include="Fusion\Protocol\DummyTrafficSync.cs" />
+    <Compile Include="Fusion\Protocol\EventCodes.cs" />
+    <Compile Include="Fusion\Protocol\HostMigration.cs" />
+    <Compile Include="Fusion\Protocol\Join.cs" />
+    <Compile Include="Fusion\Protocol\JoinMessageType.cs" />
+    <Compile Include="Fusion\Protocol\JoinRequests.cs" />
+    <Compile Include="Fusion\Protocol\Message.cs" />
+    <Compile Include="Fusion\Protocol\NetworkConfigSync.cs" />
+    <Compile Include="Fusion\Protocol\PeerMode.cs" />
+    <Compile Include="Fusion\Protocol\PhotonConstants.cs" />
+    <Compile Include="Fusion\Protocol\PlayerRefMapping.cs" />
+    <Compile Include="Fusion\Protocol\PluginGameMode.cs" />
+    <Compile Include="Fusion\Protocol\ProtocolMessageVersion.cs" />
+    <Compile Include="Fusion\Protocol\ProtocolSerializer.cs" />
+    <Compile Include="Fusion\Protocol\ReflexiveInfo.cs" />
+    <Compile Include="Fusion\Protocol\Snapshot.cs" />
+    <Compile Include="Fusion\Protocol\SnapshotType.cs" />
+    <Compile Include="Fusion\Protocol\Start.cs" />
+    <Compile Include="Fusion\Protocol\StartRequests.cs" />
+    <Compile Include="Fusion\Protocol\SyncType.cs" />
+    <Compile Include="Fusion\Protocol\UdpByteConverter.cs" />
+    <Compile Include="Fusion\Sockets\INetBitWriteStream.cs" />
+    <Compile Include="Fusion\Sockets\INetPeerGroupCallbacks.cs" />
+    <Compile Include="Fusion\Sockets\INetSocket.cs" />
+    <Compile Include="Fusion\Sockets\NetAddress.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBuffer.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBufferBlock.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBufferList.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBufferNull.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBufferSerializer.cs" />
+    <Compile Include="Fusion\Sockets\NetBitBufferStack.cs" />
+    <Compile Include="Fusion\Sockets\NetCommandAccepted.cs" />
+    <Compile Include="Fusion\Sockets\NetCommandConnect.cs" />
+    <Compile Include="Fusion\Sockets\NetCommandDisconnect.cs" />
+    <Compile Include="Fusion\Sockets\NetCommandHeader.cs" />
+    <Compile Include="Fusion\Sockets\NetCommandRefused.cs" />
+    <Compile Include="Fusion\Sockets\NetCommands.cs" />
+    <Compile Include="Fusion\Sockets\NetConfig.cs" />
+    <Compile Include="Fusion\Sockets\NetConfigNotify.cs" />
+    <Compile Include="Fusion\Sockets\NetConfigSimulation.cs" />
+    <Compile Include="Fusion\Sockets\NetConfigSimulationOscillator.cs" />
+    <Compile Include="Fusion\Sockets\NetConnectFailedReason.cs" />
+    <Compile Include="Fusion\Sockets\NetConnection.cs" />
+    <Compile Include="Fusion\Sockets\NetConnectionId.cs" />
+    <Compile Include="Fusion\Sockets\NetConnectionMap.cs" />
+    <Compile Include="Fusion\Sockets\NetConnectionStatus.cs" />
+    <Compile Include="Fusion\Sockets\NetConstants.cs" />
+    <Compile Include="Fusion\Sockets\NetDelayedPacket.cs" />
+    <Compile Include="Fusion\Sockets\NetDelayedPacketList.cs" />
+    <Compile Include="Fusion\Sockets\NetDisconnectReason.cs" />
+    <Compile Include="Fusion\Sockets\NetNotifyHeader.cs" />
+    <Compile Include="Fusion\Sockets\NetPacketType.cs" />
+    <Compile Include="Fusion\Sockets\NetPeer.cs" />
+    <Compile Include="Fusion\Sockets\NetPeerGroup.cs" />
+    <Compile Include="Fusion\Sockets\NetPeerGroupMap.cs" />
+    <Compile Include="Fusion\Sockets\NetSendEnvelope.cs" />
+    <Compile Include="Fusion\Sockets\NetSendEnvelopeRingBuffer.cs" />
+    <Compile Include="Fusion\Sockets\NetSequencer.cs" />
+    <Compile Include="Fusion\Sockets\NetSocket.cs" />
+    <Compile Include="Fusion\Sockets\NetSocketHybrid.cs" />
+    <Compile Include="Fusion\Sockets\NetSocketNative.cs" />
+    <Compile Include="Fusion\Sockets\NetSocketNull.cs" />
+    <Compile Include="Fusion\Sockets\NetSocketRelay.cs" />
+    <Compile Include="Fusion\Sockets\NetUnreliableHeader.cs" />
+    <Compile Include="Fusion\Sockets\OnConnectionRequestReply.cs" />
+    <Compile Include="Fusion\Sockets\ReliableBuffer.cs" />
+    <Compile Include="Fusion\Sockets\ReliableHeader.cs" />
+    <Compile Include="Fusion\Sockets\ReliableId.cs" />
+    <Compile Include="Fusion\Sockets\ReliableKey.cs" />
+    <Compile Include="Fusion\Sockets\ReliableList.cs" />
+    <Compile Include="Fusion\Sockets\Stun\NATType.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunClient.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunErrorAttribute.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunMessage.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunNatTypeExtensions.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunResult.cs" />
+    <Compile Include="Fusion\Sockets\Stun\StunServers.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA054}</Project>
+      <Name>Fusion.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA055}</Project>
+      <Name>Fusion.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NanoSockets\NanoSockets.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA07E}</Project>
+      <Name>NanoSockets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

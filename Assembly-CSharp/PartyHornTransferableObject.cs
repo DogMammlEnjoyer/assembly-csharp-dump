@@ -77,20 +77,20 @@ public class PartyHornTransferableObject : TransferrableObject
 			}
 			flag = flag2;
 		}
-		for (int i = 0; i < GorillaParent.instance.vrrigs.Count; i++)
+		for (int i = 0; i < VRRigCache.ActiveRigContainers.Count; i++)
 		{
-			VRRig vrrig = GorillaParent.instance.vrrigs[i];
+			VRRig rig = VRRigCache.ActiveRigContainers[i].Rig;
 			if (flag)
 			{
 				break;
 			}
-			flag = ((vrrig.GetMouthPosition() - b).sqrMagnitude < num);
+			flag = ((rig.GetMouthPosition() - b).sqrMagnitude < num);
 			if (this.soundActivated)
 			{
 				bool flag5;
 				if (flag)
 				{
-					RigContainer rigContainer = vrrig.rigContainer;
+					RigContainer rigContainer = rig.rigContainer;
 					if (rigContainer == null)
 					{
 						flag5 = false;

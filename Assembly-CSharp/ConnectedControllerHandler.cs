@@ -1,14 +1,31 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using GorillaLocomotion;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-internal class ConnectedControllerHandler : MonoBehaviour
+internal class ConnectedControllerHandler : MonoBehaviour, IGorillaSliceableSimple
 {
 	public static ConnectedControllerHandler Instance { get; private set; }
+
+	[SerializeField]
+	private bool rightValid
+	{
+		get
+		{
+			return this.overrideRightEnable || (ControllerInputPoller.instance.RightHandValid && !this.overriddenControllers.HasFlag(OverrideControllers.RightController));
+		}
+	}
+
+	[SerializeField]
+	private bool leftValid
+	{
+		get
+		{
+			return this.overrideLeftEnable || (ControllerInputPoller.instance.LeftHandValid && !this.overriddenControllers.HasFlag(OverrideControllers.LeftController));
+		}
+	}
 
 	public bool RightValid
 	{
@@ -43,13 +60,6 @@ internal class ConnectedControllerHandler : MonoBehaviour
 		this.leftcontrollerList = new List<XRController>();
 		this.rightControllerList.Add(this.rightXRController);
 		this.leftcontrollerList.Add(this.leftXRController);
-		InputDevice deviceAtXRNode = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-		InputDevice deviceAtXRNode2 = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-		Debug.Log(string.Format("right controller? {0}", (deviceAtXRNode.characteristics & (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right)) == (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right)));
-		this.rightControllerValid = deviceAtXRNode.isValid;
-		this.leftControllerValid = deviceAtXRNode2.isValid;
-		InputDevices.deviceConnected += this.DeviceConnected;
-		InputDevices.deviceDisconnected += this.DeviceDisconnected;
 		this.UpdateControllerStates();
 	}
 
@@ -64,14 +74,38 @@ internal class ConnectedControllerHandler : MonoBehaviour
 		this.leftHandFollower.followTransform = GorillaTagger.Instance.offlineVRRig.transform;
 	}
 
+	public void SetRightHandOffsets(Vector3 positionOffset, Quaternion rotationOffset)
+	{
+		this.rightHandFollower.positionOffset = positionOffset;
+		this.rightHandFollower.rotationOffset = rotationOffset;
+	}
+
+	public void SetLeftHandOffsets(Vector3 positionOffset, Quaternion rotationOffset)
+	{
+		this.leftHandFollower.positionOffset = positionOffset;
+		this.leftHandFollower.rotationOffset = rotationOffset;
+	}
+
+	public void SetOculusOffsets(bool rightHand = true, bool leftHand = true)
+	{
+		if (rightHand)
+		{
+			this.SetRightHandOffsets(this.oculusRightPosOffset, this.oculusRightRotOffset);
+		}
+		if (leftHand)
+		{
+			this.SetLeftHandOffsets(this.oculusLeftPosOffset, this.oculusLeftRotOffset);
+		}
+	}
+
 	private void OnEnable()
 	{
-		base.StartCoroutine(this.ControllerValidator());
+		GorillaSlicerSimpleManager.RegisterSliceable(this);
 	}
 
 	private void OnDisable()
 	{
-		base.StopCoroutine(this.ControllerValidator());
+		GorillaSlicerSimpleManager.UnregisterSliceable(this);
 	}
 
 	private void OnDestroy()
@@ -80,8 +114,6 @@ internal class ConnectedControllerHandler : MonoBehaviour
 		{
 			ConnectedControllerHandler.Instance = null;
 		}
-		InputDevices.deviceConnected -= this.DeviceConnected;
-		InputDevices.deviceDisconnected -= this.DeviceDisconnected;
 	}
 
 	private void LateUpdate()
@@ -96,103 +128,72 @@ internal class ConnectedControllerHandler : MonoBehaviour
 		}
 	}
 
-	private IEnumerator ControllerValidator()
+	public void SliceUpdate()
 	{
-		yield return null;
-		this.lastRightPos = ControllerInputPoller.DevicePosition(XRNode.RightHand);
-		this.lastLeftPos = ControllerInputPoller.DevicePosition(XRNode.LeftHand);
-		for (;;)
+		if (this.playerHandler.inOverlay)
 		{
-			yield return new WaitForSeconds(this.overridePollRate);
-			this.updateControllers = false;
-			if (!this.playerHandler.inOverlay)
+			return;
+		}
+		this.updateControllers = false;
+		if (ControllerInputPoller.instance.RightHandValid)
+		{
+			this.tempRightPos = ControllerInputPoller.DevicePosition(XRNode.RightHand);
+			if (this.tempRightPos == this.lastRightPos)
 			{
-				if (this.rightControllerValid)
+				if (Time.time > this.timeStoppedMovingRight + this.stoppedDurationMinimum && !this.overriddenControllers.HasFlag(OverrideControllers.RightController))
 				{
-					this.tempRightPos = ControllerInputPoller.DevicePosition(XRNode.RightHand);
-					if (this.tempRightPos == this.lastRightPos)
-					{
-						if ((this.overrideController & OverrideControllers.RightController) != OverrideControllers.RightController)
-						{
-							this.overrideController |= OverrideControllers.RightController;
-							this.updateControllers = true;
-						}
-					}
-					else if ((this.overrideController & OverrideControllers.RightController) == OverrideControllers.RightController)
-					{
-						this.overrideController &= ~OverrideControllers.RightController;
-						this.updateControllers = true;
-					}
-					this.lastRightPos = this.tempRightPos;
-				}
-				if (this.leftControllerValid)
-				{
-					this.tempLeftPos = ControllerInputPoller.DevicePosition(XRNode.LeftHand);
-					if (this.tempLeftPos == this.lastLeftPos)
-					{
-						if ((this.overrideController & OverrideControllers.LeftController) != OverrideControllers.LeftController)
-						{
-							this.overrideController |= OverrideControllers.LeftController;
-							this.updateControllers = true;
-						}
-					}
-					else if ((this.overrideController & OverrideControllers.LeftController) == OverrideControllers.LeftController)
-					{
-						this.overrideController &= ~OverrideControllers.LeftController;
-						this.updateControllers = true;
-					}
-					this.lastLeftPos = this.tempLeftPos;
-				}
-				if (this.updateControllers)
-				{
-					this.overrideEnabled = (this.overrideController > OverrideControllers.None);
-					this.UpdateControllerStates();
+					this.overriddenControllers |= OverrideControllers.RightController;
+					this.updateControllers = true;
 				}
 			}
+			else
+			{
+				this.timeStoppedMovingRight = Time.time;
+				if (this.overriddenControllers.HasFlag(OverrideControllers.RightController))
+				{
+					this.overriddenControllers &= ~OverrideControllers.RightController;
+					this.updateControllers = true;
+				}
+			}
+			this.lastRightPos = this.tempRightPos;
 		}
-		yield break;
-	}
-
-	private void DeviceDisconnected(InputDevice device)
-	{
-		if ((device.characteristics & (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right)) == (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right))
+		if (ControllerInputPoller.instance.LeftHandValid)
 		{
-			this.rightControllerValid = false;
+			this.tempLeftPos = ControllerInputPoller.DevicePosition(XRNode.LeftHand);
+			if (this.tempLeftPos == this.lastLeftPos)
+			{
+				if (Time.time > this.timeStoppedMovingLeft + this.stoppedDurationMinimum && !this.overriddenControllers.HasFlag(OverrideControllers.LeftController))
+				{
+					this.overriddenControllers |= OverrideControllers.LeftController;
+					this.updateControllers = true;
+				}
+			}
+			else
+			{
+				this.timeStoppedMovingLeft = Time.time;
+				if (this.overriddenControllers.HasFlag(OverrideControllers.LeftController))
+				{
+					this.overriddenControllers &= ~OverrideControllers.LeftController;
+					this.updateControllers = true;
+				}
+			}
+			this.lastLeftPos = this.tempLeftPos;
 		}
-		if ((device.characteristics & (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Left)) == (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Left))
+		if ((!this.leftXRController.enabled && this.leftValid) || (!this.rightXRController.enabled && this.rightValid))
 		{
-			this.leftControllerValid = false;
+			this.updateControllers = true;
 		}
-		this.UpdateControllerStates();
-	}
-
-	private void DeviceConnected(InputDevice device)
-	{
-		if ((device.characteristics & (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right)) == (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right))
+		if (this.updateControllers)
 		{
-			this.rightControllerValid = true;
+			this.overrideEnabled = (this.overriddenControllers > OverrideControllers.None);
+			this.UpdateControllerStates();
 		}
-		if ((device.characteristics & (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Left)) == (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Left))
-		{
-			this.leftControllerValid = true;
-		}
-		this.UpdateControllerStates();
 	}
 
 	private void UpdateControllerStates()
 	{
-		if (this.overrideEnabled && this.overrideController != OverrideControllers.None)
-		{
-			this.rightValid = (this.rightControllerValid && (this.overrideController & OverrideControllers.RightController) != OverrideControllers.RightController);
-			this.leftValid = (this.leftControllerValid && (this.overrideController & OverrideControllers.LeftController) != OverrideControllers.LeftController);
-		}
-		else
-		{
-			this.rightValid = this.rightControllerValid;
-			this.leftValid = this.leftControllerValid;
-		}
-		this.rightXRController.enabled = this.rightValid;
 		this.leftXRController.enabled = this.leftValid;
+		this.rightXRController.enabled = this.rightValid;
 		this.AssignSnapturnController();
 	}
 
@@ -226,10 +227,10 @@ internal class ConnectedControllerHandler : MonoBehaviour
 	}
 
 	[SerializeField]
-	private HandTransformFollowOffest rightHandFollower;
+	private HandTransformFollowOffset rightHandFollower;
 
 	[SerializeField]
-	private HandTransformFollowOffest leftHandFollower;
+	private HandTransformFollowOffset leftHandFollower;
 
 	[SerializeField]
 	private XRController rightXRController;
@@ -244,19 +245,12 @@ internal class ConnectedControllerHandler : MonoBehaviour
 
 	private List<XRController> leftcontrollerList;
 
-	private const InputDeviceCharacteristics rightCharecteristics = InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Right;
-
-	private const InputDeviceCharacteristics leftCharecteristics = InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.Left;
-
-	private bool rightControllerValid = true;
-
-	private bool leftControllerValid = true;
-
 	[SerializeField]
-	private bool rightValid = true;
+	private bool overrideEnabled;
 
-	[SerializeField]
-	private bool leftValid = true;
+	private bool overrideLeftEnable;
+
+	private bool overrideRightEnable;
 
 	[SerializeField]
 	private Vector3 lastRightPos;
@@ -274,11 +268,20 @@ internal class ConnectedControllerHandler : MonoBehaviour
 
 	[Tooltip("The rate at which controllers are checked to be moving, if they not moving, overrides and enables one hand mode")]
 	[SerializeField]
-	private float overridePollRate = 15f;
+	private float stoppedDurationMinimum = 5f;
 
 	[SerializeField]
-	private bool overrideEnabled;
+	private OverrideControllers overriddenControllers;
 
-	[SerializeField]
-	private OverrideControllers overrideController;
+	private float timeStoppedMovingLeft;
+
+	private float timeStoppedMovingRight;
+
+	public Vector3 oculusRightPosOffset = new Vector3(0f, -0.27f, 0.09f);
+
+	public Quaternion oculusRightRotOffset = Quaternion.Euler(275f, 270f, -5f);
+
+	public Vector3 oculusLeftPosOffset = new Vector3(--0f, -0.27f, 0.09f);
+
+	public Quaternion oculusLeftRotOffset = Quaternion.Euler(275f, 90f, 5f);
 }

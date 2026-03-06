@@ -1,0 +1,359 @@
+﻿using System;
+using UnityEngine.EventSystems;
+
+namespace UnityEngine.UI
+{
+	[RequireComponent(typeof(Canvas))]
+	[ExecuteAlways]
+	[AddComponentMenu("Layout/Canvas Scaler", 101)]
+	[DisallowMultipleComponent]
+	public class CanvasScaler : UIBehaviour
+	{
+		public CanvasScaler.ScaleMode uiScaleMode
+		{
+			get
+			{
+				return this.m_UiScaleMode;
+			}
+			set
+			{
+				this.m_UiScaleMode = value;
+			}
+		}
+
+		public float referencePixelsPerUnit
+		{
+			get
+			{
+				return this.m_ReferencePixelsPerUnit;
+			}
+			set
+			{
+				this.m_ReferencePixelsPerUnit = value;
+			}
+		}
+
+		public float scaleFactor
+		{
+			get
+			{
+				return this.m_ScaleFactor;
+			}
+			set
+			{
+				this.m_ScaleFactor = Mathf.Max(0.01f, value);
+			}
+		}
+
+		public Vector2 referenceResolution
+		{
+			get
+			{
+				return this.m_ReferenceResolution;
+			}
+			set
+			{
+				this.m_ReferenceResolution = value;
+				if (this.m_ReferenceResolution.x > -1E-05f && this.m_ReferenceResolution.x < 1E-05f)
+				{
+					this.m_ReferenceResolution.x = 1E-05f * Mathf.Sign(this.m_ReferenceResolution.x);
+				}
+				if (this.m_ReferenceResolution.y > -1E-05f && this.m_ReferenceResolution.y < 1E-05f)
+				{
+					this.m_ReferenceResolution.y = 1E-05f * Mathf.Sign(this.m_ReferenceResolution.y);
+				}
+			}
+		}
+
+		public CanvasScaler.ScreenMatchMode screenMatchMode
+		{
+			get
+			{
+				return this.m_ScreenMatchMode;
+			}
+			set
+			{
+				this.m_ScreenMatchMode = value;
+			}
+		}
+
+		public float matchWidthOrHeight
+		{
+			get
+			{
+				return this.m_MatchWidthOrHeight;
+			}
+			set
+			{
+				this.m_MatchWidthOrHeight = value;
+			}
+		}
+
+		public CanvasScaler.Unit physicalUnit
+		{
+			get
+			{
+				return this.m_PhysicalUnit;
+			}
+			set
+			{
+				this.m_PhysicalUnit = value;
+			}
+		}
+
+		public float fallbackScreenDPI
+		{
+			get
+			{
+				return this.m_FallbackScreenDPI;
+			}
+			set
+			{
+				this.m_FallbackScreenDPI = value;
+			}
+		}
+
+		public float defaultSpriteDPI
+		{
+			get
+			{
+				return this.m_DefaultSpriteDPI;
+			}
+			set
+			{
+				this.m_DefaultSpriteDPI = Mathf.Max(1f, value);
+			}
+		}
+
+		public float dynamicPixelsPerUnit
+		{
+			get
+			{
+				return this.m_DynamicPixelsPerUnit;
+			}
+			set
+			{
+				this.m_DynamicPixelsPerUnit = value;
+			}
+		}
+
+		protected CanvasScaler()
+		{
+		}
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			this.m_Canvas = base.GetComponent<Canvas>();
+			this.Handle();
+			Canvas.preWillRenderCanvases += this.Canvas_preWillRenderCanvases;
+		}
+
+		private void Canvas_preWillRenderCanvases()
+		{
+			this.Handle();
+		}
+
+		protected override void OnDisable()
+		{
+			this.SetScaleFactor(1f);
+			this.SetReferencePixelsPerUnit(100f);
+			Canvas.preWillRenderCanvases -= this.Canvas_preWillRenderCanvases;
+			base.OnDisable();
+		}
+
+		protected virtual void Handle()
+		{
+			if (this.m_Canvas == null || !this.m_Canvas.isRootCanvas)
+			{
+				return;
+			}
+			if (this.m_Canvas.renderMode == RenderMode.WorldSpace)
+			{
+				this.HandleWorldCanvas();
+				return;
+			}
+			switch (this.m_UiScaleMode)
+			{
+			case CanvasScaler.ScaleMode.ConstantPixelSize:
+				this.HandleConstantPixelSize();
+				return;
+			case CanvasScaler.ScaleMode.ScaleWithScreenSize:
+				this.HandleScaleWithScreenSize();
+				return;
+			case CanvasScaler.ScaleMode.ConstantPhysicalSize:
+				this.HandleConstantPhysicalSize();
+				return;
+			default:
+				return;
+			}
+		}
+
+		protected virtual void HandleWorldCanvas()
+		{
+			this.SetScaleFactor(this.m_DynamicPixelsPerUnit);
+			this.SetReferencePixelsPerUnit(this.m_ReferencePixelsPerUnit);
+		}
+
+		protected virtual void HandleConstantPixelSize()
+		{
+			this.SetScaleFactor(this.m_ScaleFactor);
+			this.SetReferencePixelsPerUnit(this.m_ReferencePixelsPerUnit);
+		}
+
+		protected virtual void HandleScaleWithScreenSize()
+		{
+			Vector2 renderingDisplaySize = this.m_Canvas.renderingDisplaySize;
+			int targetDisplay = this.m_Canvas.targetDisplay;
+			if (targetDisplay > 0 && targetDisplay < Display.displays.Length)
+			{
+				Display display = Display.displays[targetDisplay];
+				renderingDisplaySize = new Vector2((float)display.renderingWidth, (float)display.renderingHeight);
+			}
+			float scaleFactor = 0f;
+			switch (this.m_ScreenMatchMode)
+			{
+			case CanvasScaler.ScreenMatchMode.MatchWidthOrHeight:
+			{
+				float a = Mathf.Log(renderingDisplaySize.x / this.m_ReferenceResolution.x, 2f);
+				float b = Mathf.Log(renderingDisplaySize.y / this.m_ReferenceResolution.y, 2f);
+				float p = Mathf.Lerp(a, b, this.m_MatchWidthOrHeight);
+				scaleFactor = Mathf.Pow(2f, p);
+				break;
+			}
+			case CanvasScaler.ScreenMatchMode.Expand:
+				scaleFactor = Mathf.Min(renderingDisplaySize.x / this.m_ReferenceResolution.x, renderingDisplaySize.y / this.m_ReferenceResolution.y);
+				break;
+			case CanvasScaler.ScreenMatchMode.Shrink:
+				scaleFactor = Mathf.Max(renderingDisplaySize.x / this.m_ReferenceResolution.x, renderingDisplaySize.y / this.m_ReferenceResolution.y);
+				break;
+			}
+			this.SetScaleFactor(scaleFactor);
+			this.SetReferencePixelsPerUnit(this.m_ReferencePixelsPerUnit);
+		}
+
+		protected virtual void HandleConstantPhysicalSize()
+		{
+			float dpi = Screen.dpi;
+			float num = (dpi == 0f) ? this.m_FallbackScreenDPI : dpi;
+			float num2 = 1f;
+			switch (this.m_PhysicalUnit)
+			{
+			case CanvasScaler.Unit.Centimeters:
+				num2 = 2.54f;
+				break;
+			case CanvasScaler.Unit.Millimeters:
+				num2 = 25.4f;
+				break;
+			case CanvasScaler.Unit.Inches:
+				num2 = 1f;
+				break;
+			case CanvasScaler.Unit.Points:
+				num2 = 72f;
+				break;
+			case CanvasScaler.Unit.Picas:
+				num2 = 6f;
+				break;
+			}
+			this.SetScaleFactor(num / num2);
+			this.SetReferencePixelsPerUnit(this.m_ReferencePixelsPerUnit * num2 / this.m_DefaultSpriteDPI);
+		}
+
+		protected void SetScaleFactor(float scaleFactor)
+		{
+			if (Mathf.Abs(scaleFactor - this.m_PrevScaleFactor) < 5E-06f)
+			{
+				return;
+			}
+			this.m_Canvas.scaleFactor = scaleFactor;
+			this.m_PrevScaleFactor = scaleFactor;
+		}
+
+		protected void SetReferencePixelsPerUnit(float referencePixelsPerUnit)
+		{
+			if (referencePixelsPerUnit == this.m_PrevReferencePixelsPerUnit)
+			{
+				return;
+			}
+			this.m_Canvas.referencePixelsPerUnit = referencePixelsPerUnit;
+			this.m_PrevReferencePixelsPerUnit = referencePixelsPerUnit;
+		}
+
+		[Tooltip("Determines how UI elements in the Canvas are scaled.")]
+		[SerializeField]
+		private CanvasScaler.ScaleMode m_UiScaleMode;
+
+		[Tooltip("If a sprite has this 'Pixels Per Unit' setting, then one pixel in the sprite will cover one unit in the UI.")]
+		[SerializeField]
+		protected float m_ReferencePixelsPerUnit = 100f;
+
+		[Tooltip("Scales all UI elements in the Canvas by this factor.")]
+		[SerializeField]
+		protected float m_ScaleFactor = 1f;
+
+		[Tooltip("The resolution the UI layout is designed for. If the screen resolution is larger, the UI will be scaled up, and if it's smaller, the UI will be scaled down. This is done in accordance with the Screen Match Mode.")]
+		[SerializeField]
+		protected Vector2 m_ReferenceResolution = new Vector2(800f, 600f);
+
+		[Tooltip("A mode used to scale the canvas area if the aspect ratio of the current resolution doesn't fit the reference resolution.")]
+		[SerializeField]
+		protected CanvasScaler.ScreenMatchMode m_ScreenMatchMode;
+
+		[Tooltip("Determines if the scaling is using the width or height as reference, or a mix in between.")]
+		[Range(0f, 1f)]
+		[SerializeField]
+		protected float m_MatchWidthOrHeight;
+
+		private const float kLogBase = 2f;
+
+		[Tooltip("The physical unit to specify positions and sizes in.")]
+		[SerializeField]
+		protected CanvasScaler.Unit m_PhysicalUnit = CanvasScaler.Unit.Points;
+
+		[Tooltip("The DPI to assume if the screen DPI is not known.")]
+		[SerializeField]
+		protected float m_FallbackScreenDPI = 96f;
+
+		[Tooltip("The pixels per inch to use for sprites that have a 'Pixels Per Unit' setting that matches the 'Reference Pixels Per Unit' setting.")]
+		[SerializeField]
+		protected float m_DefaultSpriteDPI = 96f;
+
+		[Tooltip("The amount of pixels per unit to use for dynamically created bitmaps in the UI, such as Text.")]
+		[SerializeField]
+		protected float m_DynamicPixelsPerUnit = 1f;
+
+		private Canvas m_Canvas;
+
+		[NonSerialized]
+		private float m_PrevScaleFactor = 1f;
+
+		[NonSerialized]
+		private float m_PrevReferencePixelsPerUnit = 100f;
+
+		[SerializeField]
+		protected bool m_PresetInfoIsWorld;
+
+		public enum ScaleMode
+		{
+			ConstantPixelSize,
+			ScaleWithScreenSize,
+			ConstantPhysicalSize
+		}
+
+		public enum ScreenMatchMode
+		{
+			MatchWidthOrHeight,
+			Expand,
+			Shrink
+		}
+
+		public enum Unit
+		{
+			Centimeters,
+			Millimeters,
+			Inches,
+			Points,
+			Picas
+		}
+	}
+}

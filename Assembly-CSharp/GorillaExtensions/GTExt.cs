@@ -465,6 +465,19 @@ namespace GorillaExtensions
 			return planeAnchorPosition + Vector3.ProjectOnPlane(point - planeAnchorPosition, planeNormal);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int FindIndex<T>(this IReadOnlyList<T> list, Predicate<T> match)
+		{
+			for (int i = 0; i < list.Count; i++)
+			{
+				if (match(list[i]))
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
+
 		public static void ForEachBackwards<T>(this List<T> list, Action<T> action)
 		{
 			for (int i = list.Count - 1; i >= 0; i--)

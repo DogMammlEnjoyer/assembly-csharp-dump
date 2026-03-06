@@ -99,11 +99,12 @@ namespace GorillaTagScripts
 		public override void StopPlaying()
 		{
 			base.StopPlaying();
-			foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+			foreach (RigContainer rigContainer in VRRigCache.ActiveRigContainers)
 			{
-				GorillaSkin.ApplyToRig(vrrig, null, GorillaSkin.SkinType.gameMode);
-				vrrig.bodyRenderer.SetGameModeBodyType(GorillaBodyType.Default);
-				vrrig.SetInvisibleToLocalPlayer(false);
+				VRRig rig = rigContainer.Rig;
+				GorillaSkin.ApplyToRig(rig, null, GorillaSkin.SkinType.gameMode);
+				rig.bodyRenderer.SetGameModeBodyType(GorillaBodyType.Default);
+				rig.SetInvisibleToLocalPlayer(false);
 			}
 			CosmeticsController.instance.SetHideCosmeticsFromRemotePlayers(false);
 			if (this.hasScryingPlane)

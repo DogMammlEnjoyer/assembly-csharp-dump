@@ -1,0 +1,226 @@
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using UnityEngine.Bindings;
+
+namespace UnityEngine.Jobs
+{
+	[NativeHeader("Runtime/Transform/ScriptBindings/TransformAccess.bindings.h")]
+	public struct TransformAccess
+	{
+		public Vector3 position
+		{
+			get
+			{
+				Vector3 result;
+				TransformAccess.GetPosition(ref this, out result);
+				return result;
+			}
+			set
+			{
+				TransformAccess.SetPosition(ref this, ref value);
+			}
+		}
+
+		public Quaternion rotation
+		{
+			get
+			{
+				Quaternion result;
+				TransformAccess.GetRotation(ref this, out result);
+				return result;
+			}
+			set
+			{
+				TransformAccess.SetRotation(ref this, ref value);
+			}
+		}
+
+		public Vector3 localPosition
+		{
+			get
+			{
+				Vector3 result;
+				TransformAccess.GetLocalPosition(ref this, out result);
+				return result;
+			}
+			set
+			{
+				TransformAccess.SetLocalPosition(ref this, ref value);
+			}
+		}
+
+		public Quaternion localRotation
+		{
+			get
+			{
+				Quaternion result;
+				TransformAccess.GetLocalRotation(ref this, out result);
+				return result;
+			}
+			set
+			{
+				TransformAccess.SetLocalRotation(ref this, ref value);
+			}
+		}
+
+		public Vector3 localScale
+		{
+			get
+			{
+				Vector3 result;
+				TransformAccess.GetLocalScale(ref this, out result);
+				return result;
+			}
+			set
+			{
+				TransformAccess.SetLocalScale(ref this, ref value);
+			}
+		}
+
+		public Matrix4x4 localToWorldMatrix
+		{
+			get
+			{
+				Matrix4x4 result;
+				TransformAccess.GetLocalToWorldMatrix(ref this, out result);
+				return result;
+			}
+		}
+
+		public Matrix4x4 worldToLocalMatrix
+		{
+			get
+			{
+				Matrix4x4 result;
+				TransformAccess.GetWorldToLocalMatrix(ref this, out result);
+				return result;
+			}
+		}
+
+		public bool isValid
+		{
+			get
+			{
+				return this.hierarchy != IntPtr.Zero;
+			}
+		}
+
+		public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
+		{
+			TransformAccess.SetPositionAndRotation_Internal(ref this, ref position, ref rotation);
+		}
+
+		public void SetLocalPositionAndRotation(Vector3 localPosition, Quaternion localRotation)
+		{
+			TransformAccess.SetLocalPositionAndRotation_Internal(ref this, ref localPosition, ref localRotation);
+		}
+
+		public void GetPositionAndRotation(out Vector3 position, out Quaternion rotation)
+		{
+			TransformAccess.GetPositionAndRotation_Internal(ref this, out position, out rotation);
+		}
+
+		public void GetLocalPositionAndRotation(out Vector3 localPosition, out Quaternion localRotation)
+		{
+			TransformAccess.GetLocalPositionAndRotation_Internal(ref this, out localPosition, out localRotation);
+		}
+
+		[NativeMethod(Name = "TransformAccessBindings::SetPositionAndRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetPositionAndRotation_Internal(ref TransformAccess access, ref Vector3 position, ref Quaternion rotation);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetLocalPositionAndRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetLocalPositionAndRotation_Internal(ref TransformAccess access, ref Vector3 localPosition, ref Quaternion localRotation);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetPositionAndRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetPositionAndRotation_Internal(ref TransformAccess access, out Vector3 position, out Quaternion rotation);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetLocalPositionAndRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetLocalPositionAndRotation_Internal(ref TransformAccess access, out Vector3 localPosition, out Quaternion localRotation);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetPosition", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetPosition(ref TransformAccess access, out Vector3 p);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetPosition", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetPosition(ref TransformAccess access, ref Vector3 p);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetRotation(ref TransformAccess access, out Quaternion r);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetRotation(ref TransformAccess access, ref Quaternion r);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetLocalPosition", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetLocalPosition(ref TransformAccess access, out Vector3 p);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetLocalPosition", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetLocalPosition(ref TransformAccess access, ref Vector3 p);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetLocalRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetLocalRotation(ref TransformAccess access, out Quaternion r);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetLocalRotation", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetLocalRotation(ref TransformAccess access, ref Quaternion r);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetLocalScale", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetLocalScale(ref TransformAccess access, out Vector3 r);
+
+		[NativeMethod(Name = "TransformAccessBindings::SetLocalScale", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetLocalScale(ref TransformAccess access, ref Vector3 r);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetLocalToWorldMatrix", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetLocalToWorldMatrix(ref TransformAccess access, out Matrix4x4 m);
+
+		[NativeMethod(Name = "TransformAccessBindings::GetWorldToLocalMatrix", IsThreadSafe = true, IsFreeFunction = true, ThrowsException = true)]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetWorldToLocalMatrix(ref TransformAccess access, out Matrix4x4 m);
+
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void CheckHierarchyValid()
+		{
+			bool flag = !this.isValid;
+			if (flag)
+			{
+				throw new NullReferenceException("The TransformAccess is not valid and points to an invalid hierarchy");
+			}
+		}
+
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void MarkReadWrite()
+		{
+		}
+
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void MarkReadOnly()
+		{
+		}
+
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private void CheckWriteAccess()
+		{
+		}
+
+		private IntPtr hierarchy;
+
+		private int index;
+	}
+}

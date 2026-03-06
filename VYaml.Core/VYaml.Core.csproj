@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VYaml.Core</RootNamespace>
+    <AssemblyName>VYaml.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="VYaml\Annotations\NamingConvention.cs" />
+    <Compile Include="VYaml\Annotations\PreserveAttribute.cs" />
+    <Compile Include="VYaml\Annotations\YamlConstructorAttribute.cs" />
+    <Compile Include="VYaml\Annotations\YamlIgnoreAttribute.cs" />
+    <Compile Include="VYaml\Annotations\YamlMemberAttribute.cs" />
+    <Compile Include="VYaml\Annotations\YamlObjectAttribute.cs" />
+    <Compile Include="VYaml\Annotations\YamlObjectUnionAttribute.cs" />
+    <Compile Include="VYaml\Emitter\EmitState.cs" />
+    <Compile Include="VYaml\Emitter\MappingStyle.cs" />
+    <Compile Include="VYaml\Emitter\ScalarStyle.cs" />
+    <Compile Include="VYaml\Emitter\SequenceStyle.cs" />
+    <Compile Include="VYaml\Emitter\Utf8YamlEmitter.cs" />
+    <Compile Include="VYaml\Emitter\YamlEmitOptions.cs" />
+    <Compile Include="VYaml\Emitter\YamlEmitterException.cs" />
+    <Compile Include="VYaml\Internal\ByteSequenceHash.cs" />
+    <Compile Include="VYaml\Internal\EmitStringAnalyzer.cs" />
+    <Compile Include="VYaml\Internal\EmitStringInfo.cs" />
+    <Compile Include="VYaml\Internal\ExpandBuffer.cs" />
+    <Compile Include="VYaml\Internal\InsertionQueue.cs" />
+    <Compile Include="VYaml\Internal\KeyNameMutator.cs" />
+    <Compile Include="VYaml\Internal\LineBreakState.cs" />
+    <Compile Include="VYaml\Internal\ReusableByteSequenceBuilder.cs" />
+    <Compile Include="VYaml\Internal\ReusableByteSequenceBuilderPool.cs" />
+    <Compile Include="VYaml\Internal\ReusableByteSequenceSegment.cs" />
+    <Compile Include="VYaml\Internal\StreamHelper.cs" />
+    <Compile Include="VYaml\Internal\StringEncoding.cs" />
+    <Compile Include="VYaml\Internal\TypeHelper.cs" />
+    <Compile Include="VYaml\Internal\YamlCodes.cs" />
+    <Compile Include="VYaml\Parser\Anchor.cs" />
+    <Compile Include="VYaml\Parser\ITokenContent.cs" />
+    <Compile Include="VYaml\Parser\Marker.cs" />
+    <Compile Include="VYaml\Parser\ParseEventType.cs" />
+    <Compile Include="VYaml\Parser\ParseState.cs" />
+    <Compile Include="VYaml\Parser\Scalar.cs" />
+    <Compile Include="VYaml\Parser\ScalarPool.cs" />
+    <Compile Include="VYaml\Parser\SimpleKeyState.cs" />
+    <Compile Include="VYaml\Parser\Tag.cs" />
+    <Compile Include="VYaml\Parser\Token.cs" />
+    <Compile Include="VYaml\Parser\TokenType.cs" />
+    <Compile Include="VYaml\Parser\Utf8YamlTokenizer.cs" />
+    <Compile Include="VYaml\Parser\VersionDirective.cs" />
+    <Compile Include="VYaml\Parser\YamlParser.cs" />
+    <Compile Include="VYaml\Parser\YamlParserException.cs" />
+    <Compile Include="VYaml\Parser\YamlTokenizerException.cs" />
+    <Compile Include="VYaml\Serialization\ArrayFormatter.cs" />
+    <Compile Include="VYaml\Serialization\BooleanFormatter.cs" />
+    <Compile Include="VYaml\Serialization\BuiltinResolver.cs" />
+    <Compile Include="VYaml\Serialization\ByteArrayFormatter.cs" />
+    <Compile Include="VYaml\Serialization\ByteFormatter.cs" />
+    <Compile Include="VYaml\Serialization\CharFormatter.cs" />
+    <Compile Include="VYaml\Serialization\CompositeResolver.cs" />
+    <Compile Include="VYaml\Serialization\DateTimeFormatter.cs" />
+    <Compile Include="VYaml\Serialization\DateTimeOffsetFormatter.cs" />
+    <Compile Include="VYaml\Serialization\DecimalFormatter.cs" />
+    <Compile Include="VYaml\Serialization\DictionaryFormatter.cs" />
+    <Compile Include="VYaml\Serialization\EnumAsStringFormatter.cs" />
+    <Compile Include="VYaml\Serialization\EnumAsStringNonGenericCache.cs" />
+    <Compile Include="VYaml\Serialization\Float32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\Float64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\GeneratedResolver.cs" />
+    <Compile Include="VYaml\Serialization\GuidFormatter.cs" />
+    <Compile Include="VYaml\Serialization\Int16Formatter.cs" />
+    <Compile Include="VYaml\Serialization\Int32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\Int64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceCollectionFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceDictionaryFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceEnumerableFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceListFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceReadOnlyCollectionFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceReadOnlyDictionaryFormatter.cs" />
+    <Compile Include="VYaml\Serialization\InterfaceReadOnlyListFormatter.cs" />
+    <Compile Include="VYaml\Serialization\IYamlFormatter.2.cs" />
+    <Compile Include="VYaml\Serialization\IYamlFormatter.cs" />
+    <Compile Include="VYaml\Serialization\IYamlFormatterResolver.cs" />
+    <Compile Include="VYaml\Serialization\KeyValuePairFormatter.cs" />
+    <Compile Include="VYaml\Serialization\ListFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableBooleanFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableByteFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableCharFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableDateTimeFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableFloat32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableFloat64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableInt16Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableInt32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableInt64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableSByteFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableStringFormatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableUInt16Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableUInt32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\NullableUInt64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\PrimitiveObjectFormatter.cs" />
+    <Compile Include="VYaml\Serialization\PrimitiveObjectResolver.cs" />
+    <Compile Include="VYaml\Serialization\SByteFormatter.cs" />
+    <Compile Include="VYaml\Serialization\ScalarStyleScope.cs" />
+    <Compile Include="VYaml\Serialization\SequenceStyleScope.cs" />
+    <Compile Include="VYaml\Serialization\StandardResolver.cs" />
+    <Compile Include="VYaml\Serialization\StaticNullableFormatter.cs" />
+    <Compile Include="VYaml\Serialization\TimeSpanFormatter.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.2.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.3.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.4.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.5.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.6.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.7.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.8.cs" />
+    <Compile Include="VYaml\Serialization\TupleFormatter.cs" />
+    <Compile Include="VYaml\Serialization\UInt16Formatter.cs" />
+    <Compile Include="VYaml\Serialization\UInt32Formatter.cs" />
+    <Compile Include="VYaml\Serialization\UInt64Formatter.cs" />
+    <Compile Include="VYaml\Serialization\UriFormatter.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.2.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.3.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.4.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.5.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.6.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.7.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.8.cs" />
+    <Compile Include="VYaml\Serialization\ValueTupleFormatter.cs" />
+    <Compile Include="VYaml\Serialization\YamlDeserializationContext.cs" />
+    <Compile Include="VYaml\Serialization\YamlFormatterResolverExtensions.cs" />
+    <Compile Include="VYaml\Serialization\YamlSerializationContext.cs" />
+    <Compile Include="VYaml\Serialization\YamlSerializer.cs" />
+    <Compile Include="VYaml\Serialization\YamlSerializerException.cs" />
+    <Compile Include="VYaml\Serialization\YamlSerializerOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

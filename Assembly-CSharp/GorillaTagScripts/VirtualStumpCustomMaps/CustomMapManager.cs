@@ -524,7 +524,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 			{
 				return false;
 			}
-			foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+			foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 			{
 				if (!CustomMapManager.instance.virtualStumpPlayerDetector.playerIDsCurrentlyTouching.Contains(vrrig.creator.UserId))
 				{

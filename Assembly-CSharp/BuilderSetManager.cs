@@ -313,7 +313,7 @@ public class BuilderSetManager : MonoBehaviour
 			{
 				this.OnLiveSetsUpdated.Invoke();
 			}
-			yield return new WaitForSeconds(60f);
+			yield return new WaitForSecondsRealtime(60f);
 		}
 		this.monitor = null;
 		yield break;
@@ -659,7 +659,7 @@ public class BuilderSetManager : MonoBehaviour
 
 	private IEnumerator CheckIfMyCosmeticsUpdated(string itemToBuyID)
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSecondsRealtime(1f);
 		this.foundCosmetic = false;
 		this.attempts = 0;
 		while (!this.foundCosmetic && this.attempts < 10 && PhotonNetwork.InRoom)
@@ -691,7 +691,7 @@ public class BuilderSetManager : MonoBehaviour
 				this.attempts++;
 				CosmeticsController.instance.ReauthOrBan(error);
 			}, null, null);
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSecondsRealtime(1f);
 		}
 		Debug.Log("BuilderSetManager: done!");
 		yield break;

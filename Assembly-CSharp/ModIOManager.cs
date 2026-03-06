@@ -1080,7 +1080,7 @@ public class ModIOManager : MonoBehaviour, ISteamCredentialProvider, IOculusCred
 				int num = (int)Mathf.Pow(2f, (float)(ModIOManager.currentAssociationRetries + 1));
 				Debug.LogWarning(string.Format("Retrying Account Association... Retry attempt #{0}, waiting for {1} seconds", ModIOManager.currentAssociationRetries + 1, num));
 				ModIOManager.currentAssociationRetries++;
-				yield return new WaitForSeconds((float)num);
+				yield return new WaitForSecondsRealtime((float)num);
 				ModIOManager.AssociateMothershipAndModIOAccounts(data, callback);
 			}
 			else

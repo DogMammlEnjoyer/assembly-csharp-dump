@@ -1933,9 +1933,14 @@ namespace Photon.Realtime
 						}
 						gameProperties = hashtable2;
 					}
-					else if (!(photonEvent[251] is Hashtable))
+					else
 					{
-						return;
+						Hashtable hashtable3 = photonEvent[251] as Hashtable;
+						if (hashtable3 == null)
+						{
+							return;
+						}
+						actorProperties = hashtable3;
 					}
 					this.ReadoutProperties(gameProperties, actorProperties, num);
 					break;
@@ -1971,18 +1976,18 @@ namespace Photon.Realtime
 					break;
 				case 255:
 				{
-					Hashtable hashtable3 = (Hashtable)photonEvent[249];
+					Hashtable hashtable4 = (Hashtable)photonEvent[249];
 					if (player == null)
 					{
 						if (sender > 0)
 						{
-							player = this.CreatePlayer(string.Empty, sender, false, hashtable3);
+							player = this.CreatePlayer(string.Empty, sender, false, hashtable4);
 							this.CurrentRoom.StorePlayer(player);
 						}
 					}
 					else
 					{
-						player.InternalCacheProperties(hashtable3);
+						player.InternalCacheProperties(hashtable4);
 						player.IsInactive = false;
 						player.HasRejoined = (sender != this.LocalPlayer.ActorNumber);
 					}

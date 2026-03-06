@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.Animation.Rigging</RootNamespace>
+    <AssemblyName>Unity.Animation.Rigging</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\AffineTransform.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\AnimationJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\AnimationJobCache.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\AnimationJobCacheBuilder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\AnimationRuntimeUtils.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BlendConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BlendConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BlendConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BlendConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BoneRenderer.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\BoolProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\CacheIndex.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ChainIKConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ChainIKConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ChainIKConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ChainIKConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ConstraintProperties.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ConstraintsUtils.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\DampedTransform.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\DampedTransformData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\DampedTransformJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\DampedTransformJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ExpandChildrenAttribute.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\FloatProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IAnimatableProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IAnimationJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IAnimationJobData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IBlendConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IChainIKConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IDampedTransformData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IMultiAimConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IMultiParentConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IMultiPositionConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IMultiReferentialConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IMultiRotationConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IntProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IOverrideTransformData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IRigConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IRigEffectorHolder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IRigLayer.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IRigSyncSceneToStreamData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ITransformProvider.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ITwistChainConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ITwistCorrectionData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ITwoBoneIKConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IWeightedAnimationJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\IWeightProvider.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiAimConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiAimConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiAimConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiAimConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiParentConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiParentConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiParentConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiParentConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiPositionConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiPositionConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiPositionConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiPositionConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiReferentialConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiReferentialConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiReferentialConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiReferentialConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiRotationConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiRotationConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiRotationConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\MultiRotationConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideRigConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideRigLayer.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideTransform.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideTransformData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideTransformJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\OverrideTransformJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Property.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\PropertyDescriptor.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\PropertyType.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\PropertyUtils.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\QuaternionExt.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ReadOnlyTransformHandle.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\ReadWriteTransformHandle.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Rig.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigBuilder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigBuilderUtils.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigEffectorData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigLayer.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigProperties.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigSyncSceneToStreamJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigSyncSceneToStreamJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigTransform.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\RigUtils.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\SyncableProperties.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\SyncSceneToStreamAttribute.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\SyncSceneToStreamLayer.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistChainConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistChainConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistChainConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistChainConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistCorrection.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistCorrectionData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistCorrectionJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwistCorrectionJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwoBoneIKConstraint.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwoBoneIKConstraintData.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwoBoneIKConstraintJob.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\TwoBoneIKConstraintJobBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector2Property.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector3Bool.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector3BoolProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector3IntProperty.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector3Property.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\Vector4Property.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\WeightedTransform.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\WeightedTransformArray.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\WeightedTransformArrayBinder.cs" />
+    <Compile Include="UnityEngine\Animations\Rigging\WeightRangeAttribute.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

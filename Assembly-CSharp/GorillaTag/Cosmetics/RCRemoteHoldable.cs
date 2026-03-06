@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using GorillaExtensions;
-using GorillaNetworking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.XR;
@@ -46,27 +46,11 @@ namespace GorillaTag.Cosmetics
 
 		internal override void OnEnable()
 		{
-			base.OnEnable();
-			if (!this._TryFindRemoteVehicle())
-			{
-				base.gameObject.SetActive(false);
-				return;
-			}
-			if (this._events.IsNotNull() || base.gameObject.TryGetComponent<RubberDuckEvents>(out this._events))
-			{
-				this._events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-				NetPlayer netPlayer = (base.myOnlineRig != null) ? base.myOnlineRig.creator : ((base.myRig != null) ? ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer) : null);
-				if (netPlayer != null)
-				{
-					this._events.Init(netPlayer);
-				}
-				else
-				{
-					Debug.LogError("Failed to get a reference to the Photon Player needed to hook up the cosmetic event");
-				}
-				this._events.Activate += this.OnStartConnectionEvent;
-			}
-			this.WakeUpRemoteVehicle();
+			RCRemoteHoldable.<OnEnable>d__25 <OnEnable>d__;
+			<OnEnable>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<OnEnable>d__.<>4__this = this;
+			<OnEnable>d__.<>1__state = -1;
+			<OnEnable>d__.<>t__builder.Start<RCRemoteHoldable.<OnEnable>d__25>(ref <OnEnable>d__);
 		}
 
 		internal override void OnDisable()
@@ -198,21 +182,14 @@ namespace GorillaTag.Cosmetics
 			}
 		}
 
-		private bool _TryFindRemoteVehicle()
+		private Awaitable<bool> _TryFindRemoteVehicle()
 		{
-			if (this.targetVehicle != null)
-			{
-				return true;
-			}
-			VRRig componentInParent = base.GetComponentInParent<VRRig>(true);
-			if (componentInParent.IsNull())
-			{
-				Debug.LogError("RCRemoteHoldable: unable to find parent vrrig");
-				return false;
-			}
-			CosmeticItemInstance cosmeticItemInstance = componentInParent.cosmeticsObjectRegistry.Cosmetic(base.name);
-			int instanceID = base.gameObject.GetInstanceID();
-			return this._TryFindRemoteVehicle_InCosmeticInstanceArray(instanceID, cosmeticItemInstance.objects) || this._TryFindRemoteVehicle_InCosmeticInstanceArray(instanceID, cosmeticItemInstance.leftObjects) || this._TryFindRemoteVehicle_InCosmeticInstanceArray(instanceID, cosmeticItemInstance.rightObjects);
+			RCRemoteHoldable.<_TryFindRemoteVehicle>d__33 <_TryFindRemoteVehicle>d__;
+			<_TryFindRemoteVehicle>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder<bool>.Create();
+			<_TryFindRemoteVehicle>d__.<>4__this = this;
+			<_TryFindRemoteVehicle>d__.<>1__state = -1;
+			<_TryFindRemoteVehicle>d__.<>t__builder.Start<RCRemoteHoldable.<_TryFindRemoteVehicle>d__33>(ref <_TryFindRemoteVehicle>d__);
+			return <_TryFindRemoteVehicle>d__.<>t__builder.Task;
 		}
 
 		private bool _TryFindRemoteVehicle_InCosmeticInstanceArray(int thisGobjInstId, List<GameObject> gameObjects)

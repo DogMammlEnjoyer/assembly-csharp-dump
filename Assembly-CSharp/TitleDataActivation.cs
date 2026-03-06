@@ -314,7 +314,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 			set
 			{
 				this.startDateTime = value;
-				this.dtStart = TitleDataActivation.ReferenceDate.AddDays((double)this.startDateTime.DaysPast).AddHours((double)this.startDateTime.Hour).AddMinutes((double)this.startDateTime.Minute);
+				this.dtStart = TitleDataActivation.ReferenceDate.AddDays((double)this.startDateTime.DaysPast).AddHours((double)this.startDateTime.Hours).AddMinutes((double)this.startDateTime.Minutes).AddSeconds((double)this.startDateTime.Seconds);
 			}
 		}
 
@@ -327,7 +327,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 			set
 			{
 				this.endDateTime = value;
-				this.dtEnd = TitleDataActivation.ReferenceDate.AddDays((double)this.endDateTime.DaysPast).AddHours((double)this.endDateTime.Hour).AddMinutes((double)this.endDateTime.Minute);
+				this.dtEnd = TitleDataActivation.ReferenceDate.AddDays((double)this.endDateTime.DaysPast).AddHours((double)this.endDateTime.Hours).AddMinutes((double)this.endDateTime.Minutes).AddSeconds((double)this.endDateTime.Seconds);
 			}
 		}
 
@@ -353,8 +353,10 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 	{
 		public int DaysPast;
 
-		public int Hour;
+		public int Hours;
 
-		public int Minute;
+		public int Minutes;
+
+		public int Seconds;
 	}
 }

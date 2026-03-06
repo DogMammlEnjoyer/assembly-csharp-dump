@@ -32,6 +32,11 @@ public class GameLight : MonoBehaviour
 		}
 	}
 
+	public void UpdateCachedLightColorAndIntensity()
+	{
+		this.cachedColorAndIntensity = (float)this.intensityMult * this.light.intensity * (this.negativeLight ? -1f : 1f) * this.light.color;
+	}
+
 	public Light light;
 
 	public bool negativeLight;

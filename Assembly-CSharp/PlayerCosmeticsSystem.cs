@@ -20,7 +20,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			base.transform.SetParent(null, true);
 			Object.DontDestroyOnLoad(this);
 			this.inventory = new List<string>();
-			this.inventory.Add("Inventory");
+			this.inventory.Add("InventoryDict");
 			this.inventory.Add(PlayerCosmeticsSystem.subscriptionKey);
 			NetworkSystem.Instance.OnRaiseEvent += this.OnNetEvent;
 			return;
@@ -58,7 +58,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 		if (!this.isLookingUp)
 		{
 			TickSystem<object>.AddPreTickCallback(this);
-			this.startSearchingTime = (wait ? Time.time : float.MinValue);
+			this.startSearchingTime = (wait ? Time.realtimeSinceStartup : float.MinValue);
 			this.isLookingUp = true;
 		}
 	}
@@ -72,7 +72,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			this.isLookingUp = false;
 			return;
 		}
-		if (this.startSearchingTime + this.playerLookUpCooldown > Time.time)
+		if (this.startSearchingTime + this.playerLookUpCooldown > Time.realtimeSinceStartup)
 		{
 			return;
 		}
@@ -121,7 +121,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 				bool flag = false;
 				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> keyValuePair in result.Data)
 				{
-					if (keyValuePair.Key == "Inventory")
+					if (keyValuePair.Key == "InventoryDict")
 					{
 						int j;
 						if (Utils.PlayerInRoom(PlayerCosmeticsSystem.playerActorNumberList[j]))
@@ -205,7 +205,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 					GorillaGameManager.ForceStopGame_DisconnectAndDestroy();
 				}
 			}, null, null);
-			yield return new WaitForSeconds(this.getSharedGroupDataCooldown);
+			yield return new WaitForSecondsRealtime(this.getSharedGroupDataCooldown);
 			num = i;
 		}
 		this.isLookingUpNew = false;
@@ -480,6 +480,8 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 	private RigContainer tempRC;
 
 	private List<string> inventory;
+
+	private const string inventoryKey = "InventoryDict";
 
 	private static readonly string subscriptionKey = "subscriptions.fan_club";
 

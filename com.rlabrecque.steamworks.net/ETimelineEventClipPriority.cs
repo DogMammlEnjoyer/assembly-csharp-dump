@@ -1,0 +1,12 @@
+﻿using System;
+
+namespace Steamworks
+{
+	public enum ETimelineEventClipPriority
+	{
+		k_ETimelineEventClipPriority_Invalid,
+		k_ETimelineEventClipPriority_None,
+		k_ETimelineEventClipPriority_Standard,
+		k_ETimelineEventClipPriority_Featured
+	}
+}

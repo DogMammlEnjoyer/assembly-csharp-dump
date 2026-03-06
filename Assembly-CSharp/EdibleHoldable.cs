@@ -1,4 +1,5 @@
 ﻿using System;
+using GorillaExtensions;
 using GorillaTag;
 using UnityEngine;
 using UnityEngine.Events;
@@ -69,20 +70,20 @@ public class EdibleHoldable : TransferrableObject
 			}
 			VRRig vrrig = null;
 			VRRig vrrig2 = null;
-			for (int i = 0; i < GorillaParent.instance.vrrigs.Count; i++)
+			for (int i = 0; i < VRRigCache.ActiveRigContainers.Count; i++)
 			{
-				VRRig vrrig3 = GorillaParent.instance.vrrigs[i];
-				if (!vrrig3.isOfflineVRRig)
+				VRRig rig = VRRigCache.ActiveRigContainers[i].Rig;
+				if (!rig.isOfflineVRRig)
 				{
-					if (vrrig3.head == null || vrrig3.head.rigTarget == null)
+					if (rig.head == null || rig.head.rigTarget.IsNull())
 					{
 						break;
 					}
-					Transform transform = vrrig3.head.rigTarget.transform;
+					Transform transform = rig.head.rigTarget.transform;
 					if ((transform.position + transform.rotation * this.biteOffset - this.biteSpot.position).sqrMagnitude < num)
 					{
 						flag = true;
-						vrrig2 = vrrig3;
+						vrrig2 = rig;
 					}
 				}
 			}
@@ -209,22 +210,22 @@ public class EdibleHoldable : TransferrableObject
 		{
 			VRRig vrrig = null;
 			float num3 = float.PositiveInfinity;
-			for (int j = 0; j < GorillaParent.instance.vrrigs.Count; j++)
+			for (int j = 0; j < VRRigCache.ActiveRigContainers.Count; j++)
 			{
-				VRRig vrrig2 = GorillaParent.instance.vrrigs[j];
-				if (vrrig2.head == null || vrrig2.head.rigTarget == null)
+				VRRig rig = VRRigCache.ActiveRigContainers[j].Rig;
+				if (rig.head == null || rig.head.rigTarget.IsNull())
 				{
 					break;
 				}
-				Transform transform = vrrig2.head.rigTarget.transform;
+				Transform transform = rig.head.rigTarget.transform;
 				float sqrMagnitude = (transform.position + transform.rotation * this.biteOffset - this.biteSpot.position).sqrMagnitude;
 				if (sqrMagnitude < num3)
 				{
 					num3 = sqrMagnitude;
-					vrrig = vrrig2;
+					vrrig = rig;
 				}
 			}
-			if (vrrig != null)
+			if (vrrig.IsNotNull())
 			{
 				EdibleHoldable.BiteEvent biteEvent = vrrig.isOfflineVRRig ? this.onBiteView : this.onBiteWorld;
 				if (biteEvent != null)

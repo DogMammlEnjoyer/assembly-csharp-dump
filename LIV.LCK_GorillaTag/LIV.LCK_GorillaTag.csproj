@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA05D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Liv.Lck</RootNamespace>
+    <AssemblyName>LIV.LCK_GorillaTag</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DroneFakeCameraMimicer.cs" />
+    <Compile Include="GorillaTag\CameraMode.cs" />
+    <Compile Include="GorillaTag\CameraModeAsset.cs" />
+    <Compile Include="GorillaTag\CoconutCamera.cs" />
+    <Compile Include="GorillaTag\DroneCamera.cs" />
+    <Compile Include="GorillaTag\DroneController.cs" />
+    <Compile Include="GorillaTag\DroneDataModel.cs" />
+    <Compile Include="GorillaTag\DroneGamepad.cs" />
+    <Compile Include="GorillaTag\DroneGeneralKeyboard.cs" />
+    <Compile Include="GorillaTag\DroneGUI.cs" />
+    <Compile Include="GorillaTag\DroneKeyboard.cs" />
+    <Compile Include="GorillaTag\DroneMouse.cs" />
+    <Compile Include="GorillaTag\DroneMovement.cs" />
+    <Compile Include="GorillaTag\DroneMovementMode.cs" />
+    <Compile Include="GorillaTag\DroneRecordingStateData.cs" />
+    <Compile Include="GorillaTag\DroneSystem.cs" />
+    <Compile Include="GorillaTag\GtAudioButton.cs" />
+    <Compile Include="GorillaTag\GtAudioTrigger.cs" />
+    <Compile Include="GorillaTag\GtButton.cs" />
+    <Compile Include="GorillaTag\GtCameraDockSettings.cs" />
+    <Compile Include="GorillaTag\GtCameraModeComparator.cs" />
+    <Compile Include="GorillaTag\GtCameraModeTransform.cs" />
+    <Compile Include="GorillaTag\GtCoconutCameraController.cs" />
+    <Compile Include="GorillaTag\GtColliderTriggerProcessor.cs" />
+    <Compile Include="GorillaTag\GtColliderTriggerProcessorsGroup.cs" />
+    <Compile Include="GorillaTag\GtCounter.cs" />
+    <Compile Include="GorillaTag\GtDisplay.cs" />
+    <Compile Include="GorillaTag\GtDroneModeTabletUIAppearance.cs" />
+    <Compile Include="GorillaTag\GtDummyTablet.cs" />
+    <Compile Include="GorillaTag\GtHdSdToggle.cs" />
+    <Compile Include="GorillaTag\GTLckController.cs" />
+    <Compile Include="GorillaTag\GtMicVolume.cs" />
+    <Compile Include="GorillaTag\GtNotificationController.cs" />
+    <Compile Include="GorillaTag\GtRecordButton.cs" />
+    <Compile Include="GorillaTag\GtScreenButton.cs" />
+    <Compile Include="GorillaTag\GtSelector.cs" />
+    <Compile Include="GorillaTag\GtSelectorsGroup.cs" />
+    <Compile Include="GorillaTag\GtSettingsSectionGroup.cs" />
+    <Compile Include="GorillaTag\GtStreamButton.cs" />
+    <Compile Include="GorillaTag\GtTabletFollower.cs" />
+    <Compile Include="GorillaTag\GtTabletSocialCameraVisuals.cs" />
+    <Compile Include="GorillaTag\GtTag.cs" />
+    <Compile Include="GorillaTag\GtTagType.cs" />
+    <Compile Include="GorillaTag\GtToggle.cs" />
+    <Compile Include="GorillaTag\GtTopButton.cs" />
+    <Compile Include="GorillaTag\GtUiSettings.cs" />
+    <Compile Include="GorillaTag\IGtCameraVisuals.cs" />
+    <Compile Include="GorillaTag\LckFrameController.cs" />
+    <Compile Include="GorillaTag\LckOverlayFrameLayer.cs" />
+    <Compile Include="GorillaTag\OverlayController.cs" />
+    <Compile Include="GorillaTag\RecordingState.cs" />
+    <Compile Include="GorillaTag\ScheduledDuration.cs" />
+    <Compile Include="GorillaTag\SelectorState.cs" />
+    <Compile Include="GorillaTag\SettingsSectionController.cs" />
+    <Compile Include="GtThirdPersonCameraBehaviour.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tablet\GtTopButtonsHelper.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LIV.LCK\LIV.LCK.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA05E}</Project>
+      <Name>LIV.LCK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA102}</Project>
+      <Name>UnityEngine.IMGUIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11F}</Project>
+      <Name>UnityEngine.TextRenderingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12E}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestTextureModule\UnityEngine.UnityWebRequestTextureModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12F}</Project>
+      <Name>UnityEngine.UnityWebRequestTextureModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

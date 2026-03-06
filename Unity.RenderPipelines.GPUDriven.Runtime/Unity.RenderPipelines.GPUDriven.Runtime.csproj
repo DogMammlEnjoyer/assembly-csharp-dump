@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.RenderPipelines.GPUDriven.Runtime</RootNamespace>
+    <AssemblyName>Unity.RenderPipelines.GPUDriven.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$BurstDirectCallInitializer.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="UnityEngine\Rendering\AABB.cs" />
+    <Compile Include="UnityEngine\Rendering\AABBExtensions.cs" />
+    <Compile Include="UnityEngine\Rendering\AllocateBinsPerBatch.cs" />
+    <Compile Include="UnityEngine\Rendering\AnimateCrossFadeJob.cs" />
+    <Compile Include="UnityEngine\Rendering\BatchLayer.cs" />
+    <Compile Include="UnityEngine\Rendering\BinningConfig.cs" />
+    <Compile Include="UnityEngine\Rendering\BuildDrawListsJob.cs" />
+    <Compile Include="UnityEngine\Rendering\CompactVisibilityMasksJob.cs" />
+    <Compile Include="UnityEngine\Rendering\CPUDrawInstanceData.cs" />
+    <Compile Include="UnityEngine\Rendering\CPUInstanceData.cs" />
+    <Compile Include="UnityEngine\Rendering\CPUPerCameraInstanceData.cs" />
+    <Compile Include="UnityEngine\Rendering\CPUSharedInstanceData.cs" />
+    <Compile Include="UnityEngine\Rendering\CPUSharedInstanceFlags.cs" />
+    <Compile Include="UnityEngine\Rendering\CullingJob.cs" />
+    <Compile Include="UnityEngine\Rendering\DebugDisplayGPUResidentDrawer.cs" />
+    <Compile Include="UnityEngine\Rendering\DebugOccluderStats.cs" />
+    <Compile Include="UnityEngine\Rendering\DebugRendererBatcherStats.cs" />
+    <Compile Include="UnityEngine\Rendering\DisallowGPUDrivenRendering.cs" />
+    <Compile Include="UnityEngine\Rendering\DisallowSmallMeshCulling.cs" />
+    <Compile Include="UnityEngine\Rendering\DrawBatch.cs" />
+    <Compile Include="UnityEngine\Rendering\DrawCommandOutputPerBatch.cs" />
+    <Compile Include="UnityEngine\Rendering\DrawInstance.cs" />
+    <Compile Include="UnityEngine\Rendering\DrawKey.cs" />
+    <Compile Include="UnityEngine\Rendering\DrawRange.cs" />
+    <Compile Include="UnityEngine\Rendering\EditorInstanceDataArrays.cs" />
+    <Compile Include="UnityEngine\Rendering\FindDrawInstancesJob.cs" />
+    <Compile Include="UnityEngine\Rendering\FindMaterialDrawInstancesJob.cs" />
+    <Compile Include="UnityEngine\Rendering\FindNonRegisteredMaterialsJob.cs" />
+    <Compile Include="UnityEngine\Rendering\FindNonRegisteredMeshesJob.cs" />
+    <Compile Include="UnityEngine\Rendering\FrustumPlaneCuller.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceComponentDesc.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceDataBuffer.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceDataBufferBuilder.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceDataBufferGrower.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceDataBufferUploader.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUInstanceIndex.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentBatcher.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentDrawer.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentDrawerBurst.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentDrawerMode.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentDrawerResources.cs" />
+    <Compile Include="UnityEngine\Rendering\GPUResidentDrawerSettings.cs" />
+    <Compile Include="UnityEngine\Rendering\IDataArrays.cs" />
+    <Compile Include="UnityEngine\Rendering\IGPUResidentRenderPipeline.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectAllocator.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectBufferAllocInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectBufferContext.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectBufferContextHandles.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectBufferContextStorage.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectBufferLimits.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectDrawInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\IndirectInstanceInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceAllocator.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceAllocators.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceComponentGroup.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCuller.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullerBurst.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullerSplitDebugArray.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullerSplitDebugCounter.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullerViewStats.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullingBatcher.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullingBatcherBurst.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceCullingBatcherDesc.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceDataSystem.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceDataSystemBurst.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceFlags.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceHandle.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceNumInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionCullerShaderVariables.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionEventDebugArray.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionEventStats.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionEventType.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionTestDebugCounter.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceOcclusionTestSubviewSettings.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceType.cs" />
+    <Compile Include="UnityEngine\Rendering\InstanceTypeInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\Line.cs" />
+    <Compile Include="UnityEngine\Rendering\LODGroupCullingData.cs" />
+    <Compile Include="UnityEngine\Rendering\LODGroupData.cs" />
+    <Compile Include="UnityEngine\Rendering\LODGroupDataPool.cs" />
+    <Compile Include="UnityEngine\Rendering\LODGroupDataPoolBurst.cs" />
+    <Compile Include="UnityEngine\Rendering\LODRenderingUtils.cs" />
+    <Compile Include="UnityEngine\Rendering\MemoryUtilities.cs" />
+    <Compile Include="UnityEngine\Rendering\MeshProceduralInfo.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderContext.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderDepthPyramidConstants.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderDerivedData.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderHandles.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderMipBounds.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderParameters.cs" />
+    <Compile Include="UnityEngine\Rendering\OccluderSubviewUpdate.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingCommon.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingCommonConfig.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingCommonShaderVariables.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingDebugOutput.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingDebugShaderVariables.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionCullingSettings.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionTest.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionTestComputeShader.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionTestDebugFlag.cs" />
+    <Compile Include="UnityEngine\Rendering\OcclusionTestMethods.cs" />
+    <Compile Include="UnityEngine\Rendering\OnCullingCompleteCallback.cs" />
+    <Compile Include="UnityEngine\Rendering\PackedMatrix.cs" />
+    <Compile Include="UnityEngine\Rendering\ParallelBitArray.cs" />
+    <Compile Include="UnityEngine\Rendering\ParallelSortExtensions.cs" />
+    <Compile Include="UnityEngine\Rendering\PrefixSumDrawInstancesJob.cs" />
+    <Compile Include="UnityEngine\Rendering\PrefixSumDrawsAndInstances.cs" />
+    <Compile Include="UnityEngine\Rendering\RangeKey.cs" />
+    <Compile Include="UnityEngine\Rendering\ReceiverPlanes.cs" />
+    <Compile Include="UnityEngine\Rendering\ReceiverSphereCuller.cs" />
+    <Compile Include="UnityEngine\Rendering\RegisterNewMaterialsJob.cs" />
+    <Compile Include="UnityEngine\Rendering\RegisterNewMeshesJob.cs" />
+    <Compile Include="UnityEngine\Rendering\RenderersBatchersContext.cs" />
+    <Compile Include="UnityEngine\Rendering\RenderersBatchersContextDesc.cs" />
+    <Compile Include="UnityEngine\Rendering\RenderersParameters.cs" />
+    <Compile Include="UnityEngine\Rendering\RenderRequestBatcherContext.cs" />
+    <Compile Include="UnityEngine\Rendering\SharedInstanceHandle.cs" />
+    <Compile Include="UnityEngine\Rendering\SHUpdatePacket.cs" />
+    <Compile Include="UnityEngine\Rendering\SilhouettePlaneCache.cs" />
+    <Compile Include="UnityEngine\Rendering\SmallIntegerArray.cs" />
+    <Compile Include="UnityEngine\Rendering\SpeedTreeWindShaderDef.cs" />
+    <Compile Include="UnityEngine\Rendering\SubviewOcclusionTest.cs" />
+    <Compile Include="UnityEngine\Rendering\TransformUpdateFlags.cs" />
+    <Compile Include="UnityEngine\Rendering\TransformUpdatePacket.cs" />
+    <Compile Include="UnityEngine\Rendering\UpdateLODGroupDataJob.cs" />
+    <Compile Include="UnityEngine\Rendering\UpdateLODGroupTransformJob.cs" />
+    <Compile Include="UnityEngine\Rendering\UpdatePackedMaterialDataCacheJob.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="__JobReflectionRegistrationOutput__15867191014387474753.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Collections\Unity.Collections.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BA}</Project>
+      <Name>Unity.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D0}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TerrainModule\UnityEngine.TerrainModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11B}</Project>
+      <Name>UnityEngine.TerrainModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

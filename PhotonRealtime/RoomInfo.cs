@@ -97,35 +97,65 @@ namespace Photon.Realtime
 			}
 			if (propertiesToCache.ContainsKey(251))
 			{
-				this.RemovedFromList = (bool)propertiesToCache[251];
-				if (this.RemovedFromList)
+				object obj = propertiesToCache[251];
+				if (obj is bool)
 				{
-					return;
+					bool removedFromList = (bool)obj;
+					this.RemovedFromList = removedFromList;
+					if (this.RemovedFromList)
+					{
+						return;
+					}
 				}
 			}
 			if (propertiesToCache.ContainsKey(255))
 			{
-				this.maxPlayers = (byte)propertiesToCache[byte.MaxValue];
+				object obj = propertiesToCache[byte.MaxValue];
+				if (obj is byte)
+				{
+					byte b = (byte)obj;
+					this.maxPlayers = b;
+				}
 			}
 			if (propertiesToCache.ContainsKey(253))
 			{
-				this.isOpen = (bool)propertiesToCache[253];
+				object obj = propertiesToCache[253];
+				if (obj is bool)
+				{
+					bool flag = (bool)obj;
+					this.isOpen = flag;
+				}
 			}
 			if (propertiesToCache.ContainsKey(254))
 			{
-				this.isVisible = (bool)propertiesToCache[254];
+				object obj = propertiesToCache[254];
+				if (obj is bool)
+				{
+					bool flag2 = (bool)obj;
+					this.isVisible = flag2;
+				}
 			}
-			if (propertiesToCache.ContainsKey(252))
+			if (propertiesToCache.ContainsKey(252) && (propertiesToCache[252] is int || propertiesToCache[252] is byte))
 			{
 				this.PlayerCount = (int)((byte)propertiesToCache[252]);
 			}
 			if (propertiesToCache.ContainsKey(249))
 			{
-				this.autoCleanUp = (bool)propertiesToCache[249];
+				object obj = propertiesToCache[249];
+				if (obj is bool)
+				{
+					bool flag3 = (bool)obj;
+					this.autoCleanUp = flag3;
+				}
 			}
 			if (propertiesToCache.ContainsKey(248))
 			{
-				this.masterClientId = (int)propertiesToCache[248];
+				object obj = propertiesToCache[248];
+				if (obj is int)
+				{
+					int num = (int)obj;
+					this.masterClientId = num;
+				}
 			}
 			if (propertiesToCache.ContainsKey(250))
 			{
@@ -133,15 +163,25 @@ namespace Photon.Realtime
 			}
 			if (propertiesToCache.ContainsKey(247))
 			{
-				this.expectedUsers = (string[])propertiesToCache[247];
+				this.expectedUsers = (propertiesToCache[247] as string[]);
 			}
 			if (propertiesToCache.ContainsKey(245))
 			{
-				this.emptyRoomTtl = (int)propertiesToCache[245];
+				object obj = propertiesToCache[245];
+				if (obj is int)
+				{
+					int num2 = (int)obj;
+					this.emptyRoomTtl = num2;
+				}
 			}
 			if (propertiesToCache.ContainsKey(246))
 			{
-				this.playerTtl = (int)propertiesToCache[246];
+				object obj = propertiesToCache[246];
+				if (obj is int)
+				{
+					int num3 = (int)obj;
+					this.playerTtl = num3;
+				}
 			}
 			this.customProperties.MergeStringKeys(propertiesToCache);
 			this.customProperties.StripKeysWithNullValues();

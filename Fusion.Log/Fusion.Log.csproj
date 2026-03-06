@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA055}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fusion.Log</RootNamespace>
+    <AssemblyName>Fusion.Log</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fusion\Assert.cs" />
+    <Compile Include="Fusion\AssertException.cs" />
+    <Compile Include="Fusion\ConsoleLogger.cs" />
+    <Compile Include="Fusion\ConsoleLogStream.cs" />
+    <Compile Include="Fusion\DebugLogStream.cs" />
+    <Compile Include="Fusion\FusionEditorLog.cs" />
+    <Compile Include="Fusion\FusionUnityLoggerBase.cs" />
+    <Compile Include="Fusion\ILogDumpable.cs" />
+    <Compile Include="Fusion\ILogger.cs" />
+    <Compile Include="Fusion\ILogSource.cs" />
+    <Compile Include="Fusion\ILogSourceProxy.cs" />
+    <Compile Include="Fusion\InternalLogStreams.cs" />
+    <Compile Include="Fusion\Log.cs" />
+    <Compile Include="Fusion\LogContext.cs" />
+    <Compile Include="Fusion\LogFlags.cs" />
+    <Compile Include="Fusion\LogLevel.cs" />
+    <Compile Include="Fusion\LogSettings.cs" />
+    <Compile Include="Fusion\LogStream.cs" />
+    <Compile Include="Fusion\LogType.cs" />
+    <Compile Include="Fusion\LogUtils.cs" />
+    <Compile Include="Fusion\TextWriterLogger.cs" />
+    <Compile Include="Fusion\TextWriterLogStream.cs" />
+    <Compile Include="Fusion\TraceChannels.cs" />
+    <Compile Include="Fusion\TraceLogStream.cs" />
+    <Compile Include="Fusion\UnityLogStream.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F8}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

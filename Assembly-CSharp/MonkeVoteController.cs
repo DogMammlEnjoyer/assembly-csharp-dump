@@ -120,7 +120,7 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 			{
 				int num = (int)Mathf.Pow(2f, (float)(this.fetchPollsRetryCount + 1));
 				this.fetchPollsRetryCount++;
-				yield return new WaitForSeconds((float)num);
+				yield return new WaitForSecondsRealtime((float)num);
 				this.FetchPolls();
 			}
 			else
@@ -259,7 +259,7 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 			{
 				int num = (int)Mathf.Pow(2f, (float)(this.voteRetryCount + 1));
 				this.voteRetryCount++;
-				yield return new WaitForSeconds((float)num);
+				yield return new WaitForSecondsRealtime((float)num);
 				this.SendVote();
 			}
 			else

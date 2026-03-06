@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D797127B-CA92-4ED8-858C-14DE627DA884}</ProjectGuid>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA096}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Photon.Voice.PUN</RootNamespace>
     <AssemblyName>PhotonVoice.PUN</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
@@ -45,35 +48,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA86F}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA87D}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08F}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA87E}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA090}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonUnityNetworking\PhotonUnityNetworking.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA87F}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA091}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA881}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA093}</Project>
       <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice\PhotonVoice.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA882}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA094}</Project>
       <Name>PhotonVoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8DE}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8E3}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
   </ItemGroup>

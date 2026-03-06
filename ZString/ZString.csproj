@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA141}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZString</RootNamespace>
+    <AssemblyName>ZString</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cysharp\Text\EnumUtil.cs" />
+    <Compile Include="Cysharp\Text\ExceptionUtil.cs" />
+    <Compile Include="Cysharp\Text\FastNumberWriter.cs" />
+    <Compile Include="Cysharp\Text\FormatParser.cs" />
+    <Compile Include="Cysharp\Text\IResettableBufferWriter.cs" />
+    <Compile Include="Cysharp\Text\NestedStringBuilderCreationException.cs" />
+    <Compile Include="Cysharp\Text\ParserScanResult.cs" />
+    <Compile Include="Cysharp\Text\PreparedFormatHelper.cs" />
+    <Compile Include="Cysharp\Text\ReadOnlyListAdaptor.cs" />
+    <Compile Include="Cysharp\Text\TextMeshProExtensions.cs" />
+    <Compile Include="Cysharp\Text\Utf16FormatHelper.cs" />
+    <Compile Include="Cysharp\Text\Utf16FormatSegment.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.10.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.11.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.12.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.13.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.14.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.15.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.16.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.2.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.3.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.4.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.5.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.6.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.7.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.8.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.9.cs" />
+    <Compile Include="Cysharp\Text\Utf16PreparedFormat.cs" />
+    <Compile Include="Cysharp\Text\Utf16ValueStringBuilder.cs" />
+    <Compile Include="Cysharp\Text\Utf8FormatHelper.cs" />
+    <Compile Include="Cysharp\Text\Utf8FormatSegment.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.10.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.11.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.12.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.13.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.14.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.15.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.16.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.2.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.3.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.4.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.5.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.6.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.7.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.8.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.9.cs" />
+    <Compile Include="Cysharp\Text\Utf8PreparedFormat.cs" />
+    <Compile Include="Cysharp\Text\Utf8ValueStringBuilder.cs" />
+    <Compile Include="Cysharp\Text\ZString.cs" />
+    <Compile Include="Cysharp\Text\ZStringWriter.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\BufferEx.cs" />
+    <Compile Include="System\Buffers\Text\FormattingHelpers.cs" />
+    <Compile Include="System\DecimalEx.cs" />
+    <Compile Include="System\FloatEx.cs" />
+    <Compile Include="System\GuidEx.cs" />
+    <Compile Include="System\HexConverter.cs" />
+    <Compile Include="System\InternalSpanEx.cs" />
+    <Compile Include="System\MathEx.cs" />
+    <Compile Include="System\Number.cs" />
+    <Compile Include="System\NumberFormatInfoEx.cs" />
+    <Compile Include="System\Numerics\BitOperations.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="System\Text\ValueStringBuilder.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0AA}</Project>
+      <Name>System.Runtime.CompilerServices.Unsafe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

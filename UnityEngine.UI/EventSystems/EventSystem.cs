@@ -1,0 +1,471 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine.Rendering;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+
+namespace UnityEngine.EventSystems
+{
+	[AddComponentMenu("Event/Event System")]
+	[DisallowMultipleComponent]
+	public class EventSystem : UIBehaviour
+	{
+		public static EventSystem current
+		{
+			get
+			{
+				if (EventSystem.m_EventSystems.Count <= 0)
+				{
+					return null;
+				}
+				return EventSystem.m_EventSystems[0];
+			}
+			set
+			{
+				int num = EventSystem.m_EventSystems.IndexOf(value);
+				if (num > 0)
+				{
+					EventSystem.m_EventSystems.RemoveAt(num);
+					EventSystem.m_EventSystems.Insert(0, value);
+					return;
+				}
+				if (num < 0)
+				{
+					Debug.LogError("Failed setting EventSystem.current to unknown EventSystem " + ((value != null) ? value.ToString() : null));
+				}
+			}
+		}
+
+		public bool sendNavigationEvents
+		{
+			get
+			{
+				return this.m_sendNavigationEvents;
+			}
+			set
+			{
+				this.m_sendNavigationEvents = value;
+			}
+		}
+
+		public int pixelDragThreshold
+		{
+			get
+			{
+				return this.m_DragThreshold;
+			}
+			set
+			{
+				this.m_DragThreshold = value;
+			}
+		}
+
+		public BaseInputModule currentInputModule
+		{
+			get
+			{
+				return this.m_CurrentInputModule;
+			}
+		}
+
+		public GameObject firstSelectedGameObject
+		{
+			get
+			{
+				return this.m_FirstSelected;
+			}
+			set
+			{
+				this.m_FirstSelected = value;
+			}
+		}
+
+		public GameObject currentSelectedGameObject
+		{
+			get
+			{
+				return this.m_CurrentSelected;
+			}
+		}
+
+		[Obsolete("lastSelectedGameObject is no longer supported")]
+		public GameObject lastSelectedGameObject
+		{
+			get
+			{
+				return null;
+			}
+		}
+
+		public bool isFocused
+		{
+			get
+			{
+				return this.m_HasFocus;
+			}
+		}
+
+		protected EventSystem()
+		{
+		}
+
+		public void UpdateModules()
+		{
+			base.GetComponents<BaseInputModule>(this.m_SystemInputModules);
+			for (int i = this.m_SystemInputModules.Count - 1; i >= 0; i--)
+			{
+				if (!this.m_SystemInputModules[i] || !this.m_SystemInputModules[i].IsActive())
+				{
+					this.m_SystemInputModules.RemoveAt(i);
+				}
+			}
+		}
+
+		public bool alreadySelecting
+		{
+			get
+			{
+				return this.m_SelectionGuard;
+			}
+		}
+
+		public void SetSelectedGameObject(GameObject selected, BaseEventData pointer)
+		{
+			if (this.m_SelectionGuard)
+			{
+				Debug.LogError("Attempting to select " + ((selected != null) ? selected.ToString() : null) + "while already selecting an object.");
+				return;
+			}
+			this.m_SelectionGuard = true;
+			if (selected == this.m_CurrentSelected)
+			{
+				this.m_SelectionGuard = false;
+				return;
+			}
+			ExecuteEvents.Execute<IDeselectHandler>(this.m_CurrentSelected, pointer, ExecuteEvents.deselectHandler);
+			this.m_CurrentSelected = selected;
+			ExecuteEvents.Execute<ISelectHandler>(this.m_CurrentSelected, pointer, ExecuteEvents.selectHandler);
+			this.m_SelectionGuard = false;
+		}
+
+		private BaseEventData baseEventDataCache
+		{
+			get
+			{
+				if (this.m_DummyData == null)
+				{
+					this.m_DummyData = new BaseEventData(this);
+				}
+				return this.m_DummyData;
+			}
+		}
+
+		public void SetSelectedGameObject(GameObject selected)
+		{
+			this.SetSelectedGameObject(selected, this.baseEventDataCache);
+		}
+
+		private static int RaycastComparer(RaycastResult lhs, RaycastResult rhs)
+		{
+			if (lhs.module != rhs.module)
+			{
+				Camera eventCamera = lhs.module.eventCamera;
+				Camera eventCamera2 = rhs.module.eventCamera;
+				if (eventCamera != null && eventCamera2 != null && eventCamera.depth != eventCamera2.depth)
+				{
+					if (eventCamera.depth < eventCamera2.depth)
+					{
+						return 1;
+					}
+					if (eventCamera.depth == eventCamera2.depth)
+					{
+						return 0;
+					}
+					return -1;
+				}
+				else
+				{
+					if (lhs.module.sortOrderPriority != rhs.module.sortOrderPriority)
+					{
+						return rhs.module.sortOrderPriority.CompareTo(lhs.module.sortOrderPriority);
+					}
+					if (lhs.module.renderOrderPriority != rhs.module.renderOrderPriority)
+					{
+						return rhs.module.renderOrderPriority.CompareTo(lhs.module.renderOrderPriority);
+					}
+				}
+			}
+			if (lhs.sortingLayer != rhs.sortingLayer)
+			{
+				int layerValueFromID = SortingLayer.GetLayerValueFromID(rhs.sortingLayer);
+				int layerValueFromID2 = SortingLayer.GetLayerValueFromID(lhs.sortingLayer);
+				return layerValueFromID.CompareTo(layerValueFromID2);
+			}
+			if (lhs.sortingOrder != rhs.sortingOrder)
+			{
+				return rhs.sortingOrder.CompareTo(lhs.sortingOrder);
+			}
+			if (lhs.depth != rhs.depth && lhs.module.rootRaycaster == rhs.module.rootRaycaster)
+			{
+				return rhs.depth.CompareTo(lhs.depth);
+			}
+			if (lhs.distance != rhs.distance)
+			{
+				return lhs.distance.CompareTo(rhs.distance);
+			}
+			if (lhs.sortingGroupID != SortingGroup.invalidSortingGroupID && rhs.sortingGroupID != SortingGroup.invalidSortingGroupID)
+			{
+				if (lhs.sortingGroupID != rhs.sortingGroupID)
+				{
+					return lhs.sortingGroupID.CompareTo(rhs.sortingGroupID);
+				}
+				if (lhs.sortingGroupOrder != rhs.sortingGroupOrder)
+				{
+					return rhs.sortingGroupOrder.CompareTo(lhs.sortingGroupOrder);
+				}
+			}
+			return lhs.index.CompareTo(rhs.index);
+		}
+
+		public void RaycastAll(PointerEventData eventData, List<RaycastResult> raycastResults)
+		{
+			raycastResults.Clear();
+			List<BaseRaycaster> raycasters = RaycasterManager.GetRaycasters();
+			int count = raycasters.Count;
+			for (int i = 0; i < count; i++)
+			{
+				BaseRaycaster baseRaycaster = raycasters[i];
+				if (!(baseRaycaster == null) && baseRaycaster.IsActive())
+				{
+					baseRaycaster.Raycast(eventData, raycastResults);
+				}
+			}
+			raycastResults.Sort(EventSystem.s_RaycastComparer);
+		}
+
+		public bool IsPointerOverGameObject()
+		{
+			return this.IsPointerOverGameObject(-1);
+		}
+
+		public bool IsPointerOverGameObject(int pointerId)
+		{
+			return this.m_CurrentInputModule != null && this.m_CurrentInputModule.IsPointerOverGameObject(pointerId);
+		}
+
+		internal UIToolkitInteroperabilityBridge uiToolkitInterop
+		{
+			get
+			{
+				return this.m_UIToolkitInterop;
+			}
+		}
+
+		internal bool isOverridingUIToolkitEvents
+		{
+			get
+			{
+				return this.uiToolkitInterop.overrideUIToolkitEvents && UIDocument.EnabledDocumentCount > 0;
+			}
+		}
+
+		[Obsolete("Use PanelInputConfiguration component instead.")]
+		public static void SetUITookitEventSystemOverride(EventSystem activeEventSystem, bool sendEvents = true, bool createPanelGameObjectsOnStart = true)
+		{
+			EventSystem.s_UIToolkitOverrideConfigOld = ((activeEventSystem == null && sendEvents && createPanelGameObjectsOnStart) ? null : new EventSystem.UIToolkitOverrideConfigOld?(new EventSystem.UIToolkitOverrideConfigOld
+			{
+				activeEventSystem = activeEventSystem,
+				sendEvents = sendEvents,
+				createPanelGameObjectsOnStart = createPanelGameObjectsOnStart
+			}));
+			EventSystem eventSystem = (activeEventSystem != null) ? activeEventSystem : EventSystem.current;
+			if (UIElementsRuntimeUtility.activeEventSystem != null && UIElementsRuntimeUtility.activeEventSystem != eventSystem)
+			{
+				((EventSystem)UIElementsRuntimeUtility.activeEventSystem).uiToolkitInterop.overrideUIToolkitEvents = false;
+			}
+			if (eventSystem != null && eventSystem.isActiveAndEnabled)
+			{
+				eventSystem.uiToolkitInterop.overrideUIToolkitEvents = sendEvents;
+				eventSystem.uiToolkitInterop.handlerTypes = (createPanelGameObjectsOnStart ? ((UIToolkitInteroperabilityBridge.EventHandlerTypes)(-1)) : ((UIToolkitInteroperabilityBridge.EventHandlerTypes)0));
+			}
+		}
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			EventSystem.m_EventSystems.Add(this);
+			if (EventSystem.s_UIToolkitOverrideConfigOld != null)
+			{
+				this.m_UIToolkitInterop = new UIToolkitInteroperabilityBridge();
+				if (!EventSystem.s_UIToolkitOverrideConfigOld.Value.sendEvents)
+				{
+					this.m_UIToolkitInterop.overrideUIToolkitEvents = false;
+				}
+				if (!EventSystem.s_UIToolkitOverrideConfigOld.Value.createPanelGameObjectsOnStart)
+				{
+					this.m_UIToolkitInterop.handlerTypes = (UIToolkitInteroperabilityBridge.EventHandlerTypes)0;
+				}
+			}
+			this.m_UIToolkitInterop.eventSystem = this;
+			this.m_UIToolkitInterop.OnEnable();
+		}
+
+		protected override void OnDisable()
+		{
+			this.m_UIToolkitInterop.OnDisable();
+			if (this.m_CurrentInputModule != null)
+			{
+				this.m_CurrentInputModule.DeactivateModule();
+				this.m_CurrentInputModule = null;
+			}
+			EventSystem.m_EventSystems.Remove(this);
+			base.OnDisable();
+		}
+
+		protected override void Start()
+		{
+			base.Start();
+			this.m_UIToolkitInterop.Start();
+		}
+
+		private void TickModules()
+		{
+			int count = this.m_SystemInputModules.Count;
+			for (int i = 0; i < count; i++)
+			{
+				if (this.m_SystemInputModules[i] != null)
+				{
+					this.m_SystemInputModules[i].UpdateModule();
+				}
+			}
+		}
+
+		protected virtual void OnApplicationFocus(bool hasFocus)
+		{
+			this.m_HasFocus = hasFocus;
+			if (!this.m_HasFocus)
+			{
+				this.TickModules();
+			}
+		}
+
+		protected virtual void Update()
+		{
+			this.m_UIToolkitInterop.Update();
+			if (EventSystem.current != this)
+			{
+				return;
+			}
+			this.TickModules();
+			bool flag = false;
+			int count = this.m_SystemInputModules.Count;
+			int i = 0;
+			while (i < count)
+			{
+				BaseInputModule baseInputModule = this.m_SystemInputModules[i];
+				if (baseInputModule.IsModuleSupported() && baseInputModule.ShouldActivateModule())
+				{
+					if (this.m_CurrentInputModule != baseInputModule)
+					{
+						this.ChangeEventModule(baseInputModule);
+						flag = true;
+						break;
+					}
+					break;
+				}
+				else
+				{
+					i++;
+				}
+			}
+			if (this.m_CurrentInputModule == null)
+			{
+				for (int j = 0; j < count; j++)
+				{
+					BaseInputModule baseInputModule2 = this.m_SystemInputModules[j];
+					if (baseInputModule2.IsModuleSupported())
+					{
+						this.ChangeEventModule(baseInputModule2);
+						flag = true;
+						break;
+					}
+				}
+			}
+			if (!flag && this.m_CurrentInputModule != null)
+			{
+				this.m_CurrentInputModule.Process();
+			}
+		}
+
+		private void ChangeEventModule(BaseInputModule module)
+		{
+			if (this.m_CurrentInputModule == module)
+			{
+				return;
+			}
+			if (this.m_CurrentInputModule != null)
+			{
+				this.m_CurrentInputModule.DeactivateModule();
+			}
+			if (module != null)
+			{
+				module.ActivateModule();
+			}
+			this.m_CurrentInputModule = module;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			string str = "<b>Selected:</b>";
+			GameObject currentSelectedGameObject = this.currentSelectedGameObject;
+			stringBuilder.AppendLine(str + ((currentSelectedGameObject != null) ? currentSelectedGameObject.ToString() : null));
+			stringBuilder.AppendLine();
+			stringBuilder.AppendLine();
+			stringBuilder.AppendLine((this.m_CurrentInputModule != null) ? this.m_CurrentInputModule.ToString() : "No module");
+			return stringBuilder.ToString();
+		}
+
+		private List<BaseInputModule> m_SystemInputModules = new List<BaseInputModule>();
+
+		private BaseInputModule m_CurrentInputModule;
+
+		private static List<EventSystem> m_EventSystems = new List<EventSystem>();
+
+		[SerializeField]
+		[FormerlySerializedAs("m_Selected")]
+		private GameObject m_FirstSelected;
+
+		[SerializeField]
+		private bool m_sendNavigationEvents = true;
+
+		[SerializeField]
+		private int m_DragThreshold = 10;
+
+		private GameObject m_CurrentSelected;
+
+		private bool m_HasFocus = true;
+
+		private bool m_SelectionGuard;
+
+		private BaseEventData m_DummyData;
+
+		private static readonly Comparison<RaycastResult> s_RaycastComparer = new Comparison<RaycastResult>(EventSystem.RaycastComparer);
+
+		[SerializeField]
+		[HideInInspector]
+		private UIToolkitInteroperabilityBridge m_UIToolkitInterop = new UIToolkitInteroperabilityBridge();
+
+		private static EventSystem.UIToolkitOverrideConfigOld? s_UIToolkitOverrideConfigOld = null;
+
+		private struct UIToolkitOverrideConfigOld
+		{
+			public EventSystem activeEventSystem;
+
+			public bool sendEvents;
+
+			public bool createPanelGameObjectsOnStart;
+		}
+	}
+}

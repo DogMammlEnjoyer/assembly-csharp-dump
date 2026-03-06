@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.InputSystem</RootNamespace>
+    <AssemblyName>Unity.InputSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UISupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\Accelerometer.cs" />
+    <Compile Include="UnityEngine\InputSystem\AmbientTemperatureSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\AttitudeSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\CommonUsages.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\AxisComposite.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\ButtonWithOneModifier.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\ButtonWithTwoModifiers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\OneModifierComposite.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\TwoModifiersComposite.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\Vector2Composite.cs" />
+    <Compile Include="UnityEngine\InputSystem\Composites\Vector3Composite.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\AnyKeyControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\AxisControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\ButtonControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\DeltaControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\DiscreteButtonControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\DoubleControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\DpadControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\IntegerControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\KeyControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\QuaternionControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\StickControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\TouchControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\TouchPhaseControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\TouchPressControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\Vector2Control.cs" />
+    <Compile Include="UnityEngine\InputSystem\Controls\Vector3Control.cs" />
+    <Compile Include="UnityEngine\InputSystem\DefaultInputActions.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\DualSenseGamepadHID.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\DualShock3GamepadHID.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\DualShock4GamepadHID.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\DualShockGamepad.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\DualShockSupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\IDualShockHaptics.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualSenseHIDBluetoothOutputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualSenseHIDInputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualSenseHIDOutputReportPayload.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualSenseHIDUSBOutputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualShock3HIDInputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualShock4HIDInputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DualShock\LowLevel\DualShockHIDOutputReport.cs" />
+    <Compile Include="UnityEngine\InputSystem\DynamicBitfield.cs" />
+    <Compile Include="UnityEngine\InputSystem\Editor\SampleFrequencyCalculator.cs" />
+    <Compile Include="UnityEngine\InputSystem\EnhancedTouch\EnhancedTouchSupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\EnhancedTouch\Finger.cs" />
+    <Compile Include="UnityEngine\InputSystem\EnhancedTouch\Touch.cs" />
+    <Compile Include="UnityEngine\InputSystem\EnhancedTouch\TouchHistory.cs" />
+    <Compile Include="UnityEngine\InputSystem\EnhancedTouch\TouchSimulation.cs" />
+    <Compile Include="UnityEngine\InputSystem\FastKeyboard.cs" />
+    <Compile Include="UnityEngine\InputSystem\FastMouse.cs" />
+    <Compile Include="UnityEngine\InputSystem\FastTouchscreen.cs" />
+    <Compile Include="UnityEngine\InputSystem\Gamepad.cs" />
+    <Compile Include="UnityEngine\InputSystem\GravitySensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Gyroscope.cs" />
+    <Compile Include="UnityEngine\InputSystem\Haptics\DualMotorRumble.cs" />
+    <Compile Include="UnityEngine\InputSystem\Haptics\IDualMotorRumble.cs" />
+    <Compile Include="UnityEngine\InputSystem\Haptics\IHaptics.cs" />
+    <Compile Include="UnityEngine\InputSystem\HID\HID.cs" />
+    <Compile Include="UnityEngine\InputSystem\HID\HIDParser.cs" />
+    <Compile Include="UnityEngine\InputSystem\HID\HIDSupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\HingeAngle.cs" />
+    <Compile Include="UnityEngine\InputSystem\HumiditySensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\IInputActionCollection.cs" />
+    <Compile Include="UnityEngine\InputSystem\IInputActionCollection2.cs" />
+    <Compile Include="UnityEngine\InputSystem\IInputInteraction.2.cs" />
+    <Compile Include="UnityEngine\InputSystem\IInputInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputAction.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionAsset.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionChange.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionMap.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionPhase.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionProperty.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionRebindingExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionReference.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionSetupExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionState.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputActionType.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputBinding.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputBindingComposite.2.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputBindingComposite.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputBindingCompositeContext.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputBindingResolver.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControl.2.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControlExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControlLayoutChange.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControlList.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControlPath.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputControlScheme.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputDevice.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputDeviceChange.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputFeatureNames.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputInteractionContext.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputManager.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputProcessor.2.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputRemoting.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputSettings.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputSystem.cs" />
+    <Compile Include="UnityEngine\InputSystem\InputValue.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\HoldInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\MultiTapInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\PressBehavior.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\PressInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\SlowTapInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\Interactions\TapInteraction.cs" />
+    <Compile Include="UnityEngine\InputSystem\Joystick.cs" />
+    <Compile Include="UnityEngine\InputSystem\Key.cs" />
+    <Compile Include="UnityEngine\InputSystem\Keyboard.cs" />
+    <Compile Include="UnityEngine\InputSystem\KeyEx.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputControlAttribute.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputControlLayout.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputControlLayoutAttribute.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputDeviceBuilder.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputDeviceDescription.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputDeviceFindControlLayoutDelegate.cs" />
+    <Compile Include="UnityEngine\InputSystem\Layouts\InputDeviceMatcher.cs" />
+    <Compile Include="UnityEngine\InputSystem\LightSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\LinearAccelerationSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\AccelerometerState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\ActionEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\AttitudeState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DeltaStateEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DeviceConfigurationEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DeviceRemoveEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DeviceResetEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DisableDeviceCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\DualMotorRumbleCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\EnableDeviceCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\EnableIMECompositionCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\GamepadButton.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\GamepadState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\GravityState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\GyroscopeState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\ICustomDeviceReset.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IEventMerger.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IEventPreProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputDeviceCommandInfo.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputEventTypeInfo.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputRuntime.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputStateCallbackReceiver.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputStateChangeMonitor.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputStateTypeInfo.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IInputUpdateCallbackReceiver.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IMECompositionEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\IMECompositionString.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InitiateUserAccountPairingCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputDeviceCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputDeviceCommandDelegate.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputDeviceExecuteCommandDelegate.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEventBuffer.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEventListener.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEventPtr.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEventStream.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputEventTrace.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputMetrics.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputRuntime.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputRuntimeExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputStateBlock.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputStateBuffers.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputStateHistory.2.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputStateHistory.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputUpdate.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputUpdateDelegate.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\InputUpdateType.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\ITextInputReceiver.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\JoystickState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\KeyboardState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\LinearAccelerationState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\MouseButton.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\MouseState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\NativeInputRuntime.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\PenState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\PointerState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryCanRunInBackground.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryDimensionsCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryEnabledStateCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryKeyboardLayoutCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryKeyNameCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryPairedUserAccountCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QuerySamplingFrequencyCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\QueryUserIdCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\RequestResetCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\RequestSyncCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\SelectObservable.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\SetIMECursorPositionCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\SetSamplingFrequencyCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\StateEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\TextEvent.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\TouchFlags.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\TouchscreenState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\TouchState.cs" />
+    <Compile Include="UnityEngine\InputSystem\LowLevel\WarpMousePositionCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\MagneticFieldSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Mouse.cs" />
+    <Compile Include="UnityEngine\InputSystem\OnScreen\OnScreenButton.cs" />
+    <Compile Include="UnityEngine\InputSystem\OnScreen\OnScreenControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\OnScreen\OnScreenStick.cs" />
+    <Compile Include="UnityEngine\InputSystem\OnScreen\UGUIOnScreenControlUtils.cs" />
+    <Compile Include="UnityEngine\InputSystem\Pen.cs" />
+    <Compile Include="UnityEngine\InputSystem\PenButton.cs" />
+    <Compile Include="UnityEngine\InputSystem\PlayerInput.cs" />
+    <Compile Include="UnityEngine\InputSystem\PlayerInputManager.cs" />
+    <Compile Include="UnityEngine\InputSystem\PlayerJoinBehavior.cs" />
+    <Compile Include="UnityEngine\InputSystem\PlayerNotifications.cs" />
+    <Compile Include="UnityEngine\InputSystem\Pointer.cs" />
+    <Compile Include="UnityEngine\InputSystem\PressureSensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\AxisDeadzoneProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\ClampProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\CompensateDirectionProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\CompensateRotationProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\InvertProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\InvertVector2Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\InvertVector3Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\NormalizeProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\NormalizeVector2Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\NormalizeVector3Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\ScaleProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\ScaleVector2Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\ScaleVector3Processor.cs" />
+    <Compile Include="UnityEngine\InputSystem\Processors\StickDeadzoneProcessor.cs" />
+    <Compile Include="UnityEngine\InputSystem\ProximitySensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\RemoteInputPlayerConnection.cs" />
+    <Compile Include="UnityEngine\InputSystem\Sensor.cs" />
+    <Compile Include="UnityEngine\InputSystem\StepCounter.cs" />
+    <Compile Include="UnityEngine\InputSystem\Switch\LowLevel\SwitchProControllerHIDInputState.cs" />
+    <Compile Include="UnityEngine\InputSystem\Switch\SwitchProControllerHID.cs" />
+    <Compile Include="UnityEngine\InputSystem\Switch\SwitchSupportHID.cs" />
+    <Compile Include="UnityEngine\InputSystem\TouchPhase.cs" />
+    <Compile Include="UnityEngine\InputSystem\Touchscreen.cs" />
+    <Compile Include="UnityEngine\InputSystem\TrackedDevice.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\BaseInputOverride.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\ExtendedAxisEventData.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\ExtendedPointerEventData.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\ExtendedSubmitCancelEventData.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\INavigationEventData.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\InputSystemUIInputModule.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\MultiplayerEventSystem.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\NavigationModel.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\PointerModel.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\SubmitCancelModel.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\TrackedDeviceRaycaster.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\UIPointerBehavior.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\UIPointerType.cs" />
+    <Compile Include="UnityEngine\InputSystem\UI\VirtualMouseInput.cs" />
+    <Compile Include="UnityEngine\InputSystem\Users\InputUser.cs" />
+    <Compile Include="UnityEngine\InputSystem\Users\InputUserAccountHandle.cs" />
+    <Compile Include="UnityEngine\InputSystem\Users\InputUserChange.cs" />
+    <Compile Include="UnityEngine\InputSystem\Users\InputUserPairingOptions.cs" />
+    <Compile Include="UnityEngine\InputSystem\Users\InputUserSettings.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ArrayHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\CallbackArray.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\CSharpCodeHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\DelegateHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\DisplayStringFormatAttribute.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ExceptionHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ForDeviceEventObservable.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\FourCC.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\InlinedArray.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\InputActionTrace.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\InputArrayExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\InternedString.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ISavedState.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\JsonParser.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\MemoryHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\MiscHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\NameAndParameters.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\NamedValue.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\NumberHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\Observable.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\Observer.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\OneOrMore.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\PredictiveParser.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\PrimitiveValue.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ReadOnlyArray.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\ReadOnlyArrayExtensions.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\SavedStructState.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\SelectManyObservable.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\SpriteUtilities.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\StringHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\Substring.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\TakeNObservable.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\TypeHelpers.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\TypeTable.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\Vector2MagnitudeComparer.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\Vector3MagnitudeComparer.cs" />
+    <Compile Include="UnityEngine\InputSystem\Utilities\WhereObservable.cs" />
+    <Compile Include="UnityEngine\InputSystem\XInput\IXboxOneRumble.cs" />
+    <Compile Include="UnityEngine\InputSystem\XInput\LowLevel\XInputControllerWindowsState.cs" />
+    <Compile Include="UnityEngine\InputSystem\XInput\XInputController.cs" />
+    <Compile Include="UnityEngine\InputSystem\XInput\XInputControllerWindows.cs" />
+    <Compile Include="UnityEngine\InputSystem\XInput\XInputSupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Bone.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\BoneControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Eyes.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\EyesControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\FeatureType.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\BufferedRumble.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\GetCurrentHapticStateCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\GetHapticCapabilitiesCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\HapticCapabilities.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\HapticState.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\SendBufferedHapticCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\Haptics\SendHapticImpulseCommand.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\PoseControl.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\PoseState.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\TrackedPoseDriver.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\UsageHint.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRController.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRControllerWithRumble.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRDeviceDescriptor.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRFeatureDescriptor.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRHMD.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRLayoutBuilder.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRSupport.cs" />
+    <Compile Include="UnityEngine\InputSystem\XR\XRUtilities.cs" />
+    <Compile Include="UnityEngine\XR\WindowsMR\Input\HololensHand.cs" />
+    <Compile Include="UnityEngine\XR\WindowsMR\Input\WMRHMD.cs" />
+    <Compile Include="UnityEngine\XR\WindowsMR\Input\WMRSpatialController.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Unity\XR\GoogleVr\DaydreamController.cs" />
+    <Compile Include="Unity\XR\GoogleVr\DaydreamHMD.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\GearVRTrackedController.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\OculusHMD.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\OculusHMDExtended.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\OculusRemote.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\OculusTouchController.cs" />
+    <Compile Include="Unity\XR\Oculus\Input\OculusTrackingReference.cs" />
+    <Compile Include="Unity\XR\OpenVR\HandedViveTracker.cs" />
+    <Compile Include="Unity\XR\OpenVR\OpenVRControllerWMR.cs" />
+    <Compile Include="Unity\XR\OpenVR\OpenVRHMD.cs" />
+    <Compile Include="Unity\XR\OpenVR\OpenVROculusTouchController.cs" />
+    <Compile Include="Unity\XR\OpenVR\ViveLighthouse.cs" />
+    <Compile Include="Unity\XR\OpenVR\ViveTracker.cs" />
+    <Compile Include="Unity\XR\OpenVR\ViveWand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputModule\UnityEngine.InputModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA105}</Project>
+      <Name>UnityEngine.InputModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA107}</Project>
+      <Name>UnityEngine.JSONSerializeModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIElementsModule\UnityEngine.UIElementsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA123}</Project>
+      <Name>UnityEngine.UIElementsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.VRModule\UnityEngine.VRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA135}</Project>
+      <Name>UnityEngine.VRModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

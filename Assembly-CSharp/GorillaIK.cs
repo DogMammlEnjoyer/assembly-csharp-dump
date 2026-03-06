@@ -91,18 +91,18 @@ public class GorillaIK : MonoBehaviour
 		{
 			return;
 		}
-		bool flag = SubscriptionManager.GetSubscriptionSettingValue("SMKEYPREFIXIOBT_ENABLE_KEY") >= 1;
-		if (flag != this.skeleton.gameObject.activeSelf)
+		bool subscriptionSettingBool = SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.IOBT);
+		if (subscriptionSettingBool != this.skeleton.gameObject.activeSelf)
 		{
-			this.skeleton.gameObject.SetActive(flag);
-			this.usingUpdatedIK = flag;
-			if (!flag)
+			this.skeleton.gameObject.SetActive(subscriptionSettingBool);
+			this.usingUpdatedIK = subscriptionSettingBool;
+			if (!subscriptionSettingBool)
 			{
 				this.ResetIKData();
 			}
 			return;
 		}
-		if (!flag)
+		if (!subscriptionSettingBool)
 		{
 			return;
 		}
@@ -151,6 +151,8 @@ public class GorillaIK : MonoBehaviour
 		this.targetBodyRot = this.bodyInitialRot;
 		this.canUseUpdatedIK = true;
 	}
+
+	public static GorillaIK playerIK;
 
 	public Transform headBone;
 
@@ -221,8 +223,6 @@ public class GorillaIK : MonoBehaviour
 
 	[NonSerialized]
 	public VRRig myRig;
-
-	public static GorillaIK playerIK;
 
 	public float biasDistance = 0.2f;
 

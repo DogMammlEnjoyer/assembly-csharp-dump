@@ -1,0 +1,9776 @@
+﻿using System;
+using PlayFab.AuthenticationModels;
+using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
+using PlayFab.DataModels;
+using PlayFab.EventsModels;
+using PlayFab.ExperimentationModels;
+using PlayFab.GroupsModels;
+using PlayFab.InsightsModels;
+using PlayFab.Internal;
+using PlayFab.LocalizationModels;
+using PlayFab.MultiplayerModels;
+using PlayFab.ProfilesModels;
+using PlayFab.SharedModels;
+
+namespace PlayFab.Events
+{
+	public class PlayFabEvents
+	{
+		public event PlayFabEvents.PlayFabRequestEvent<GetEntityTokenRequest> OnAuthenticationGetEntityTokenRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetEntityTokenResponse> OnAuthenticationGetEntityTokenResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ValidateEntityTokenRequest> OnAuthenticationValidateEntityTokenRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ValidateEntityTokenResponse> OnAuthenticationValidateEntityTokenResultEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LoginResult> OnLoginResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AcceptTradeRequest> OnAcceptTradeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AcceptTradeResponse> OnAcceptTradeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddFriendRequest> OnAddFriendRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AddFriendResult> OnAddFriendResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddGenericIDRequest> OnAddGenericIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AddGenericIDResult> OnAddGenericIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddOrUpdateContactEmailRequest> OnAddOrUpdateContactEmailRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AddOrUpdateContactEmailResult> OnAddOrUpdateContactEmailResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddSharedGroupMembersRequest> OnAddSharedGroupMembersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AddSharedGroupMembersResult> OnAddSharedGroupMembersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddUsernamePasswordRequest> OnAddUsernamePasswordRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AddUsernamePasswordResult> OnAddUsernamePasswordResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddUserVirtualCurrencyRequest> OnAddUserVirtualCurrencyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ModifyUserVirtualCurrencyResult> OnAddUserVirtualCurrencyResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AndroidDevicePushNotificationRegistrationRequest> OnAndroidDevicePushNotificationRegistrationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AndroidDevicePushNotificationRegistrationResult> OnAndroidDevicePushNotificationRegistrationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AttributeInstallRequest> OnAttributeInstallRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AttributeInstallResult> OnAttributeInstallResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CancelTradeRequest> OnCancelTradeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CancelTradeResponse> OnCancelTradeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ConfirmPurchaseRequest> OnConfirmPurchaseRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ConfirmPurchaseResult> OnConfirmPurchaseResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ConsumeItemRequest> OnConsumeItemRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ConsumeItemResult> OnConsumeItemResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ConsumePSNEntitlementsRequest> OnConsumePSNEntitlementsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ConsumePSNEntitlementsResult> OnConsumePSNEntitlementsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ConsumeXboxEntitlementsRequest> OnConsumeXboxEntitlementsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ConsumeXboxEntitlementsResult> OnConsumeXboxEntitlementsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateSharedGroupRequest> OnCreateSharedGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateSharedGroupResult> OnCreateSharedGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ExecuteCloudScriptRequest> OnExecuteCloudScriptRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.ExecuteCloudScriptResult> OnExecuteCloudScriptResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetAccountInfoRequest> OnGetAccountInfoRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetAccountInfoResult> OnGetAccountInfoResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetAdPlacementsRequest> OnGetAdPlacementsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetAdPlacementsResult> OnGetAdPlacementsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListUsersCharactersRequest> OnGetAllUsersCharactersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListUsersCharactersResult> OnGetAllUsersCharactersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCatalogItemsRequest> OnGetCatalogItemsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCatalogItemsResult> OnGetCatalogItemsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCharacterDataRequest> OnGetCharacterDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCharacterDataResult> OnGetCharacterDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCharacterInventoryRequest> OnGetCharacterInventoryRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCharacterInventoryResult> OnGetCharacterInventoryResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCharacterLeaderboardRequest> OnGetCharacterLeaderboardRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCharacterLeaderboardResult> OnGetCharacterLeaderboardResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCharacterDataRequest> OnGetCharacterReadOnlyDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCharacterDataResult> OnGetCharacterReadOnlyDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetCharacterStatisticsRequest> OnGetCharacterStatisticsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetCharacterStatisticsResult> OnGetCharacterStatisticsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetContentDownloadUrlRequest> OnGetContentDownloadUrlRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetContentDownloadUrlResult> OnGetContentDownloadUrlResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CurrentGamesRequest> OnGetCurrentGamesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CurrentGamesResult> OnGetCurrentGamesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetFriendLeaderboardRequest> OnGetFriendLeaderboardRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLeaderboardResult> OnGetFriendLeaderboardResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetFriendLeaderboardAroundPlayerRequest> OnGetFriendLeaderboardAroundPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetFriendLeaderboardAroundPlayerResult> OnGetFriendLeaderboardAroundPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetFriendsListRequest> OnGetFriendsListRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetFriendsListResult> OnGetFriendsListResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GameServerRegionsRequest> OnGetGameServerRegionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GameServerRegionsResult> OnGetGameServerRegionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLeaderboardRequest> OnGetLeaderboardRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLeaderboardResult> OnGetLeaderboardResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLeaderboardAroundCharacterRequest> OnGetLeaderboardAroundCharacterRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLeaderboardAroundCharacterResult> OnGetLeaderboardAroundCharacterResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLeaderboardAroundPlayerRequest> OnGetLeaderboardAroundPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLeaderboardAroundPlayerResult> OnGetLeaderboardAroundPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLeaderboardForUsersCharactersRequest> OnGetLeaderboardForUserCharactersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLeaderboardForUsersCharactersResult> OnGetLeaderboardForUserCharactersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPaymentTokenRequest> OnGetPaymentTokenRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPaymentTokenResult> OnGetPaymentTokenResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPhotonAuthenticationTokenRequest> OnGetPhotonAuthenticationTokenRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPhotonAuthenticationTokenResult> OnGetPhotonAuthenticationTokenResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerCombinedInfoRequest> OnGetPlayerCombinedInfoRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerCombinedInfoResult> OnGetPlayerCombinedInfoResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerProfileRequest> OnGetPlayerProfileRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerProfileResult> OnGetPlayerProfileResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerSegmentsRequest> OnGetPlayerSegmentsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerSegmentsResult> OnGetPlayerSegmentsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerStatisticsRequest> OnGetPlayerStatisticsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerStatisticsResult> OnGetPlayerStatisticsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerStatisticVersionsRequest> OnGetPlayerStatisticVersionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerStatisticVersionsResult> OnGetPlayerStatisticVersionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerTagsRequest> OnGetPlayerTagsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerTagsResult> OnGetPlayerTagsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayerTradesRequest> OnGetPlayerTradesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayerTradesResponse> OnGetPlayerTradesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromFacebookIDsRequest> OnGetPlayFabIDsFromFacebookIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromFacebookIDsResult> OnGetPlayFabIDsFromFacebookIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromFacebookInstantGamesIdsRequest> OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromFacebookInstantGamesIdsResult> OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGameCenterIDsRequest> OnGetPlayFabIDsFromGameCenterIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGameCenterIDsResult> OnGetPlayFabIDsFromGameCenterIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGenericIDsRequest> OnGetPlayFabIDsFromGenericIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGenericIDsResult> OnGetPlayFabIDsFromGenericIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGoogleIDsRequest> OnGetPlayFabIDsFromGoogleIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGoogleIDsResult> OnGetPlayFabIDsFromGoogleIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromKongregateIDsRequest> OnGetPlayFabIDsFromKongregateIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromKongregateIDsResult> OnGetPlayFabIDsFromKongregateIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest> OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromPSNAccountIDsRequest> OnGetPlayFabIDsFromPSNAccountIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromPSNAccountIDsResult> OnGetPlayFabIDsFromPSNAccountIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromSteamIDsRequest> OnGetPlayFabIDsFromSteamIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromSteamIDsResult> OnGetPlayFabIDsFromSteamIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromTwitchIDsRequest> OnGetPlayFabIDsFromTwitchIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromTwitchIDsResult> OnGetPlayFabIDsFromTwitchIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromXboxLiveIDsRequest> OnGetPlayFabIDsFromXboxLiveIDsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromXboxLiveIDsResult> OnGetPlayFabIDsFromXboxLiveIDsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPublisherDataRequest> OnGetPublisherDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPublisherDataResult> OnGetPublisherDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetPurchaseRequest> OnGetPurchaseRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetPurchaseResult> OnGetPurchaseResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetSharedGroupDataRequest> OnGetSharedGroupDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetSharedGroupDataResult> OnGetSharedGroupDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetStoreItemsRequest> OnGetStoreItemsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetStoreItemsResult> OnGetStoreItemsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTimeRequest> OnGetTimeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTimeResult> OnGetTimeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitleDataRequest> OnGetTitleDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitleDataResult> OnGetTitleDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitleNewsRequest> OnGetTitleNewsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitleNewsResult> OnGetTitleNewsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitlePublicKeyRequest> OnGetTitlePublicKeyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitlePublicKeyResult> OnGetTitlePublicKeyResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTradeStatusRequest> OnGetTradeStatusRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTradeStatusResponse> OnGetTradeStatusResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest> OnGetUserDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetUserDataResult> OnGetUserDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetUserInventoryRequest> OnGetUserInventoryRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetUserInventoryResult> OnGetUserInventoryResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest> OnGetUserPublisherDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetUserDataResult> OnGetUserPublisherDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest> OnGetUserPublisherReadOnlyDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetUserDataResult> OnGetUserPublisherReadOnlyDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest> OnGetUserReadOnlyDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetUserDataResult> OnGetUserReadOnlyDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetWindowsHelloChallengeRequest> OnGetWindowsHelloChallengeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetWindowsHelloChallengeResponse> OnGetWindowsHelloChallengeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GrantCharacterToUserRequest> OnGrantCharacterToUserRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GrantCharacterToUserResult> OnGrantCharacterToUserResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkAndroidDeviceIDRequest> OnLinkAndroidDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkAndroidDeviceIDResult> OnLinkAndroidDeviceIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkAppleRequest> OnLinkAppleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult> OnLinkAppleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkCustomIDRequest> OnLinkCustomIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkCustomIDResult> OnLinkCustomIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkFacebookAccountRequest> OnLinkFacebookAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkFacebookAccountResult> OnLinkFacebookAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkFacebookInstantGamesIdRequest> OnLinkFacebookInstantGamesIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkFacebookInstantGamesIdResult> OnLinkFacebookInstantGamesIdResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkGameCenterAccountRequest> OnLinkGameCenterAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkGameCenterAccountResult> OnLinkGameCenterAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkGoogleAccountRequest> OnLinkGoogleAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkGoogleAccountResult> OnLinkGoogleAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkIOSDeviceIDRequest> OnLinkIOSDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkIOSDeviceIDResult> OnLinkIOSDeviceIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkKongregateAccountRequest> OnLinkKongregateRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkKongregateAccountResult> OnLinkKongregateResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkNintendoAccountRequest> OnLinkNintendoAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult> OnLinkNintendoAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkNintendoSwitchDeviceIdRequest> OnLinkNintendoSwitchDeviceIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkNintendoSwitchDeviceIdResult> OnLinkNintendoSwitchDeviceIdResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkOpenIdConnectRequest> OnLinkOpenIdConnectRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult> OnLinkOpenIdConnectResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkPSNAccountRequest> OnLinkPSNAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkPSNAccountResult> OnLinkPSNAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkSteamAccountRequest> OnLinkSteamAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkSteamAccountResult> OnLinkSteamAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkTwitchAccountRequest> OnLinkTwitchRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkTwitchAccountResult> OnLinkTwitchResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkWindowsHelloAccountRequest> OnLinkWindowsHelloRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkWindowsHelloAccountResponse> OnLinkWindowsHelloResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LinkXboxAccountRequest> OnLinkXboxAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<LinkXboxAccountResult> OnLinkXboxAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithAndroidDeviceIDRequest> OnLoginWithAndroidDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithAppleRequest> OnLoginWithAppleRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithCustomIDRequest> OnLoginWithCustomIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithEmailAddressRequest> OnLoginWithEmailAddressRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithFacebookRequest> OnLoginWithFacebookRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithFacebookInstantGamesIdRequest> OnLoginWithFacebookInstantGamesIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithGameCenterRequest> OnLoginWithGameCenterRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithGoogleAccountRequest> OnLoginWithGoogleAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithIOSDeviceIDRequest> OnLoginWithIOSDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithKongregateRequest> OnLoginWithKongregateRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithNintendoAccountRequest> OnLoginWithNintendoAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithNintendoSwitchDeviceIdRequest> OnLoginWithNintendoSwitchDeviceIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithOpenIdConnectRequest> OnLoginWithOpenIdConnectRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithPlayFabRequest> OnLoginWithPlayFabRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithPSNRequest> OnLoginWithPSNRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithSteamRequest> OnLoginWithSteamRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithTwitchRequest> OnLoginWithTwitchRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithWindowsHelloRequest> OnLoginWithWindowsHelloRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<LoginWithXboxRequest> OnLoginWithXboxRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<MatchmakeRequest> OnMatchmakeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<MatchmakeResult> OnMatchmakeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<OpenTradeRequest> OnOpenTradeRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<OpenTradeResponse> OnOpenTradeResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PayForPurchaseRequest> OnPayForPurchaseRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PayForPurchaseResult> OnPayForPurchaseResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PurchaseItemRequest> OnPurchaseItemRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PurchaseItemResult> OnPurchaseItemResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RedeemCouponRequest> OnRedeemCouponRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RedeemCouponResult> OnRedeemCouponResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RefreshPSNAuthTokenRequest> OnRefreshPSNAuthTokenRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnRefreshPSNAuthTokenResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RegisterForIOSPushNotificationRequest> OnRegisterForIOSPushNotificationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RegisterForIOSPushNotificationResult> OnRegisterForIOSPushNotificationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RegisterPlayFabUserRequest> OnRegisterPlayFabUserRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RegisterPlayFabUserResult> OnRegisterPlayFabUserResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RegisterWithWindowsHelloRequest> OnRegisterWithWindowsHelloRequestEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveContactEmailRequest> OnRemoveContactEmailRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RemoveContactEmailResult> OnRemoveContactEmailResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveFriendRequest> OnRemoveFriendRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RemoveFriendResult> OnRemoveFriendResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveGenericIDRequest> OnRemoveGenericIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RemoveGenericIDResult> OnRemoveGenericIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveSharedGroupMembersRequest> OnRemoveSharedGroupMembersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RemoveSharedGroupMembersResult> OnRemoveSharedGroupMembersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ReportAdActivityRequest> OnReportAdActivityRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ReportAdActivityResult> OnReportAdActivityResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeviceInfoRequest> OnReportDeviceInfoRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnReportDeviceInfoResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ReportPlayerClientRequest> OnReportPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ReportPlayerClientResult> OnReportPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RestoreIOSPurchasesRequest> OnRestoreIOSPurchasesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RestoreIOSPurchasesResult> OnRestoreIOSPurchasesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RewardAdActivityRequest> OnRewardAdActivityRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RewardAdActivityResult> OnRewardAdActivityResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SendAccountRecoveryEmailRequest> OnSendAccountRecoveryEmailRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SendAccountRecoveryEmailResult> OnSendAccountRecoveryEmailResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetFriendTagsRequest> OnSetFriendTagsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetFriendTagsResult> OnSetFriendTagsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetPlayerSecretRequest> OnSetPlayerSecretRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetPlayerSecretResult> OnSetPlayerSecretResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<StartGameRequest> OnStartGameRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<StartGameResult> OnStartGameResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<StartPurchaseRequest> OnStartPurchaseRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<StartPurchaseResult> OnStartPurchaseResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SubtractUserVirtualCurrencyRequest> OnSubtractUserVirtualCurrencyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ModifyUserVirtualCurrencyResult> OnSubtractUserVirtualCurrencyResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkAndroidDeviceIDRequest> OnUnlinkAndroidDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkAndroidDeviceIDResult> OnUnlinkAndroidDeviceIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkAppleRequest> OnUnlinkAppleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnUnlinkAppleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkCustomIDRequest> OnUnlinkCustomIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkCustomIDResult> OnUnlinkCustomIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkFacebookAccountRequest> OnUnlinkFacebookAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkFacebookAccountResult> OnUnlinkFacebookAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkFacebookInstantGamesIdRequest> OnUnlinkFacebookInstantGamesIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkFacebookInstantGamesIdResult> OnUnlinkFacebookInstantGamesIdResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkGameCenterAccountRequest> OnUnlinkGameCenterAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkGameCenterAccountResult> OnUnlinkGameCenterAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkGoogleAccountRequest> OnUnlinkGoogleAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkGoogleAccountResult> OnUnlinkGoogleAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkIOSDeviceIDRequest> OnUnlinkIOSDeviceIDRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkIOSDeviceIDResult> OnUnlinkIOSDeviceIDResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkKongregateAccountRequest> OnUnlinkKongregateRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkKongregateAccountResult> OnUnlinkKongregateResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkNintendoAccountRequest> OnUnlinkNintendoAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnUnlinkNintendoAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkNintendoSwitchDeviceIdRequest> OnUnlinkNintendoSwitchDeviceIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkNintendoSwitchDeviceIdResult> OnUnlinkNintendoSwitchDeviceIdResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkOpenIdConnectRequest> OnUnlinkOpenIdConnectRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnUnlinkOpenIdConnectResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkPSNAccountRequest> OnUnlinkPSNAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkPSNAccountResult> OnUnlinkPSNAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkSteamAccountRequest> OnUnlinkSteamAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkSteamAccountResult> OnUnlinkSteamAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkTwitchAccountRequest> OnUnlinkTwitchRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkTwitchAccountResult> OnUnlinkTwitchResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkWindowsHelloAccountRequest> OnUnlinkWindowsHelloRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkWindowsHelloAccountResponse> OnUnlinkWindowsHelloResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlinkXboxAccountRequest> OnUnlinkXboxAccountRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlinkXboxAccountResult> OnUnlinkXboxAccountResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlockContainerInstanceRequest> OnUnlockContainerInstanceRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlockContainerItemResult> OnUnlockContainerInstanceResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnlockContainerItemRequest> OnUnlockContainerItemRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UnlockContainerItemResult> OnUnlockContainerItemResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateAvatarUrlRequest> OnUpdateAvatarUrlRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse> OnUpdateAvatarUrlResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateCharacterDataRequest> OnUpdateCharacterDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateCharacterDataResult> OnUpdateCharacterDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateCharacterStatisticsRequest> OnUpdateCharacterStatisticsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateCharacterStatisticsResult> OnUpdateCharacterStatisticsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdatePlayerStatisticsRequest> OnUpdatePlayerStatisticsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdatePlayerStatisticsResult> OnUpdatePlayerStatisticsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateSharedGroupDataRequest> OnUpdateSharedGroupDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateSharedGroupDataResult> OnUpdateSharedGroupDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateUserDataRequest> OnUpdateUserDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateUserDataResult> OnUpdateUserDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateUserDataRequest> OnUpdateUserPublisherDataRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateUserDataResult> OnUpdateUserPublisherDataResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateUserTitleDisplayNameRequest> OnUpdateUserTitleDisplayNameRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateUserTitleDisplayNameResult> OnUpdateUserTitleDisplayNameResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ValidateAmazonReceiptRequest> OnValidateAmazonIAPReceiptRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ValidateAmazonReceiptResult> OnValidateAmazonIAPReceiptResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ValidateGooglePlayPurchaseRequest> OnValidateGooglePlayPurchaseRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ValidateGooglePlayPurchaseResult> OnValidateGooglePlayPurchaseResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ValidateIOSReceiptRequest> OnValidateIOSReceiptRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ValidateIOSReceiptResult> OnValidateIOSReceiptResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ValidateWindowsReceiptRequest> OnValidateWindowsStoreReceiptRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ValidateWindowsReceiptResult> OnValidateWindowsStoreReceiptResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<WriteClientCharacterEventRequest> OnWriteCharacterEventRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<WriteEventResponse> OnWriteCharacterEventResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<WriteClientPlayerEventRequest> OnWritePlayerEventRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<WriteEventResponse> OnWritePlayerEventResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<WriteTitleEventRequest> OnWriteTitleEventRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<WriteEventResponse> OnWriteTitleEventResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ExecuteEntityCloudScriptRequest> OnCloudScriptExecuteEntityCloudScriptRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.ExecuteCloudScriptResult> OnCloudScriptExecuteEntityCloudScriptResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ExecuteFunctionRequest> OnCloudScriptExecuteFunctionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ExecuteFunctionResult> OnCloudScriptExecuteFunctionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest> OnCloudScriptListFunctionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListFunctionsResult> OnCloudScriptListFunctionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest> OnCloudScriptListHttpFunctionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListHttpFunctionsResult> OnCloudScriptListHttpFunctionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest> OnCloudScriptListQueuedFunctionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListQueuedFunctionsResult> OnCloudScriptListQueuedFunctionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForEntityTriggeredActionRequest> OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForFunctionExecutionRequest> OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForPlayerTriggeredActionRequest> OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForScheduledTaskRequest> OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptPostFunctionResultForScheduledTaskResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RegisterHttpFunctionRequest> OnCloudScriptRegisterHttpFunctionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptRegisterHttpFunctionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RegisterQueuedFunctionRequest> OnCloudScriptRegisterQueuedFunctionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptRegisterQueuedFunctionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnregisterFunctionRequest> OnCloudScriptUnregisterFunctionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult> OnCloudScriptUnregisterFunctionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AbortFileUploadsRequest> OnDataAbortFileUploadsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<AbortFileUploadsResponse> OnDataAbortFileUploadsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteFilesRequest> OnDataDeleteFilesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<DeleteFilesResponse> OnDataDeleteFilesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<FinalizeFileUploadsRequest> OnDataFinalizeFileUploadsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<FinalizeFileUploadsResponse> OnDataFinalizeFileUploadsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetFilesRequest> OnDataGetFilesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetFilesResponse> OnDataGetFilesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetObjectsRequest> OnDataGetObjectsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetObjectsResponse> OnDataGetObjectsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InitiateFileUploadsRequest> OnDataInitiateFileUploadsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InitiateFileUploadsResponse> OnDataInitiateFileUploadsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetObjectsRequest> OnDataSetObjectsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetObjectsResponse> OnDataSetObjectsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<WriteEventsRequest> OnEventsWriteEventsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<WriteEventsResponse> OnEventsWriteEventsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<WriteEventsRequest> OnEventsWriteTelemetryEventsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<WriteEventsResponse> OnEventsWriteTelemetryEventsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateExperimentRequest> OnExperimentationCreateExperimentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateExperimentResult> OnExperimentationCreateExperimentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteExperimentRequest> OnExperimentationDeleteExperimentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse> OnExperimentationDeleteExperimentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetExperimentsRequest> OnExperimentationGetExperimentsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetExperimentsResult> OnExperimentationGetExperimentsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLatestScorecardRequest> OnExperimentationGetLatestScorecardRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLatestScorecardResult> OnExperimentationGetLatestScorecardResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTreatmentAssignmentRequest> OnExperimentationGetTreatmentAssignmentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTreatmentAssignmentResult> OnExperimentationGetTreatmentAssignmentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<StartExperimentRequest> OnExperimentationStartExperimentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse> OnExperimentationStartExperimentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<StopExperimentRequest> OnExperimentationStopExperimentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse> OnExperimentationStopExperimentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateExperimentRequest> OnExperimentationUpdateExperimentRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse> OnExperimentationUpdateExperimentResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AcceptGroupApplicationRequest> OnGroupsAcceptGroupApplicationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsAcceptGroupApplicationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AcceptGroupInvitationRequest> OnGroupsAcceptGroupInvitationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsAcceptGroupInvitationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<AddMembersRequest> OnGroupsAddMembersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsAddMembersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ApplyToGroupRequest> OnGroupsApplyToGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ApplyToGroupResponse> OnGroupsApplyToGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<BlockEntityRequest> OnGroupsBlockEntityRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsBlockEntityResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ChangeMemberRoleRequest> OnGroupsChangeMemberRoleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsChangeMemberRoleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateGroupRequest> OnGroupsCreateGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateGroupResponse> OnGroupsCreateGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateGroupRoleRequest> OnGroupsCreateRoleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateGroupRoleResponse> OnGroupsCreateRoleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteGroupRequest> OnGroupsDeleteGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsDeleteGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteRoleRequest> OnGroupsDeleteRoleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsDeleteRoleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetGroupRequest> OnGroupsGetGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetGroupResponse> OnGroupsGetGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InviteToGroupRequest> OnGroupsInviteToGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InviteToGroupResponse> OnGroupsInviteToGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<IsMemberRequest> OnGroupsIsMemberRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<IsMemberResponse> OnGroupsIsMemberResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListGroupApplicationsRequest> OnGroupsListGroupApplicationsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListGroupApplicationsResponse> OnGroupsListGroupApplicationsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListGroupBlocksRequest> OnGroupsListGroupBlocksRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListGroupBlocksResponse> OnGroupsListGroupBlocksResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListGroupInvitationsRequest> OnGroupsListGroupInvitationsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListGroupInvitationsResponse> OnGroupsListGroupInvitationsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListGroupMembersRequest> OnGroupsListGroupMembersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListGroupMembersResponse> OnGroupsListGroupMembersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMembershipRequest> OnGroupsListMembershipRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMembershipResponse> OnGroupsListMembershipResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMembershipOpportunitiesRequest> OnGroupsListMembershipOpportunitiesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMembershipOpportunitiesResponse> OnGroupsListMembershipOpportunitiesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveGroupApplicationRequest> OnGroupsRemoveGroupApplicationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsRemoveGroupApplicationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveGroupInvitationRequest> OnGroupsRemoveGroupInvitationRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsRemoveGroupInvitationResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveMembersRequest> OnGroupsRemoveMembersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsRemoveMembersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UnblockEntityRequest> OnGroupsUnblockEntityRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse> OnGroupsUnblockEntityResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateGroupRequest> OnGroupsUpdateGroupRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateGroupResponse> OnGroupsUpdateGroupResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateGroupRoleRequest> OnGroupsUpdateRoleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<UpdateGroupRoleResponse> OnGroupsUpdateRoleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsEmptyRequest> OnInsightsGetDetailsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsGetDetailsResponse> OnInsightsGetDetailsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsEmptyRequest> OnInsightsGetLimitsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsGetLimitsResponse> OnInsightsGetLimitsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsGetOperationStatusRequest> OnInsightsGetOperationStatusRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsGetOperationStatusResponse> OnInsightsGetOperationStatusResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsGetPendingOperationsRequest> OnInsightsGetPendingOperationsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsGetPendingOperationsResponse> OnInsightsGetPendingOperationsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsSetPerformanceRequest> OnInsightsSetPerformanceRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsOperationResponse> OnInsightsSetPerformanceResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<InsightsSetStorageRetentionRequest> OnInsightsSetStorageRetentionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<InsightsOperationResponse> OnInsightsSetStorageRetentionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetLanguageListRequest> OnLocalizationGetLanguageListRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetLanguageListResponse> OnLocalizationGetLanguageListResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CancelAllMatchmakingTicketsForPlayerRequest> OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CancelAllMatchmakingTicketsForPlayerResult> OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CancelAllServerBackfillTicketsForPlayerRequest> OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CancelAllServerBackfillTicketsForPlayerResult> OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CancelMatchmakingTicketRequest> OnMultiplayerCancelMatchmakingTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CancelMatchmakingTicketResult> OnMultiplayerCancelMatchmakingTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CancelServerBackfillTicketRequest> OnMultiplayerCancelServerBackfillTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CancelServerBackfillTicketResult> OnMultiplayerCancelServerBackfillTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateBuildAliasRequest> OnMultiplayerCreateBuildAliasRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse> OnMultiplayerCreateBuildAliasResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateBuildWithCustomContainerRequest> OnMultiplayerCreateBuildWithCustomContainerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateBuildWithCustomContainerResponse> OnMultiplayerCreateBuildWithCustomContainerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateBuildWithManagedContainerRequest> OnMultiplayerCreateBuildWithManagedContainerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateBuildWithManagedContainerResponse> OnMultiplayerCreateBuildWithManagedContainerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateMatchmakingTicketRequest> OnMultiplayerCreateMatchmakingTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateMatchmakingTicketResult> OnMultiplayerCreateMatchmakingTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateRemoteUserRequest> OnMultiplayerCreateRemoteUserRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateRemoteUserResponse> OnMultiplayerCreateRemoteUserResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateServerBackfillTicketRequest> OnMultiplayerCreateServerBackfillTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateServerBackfillTicketResult> OnMultiplayerCreateServerBackfillTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<CreateServerMatchmakingTicketRequest> OnMultiplayerCreateServerMatchmakingTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<CreateMatchmakingTicketResult> OnMultiplayerCreateServerMatchmakingTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteAssetRequest> OnMultiplayerDeleteAssetRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteAssetResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteBuildRequest> OnMultiplayerDeleteBuildRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteBuildResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteBuildAliasRequest> OnMultiplayerDeleteBuildAliasRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteBuildAliasResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteBuildRegionRequest> OnMultiplayerDeleteBuildRegionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteBuildRegionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteCertificateRequest> OnMultiplayerDeleteCertificateRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteCertificateResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteContainerImageRequest> OnMultiplayerDeleteContainerImageRepositoryRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteContainerImageRepositoryResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<DeleteRemoteUserRequest> OnMultiplayerDeleteRemoteUserRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerDeleteRemoteUserResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<EnableMultiplayerServersForTitleRequest> OnMultiplayerEnableMultiplayerServersForTitleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<EnableMultiplayerServersForTitleResponse> OnMultiplayerEnableMultiplayerServersForTitleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetAssetUploadUrlRequest> OnMultiplayerGetAssetUploadUrlRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetAssetUploadUrlResponse> OnMultiplayerGetAssetUploadUrlResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetBuildRequest> OnMultiplayerGetBuildRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetBuildResponse> OnMultiplayerGetBuildResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetBuildAliasRequest> OnMultiplayerGetBuildAliasRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse> OnMultiplayerGetBuildAliasResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetContainerRegistryCredentialsRequest> OnMultiplayerGetContainerRegistryCredentialsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetContainerRegistryCredentialsResponse> OnMultiplayerGetContainerRegistryCredentialsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMatchRequest> OnMultiplayerGetMatchRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMatchResult> OnMultiplayerGetMatchResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMatchmakingQueueRequest> OnMultiplayerGetMatchmakingQueueRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMatchmakingQueueResult> OnMultiplayerGetMatchmakingQueueResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMatchmakingTicketRequest> OnMultiplayerGetMatchmakingTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMatchmakingTicketResult> OnMultiplayerGetMatchmakingTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMultiplayerServerDetailsRequest> OnMultiplayerGetMultiplayerServerDetailsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerDetailsResponse> OnMultiplayerGetMultiplayerServerDetailsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMultiplayerServerLogsRequest> OnMultiplayerGetMultiplayerServerLogsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerLogsResponse> OnMultiplayerGetMultiplayerServerLogsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetMultiplayerSessionLogsBySessionIdRequest> OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerLogsResponse> OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetQueueStatisticsRequest> OnMultiplayerGetQueueStatisticsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetQueueStatisticsResult> OnMultiplayerGetQueueStatisticsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetRemoteLoginEndpointRequest> OnMultiplayerGetRemoteLoginEndpointRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetRemoteLoginEndpointResponse> OnMultiplayerGetRemoteLoginEndpointResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetServerBackfillTicketRequest> OnMultiplayerGetServerBackfillTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetServerBackfillTicketResult> OnMultiplayerGetServerBackfillTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitleEnabledForMultiplayerServersStatusRequest> OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitleEnabledForMultiplayerServersStatusResponse> OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitleMultiplayerServersQuotasRequest> OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitleMultiplayerServersQuotasResponse> OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<JoinMatchmakingTicketRequest> OnMultiplayerJoinMatchmakingTicketRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<JoinMatchmakingTicketResult> OnMultiplayerJoinMatchmakingTicketResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMultiplayerServersRequest> OnMultiplayerListArchivedMultiplayerServersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMultiplayerServersResponse> OnMultiplayerListArchivedMultiplayerServersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListAssetSummariesRequest> OnMultiplayerListAssetSummariesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListAssetSummariesResponse> OnMultiplayerListAssetSummariesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<MultiplayerEmptyRequest> OnMultiplayerListBuildAliasesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListBuildAliasesForTitleResponse> OnMultiplayerListBuildAliasesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListBuildSummariesRequest> OnMultiplayerListBuildSummariesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListBuildSummariesResponse> OnMultiplayerListBuildSummariesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListCertificateSummariesRequest> OnMultiplayerListCertificateSummariesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListCertificateSummariesResponse> OnMultiplayerListCertificateSummariesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListContainerImagesRequest> OnMultiplayerListContainerImagesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListContainerImagesResponse> OnMultiplayerListContainerImagesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListContainerImageTagsRequest> OnMultiplayerListContainerImageTagsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListContainerImageTagsResponse> OnMultiplayerListContainerImageTagsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMatchmakingQueuesRequest> OnMultiplayerListMatchmakingQueuesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMatchmakingQueuesResult> OnMultiplayerListMatchmakingQueuesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMatchmakingTicketsForPlayerRequest> OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMatchmakingTicketsForPlayerResult> OnMultiplayerListMatchmakingTicketsForPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListMultiplayerServersRequest> OnMultiplayerListMultiplayerServersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListMultiplayerServersResponse> OnMultiplayerListMultiplayerServersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListPartyQosServersRequest> OnMultiplayerListPartyQosServersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListPartyQosServersResponse> OnMultiplayerListPartyQosServersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListQosServersRequest> OnMultiplayerListQosServersRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListQosServersResponse> OnMultiplayerListQosServersResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListQosServersForTitleRequest> OnMultiplayerListQosServersForTitleRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListQosServersForTitleResponse> OnMultiplayerListQosServersForTitleResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListServerBackfillTicketsForPlayerRequest> OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListServerBackfillTicketsForPlayerResult> OnMultiplayerListServerBackfillTicketsForPlayerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ListVirtualMachineSummariesRequest> OnMultiplayerListVirtualMachineSummariesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<ListVirtualMachineSummariesResponse> OnMultiplayerListVirtualMachineSummariesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RemoveMatchmakingQueueRequest> OnMultiplayerRemoveMatchmakingQueueRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RemoveMatchmakingQueueResult> OnMultiplayerRemoveMatchmakingQueueResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RequestMultiplayerServerRequest> OnMultiplayerRequestMultiplayerServerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RequestMultiplayerServerResponse> OnMultiplayerRequestMultiplayerServerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<RolloverContainerRegistryCredentialsRequest> OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<RolloverContainerRegistryCredentialsResponse> OnMultiplayerRolloverContainerRegistryCredentialsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetMatchmakingQueueRequest> OnMultiplayerSetMatchmakingQueueRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetMatchmakingQueueResult> OnMultiplayerSetMatchmakingQueueResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<ShutdownMultiplayerServerRequest> OnMultiplayerShutdownMultiplayerServerRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerShutdownMultiplayerServerResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UntagContainerImageRequest> OnMultiplayerUntagContainerImageRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerUntagContainerImageResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateBuildAliasRequest> OnMultiplayerUpdateBuildAliasRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse> OnMultiplayerUpdateBuildAliasResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateBuildRegionRequest> OnMultiplayerUpdateBuildRegionRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerUpdateBuildRegionResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UpdateBuildRegionsRequest> OnMultiplayerUpdateBuildRegionsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerUpdateBuildRegionsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<UploadCertificateRequest> OnMultiplayerUploadCertificateRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse> OnMultiplayerUploadCertificateResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetGlobalPolicyRequest> OnProfilesGetGlobalPolicyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetGlobalPolicyResponse> OnProfilesGetGlobalPolicyResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetEntityProfileRequest> OnProfilesGetProfileRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetEntityProfileResponse> OnProfilesGetProfileResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetEntityProfilesRequest> OnProfilesGetProfilesRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetEntityProfilesResponse> OnProfilesGetProfilesResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<GetTitlePlayersFromMasterPlayerAccountIdsRequest> OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<GetTitlePlayersFromMasterPlayerAccountIdsResponse> OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetGlobalPolicyRequest> OnProfilesSetGlobalPolicyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetGlobalPolicyResponse> OnProfilesSetGlobalPolicyResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetProfileLanguageRequest> OnProfilesSetProfileLanguageRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetProfileLanguageResponse> OnProfilesSetProfileLanguageResultEvent;
+
+		public event PlayFabEvents.PlayFabRequestEvent<SetEntityProfilePolicyRequest> OnProfilesSetProfilePolicyRequestEvent;
+
+		public event PlayFabEvents.PlayFabResultEvent<SetEntityProfilePolicyResponse> OnProfilesSetProfilePolicyResultEvent;
+
+		public event PlayFabEvents.PlayFabErrorEvent OnGlobalErrorEvent;
+
+		private PlayFabEvents()
+		{
+		}
+
+		public static PlayFabEvents Init()
+		{
+			if (PlayFabEvents._instance == null)
+			{
+				PlayFabEvents._instance = new PlayFabEvents();
+			}
+			PlayFabHttp.ApiProcessingEventHandler += PlayFabEvents._instance.OnProcessingEvent;
+			PlayFabHttp.ApiProcessingErrorEventHandler += PlayFabEvents._instance.OnProcessingErrorEvent;
+			return PlayFabEvents._instance;
+		}
+
+		public void UnregisterInstance(object instance)
+		{
+			if (this.OnLoginResultEvent != null)
+			{
+				foreach (Delegate @delegate in this.OnLoginResultEvent.GetInvocationList())
+				{
+					if (@delegate.Target == instance)
+					{
+						this.OnLoginResultEvent -= (PlayFabEvents.PlayFabResultEvent<LoginResult>)@delegate;
+					}
+				}
+			}
+			if (this.OnAcceptTradeRequestEvent != null)
+			{
+				foreach (Delegate delegate2 in this.OnAcceptTradeRequestEvent.GetInvocationList())
+				{
+					if (delegate2.Target == instance)
+					{
+						this.OnAcceptTradeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AcceptTradeRequest>)delegate2;
+					}
+				}
+			}
+			if (this.OnAcceptTradeResultEvent != null)
+			{
+				foreach (Delegate delegate3 in this.OnAcceptTradeResultEvent.GetInvocationList())
+				{
+					if (delegate3.Target == instance)
+					{
+						this.OnAcceptTradeResultEvent -= (PlayFabEvents.PlayFabResultEvent<AcceptTradeResponse>)delegate3;
+					}
+				}
+			}
+			if (this.OnAddFriendRequestEvent != null)
+			{
+				foreach (Delegate delegate4 in this.OnAddFriendRequestEvent.GetInvocationList())
+				{
+					if (delegate4.Target == instance)
+					{
+						this.OnAddFriendRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddFriendRequest>)delegate4;
+					}
+				}
+			}
+			if (this.OnAddFriendResultEvent != null)
+			{
+				foreach (Delegate delegate5 in this.OnAddFriendResultEvent.GetInvocationList())
+				{
+					if (delegate5.Target == instance)
+					{
+						this.OnAddFriendResultEvent -= (PlayFabEvents.PlayFabResultEvent<AddFriendResult>)delegate5;
+					}
+				}
+			}
+			if (this.OnAddGenericIDRequestEvent != null)
+			{
+				foreach (Delegate delegate6 in this.OnAddGenericIDRequestEvent.GetInvocationList())
+				{
+					if (delegate6.Target == instance)
+					{
+						this.OnAddGenericIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddGenericIDRequest>)delegate6;
+					}
+				}
+			}
+			if (this.OnAddGenericIDResultEvent != null)
+			{
+				foreach (Delegate delegate7 in this.OnAddGenericIDResultEvent.GetInvocationList())
+				{
+					if (delegate7.Target == instance)
+					{
+						this.OnAddGenericIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<AddGenericIDResult>)delegate7;
+					}
+				}
+			}
+			if (this.OnAddOrUpdateContactEmailRequestEvent != null)
+			{
+				foreach (Delegate delegate8 in this.OnAddOrUpdateContactEmailRequestEvent.GetInvocationList())
+				{
+					if (delegate8.Target == instance)
+					{
+						this.OnAddOrUpdateContactEmailRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddOrUpdateContactEmailRequest>)delegate8;
+					}
+				}
+			}
+			if (this.OnAddOrUpdateContactEmailResultEvent != null)
+			{
+				foreach (Delegate delegate9 in this.OnAddOrUpdateContactEmailResultEvent.GetInvocationList())
+				{
+					if (delegate9.Target == instance)
+					{
+						this.OnAddOrUpdateContactEmailResultEvent -= (PlayFabEvents.PlayFabResultEvent<AddOrUpdateContactEmailResult>)delegate9;
+					}
+				}
+			}
+			if (this.OnAddSharedGroupMembersRequestEvent != null)
+			{
+				foreach (Delegate delegate10 in this.OnAddSharedGroupMembersRequestEvent.GetInvocationList())
+				{
+					if (delegate10.Target == instance)
+					{
+						this.OnAddSharedGroupMembersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddSharedGroupMembersRequest>)delegate10;
+					}
+				}
+			}
+			if (this.OnAddSharedGroupMembersResultEvent != null)
+			{
+				foreach (Delegate delegate11 in this.OnAddSharedGroupMembersResultEvent.GetInvocationList())
+				{
+					if (delegate11.Target == instance)
+					{
+						this.OnAddSharedGroupMembersResultEvent -= (PlayFabEvents.PlayFabResultEvent<AddSharedGroupMembersResult>)delegate11;
+					}
+				}
+			}
+			if (this.OnAddUsernamePasswordRequestEvent != null)
+			{
+				foreach (Delegate delegate12 in this.OnAddUsernamePasswordRequestEvent.GetInvocationList())
+				{
+					if (delegate12.Target == instance)
+					{
+						this.OnAddUsernamePasswordRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddUsernamePasswordRequest>)delegate12;
+					}
+				}
+			}
+			if (this.OnAddUsernamePasswordResultEvent != null)
+			{
+				foreach (Delegate delegate13 in this.OnAddUsernamePasswordResultEvent.GetInvocationList())
+				{
+					if (delegate13.Target == instance)
+					{
+						this.OnAddUsernamePasswordResultEvent -= (PlayFabEvents.PlayFabResultEvent<AddUsernamePasswordResult>)delegate13;
+					}
+				}
+			}
+			if (this.OnAddUserVirtualCurrencyRequestEvent != null)
+			{
+				foreach (Delegate delegate14 in this.OnAddUserVirtualCurrencyRequestEvent.GetInvocationList())
+				{
+					if (delegate14.Target == instance)
+					{
+						this.OnAddUserVirtualCurrencyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddUserVirtualCurrencyRequest>)delegate14;
+					}
+				}
+			}
+			if (this.OnAddUserVirtualCurrencyResultEvent != null)
+			{
+				foreach (Delegate delegate15 in this.OnAddUserVirtualCurrencyResultEvent.GetInvocationList())
+				{
+					if (delegate15.Target == instance)
+					{
+						this.OnAddUserVirtualCurrencyResultEvent -= (PlayFabEvents.PlayFabResultEvent<ModifyUserVirtualCurrencyResult>)delegate15;
+					}
+				}
+			}
+			if (this.OnAndroidDevicePushNotificationRegistrationRequestEvent != null)
+			{
+				foreach (Delegate delegate16 in this.OnAndroidDevicePushNotificationRegistrationRequestEvent.GetInvocationList())
+				{
+					if (delegate16.Target == instance)
+					{
+						this.OnAndroidDevicePushNotificationRegistrationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AndroidDevicePushNotificationRegistrationRequest>)delegate16;
+					}
+				}
+			}
+			if (this.OnAndroidDevicePushNotificationRegistrationResultEvent != null)
+			{
+				foreach (Delegate delegate17 in this.OnAndroidDevicePushNotificationRegistrationResultEvent.GetInvocationList())
+				{
+					if (delegate17.Target == instance)
+					{
+						this.OnAndroidDevicePushNotificationRegistrationResultEvent -= (PlayFabEvents.PlayFabResultEvent<AndroidDevicePushNotificationRegistrationResult>)delegate17;
+					}
+				}
+			}
+			if (this.OnAttributeInstallRequestEvent != null)
+			{
+				foreach (Delegate delegate18 in this.OnAttributeInstallRequestEvent.GetInvocationList())
+				{
+					if (delegate18.Target == instance)
+					{
+						this.OnAttributeInstallRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AttributeInstallRequest>)delegate18;
+					}
+				}
+			}
+			if (this.OnAttributeInstallResultEvent != null)
+			{
+				foreach (Delegate delegate19 in this.OnAttributeInstallResultEvent.GetInvocationList())
+				{
+					if (delegate19.Target == instance)
+					{
+						this.OnAttributeInstallResultEvent -= (PlayFabEvents.PlayFabResultEvent<AttributeInstallResult>)delegate19;
+					}
+				}
+			}
+			if (this.OnCancelTradeRequestEvent != null)
+			{
+				foreach (Delegate delegate20 in this.OnCancelTradeRequestEvent.GetInvocationList())
+				{
+					if (delegate20.Target == instance)
+					{
+						this.OnCancelTradeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CancelTradeRequest>)delegate20;
+					}
+				}
+			}
+			if (this.OnCancelTradeResultEvent != null)
+			{
+				foreach (Delegate delegate21 in this.OnCancelTradeResultEvent.GetInvocationList())
+				{
+					if (delegate21.Target == instance)
+					{
+						this.OnCancelTradeResultEvent -= (PlayFabEvents.PlayFabResultEvent<CancelTradeResponse>)delegate21;
+					}
+				}
+			}
+			if (this.OnConfirmPurchaseRequestEvent != null)
+			{
+				foreach (Delegate delegate22 in this.OnConfirmPurchaseRequestEvent.GetInvocationList())
+				{
+					if (delegate22.Target == instance)
+					{
+						this.OnConfirmPurchaseRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ConfirmPurchaseRequest>)delegate22;
+					}
+				}
+			}
+			if (this.OnConfirmPurchaseResultEvent != null)
+			{
+				foreach (Delegate delegate23 in this.OnConfirmPurchaseResultEvent.GetInvocationList())
+				{
+					if (delegate23.Target == instance)
+					{
+						this.OnConfirmPurchaseResultEvent -= (PlayFabEvents.PlayFabResultEvent<ConfirmPurchaseResult>)delegate23;
+					}
+				}
+			}
+			if (this.OnConsumeItemRequestEvent != null)
+			{
+				foreach (Delegate delegate24 in this.OnConsumeItemRequestEvent.GetInvocationList())
+				{
+					if (delegate24.Target == instance)
+					{
+						this.OnConsumeItemRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ConsumeItemRequest>)delegate24;
+					}
+				}
+			}
+			if (this.OnConsumeItemResultEvent != null)
+			{
+				foreach (Delegate delegate25 in this.OnConsumeItemResultEvent.GetInvocationList())
+				{
+					if (delegate25.Target == instance)
+					{
+						this.OnConsumeItemResultEvent -= (PlayFabEvents.PlayFabResultEvent<ConsumeItemResult>)delegate25;
+					}
+				}
+			}
+			if (this.OnConsumePSNEntitlementsRequestEvent != null)
+			{
+				foreach (Delegate delegate26 in this.OnConsumePSNEntitlementsRequestEvent.GetInvocationList())
+				{
+					if (delegate26.Target == instance)
+					{
+						this.OnConsumePSNEntitlementsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ConsumePSNEntitlementsRequest>)delegate26;
+					}
+				}
+			}
+			if (this.OnConsumePSNEntitlementsResultEvent != null)
+			{
+				foreach (Delegate delegate27 in this.OnConsumePSNEntitlementsResultEvent.GetInvocationList())
+				{
+					if (delegate27.Target == instance)
+					{
+						this.OnConsumePSNEntitlementsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ConsumePSNEntitlementsResult>)delegate27;
+					}
+				}
+			}
+			if (this.OnConsumeXboxEntitlementsRequestEvent != null)
+			{
+				foreach (Delegate delegate28 in this.OnConsumeXboxEntitlementsRequestEvent.GetInvocationList())
+				{
+					if (delegate28.Target == instance)
+					{
+						this.OnConsumeXboxEntitlementsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ConsumeXboxEntitlementsRequest>)delegate28;
+					}
+				}
+			}
+			if (this.OnConsumeXboxEntitlementsResultEvent != null)
+			{
+				foreach (Delegate delegate29 in this.OnConsumeXboxEntitlementsResultEvent.GetInvocationList())
+				{
+					if (delegate29.Target == instance)
+					{
+						this.OnConsumeXboxEntitlementsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ConsumeXboxEntitlementsResult>)delegate29;
+					}
+				}
+			}
+			if (this.OnCreateSharedGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate30 in this.OnCreateSharedGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate30.Target == instance)
+					{
+						this.OnCreateSharedGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateSharedGroupRequest>)delegate30;
+					}
+				}
+			}
+			if (this.OnCreateSharedGroupResultEvent != null)
+			{
+				foreach (Delegate delegate31 in this.OnCreateSharedGroupResultEvent.GetInvocationList())
+				{
+					if (delegate31.Target == instance)
+					{
+						this.OnCreateSharedGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateSharedGroupResult>)delegate31;
+					}
+				}
+			}
+			if (this.OnExecuteCloudScriptRequestEvent != null)
+			{
+				foreach (Delegate delegate32 in this.OnExecuteCloudScriptRequestEvent.GetInvocationList())
+				{
+					if (delegate32.Target == instance)
+					{
+						this.OnExecuteCloudScriptRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ExecuteCloudScriptRequest>)delegate32;
+					}
+				}
+			}
+			if (this.OnExecuteCloudScriptResultEvent != null)
+			{
+				foreach (Delegate delegate33 in this.OnExecuteCloudScriptResultEvent.GetInvocationList())
+				{
+					if (delegate33.Target == instance)
+					{
+						this.OnExecuteCloudScriptResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.ExecuteCloudScriptResult>)delegate33;
+					}
+				}
+			}
+			if (this.OnGetAccountInfoRequestEvent != null)
+			{
+				foreach (Delegate delegate34 in this.OnGetAccountInfoRequestEvent.GetInvocationList())
+				{
+					if (delegate34.Target == instance)
+					{
+						this.OnGetAccountInfoRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetAccountInfoRequest>)delegate34;
+					}
+				}
+			}
+			if (this.OnGetAccountInfoResultEvent != null)
+			{
+				foreach (Delegate delegate35 in this.OnGetAccountInfoResultEvent.GetInvocationList())
+				{
+					if (delegate35.Target == instance)
+					{
+						this.OnGetAccountInfoResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetAccountInfoResult>)delegate35;
+					}
+				}
+			}
+			if (this.OnGetAdPlacementsRequestEvent != null)
+			{
+				foreach (Delegate delegate36 in this.OnGetAdPlacementsRequestEvent.GetInvocationList())
+				{
+					if (delegate36.Target == instance)
+					{
+						this.OnGetAdPlacementsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetAdPlacementsRequest>)delegate36;
+					}
+				}
+			}
+			if (this.OnGetAdPlacementsResultEvent != null)
+			{
+				foreach (Delegate delegate37 in this.OnGetAdPlacementsResultEvent.GetInvocationList())
+				{
+					if (delegate37.Target == instance)
+					{
+						this.OnGetAdPlacementsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetAdPlacementsResult>)delegate37;
+					}
+				}
+			}
+			if (this.OnGetAllUsersCharactersRequestEvent != null)
+			{
+				foreach (Delegate delegate38 in this.OnGetAllUsersCharactersRequestEvent.GetInvocationList())
+				{
+					if (delegate38.Target == instance)
+					{
+						this.OnGetAllUsersCharactersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListUsersCharactersRequest>)delegate38;
+					}
+				}
+			}
+			if (this.OnGetAllUsersCharactersResultEvent != null)
+			{
+				foreach (Delegate delegate39 in this.OnGetAllUsersCharactersResultEvent.GetInvocationList())
+				{
+					if (delegate39.Target == instance)
+					{
+						this.OnGetAllUsersCharactersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListUsersCharactersResult>)delegate39;
+					}
+				}
+			}
+			if (this.OnGetCatalogItemsRequestEvent != null)
+			{
+				foreach (Delegate delegate40 in this.OnGetCatalogItemsRequestEvent.GetInvocationList())
+				{
+					if (delegate40.Target == instance)
+					{
+						this.OnGetCatalogItemsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCatalogItemsRequest>)delegate40;
+					}
+				}
+			}
+			if (this.OnGetCatalogItemsResultEvent != null)
+			{
+				foreach (Delegate delegate41 in this.OnGetCatalogItemsResultEvent.GetInvocationList())
+				{
+					if (delegate41.Target == instance)
+					{
+						this.OnGetCatalogItemsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCatalogItemsResult>)delegate41;
+					}
+				}
+			}
+			if (this.OnGetCharacterDataRequestEvent != null)
+			{
+				foreach (Delegate delegate42 in this.OnGetCharacterDataRequestEvent.GetInvocationList())
+				{
+					if (delegate42.Target == instance)
+					{
+						this.OnGetCharacterDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCharacterDataRequest>)delegate42;
+					}
+				}
+			}
+			if (this.OnGetCharacterDataResultEvent != null)
+			{
+				foreach (Delegate delegate43 in this.OnGetCharacterDataResultEvent.GetInvocationList())
+				{
+					if (delegate43.Target == instance)
+					{
+						this.OnGetCharacterDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCharacterDataResult>)delegate43;
+					}
+				}
+			}
+			if (this.OnGetCharacterInventoryRequestEvent != null)
+			{
+				foreach (Delegate delegate44 in this.OnGetCharacterInventoryRequestEvent.GetInvocationList())
+				{
+					if (delegate44.Target == instance)
+					{
+						this.OnGetCharacterInventoryRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCharacterInventoryRequest>)delegate44;
+					}
+				}
+			}
+			if (this.OnGetCharacterInventoryResultEvent != null)
+			{
+				foreach (Delegate delegate45 in this.OnGetCharacterInventoryResultEvent.GetInvocationList())
+				{
+					if (delegate45.Target == instance)
+					{
+						this.OnGetCharacterInventoryResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCharacterInventoryResult>)delegate45;
+					}
+				}
+			}
+			if (this.OnGetCharacterLeaderboardRequestEvent != null)
+			{
+				foreach (Delegate delegate46 in this.OnGetCharacterLeaderboardRequestEvent.GetInvocationList())
+				{
+					if (delegate46.Target == instance)
+					{
+						this.OnGetCharacterLeaderboardRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCharacterLeaderboardRequest>)delegate46;
+					}
+				}
+			}
+			if (this.OnGetCharacterLeaderboardResultEvent != null)
+			{
+				foreach (Delegate delegate47 in this.OnGetCharacterLeaderboardResultEvent.GetInvocationList())
+				{
+					if (delegate47.Target == instance)
+					{
+						this.OnGetCharacterLeaderboardResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCharacterLeaderboardResult>)delegate47;
+					}
+				}
+			}
+			if (this.OnGetCharacterReadOnlyDataRequestEvent != null)
+			{
+				foreach (Delegate delegate48 in this.OnGetCharacterReadOnlyDataRequestEvent.GetInvocationList())
+				{
+					if (delegate48.Target == instance)
+					{
+						this.OnGetCharacterReadOnlyDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCharacterDataRequest>)delegate48;
+					}
+				}
+			}
+			if (this.OnGetCharacterReadOnlyDataResultEvent != null)
+			{
+				foreach (Delegate delegate49 in this.OnGetCharacterReadOnlyDataResultEvent.GetInvocationList())
+				{
+					if (delegate49.Target == instance)
+					{
+						this.OnGetCharacterReadOnlyDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCharacterDataResult>)delegate49;
+					}
+				}
+			}
+			if (this.OnGetCharacterStatisticsRequestEvent != null)
+			{
+				foreach (Delegate delegate50 in this.OnGetCharacterStatisticsRequestEvent.GetInvocationList())
+				{
+					if (delegate50.Target == instance)
+					{
+						this.OnGetCharacterStatisticsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetCharacterStatisticsRequest>)delegate50;
+					}
+				}
+			}
+			if (this.OnGetCharacterStatisticsResultEvent != null)
+			{
+				foreach (Delegate delegate51 in this.OnGetCharacterStatisticsResultEvent.GetInvocationList())
+				{
+					if (delegate51.Target == instance)
+					{
+						this.OnGetCharacterStatisticsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetCharacterStatisticsResult>)delegate51;
+					}
+				}
+			}
+			if (this.OnGetContentDownloadUrlRequestEvent != null)
+			{
+				foreach (Delegate delegate52 in this.OnGetContentDownloadUrlRequestEvent.GetInvocationList())
+				{
+					if (delegate52.Target == instance)
+					{
+						this.OnGetContentDownloadUrlRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetContentDownloadUrlRequest>)delegate52;
+					}
+				}
+			}
+			if (this.OnGetContentDownloadUrlResultEvent != null)
+			{
+				foreach (Delegate delegate53 in this.OnGetContentDownloadUrlResultEvent.GetInvocationList())
+				{
+					if (delegate53.Target == instance)
+					{
+						this.OnGetContentDownloadUrlResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetContentDownloadUrlResult>)delegate53;
+					}
+				}
+			}
+			if (this.OnGetCurrentGamesRequestEvent != null)
+			{
+				foreach (Delegate delegate54 in this.OnGetCurrentGamesRequestEvent.GetInvocationList())
+				{
+					if (delegate54.Target == instance)
+					{
+						this.OnGetCurrentGamesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CurrentGamesRequest>)delegate54;
+					}
+				}
+			}
+			if (this.OnGetCurrentGamesResultEvent != null)
+			{
+				foreach (Delegate delegate55 in this.OnGetCurrentGamesResultEvent.GetInvocationList())
+				{
+					if (delegate55.Target == instance)
+					{
+						this.OnGetCurrentGamesResultEvent -= (PlayFabEvents.PlayFabResultEvent<CurrentGamesResult>)delegate55;
+					}
+				}
+			}
+			if (this.OnGetFriendLeaderboardRequestEvent != null)
+			{
+				foreach (Delegate delegate56 in this.OnGetFriendLeaderboardRequestEvent.GetInvocationList())
+				{
+					if (delegate56.Target == instance)
+					{
+						this.OnGetFriendLeaderboardRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetFriendLeaderboardRequest>)delegate56;
+					}
+				}
+			}
+			if (this.OnGetFriendLeaderboardResultEvent != null)
+			{
+				foreach (Delegate delegate57 in this.OnGetFriendLeaderboardResultEvent.GetInvocationList())
+				{
+					if (delegate57.Target == instance)
+					{
+						this.OnGetFriendLeaderboardResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLeaderboardResult>)delegate57;
+					}
+				}
+			}
+			if (this.OnGetFriendLeaderboardAroundPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate58 in this.OnGetFriendLeaderboardAroundPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate58.Target == instance)
+					{
+						this.OnGetFriendLeaderboardAroundPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetFriendLeaderboardAroundPlayerRequest>)delegate58;
+					}
+				}
+			}
+			if (this.OnGetFriendLeaderboardAroundPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate59 in this.OnGetFriendLeaderboardAroundPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate59.Target == instance)
+					{
+						this.OnGetFriendLeaderboardAroundPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetFriendLeaderboardAroundPlayerResult>)delegate59;
+					}
+				}
+			}
+			if (this.OnGetFriendsListRequestEvent != null)
+			{
+				foreach (Delegate delegate60 in this.OnGetFriendsListRequestEvent.GetInvocationList())
+				{
+					if (delegate60.Target == instance)
+					{
+						this.OnGetFriendsListRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetFriendsListRequest>)delegate60;
+					}
+				}
+			}
+			if (this.OnGetFriendsListResultEvent != null)
+			{
+				foreach (Delegate delegate61 in this.OnGetFriendsListResultEvent.GetInvocationList())
+				{
+					if (delegate61.Target == instance)
+					{
+						this.OnGetFriendsListResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetFriendsListResult>)delegate61;
+					}
+				}
+			}
+			if (this.OnGetGameServerRegionsRequestEvent != null)
+			{
+				foreach (Delegate delegate62 in this.OnGetGameServerRegionsRequestEvent.GetInvocationList())
+				{
+					if (delegate62.Target == instance)
+					{
+						this.OnGetGameServerRegionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GameServerRegionsRequest>)delegate62;
+					}
+				}
+			}
+			if (this.OnGetGameServerRegionsResultEvent != null)
+			{
+				foreach (Delegate delegate63 in this.OnGetGameServerRegionsResultEvent.GetInvocationList())
+				{
+					if (delegate63.Target == instance)
+					{
+						this.OnGetGameServerRegionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GameServerRegionsResult>)delegate63;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardRequestEvent != null)
+			{
+				foreach (Delegate delegate64 in this.OnGetLeaderboardRequestEvent.GetInvocationList())
+				{
+					if (delegate64.Target == instance)
+					{
+						this.OnGetLeaderboardRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLeaderboardRequest>)delegate64;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardResultEvent != null)
+			{
+				foreach (Delegate delegate65 in this.OnGetLeaderboardResultEvent.GetInvocationList())
+				{
+					if (delegate65.Target == instance)
+					{
+						this.OnGetLeaderboardResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLeaderboardResult>)delegate65;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardAroundCharacterRequestEvent != null)
+			{
+				foreach (Delegate delegate66 in this.OnGetLeaderboardAroundCharacterRequestEvent.GetInvocationList())
+				{
+					if (delegate66.Target == instance)
+					{
+						this.OnGetLeaderboardAroundCharacterRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLeaderboardAroundCharacterRequest>)delegate66;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardAroundCharacterResultEvent != null)
+			{
+				foreach (Delegate delegate67 in this.OnGetLeaderboardAroundCharacterResultEvent.GetInvocationList())
+				{
+					if (delegate67.Target == instance)
+					{
+						this.OnGetLeaderboardAroundCharacterResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLeaderboardAroundCharacterResult>)delegate67;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardAroundPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate68 in this.OnGetLeaderboardAroundPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate68.Target == instance)
+					{
+						this.OnGetLeaderboardAroundPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLeaderboardAroundPlayerRequest>)delegate68;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardAroundPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate69 in this.OnGetLeaderboardAroundPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate69.Target == instance)
+					{
+						this.OnGetLeaderboardAroundPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLeaderboardAroundPlayerResult>)delegate69;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardForUserCharactersRequestEvent != null)
+			{
+				foreach (Delegate delegate70 in this.OnGetLeaderboardForUserCharactersRequestEvent.GetInvocationList())
+				{
+					if (delegate70.Target == instance)
+					{
+						this.OnGetLeaderboardForUserCharactersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLeaderboardForUsersCharactersRequest>)delegate70;
+					}
+				}
+			}
+			if (this.OnGetLeaderboardForUserCharactersResultEvent != null)
+			{
+				foreach (Delegate delegate71 in this.OnGetLeaderboardForUserCharactersResultEvent.GetInvocationList())
+				{
+					if (delegate71.Target == instance)
+					{
+						this.OnGetLeaderboardForUserCharactersResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLeaderboardForUsersCharactersResult>)delegate71;
+					}
+				}
+			}
+			if (this.OnGetPaymentTokenRequestEvent != null)
+			{
+				foreach (Delegate delegate72 in this.OnGetPaymentTokenRequestEvent.GetInvocationList())
+				{
+					if (delegate72.Target == instance)
+					{
+						this.OnGetPaymentTokenRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPaymentTokenRequest>)delegate72;
+					}
+				}
+			}
+			if (this.OnGetPaymentTokenResultEvent != null)
+			{
+				foreach (Delegate delegate73 in this.OnGetPaymentTokenResultEvent.GetInvocationList())
+				{
+					if (delegate73.Target == instance)
+					{
+						this.OnGetPaymentTokenResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPaymentTokenResult>)delegate73;
+					}
+				}
+			}
+			if (this.OnGetPhotonAuthenticationTokenRequestEvent != null)
+			{
+				foreach (Delegate delegate74 in this.OnGetPhotonAuthenticationTokenRequestEvent.GetInvocationList())
+				{
+					if (delegate74.Target == instance)
+					{
+						this.OnGetPhotonAuthenticationTokenRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPhotonAuthenticationTokenRequest>)delegate74;
+					}
+				}
+			}
+			if (this.OnGetPhotonAuthenticationTokenResultEvent != null)
+			{
+				foreach (Delegate delegate75 in this.OnGetPhotonAuthenticationTokenResultEvent.GetInvocationList())
+				{
+					if (delegate75.Target == instance)
+					{
+						this.OnGetPhotonAuthenticationTokenResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPhotonAuthenticationTokenResult>)delegate75;
+					}
+				}
+			}
+			if (this.OnGetPlayerCombinedInfoRequestEvent != null)
+			{
+				foreach (Delegate delegate76 in this.OnGetPlayerCombinedInfoRequestEvent.GetInvocationList())
+				{
+					if (delegate76.Target == instance)
+					{
+						this.OnGetPlayerCombinedInfoRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerCombinedInfoRequest>)delegate76;
+					}
+				}
+			}
+			if (this.OnGetPlayerCombinedInfoResultEvent != null)
+			{
+				foreach (Delegate delegate77 in this.OnGetPlayerCombinedInfoResultEvent.GetInvocationList())
+				{
+					if (delegate77.Target == instance)
+					{
+						this.OnGetPlayerCombinedInfoResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerCombinedInfoResult>)delegate77;
+					}
+				}
+			}
+			if (this.OnGetPlayerProfileRequestEvent != null)
+			{
+				foreach (Delegate delegate78 in this.OnGetPlayerProfileRequestEvent.GetInvocationList())
+				{
+					if (delegate78.Target == instance)
+					{
+						this.OnGetPlayerProfileRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerProfileRequest>)delegate78;
+					}
+				}
+			}
+			if (this.OnGetPlayerProfileResultEvent != null)
+			{
+				foreach (Delegate delegate79 in this.OnGetPlayerProfileResultEvent.GetInvocationList())
+				{
+					if (delegate79.Target == instance)
+					{
+						this.OnGetPlayerProfileResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerProfileResult>)delegate79;
+					}
+				}
+			}
+			if (this.OnGetPlayerSegmentsRequestEvent != null)
+			{
+				foreach (Delegate delegate80 in this.OnGetPlayerSegmentsRequestEvent.GetInvocationList())
+				{
+					if (delegate80.Target == instance)
+					{
+						this.OnGetPlayerSegmentsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerSegmentsRequest>)delegate80;
+					}
+				}
+			}
+			if (this.OnGetPlayerSegmentsResultEvent != null)
+			{
+				foreach (Delegate delegate81 in this.OnGetPlayerSegmentsResultEvent.GetInvocationList())
+				{
+					if (delegate81.Target == instance)
+					{
+						this.OnGetPlayerSegmentsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerSegmentsResult>)delegate81;
+					}
+				}
+			}
+			if (this.OnGetPlayerStatisticsRequestEvent != null)
+			{
+				foreach (Delegate delegate82 in this.OnGetPlayerStatisticsRequestEvent.GetInvocationList())
+				{
+					if (delegate82.Target == instance)
+					{
+						this.OnGetPlayerStatisticsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerStatisticsRequest>)delegate82;
+					}
+				}
+			}
+			if (this.OnGetPlayerStatisticsResultEvent != null)
+			{
+				foreach (Delegate delegate83 in this.OnGetPlayerStatisticsResultEvent.GetInvocationList())
+				{
+					if (delegate83.Target == instance)
+					{
+						this.OnGetPlayerStatisticsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerStatisticsResult>)delegate83;
+					}
+				}
+			}
+			if (this.OnGetPlayerStatisticVersionsRequestEvent != null)
+			{
+				foreach (Delegate delegate84 in this.OnGetPlayerStatisticVersionsRequestEvent.GetInvocationList())
+				{
+					if (delegate84.Target == instance)
+					{
+						this.OnGetPlayerStatisticVersionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerStatisticVersionsRequest>)delegate84;
+					}
+				}
+			}
+			if (this.OnGetPlayerStatisticVersionsResultEvent != null)
+			{
+				foreach (Delegate delegate85 in this.OnGetPlayerStatisticVersionsResultEvent.GetInvocationList())
+				{
+					if (delegate85.Target == instance)
+					{
+						this.OnGetPlayerStatisticVersionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerStatisticVersionsResult>)delegate85;
+					}
+				}
+			}
+			if (this.OnGetPlayerTagsRequestEvent != null)
+			{
+				foreach (Delegate delegate86 in this.OnGetPlayerTagsRequestEvent.GetInvocationList())
+				{
+					if (delegate86.Target == instance)
+					{
+						this.OnGetPlayerTagsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerTagsRequest>)delegate86;
+					}
+				}
+			}
+			if (this.OnGetPlayerTagsResultEvent != null)
+			{
+				foreach (Delegate delegate87 in this.OnGetPlayerTagsResultEvent.GetInvocationList())
+				{
+					if (delegate87.Target == instance)
+					{
+						this.OnGetPlayerTagsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerTagsResult>)delegate87;
+					}
+				}
+			}
+			if (this.OnGetPlayerTradesRequestEvent != null)
+			{
+				foreach (Delegate delegate88 in this.OnGetPlayerTradesRequestEvent.GetInvocationList())
+				{
+					if (delegate88.Target == instance)
+					{
+						this.OnGetPlayerTradesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayerTradesRequest>)delegate88;
+					}
+				}
+			}
+			if (this.OnGetPlayerTradesResultEvent != null)
+			{
+				foreach (Delegate delegate89 in this.OnGetPlayerTradesResultEvent.GetInvocationList())
+				{
+					if (delegate89.Target == instance)
+					{
+						this.OnGetPlayerTradesResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayerTradesResponse>)delegate89;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromFacebookIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate90 in this.OnGetPlayFabIDsFromFacebookIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate90.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromFacebookIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromFacebookIDsRequest>)delegate90;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromFacebookIDsResultEvent != null)
+			{
+				foreach (Delegate delegate91 in this.OnGetPlayFabIDsFromFacebookIDsResultEvent.GetInvocationList())
+				{
+					if (delegate91.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromFacebookIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromFacebookIDsResult>)delegate91;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent != null)
+			{
+				foreach (Delegate delegate92 in this.OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent.GetInvocationList())
+				{
+					if (delegate92.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromFacebookInstantGamesIdsRequest>)delegate92;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent != null)
+			{
+				foreach (Delegate delegate93 in this.OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent.GetInvocationList())
+				{
+					if (delegate93.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromFacebookInstantGamesIdsResult>)delegate93;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGameCenterIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate94 in this.OnGetPlayFabIDsFromGameCenterIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate94.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGameCenterIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGameCenterIDsRequest>)delegate94;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGameCenterIDsResultEvent != null)
+			{
+				foreach (Delegate delegate95 in this.OnGetPlayFabIDsFromGameCenterIDsResultEvent.GetInvocationList())
+				{
+					if (delegate95.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGameCenterIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGameCenterIDsResult>)delegate95;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGenericIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate96 in this.OnGetPlayFabIDsFromGenericIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate96.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGenericIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGenericIDsRequest>)delegate96;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGenericIDsResultEvent != null)
+			{
+				foreach (Delegate delegate97 in this.OnGetPlayFabIDsFromGenericIDsResultEvent.GetInvocationList())
+				{
+					if (delegate97.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGenericIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGenericIDsResult>)delegate97;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGoogleIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate98 in this.OnGetPlayFabIDsFromGoogleIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate98.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGoogleIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromGoogleIDsRequest>)delegate98;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromGoogleIDsResultEvent != null)
+			{
+				foreach (Delegate delegate99 in this.OnGetPlayFabIDsFromGoogleIDsResultEvent.GetInvocationList())
+				{
+					if (delegate99.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromGoogleIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromGoogleIDsResult>)delegate99;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromKongregateIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate100 in this.OnGetPlayFabIDsFromKongregateIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate100.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromKongregateIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromKongregateIDsRequest>)delegate100;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromKongregateIDsResultEvent != null)
+			{
+				foreach (Delegate delegate101 in this.OnGetPlayFabIDsFromKongregateIDsResultEvent.GetInvocationList())
+				{
+					if (delegate101.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromKongregateIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromKongregateIDsResult>)delegate101;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent != null)
+			{
+				foreach (Delegate delegate102 in this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent.GetInvocationList())
+				{
+					if (delegate102.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest>)delegate102;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent != null)
+			{
+				foreach (Delegate delegate103 in this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent.GetInvocationList())
+				{
+					if (delegate103.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>)delegate103;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromPSNAccountIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate104 in this.OnGetPlayFabIDsFromPSNAccountIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate104.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromPSNAccountIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromPSNAccountIDsRequest>)delegate104;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromPSNAccountIDsResultEvent != null)
+			{
+				foreach (Delegate delegate105 in this.OnGetPlayFabIDsFromPSNAccountIDsResultEvent.GetInvocationList())
+				{
+					if (delegate105.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromPSNAccountIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromPSNAccountIDsResult>)delegate105;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromSteamIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate106 in this.OnGetPlayFabIDsFromSteamIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate106.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromSteamIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromSteamIDsRequest>)delegate106;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromSteamIDsResultEvent != null)
+			{
+				foreach (Delegate delegate107 in this.OnGetPlayFabIDsFromSteamIDsResultEvent.GetInvocationList())
+				{
+					if (delegate107.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromSteamIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromSteamIDsResult>)delegate107;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromTwitchIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate108 in this.OnGetPlayFabIDsFromTwitchIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate108.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromTwitchIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromTwitchIDsRequest>)delegate108;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromTwitchIDsResultEvent != null)
+			{
+				foreach (Delegate delegate109 in this.OnGetPlayFabIDsFromTwitchIDsResultEvent.GetInvocationList())
+				{
+					if (delegate109.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromTwitchIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromTwitchIDsResult>)delegate109;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromXboxLiveIDsRequestEvent != null)
+			{
+				foreach (Delegate delegate110 in this.OnGetPlayFabIDsFromXboxLiveIDsRequestEvent.GetInvocationList())
+				{
+					if (delegate110.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromXboxLiveIDsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPlayFabIDsFromXboxLiveIDsRequest>)delegate110;
+					}
+				}
+			}
+			if (this.OnGetPlayFabIDsFromXboxLiveIDsResultEvent != null)
+			{
+				foreach (Delegate delegate111 in this.OnGetPlayFabIDsFromXboxLiveIDsResultEvent.GetInvocationList())
+				{
+					if (delegate111.Target == instance)
+					{
+						this.OnGetPlayFabIDsFromXboxLiveIDsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPlayFabIDsFromXboxLiveIDsResult>)delegate111;
+					}
+				}
+			}
+			if (this.OnGetPublisherDataRequestEvent != null)
+			{
+				foreach (Delegate delegate112 in this.OnGetPublisherDataRequestEvent.GetInvocationList())
+				{
+					if (delegate112.Target == instance)
+					{
+						this.OnGetPublisherDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPublisherDataRequest>)delegate112;
+					}
+				}
+			}
+			if (this.OnGetPublisherDataResultEvent != null)
+			{
+				foreach (Delegate delegate113 in this.OnGetPublisherDataResultEvent.GetInvocationList())
+				{
+					if (delegate113.Target == instance)
+					{
+						this.OnGetPublisherDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPublisherDataResult>)delegate113;
+					}
+				}
+			}
+			if (this.OnGetPurchaseRequestEvent != null)
+			{
+				foreach (Delegate delegate114 in this.OnGetPurchaseRequestEvent.GetInvocationList())
+				{
+					if (delegate114.Target == instance)
+					{
+						this.OnGetPurchaseRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetPurchaseRequest>)delegate114;
+					}
+				}
+			}
+			if (this.OnGetPurchaseResultEvent != null)
+			{
+				foreach (Delegate delegate115 in this.OnGetPurchaseResultEvent.GetInvocationList())
+				{
+					if (delegate115.Target == instance)
+					{
+						this.OnGetPurchaseResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetPurchaseResult>)delegate115;
+					}
+				}
+			}
+			if (this.OnGetSharedGroupDataRequestEvent != null)
+			{
+				foreach (Delegate delegate116 in this.OnGetSharedGroupDataRequestEvent.GetInvocationList())
+				{
+					if (delegate116.Target == instance)
+					{
+						this.OnGetSharedGroupDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetSharedGroupDataRequest>)delegate116;
+					}
+				}
+			}
+			if (this.OnGetSharedGroupDataResultEvent != null)
+			{
+				foreach (Delegate delegate117 in this.OnGetSharedGroupDataResultEvent.GetInvocationList())
+				{
+					if (delegate117.Target == instance)
+					{
+						this.OnGetSharedGroupDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetSharedGroupDataResult>)delegate117;
+					}
+				}
+			}
+			if (this.OnGetStoreItemsRequestEvent != null)
+			{
+				foreach (Delegate delegate118 in this.OnGetStoreItemsRequestEvent.GetInvocationList())
+				{
+					if (delegate118.Target == instance)
+					{
+						this.OnGetStoreItemsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetStoreItemsRequest>)delegate118;
+					}
+				}
+			}
+			if (this.OnGetStoreItemsResultEvent != null)
+			{
+				foreach (Delegate delegate119 in this.OnGetStoreItemsResultEvent.GetInvocationList())
+				{
+					if (delegate119.Target == instance)
+					{
+						this.OnGetStoreItemsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetStoreItemsResult>)delegate119;
+					}
+				}
+			}
+			if (this.OnGetTimeRequestEvent != null)
+			{
+				foreach (Delegate delegate120 in this.OnGetTimeRequestEvent.GetInvocationList())
+				{
+					if (delegate120.Target == instance)
+					{
+						this.OnGetTimeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTimeRequest>)delegate120;
+					}
+				}
+			}
+			if (this.OnGetTimeResultEvent != null)
+			{
+				foreach (Delegate delegate121 in this.OnGetTimeResultEvent.GetInvocationList())
+				{
+					if (delegate121.Target == instance)
+					{
+						this.OnGetTimeResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTimeResult>)delegate121;
+					}
+				}
+			}
+			if (this.OnGetTitleDataRequestEvent != null)
+			{
+				foreach (Delegate delegate122 in this.OnGetTitleDataRequestEvent.GetInvocationList())
+				{
+					if (delegate122.Target == instance)
+					{
+						this.OnGetTitleDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitleDataRequest>)delegate122;
+					}
+				}
+			}
+			if (this.OnGetTitleDataResultEvent != null)
+			{
+				foreach (Delegate delegate123 in this.OnGetTitleDataResultEvent.GetInvocationList())
+				{
+					if (delegate123.Target == instance)
+					{
+						this.OnGetTitleDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitleDataResult>)delegate123;
+					}
+				}
+			}
+			if (this.OnGetTitleNewsRequestEvent != null)
+			{
+				foreach (Delegate delegate124 in this.OnGetTitleNewsRequestEvent.GetInvocationList())
+				{
+					if (delegate124.Target == instance)
+					{
+						this.OnGetTitleNewsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitleNewsRequest>)delegate124;
+					}
+				}
+			}
+			if (this.OnGetTitleNewsResultEvent != null)
+			{
+				foreach (Delegate delegate125 in this.OnGetTitleNewsResultEvent.GetInvocationList())
+				{
+					if (delegate125.Target == instance)
+					{
+						this.OnGetTitleNewsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitleNewsResult>)delegate125;
+					}
+				}
+			}
+			if (this.OnGetTitlePublicKeyRequestEvent != null)
+			{
+				foreach (Delegate delegate126 in this.OnGetTitlePublicKeyRequestEvent.GetInvocationList())
+				{
+					if (delegate126.Target == instance)
+					{
+						this.OnGetTitlePublicKeyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitlePublicKeyRequest>)delegate126;
+					}
+				}
+			}
+			if (this.OnGetTitlePublicKeyResultEvent != null)
+			{
+				foreach (Delegate delegate127 in this.OnGetTitlePublicKeyResultEvent.GetInvocationList())
+				{
+					if (delegate127.Target == instance)
+					{
+						this.OnGetTitlePublicKeyResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitlePublicKeyResult>)delegate127;
+					}
+				}
+			}
+			if (this.OnGetTradeStatusRequestEvent != null)
+			{
+				foreach (Delegate delegate128 in this.OnGetTradeStatusRequestEvent.GetInvocationList())
+				{
+					if (delegate128.Target == instance)
+					{
+						this.OnGetTradeStatusRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTradeStatusRequest>)delegate128;
+					}
+				}
+			}
+			if (this.OnGetTradeStatusResultEvent != null)
+			{
+				foreach (Delegate delegate129 in this.OnGetTradeStatusResultEvent.GetInvocationList())
+				{
+					if (delegate129.Target == instance)
+					{
+						this.OnGetTradeStatusResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTradeStatusResponse>)delegate129;
+					}
+				}
+			}
+			if (this.OnGetUserDataRequestEvent != null)
+			{
+				foreach (Delegate delegate130 in this.OnGetUserDataRequestEvent.GetInvocationList())
+				{
+					if (delegate130.Target == instance)
+					{
+						this.OnGetUserDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest>)delegate130;
+					}
+				}
+			}
+			if (this.OnGetUserDataResultEvent != null)
+			{
+				foreach (Delegate delegate131 in this.OnGetUserDataResultEvent.GetInvocationList())
+				{
+					if (delegate131.Target == instance)
+					{
+						this.OnGetUserDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetUserDataResult>)delegate131;
+					}
+				}
+			}
+			if (this.OnGetUserInventoryRequestEvent != null)
+			{
+				foreach (Delegate delegate132 in this.OnGetUserInventoryRequestEvent.GetInvocationList())
+				{
+					if (delegate132.Target == instance)
+					{
+						this.OnGetUserInventoryRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetUserInventoryRequest>)delegate132;
+					}
+				}
+			}
+			if (this.OnGetUserInventoryResultEvent != null)
+			{
+				foreach (Delegate delegate133 in this.OnGetUserInventoryResultEvent.GetInvocationList())
+				{
+					if (delegate133.Target == instance)
+					{
+						this.OnGetUserInventoryResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetUserInventoryResult>)delegate133;
+					}
+				}
+			}
+			if (this.OnGetUserPublisherDataRequestEvent != null)
+			{
+				foreach (Delegate delegate134 in this.OnGetUserPublisherDataRequestEvent.GetInvocationList())
+				{
+					if (delegate134.Target == instance)
+					{
+						this.OnGetUserPublisherDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest>)delegate134;
+					}
+				}
+			}
+			if (this.OnGetUserPublisherDataResultEvent != null)
+			{
+				foreach (Delegate delegate135 in this.OnGetUserPublisherDataResultEvent.GetInvocationList())
+				{
+					if (delegate135.Target == instance)
+					{
+						this.OnGetUserPublisherDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetUserDataResult>)delegate135;
+					}
+				}
+			}
+			if (this.OnGetUserPublisherReadOnlyDataRequestEvent != null)
+			{
+				foreach (Delegate delegate136 in this.OnGetUserPublisherReadOnlyDataRequestEvent.GetInvocationList())
+				{
+					if (delegate136.Target == instance)
+					{
+						this.OnGetUserPublisherReadOnlyDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest>)delegate136;
+					}
+				}
+			}
+			if (this.OnGetUserPublisherReadOnlyDataResultEvent != null)
+			{
+				foreach (Delegate delegate137 in this.OnGetUserPublisherReadOnlyDataResultEvent.GetInvocationList())
+				{
+					if (delegate137.Target == instance)
+					{
+						this.OnGetUserPublisherReadOnlyDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetUserDataResult>)delegate137;
+					}
+				}
+			}
+			if (this.OnGetUserReadOnlyDataRequestEvent != null)
+			{
+				foreach (Delegate delegate138 in this.OnGetUserReadOnlyDataRequestEvent.GetInvocationList())
+				{
+					if (delegate138.Target == instance)
+					{
+						this.OnGetUserReadOnlyDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetUserDataRequest>)delegate138;
+					}
+				}
+			}
+			if (this.OnGetUserReadOnlyDataResultEvent != null)
+			{
+				foreach (Delegate delegate139 in this.OnGetUserReadOnlyDataResultEvent.GetInvocationList())
+				{
+					if (delegate139.Target == instance)
+					{
+						this.OnGetUserReadOnlyDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetUserDataResult>)delegate139;
+					}
+				}
+			}
+			if (this.OnGetWindowsHelloChallengeRequestEvent != null)
+			{
+				foreach (Delegate delegate140 in this.OnGetWindowsHelloChallengeRequestEvent.GetInvocationList())
+				{
+					if (delegate140.Target == instance)
+					{
+						this.OnGetWindowsHelloChallengeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetWindowsHelloChallengeRequest>)delegate140;
+					}
+				}
+			}
+			if (this.OnGetWindowsHelloChallengeResultEvent != null)
+			{
+				foreach (Delegate delegate141 in this.OnGetWindowsHelloChallengeResultEvent.GetInvocationList())
+				{
+					if (delegate141.Target == instance)
+					{
+						this.OnGetWindowsHelloChallengeResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetWindowsHelloChallengeResponse>)delegate141;
+					}
+				}
+			}
+			if (this.OnGrantCharacterToUserRequestEvent != null)
+			{
+				foreach (Delegate delegate142 in this.OnGrantCharacterToUserRequestEvent.GetInvocationList())
+				{
+					if (delegate142.Target == instance)
+					{
+						this.OnGrantCharacterToUserRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GrantCharacterToUserRequest>)delegate142;
+					}
+				}
+			}
+			if (this.OnGrantCharacterToUserResultEvent != null)
+			{
+				foreach (Delegate delegate143 in this.OnGrantCharacterToUserResultEvent.GetInvocationList())
+				{
+					if (delegate143.Target == instance)
+					{
+						this.OnGrantCharacterToUserResultEvent -= (PlayFabEvents.PlayFabResultEvent<GrantCharacterToUserResult>)delegate143;
+					}
+				}
+			}
+			if (this.OnLinkAndroidDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate144 in this.OnLinkAndroidDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate144.Target == instance)
+					{
+						this.OnLinkAndroidDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkAndroidDeviceIDRequest>)delegate144;
+					}
+				}
+			}
+			if (this.OnLinkAndroidDeviceIDResultEvent != null)
+			{
+				foreach (Delegate delegate145 in this.OnLinkAndroidDeviceIDResultEvent.GetInvocationList())
+				{
+					if (delegate145.Target == instance)
+					{
+						this.OnLinkAndroidDeviceIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkAndroidDeviceIDResult>)delegate145;
+					}
+				}
+			}
+			if (this.OnLinkAppleRequestEvent != null)
+			{
+				foreach (Delegate delegate146 in this.OnLinkAppleRequestEvent.GetInvocationList())
+				{
+					if (delegate146.Target == instance)
+					{
+						this.OnLinkAppleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkAppleRequest>)delegate146;
+					}
+				}
+			}
+			if (this.OnLinkAppleResultEvent != null)
+			{
+				foreach (Delegate delegate147 in this.OnLinkAppleResultEvent.GetInvocationList())
+				{
+					if (delegate147.Target == instance)
+					{
+						this.OnLinkAppleResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult>)delegate147;
+					}
+				}
+			}
+			if (this.OnLinkCustomIDRequestEvent != null)
+			{
+				foreach (Delegate delegate148 in this.OnLinkCustomIDRequestEvent.GetInvocationList())
+				{
+					if (delegate148.Target == instance)
+					{
+						this.OnLinkCustomIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkCustomIDRequest>)delegate148;
+					}
+				}
+			}
+			if (this.OnLinkCustomIDResultEvent != null)
+			{
+				foreach (Delegate delegate149 in this.OnLinkCustomIDResultEvent.GetInvocationList())
+				{
+					if (delegate149.Target == instance)
+					{
+						this.OnLinkCustomIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkCustomIDResult>)delegate149;
+					}
+				}
+			}
+			if (this.OnLinkFacebookAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate150 in this.OnLinkFacebookAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate150.Target == instance)
+					{
+						this.OnLinkFacebookAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkFacebookAccountRequest>)delegate150;
+					}
+				}
+			}
+			if (this.OnLinkFacebookAccountResultEvent != null)
+			{
+				foreach (Delegate delegate151 in this.OnLinkFacebookAccountResultEvent.GetInvocationList())
+				{
+					if (delegate151.Target == instance)
+					{
+						this.OnLinkFacebookAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkFacebookAccountResult>)delegate151;
+					}
+				}
+			}
+			if (this.OnLinkFacebookInstantGamesIdRequestEvent != null)
+			{
+				foreach (Delegate delegate152 in this.OnLinkFacebookInstantGamesIdRequestEvent.GetInvocationList())
+				{
+					if (delegate152.Target == instance)
+					{
+						this.OnLinkFacebookInstantGamesIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkFacebookInstantGamesIdRequest>)delegate152;
+					}
+				}
+			}
+			if (this.OnLinkFacebookInstantGamesIdResultEvent != null)
+			{
+				foreach (Delegate delegate153 in this.OnLinkFacebookInstantGamesIdResultEvent.GetInvocationList())
+				{
+					if (delegate153.Target == instance)
+					{
+						this.OnLinkFacebookInstantGamesIdResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkFacebookInstantGamesIdResult>)delegate153;
+					}
+				}
+			}
+			if (this.OnLinkGameCenterAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate154 in this.OnLinkGameCenterAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate154.Target == instance)
+					{
+						this.OnLinkGameCenterAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkGameCenterAccountRequest>)delegate154;
+					}
+				}
+			}
+			if (this.OnLinkGameCenterAccountResultEvent != null)
+			{
+				foreach (Delegate delegate155 in this.OnLinkGameCenterAccountResultEvent.GetInvocationList())
+				{
+					if (delegate155.Target == instance)
+					{
+						this.OnLinkGameCenterAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkGameCenterAccountResult>)delegate155;
+					}
+				}
+			}
+			if (this.OnLinkGoogleAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate156 in this.OnLinkGoogleAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate156.Target == instance)
+					{
+						this.OnLinkGoogleAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkGoogleAccountRequest>)delegate156;
+					}
+				}
+			}
+			if (this.OnLinkGoogleAccountResultEvent != null)
+			{
+				foreach (Delegate delegate157 in this.OnLinkGoogleAccountResultEvent.GetInvocationList())
+				{
+					if (delegate157.Target == instance)
+					{
+						this.OnLinkGoogleAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkGoogleAccountResult>)delegate157;
+					}
+				}
+			}
+			if (this.OnLinkIOSDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate158 in this.OnLinkIOSDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate158.Target == instance)
+					{
+						this.OnLinkIOSDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkIOSDeviceIDRequest>)delegate158;
+					}
+				}
+			}
+			if (this.OnLinkIOSDeviceIDResultEvent != null)
+			{
+				foreach (Delegate delegate159 in this.OnLinkIOSDeviceIDResultEvent.GetInvocationList())
+				{
+					if (delegate159.Target == instance)
+					{
+						this.OnLinkIOSDeviceIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkIOSDeviceIDResult>)delegate159;
+					}
+				}
+			}
+			if (this.OnLinkKongregateRequestEvent != null)
+			{
+				foreach (Delegate delegate160 in this.OnLinkKongregateRequestEvent.GetInvocationList())
+				{
+					if (delegate160.Target == instance)
+					{
+						this.OnLinkKongregateRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkKongregateAccountRequest>)delegate160;
+					}
+				}
+			}
+			if (this.OnLinkKongregateResultEvent != null)
+			{
+				foreach (Delegate delegate161 in this.OnLinkKongregateResultEvent.GetInvocationList())
+				{
+					if (delegate161.Target == instance)
+					{
+						this.OnLinkKongregateResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkKongregateAccountResult>)delegate161;
+					}
+				}
+			}
+			if (this.OnLinkNintendoAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate162 in this.OnLinkNintendoAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate162.Target == instance)
+					{
+						this.OnLinkNintendoAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkNintendoAccountRequest>)delegate162;
+					}
+				}
+			}
+			if (this.OnLinkNintendoAccountResultEvent != null)
+			{
+				foreach (Delegate delegate163 in this.OnLinkNintendoAccountResultEvent.GetInvocationList())
+				{
+					if (delegate163.Target == instance)
+					{
+						this.OnLinkNintendoAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult>)delegate163;
+					}
+				}
+			}
+			if (this.OnLinkNintendoSwitchDeviceIdRequestEvent != null)
+			{
+				foreach (Delegate delegate164 in this.OnLinkNintendoSwitchDeviceIdRequestEvent.GetInvocationList())
+				{
+					if (delegate164.Target == instance)
+					{
+						this.OnLinkNintendoSwitchDeviceIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkNintendoSwitchDeviceIdRequest>)delegate164;
+					}
+				}
+			}
+			if (this.OnLinkNintendoSwitchDeviceIdResultEvent != null)
+			{
+				foreach (Delegate delegate165 in this.OnLinkNintendoSwitchDeviceIdResultEvent.GetInvocationList())
+				{
+					if (delegate165.Target == instance)
+					{
+						this.OnLinkNintendoSwitchDeviceIdResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkNintendoSwitchDeviceIdResult>)delegate165;
+					}
+				}
+			}
+			if (this.OnLinkOpenIdConnectRequestEvent != null)
+			{
+				foreach (Delegate delegate166 in this.OnLinkOpenIdConnectRequestEvent.GetInvocationList())
+				{
+					if (delegate166.Target == instance)
+					{
+						this.OnLinkOpenIdConnectRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkOpenIdConnectRequest>)delegate166;
+					}
+				}
+			}
+			if (this.OnLinkOpenIdConnectResultEvent != null)
+			{
+				foreach (Delegate delegate167 in this.OnLinkOpenIdConnectResultEvent.GetInvocationList())
+				{
+					if (delegate167.Target == instance)
+					{
+						this.OnLinkOpenIdConnectResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResult>)delegate167;
+					}
+				}
+			}
+			if (this.OnLinkPSNAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate168 in this.OnLinkPSNAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate168.Target == instance)
+					{
+						this.OnLinkPSNAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkPSNAccountRequest>)delegate168;
+					}
+				}
+			}
+			if (this.OnLinkPSNAccountResultEvent != null)
+			{
+				foreach (Delegate delegate169 in this.OnLinkPSNAccountResultEvent.GetInvocationList())
+				{
+					if (delegate169.Target == instance)
+					{
+						this.OnLinkPSNAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkPSNAccountResult>)delegate169;
+					}
+				}
+			}
+			if (this.OnLinkSteamAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate170 in this.OnLinkSteamAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate170.Target == instance)
+					{
+						this.OnLinkSteamAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkSteamAccountRequest>)delegate170;
+					}
+				}
+			}
+			if (this.OnLinkSteamAccountResultEvent != null)
+			{
+				foreach (Delegate delegate171 in this.OnLinkSteamAccountResultEvent.GetInvocationList())
+				{
+					if (delegate171.Target == instance)
+					{
+						this.OnLinkSteamAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkSteamAccountResult>)delegate171;
+					}
+				}
+			}
+			if (this.OnLinkTwitchRequestEvent != null)
+			{
+				foreach (Delegate delegate172 in this.OnLinkTwitchRequestEvent.GetInvocationList())
+				{
+					if (delegate172.Target == instance)
+					{
+						this.OnLinkTwitchRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkTwitchAccountRequest>)delegate172;
+					}
+				}
+			}
+			if (this.OnLinkTwitchResultEvent != null)
+			{
+				foreach (Delegate delegate173 in this.OnLinkTwitchResultEvent.GetInvocationList())
+				{
+					if (delegate173.Target == instance)
+					{
+						this.OnLinkTwitchResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkTwitchAccountResult>)delegate173;
+					}
+				}
+			}
+			if (this.OnLinkWindowsHelloRequestEvent != null)
+			{
+				foreach (Delegate delegate174 in this.OnLinkWindowsHelloRequestEvent.GetInvocationList())
+				{
+					if (delegate174.Target == instance)
+					{
+						this.OnLinkWindowsHelloRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkWindowsHelloAccountRequest>)delegate174;
+					}
+				}
+			}
+			if (this.OnLinkWindowsHelloResultEvent != null)
+			{
+				foreach (Delegate delegate175 in this.OnLinkWindowsHelloResultEvent.GetInvocationList())
+				{
+					if (delegate175.Target == instance)
+					{
+						this.OnLinkWindowsHelloResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkWindowsHelloAccountResponse>)delegate175;
+					}
+				}
+			}
+			if (this.OnLinkXboxAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate176 in this.OnLinkXboxAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate176.Target == instance)
+					{
+						this.OnLinkXboxAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LinkXboxAccountRequest>)delegate176;
+					}
+				}
+			}
+			if (this.OnLinkXboxAccountResultEvent != null)
+			{
+				foreach (Delegate delegate177 in this.OnLinkXboxAccountResultEvent.GetInvocationList())
+				{
+					if (delegate177.Target == instance)
+					{
+						this.OnLinkXboxAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<LinkXboxAccountResult>)delegate177;
+					}
+				}
+			}
+			if (this.OnLoginWithAndroidDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate178 in this.OnLoginWithAndroidDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate178.Target == instance)
+					{
+						this.OnLoginWithAndroidDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithAndroidDeviceIDRequest>)delegate178;
+					}
+				}
+			}
+			if (this.OnLoginWithAppleRequestEvent != null)
+			{
+				foreach (Delegate delegate179 in this.OnLoginWithAppleRequestEvent.GetInvocationList())
+				{
+					if (delegate179.Target == instance)
+					{
+						this.OnLoginWithAppleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithAppleRequest>)delegate179;
+					}
+				}
+			}
+			if (this.OnLoginWithCustomIDRequestEvent != null)
+			{
+				foreach (Delegate delegate180 in this.OnLoginWithCustomIDRequestEvent.GetInvocationList())
+				{
+					if (delegate180.Target == instance)
+					{
+						this.OnLoginWithCustomIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithCustomIDRequest>)delegate180;
+					}
+				}
+			}
+			if (this.OnLoginWithEmailAddressRequestEvent != null)
+			{
+				foreach (Delegate delegate181 in this.OnLoginWithEmailAddressRequestEvent.GetInvocationList())
+				{
+					if (delegate181.Target == instance)
+					{
+						this.OnLoginWithEmailAddressRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithEmailAddressRequest>)delegate181;
+					}
+				}
+			}
+			if (this.OnLoginWithFacebookRequestEvent != null)
+			{
+				foreach (Delegate delegate182 in this.OnLoginWithFacebookRequestEvent.GetInvocationList())
+				{
+					if (delegate182.Target == instance)
+					{
+						this.OnLoginWithFacebookRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithFacebookRequest>)delegate182;
+					}
+				}
+			}
+			if (this.OnLoginWithFacebookInstantGamesIdRequestEvent != null)
+			{
+				foreach (Delegate delegate183 in this.OnLoginWithFacebookInstantGamesIdRequestEvent.GetInvocationList())
+				{
+					if (delegate183.Target == instance)
+					{
+						this.OnLoginWithFacebookInstantGamesIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithFacebookInstantGamesIdRequest>)delegate183;
+					}
+				}
+			}
+			if (this.OnLoginWithGameCenterRequestEvent != null)
+			{
+				foreach (Delegate delegate184 in this.OnLoginWithGameCenterRequestEvent.GetInvocationList())
+				{
+					if (delegate184.Target == instance)
+					{
+						this.OnLoginWithGameCenterRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithGameCenterRequest>)delegate184;
+					}
+				}
+			}
+			if (this.OnLoginWithGoogleAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate185 in this.OnLoginWithGoogleAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate185.Target == instance)
+					{
+						this.OnLoginWithGoogleAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithGoogleAccountRequest>)delegate185;
+					}
+				}
+			}
+			if (this.OnLoginWithIOSDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate186 in this.OnLoginWithIOSDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate186.Target == instance)
+					{
+						this.OnLoginWithIOSDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithIOSDeviceIDRequest>)delegate186;
+					}
+				}
+			}
+			if (this.OnLoginWithKongregateRequestEvent != null)
+			{
+				foreach (Delegate delegate187 in this.OnLoginWithKongregateRequestEvent.GetInvocationList())
+				{
+					if (delegate187.Target == instance)
+					{
+						this.OnLoginWithKongregateRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithKongregateRequest>)delegate187;
+					}
+				}
+			}
+			if (this.OnLoginWithNintendoAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate188 in this.OnLoginWithNintendoAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate188.Target == instance)
+					{
+						this.OnLoginWithNintendoAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithNintendoAccountRequest>)delegate188;
+					}
+				}
+			}
+			if (this.OnLoginWithNintendoSwitchDeviceIdRequestEvent != null)
+			{
+				foreach (Delegate delegate189 in this.OnLoginWithNintendoSwitchDeviceIdRequestEvent.GetInvocationList())
+				{
+					if (delegate189.Target == instance)
+					{
+						this.OnLoginWithNintendoSwitchDeviceIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithNintendoSwitchDeviceIdRequest>)delegate189;
+					}
+				}
+			}
+			if (this.OnLoginWithOpenIdConnectRequestEvent != null)
+			{
+				foreach (Delegate delegate190 in this.OnLoginWithOpenIdConnectRequestEvent.GetInvocationList())
+				{
+					if (delegate190.Target == instance)
+					{
+						this.OnLoginWithOpenIdConnectRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithOpenIdConnectRequest>)delegate190;
+					}
+				}
+			}
+			if (this.OnLoginWithPlayFabRequestEvent != null)
+			{
+				foreach (Delegate delegate191 in this.OnLoginWithPlayFabRequestEvent.GetInvocationList())
+				{
+					if (delegate191.Target == instance)
+					{
+						this.OnLoginWithPlayFabRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithPlayFabRequest>)delegate191;
+					}
+				}
+			}
+			if (this.OnLoginWithPSNRequestEvent != null)
+			{
+				foreach (Delegate delegate192 in this.OnLoginWithPSNRequestEvent.GetInvocationList())
+				{
+					if (delegate192.Target == instance)
+					{
+						this.OnLoginWithPSNRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithPSNRequest>)delegate192;
+					}
+				}
+			}
+			if (this.OnLoginWithSteamRequestEvent != null)
+			{
+				foreach (Delegate delegate193 in this.OnLoginWithSteamRequestEvent.GetInvocationList())
+				{
+					if (delegate193.Target == instance)
+					{
+						this.OnLoginWithSteamRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithSteamRequest>)delegate193;
+					}
+				}
+			}
+			if (this.OnLoginWithTwitchRequestEvent != null)
+			{
+				foreach (Delegate delegate194 in this.OnLoginWithTwitchRequestEvent.GetInvocationList())
+				{
+					if (delegate194.Target == instance)
+					{
+						this.OnLoginWithTwitchRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithTwitchRequest>)delegate194;
+					}
+				}
+			}
+			if (this.OnLoginWithWindowsHelloRequestEvent != null)
+			{
+				foreach (Delegate delegate195 in this.OnLoginWithWindowsHelloRequestEvent.GetInvocationList())
+				{
+					if (delegate195.Target == instance)
+					{
+						this.OnLoginWithWindowsHelloRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithWindowsHelloRequest>)delegate195;
+					}
+				}
+			}
+			if (this.OnLoginWithXboxRequestEvent != null)
+			{
+				foreach (Delegate delegate196 in this.OnLoginWithXboxRequestEvent.GetInvocationList())
+				{
+					if (delegate196.Target == instance)
+					{
+						this.OnLoginWithXboxRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<LoginWithXboxRequest>)delegate196;
+					}
+				}
+			}
+			if (this.OnMatchmakeRequestEvent != null)
+			{
+				foreach (Delegate delegate197 in this.OnMatchmakeRequestEvent.GetInvocationList())
+				{
+					if (delegate197.Target == instance)
+					{
+						this.OnMatchmakeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<MatchmakeRequest>)delegate197;
+					}
+				}
+			}
+			if (this.OnMatchmakeResultEvent != null)
+			{
+				foreach (Delegate delegate198 in this.OnMatchmakeResultEvent.GetInvocationList())
+				{
+					if (delegate198.Target == instance)
+					{
+						this.OnMatchmakeResultEvent -= (PlayFabEvents.PlayFabResultEvent<MatchmakeResult>)delegate198;
+					}
+				}
+			}
+			if (this.OnOpenTradeRequestEvent != null)
+			{
+				foreach (Delegate delegate199 in this.OnOpenTradeRequestEvent.GetInvocationList())
+				{
+					if (delegate199.Target == instance)
+					{
+						this.OnOpenTradeRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<OpenTradeRequest>)delegate199;
+					}
+				}
+			}
+			if (this.OnOpenTradeResultEvent != null)
+			{
+				foreach (Delegate delegate200 in this.OnOpenTradeResultEvent.GetInvocationList())
+				{
+					if (delegate200.Target == instance)
+					{
+						this.OnOpenTradeResultEvent -= (PlayFabEvents.PlayFabResultEvent<OpenTradeResponse>)delegate200;
+					}
+				}
+			}
+			if (this.OnPayForPurchaseRequestEvent != null)
+			{
+				foreach (Delegate delegate201 in this.OnPayForPurchaseRequestEvent.GetInvocationList())
+				{
+					if (delegate201.Target == instance)
+					{
+						this.OnPayForPurchaseRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PayForPurchaseRequest>)delegate201;
+					}
+				}
+			}
+			if (this.OnPayForPurchaseResultEvent != null)
+			{
+				foreach (Delegate delegate202 in this.OnPayForPurchaseResultEvent.GetInvocationList())
+				{
+					if (delegate202.Target == instance)
+					{
+						this.OnPayForPurchaseResultEvent -= (PlayFabEvents.PlayFabResultEvent<PayForPurchaseResult>)delegate202;
+					}
+				}
+			}
+			if (this.OnPurchaseItemRequestEvent != null)
+			{
+				foreach (Delegate delegate203 in this.OnPurchaseItemRequestEvent.GetInvocationList())
+				{
+					if (delegate203.Target == instance)
+					{
+						this.OnPurchaseItemRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PurchaseItemRequest>)delegate203;
+					}
+				}
+			}
+			if (this.OnPurchaseItemResultEvent != null)
+			{
+				foreach (Delegate delegate204 in this.OnPurchaseItemResultEvent.GetInvocationList())
+				{
+					if (delegate204.Target == instance)
+					{
+						this.OnPurchaseItemResultEvent -= (PlayFabEvents.PlayFabResultEvent<PurchaseItemResult>)delegate204;
+					}
+				}
+			}
+			if (this.OnRedeemCouponRequestEvent != null)
+			{
+				foreach (Delegate delegate205 in this.OnRedeemCouponRequestEvent.GetInvocationList())
+				{
+					if (delegate205.Target == instance)
+					{
+						this.OnRedeemCouponRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RedeemCouponRequest>)delegate205;
+					}
+				}
+			}
+			if (this.OnRedeemCouponResultEvent != null)
+			{
+				foreach (Delegate delegate206 in this.OnRedeemCouponResultEvent.GetInvocationList())
+				{
+					if (delegate206.Target == instance)
+					{
+						this.OnRedeemCouponResultEvent -= (PlayFabEvents.PlayFabResultEvent<RedeemCouponResult>)delegate206;
+					}
+				}
+			}
+			if (this.OnRefreshPSNAuthTokenRequestEvent != null)
+			{
+				foreach (Delegate delegate207 in this.OnRefreshPSNAuthTokenRequestEvent.GetInvocationList())
+				{
+					if (delegate207.Target == instance)
+					{
+						this.OnRefreshPSNAuthTokenRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RefreshPSNAuthTokenRequest>)delegate207;
+					}
+				}
+			}
+			if (this.OnRefreshPSNAuthTokenResultEvent != null)
+			{
+				foreach (Delegate delegate208 in this.OnRefreshPSNAuthTokenResultEvent.GetInvocationList())
+				{
+					if (delegate208.Target == instance)
+					{
+						this.OnRefreshPSNAuthTokenResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate208;
+					}
+				}
+			}
+			if (this.OnRegisterForIOSPushNotificationRequestEvent != null)
+			{
+				foreach (Delegate delegate209 in this.OnRegisterForIOSPushNotificationRequestEvent.GetInvocationList())
+				{
+					if (delegate209.Target == instance)
+					{
+						this.OnRegisterForIOSPushNotificationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RegisterForIOSPushNotificationRequest>)delegate209;
+					}
+				}
+			}
+			if (this.OnRegisterForIOSPushNotificationResultEvent != null)
+			{
+				foreach (Delegate delegate210 in this.OnRegisterForIOSPushNotificationResultEvent.GetInvocationList())
+				{
+					if (delegate210.Target == instance)
+					{
+						this.OnRegisterForIOSPushNotificationResultEvent -= (PlayFabEvents.PlayFabResultEvent<RegisterForIOSPushNotificationResult>)delegate210;
+					}
+				}
+			}
+			if (this.OnRegisterPlayFabUserRequestEvent != null)
+			{
+				foreach (Delegate delegate211 in this.OnRegisterPlayFabUserRequestEvent.GetInvocationList())
+				{
+					if (delegate211.Target == instance)
+					{
+						this.OnRegisterPlayFabUserRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RegisterPlayFabUserRequest>)delegate211;
+					}
+				}
+			}
+			if (this.OnRegisterPlayFabUserResultEvent != null)
+			{
+				foreach (Delegate delegate212 in this.OnRegisterPlayFabUserResultEvent.GetInvocationList())
+				{
+					if (delegate212.Target == instance)
+					{
+						this.OnRegisterPlayFabUserResultEvent -= (PlayFabEvents.PlayFabResultEvent<RegisterPlayFabUserResult>)delegate212;
+					}
+				}
+			}
+			if (this.OnRegisterWithWindowsHelloRequestEvent != null)
+			{
+				foreach (Delegate delegate213 in this.OnRegisterWithWindowsHelloRequestEvent.GetInvocationList())
+				{
+					if (delegate213.Target == instance)
+					{
+						this.OnRegisterWithWindowsHelloRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RegisterWithWindowsHelloRequest>)delegate213;
+					}
+				}
+			}
+			if (this.OnRemoveContactEmailRequestEvent != null)
+			{
+				foreach (Delegate delegate214 in this.OnRemoveContactEmailRequestEvent.GetInvocationList())
+				{
+					if (delegate214.Target == instance)
+					{
+						this.OnRemoveContactEmailRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveContactEmailRequest>)delegate214;
+					}
+				}
+			}
+			if (this.OnRemoveContactEmailResultEvent != null)
+			{
+				foreach (Delegate delegate215 in this.OnRemoveContactEmailResultEvent.GetInvocationList())
+				{
+					if (delegate215.Target == instance)
+					{
+						this.OnRemoveContactEmailResultEvent -= (PlayFabEvents.PlayFabResultEvent<RemoveContactEmailResult>)delegate215;
+					}
+				}
+			}
+			if (this.OnRemoveFriendRequestEvent != null)
+			{
+				foreach (Delegate delegate216 in this.OnRemoveFriendRequestEvent.GetInvocationList())
+				{
+					if (delegate216.Target == instance)
+					{
+						this.OnRemoveFriendRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveFriendRequest>)delegate216;
+					}
+				}
+			}
+			if (this.OnRemoveFriendResultEvent != null)
+			{
+				foreach (Delegate delegate217 in this.OnRemoveFriendResultEvent.GetInvocationList())
+				{
+					if (delegate217.Target == instance)
+					{
+						this.OnRemoveFriendResultEvent -= (PlayFabEvents.PlayFabResultEvent<RemoveFriendResult>)delegate217;
+					}
+				}
+			}
+			if (this.OnRemoveGenericIDRequestEvent != null)
+			{
+				foreach (Delegate delegate218 in this.OnRemoveGenericIDRequestEvent.GetInvocationList())
+				{
+					if (delegate218.Target == instance)
+					{
+						this.OnRemoveGenericIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveGenericIDRequest>)delegate218;
+					}
+				}
+			}
+			if (this.OnRemoveGenericIDResultEvent != null)
+			{
+				foreach (Delegate delegate219 in this.OnRemoveGenericIDResultEvent.GetInvocationList())
+				{
+					if (delegate219.Target == instance)
+					{
+						this.OnRemoveGenericIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<RemoveGenericIDResult>)delegate219;
+					}
+				}
+			}
+			if (this.OnRemoveSharedGroupMembersRequestEvent != null)
+			{
+				foreach (Delegate delegate220 in this.OnRemoveSharedGroupMembersRequestEvent.GetInvocationList())
+				{
+					if (delegate220.Target == instance)
+					{
+						this.OnRemoveSharedGroupMembersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveSharedGroupMembersRequest>)delegate220;
+					}
+				}
+			}
+			if (this.OnRemoveSharedGroupMembersResultEvent != null)
+			{
+				foreach (Delegate delegate221 in this.OnRemoveSharedGroupMembersResultEvent.GetInvocationList())
+				{
+					if (delegate221.Target == instance)
+					{
+						this.OnRemoveSharedGroupMembersResultEvent -= (PlayFabEvents.PlayFabResultEvent<RemoveSharedGroupMembersResult>)delegate221;
+					}
+				}
+			}
+			if (this.OnReportAdActivityRequestEvent != null)
+			{
+				foreach (Delegate delegate222 in this.OnReportAdActivityRequestEvent.GetInvocationList())
+				{
+					if (delegate222.Target == instance)
+					{
+						this.OnReportAdActivityRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ReportAdActivityRequest>)delegate222;
+					}
+				}
+			}
+			if (this.OnReportAdActivityResultEvent != null)
+			{
+				foreach (Delegate delegate223 in this.OnReportAdActivityResultEvent.GetInvocationList())
+				{
+					if (delegate223.Target == instance)
+					{
+						this.OnReportAdActivityResultEvent -= (PlayFabEvents.PlayFabResultEvent<ReportAdActivityResult>)delegate223;
+					}
+				}
+			}
+			if (this.OnReportDeviceInfoRequestEvent != null)
+			{
+				foreach (Delegate delegate224 in this.OnReportDeviceInfoRequestEvent.GetInvocationList())
+				{
+					if (delegate224.Target == instance)
+					{
+						this.OnReportDeviceInfoRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeviceInfoRequest>)delegate224;
+					}
+				}
+			}
+			if (this.OnReportDeviceInfoResultEvent != null)
+			{
+				foreach (Delegate delegate225 in this.OnReportDeviceInfoResultEvent.GetInvocationList())
+				{
+					if (delegate225.Target == instance)
+					{
+						this.OnReportDeviceInfoResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate225;
+					}
+				}
+			}
+			if (this.OnReportPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate226 in this.OnReportPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate226.Target == instance)
+					{
+						this.OnReportPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ReportPlayerClientRequest>)delegate226;
+					}
+				}
+			}
+			if (this.OnReportPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate227 in this.OnReportPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate227.Target == instance)
+					{
+						this.OnReportPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<ReportPlayerClientResult>)delegate227;
+					}
+				}
+			}
+			if (this.OnRestoreIOSPurchasesRequestEvent != null)
+			{
+				foreach (Delegate delegate228 in this.OnRestoreIOSPurchasesRequestEvent.GetInvocationList())
+				{
+					if (delegate228.Target == instance)
+					{
+						this.OnRestoreIOSPurchasesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RestoreIOSPurchasesRequest>)delegate228;
+					}
+				}
+			}
+			if (this.OnRestoreIOSPurchasesResultEvent != null)
+			{
+				foreach (Delegate delegate229 in this.OnRestoreIOSPurchasesResultEvent.GetInvocationList())
+				{
+					if (delegate229.Target == instance)
+					{
+						this.OnRestoreIOSPurchasesResultEvent -= (PlayFabEvents.PlayFabResultEvent<RestoreIOSPurchasesResult>)delegate229;
+					}
+				}
+			}
+			if (this.OnRewardAdActivityRequestEvent != null)
+			{
+				foreach (Delegate delegate230 in this.OnRewardAdActivityRequestEvent.GetInvocationList())
+				{
+					if (delegate230.Target == instance)
+					{
+						this.OnRewardAdActivityRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RewardAdActivityRequest>)delegate230;
+					}
+				}
+			}
+			if (this.OnRewardAdActivityResultEvent != null)
+			{
+				foreach (Delegate delegate231 in this.OnRewardAdActivityResultEvent.GetInvocationList())
+				{
+					if (delegate231.Target == instance)
+					{
+						this.OnRewardAdActivityResultEvent -= (PlayFabEvents.PlayFabResultEvent<RewardAdActivityResult>)delegate231;
+					}
+				}
+			}
+			if (this.OnSendAccountRecoveryEmailRequestEvent != null)
+			{
+				foreach (Delegate delegate232 in this.OnSendAccountRecoveryEmailRequestEvent.GetInvocationList())
+				{
+					if (delegate232.Target == instance)
+					{
+						this.OnSendAccountRecoveryEmailRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SendAccountRecoveryEmailRequest>)delegate232;
+					}
+				}
+			}
+			if (this.OnSendAccountRecoveryEmailResultEvent != null)
+			{
+				foreach (Delegate delegate233 in this.OnSendAccountRecoveryEmailResultEvent.GetInvocationList())
+				{
+					if (delegate233.Target == instance)
+					{
+						this.OnSendAccountRecoveryEmailResultEvent -= (PlayFabEvents.PlayFabResultEvent<SendAccountRecoveryEmailResult>)delegate233;
+					}
+				}
+			}
+			if (this.OnSetFriendTagsRequestEvent != null)
+			{
+				foreach (Delegate delegate234 in this.OnSetFriendTagsRequestEvent.GetInvocationList())
+				{
+					if (delegate234.Target == instance)
+					{
+						this.OnSetFriendTagsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetFriendTagsRequest>)delegate234;
+					}
+				}
+			}
+			if (this.OnSetFriendTagsResultEvent != null)
+			{
+				foreach (Delegate delegate235 in this.OnSetFriendTagsResultEvent.GetInvocationList())
+				{
+					if (delegate235.Target == instance)
+					{
+						this.OnSetFriendTagsResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetFriendTagsResult>)delegate235;
+					}
+				}
+			}
+			if (this.OnSetPlayerSecretRequestEvent != null)
+			{
+				foreach (Delegate delegate236 in this.OnSetPlayerSecretRequestEvent.GetInvocationList())
+				{
+					if (delegate236.Target == instance)
+					{
+						this.OnSetPlayerSecretRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetPlayerSecretRequest>)delegate236;
+					}
+				}
+			}
+			if (this.OnSetPlayerSecretResultEvent != null)
+			{
+				foreach (Delegate delegate237 in this.OnSetPlayerSecretResultEvent.GetInvocationList())
+				{
+					if (delegate237.Target == instance)
+					{
+						this.OnSetPlayerSecretResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetPlayerSecretResult>)delegate237;
+					}
+				}
+			}
+			if (this.OnStartGameRequestEvent != null)
+			{
+				foreach (Delegate delegate238 in this.OnStartGameRequestEvent.GetInvocationList())
+				{
+					if (delegate238.Target == instance)
+					{
+						this.OnStartGameRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<StartGameRequest>)delegate238;
+					}
+				}
+			}
+			if (this.OnStartGameResultEvent != null)
+			{
+				foreach (Delegate delegate239 in this.OnStartGameResultEvent.GetInvocationList())
+				{
+					if (delegate239.Target == instance)
+					{
+						this.OnStartGameResultEvent -= (PlayFabEvents.PlayFabResultEvent<StartGameResult>)delegate239;
+					}
+				}
+			}
+			if (this.OnStartPurchaseRequestEvent != null)
+			{
+				foreach (Delegate delegate240 in this.OnStartPurchaseRequestEvent.GetInvocationList())
+				{
+					if (delegate240.Target == instance)
+					{
+						this.OnStartPurchaseRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<StartPurchaseRequest>)delegate240;
+					}
+				}
+			}
+			if (this.OnStartPurchaseResultEvent != null)
+			{
+				foreach (Delegate delegate241 in this.OnStartPurchaseResultEvent.GetInvocationList())
+				{
+					if (delegate241.Target == instance)
+					{
+						this.OnStartPurchaseResultEvent -= (PlayFabEvents.PlayFabResultEvent<StartPurchaseResult>)delegate241;
+					}
+				}
+			}
+			if (this.OnSubtractUserVirtualCurrencyRequestEvent != null)
+			{
+				foreach (Delegate delegate242 in this.OnSubtractUserVirtualCurrencyRequestEvent.GetInvocationList())
+				{
+					if (delegate242.Target == instance)
+					{
+						this.OnSubtractUserVirtualCurrencyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SubtractUserVirtualCurrencyRequest>)delegate242;
+					}
+				}
+			}
+			if (this.OnSubtractUserVirtualCurrencyResultEvent != null)
+			{
+				foreach (Delegate delegate243 in this.OnSubtractUserVirtualCurrencyResultEvent.GetInvocationList())
+				{
+					if (delegate243.Target == instance)
+					{
+						this.OnSubtractUserVirtualCurrencyResultEvent -= (PlayFabEvents.PlayFabResultEvent<ModifyUserVirtualCurrencyResult>)delegate243;
+					}
+				}
+			}
+			if (this.OnUnlinkAndroidDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate244 in this.OnUnlinkAndroidDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate244.Target == instance)
+					{
+						this.OnUnlinkAndroidDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkAndroidDeviceIDRequest>)delegate244;
+					}
+				}
+			}
+			if (this.OnUnlinkAndroidDeviceIDResultEvent != null)
+			{
+				foreach (Delegate delegate245 in this.OnUnlinkAndroidDeviceIDResultEvent.GetInvocationList())
+				{
+					if (delegate245.Target == instance)
+					{
+						this.OnUnlinkAndroidDeviceIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkAndroidDeviceIDResult>)delegate245;
+					}
+				}
+			}
+			if (this.OnUnlinkAppleRequestEvent != null)
+			{
+				foreach (Delegate delegate246 in this.OnUnlinkAppleRequestEvent.GetInvocationList())
+				{
+					if (delegate246.Target == instance)
+					{
+						this.OnUnlinkAppleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkAppleRequest>)delegate246;
+					}
+				}
+			}
+			if (this.OnUnlinkAppleResultEvent != null)
+			{
+				foreach (Delegate delegate247 in this.OnUnlinkAppleResultEvent.GetInvocationList())
+				{
+					if (delegate247.Target == instance)
+					{
+						this.OnUnlinkAppleResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate247;
+					}
+				}
+			}
+			if (this.OnUnlinkCustomIDRequestEvent != null)
+			{
+				foreach (Delegate delegate248 in this.OnUnlinkCustomIDRequestEvent.GetInvocationList())
+				{
+					if (delegate248.Target == instance)
+					{
+						this.OnUnlinkCustomIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkCustomIDRequest>)delegate248;
+					}
+				}
+			}
+			if (this.OnUnlinkCustomIDResultEvent != null)
+			{
+				foreach (Delegate delegate249 in this.OnUnlinkCustomIDResultEvent.GetInvocationList())
+				{
+					if (delegate249.Target == instance)
+					{
+						this.OnUnlinkCustomIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkCustomIDResult>)delegate249;
+					}
+				}
+			}
+			if (this.OnUnlinkFacebookAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate250 in this.OnUnlinkFacebookAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate250.Target == instance)
+					{
+						this.OnUnlinkFacebookAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkFacebookAccountRequest>)delegate250;
+					}
+				}
+			}
+			if (this.OnUnlinkFacebookAccountResultEvent != null)
+			{
+				foreach (Delegate delegate251 in this.OnUnlinkFacebookAccountResultEvent.GetInvocationList())
+				{
+					if (delegate251.Target == instance)
+					{
+						this.OnUnlinkFacebookAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkFacebookAccountResult>)delegate251;
+					}
+				}
+			}
+			if (this.OnUnlinkFacebookInstantGamesIdRequestEvent != null)
+			{
+				foreach (Delegate delegate252 in this.OnUnlinkFacebookInstantGamesIdRequestEvent.GetInvocationList())
+				{
+					if (delegate252.Target == instance)
+					{
+						this.OnUnlinkFacebookInstantGamesIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkFacebookInstantGamesIdRequest>)delegate252;
+					}
+				}
+			}
+			if (this.OnUnlinkFacebookInstantGamesIdResultEvent != null)
+			{
+				foreach (Delegate delegate253 in this.OnUnlinkFacebookInstantGamesIdResultEvent.GetInvocationList())
+				{
+					if (delegate253.Target == instance)
+					{
+						this.OnUnlinkFacebookInstantGamesIdResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkFacebookInstantGamesIdResult>)delegate253;
+					}
+				}
+			}
+			if (this.OnUnlinkGameCenterAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate254 in this.OnUnlinkGameCenterAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate254.Target == instance)
+					{
+						this.OnUnlinkGameCenterAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkGameCenterAccountRequest>)delegate254;
+					}
+				}
+			}
+			if (this.OnUnlinkGameCenterAccountResultEvent != null)
+			{
+				foreach (Delegate delegate255 in this.OnUnlinkGameCenterAccountResultEvent.GetInvocationList())
+				{
+					if (delegate255.Target == instance)
+					{
+						this.OnUnlinkGameCenterAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkGameCenterAccountResult>)delegate255;
+					}
+				}
+			}
+			if (this.OnUnlinkGoogleAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate256 in this.OnUnlinkGoogleAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate256.Target == instance)
+					{
+						this.OnUnlinkGoogleAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkGoogleAccountRequest>)delegate256;
+					}
+				}
+			}
+			if (this.OnUnlinkGoogleAccountResultEvent != null)
+			{
+				foreach (Delegate delegate257 in this.OnUnlinkGoogleAccountResultEvent.GetInvocationList())
+				{
+					if (delegate257.Target == instance)
+					{
+						this.OnUnlinkGoogleAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkGoogleAccountResult>)delegate257;
+					}
+				}
+			}
+			if (this.OnUnlinkIOSDeviceIDRequestEvent != null)
+			{
+				foreach (Delegate delegate258 in this.OnUnlinkIOSDeviceIDRequestEvent.GetInvocationList())
+				{
+					if (delegate258.Target == instance)
+					{
+						this.OnUnlinkIOSDeviceIDRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkIOSDeviceIDRequest>)delegate258;
+					}
+				}
+			}
+			if (this.OnUnlinkIOSDeviceIDResultEvent != null)
+			{
+				foreach (Delegate delegate259 in this.OnUnlinkIOSDeviceIDResultEvent.GetInvocationList())
+				{
+					if (delegate259.Target == instance)
+					{
+						this.OnUnlinkIOSDeviceIDResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkIOSDeviceIDResult>)delegate259;
+					}
+				}
+			}
+			if (this.OnUnlinkKongregateRequestEvent != null)
+			{
+				foreach (Delegate delegate260 in this.OnUnlinkKongregateRequestEvent.GetInvocationList())
+				{
+					if (delegate260.Target == instance)
+					{
+						this.OnUnlinkKongregateRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkKongregateAccountRequest>)delegate260;
+					}
+				}
+			}
+			if (this.OnUnlinkKongregateResultEvent != null)
+			{
+				foreach (Delegate delegate261 in this.OnUnlinkKongregateResultEvent.GetInvocationList())
+				{
+					if (delegate261.Target == instance)
+					{
+						this.OnUnlinkKongregateResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkKongregateAccountResult>)delegate261;
+					}
+				}
+			}
+			if (this.OnUnlinkNintendoAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate262 in this.OnUnlinkNintendoAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate262.Target == instance)
+					{
+						this.OnUnlinkNintendoAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkNintendoAccountRequest>)delegate262;
+					}
+				}
+			}
+			if (this.OnUnlinkNintendoAccountResultEvent != null)
+			{
+				foreach (Delegate delegate263 in this.OnUnlinkNintendoAccountResultEvent.GetInvocationList())
+				{
+					if (delegate263.Target == instance)
+					{
+						this.OnUnlinkNintendoAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate263;
+					}
+				}
+			}
+			if (this.OnUnlinkNintendoSwitchDeviceIdRequestEvent != null)
+			{
+				foreach (Delegate delegate264 in this.OnUnlinkNintendoSwitchDeviceIdRequestEvent.GetInvocationList())
+				{
+					if (delegate264.Target == instance)
+					{
+						this.OnUnlinkNintendoSwitchDeviceIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkNintendoSwitchDeviceIdRequest>)delegate264;
+					}
+				}
+			}
+			if (this.OnUnlinkNintendoSwitchDeviceIdResultEvent != null)
+			{
+				foreach (Delegate delegate265 in this.OnUnlinkNintendoSwitchDeviceIdResultEvent.GetInvocationList())
+				{
+					if (delegate265.Target == instance)
+					{
+						this.OnUnlinkNintendoSwitchDeviceIdResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkNintendoSwitchDeviceIdResult>)delegate265;
+					}
+				}
+			}
+			if (this.OnUnlinkOpenIdConnectRequestEvent != null)
+			{
+				foreach (Delegate delegate266 in this.OnUnlinkOpenIdConnectRequestEvent.GetInvocationList())
+				{
+					if (delegate266.Target == instance)
+					{
+						this.OnUnlinkOpenIdConnectRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkOpenIdConnectRequest>)delegate266;
+					}
+				}
+			}
+			if (this.OnUnlinkOpenIdConnectResultEvent != null)
+			{
+				foreach (Delegate delegate267 in this.OnUnlinkOpenIdConnectResultEvent.GetInvocationList())
+				{
+					if (delegate267.Target == instance)
+					{
+						this.OnUnlinkOpenIdConnectResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate267;
+					}
+				}
+			}
+			if (this.OnUnlinkPSNAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate268 in this.OnUnlinkPSNAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate268.Target == instance)
+					{
+						this.OnUnlinkPSNAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkPSNAccountRequest>)delegate268;
+					}
+				}
+			}
+			if (this.OnUnlinkPSNAccountResultEvent != null)
+			{
+				foreach (Delegate delegate269 in this.OnUnlinkPSNAccountResultEvent.GetInvocationList())
+				{
+					if (delegate269.Target == instance)
+					{
+						this.OnUnlinkPSNAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkPSNAccountResult>)delegate269;
+					}
+				}
+			}
+			if (this.OnUnlinkSteamAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate270 in this.OnUnlinkSteamAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate270.Target == instance)
+					{
+						this.OnUnlinkSteamAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkSteamAccountRequest>)delegate270;
+					}
+				}
+			}
+			if (this.OnUnlinkSteamAccountResultEvent != null)
+			{
+				foreach (Delegate delegate271 in this.OnUnlinkSteamAccountResultEvent.GetInvocationList())
+				{
+					if (delegate271.Target == instance)
+					{
+						this.OnUnlinkSteamAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkSteamAccountResult>)delegate271;
+					}
+				}
+			}
+			if (this.OnUnlinkTwitchRequestEvent != null)
+			{
+				foreach (Delegate delegate272 in this.OnUnlinkTwitchRequestEvent.GetInvocationList())
+				{
+					if (delegate272.Target == instance)
+					{
+						this.OnUnlinkTwitchRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkTwitchAccountRequest>)delegate272;
+					}
+				}
+			}
+			if (this.OnUnlinkTwitchResultEvent != null)
+			{
+				foreach (Delegate delegate273 in this.OnUnlinkTwitchResultEvent.GetInvocationList())
+				{
+					if (delegate273.Target == instance)
+					{
+						this.OnUnlinkTwitchResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkTwitchAccountResult>)delegate273;
+					}
+				}
+			}
+			if (this.OnUnlinkWindowsHelloRequestEvent != null)
+			{
+				foreach (Delegate delegate274 in this.OnUnlinkWindowsHelloRequestEvent.GetInvocationList())
+				{
+					if (delegate274.Target == instance)
+					{
+						this.OnUnlinkWindowsHelloRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkWindowsHelloAccountRequest>)delegate274;
+					}
+				}
+			}
+			if (this.OnUnlinkWindowsHelloResultEvent != null)
+			{
+				foreach (Delegate delegate275 in this.OnUnlinkWindowsHelloResultEvent.GetInvocationList())
+				{
+					if (delegate275.Target == instance)
+					{
+						this.OnUnlinkWindowsHelloResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkWindowsHelloAccountResponse>)delegate275;
+					}
+				}
+			}
+			if (this.OnUnlinkXboxAccountRequestEvent != null)
+			{
+				foreach (Delegate delegate276 in this.OnUnlinkXboxAccountRequestEvent.GetInvocationList())
+				{
+					if (delegate276.Target == instance)
+					{
+						this.OnUnlinkXboxAccountRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlinkXboxAccountRequest>)delegate276;
+					}
+				}
+			}
+			if (this.OnUnlinkXboxAccountResultEvent != null)
+			{
+				foreach (Delegate delegate277 in this.OnUnlinkXboxAccountResultEvent.GetInvocationList())
+				{
+					if (delegate277.Target == instance)
+					{
+						this.OnUnlinkXboxAccountResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlinkXboxAccountResult>)delegate277;
+					}
+				}
+			}
+			if (this.OnUnlockContainerInstanceRequestEvent != null)
+			{
+				foreach (Delegate delegate278 in this.OnUnlockContainerInstanceRequestEvent.GetInvocationList())
+				{
+					if (delegate278.Target == instance)
+					{
+						this.OnUnlockContainerInstanceRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlockContainerInstanceRequest>)delegate278;
+					}
+				}
+			}
+			if (this.OnUnlockContainerInstanceResultEvent != null)
+			{
+				foreach (Delegate delegate279 in this.OnUnlockContainerInstanceResultEvent.GetInvocationList())
+				{
+					if (delegate279.Target == instance)
+					{
+						this.OnUnlockContainerInstanceResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlockContainerItemResult>)delegate279;
+					}
+				}
+			}
+			if (this.OnUnlockContainerItemRequestEvent != null)
+			{
+				foreach (Delegate delegate280 in this.OnUnlockContainerItemRequestEvent.GetInvocationList())
+				{
+					if (delegate280.Target == instance)
+					{
+						this.OnUnlockContainerItemRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnlockContainerItemRequest>)delegate280;
+					}
+				}
+			}
+			if (this.OnUnlockContainerItemResultEvent != null)
+			{
+				foreach (Delegate delegate281 in this.OnUnlockContainerItemResultEvent.GetInvocationList())
+				{
+					if (delegate281.Target == instance)
+					{
+						this.OnUnlockContainerItemResultEvent -= (PlayFabEvents.PlayFabResultEvent<UnlockContainerItemResult>)delegate281;
+					}
+				}
+			}
+			if (this.OnUpdateAvatarUrlRequestEvent != null)
+			{
+				foreach (Delegate delegate282 in this.OnUpdateAvatarUrlRequestEvent.GetInvocationList())
+				{
+					if (delegate282.Target == instance)
+					{
+						this.OnUpdateAvatarUrlRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateAvatarUrlRequest>)delegate282;
+					}
+				}
+			}
+			if (this.OnUpdateAvatarUrlResultEvent != null)
+			{
+				foreach (Delegate delegate283 in this.OnUpdateAvatarUrlResultEvent.GetInvocationList())
+				{
+					if (delegate283.Target == instance)
+					{
+						this.OnUpdateAvatarUrlResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ClientModels.EmptyResponse>)delegate283;
+					}
+				}
+			}
+			if (this.OnUpdateCharacterDataRequestEvent != null)
+			{
+				foreach (Delegate delegate284 in this.OnUpdateCharacterDataRequestEvent.GetInvocationList())
+				{
+					if (delegate284.Target == instance)
+					{
+						this.OnUpdateCharacterDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateCharacterDataRequest>)delegate284;
+					}
+				}
+			}
+			if (this.OnUpdateCharacterDataResultEvent != null)
+			{
+				foreach (Delegate delegate285 in this.OnUpdateCharacterDataResultEvent.GetInvocationList())
+				{
+					if (delegate285.Target == instance)
+					{
+						this.OnUpdateCharacterDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateCharacterDataResult>)delegate285;
+					}
+				}
+			}
+			if (this.OnUpdateCharacterStatisticsRequestEvent != null)
+			{
+				foreach (Delegate delegate286 in this.OnUpdateCharacterStatisticsRequestEvent.GetInvocationList())
+				{
+					if (delegate286.Target == instance)
+					{
+						this.OnUpdateCharacterStatisticsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateCharacterStatisticsRequest>)delegate286;
+					}
+				}
+			}
+			if (this.OnUpdateCharacterStatisticsResultEvent != null)
+			{
+				foreach (Delegate delegate287 in this.OnUpdateCharacterStatisticsResultEvent.GetInvocationList())
+				{
+					if (delegate287.Target == instance)
+					{
+						this.OnUpdateCharacterStatisticsResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateCharacterStatisticsResult>)delegate287;
+					}
+				}
+			}
+			if (this.OnUpdatePlayerStatisticsRequestEvent != null)
+			{
+				foreach (Delegate delegate288 in this.OnUpdatePlayerStatisticsRequestEvent.GetInvocationList())
+				{
+					if (delegate288.Target == instance)
+					{
+						this.OnUpdatePlayerStatisticsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdatePlayerStatisticsRequest>)delegate288;
+					}
+				}
+			}
+			if (this.OnUpdatePlayerStatisticsResultEvent != null)
+			{
+				foreach (Delegate delegate289 in this.OnUpdatePlayerStatisticsResultEvent.GetInvocationList())
+				{
+					if (delegate289.Target == instance)
+					{
+						this.OnUpdatePlayerStatisticsResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdatePlayerStatisticsResult>)delegate289;
+					}
+				}
+			}
+			if (this.OnUpdateSharedGroupDataRequestEvent != null)
+			{
+				foreach (Delegate delegate290 in this.OnUpdateSharedGroupDataRequestEvent.GetInvocationList())
+				{
+					if (delegate290.Target == instance)
+					{
+						this.OnUpdateSharedGroupDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateSharedGroupDataRequest>)delegate290;
+					}
+				}
+			}
+			if (this.OnUpdateSharedGroupDataResultEvent != null)
+			{
+				foreach (Delegate delegate291 in this.OnUpdateSharedGroupDataResultEvent.GetInvocationList())
+				{
+					if (delegate291.Target == instance)
+					{
+						this.OnUpdateSharedGroupDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateSharedGroupDataResult>)delegate291;
+					}
+				}
+			}
+			if (this.OnUpdateUserDataRequestEvent != null)
+			{
+				foreach (Delegate delegate292 in this.OnUpdateUserDataRequestEvent.GetInvocationList())
+				{
+					if (delegate292.Target == instance)
+					{
+						this.OnUpdateUserDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateUserDataRequest>)delegate292;
+					}
+				}
+			}
+			if (this.OnUpdateUserDataResultEvent != null)
+			{
+				foreach (Delegate delegate293 in this.OnUpdateUserDataResultEvent.GetInvocationList())
+				{
+					if (delegate293.Target == instance)
+					{
+						this.OnUpdateUserDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateUserDataResult>)delegate293;
+					}
+				}
+			}
+			if (this.OnUpdateUserPublisherDataRequestEvent != null)
+			{
+				foreach (Delegate delegate294 in this.OnUpdateUserPublisherDataRequestEvent.GetInvocationList())
+				{
+					if (delegate294.Target == instance)
+					{
+						this.OnUpdateUserPublisherDataRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateUserDataRequest>)delegate294;
+					}
+				}
+			}
+			if (this.OnUpdateUserPublisherDataResultEvent != null)
+			{
+				foreach (Delegate delegate295 in this.OnUpdateUserPublisherDataResultEvent.GetInvocationList())
+				{
+					if (delegate295.Target == instance)
+					{
+						this.OnUpdateUserPublisherDataResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateUserDataResult>)delegate295;
+					}
+				}
+			}
+			if (this.OnUpdateUserTitleDisplayNameRequestEvent != null)
+			{
+				foreach (Delegate delegate296 in this.OnUpdateUserTitleDisplayNameRequestEvent.GetInvocationList())
+				{
+					if (delegate296.Target == instance)
+					{
+						this.OnUpdateUserTitleDisplayNameRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateUserTitleDisplayNameRequest>)delegate296;
+					}
+				}
+			}
+			if (this.OnUpdateUserTitleDisplayNameResultEvent != null)
+			{
+				foreach (Delegate delegate297 in this.OnUpdateUserTitleDisplayNameResultEvent.GetInvocationList())
+				{
+					if (delegate297.Target == instance)
+					{
+						this.OnUpdateUserTitleDisplayNameResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateUserTitleDisplayNameResult>)delegate297;
+					}
+				}
+			}
+			if (this.OnValidateAmazonIAPReceiptRequestEvent != null)
+			{
+				foreach (Delegate delegate298 in this.OnValidateAmazonIAPReceiptRequestEvent.GetInvocationList())
+				{
+					if (delegate298.Target == instance)
+					{
+						this.OnValidateAmazonIAPReceiptRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ValidateAmazonReceiptRequest>)delegate298;
+					}
+				}
+			}
+			if (this.OnValidateAmazonIAPReceiptResultEvent != null)
+			{
+				foreach (Delegate delegate299 in this.OnValidateAmazonIAPReceiptResultEvent.GetInvocationList())
+				{
+					if (delegate299.Target == instance)
+					{
+						this.OnValidateAmazonIAPReceiptResultEvent -= (PlayFabEvents.PlayFabResultEvent<ValidateAmazonReceiptResult>)delegate299;
+					}
+				}
+			}
+			if (this.OnValidateGooglePlayPurchaseRequestEvent != null)
+			{
+				foreach (Delegate delegate300 in this.OnValidateGooglePlayPurchaseRequestEvent.GetInvocationList())
+				{
+					if (delegate300.Target == instance)
+					{
+						this.OnValidateGooglePlayPurchaseRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ValidateGooglePlayPurchaseRequest>)delegate300;
+					}
+				}
+			}
+			if (this.OnValidateGooglePlayPurchaseResultEvent != null)
+			{
+				foreach (Delegate delegate301 in this.OnValidateGooglePlayPurchaseResultEvent.GetInvocationList())
+				{
+					if (delegate301.Target == instance)
+					{
+						this.OnValidateGooglePlayPurchaseResultEvent -= (PlayFabEvents.PlayFabResultEvent<ValidateGooglePlayPurchaseResult>)delegate301;
+					}
+				}
+			}
+			if (this.OnValidateIOSReceiptRequestEvent != null)
+			{
+				foreach (Delegate delegate302 in this.OnValidateIOSReceiptRequestEvent.GetInvocationList())
+				{
+					if (delegate302.Target == instance)
+					{
+						this.OnValidateIOSReceiptRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ValidateIOSReceiptRequest>)delegate302;
+					}
+				}
+			}
+			if (this.OnValidateIOSReceiptResultEvent != null)
+			{
+				foreach (Delegate delegate303 in this.OnValidateIOSReceiptResultEvent.GetInvocationList())
+				{
+					if (delegate303.Target == instance)
+					{
+						this.OnValidateIOSReceiptResultEvent -= (PlayFabEvents.PlayFabResultEvent<ValidateIOSReceiptResult>)delegate303;
+					}
+				}
+			}
+			if (this.OnValidateWindowsStoreReceiptRequestEvent != null)
+			{
+				foreach (Delegate delegate304 in this.OnValidateWindowsStoreReceiptRequestEvent.GetInvocationList())
+				{
+					if (delegate304.Target == instance)
+					{
+						this.OnValidateWindowsStoreReceiptRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ValidateWindowsReceiptRequest>)delegate304;
+					}
+				}
+			}
+			if (this.OnValidateWindowsStoreReceiptResultEvent != null)
+			{
+				foreach (Delegate delegate305 in this.OnValidateWindowsStoreReceiptResultEvent.GetInvocationList())
+				{
+					if (delegate305.Target == instance)
+					{
+						this.OnValidateWindowsStoreReceiptResultEvent -= (PlayFabEvents.PlayFabResultEvent<ValidateWindowsReceiptResult>)delegate305;
+					}
+				}
+			}
+			if (this.OnWriteCharacterEventRequestEvent != null)
+			{
+				foreach (Delegate delegate306 in this.OnWriteCharacterEventRequestEvent.GetInvocationList())
+				{
+					if (delegate306.Target == instance)
+					{
+						this.OnWriteCharacterEventRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<WriteClientCharacterEventRequest>)delegate306;
+					}
+				}
+			}
+			if (this.OnWriteCharacterEventResultEvent != null)
+			{
+				foreach (Delegate delegate307 in this.OnWriteCharacterEventResultEvent.GetInvocationList())
+				{
+					if (delegate307.Target == instance)
+					{
+						this.OnWriteCharacterEventResultEvent -= (PlayFabEvents.PlayFabResultEvent<WriteEventResponse>)delegate307;
+					}
+				}
+			}
+			if (this.OnWritePlayerEventRequestEvent != null)
+			{
+				foreach (Delegate delegate308 in this.OnWritePlayerEventRequestEvent.GetInvocationList())
+				{
+					if (delegate308.Target == instance)
+					{
+						this.OnWritePlayerEventRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<WriteClientPlayerEventRequest>)delegate308;
+					}
+				}
+			}
+			if (this.OnWritePlayerEventResultEvent != null)
+			{
+				foreach (Delegate delegate309 in this.OnWritePlayerEventResultEvent.GetInvocationList())
+				{
+					if (delegate309.Target == instance)
+					{
+						this.OnWritePlayerEventResultEvent -= (PlayFabEvents.PlayFabResultEvent<WriteEventResponse>)delegate309;
+					}
+				}
+			}
+			if (this.OnWriteTitleEventRequestEvent != null)
+			{
+				foreach (Delegate delegate310 in this.OnWriteTitleEventRequestEvent.GetInvocationList())
+				{
+					if (delegate310.Target == instance)
+					{
+						this.OnWriteTitleEventRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<WriteTitleEventRequest>)delegate310;
+					}
+				}
+			}
+			if (this.OnWriteTitleEventResultEvent != null)
+			{
+				foreach (Delegate delegate311 in this.OnWriteTitleEventResultEvent.GetInvocationList())
+				{
+					if (delegate311.Target == instance)
+					{
+						this.OnWriteTitleEventResultEvent -= (PlayFabEvents.PlayFabResultEvent<WriteEventResponse>)delegate311;
+					}
+				}
+			}
+			if (this.OnAuthenticationGetEntityTokenRequestEvent != null)
+			{
+				foreach (Delegate delegate312 in this.OnAuthenticationGetEntityTokenRequestEvent.GetInvocationList())
+				{
+					if (delegate312.Target == instance)
+					{
+						this.OnAuthenticationGetEntityTokenRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetEntityTokenRequest>)delegate312;
+					}
+				}
+			}
+			if (this.OnAuthenticationGetEntityTokenResultEvent != null)
+			{
+				foreach (Delegate delegate313 in this.OnAuthenticationGetEntityTokenResultEvent.GetInvocationList())
+				{
+					if (delegate313.Target == instance)
+					{
+						this.OnAuthenticationGetEntityTokenResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetEntityTokenResponse>)delegate313;
+					}
+				}
+			}
+			if (this.OnAuthenticationValidateEntityTokenRequestEvent != null)
+			{
+				foreach (Delegate delegate314 in this.OnAuthenticationValidateEntityTokenRequestEvent.GetInvocationList())
+				{
+					if (delegate314.Target == instance)
+					{
+						this.OnAuthenticationValidateEntityTokenRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ValidateEntityTokenRequest>)delegate314;
+					}
+				}
+			}
+			if (this.OnAuthenticationValidateEntityTokenResultEvent != null)
+			{
+				foreach (Delegate delegate315 in this.OnAuthenticationValidateEntityTokenResultEvent.GetInvocationList())
+				{
+					if (delegate315.Target == instance)
+					{
+						this.OnAuthenticationValidateEntityTokenResultEvent -= (PlayFabEvents.PlayFabResultEvent<ValidateEntityTokenResponse>)delegate315;
+					}
+				}
+			}
+			if (this.OnCloudScriptExecuteEntityCloudScriptRequestEvent != null)
+			{
+				foreach (Delegate delegate316 in this.OnCloudScriptExecuteEntityCloudScriptRequestEvent.GetInvocationList())
+				{
+					if (delegate316.Target == instance)
+					{
+						this.OnCloudScriptExecuteEntityCloudScriptRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ExecuteEntityCloudScriptRequest>)delegate316;
+					}
+				}
+			}
+			if (this.OnCloudScriptExecuteEntityCloudScriptResultEvent != null)
+			{
+				foreach (Delegate delegate317 in this.OnCloudScriptExecuteEntityCloudScriptResultEvent.GetInvocationList())
+				{
+					if (delegate317.Target == instance)
+					{
+						this.OnCloudScriptExecuteEntityCloudScriptResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.ExecuteCloudScriptResult>)delegate317;
+					}
+				}
+			}
+			if (this.OnCloudScriptExecuteFunctionRequestEvent != null)
+			{
+				foreach (Delegate delegate318 in this.OnCloudScriptExecuteFunctionRequestEvent.GetInvocationList())
+				{
+					if (delegate318.Target == instance)
+					{
+						this.OnCloudScriptExecuteFunctionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ExecuteFunctionRequest>)delegate318;
+					}
+				}
+			}
+			if (this.OnCloudScriptExecuteFunctionResultEvent != null)
+			{
+				foreach (Delegate delegate319 in this.OnCloudScriptExecuteFunctionResultEvent.GetInvocationList())
+				{
+					if (delegate319.Target == instance)
+					{
+						this.OnCloudScriptExecuteFunctionResultEvent -= (PlayFabEvents.PlayFabResultEvent<ExecuteFunctionResult>)delegate319;
+					}
+				}
+			}
+			if (this.OnCloudScriptListFunctionsRequestEvent != null)
+			{
+				foreach (Delegate delegate320 in this.OnCloudScriptListFunctionsRequestEvent.GetInvocationList())
+				{
+					if (delegate320.Target == instance)
+					{
+						this.OnCloudScriptListFunctionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest>)delegate320;
+					}
+				}
+			}
+			if (this.OnCloudScriptListFunctionsResultEvent != null)
+			{
+				foreach (Delegate delegate321 in this.OnCloudScriptListFunctionsResultEvent.GetInvocationList())
+				{
+					if (delegate321.Target == instance)
+					{
+						this.OnCloudScriptListFunctionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListFunctionsResult>)delegate321;
+					}
+				}
+			}
+			if (this.OnCloudScriptListHttpFunctionsRequestEvent != null)
+			{
+				foreach (Delegate delegate322 in this.OnCloudScriptListHttpFunctionsRequestEvent.GetInvocationList())
+				{
+					if (delegate322.Target == instance)
+					{
+						this.OnCloudScriptListHttpFunctionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest>)delegate322;
+					}
+				}
+			}
+			if (this.OnCloudScriptListHttpFunctionsResultEvent != null)
+			{
+				foreach (Delegate delegate323 in this.OnCloudScriptListHttpFunctionsResultEvent.GetInvocationList())
+				{
+					if (delegate323.Target == instance)
+					{
+						this.OnCloudScriptListHttpFunctionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListHttpFunctionsResult>)delegate323;
+					}
+				}
+			}
+			if (this.OnCloudScriptListQueuedFunctionsRequestEvent != null)
+			{
+				foreach (Delegate delegate324 in this.OnCloudScriptListQueuedFunctionsRequestEvent.GetInvocationList())
+				{
+					if (delegate324.Target == instance)
+					{
+						this.OnCloudScriptListQueuedFunctionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListFunctionsRequest>)delegate324;
+					}
+				}
+			}
+			if (this.OnCloudScriptListQueuedFunctionsResultEvent != null)
+			{
+				foreach (Delegate delegate325 in this.OnCloudScriptListQueuedFunctionsResultEvent.GetInvocationList())
+				{
+					if (delegate325.Target == instance)
+					{
+						this.OnCloudScriptListQueuedFunctionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListQueuedFunctionsResult>)delegate325;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent != null)
+			{
+				foreach (Delegate delegate326 in this.OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent.GetInvocationList())
+				{
+					if (delegate326.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForEntityTriggeredActionRequest>)delegate326;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent != null)
+			{
+				foreach (Delegate delegate327 in this.OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent.GetInvocationList())
+				{
+					if (delegate327.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate327;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent != null)
+			{
+				foreach (Delegate delegate328 in this.OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent.GetInvocationList())
+				{
+					if (delegate328.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForFunctionExecutionRequest>)delegate328;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent != null)
+			{
+				foreach (Delegate delegate329 in this.OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent.GetInvocationList())
+				{
+					if (delegate329.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate329;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent != null)
+			{
+				foreach (Delegate delegate330 in this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent.GetInvocationList())
+				{
+					if (delegate330.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForPlayerTriggeredActionRequest>)delegate330;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent != null)
+			{
+				foreach (Delegate delegate331 in this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent.GetInvocationList())
+				{
+					if (delegate331.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate331;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent != null)
+			{
+				foreach (Delegate delegate332 in this.OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent.GetInvocationList())
+				{
+					if (delegate332.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<PostFunctionResultForScheduledTaskRequest>)delegate332;
+					}
+				}
+			}
+			if (this.OnCloudScriptPostFunctionResultForScheduledTaskResultEvent != null)
+			{
+				foreach (Delegate delegate333 in this.OnCloudScriptPostFunctionResultForScheduledTaskResultEvent.GetInvocationList())
+				{
+					if (delegate333.Target == instance)
+					{
+						this.OnCloudScriptPostFunctionResultForScheduledTaskResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate333;
+					}
+				}
+			}
+			if (this.OnCloudScriptRegisterHttpFunctionRequestEvent != null)
+			{
+				foreach (Delegate delegate334 in this.OnCloudScriptRegisterHttpFunctionRequestEvent.GetInvocationList())
+				{
+					if (delegate334.Target == instance)
+					{
+						this.OnCloudScriptRegisterHttpFunctionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RegisterHttpFunctionRequest>)delegate334;
+					}
+				}
+			}
+			if (this.OnCloudScriptRegisterHttpFunctionResultEvent != null)
+			{
+				foreach (Delegate delegate335 in this.OnCloudScriptRegisterHttpFunctionResultEvent.GetInvocationList())
+				{
+					if (delegate335.Target == instance)
+					{
+						this.OnCloudScriptRegisterHttpFunctionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate335;
+					}
+				}
+			}
+			if (this.OnCloudScriptRegisterQueuedFunctionRequestEvent != null)
+			{
+				foreach (Delegate delegate336 in this.OnCloudScriptRegisterQueuedFunctionRequestEvent.GetInvocationList())
+				{
+					if (delegate336.Target == instance)
+					{
+						this.OnCloudScriptRegisterQueuedFunctionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RegisterQueuedFunctionRequest>)delegate336;
+					}
+				}
+			}
+			if (this.OnCloudScriptRegisterQueuedFunctionResultEvent != null)
+			{
+				foreach (Delegate delegate337 in this.OnCloudScriptRegisterQueuedFunctionResultEvent.GetInvocationList())
+				{
+					if (delegate337.Target == instance)
+					{
+						this.OnCloudScriptRegisterQueuedFunctionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate337;
+					}
+				}
+			}
+			if (this.OnCloudScriptUnregisterFunctionRequestEvent != null)
+			{
+				foreach (Delegate delegate338 in this.OnCloudScriptUnregisterFunctionRequestEvent.GetInvocationList())
+				{
+					if (delegate338.Target == instance)
+					{
+						this.OnCloudScriptUnregisterFunctionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnregisterFunctionRequest>)delegate338;
+					}
+				}
+			}
+			if (this.OnCloudScriptUnregisterFunctionResultEvent != null)
+			{
+				foreach (Delegate delegate339 in this.OnCloudScriptUnregisterFunctionResultEvent.GetInvocationList())
+				{
+					if (delegate339.Target == instance)
+					{
+						this.OnCloudScriptUnregisterFunctionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.CloudScriptModels.EmptyResult>)delegate339;
+					}
+				}
+			}
+			if (this.OnDataAbortFileUploadsRequestEvent != null)
+			{
+				foreach (Delegate delegate340 in this.OnDataAbortFileUploadsRequestEvent.GetInvocationList())
+				{
+					if (delegate340.Target == instance)
+					{
+						this.OnDataAbortFileUploadsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AbortFileUploadsRequest>)delegate340;
+					}
+				}
+			}
+			if (this.OnDataAbortFileUploadsResultEvent != null)
+			{
+				foreach (Delegate delegate341 in this.OnDataAbortFileUploadsResultEvent.GetInvocationList())
+				{
+					if (delegate341.Target == instance)
+					{
+						this.OnDataAbortFileUploadsResultEvent -= (PlayFabEvents.PlayFabResultEvent<AbortFileUploadsResponse>)delegate341;
+					}
+				}
+			}
+			if (this.OnDataDeleteFilesRequestEvent != null)
+			{
+				foreach (Delegate delegate342 in this.OnDataDeleteFilesRequestEvent.GetInvocationList())
+				{
+					if (delegate342.Target == instance)
+					{
+						this.OnDataDeleteFilesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteFilesRequest>)delegate342;
+					}
+				}
+			}
+			if (this.OnDataDeleteFilesResultEvent != null)
+			{
+				foreach (Delegate delegate343 in this.OnDataDeleteFilesResultEvent.GetInvocationList())
+				{
+					if (delegate343.Target == instance)
+					{
+						this.OnDataDeleteFilesResultEvent -= (PlayFabEvents.PlayFabResultEvent<DeleteFilesResponse>)delegate343;
+					}
+				}
+			}
+			if (this.OnDataFinalizeFileUploadsRequestEvent != null)
+			{
+				foreach (Delegate delegate344 in this.OnDataFinalizeFileUploadsRequestEvent.GetInvocationList())
+				{
+					if (delegate344.Target == instance)
+					{
+						this.OnDataFinalizeFileUploadsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<FinalizeFileUploadsRequest>)delegate344;
+					}
+				}
+			}
+			if (this.OnDataFinalizeFileUploadsResultEvent != null)
+			{
+				foreach (Delegate delegate345 in this.OnDataFinalizeFileUploadsResultEvent.GetInvocationList())
+				{
+					if (delegate345.Target == instance)
+					{
+						this.OnDataFinalizeFileUploadsResultEvent -= (PlayFabEvents.PlayFabResultEvent<FinalizeFileUploadsResponse>)delegate345;
+					}
+				}
+			}
+			if (this.OnDataGetFilesRequestEvent != null)
+			{
+				foreach (Delegate delegate346 in this.OnDataGetFilesRequestEvent.GetInvocationList())
+				{
+					if (delegate346.Target == instance)
+					{
+						this.OnDataGetFilesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetFilesRequest>)delegate346;
+					}
+				}
+			}
+			if (this.OnDataGetFilesResultEvent != null)
+			{
+				foreach (Delegate delegate347 in this.OnDataGetFilesResultEvent.GetInvocationList())
+				{
+					if (delegate347.Target == instance)
+					{
+						this.OnDataGetFilesResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetFilesResponse>)delegate347;
+					}
+				}
+			}
+			if (this.OnDataGetObjectsRequestEvent != null)
+			{
+				foreach (Delegate delegate348 in this.OnDataGetObjectsRequestEvent.GetInvocationList())
+				{
+					if (delegate348.Target == instance)
+					{
+						this.OnDataGetObjectsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetObjectsRequest>)delegate348;
+					}
+				}
+			}
+			if (this.OnDataGetObjectsResultEvent != null)
+			{
+				foreach (Delegate delegate349 in this.OnDataGetObjectsResultEvent.GetInvocationList())
+				{
+					if (delegate349.Target == instance)
+					{
+						this.OnDataGetObjectsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetObjectsResponse>)delegate349;
+					}
+				}
+			}
+			if (this.OnDataInitiateFileUploadsRequestEvent != null)
+			{
+				foreach (Delegate delegate350 in this.OnDataInitiateFileUploadsRequestEvent.GetInvocationList())
+				{
+					if (delegate350.Target == instance)
+					{
+						this.OnDataInitiateFileUploadsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InitiateFileUploadsRequest>)delegate350;
+					}
+				}
+			}
+			if (this.OnDataInitiateFileUploadsResultEvent != null)
+			{
+				foreach (Delegate delegate351 in this.OnDataInitiateFileUploadsResultEvent.GetInvocationList())
+				{
+					if (delegate351.Target == instance)
+					{
+						this.OnDataInitiateFileUploadsResultEvent -= (PlayFabEvents.PlayFabResultEvent<InitiateFileUploadsResponse>)delegate351;
+					}
+				}
+			}
+			if (this.OnDataSetObjectsRequestEvent != null)
+			{
+				foreach (Delegate delegate352 in this.OnDataSetObjectsRequestEvent.GetInvocationList())
+				{
+					if (delegate352.Target == instance)
+					{
+						this.OnDataSetObjectsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetObjectsRequest>)delegate352;
+					}
+				}
+			}
+			if (this.OnDataSetObjectsResultEvent != null)
+			{
+				foreach (Delegate delegate353 in this.OnDataSetObjectsResultEvent.GetInvocationList())
+				{
+					if (delegate353.Target == instance)
+					{
+						this.OnDataSetObjectsResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetObjectsResponse>)delegate353;
+					}
+				}
+			}
+			if (this.OnEventsWriteEventsRequestEvent != null)
+			{
+				foreach (Delegate delegate354 in this.OnEventsWriteEventsRequestEvent.GetInvocationList())
+				{
+					if (delegate354.Target == instance)
+					{
+						this.OnEventsWriteEventsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<WriteEventsRequest>)delegate354;
+					}
+				}
+			}
+			if (this.OnEventsWriteEventsResultEvent != null)
+			{
+				foreach (Delegate delegate355 in this.OnEventsWriteEventsResultEvent.GetInvocationList())
+				{
+					if (delegate355.Target == instance)
+					{
+						this.OnEventsWriteEventsResultEvent -= (PlayFabEvents.PlayFabResultEvent<WriteEventsResponse>)delegate355;
+					}
+				}
+			}
+			if (this.OnEventsWriteTelemetryEventsRequestEvent != null)
+			{
+				foreach (Delegate delegate356 in this.OnEventsWriteTelemetryEventsRequestEvent.GetInvocationList())
+				{
+					if (delegate356.Target == instance)
+					{
+						this.OnEventsWriteTelemetryEventsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<WriteEventsRequest>)delegate356;
+					}
+				}
+			}
+			if (this.OnEventsWriteTelemetryEventsResultEvent != null)
+			{
+				foreach (Delegate delegate357 in this.OnEventsWriteTelemetryEventsResultEvent.GetInvocationList())
+				{
+					if (delegate357.Target == instance)
+					{
+						this.OnEventsWriteTelemetryEventsResultEvent -= (PlayFabEvents.PlayFabResultEvent<WriteEventsResponse>)delegate357;
+					}
+				}
+			}
+			if (this.OnExperimentationCreateExperimentRequestEvent != null)
+			{
+				foreach (Delegate delegate358 in this.OnExperimentationCreateExperimentRequestEvent.GetInvocationList())
+				{
+					if (delegate358.Target == instance)
+					{
+						this.OnExperimentationCreateExperimentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateExperimentRequest>)delegate358;
+					}
+				}
+			}
+			if (this.OnExperimentationCreateExperimentResultEvent != null)
+			{
+				foreach (Delegate delegate359 in this.OnExperimentationCreateExperimentResultEvent.GetInvocationList())
+				{
+					if (delegate359.Target == instance)
+					{
+						this.OnExperimentationCreateExperimentResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateExperimentResult>)delegate359;
+					}
+				}
+			}
+			if (this.OnExperimentationDeleteExperimentRequestEvent != null)
+			{
+				foreach (Delegate delegate360 in this.OnExperimentationDeleteExperimentRequestEvent.GetInvocationList())
+				{
+					if (delegate360.Target == instance)
+					{
+						this.OnExperimentationDeleteExperimentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteExperimentRequest>)delegate360;
+					}
+				}
+			}
+			if (this.OnExperimentationDeleteExperimentResultEvent != null)
+			{
+				foreach (Delegate delegate361 in this.OnExperimentationDeleteExperimentResultEvent.GetInvocationList())
+				{
+					if (delegate361.Target == instance)
+					{
+						this.OnExperimentationDeleteExperimentResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse>)delegate361;
+					}
+				}
+			}
+			if (this.OnExperimentationGetExperimentsRequestEvent != null)
+			{
+				foreach (Delegate delegate362 in this.OnExperimentationGetExperimentsRequestEvent.GetInvocationList())
+				{
+					if (delegate362.Target == instance)
+					{
+						this.OnExperimentationGetExperimentsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetExperimentsRequest>)delegate362;
+					}
+				}
+			}
+			if (this.OnExperimentationGetExperimentsResultEvent != null)
+			{
+				foreach (Delegate delegate363 in this.OnExperimentationGetExperimentsResultEvent.GetInvocationList())
+				{
+					if (delegate363.Target == instance)
+					{
+						this.OnExperimentationGetExperimentsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetExperimentsResult>)delegate363;
+					}
+				}
+			}
+			if (this.OnExperimentationGetLatestScorecardRequestEvent != null)
+			{
+				foreach (Delegate delegate364 in this.OnExperimentationGetLatestScorecardRequestEvent.GetInvocationList())
+				{
+					if (delegate364.Target == instance)
+					{
+						this.OnExperimentationGetLatestScorecardRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLatestScorecardRequest>)delegate364;
+					}
+				}
+			}
+			if (this.OnExperimentationGetLatestScorecardResultEvent != null)
+			{
+				foreach (Delegate delegate365 in this.OnExperimentationGetLatestScorecardResultEvent.GetInvocationList())
+				{
+					if (delegate365.Target == instance)
+					{
+						this.OnExperimentationGetLatestScorecardResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLatestScorecardResult>)delegate365;
+					}
+				}
+			}
+			if (this.OnExperimentationGetTreatmentAssignmentRequestEvent != null)
+			{
+				foreach (Delegate delegate366 in this.OnExperimentationGetTreatmentAssignmentRequestEvent.GetInvocationList())
+				{
+					if (delegate366.Target == instance)
+					{
+						this.OnExperimentationGetTreatmentAssignmentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTreatmentAssignmentRequest>)delegate366;
+					}
+				}
+			}
+			if (this.OnExperimentationGetTreatmentAssignmentResultEvent != null)
+			{
+				foreach (Delegate delegate367 in this.OnExperimentationGetTreatmentAssignmentResultEvent.GetInvocationList())
+				{
+					if (delegate367.Target == instance)
+					{
+						this.OnExperimentationGetTreatmentAssignmentResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTreatmentAssignmentResult>)delegate367;
+					}
+				}
+			}
+			if (this.OnExperimentationStartExperimentRequestEvent != null)
+			{
+				foreach (Delegate delegate368 in this.OnExperimentationStartExperimentRequestEvent.GetInvocationList())
+				{
+					if (delegate368.Target == instance)
+					{
+						this.OnExperimentationStartExperimentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<StartExperimentRequest>)delegate368;
+					}
+				}
+			}
+			if (this.OnExperimentationStartExperimentResultEvent != null)
+			{
+				foreach (Delegate delegate369 in this.OnExperimentationStartExperimentResultEvent.GetInvocationList())
+				{
+					if (delegate369.Target == instance)
+					{
+						this.OnExperimentationStartExperimentResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse>)delegate369;
+					}
+				}
+			}
+			if (this.OnExperimentationStopExperimentRequestEvent != null)
+			{
+				foreach (Delegate delegate370 in this.OnExperimentationStopExperimentRequestEvent.GetInvocationList())
+				{
+					if (delegate370.Target == instance)
+					{
+						this.OnExperimentationStopExperimentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<StopExperimentRequest>)delegate370;
+					}
+				}
+			}
+			if (this.OnExperimentationStopExperimentResultEvent != null)
+			{
+				foreach (Delegate delegate371 in this.OnExperimentationStopExperimentResultEvent.GetInvocationList())
+				{
+					if (delegate371.Target == instance)
+					{
+						this.OnExperimentationStopExperimentResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse>)delegate371;
+					}
+				}
+			}
+			if (this.OnExperimentationUpdateExperimentRequestEvent != null)
+			{
+				foreach (Delegate delegate372 in this.OnExperimentationUpdateExperimentRequestEvent.GetInvocationList())
+				{
+					if (delegate372.Target == instance)
+					{
+						this.OnExperimentationUpdateExperimentRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateExperimentRequest>)delegate372;
+					}
+				}
+			}
+			if (this.OnExperimentationUpdateExperimentResultEvent != null)
+			{
+				foreach (Delegate delegate373 in this.OnExperimentationUpdateExperimentResultEvent.GetInvocationList())
+				{
+					if (delegate373.Target == instance)
+					{
+						this.OnExperimentationUpdateExperimentResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.ExperimentationModels.EmptyResponse>)delegate373;
+					}
+				}
+			}
+			if (this.OnInsightsGetDetailsRequestEvent != null)
+			{
+				foreach (Delegate delegate374 in this.OnInsightsGetDetailsRequestEvent.GetInvocationList())
+				{
+					if (delegate374.Target == instance)
+					{
+						this.OnInsightsGetDetailsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsEmptyRequest>)delegate374;
+					}
+				}
+			}
+			if (this.OnInsightsGetDetailsResultEvent != null)
+			{
+				foreach (Delegate delegate375 in this.OnInsightsGetDetailsResultEvent.GetInvocationList())
+				{
+					if (delegate375.Target == instance)
+					{
+						this.OnInsightsGetDetailsResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsGetDetailsResponse>)delegate375;
+					}
+				}
+			}
+			if (this.OnInsightsGetLimitsRequestEvent != null)
+			{
+				foreach (Delegate delegate376 in this.OnInsightsGetLimitsRequestEvent.GetInvocationList())
+				{
+					if (delegate376.Target == instance)
+					{
+						this.OnInsightsGetLimitsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsEmptyRequest>)delegate376;
+					}
+				}
+			}
+			if (this.OnInsightsGetLimitsResultEvent != null)
+			{
+				foreach (Delegate delegate377 in this.OnInsightsGetLimitsResultEvent.GetInvocationList())
+				{
+					if (delegate377.Target == instance)
+					{
+						this.OnInsightsGetLimitsResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsGetLimitsResponse>)delegate377;
+					}
+				}
+			}
+			if (this.OnInsightsGetOperationStatusRequestEvent != null)
+			{
+				foreach (Delegate delegate378 in this.OnInsightsGetOperationStatusRequestEvent.GetInvocationList())
+				{
+					if (delegate378.Target == instance)
+					{
+						this.OnInsightsGetOperationStatusRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsGetOperationStatusRequest>)delegate378;
+					}
+				}
+			}
+			if (this.OnInsightsGetOperationStatusResultEvent != null)
+			{
+				foreach (Delegate delegate379 in this.OnInsightsGetOperationStatusResultEvent.GetInvocationList())
+				{
+					if (delegate379.Target == instance)
+					{
+						this.OnInsightsGetOperationStatusResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsGetOperationStatusResponse>)delegate379;
+					}
+				}
+			}
+			if (this.OnInsightsGetPendingOperationsRequestEvent != null)
+			{
+				foreach (Delegate delegate380 in this.OnInsightsGetPendingOperationsRequestEvent.GetInvocationList())
+				{
+					if (delegate380.Target == instance)
+					{
+						this.OnInsightsGetPendingOperationsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsGetPendingOperationsRequest>)delegate380;
+					}
+				}
+			}
+			if (this.OnInsightsGetPendingOperationsResultEvent != null)
+			{
+				foreach (Delegate delegate381 in this.OnInsightsGetPendingOperationsResultEvent.GetInvocationList())
+				{
+					if (delegate381.Target == instance)
+					{
+						this.OnInsightsGetPendingOperationsResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsGetPendingOperationsResponse>)delegate381;
+					}
+				}
+			}
+			if (this.OnInsightsSetPerformanceRequestEvent != null)
+			{
+				foreach (Delegate delegate382 in this.OnInsightsSetPerformanceRequestEvent.GetInvocationList())
+				{
+					if (delegate382.Target == instance)
+					{
+						this.OnInsightsSetPerformanceRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsSetPerformanceRequest>)delegate382;
+					}
+				}
+			}
+			if (this.OnInsightsSetPerformanceResultEvent != null)
+			{
+				foreach (Delegate delegate383 in this.OnInsightsSetPerformanceResultEvent.GetInvocationList())
+				{
+					if (delegate383.Target == instance)
+					{
+						this.OnInsightsSetPerformanceResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsOperationResponse>)delegate383;
+					}
+				}
+			}
+			if (this.OnInsightsSetStorageRetentionRequestEvent != null)
+			{
+				foreach (Delegate delegate384 in this.OnInsightsSetStorageRetentionRequestEvent.GetInvocationList())
+				{
+					if (delegate384.Target == instance)
+					{
+						this.OnInsightsSetStorageRetentionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InsightsSetStorageRetentionRequest>)delegate384;
+					}
+				}
+			}
+			if (this.OnInsightsSetStorageRetentionResultEvent != null)
+			{
+				foreach (Delegate delegate385 in this.OnInsightsSetStorageRetentionResultEvent.GetInvocationList())
+				{
+					if (delegate385.Target == instance)
+					{
+						this.OnInsightsSetStorageRetentionResultEvent -= (PlayFabEvents.PlayFabResultEvent<InsightsOperationResponse>)delegate385;
+					}
+				}
+			}
+			if (this.OnGroupsAcceptGroupApplicationRequestEvent != null)
+			{
+				foreach (Delegate delegate386 in this.OnGroupsAcceptGroupApplicationRequestEvent.GetInvocationList())
+				{
+					if (delegate386.Target == instance)
+					{
+						this.OnGroupsAcceptGroupApplicationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AcceptGroupApplicationRequest>)delegate386;
+					}
+				}
+			}
+			if (this.OnGroupsAcceptGroupApplicationResultEvent != null)
+			{
+				foreach (Delegate delegate387 in this.OnGroupsAcceptGroupApplicationResultEvent.GetInvocationList())
+				{
+					if (delegate387.Target == instance)
+					{
+						this.OnGroupsAcceptGroupApplicationResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate387;
+					}
+				}
+			}
+			if (this.OnGroupsAcceptGroupInvitationRequestEvent != null)
+			{
+				foreach (Delegate delegate388 in this.OnGroupsAcceptGroupInvitationRequestEvent.GetInvocationList())
+				{
+					if (delegate388.Target == instance)
+					{
+						this.OnGroupsAcceptGroupInvitationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AcceptGroupInvitationRequest>)delegate388;
+					}
+				}
+			}
+			if (this.OnGroupsAcceptGroupInvitationResultEvent != null)
+			{
+				foreach (Delegate delegate389 in this.OnGroupsAcceptGroupInvitationResultEvent.GetInvocationList())
+				{
+					if (delegate389.Target == instance)
+					{
+						this.OnGroupsAcceptGroupInvitationResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate389;
+					}
+				}
+			}
+			if (this.OnGroupsAddMembersRequestEvent != null)
+			{
+				foreach (Delegate delegate390 in this.OnGroupsAddMembersRequestEvent.GetInvocationList())
+				{
+					if (delegate390.Target == instance)
+					{
+						this.OnGroupsAddMembersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<AddMembersRequest>)delegate390;
+					}
+				}
+			}
+			if (this.OnGroupsAddMembersResultEvent != null)
+			{
+				foreach (Delegate delegate391 in this.OnGroupsAddMembersResultEvent.GetInvocationList())
+				{
+					if (delegate391.Target == instance)
+					{
+						this.OnGroupsAddMembersResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate391;
+					}
+				}
+			}
+			if (this.OnGroupsApplyToGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate392 in this.OnGroupsApplyToGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate392.Target == instance)
+					{
+						this.OnGroupsApplyToGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ApplyToGroupRequest>)delegate392;
+					}
+				}
+			}
+			if (this.OnGroupsApplyToGroupResultEvent != null)
+			{
+				foreach (Delegate delegate393 in this.OnGroupsApplyToGroupResultEvent.GetInvocationList())
+				{
+					if (delegate393.Target == instance)
+					{
+						this.OnGroupsApplyToGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<ApplyToGroupResponse>)delegate393;
+					}
+				}
+			}
+			if (this.OnGroupsBlockEntityRequestEvent != null)
+			{
+				foreach (Delegate delegate394 in this.OnGroupsBlockEntityRequestEvent.GetInvocationList())
+				{
+					if (delegate394.Target == instance)
+					{
+						this.OnGroupsBlockEntityRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<BlockEntityRequest>)delegate394;
+					}
+				}
+			}
+			if (this.OnGroupsBlockEntityResultEvent != null)
+			{
+				foreach (Delegate delegate395 in this.OnGroupsBlockEntityResultEvent.GetInvocationList())
+				{
+					if (delegate395.Target == instance)
+					{
+						this.OnGroupsBlockEntityResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate395;
+					}
+				}
+			}
+			if (this.OnGroupsChangeMemberRoleRequestEvent != null)
+			{
+				foreach (Delegate delegate396 in this.OnGroupsChangeMemberRoleRequestEvent.GetInvocationList())
+				{
+					if (delegate396.Target == instance)
+					{
+						this.OnGroupsChangeMemberRoleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ChangeMemberRoleRequest>)delegate396;
+					}
+				}
+			}
+			if (this.OnGroupsChangeMemberRoleResultEvent != null)
+			{
+				foreach (Delegate delegate397 in this.OnGroupsChangeMemberRoleResultEvent.GetInvocationList())
+				{
+					if (delegate397.Target == instance)
+					{
+						this.OnGroupsChangeMemberRoleResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate397;
+					}
+				}
+			}
+			if (this.OnGroupsCreateGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate398 in this.OnGroupsCreateGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate398.Target == instance)
+					{
+						this.OnGroupsCreateGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateGroupRequest>)delegate398;
+					}
+				}
+			}
+			if (this.OnGroupsCreateGroupResultEvent != null)
+			{
+				foreach (Delegate delegate399 in this.OnGroupsCreateGroupResultEvent.GetInvocationList())
+				{
+					if (delegate399.Target == instance)
+					{
+						this.OnGroupsCreateGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateGroupResponse>)delegate399;
+					}
+				}
+			}
+			if (this.OnGroupsCreateRoleRequestEvent != null)
+			{
+				foreach (Delegate delegate400 in this.OnGroupsCreateRoleRequestEvent.GetInvocationList())
+				{
+					if (delegate400.Target == instance)
+					{
+						this.OnGroupsCreateRoleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateGroupRoleRequest>)delegate400;
+					}
+				}
+			}
+			if (this.OnGroupsCreateRoleResultEvent != null)
+			{
+				foreach (Delegate delegate401 in this.OnGroupsCreateRoleResultEvent.GetInvocationList())
+				{
+					if (delegate401.Target == instance)
+					{
+						this.OnGroupsCreateRoleResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateGroupRoleResponse>)delegate401;
+					}
+				}
+			}
+			if (this.OnGroupsDeleteGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate402 in this.OnGroupsDeleteGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate402.Target == instance)
+					{
+						this.OnGroupsDeleteGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteGroupRequest>)delegate402;
+					}
+				}
+			}
+			if (this.OnGroupsDeleteGroupResultEvent != null)
+			{
+				foreach (Delegate delegate403 in this.OnGroupsDeleteGroupResultEvent.GetInvocationList())
+				{
+					if (delegate403.Target == instance)
+					{
+						this.OnGroupsDeleteGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate403;
+					}
+				}
+			}
+			if (this.OnGroupsDeleteRoleRequestEvent != null)
+			{
+				foreach (Delegate delegate404 in this.OnGroupsDeleteRoleRequestEvent.GetInvocationList())
+				{
+					if (delegate404.Target == instance)
+					{
+						this.OnGroupsDeleteRoleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteRoleRequest>)delegate404;
+					}
+				}
+			}
+			if (this.OnGroupsDeleteRoleResultEvent != null)
+			{
+				foreach (Delegate delegate405 in this.OnGroupsDeleteRoleResultEvent.GetInvocationList())
+				{
+					if (delegate405.Target == instance)
+					{
+						this.OnGroupsDeleteRoleResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate405;
+					}
+				}
+			}
+			if (this.OnGroupsGetGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate406 in this.OnGroupsGetGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate406.Target == instance)
+					{
+						this.OnGroupsGetGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetGroupRequest>)delegate406;
+					}
+				}
+			}
+			if (this.OnGroupsGetGroupResultEvent != null)
+			{
+				foreach (Delegate delegate407 in this.OnGroupsGetGroupResultEvent.GetInvocationList())
+				{
+					if (delegate407.Target == instance)
+					{
+						this.OnGroupsGetGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetGroupResponse>)delegate407;
+					}
+				}
+			}
+			if (this.OnGroupsInviteToGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate408 in this.OnGroupsInviteToGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate408.Target == instance)
+					{
+						this.OnGroupsInviteToGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<InviteToGroupRequest>)delegate408;
+					}
+				}
+			}
+			if (this.OnGroupsInviteToGroupResultEvent != null)
+			{
+				foreach (Delegate delegate409 in this.OnGroupsInviteToGroupResultEvent.GetInvocationList())
+				{
+					if (delegate409.Target == instance)
+					{
+						this.OnGroupsInviteToGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<InviteToGroupResponse>)delegate409;
+					}
+				}
+			}
+			if (this.OnGroupsIsMemberRequestEvent != null)
+			{
+				foreach (Delegate delegate410 in this.OnGroupsIsMemberRequestEvent.GetInvocationList())
+				{
+					if (delegate410.Target == instance)
+					{
+						this.OnGroupsIsMemberRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<IsMemberRequest>)delegate410;
+					}
+				}
+			}
+			if (this.OnGroupsIsMemberResultEvent != null)
+			{
+				foreach (Delegate delegate411 in this.OnGroupsIsMemberResultEvent.GetInvocationList())
+				{
+					if (delegate411.Target == instance)
+					{
+						this.OnGroupsIsMemberResultEvent -= (PlayFabEvents.PlayFabResultEvent<IsMemberResponse>)delegate411;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupApplicationsRequestEvent != null)
+			{
+				foreach (Delegate delegate412 in this.OnGroupsListGroupApplicationsRequestEvent.GetInvocationList())
+				{
+					if (delegate412.Target == instance)
+					{
+						this.OnGroupsListGroupApplicationsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListGroupApplicationsRequest>)delegate412;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupApplicationsResultEvent != null)
+			{
+				foreach (Delegate delegate413 in this.OnGroupsListGroupApplicationsResultEvent.GetInvocationList())
+				{
+					if (delegate413.Target == instance)
+					{
+						this.OnGroupsListGroupApplicationsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListGroupApplicationsResponse>)delegate413;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupBlocksRequestEvent != null)
+			{
+				foreach (Delegate delegate414 in this.OnGroupsListGroupBlocksRequestEvent.GetInvocationList())
+				{
+					if (delegate414.Target == instance)
+					{
+						this.OnGroupsListGroupBlocksRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListGroupBlocksRequest>)delegate414;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupBlocksResultEvent != null)
+			{
+				foreach (Delegate delegate415 in this.OnGroupsListGroupBlocksResultEvent.GetInvocationList())
+				{
+					if (delegate415.Target == instance)
+					{
+						this.OnGroupsListGroupBlocksResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListGroupBlocksResponse>)delegate415;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupInvitationsRequestEvent != null)
+			{
+				foreach (Delegate delegate416 in this.OnGroupsListGroupInvitationsRequestEvent.GetInvocationList())
+				{
+					if (delegate416.Target == instance)
+					{
+						this.OnGroupsListGroupInvitationsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListGroupInvitationsRequest>)delegate416;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupInvitationsResultEvent != null)
+			{
+				foreach (Delegate delegate417 in this.OnGroupsListGroupInvitationsResultEvent.GetInvocationList())
+				{
+					if (delegate417.Target == instance)
+					{
+						this.OnGroupsListGroupInvitationsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListGroupInvitationsResponse>)delegate417;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupMembersRequestEvent != null)
+			{
+				foreach (Delegate delegate418 in this.OnGroupsListGroupMembersRequestEvent.GetInvocationList())
+				{
+					if (delegate418.Target == instance)
+					{
+						this.OnGroupsListGroupMembersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListGroupMembersRequest>)delegate418;
+					}
+				}
+			}
+			if (this.OnGroupsListGroupMembersResultEvent != null)
+			{
+				foreach (Delegate delegate419 in this.OnGroupsListGroupMembersResultEvent.GetInvocationList())
+				{
+					if (delegate419.Target == instance)
+					{
+						this.OnGroupsListGroupMembersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListGroupMembersResponse>)delegate419;
+					}
+				}
+			}
+			if (this.OnGroupsListMembershipRequestEvent != null)
+			{
+				foreach (Delegate delegate420 in this.OnGroupsListMembershipRequestEvent.GetInvocationList())
+				{
+					if (delegate420.Target == instance)
+					{
+						this.OnGroupsListMembershipRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMembershipRequest>)delegate420;
+					}
+				}
+			}
+			if (this.OnGroupsListMembershipResultEvent != null)
+			{
+				foreach (Delegate delegate421 in this.OnGroupsListMembershipResultEvent.GetInvocationList())
+				{
+					if (delegate421.Target == instance)
+					{
+						this.OnGroupsListMembershipResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMembershipResponse>)delegate421;
+					}
+				}
+			}
+			if (this.OnGroupsListMembershipOpportunitiesRequestEvent != null)
+			{
+				foreach (Delegate delegate422 in this.OnGroupsListMembershipOpportunitiesRequestEvent.GetInvocationList())
+				{
+					if (delegate422.Target == instance)
+					{
+						this.OnGroupsListMembershipOpportunitiesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMembershipOpportunitiesRequest>)delegate422;
+					}
+				}
+			}
+			if (this.OnGroupsListMembershipOpportunitiesResultEvent != null)
+			{
+				foreach (Delegate delegate423 in this.OnGroupsListMembershipOpportunitiesResultEvent.GetInvocationList())
+				{
+					if (delegate423.Target == instance)
+					{
+						this.OnGroupsListMembershipOpportunitiesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMembershipOpportunitiesResponse>)delegate423;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveGroupApplicationRequestEvent != null)
+			{
+				foreach (Delegate delegate424 in this.OnGroupsRemoveGroupApplicationRequestEvent.GetInvocationList())
+				{
+					if (delegate424.Target == instance)
+					{
+						this.OnGroupsRemoveGroupApplicationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveGroupApplicationRequest>)delegate424;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveGroupApplicationResultEvent != null)
+			{
+				foreach (Delegate delegate425 in this.OnGroupsRemoveGroupApplicationResultEvent.GetInvocationList())
+				{
+					if (delegate425.Target == instance)
+					{
+						this.OnGroupsRemoveGroupApplicationResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate425;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveGroupInvitationRequestEvent != null)
+			{
+				foreach (Delegate delegate426 in this.OnGroupsRemoveGroupInvitationRequestEvent.GetInvocationList())
+				{
+					if (delegate426.Target == instance)
+					{
+						this.OnGroupsRemoveGroupInvitationRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveGroupInvitationRequest>)delegate426;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveGroupInvitationResultEvent != null)
+			{
+				foreach (Delegate delegate427 in this.OnGroupsRemoveGroupInvitationResultEvent.GetInvocationList())
+				{
+					if (delegate427.Target == instance)
+					{
+						this.OnGroupsRemoveGroupInvitationResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate427;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveMembersRequestEvent != null)
+			{
+				foreach (Delegate delegate428 in this.OnGroupsRemoveMembersRequestEvent.GetInvocationList())
+				{
+					if (delegate428.Target == instance)
+					{
+						this.OnGroupsRemoveMembersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveMembersRequest>)delegate428;
+					}
+				}
+			}
+			if (this.OnGroupsRemoveMembersResultEvent != null)
+			{
+				foreach (Delegate delegate429 in this.OnGroupsRemoveMembersResultEvent.GetInvocationList())
+				{
+					if (delegate429.Target == instance)
+					{
+						this.OnGroupsRemoveMembersResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate429;
+					}
+				}
+			}
+			if (this.OnGroupsUnblockEntityRequestEvent != null)
+			{
+				foreach (Delegate delegate430 in this.OnGroupsUnblockEntityRequestEvent.GetInvocationList())
+				{
+					if (delegate430.Target == instance)
+					{
+						this.OnGroupsUnblockEntityRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UnblockEntityRequest>)delegate430;
+					}
+				}
+			}
+			if (this.OnGroupsUnblockEntityResultEvent != null)
+			{
+				foreach (Delegate delegate431 in this.OnGroupsUnblockEntityResultEvent.GetInvocationList())
+				{
+					if (delegate431.Target == instance)
+					{
+						this.OnGroupsUnblockEntityResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.GroupsModels.EmptyResponse>)delegate431;
+					}
+				}
+			}
+			if (this.OnGroupsUpdateGroupRequestEvent != null)
+			{
+				foreach (Delegate delegate432 in this.OnGroupsUpdateGroupRequestEvent.GetInvocationList())
+				{
+					if (delegate432.Target == instance)
+					{
+						this.OnGroupsUpdateGroupRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateGroupRequest>)delegate432;
+					}
+				}
+			}
+			if (this.OnGroupsUpdateGroupResultEvent != null)
+			{
+				foreach (Delegate delegate433 in this.OnGroupsUpdateGroupResultEvent.GetInvocationList())
+				{
+					if (delegate433.Target == instance)
+					{
+						this.OnGroupsUpdateGroupResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateGroupResponse>)delegate433;
+					}
+				}
+			}
+			if (this.OnGroupsUpdateRoleRequestEvent != null)
+			{
+				foreach (Delegate delegate434 in this.OnGroupsUpdateRoleRequestEvent.GetInvocationList())
+				{
+					if (delegate434.Target == instance)
+					{
+						this.OnGroupsUpdateRoleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateGroupRoleRequest>)delegate434;
+					}
+				}
+			}
+			if (this.OnGroupsUpdateRoleResultEvent != null)
+			{
+				foreach (Delegate delegate435 in this.OnGroupsUpdateRoleResultEvent.GetInvocationList())
+				{
+					if (delegate435.Target == instance)
+					{
+						this.OnGroupsUpdateRoleResultEvent -= (PlayFabEvents.PlayFabResultEvent<UpdateGroupRoleResponse>)delegate435;
+					}
+				}
+			}
+			if (this.OnLocalizationGetLanguageListRequestEvent != null)
+			{
+				foreach (Delegate delegate436 in this.OnLocalizationGetLanguageListRequestEvent.GetInvocationList())
+				{
+					if (delegate436.Target == instance)
+					{
+						this.OnLocalizationGetLanguageListRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetLanguageListRequest>)delegate436;
+					}
+				}
+			}
+			if (this.OnLocalizationGetLanguageListResultEvent != null)
+			{
+				foreach (Delegate delegate437 in this.OnLocalizationGetLanguageListResultEvent.GetInvocationList())
+				{
+					if (delegate437.Target == instance)
+					{
+						this.OnLocalizationGetLanguageListResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetLanguageListResponse>)delegate437;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate438 in this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate438.Target == instance)
+					{
+						this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CancelAllMatchmakingTicketsForPlayerRequest>)delegate438;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate439 in this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate439.Target == instance)
+					{
+						this.OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<CancelAllMatchmakingTicketsForPlayerResult>)delegate439;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate440 in this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate440.Target == instance)
+					{
+						this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CancelAllServerBackfillTicketsForPlayerRequest>)delegate440;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate441 in this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate441.Target == instance)
+					{
+						this.OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<CancelAllServerBackfillTicketsForPlayerResult>)delegate441;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelMatchmakingTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate442 in this.OnMultiplayerCancelMatchmakingTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate442.Target == instance)
+					{
+						this.OnMultiplayerCancelMatchmakingTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CancelMatchmakingTicketRequest>)delegate442;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelMatchmakingTicketResultEvent != null)
+			{
+				foreach (Delegate delegate443 in this.OnMultiplayerCancelMatchmakingTicketResultEvent.GetInvocationList())
+				{
+					if (delegate443.Target == instance)
+					{
+						this.OnMultiplayerCancelMatchmakingTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<CancelMatchmakingTicketResult>)delegate443;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelServerBackfillTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate444 in this.OnMultiplayerCancelServerBackfillTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate444.Target == instance)
+					{
+						this.OnMultiplayerCancelServerBackfillTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CancelServerBackfillTicketRequest>)delegate444;
+					}
+				}
+			}
+			if (this.OnMultiplayerCancelServerBackfillTicketResultEvent != null)
+			{
+				foreach (Delegate delegate445 in this.OnMultiplayerCancelServerBackfillTicketResultEvent.GetInvocationList())
+				{
+					if (delegate445.Target == instance)
+					{
+						this.OnMultiplayerCancelServerBackfillTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<CancelServerBackfillTicketResult>)delegate445;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildAliasRequestEvent != null)
+			{
+				foreach (Delegate delegate446 in this.OnMultiplayerCreateBuildAliasRequestEvent.GetInvocationList())
+				{
+					if (delegate446.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildAliasRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateBuildAliasRequest>)delegate446;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildAliasResultEvent != null)
+			{
+				foreach (Delegate delegate447 in this.OnMultiplayerCreateBuildAliasResultEvent.GetInvocationList())
+				{
+					if (delegate447.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildAliasResultEvent -= (PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse>)delegate447;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildWithCustomContainerRequestEvent != null)
+			{
+				foreach (Delegate delegate448 in this.OnMultiplayerCreateBuildWithCustomContainerRequestEvent.GetInvocationList())
+				{
+					if (delegate448.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildWithCustomContainerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateBuildWithCustomContainerRequest>)delegate448;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildWithCustomContainerResultEvent != null)
+			{
+				foreach (Delegate delegate449 in this.OnMultiplayerCreateBuildWithCustomContainerResultEvent.GetInvocationList())
+				{
+					if (delegate449.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildWithCustomContainerResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateBuildWithCustomContainerResponse>)delegate449;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildWithManagedContainerRequestEvent != null)
+			{
+				foreach (Delegate delegate450 in this.OnMultiplayerCreateBuildWithManagedContainerRequestEvent.GetInvocationList())
+				{
+					if (delegate450.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildWithManagedContainerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateBuildWithManagedContainerRequest>)delegate450;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateBuildWithManagedContainerResultEvent != null)
+			{
+				foreach (Delegate delegate451 in this.OnMultiplayerCreateBuildWithManagedContainerResultEvent.GetInvocationList())
+				{
+					if (delegate451.Target == instance)
+					{
+						this.OnMultiplayerCreateBuildWithManagedContainerResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateBuildWithManagedContainerResponse>)delegate451;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateMatchmakingTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate452 in this.OnMultiplayerCreateMatchmakingTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate452.Target == instance)
+					{
+						this.OnMultiplayerCreateMatchmakingTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateMatchmakingTicketRequest>)delegate452;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateMatchmakingTicketResultEvent != null)
+			{
+				foreach (Delegate delegate453 in this.OnMultiplayerCreateMatchmakingTicketResultEvent.GetInvocationList())
+				{
+					if (delegate453.Target == instance)
+					{
+						this.OnMultiplayerCreateMatchmakingTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateMatchmakingTicketResult>)delegate453;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateRemoteUserRequestEvent != null)
+			{
+				foreach (Delegate delegate454 in this.OnMultiplayerCreateRemoteUserRequestEvent.GetInvocationList())
+				{
+					if (delegate454.Target == instance)
+					{
+						this.OnMultiplayerCreateRemoteUserRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateRemoteUserRequest>)delegate454;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateRemoteUserResultEvent != null)
+			{
+				foreach (Delegate delegate455 in this.OnMultiplayerCreateRemoteUserResultEvent.GetInvocationList())
+				{
+					if (delegate455.Target == instance)
+					{
+						this.OnMultiplayerCreateRemoteUserResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateRemoteUserResponse>)delegate455;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateServerBackfillTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate456 in this.OnMultiplayerCreateServerBackfillTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate456.Target == instance)
+					{
+						this.OnMultiplayerCreateServerBackfillTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateServerBackfillTicketRequest>)delegate456;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateServerBackfillTicketResultEvent != null)
+			{
+				foreach (Delegate delegate457 in this.OnMultiplayerCreateServerBackfillTicketResultEvent.GetInvocationList())
+				{
+					if (delegate457.Target == instance)
+					{
+						this.OnMultiplayerCreateServerBackfillTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateServerBackfillTicketResult>)delegate457;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateServerMatchmakingTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate458 in this.OnMultiplayerCreateServerMatchmakingTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate458.Target == instance)
+					{
+						this.OnMultiplayerCreateServerMatchmakingTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<CreateServerMatchmakingTicketRequest>)delegate458;
+					}
+				}
+			}
+			if (this.OnMultiplayerCreateServerMatchmakingTicketResultEvent != null)
+			{
+				foreach (Delegate delegate459 in this.OnMultiplayerCreateServerMatchmakingTicketResultEvent.GetInvocationList())
+				{
+					if (delegate459.Target == instance)
+					{
+						this.OnMultiplayerCreateServerMatchmakingTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<CreateMatchmakingTicketResult>)delegate459;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteAssetRequestEvent != null)
+			{
+				foreach (Delegate delegate460 in this.OnMultiplayerDeleteAssetRequestEvent.GetInvocationList())
+				{
+					if (delegate460.Target == instance)
+					{
+						this.OnMultiplayerDeleteAssetRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteAssetRequest>)delegate460;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteAssetResultEvent != null)
+			{
+				foreach (Delegate delegate461 in this.OnMultiplayerDeleteAssetResultEvent.GetInvocationList())
+				{
+					if (delegate461.Target == instance)
+					{
+						this.OnMultiplayerDeleteAssetResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate461;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildRequestEvent != null)
+			{
+				foreach (Delegate delegate462 in this.OnMultiplayerDeleteBuildRequestEvent.GetInvocationList())
+				{
+					if (delegate462.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteBuildRequest>)delegate462;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildResultEvent != null)
+			{
+				foreach (Delegate delegate463 in this.OnMultiplayerDeleteBuildResultEvent.GetInvocationList())
+				{
+					if (delegate463.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate463;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildAliasRequestEvent != null)
+			{
+				foreach (Delegate delegate464 in this.OnMultiplayerDeleteBuildAliasRequestEvent.GetInvocationList())
+				{
+					if (delegate464.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildAliasRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteBuildAliasRequest>)delegate464;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildAliasResultEvent != null)
+			{
+				foreach (Delegate delegate465 in this.OnMultiplayerDeleteBuildAliasResultEvent.GetInvocationList())
+				{
+					if (delegate465.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildAliasResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate465;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildRegionRequestEvent != null)
+			{
+				foreach (Delegate delegate466 in this.OnMultiplayerDeleteBuildRegionRequestEvent.GetInvocationList())
+				{
+					if (delegate466.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildRegionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteBuildRegionRequest>)delegate466;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteBuildRegionResultEvent != null)
+			{
+				foreach (Delegate delegate467 in this.OnMultiplayerDeleteBuildRegionResultEvent.GetInvocationList())
+				{
+					if (delegate467.Target == instance)
+					{
+						this.OnMultiplayerDeleteBuildRegionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate467;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteCertificateRequestEvent != null)
+			{
+				foreach (Delegate delegate468 in this.OnMultiplayerDeleteCertificateRequestEvent.GetInvocationList())
+				{
+					if (delegate468.Target == instance)
+					{
+						this.OnMultiplayerDeleteCertificateRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteCertificateRequest>)delegate468;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteCertificateResultEvent != null)
+			{
+				foreach (Delegate delegate469 in this.OnMultiplayerDeleteCertificateResultEvent.GetInvocationList())
+				{
+					if (delegate469.Target == instance)
+					{
+						this.OnMultiplayerDeleteCertificateResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate469;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteContainerImageRepositoryRequestEvent != null)
+			{
+				foreach (Delegate delegate470 in this.OnMultiplayerDeleteContainerImageRepositoryRequestEvent.GetInvocationList())
+				{
+					if (delegate470.Target == instance)
+					{
+						this.OnMultiplayerDeleteContainerImageRepositoryRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteContainerImageRequest>)delegate470;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteContainerImageRepositoryResultEvent != null)
+			{
+				foreach (Delegate delegate471 in this.OnMultiplayerDeleteContainerImageRepositoryResultEvent.GetInvocationList())
+				{
+					if (delegate471.Target == instance)
+					{
+						this.OnMultiplayerDeleteContainerImageRepositoryResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate471;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteRemoteUserRequestEvent != null)
+			{
+				foreach (Delegate delegate472 in this.OnMultiplayerDeleteRemoteUserRequestEvent.GetInvocationList())
+				{
+					if (delegate472.Target == instance)
+					{
+						this.OnMultiplayerDeleteRemoteUserRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<DeleteRemoteUserRequest>)delegate472;
+					}
+				}
+			}
+			if (this.OnMultiplayerDeleteRemoteUserResultEvent != null)
+			{
+				foreach (Delegate delegate473 in this.OnMultiplayerDeleteRemoteUserResultEvent.GetInvocationList())
+				{
+					if (delegate473.Target == instance)
+					{
+						this.OnMultiplayerDeleteRemoteUserResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate473;
+					}
+				}
+			}
+			if (this.OnMultiplayerEnableMultiplayerServersForTitleRequestEvent != null)
+			{
+				foreach (Delegate delegate474 in this.OnMultiplayerEnableMultiplayerServersForTitleRequestEvent.GetInvocationList())
+				{
+					if (delegate474.Target == instance)
+					{
+						this.OnMultiplayerEnableMultiplayerServersForTitleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<EnableMultiplayerServersForTitleRequest>)delegate474;
+					}
+				}
+			}
+			if (this.OnMultiplayerEnableMultiplayerServersForTitleResultEvent != null)
+			{
+				foreach (Delegate delegate475 in this.OnMultiplayerEnableMultiplayerServersForTitleResultEvent.GetInvocationList())
+				{
+					if (delegate475.Target == instance)
+					{
+						this.OnMultiplayerEnableMultiplayerServersForTitleResultEvent -= (PlayFabEvents.PlayFabResultEvent<EnableMultiplayerServersForTitleResponse>)delegate475;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetAssetUploadUrlRequestEvent != null)
+			{
+				foreach (Delegate delegate476 in this.OnMultiplayerGetAssetUploadUrlRequestEvent.GetInvocationList())
+				{
+					if (delegate476.Target == instance)
+					{
+						this.OnMultiplayerGetAssetUploadUrlRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetAssetUploadUrlRequest>)delegate476;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetAssetUploadUrlResultEvent != null)
+			{
+				foreach (Delegate delegate477 in this.OnMultiplayerGetAssetUploadUrlResultEvent.GetInvocationList())
+				{
+					if (delegate477.Target == instance)
+					{
+						this.OnMultiplayerGetAssetUploadUrlResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetAssetUploadUrlResponse>)delegate477;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetBuildRequestEvent != null)
+			{
+				foreach (Delegate delegate478 in this.OnMultiplayerGetBuildRequestEvent.GetInvocationList())
+				{
+					if (delegate478.Target == instance)
+					{
+						this.OnMultiplayerGetBuildRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetBuildRequest>)delegate478;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetBuildResultEvent != null)
+			{
+				foreach (Delegate delegate479 in this.OnMultiplayerGetBuildResultEvent.GetInvocationList())
+				{
+					if (delegate479.Target == instance)
+					{
+						this.OnMultiplayerGetBuildResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetBuildResponse>)delegate479;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetBuildAliasRequestEvent != null)
+			{
+				foreach (Delegate delegate480 in this.OnMultiplayerGetBuildAliasRequestEvent.GetInvocationList())
+				{
+					if (delegate480.Target == instance)
+					{
+						this.OnMultiplayerGetBuildAliasRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetBuildAliasRequest>)delegate480;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetBuildAliasResultEvent != null)
+			{
+				foreach (Delegate delegate481 in this.OnMultiplayerGetBuildAliasResultEvent.GetInvocationList())
+				{
+					if (delegate481.Target == instance)
+					{
+						this.OnMultiplayerGetBuildAliasResultEvent -= (PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse>)delegate481;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetContainerRegistryCredentialsRequestEvent != null)
+			{
+				foreach (Delegate delegate482 in this.OnMultiplayerGetContainerRegistryCredentialsRequestEvent.GetInvocationList())
+				{
+					if (delegate482.Target == instance)
+					{
+						this.OnMultiplayerGetContainerRegistryCredentialsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetContainerRegistryCredentialsRequest>)delegate482;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetContainerRegistryCredentialsResultEvent != null)
+			{
+				foreach (Delegate delegate483 in this.OnMultiplayerGetContainerRegistryCredentialsResultEvent.GetInvocationList())
+				{
+					if (delegate483.Target == instance)
+					{
+						this.OnMultiplayerGetContainerRegistryCredentialsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetContainerRegistryCredentialsResponse>)delegate483;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchRequestEvent != null)
+			{
+				foreach (Delegate delegate484 in this.OnMultiplayerGetMatchRequestEvent.GetInvocationList())
+				{
+					if (delegate484.Target == instance)
+					{
+						this.OnMultiplayerGetMatchRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMatchRequest>)delegate484;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchResultEvent != null)
+			{
+				foreach (Delegate delegate485 in this.OnMultiplayerGetMatchResultEvent.GetInvocationList())
+				{
+					if (delegate485.Target == instance)
+					{
+						this.OnMultiplayerGetMatchResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMatchResult>)delegate485;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchmakingQueueRequestEvent != null)
+			{
+				foreach (Delegate delegate486 in this.OnMultiplayerGetMatchmakingQueueRequestEvent.GetInvocationList())
+				{
+					if (delegate486.Target == instance)
+					{
+						this.OnMultiplayerGetMatchmakingQueueRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMatchmakingQueueRequest>)delegate486;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchmakingQueueResultEvent != null)
+			{
+				foreach (Delegate delegate487 in this.OnMultiplayerGetMatchmakingQueueResultEvent.GetInvocationList())
+				{
+					if (delegate487.Target == instance)
+					{
+						this.OnMultiplayerGetMatchmakingQueueResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMatchmakingQueueResult>)delegate487;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchmakingTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate488 in this.OnMultiplayerGetMatchmakingTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate488.Target == instance)
+					{
+						this.OnMultiplayerGetMatchmakingTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMatchmakingTicketRequest>)delegate488;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMatchmakingTicketResultEvent != null)
+			{
+				foreach (Delegate delegate489 in this.OnMultiplayerGetMatchmakingTicketResultEvent.GetInvocationList())
+				{
+					if (delegate489.Target == instance)
+					{
+						this.OnMultiplayerGetMatchmakingTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMatchmakingTicketResult>)delegate489;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerServerDetailsRequestEvent != null)
+			{
+				foreach (Delegate delegate490 in this.OnMultiplayerGetMultiplayerServerDetailsRequestEvent.GetInvocationList())
+				{
+					if (delegate490.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerServerDetailsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMultiplayerServerDetailsRequest>)delegate490;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerServerDetailsResultEvent != null)
+			{
+				foreach (Delegate delegate491 in this.OnMultiplayerGetMultiplayerServerDetailsResultEvent.GetInvocationList())
+				{
+					if (delegate491.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerServerDetailsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerDetailsResponse>)delegate491;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerServerLogsRequestEvent != null)
+			{
+				foreach (Delegate delegate492 in this.OnMultiplayerGetMultiplayerServerLogsRequestEvent.GetInvocationList())
+				{
+					if (delegate492.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerServerLogsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMultiplayerServerLogsRequest>)delegate492;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerServerLogsResultEvent != null)
+			{
+				foreach (Delegate delegate493 in this.OnMultiplayerGetMultiplayerServerLogsResultEvent.GetInvocationList())
+				{
+					if (delegate493.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerServerLogsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerLogsResponse>)delegate493;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent != null)
+			{
+				foreach (Delegate delegate494 in this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent.GetInvocationList())
+				{
+					if (delegate494.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetMultiplayerSessionLogsBySessionIdRequest>)delegate494;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent != null)
+			{
+				foreach (Delegate delegate495 in this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent.GetInvocationList())
+				{
+					if (delegate495.Target == instance)
+					{
+						this.OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetMultiplayerServerLogsResponse>)delegate495;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetQueueStatisticsRequestEvent != null)
+			{
+				foreach (Delegate delegate496 in this.OnMultiplayerGetQueueStatisticsRequestEvent.GetInvocationList())
+				{
+					if (delegate496.Target == instance)
+					{
+						this.OnMultiplayerGetQueueStatisticsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetQueueStatisticsRequest>)delegate496;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetQueueStatisticsResultEvent != null)
+			{
+				foreach (Delegate delegate497 in this.OnMultiplayerGetQueueStatisticsResultEvent.GetInvocationList())
+				{
+					if (delegate497.Target == instance)
+					{
+						this.OnMultiplayerGetQueueStatisticsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetQueueStatisticsResult>)delegate497;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetRemoteLoginEndpointRequestEvent != null)
+			{
+				foreach (Delegate delegate498 in this.OnMultiplayerGetRemoteLoginEndpointRequestEvent.GetInvocationList())
+				{
+					if (delegate498.Target == instance)
+					{
+						this.OnMultiplayerGetRemoteLoginEndpointRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetRemoteLoginEndpointRequest>)delegate498;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetRemoteLoginEndpointResultEvent != null)
+			{
+				foreach (Delegate delegate499 in this.OnMultiplayerGetRemoteLoginEndpointResultEvent.GetInvocationList())
+				{
+					if (delegate499.Target == instance)
+					{
+						this.OnMultiplayerGetRemoteLoginEndpointResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetRemoteLoginEndpointResponse>)delegate499;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetServerBackfillTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate500 in this.OnMultiplayerGetServerBackfillTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate500.Target == instance)
+					{
+						this.OnMultiplayerGetServerBackfillTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetServerBackfillTicketRequest>)delegate500;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetServerBackfillTicketResultEvent != null)
+			{
+				foreach (Delegate delegate501 in this.OnMultiplayerGetServerBackfillTicketResultEvent.GetInvocationList())
+				{
+					if (delegate501.Target == instance)
+					{
+						this.OnMultiplayerGetServerBackfillTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetServerBackfillTicketResult>)delegate501;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent != null)
+			{
+				foreach (Delegate delegate502 in this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent.GetInvocationList())
+				{
+					if (delegate502.Target == instance)
+					{
+						this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitleEnabledForMultiplayerServersStatusRequest>)delegate502;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent != null)
+			{
+				foreach (Delegate delegate503 in this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent.GetInvocationList())
+				{
+					if (delegate503.Target == instance)
+					{
+						this.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitleEnabledForMultiplayerServersStatusResponse>)delegate503;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent != null)
+			{
+				foreach (Delegate delegate504 in this.OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent.GetInvocationList())
+				{
+					if (delegate504.Target == instance)
+					{
+						this.OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitleMultiplayerServersQuotasRequest>)delegate504;
+					}
+				}
+			}
+			if (this.OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent != null)
+			{
+				foreach (Delegate delegate505 in this.OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent.GetInvocationList())
+				{
+					if (delegate505.Target == instance)
+					{
+						this.OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitleMultiplayerServersQuotasResponse>)delegate505;
+					}
+				}
+			}
+			if (this.OnMultiplayerJoinMatchmakingTicketRequestEvent != null)
+			{
+				foreach (Delegate delegate506 in this.OnMultiplayerJoinMatchmakingTicketRequestEvent.GetInvocationList())
+				{
+					if (delegate506.Target == instance)
+					{
+						this.OnMultiplayerJoinMatchmakingTicketRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<JoinMatchmakingTicketRequest>)delegate506;
+					}
+				}
+			}
+			if (this.OnMultiplayerJoinMatchmakingTicketResultEvent != null)
+			{
+				foreach (Delegate delegate507 in this.OnMultiplayerJoinMatchmakingTicketResultEvent.GetInvocationList())
+				{
+					if (delegate507.Target == instance)
+					{
+						this.OnMultiplayerJoinMatchmakingTicketResultEvent -= (PlayFabEvents.PlayFabResultEvent<JoinMatchmakingTicketResult>)delegate507;
+					}
+				}
+			}
+			if (this.OnMultiplayerListArchivedMultiplayerServersRequestEvent != null)
+			{
+				foreach (Delegate delegate508 in this.OnMultiplayerListArchivedMultiplayerServersRequestEvent.GetInvocationList())
+				{
+					if (delegate508.Target == instance)
+					{
+						this.OnMultiplayerListArchivedMultiplayerServersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMultiplayerServersRequest>)delegate508;
+					}
+				}
+			}
+			if (this.OnMultiplayerListArchivedMultiplayerServersResultEvent != null)
+			{
+				foreach (Delegate delegate509 in this.OnMultiplayerListArchivedMultiplayerServersResultEvent.GetInvocationList())
+				{
+					if (delegate509.Target == instance)
+					{
+						this.OnMultiplayerListArchivedMultiplayerServersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMultiplayerServersResponse>)delegate509;
+					}
+				}
+			}
+			if (this.OnMultiplayerListAssetSummariesRequestEvent != null)
+			{
+				foreach (Delegate delegate510 in this.OnMultiplayerListAssetSummariesRequestEvent.GetInvocationList())
+				{
+					if (delegate510.Target == instance)
+					{
+						this.OnMultiplayerListAssetSummariesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListAssetSummariesRequest>)delegate510;
+					}
+				}
+			}
+			if (this.OnMultiplayerListAssetSummariesResultEvent != null)
+			{
+				foreach (Delegate delegate511 in this.OnMultiplayerListAssetSummariesResultEvent.GetInvocationList())
+				{
+					if (delegate511.Target == instance)
+					{
+						this.OnMultiplayerListAssetSummariesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListAssetSummariesResponse>)delegate511;
+					}
+				}
+			}
+			if (this.OnMultiplayerListBuildAliasesRequestEvent != null)
+			{
+				foreach (Delegate delegate512 in this.OnMultiplayerListBuildAliasesRequestEvent.GetInvocationList())
+				{
+					if (delegate512.Target == instance)
+					{
+						this.OnMultiplayerListBuildAliasesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<MultiplayerEmptyRequest>)delegate512;
+					}
+				}
+			}
+			if (this.OnMultiplayerListBuildAliasesResultEvent != null)
+			{
+				foreach (Delegate delegate513 in this.OnMultiplayerListBuildAliasesResultEvent.GetInvocationList())
+				{
+					if (delegate513.Target == instance)
+					{
+						this.OnMultiplayerListBuildAliasesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListBuildAliasesForTitleResponse>)delegate513;
+					}
+				}
+			}
+			if (this.OnMultiplayerListBuildSummariesRequestEvent != null)
+			{
+				foreach (Delegate delegate514 in this.OnMultiplayerListBuildSummariesRequestEvent.GetInvocationList())
+				{
+					if (delegate514.Target == instance)
+					{
+						this.OnMultiplayerListBuildSummariesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListBuildSummariesRequest>)delegate514;
+					}
+				}
+			}
+			if (this.OnMultiplayerListBuildSummariesResultEvent != null)
+			{
+				foreach (Delegate delegate515 in this.OnMultiplayerListBuildSummariesResultEvent.GetInvocationList())
+				{
+					if (delegate515.Target == instance)
+					{
+						this.OnMultiplayerListBuildSummariesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListBuildSummariesResponse>)delegate515;
+					}
+				}
+			}
+			if (this.OnMultiplayerListCertificateSummariesRequestEvent != null)
+			{
+				foreach (Delegate delegate516 in this.OnMultiplayerListCertificateSummariesRequestEvent.GetInvocationList())
+				{
+					if (delegate516.Target == instance)
+					{
+						this.OnMultiplayerListCertificateSummariesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListCertificateSummariesRequest>)delegate516;
+					}
+				}
+			}
+			if (this.OnMultiplayerListCertificateSummariesResultEvent != null)
+			{
+				foreach (Delegate delegate517 in this.OnMultiplayerListCertificateSummariesResultEvent.GetInvocationList())
+				{
+					if (delegate517.Target == instance)
+					{
+						this.OnMultiplayerListCertificateSummariesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListCertificateSummariesResponse>)delegate517;
+					}
+				}
+			}
+			if (this.OnMultiplayerListContainerImagesRequestEvent != null)
+			{
+				foreach (Delegate delegate518 in this.OnMultiplayerListContainerImagesRequestEvent.GetInvocationList())
+				{
+					if (delegate518.Target == instance)
+					{
+						this.OnMultiplayerListContainerImagesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListContainerImagesRequest>)delegate518;
+					}
+				}
+			}
+			if (this.OnMultiplayerListContainerImagesResultEvent != null)
+			{
+				foreach (Delegate delegate519 in this.OnMultiplayerListContainerImagesResultEvent.GetInvocationList())
+				{
+					if (delegate519.Target == instance)
+					{
+						this.OnMultiplayerListContainerImagesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListContainerImagesResponse>)delegate519;
+					}
+				}
+			}
+			if (this.OnMultiplayerListContainerImageTagsRequestEvent != null)
+			{
+				foreach (Delegate delegate520 in this.OnMultiplayerListContainerImageTagsRequestEvent.GetInvocationList())
+				{
+					if (delegate520.Target == instance)
+					{
+						this.OnMultiplayerListContainerImageTagsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListContainerImageTagsRequest>)delegate520;
+					}
+				}
+			}
+			if (this.OnMultiplayerListContainerImageTagsResultEvent != null)
+			{
+				foreach (Delegate delegate521 in this.OnMultiplayerListContainerImageTagsResultEvent.GetInvocationList())
+				{
+					if (delegate521.Target == instance)
+					{
+						this.OnMultiplayerListContainerImageTagsResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListContainerImageTagsResponse>)delegate521;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMatchmakingQueuesRequestEvent != null)
+			{
+				foreach (Delegate delegate522 in this.OnMultiplayerListMatchmakingQueuesRequestEvent.GetInvocationList())
+				{
+					if (delegate522.Target == instance)
+					{
+						this.OnMultiplayerListMatchmakingQueuesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMatchmakingQueuesRequest>)delegate522;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMatchmakingQueuesResultEvent != null)
+			{
+				foreach (Delegate delegate523 in this.OnMultiplayerListMatchmakingQueuesResultEvent.GetInvocationList())
+				{
+					if (delegate523.Target == instance)
+					{
+						this.OnMultiplayerListMatchmakingQueuesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMatchmakingQueuesResult>)delegate523;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate524 in this.OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate524.Target == instance)
+					{
+						this.OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMatchmakingTicketsForPlayerRequest>)delegate524;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMatchmakingTicketsForPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate525 in this.OnMultiplayerListMatchmakingTicketsForPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate525.Target == instance)
+					{
+						this.OnMultiplayerListMatchmakingTicketsForPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMatchmakingTicketsForPlayerResult>)delegate525;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMultiplayerServersRequestEvent != null)
+			{
+				foreach (Delegate delegate526 in this.OnMultiplayerListMultiplayerServersRequestEvent.GetInvocationList())
+				{
+					if (delegate526.Target == instance)
+					{
+						this.OnMultiplayerListMultiplayerServersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListMultiplayerServersRequest>)delegate526;
+					}
+				}
+			}
+			if (this.OnMultiplayerListMultiplayerServersResultEvent != null)
+			{
+				foreach (Delegate delegate527 in this.OnMultiplayerListMultiplayerServersResultEvent.GetInvocationList())
+				{
+					if (delegate527.Target == instance)
+					{
+						this.OnMultiplayerListMultiplayerServersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListMultiplayerServersResponse>)delegate527;
+					}
+				}
+			}
+			if (this.OnMultiplayerListPartyQosServersRequestEvent != null)
+			{
+				foreach (Delegate delegate528 in this.OnMultiplayerListPartyQosServersRequestEvent.GetInvocationList())
+				{
+					if (delegate528.Target == instance)
+					{
+						this.OnMultiplayerListPartyQosServersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListPartyQosServersRequest>)delegate528;
+					}
+				}
+			}
+			if (this.OnMultiplayerListPartyQosServersResultEvent != null)
+			{
+				foreach (Delegate delegate529 in this.OnMultiplayerListPartyQosServersResultEvent.GetInvocationList())
+				{
+					if (delegate529.Target == instance)
+					{
+						this.OnMultiplayerListPartyQosServersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListPartyQosServersResponse>)delegate529;
+					}
+				}
+			}
+			if (this.OnMultiplayerListQosServersRequestEvent != null)
+			{
+				foreach (Delegate delegate530 in this.OnMultiplayerListQosServersRequestEvent.GetInvocationList())
+				{
+					if (delegate530.Target == instance)
+					{
+						this.OnMultiplayerListQosServersRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListQosServersRequest>)delegate530;
+					}
+				}
+			}
+			if (this.OnMultiplayerListQosServersResultEvent != null)
+			{
+				foreach (Delegate delegate531 in this.OnMultiplayerListQosServersResultEvent.GetInvocationList())
+				{
+					if (delegate531.Target == instance)
+					{
+						this.OnMultiplayerListQosServersResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListQosServersResponse>)delegate531;
+					}
+				}
+			}
+			if (this.OnMultiplayerListQosServersForTitleRequestEvent != null)
+			{
+				foreach (Delegate delegate532 in this.OnMultiplayerListQosServersForTitleRequestEvent.GetInvocationList())
+				{
+					if (delegate532.Target == instance)
+					{
+						this.OnMultiplayerListQosServersForTitleRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListQosServersForTitleRequest>)delegate532;
+					}
+				}
+			}
+			if (this.OnMultiplayerListQosServersForTitleResultEvent != null)
+			{
+				foreach (Delegate delegate533 in this.OnMultiplayerListQosServersForTitleResultEvent.GetInvocationList())
+				{
+					if (delegate533.Target == instance)
+					{
+						this.OnMultiplayerListQosServersForTitleResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListQosServersForTitleResponse>)delegate533;
+					}
+				}
+			}
+			if (this.OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent != null)
+			{
+				foreach (Delegate delegate534 in this.OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent.GetInvocationList())
+				{
+					if (delegate534.Target == instance)
+					{
+						this.OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListServerBackfillTicketsForPlayerRequest>)delegate534;
+					}
+				}
+			}
+			if (this.OnMultiplayerListServerBackfillTicketsForPlayerResultEvent != null)
+			{
+				foreach (Delegate delegate535 in this.OnMultiplayerListServerBackfillTicketsForPlayerResultEvent.GetInvocationList())
+				{
+					if (delegate535.Target == instance)
+					{
+						this.OnMultiplayerListServerBackfillTicketsForPlayerResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListServerBackfillTicketsForPlayerResult>)delegate535;
+					}
+				}
+			}
+			if (this.OnMultiplayerListVirtualMachineSummariesRequestEvent != null)
+			{
+				foreach (Delegate delegate536 in this.OnMultiplayerListVirtualMachineSummariesRequestEvent.GetInvocationList())
+				{
+					if (delegate536.Target == instance)
+					{
+						this.OnMultiplayerListVirtualMachineSummariesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ListVirtualMachineSummariesRequest>)delegate536;
+					}
+				}
+			}
+			if (this.OnMultiplayerListVirtualMachineSummariesResultEvent != null)
+			{
+				foreach (Delegate delegate537 in this.OnMultiplayerListVirtualMachineSummariesResultEvent.GetInvocationList())
+				{
+					if (delegate537.Target == instance)
+					{
+						this.OnMultiplayerListVirtualMachineSummariesResultEvent -= (PlayFabEvents.PlayFabResultEvent<ListVirtualMachineSummariesResponse>)delegate537;
+					}
+				}
+			}
+			if (this.OnMultiplayerRemoveMatchmakingQueueRequestEvent != null)
+			{
+				foreach (Delegate delegate538 in this.OnMultiplayerRemoveMatchmakingQueueRequestEvent.GetInvocationList())
+				{
+					if (delegate538.Target == instance)
+					{
+						this.OnMultiplayerRemoveMatchmakingQueueRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RemoveMatchmakingQueueRequest>)delegate538;
+					}
+				}
+			}
+			if (this.OnMultiplayerRemoveMatchmakingQueueResultEvent != null)
+			{
+				foreach (Delegate delegate539 in this.OnMultiplayerRemoveMatchmakingQueueResultEvent.GetInvocationList())
+				{
+					if (delegate539.Target == instance)
+					{
+						this.OnMultiplayerRemoveMatchmakingQueueResultEvent -= (PlayFabEvents.PlayFabResultEvent<RemoveMatchmakingQueueResult>)delegate539;
+					}
+				}
+			}
+			if (this.OnMultiplayerRequestMultiplayerServerRequestEvent != null)
+			{
+				foreach (Delegate delegate540 in this.OnMultiplayerRequestMultiplayerServerRequestEvent.GetInvocationList())
+				{
+					if (delegate540.Target == instance)
+					{
+						this.OnMultiplayerRequestMultiplayerServerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RequestMultiplayerServerRequest>)delegate540;
+					}
+				}
+			}
+			if (this.OnMultiplayerRequestMultiplayerServerResultEvent != null)
+			{
+				foreach (Delegate delegate541 in this.OnMultiplayerRequestMultiplayerServerResultEvent.GetInvocationList())
+				{
+					if (delegate541.Target == instance)
+					{
+						this.OnMultiplayerRequestMultiplayerServerResultEvent -= (PlayFabEvents.PlayFabResultEvent<RequestMultiplayerServerResponse>)delegate541;
+					}
+				}
+			}
+			if (this.OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent != null)
+			{
+				foreach (Delegate delegate542 in this.OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent.GetInvocationList())
+				{
+					if (delegate542.Target == instance)
+					{
+						this.OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<RolloverContainerRegistryCredentialsRequest>)delegate542;
+					}
+				}
+			}
+			if (this.OnMultiplayerRolloverContainerRegistryCredentialsResultEvent != null)
+			{
+				foreach (Delegate delegate543 in this.OnMultiplayerRolloverContainerRegistryCredentialsResultEvent.GetInvocationList())
+				{
+					if (delegate543.Target == instance)
+					{
+						this.OnMultiplayerRolloverContainerRegistryCredentialsResultEvent -= (PlayFabEvents.PlayFabResultEvent<RolloverContainerRegistryCredentialsResponse>)delegate543;
+					}
+				}
+			}
+			if (this.OnMultiplayerSetMatchmakingQueueRequestEvent != null)
+			{
+				foreach (Delegate delegate544 in this.OnMultiplayerSetMatchmakingQueueRequestEvent.GetInvocationList())
+				{
+					if (delegate544.Target == instance)
+					{
+						this.OnMultiplayerSetMatchmakingQueueRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetMatchmakingQueueRequest>)delegate544;
+					}
+				}
+			}
+			if (this.OnMultiplayerSetMatchmakingQueueResultEvent != null)
+			{
+				foreach (Delegate delegate545 in this.OnMultiplayerSetMatchmakingQueueResultEvent.GetInvocationList())
+				{
+					if (delegate545.Target == instance)
+					{
+						this.OnMultiplayerSetMatchmakingQueueResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetMatchmakingQueueResult>)delegate545;
+					}
+				}
+			}
+			if (this.OnMultiplayerShutdownMultiplayerServerRequestEvent != null)
+			{
+				foreach (Delegate delegate546 in this.OnMultiplayerShutdownMultiplayerServerRequestEvent.GetInvocationList())
+				{
+					if (delegate546.Target == instance)
+					{
+						this.OnMultiplayerShutdownMultiplayerServerRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<ShutdownMultiplayerServerRequest>)delegate546;
+					}
+				}
+			}
+			if (this.OnMultiplayerShutdownMultiplayerServerResultEvent != null)
+			{
+				foreach (Delegate delegate547 in this.OnMultiplayerShutdownMultiplayerServerResultEvent.GetInvocationList())
+				{
+					if (delegate547.Target == instance)
+					{
+						this.OnMultiplayerShutdownMultiplayerServerResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate547;
+					}
+				}
+			}
+			if (this.OnMultiplayerUntagContainerImageRequestEvent != null)
+			{
+				foreach (Delegate delegate548 in this.OnMultiplayerUntagContainerImageRequestEvent.GetInvocationList())
+				{
+					if (delegate548.Target == instance)
+					{
+						this.OnMultiplayerUntagContainerImageRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UntagContainerImageRequest>)delegate548;
+					}
+				}
+			}
+			if (this.OnMultiplayerUntagContainerImageResultEvent != null)
+			{
+				foreach (Delegate delegate549 in this.OnMultiplayerUntagContainerImageResultEvent.GetInvocationList())
+				{
+					if (delegate549.Target == instance)
+					{
+						this.OnMultiplayerUntagContainerImageResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate549;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildAliasRequestEvent != null)
+			{
+				foreach (Delegate delegate550 in this.OnMultiplayerUpdateBuildAliasRequestEvent.GetInvocationList())
+				{
+					if (delegate550.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildAliasRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateBuildAliasRequest>)delegate550;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildAliasResultEvent != null)
+			{
+				foreach (Delegate delegate551 in this.OnMultiplayerUpdateBuildAliasResultEvent.GetInvocationList())
+				{
+					if (delegate551.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildAliasResultEvent -= (PlayFabEvents.PlayFabResultEvent<BuildAliasDetailsResponse>)delegate551;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildRegionRequestEvent != null)
+			{
+				foreach (Delegate delegate552 in this.OnMultiplayerUpdateBuildRegionRequestEvent.GetInvocationList())
+				{
+					if (delegate552.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildRegionRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateBuildRegionRequest>)delegate552;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildRegionResultEvent != null)
+			{
+				foreach (Delegate delegate553 in this.OnMultiplayerUpdateBuildRegionResultEvent.GetInvocationList())
+				{
+					if (delegate553.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildRegionResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate553;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildRegionsRequestEvent != null)
+			{
+				foreach (Delegate delegate554 in this.OnMultiplayerUpdateBuildRegionsRequestEvent.GetInvocationList())
+				{
+					if (delegate554.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildRegionsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UpdateBuildRegionsRequest>)delegate554;
+					}
+				}
+			}
+			if (this.OnMultiplayerUpdateBuildRegionsResultEvent != null)
+			{
+				foreach (Delegate delegate555 in this.OnMultiplayerUpdateBuildRegionsResultEvent.GetInvocationList())
+				{
+					if (delegate555.Target == instance)
+					{
+						this.OnMultiplayerUpdateBuildRegionsResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate555;
+					}
+				}
+			}
+			if (this.OnMultiplayerUploadCertificateRequestEvent != null)
+			{
+				foreach (Delegate delegate556 in this.OnMultiplayerUploadCertificateRequestEvent.GetInvocationList())
+				{
+					if (delegate556.Target == instance)
+					{
+						this.OnMultiplayerUploadCertificateRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<UploadCertificateRequest>)delegate556;
+					}
+				}
+			}
+			if (this.OnMultiplayerUploadCertificateResultEvent != null)
+			{
+				foreach (Delegate delegate557 in this.OnMultiplayerUploadCertificateResultEvent.GetInvocationList())
+				{
+					if (delegate557.Target == instance)
+					{
+						this.OnMultiplayerUploadCertificateResultEvent -= (PlayFabEvents.PlayFabResultEvent<PlayFab.MultiplayerModels.EmptyResponse>)delegate557;
+					}
+				}
+			}
+			if (this.OnProfilesGetGlobalPolicyRequestEvent != null)
+			{
+				foreach (Delegate delegate558 in this.OnProfilesGetGlobalPolicyRequestEvent.GetInvocationList())
+				{
+					if (delegate558.Target == instance)
+					{
+						this.OnProfilesGetGlobalPolicyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetGlobalPolicyRequest>)delegate558;
+					}
+				}
+			}
+			if (this.OnProfilesGetGlobalPolicyResultEvent != null)
+			{
+				foreach (Delegate delegate559 in this.OnProfilesGetGlobalPolicyResultEvent.GetInvocationList())
+				{
+					if (delegate559.Target == instance)
+					{
+						this.OnProfilesGetGlobalPolicyResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetGlobalPolicyResponse>)delegate559;
+					}
+				}
+			}
+			if (this.OnProfilesGetProfileRequestEvent != null)
+			{
+				foreach (Delegate delegate560 in this.OnProfilesGetProfileRequestEvent.GetInvocationList())
+				{
+					if (delegate560.Target == instance)
+					{
+						this.OnProfilesGetProfileRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetEntityProfileRequest>)delegate560;
+					}
+				}
+			}
+			if (this.OnProfilesGetProfileResultEvent != null)
+			{
+				foreach (Delegate delegate561 in this.OnProfilesGetProfileResultEvent.GetInvocationList())
+				{
+					if (delegate561.Target == instance)
+					{
+						this.OnProfilesGetProfileResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetEntityProfileResponse>)delegate561;
+					}
+				}
+			}
+			if (this.OnProfilesGetProfilesRequestEvent != null)
+			{
+				foreach (Delegate delegate562 in this.OnProfilesGetProfilesRequestEvent.GetInvocationList())
+				{
+					if (delegate562.Target == instance)
+					{
+						this.OnProfilesGetProfilesRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetEntityProfilesRequest>)delegate562;
+					}
+				}
+			}
+			if (this.OnProfilesGetProfilesResultEvent != null)
+			{
+				foreach (Delegate delegate563 in this.OnProfilesGetProfilesResultEvent.GetInvocationList())
+				{
+					if (delegate563.Target == instance)
+					{
+						this.OnProfilesGetProfilesResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetEntityProfilesResponse>)delegate563;
+					}
+				}
+			}
+			if (this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent != null)
+			{
+				foreach (Delegate delegate564 in this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent.GetInvocationList())
+				{
+					if (delegate564.Target == instance)
+					{
+						this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<GetTitlePlayersFromMasterPlayerAccountIdsRequest>)delegate564;
+					}
+				}
+			}
+			if (this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent != null)
+			{
+				foreach (Delegate delegate565 in this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent.GetInvocationList())
+				{
+					if (delegate565.Target == instance)
+					{
+						this.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent -= (PlayFabEvents.PlayFabResultEvent<GetTitlePlayersFromMasterPlayerAccountIdsResponse>)delegate565;
+					}
+				}
+			}
+			if (this.OnProfilesSetGlobalPolicyRequestEvent != null)
+			{
+				foreach (Delegate delegate566 in this.OnProfilesSetGlobalPolicyRequestEvent.GetInvocationList())
+				{
+					if (delegate566.Target == instance)
+					{
+						this.OnProfilesSetGlobalPolicyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetGlobalPolicyRequest>)delegate566;
+					}
+				}
+			}
+			if (this.OnProfilesSetGlobalPolicyResultEvent != null)
+			{
+				foreach (Delegate delegate567 in this.OnProfilesSetGlobalPolicyResultEvent.GetInvocationList())
+				{
+					if (delegate567.Target == instance)
+					{
+						this.OnProfilesSetGlobalPolicyResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetGlobalPolicyResponse>)delegate567;
+					}
+				}
+			}
+			if (this.OnProfilesSetProfileLanguageRequestEvent != null)
+			{
+				foreach (Delegate delegate568 in this.OnProfilesSetProfileLanguageRequestEvent.GetInvocationList())
+				{
+					if (delegate568.Target == instance)
+					{
+						this.OnProfilesSetProfileLanguageRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetProfileLanguageRequest>)delegate568;
+					}
+				}
+			}
+			if (this.OnProfilesSetProfileLanguageResultEvent != null)
+			{
+				foreach (Delegate delegate569 in this.OnProfilesSetProfileLanguageResultEvent.GetInvocationList())
+				{
+					if (delegate569.Target == instance)
+					{
+						this.OnProfilesSetProfileLanguageResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetProfileLanguageResponse>)delegate569;
+					}
+				}
+			}
+			if (this.OnProfilesSetProfilePolicyRequestEvent != null)
+			{
+				foreach (Delegate delegate570 in this.OnProfilesSetProfilePolicyRequestEvent.GetInvocationList())
+				{
+					if (delegate570.Target == instance)
+					{
+						this.OnProfilesSetProfilePolicyRequestEvent -= (PlayFabEvents.PlayFabRequestEvent<SetEntityProfilePolicyRequest>)delegate570;
+					}
+				}
+			}
+			if (this.OnProfilesSetProfilePolicyResultEvent != null)
+			{
+				foreach (Delegate delegate571 in this.OnProfilesSetProfilePolicyResultEvent.GetInvocationList())
+				{
+					if (delegate571.Target == instance)
+					{
+						this.OnProfilesSetProfilePolicyResultEvent -= (PlayFabEvents.PlayFabResultEvent<SetEntityProfilePolicyResponse>)delegate571;
+					}
+				}
+			}
+		}
+
+		private void OnProcessingErrorEvent(PlayFabRequestCommon request, PlayFabError error)
+		{
+			if (PlayFabEvents._instance.OnGlobalErrorEvent != null)
+			{
+				PlayFabEvents._instance.OnGlobalErrorEvent(request, error);
+			}
+		}
+
+		private void OnProcessingEvent(ApiProcessingEventArgs e)
+		{
+			if (e.EventType == ApiProcessingEventType.Pre)
+			{
+				Type type = e.Request.GetType();
+				if (type == typeof(AcceptTradeRequest) && PlayFabEvents._instance.OnAcceptTradeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAcceptTradeRequestEvent((AcceptTradeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddFriendRequest) && PlayFabEvents._instance.OnAddFriendRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddFriendRequestEvent((AddFriendRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddGenericIDRequest) && PlayFabEvents._instance.OnAddGenericIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddGenericIDRequestEvent((AddGenericIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddOrUpdateContactEmailRequest) && PlayFabEvents._instance.OnAddOrUpdateContactEmailRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddOrUpdateContactEmailRequestEvent((AddOrUpdateContactEmailRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddSharedGroupMembersRequest) && PlayFabEvents._instance.OnAddSharedGroupMembersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddSharedGroupMembersRequestEvent((AddSharedGroupMembersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddUsernamePasswordRequest) && PlayFabEvents._instance.OnAddUsernamePasswordRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddUsernamePasswordRequestEvent((AddUsernamePasswordRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddUserVirtualCurrencyRequest) && PlayFabEvents._instance.OnAddUserVirtualCurrencyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAddUserVirtualCurrencyRequestEvent((AddUserVirtualCurrencyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AndroidDevicePushNotificationRegistrationRequest) && PlayFabEvents._instance.OnAndroidDevicePushNotificationRegistrationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAndroidDevicePushNotificationRegistrationRequestEvent((AndroidDevicePushNotificationRegistrationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AttributeInstallRequest) && PlayFabEvents._instance.OnAttributeInstallRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAttributeInstallRequestEvent((AttributeInstallRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CancelTradeRequest) && PlayFabEvents._instance.OnCancelTradeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCancelTradeRequestEvent((CancelTradeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ConfirmPurchaseRequest) && PlayFabEvents._instance.OnConfirmPurchaseRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnConfirmPurchaseRequestEvent((ConfirmPurchaseRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ConsumeItemRequest) && PlayFabEvents._instance.OnConsumeItemRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumeItemRequestEvent((ConsumeItemRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ConsumePSNEntitlementsRequest) && PlayFabEvents._instance.OnConsumePSNEntitlementsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumePSNEntitlementsRequestEvent((ConsumePSNEntitlementsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ConsumeXboxEntitlementsRequest) && PlayFabEvents._instance.OnConsumeXboxEntitlementsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumeXboxEntitlementsRequestEvent((ConsumeXboxEntitlementsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateSharedGroupRequest) && PlayFabEvents._instance.OnCreateSharedGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCreateSharedGroupRequestEvent((CreateSharedGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ExecuteCloudScriptRequest) && PlayFabEvents._instance.OnExecuteCloudScriptRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExecuteCloudScriptRequestEvent((ExecuteCloudScriptRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetAccountInfoRequest) && PlayFabEvents._instance.OnGetAccountInfoRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAccountInfoRequestEvent((GetAccountInfoRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetAdPlacementsRequest) && PlayFabEvents._instance.OnGetAdPlacementsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAdPlacementsRequestEvent((GetAdPlacementsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListUsersCharactersRequest) && PlayFabEvents._instance.OnGetAllUsersCharactersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAllUsersCharactersRequestEvent((ListUsersCharactersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCatalogItemsRequest) && PlayFabEvents._instance.OnGetCatalogItemsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCatalogItemsRequestEvent((GetCatalogItemsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCharacterDataRequest) && PlayFabEvents._instance.OnGetCharacterDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterDataRequestEvent((GetCharacterDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCharacterInventoryRequest) && PlayFabEvents._instance.OnGetCharacterInventoryRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterInventoryRequestEvent((GetCharacterInventoryRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCharacterLeaderboardRequest) && PlayFabEvents._instance.OnGetCharacterLeaderboardRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterLeaderboardRequestEvent((GetCharacterLeaderboardRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCharacterDataRequest) && PlayFabEvents._instance.OnGetCharacterReadOnlyDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterReadOnlyDataRequestEvent((GetCharacterDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetCharacterStatisticsRequest) && PlayFabEvents._instance.OnGetCharacterStatisticsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterStatisticsRequestEvent((GetCharacterStatisticsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetContentDownloadUrlRequest) && PlayFabEvents._instance.OnGetContentDownloadUrlRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetContentDownloadUrlRequestEvent((GetContentDownloadUrlRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CurrentGamesRequest) && PlayFabEvents._instance.OnGetCurrentGamesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCurrentGamesRequestEvent((CurrentGamesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetFriendLeaderboardRequest) && PlayFabEvents._instance.OnGetFriendLeaderboardRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendLeaderboardRequestEvent((GetFriendLeaderboardRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetFriendLeaderboardAroundPlayerRequest) && PlayFabEvents._instance.OnGetFriendLeaderboardAroundPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendLeaderboardAroundPlayerRequestEvent((GetFriendLeaderboardAroundPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetFriendsListRequest) && PlayFabEvents._instance.OnGetFriendsListRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendsListRequestEvent((GetFriendsListRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GameServerRegionsRequest) && PlayFabEvents._instance.OnGetGameServerRegionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetGameServerRegionsRequestEvent((GameServerRegionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLeaderboardRequest) && PlayFabEvents._instance.OnGetLeaderboardRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardRequestEvent((GetLeaderboardRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLeaderboardAroundCharacterRequest) && PlayFabEvents._instance.OnGetLeaderboardAroundCharacterRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardAroundCharacterRequestEvent((GetLeaderboardAroundCharacterRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLeaderboardAroundPlayerRequest) && PlayFabEvents._instance.OnGetLeaderboardAroundPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardAroundPlayerRequestEvent((GetLeaderboardAroundPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLeaderboardForUsersCharactersRequest) && PlayFabEvents._instance.OnGetLeaderboardForUserCharactersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardForUserCharactersRequestEvent((GetLeaderboardForUsersCharactersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPaymentTokenRequest) && PlayFabEvents._instance.OnGetPaymentTokenRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPaymentTokenRequestEvent((GetPaymentTokenRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPhotonAuthenticationTokenRequest) && PlayFabEvents._instance.OnGetPhotonAuthenticationTokenRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPhotonAuthenticationTokenRequestEvent((GetPhotonAuthenticationTokenRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerCombinedInfoRequest) && PlayFabEvents._instance.OnGetPlayerCombinedInfoRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerCombinedInfoRequestEvent((GetPlayerCombinedInfoRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerProfileRequest) && PlayFabEvents._instance.OnGetPlayerProfileRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerProfileRequestEvent((GetPlayerProfileRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerSegmentsRequest) && PlayFabEvents._instance.OnGetPlayerSegmentsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerSegmentsRequestEvent((GetPlayerSegmentsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerStatisticsRequest) && PlayFabEvents._instance.OnGetPlayerStatisticsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerStatisticsRequestEvent((GetPlayerStatisticsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerStatisticVersionsRequest) && PlayFabEvents._instance.OnGetPlayerStatisticVersionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerStatisticVersionsRequestEvent((GetPlayerStatisticVersionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerTagsRequest) && PlayFabEvents._instance.OnGetPlayerTagsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerTagsRequestEvent((GetPlayerTagsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayerTradesRequest) && PlayFabEvents._instance.OnGetPlayerTradesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerTradesRequestEvent((GetPlayerTradesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromFacebookIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookIDsRequestEvent((GetPlayFabIDsFromFacebookIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromFacebookInstantGamesIdsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookInstantGamesIdsRequestEvent((GetPlayFabIDsFromFacebookInstantGamesIdsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromGameCenterIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromGameCenterIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGameCenterIDsRequestEvent((GetPlayFabIDsFromGameCenterIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromGenericIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromGenericIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGenericIDsRequestEvent((GetPlayFabIDsFromGenericIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromGoogleIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromGoogleIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGoogleIDsRequestEvent((GetPlayFabIDsFromGoogleIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromKongregateIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromKongregateIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromKongregateIDsRequestEvent((GetPlayFabIDsFromKongregateIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsRequestEvent((GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromPSNAccountIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromPSNAccountIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromPSNAccountIDsRequestEvent((GetPlayFabIDsFromPSNAccountIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromSteamIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromSteamIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromSteamIDsRequestEvent((GetPlayFabIDsFromSteamIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromTwitchIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromTwitchIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromTwitchIDsRequestEvent((GetPlayFabIDsFromTwitchIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPlayFabIDsFromXboxLiveIDsRequest) && PlayFabEvents._instance.OnGetPlayFabIDsFromXboxLiveIDsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromXboxLiveIDsRequestEvent((GetPlayFabIDsFromXboxLiveIDsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPublisherDataRequest) && PlayFabEvents._instance.OnGetPublisherDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPublisherDataRequestEvent((GetPublisherDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetPurchaseRequest) && PlayFabEvents._instance.OnGetPurchaseRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPurchaseRequestEvent((GetPurchaseRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetSharedGroupDataRequest) && PlayFabEvents._instance.OnGetSharedGroupDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetSharedGroupDataRequestEvent((GetSharedGroupDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetStoreItemsRequest) && PlayFabEvents._instance.OnGetStoreItemsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetStoreItemsRequestEvent((GetStoreItemsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTimeRequest) && PlayFabEvents._instance.OnGetTimeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTimeRequestEvent((GetTimeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitleDataRequest) && PlayFabEvents._instance.OnGetTitleDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitleDataRequestEvent((GetTitleDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitleNewsRequest) && PlayFabEvents._instance.OnGetTitleNewsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitleNewsRequestEvent((GetTitleNewsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitlePublicKeyRequest) && PlayFabEvents._instance.OnGetTitlePublicKeyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitlePublicKeyRequestEvent((GetTitlePublicKeyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTradeStatusRequest) && PlayFabEvents._instance.OnGetTradeStatusRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTradeStatusRequestEvent((GetTradeStatusRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetUserDataRequest) && PlayFabEvents._instance.OnGetUserDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserDataRequestEvent((GetUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetUserInventoryRequest) && PlayFabEvents._instance.OnGetUserInventoryRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserInventoryRequestEvent((GetUserInventoryRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetUserDataRequest) && PlayFabEvents._instance.OnGetUserPublisherDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserPublisherDataRequestEvent((GetUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetUserDataRequest) && PlayFabEvents._instance.OnGetUserPublisherReadOnlyDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserPublisherReadOnlyDataRequestEvent((GetUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetUserDataRequest) && PlayFabEvents._instance.OnGetUserReadOnlyDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserReadOnlyDataRequestEvent((GetUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetWindowsHelloChallengeRequest) && PlayFabEvents._instance.OnGetWindowsHelloChallengeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGetWindowsHelloChallengeRequestEvent((GetWindowsHelloChallengeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GrantCharacterToUserRequest) && PlayFabEvents._instance.OnGrantCharacterToUserRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGrantCharacterToUserRequestEvent((GrantCharacterToUserRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkAndroidDeviceIDRequest) && PlayFabEvents._instance.OnLinkAndroidDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkAndroidDeviceIDRequestEvent((LinkAndroidDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkAppleRequest) && PlayFabEvents._instance.OnLinkAppleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkAppleRequestEvent((LinkAppleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkCustomIDRequest) && PlayFabEvents._instance.OnLinkCustomIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkCustomIDRequestEvent((LinkCustomIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkFacebookAccountRequest) && PlayFabEvents._instance.OnLinkFacebookAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkFacebookAccountRequestEvent((LinkFacebookAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkFacebookInstantGamesIdRequest) && PlayFabEvents._instance.OnLinkFacebookInstantGamesIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkFacebookInstantGamesIdRequestEvent((LinkFacebookInstantGamesIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkGameCenterAccountRequest) && PlayFabEvents._instance.OnLinkGameCenterAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkGameCenterAccountRequestEvent((LinkGameCenterAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkGoogleAccountRequest) && PlayFabEvents._instance.OnLinkGoogleAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkGoogleAccountRequestEvent((LinkGoogleAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkIOSDeviceIDRequest) && PlayFabEvents._instance.OnLinkIOSDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkIOSDeviceIDRequestEvent((LinkIOSDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkKongregateAccountRequest) && PlayFabEvents._instance.OnLinkKongregateRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkKongregateRequestEvent((LinkKongregateAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkNintendoAccountRequest) && PlayFabEvents._instance.OnLinkNintendoAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkNintendoAccountRequestEvent((LinkNintendoAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkNintendoSwitchDeviceIdRequest) && PlayFabEvents._instance.OnLinkNintendoSwitchDeviceIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkNintendoSwitchDeviceIdRequestEvent((LinkNintendoSwitchDeviceIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkOpenIdConnectRequest) && PlayFabEvents._instance.OnLinkOpenIdConnectRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkOpenIdConnectRequestEvent((LinkOpenIdConnectRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkPSNAccountRequest) && PlayFabEvents._instance.OnLinkPSNAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkPSNAccountRequestEvent((LinkPSNAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkSteamAccountRequest) && PlayFabEvents._instance.OnLinkSteamAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkSteamAccountRequestEvent((LinkSteamAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkTwitchAccountRequest) && PlayFabEvents._instance.OnLinkTwitchRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkTwitchRequestEvent((LinkTwitchAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkWindowsHelloAccountRequest) && PlayFabEvents._instance.OnLinkWindowsHelloRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkWindowsHelloRequestEvent((LinkWindowsHelloAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LinkXboxAccountRequest) && PlayFabEvents._instance.OnLinkXboxAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkXboxAccountRequestEvent((LinkXboxAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithAndroidDeviceIDRequest) && PlayFabEvents._instance.OnLoginWithAndroidDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithAndroidDeviceIDRequestEvent((LoginWithAndroidDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithAppleRequest) && PlayFabEvents._instance.OnLoginWithAppleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithAppleRequestEvent((LoginWithAppleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithCustomIDRequest) && PlayFabEvents._instance.OnLoginWithCustomIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithCustomIDRequestEvent((LoginWithCustomIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithEmailAddressRequest) && PlayFabEvents._instance.OnLoginWithEmailAddressRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithEmailAddressRequestEvent((LoginWithEmailAddressRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithFacebookRequest) && PlayFabEvents._instance.OnLoginWithFacebookRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithFacebookRequestEvent((LoginWithFacebookRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithFacebookInstantGamesIdRequest) && PlayFabEvents._instance.OnLoginWithFacebookInstantGamesIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithFacebookInstantGamesIdRequestEvent((LoginWithFacebookInstantGamesIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithGameCenterRequest) && PlayFabEvents._instance.OnLoginWithGameCenterRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithGameCenterRequestEvent((LoginWithGameCenterRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithGoogleAccountRequest) && PlayFabEvents._instance.OnLoginWithGoogleAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithGoogleAccountRequestEvent((LoginWithGoogleAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithIOSDeviceIDRequest) && PlayFabEvents._instance.OnLoginWithIOSDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithIOSDeviceIDRequestEvent((LoginWithIOSDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithKongregateRequest) && PlayFabEvents._instance.OnLoginWithKongregateRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithKongregateRequestEvent((LoginWithKongregateRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithNintendoAccountRequest) && PlayFabEvents._instance.OnLoginWithNintendoAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithNintendoAccountRequestEvent((LoginWithNintendoAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithNintendoSwitchDeviceIdRequest) && PlayFabEvents._instance.OnLoginWithNintendoSwitchDeviceIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithNintendoSwitchDeviceIdRequestEvent((LoginWithNintendoSwitchDeviceIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithOpenIdConnectRequest) && PlayFabEvents._instance.OnLoginWithOpenIdConnectRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithOpenIdConnectRequestEvent((LoginWithOpenIdConnectRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithPlayFabRequest) && PlayFabEvents._instance.OnLoginWithPlayFabRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithPlayFabRequestEvent((LoginWithPlayFabRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithPSNRequest) && PlayFabEvents._instance.OnLoginWithPSNRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithPSNRequestEvent((LoginWithPSNRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithSteamRequest) && PlayFabEvents._instance.OnLoginWithSteamRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithSteamRequestEvent((LoginWithSteamRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithTwitchRequest) && PlayFabEvents._instance.OnLoginWithTwitchRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithTwitchRequestEvent((LoginWithTwitchRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithWindowsHelloRequest) && PlayFabEvents._instance.OnLoginWithWindowsHelloRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithWindowsHelloRequestEvent((LoginWithWindowsHelloRequest)e.Request);
+					return;
+				}
+				if (type == typeof(LoginWithXboxRequest) && PlayFabEvents._instance.OnLoginWithXboxRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginWithXboxRequestEvent((LoginWithXboxRequest)e.Request);
+					return;
+				}
+				if (type == typeof(MatchmakeRequest) && PlayFabEvents._instance.OnMatchmakeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMatchmakeRequestEvent((MatchmakeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(OpenTradeRequest) && PlayFabEvents._instance.OnOpenTradeRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnOpenTradeRequestEvent((OpenTradeRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PayForPurchaseRequest) && PlayFabEvents._instance.OnPayForPurchaseRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnPayForPurchaseRequestEvent((PayForPurchaseRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PurchaseItemRequest) && PlayFabEvents._instance.OnPurchaseItemRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnPurchaseItemRequestEvent((PurchaseItemRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RedeemCouponRequest) && PlayFabEvents._instance.OnRedeemCouponRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRedeemCouponRequestEvent((RedeemCouponRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RefreshPSNAuthTokenRequest) && PlayFabEvents._instance.OnRefreshPSNAuthTokenRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRefreshPSNAuthTokenRequestEvent((RefreshPSNAuthTokenRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RegisterForIOSPushNotificationRequest) && PlayFabEvents._instance.OnRegisterForIOSPushNotificationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRegisterForIOSPushNotificationRequestEvent((RegisterForIOSPushNotificationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RegisterPlayFabUserRequest) && PlayFabEvents._instance.OnRegisterPlayFabUserRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRegisterPlayFabUserRequestEvent((RegisterPlayFabUserRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RegisterWithWindowsHelloRequest) && PlayFabEvents._instance.OnRegisterWithWindowsHelloRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRegisterWithWindowsHelloRequestEvent((RegisterWithWindowsHelloRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveContactEmailRequest) && PlayFabEvents._instance.OnRemoveContactEmailRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveContactEmailRequestEvent((RemoveContactEmailRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveFriendRequest) && PlayFabEvents._instance.OnRemoveFriendRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveFriendRequestEvent((RemoveFriendRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveGenericIDRequest) && PlayFabEvents._instance.OnRemoveGenericIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveGenericIDRequestEvent((RemoveGenericIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveSharedGroupMembersRequest) && PlayFabEvents._instance.OnRemoveSharedGroupMembersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveSharedGroupMembersRequestEvent((RemoveSharedGroupMembersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ReportAdActivityRequest) && PlayFabEvents._instance.OnReportAdActivityRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnReportAdActivityRequestEvent((ReportAdActivityRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeviceInfoRequest) && PlayFabEvents._instance.OnReportDeviceInfoRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnReportDeviceInfoRequestEvent((DeviceInfoRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ReportPlayerClientRequest) && PlayFabEvents._instance.OnReportPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnReportPlayerRequestEvent((ReportPlayerClientRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RestoreIOSPurchasesRequest) && PlayFabEvents._instance.OnRestoreIOSPurchasesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRestoreIOSPurchasesRequestEvent((RestoreIOSPurchasesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RewardAdActivityRequest) && PlayFabEvents._instance.OnRewardAdActivityRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnRewardAdActivityRequestEvent((RewardAdActivityRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SendAccountRecoveryEmailRequest) && PlayFabEvents._instance.OnSendAccountRecoveryEmailRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnSendAccountRecoveryEmailRequestEvent((SendAccountRecoveryEmailRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetFriendTagsRequest) && PlayFabEvents._instance.OnSetFriendTagsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnSetFriendTagsRequestEvent((SetFriendTagsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetPlayerSecretRequest) && PlayFabEvents._instance.OnSetPlayerSecretRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnSetPlayerSecretRequestEvent((SetPlayerSecretRequest)e.Request);
+					return;
+				}
+				if (type == typeof(StartGameRequest) && PlayFabEvents._instance.OnStartGameRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnStartGameRequestEvent((StartGameRequest)e.Request);
+					return;
+				}
+				if (type == typeof(StartPurchaseRequest) && PlayFabEvents._instance.OnStartPurchaseRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnStartPurchaseRequestEvent((StartPurchaseRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SubtractUserVirtualCurrencyRequest) && PlayFabEvents._instance.OnSubtractUserVirtualCurrencyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnSubtractUserVirtualCurrencyRequestEvent((SubtractUserVirtualCurrencyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkAndroidDeviceIDRequest) && PlayFabEvents._instance.OnUnlinkAndroidDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkAndroidDeviceIDRequestEvent((UnlinkAndroidDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkAppleRequest) && PlayFabEvents._instance.OnUnlinkAppleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkAppleRequestEvent((UnlinkAppleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkCustomIDRequest) && PlayFabEvents._instance.OnUnlinkCustomIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkCustomIDRequestEvent((UnlinkCustomIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkFacebookAccountRequest) && PlayFabEvents._instance.OnUnlinkFacebookAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkFacebookAccountRequestEvent((UnlinkFacebookAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkFacebookInstantGamesIdRequest) && PlayFabEvents._instance.OnUnlinkFacebookInstantGamesIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkFacebookInstantGamesIdRequestEvent((UnlinkFacebookInstantGamesIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkGameCenterAccountRequest) && PlayFabEvents._instance.OnUnlinkGameCenterAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkGameCenterAccountRequestEvent((UnlinkGameCenterAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkGoogleAccountRequest) && PlayFabEvents._instance.OnUnlinkGoogleAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkGoogleAccountRequestEvent((UnlinkGoogleAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkIOSDeviceIDRequest) && PlayFabEvents._instance.OnUnlinkIOSDeviceIDRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkIOSDeviceIDRequestEvent((UnlinkIOSDeviceIDRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkKongregateAccountRequest) && PlayFabEvents._instance.OnUnlinkKongregateRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkKongregateRequestEvent((UnlinkKongregateAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkNintendoAccountRequest) && PlayFabEvents._instance.OnUnlinkNintendoAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkNintendoAccountRequestEvent((UnlinkNintendoAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkNintendoSwitchDeviceIdRequest) && PlayFabEvents._instance.OnUnlinkNintendoSwitchDeviceIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkNintendoSwitchDeviceIdRequestEvent((UnlinkNintendoSwitchDeviceIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkOpenIdConnectRequest) && PlayFabEvents._instance.OnUnlinkOpenIdConnectRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkOpenIdConnectRequestEvent((UnlinkOpenIdConnectRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkPSNAccountRequest) && PlayFabEvents._instance.OnUnlinkPSNAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkPSNAccountRequestEvent((UnlinkPSNAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkSteamAccountRequest) && PlayFabEvents._instance.OnUnlinkSteamAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkSteamAccountRequestEvent((UnlinkSteamAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkTwitchAccountRequest) && PlayFabEvents._instance.OnUnlinkTwitchRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkTwitchRequestEvent((UnlinkTwitchAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkWindowsHelloAccountRequest) && PlayFabEvents._instance.OnUnlinkWindowsHelloRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkWindowsHelloRequestEvent((UnlinkWindowsHelloAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlinkXboxAccountRequest) && PlayFabEvents._instance.OnUnlinkXboxAccountRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkXboxAccountRequestEvent((UnlinkXboxAccountRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlockContainerInstanceRequest) && PlayFabEvents._instance.OnUnlockContainerInstanceRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlockContainerInstanceRequestEvent((UnlockContainerInstanceRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnlockContainerItemRequest) && PlayFabEvents._instance.OnUnlockContainerItemRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlockContainerItemRequestEvent((UnlockContainerItemRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateAvatarUrlRequest) && PlayFabEvents._instance.OnUpdateAvatarUrlRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateAvatarUrlRequestEvent((UpdateAvatarUrlRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateCharacterDataRequest) && PlayFabEvents._instance.OnUpdateCharacterDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateCharacterDataRequestEvent((UpdateCharacterDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateCharacterStatisticsRequest) && PlayFabEvents._instance.OnUpdateCharacterStatisticsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateCharacterStatisticsRequestEvent((UpdateCharacterStatisticsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdatePlayerStatisticsRequest) && PlayFabEvents._instance.OnUpdatePlayerStatisticsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdatePlayerStatisticsRequestEvent((UpdatePlayerStatisticsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateSharedGroupDataRequest) && PlayFabEvents._instance.OnUpdateSharedGroupDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateSharedGroupDataRequestEvent((UpdateSharedGroupDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateUserDataRequest) && PlayFabEvents._instance.OnUpdateUserDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserDataRequestEvent((UpdateUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateUserDataRequest) && PlayFabEvents._instance.OnUpdateUserPublisherDataRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserPublisherDataRequestEvent((UpdateUserDataRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateUserTitleDisplayNameRequest) && PlayFabEvents._instance.OnUpdateUserTitleDisplayNameRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserTitleDisplayNameRequestEvent((UpdateUserTitleDisplayNameRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ValidateAmazonReceiptRequest) && PlayFabEvents._instance.OnValidateAmazonIAPReceiptRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateAmazonIAPReceiptRequestEvent((ValidateAmazonReceiptRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ValidateGooglePlayPurchaseRequest) && PlayFabEvents._instance.OnValidateGooglePlayPurchaseRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateGooglePlayPurchaseRequestEvent((ValidateGooglePlayPurchaseRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ValidateIOSReceiptRequest) && PlayFabEvents._instance.OnValidateIOSReceiptRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateIOSReceiptRequestEvent((ValidateIOSReceiptRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ValidateWindowsReceiptRequest) && PlayFabEvents._instance.OnValidateWindowsStoreReceiptRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateWindowsStoreReceiptRequestEvent((ValidateWindowsReceiptRequest)e.Request);
+					return;
+				}
+				if (type == typeof(WriteClientCharacterEventRequest) && PlayFabEvents._instance.OnWriteCharacterEventRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnWriteCharacterEventRequestEvent((WriteClientCharacterEventRequest)e.Request);
+					return;
+				}
+				if (type == typeof(WriteClientPlayerEventRequest) && PlayFabEvents._instance.OnWritePlayerEventRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnWritePlayerEventRequestEvent((WriteClientPlayerEventRequest)e.Request);
+					return;
+				}
+				if (type == typeof(WriteTitleEventRequest) && PlayFabEvents._instance.OnWriteTitleEventRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnWriteTitleEventRequestEvent((WriteTitleEventRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetEntityTokenRequest) && PlayFabEvents._instance.OnAuthenticationGetEntityTokenRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAuthenticationGetEntityTokenRequestEvent((GetEntityTokenRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ValidateEntityTokenRequest) && PlayFabEvents._instance.OnAuthenticationValidateEntityTokenRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnAuthenticationValidateEntityTokenRequestEvent((ValidateEntityTokenRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ExecuteEntityCloudScriptRequest) && PlayFabEvents._instance.OnCloudScriptExecuteEntityCloudScriptRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptExecuteEntityCloudScriptRequestEvent((ExecuteEntityCloudScriptRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ExecuteFunctionRequest) && PlayFabEvents._instance.OnCloudScriptExecuteFunctionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptExecuteFunctionRequestEvent((ExecuteFunctionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListFunctionsRequest) && PlayFabEvents._instance.OnCloudScriptListFunctionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListFunctionsRequestEvent((ListFunctionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListFunctionsRequest) && PlayFabEvents._instance.OnCloudScriptListHttpFunctionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListHttpFunctionsRequestEvent((ListFunctionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListFunctionsRequest) && PlayFabEvents._instance.OnCloudScriptListQueuedFunctionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListQueuedFunctionsRequestEvent((ListFunctionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PostFunctionResultForEntityTriggeredActionRequest) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForEntityTriggeredActionRequestEvent((PostFunctionResultForEntityTriggeredActionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PostFunctionResultForFunctionExecutionRequest) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForFunctionExecutionRequestEvent((PostFunctionResultForFunctionExecutionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PostFunctionResultForPlayerTriggeredActionRequest) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForPlayerTriggeredActionRequestEvent((PostFunctionResultForPlayerTriggeredActionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(PostFunctionResultForScheduledTaskRequest) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForScheduledTaskRequestEvent((PostFunctionResultForScheduledTaskRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RegisterHttpFunctionRequest) && PlayFabEvents._instance.OnCloudScriptRegisterHttpFunctionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptRegisterHttpFunctionRequestEvent((RegisterHttpFunctionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RegisterQueuedFunctionRequest) && PlayFabEvents._instance.OnCloudScriptRegisterQueuedFunctionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptRegisterQueuedFunctionRequestEvent((RegisterQueuedFunctionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnregisterFunctionRequest) && PlayFabEvents._instance.OnCloudScriptUnregisterFunctionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptUnregisterFunctionRequestEvent((UnregisterFunctionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AbortFileUploadsRequest) && PlayFabEvents._instance.OnDataAbortFileUploadsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataAbortFileUploadsRequestEvent((AbortFileUploadsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteFilesRequest) && PlayFabEvents._instance.OnDataDeleteFilesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataDeleteFilesRequestEvent((DeleteFilesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(FinalizeFileUploadsRequest) && PlayFabEvents._instance.OnDataFinalizeFileUploadsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataFinalizeFileUploadsRequestEvent((FinalizeFileUploadsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetFilesRequest) && PlayFabEvents._instance.OnDataGetFilesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataGetFilesRequestEvent((GetFilesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetObjectsRequest) && PlayFabEvents._instance.OnDataGetObjectsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataGetObjectsRequestEvent((GetObjectsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InitiateFileUploadsRequest) && PlayFabEvents._instance.OnDataInitiateFileUploadsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataInitiateFileUploadsRequestEvent((InitiateFileUploadsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetObjectsRequest) && PlayFabEvents._instance.OnDataSetObjectsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnDataSetObjectsRequestEvent((SetObjectsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(WriteEventsRequest) && PlayFabEvents._instance.OnEventsWriteEventsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnEventsWriteEventsRequestEvent((WriteEventsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(WriteEventsRequest) && PlayFabEvents._instance.OnEventsWriteTelemetryEventsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnEventsWriteTelemetryEventsRequestEvent((WriteEventsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateExperimentRequest) && PlayFabEvents._instance.OnExperimentationCreateExperimentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationCreateExperimentRequestEvent((CreateExperimentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteExperimentRequest) && PlayFabEvents._instance.OnExperimentationDeleteExperimentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationDeleteExperimentRequestEvent((DeleteExperimentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetExperimentsRequest) && PlayFabEvents._instance.OnExperimentationGetExperimentsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetExperimentsRequestEvent((GetExperimentsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLatestScorecardRequest) && PlayFabEvents._instance.OnExperimentationGetLatestScorecardRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetLatestScorecardRequestEvent((GetLatestScorecardRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTreatmentAssignmentRequest) && PlayFabEvents._instance.OnExperimentationGetTreatmentAssignmentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetTreatmentAssignmentRequestEvent((GetTreatmentAssignmentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(StartExperimentRequest) && PlayFabEvents._instance.OnExperimentationStartExperimentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationStartExperimentRequestEvent((StartExperimentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(StopExperimentRequest) && PlayFabEvents._instance.OnExperimentationStopExperimentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationStopExperimentRequestEvent((StopExperimentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateExperimentRequest) && PlayFabEvents._instance.OnExperimentationUpdateExperimentRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationUpdateExperimentRequestEvent((UpdateExperimentRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsEmptyRequest) && PlayFabEvents._instance.OnInsightsGetDetailsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetDetailsRequestEvent((InsightsEmptyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsEmptyRequest) && PlayFabEvents._instance.OnInsightsGetLimitsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetLimitsRequestEvent((InsightsEmptyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsGetOperationStatusRequest) && PlayFabEvents._instance.OnInsightsGetOperationStatusRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetOperationStatusRequestEvent((InsightsGetOperationStatusRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsGetPendingOperationsRequest) && PlayFabEvents._instance.OnInsightsGetPendingOperationsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetPendingOperationsRequestEvent((InsightsGetPendingOperationsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsSetPerformanceRequest) && PlayFabEvents._instance.OnInsightsSetPerformanceRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsSetPerformanceRequestEvent((InsightsSetPerformanceRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InsightsSetStorageRetentionRequest) && PlayFabEvents._instance.OnInsightsSetStorageRetentionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsSetStorageRetentionRequestEvent((InsightsSetStorageRetentionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AcceptGroupApplicationRequest) && PlayFabEvents._instance.OnGroupsAcceptGroupApplicationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAcceptGroupApplicationRequestEvent((AcceptGroupApplicationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AcceptGroupInvitationRequest) && PlayFabEvents._instance.OnGroupsAcceptGroupInvitationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAcceptGroupInvitationRequestEvent((AcceptGroupInvitationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(AddMembersRequest) && PlayFabEvents._instance.OnGroupsAddMembersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAddMembersRequestEvent((AddMembersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ApplyToGroupRequest) && PlayFabEvents._instance.OnGroupsApplyToGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsApplyToGroupRequestEvent((ApplyToGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(BlockEntityRequest) && PlayFabEvents._instance.OnGroupsBlockEntityRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsBlockEntityRequestEvent((BlockEntityRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ChangeMemberRoleRequest) && PlayFabEvents._instance.OnGroupsChangeMemberRoleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsChangeMemberRoleRequestEvent((ChangeMemberRoleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateGroupRequest) && PlayFabEvents._instance.OnGroupsCreateGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsCreateGroupRequestEvent((CreateGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateGroupRoleRequest) && PlayFabEvents._instance.OnGroupsCreateRoleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsCreateRoleRequestEvent((CreateGroupRoleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteGroupRequest) && PlayFabEvents._instance.OnGroupsDeleteGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsDeleteGroupRequestEvent((DeleteGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteRoleRequest) && PlayFabEvents._instance.OnGroupsDeleteRoleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsDeleteRoleRequestEvent((DeleteRoleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetGroupRequest) && PlayFabEvents._instance.OnGroupsGetGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsGetGroupRequestEvent((GetGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(InviteToGroupRequest) && PlayFabEvents._instance.OnGroupsInviteToGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsInviteToGroupRequestEvent((InviteToGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(IsMemberRequest) && PlayFabEvents._instance.OnGroupsIsMemberRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsIsMemberRequestEvent((IsMemberRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListGroupApplicationsRequest) && PlayFabEvents._instance.OnGroupsListGroupApplicationsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupApplicationsRequestEvent((ListGroupApplicationsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListGroupBlocksRequest) && PlayFabEvents._instance.OnGroupsListGroupBlocksRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupBlocksRequestEvent((ListGroupBlocksRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListGroupInvitationsRequest) && PlayFabEvents._instance.OnGroupsListGroupInvitationsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupInvitationsRequestEvent((ListGroupInvitationsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListGroupMembersRequest) && PlayFabEvents._instance.OnGroupsListGroupMembersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupMembersRequestEvent((ListGroupMembersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMembershipRequest) && PlayFabEvents._instance.OnGroupsListMembershipRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListMembershipRequestEvent((ListMembershipRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMembershipOpportunitiesRequest) && PlayFabEvents._instance.OnGroupsListMembershipOpportunitiesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListMembershipOpportunitiesRequestEvent((ListMembershipOpportunitiesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveGroupApplicationRequest) && PlayFabEvents._instance.OnGroupsRemoveGroupApplicationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveGroupApplicationRequestEvent((RemoveGroupApplicationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveGroupInvitationRequest) && PlayFabEvents._instance.OnGroupsRemoveGroupInvitationRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveGroupInvitationRequestEvent((RemoveGroupInvitationRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveMembersRequest) && PlayFabEvents._instance.OnGroupsRemoveMembersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveMembersRequestEvent((RemoveMembersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UnblockEntityRequest) && PlayFabEvents._instance.OnGroupsUnblockEntityRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUnblockEntityRequestEvent((UnblockEntityRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateGroupRequest) && PlayFabEvents._instance.OnGroupsUpdateGroupRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUpdateGroupRequestEvent((UpdateGroupRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateGroupRoleRequest) && PlayFabEvents._instance.OnGroupsUpdateRoleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUpdateRoleRequestEvent((UpdateGroupRoleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetLanguageListRequest) && PlayFabEvents._instance.OnLocalizationGetLanguageListRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnLocalizationGetLanguageListRequestEvent((GetLanguageListRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CancelAllMatchmakingTicketsForPlayerRequest) && PlayFabEvents._instance.OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelAllMatchmakingTicketsForPlayerRequestEvent((CancelAllMatchmakingTicketsForPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CancelAllServerBackfillTicketsForPlayerRequest) && PlayFabEvents._instance.OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelAllServerBackfillTicketsForPlayerRequestEvent((CancelAllServerBackfillTicketsForPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CancelMatchmakingTicketRequest) && PlayFabEvents._instance.OnMultiplayerCancelMatchmakingTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelMatchmakingTicketRequestEvent((CancelMatchmakingTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CancelServerBackfillTicketRequest) && PlayFabEvents._instance.OnMultiplayerCancelServerBackfillTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelServerBackfillTicketRequestEvent((CancelServerBackfillTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateBuildAliasRequest) && PlayFabEvents._instance.OnMultiplayerCreateBuildAliasRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildAliasRequestEvent((CreateBuildAliasRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateBuildWithCustomContainerRequest) && PlayFabEvents._instance.OnMultiplayerCreateBuildWithCustomContainerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildWithCustomContainerRequestEvent((CreateBuildWithCustomContainerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateBuildWithManagedContainerRequest) && PlayFabEvents._instance.OnMultiplayerCreateBuildWithManagedContainerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildWithManagedContainerRequestEvent((CreateBuildWithManagedContainerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateMatchmakingTicketRequest) && PlayFabEvents._instance.OnMultiplayerCreateMatchmakingTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateMatchmakingTicketRequestEvent((CreateMatchmakingTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateRemoteUserRequest) && PlayFabEvents._instance.OnMultiplayerCreateRemoteUserRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateRemoteUserRequestEvent((CreateRemoteUserRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateServerBackfillTicketRequest) && PlayFabEvents._instance.OnMultiplayerCreateServerBackfillTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateServerBackfillTicketRequestEvent((CreateServerBackfillTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(CreateServerMatchmakingTicketRequest) && PlayFabEvents._instance.OnMultiplayerCreateServerMatchmakingTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateServerMatchmakingTicketRequestEvent((CreateServerMatchmakingTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteAssetRequest) && PlayFabEvents._instance.OnMultiplayerDeleteAssetRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteAssetRequestEvent((DeleteAssetRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteBuildRequest) && PlayFabEvents._instance.OnMultiplayerDeleteBuildRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildRequestEvent((DeleteBuildRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteBuildAliasRequest) && PlayFabEvents._instance.OnMultiplayerDeleteBuildAliasRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildAliasRequestEvent((DeleteBuildAliasRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteBuildRegionRequest) && PlayFabEvents._instance.OnMultiplayerDeleteBuildRegionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildRegionRequestEvent((DeleteBuildRegionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteCertificateRequest) && PlayFabEvents._instance.OnMultiplayerDeleteCertificateRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteCertificateRequestEvent((DeleteCertificateRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteContainerImageRequest) && PlayFabEvents._instance.OnMultiplayerDeleteContainerImageRepositoryRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteContainerImageRepositoryRequestEvent((DeleteContainerImageRequest)e.Request);
+					return;
+				}
+				if (type == typeof(DeleteRemoteUserRequest) && PlayFabEvents._instance.OnMultiplayerDeleteRemoteUserRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteRemoteUserRequestEvent((DeleteRemoteUserRequest)e.Request);
+					return;
+				}
+				if (type == typeof(EnableMultiplayerServersForTitleRequest) && PlayFabEvents._instance.OnMultiplayerEnableMultiplayerServersForTitleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerEnableMultiplayerServersForTitleRequestEvent((EnableMultiplayerServersForTitleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetAssetUploadUrlRequest) && PlayFabEvents._instance.OnMultiplayerGetAssetUploadUrlRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetAssetUploadUrlRequestEvent((GetAssetUploadUrlRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetBuildRequest) && PlayFabEvents._instance.OnMultiplayerGetBuildRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetBuildRequestEvent((GetBuildRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetBuildAliasRequest) && PlayFabEvents._instance.OnMultiplayerGetBuildAliasRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetBuildAliasRequestEvent((GetBuildAliasRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetContainerRegistryCredentialsRequest) && PlayFabEvents._instance.OnMultiplayerGetContainerRegistryCredentialsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetContainerRegistryCredentialsRequestEvent((GetContainerRegistryCredentialsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMatchRequest) && PlayFabEvents._instance.OnMultiplayerGetMatchRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchRequestEvent((GetMatchRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMatchmakingQueueRequest) && PlayFabEvents._instance.OnMultiplayerGetMatchmakingQueueRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchmakingQueueRequestEvent((GetMatchmakingQueueRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMatchmakingTicketRequest) && PlayFabEvents._instance.OnMultiplayerGetMatchmakingTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchmakingTicketRequestEvent((GetMatchmakingTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMultiplayerServerDetailsRequest) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerDetailsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerDetailsRequestEvent((GetMultiplayerServerDetailsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMultiplayerServerLogsRequest) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerLogsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerLogsRequestEvent((GetMultiplayerServerLogsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetMultiplayerSessionLogsBySessionIdRequest) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent((GetMultiplayerSessionLogsBySessionIdRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetQueueStatisticsRequest) && PlayFabEvents._instance.OnMultiplayerGetQueueStatisticsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetQueueStatisticsRequestEvent((GetQueueStatisticsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetRemoteLoginEndpointRequest) && PlayFabEvents._instance.OnMultiplayerGetRemoteLoginEndpointRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetRemoteLoginEndpointRequestEvent((GetRemoteLoginEndpointRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetServerBackfillTicketRequest) && PlayFabEvents._instance.OnMultiplayerGetServerBackfillTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetServerBackfillTicketRequestEvent((GetServerBackfillTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitleEnabledForMultiplayerServersStatusRequest) && PlayFabEvents._instance.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusRequestEvent((GetTitleEnabledForMultiplayerServersStatusRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitleMultiplayerServersQuotasRequest) && PlayFabEvents._instance.OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetTitleMultiplayerServersQuotasRequestEvent((GetTitleMultiplayerServersQuotasRequest)e.Request);
+					return;
+				}
+				if (type == typeof(JoinMatchmakingTicketRequest) && PlayFabEvents._instance.OnMultiplayerJoinMatchmakingTicketRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerJoinMatchmakingTicketRequestEvent((JoinMatchmakingTicketRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMultiplayerServersRequest) && PlayFabEvents._instance.OnMultiplayerListArchivedMultiplayerServersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListArchivedMultiplayerServersRequestEvent((ListMultiplayerServersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListAssetSummariesRequest) && PlayFabEvents._instance.OnMultiplayerListAssetSummariesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListAssetSummariesRequestEvent((ListAssetSummariesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(MultiplayerEmptyRequest) && PlayFabEvents._instance.OnMultiplayerListBuildAliasesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListBuildAliasesRequestEvent((MultiplayerEmptyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListBuildSummariesRequest) && PlayFabEvents._instance.OnMultiplayerListBuildSummariesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListBuildSummariesRequestEvent((ListBuildSummariesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListCertificateSummariesRequest) && PlayFabEvents._instance.OnMultiplayerListCertificateSummariesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListCertificateSummariesRequestEvent((ListCertificateSummariesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListContainerImagesRequest) && PlayFabEvents._instance.OnMultiplayerListContainerImagesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListContainerImagesRequestEvent((ListContainerImagesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListContainerImageTagsRequest) && PlayFabEvents._instance.OnMultiplayerListContainerImageTagsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListContainerImageTagsRequestEvent((ListContainerImageTagsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMatchmakingQueuesRequest) && PlayFabEvents._instance.OnMultiplayerListMatchmakingQueuesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMatchmakingQueuesRequestEvent((ListMatchmakingQueuesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMatchmakingTicketsForPlayerRequest) && PlayFabEvents._instance.OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMatchmakingTicketsForPlayerRequestEvent((ListMatchmakingTicketsForPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListMultiplayerServersRequest) && PlayFabEvents._instance.OnMultiplayerListMultiplayerServersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMultiplayerServersRequestEvent((ListMultiplayerServersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListPartyQosServersRequest) && PlayFabEvents._instance.OnMultiplayerListPartyQosServersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListPartyQosServersRequestEvent((ListPartyQosServersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListQosServersRequest) && PlayFabEvents._instance.OnMultiplayerListQosServersRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListQosServersRequestEvent((ListQosServersRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListQosServersForTitleRequest) && PlayFabEvents._instance.OnMultiplayerListQosServersForTitleRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListQosServersForTitleRequestEvent((ListQosServersForTitleRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListServerBackfillTicketsForPlayerRequest) && PlayFabEvents._instance.OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListServerBackfillTicketsForPlayerRequestEvent((ListServerBackfillTicketsForPlayerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ListVirtualMachineSummariesRequest) && PlayFabEvents._instance.OnMultiplayerListVirtualMachineSummariesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListVirtualMachineSummariesRequestEvent((ListVirtualMachineSummariesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RemoveMatchmakingQueueRequest) && PlayFabEvents._instance.OnMultiplayerRemoveMatchmakingQueueRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRemoveMatchmakingQueueRequestEvent((RemoveMatchmakingQueueRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RequestMultiplayerServerRequest) && PlayFabEvents._instance.OnMultiplayerRequestMultiplayerServerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRequestMultiplayerServerRequestEvent((RequestMultiplayerServerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(RolloverContainerRegistryCredentialsRequest) && PlayFabEvents._instance.OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRolloverContainerRegistryCredentialsRequestEvent((RolloverContainerRegistryCredentialsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetMatchmakingQueueRequest) && PlayFabEvents._instance.OnMultiplayerSetMatchmakingQueueRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerSetMatchmakingQueueRequestEvent((SetMatchmakingQueueRequest)e.Request);
+					return;
+				}
+				if (type == typeof(ShutdownMultiplayerServerRequest) && PlayFabEvents._instance.OnMultiplayerShutdownMultiplayerServerRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerShutdownMultiplayerServerRequestEvent((ShutdownMultiplayerServerRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UntagContainerImageRequest) && PlayFabEvents._instance.OnMultiplayerUntagContainerImageRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUntagContainerImageRequestEvent((UntagContainerImageRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateBuildAliasRequest) && PlayFabEvents._instance.OnMultiplayerUpdateBuildAliasRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildAliasRequestEvent((UpdateBuildAliasRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateBuildRegionRequest) && PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionRequestEvent((UpdateBuildRegionRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UpdateBuildRegionsRequest) && PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionsRequestEvent((UpdateBuildRegionsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(UploadCertificateRequest) && PlayFabEvents._instance.OnMultiplayerUploadCertificateRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUploadCertificateRequestEvent((UploadCertificateRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetGlobalPolicyRequest) && PlayFabEvents._instance.OnProfilesGetGlobalPolicyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetGlobalPolicyRequestEvent((GetGlobalPolicyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetEntityProfileRequest) && PlayFabEvents._instance.OnProfilesGetProfileRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetProfileRequestEvent((GetEntityProfileRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetEntityProfilesRequest) && PlayFabEvents._instance.OnProfilesGetProfilesRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetProfilesRequestEvent((GetEntityProfilesRequest)e.Request);
+					return;
+				}
+				if (type == typeof(GetTitlePlayersFromMasterPlayerAccountIdsRequest) && PlayFabEvents._instance.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequestEvent((GetTitlePlayersFromMasterPlayerAccountIdsRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetGlobalPolicyRequest) && PlayFabEvents._instance.OnProfilesSetGlobalPolicyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetGlobalPolicyRequestEvent((SetGlobalPolicyRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetProfileLanguageRequest) && PlayFabEvents._instance.OnProfilesSetProfileLanguageRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetProfileLanguageRequestEvent((SetProfileLanguageRequest)e.Request);
+					return;
+				}
+				if (type == typeof(SetEntityProfilePolicyRequest) && PlayFabEvents._instance.OnProfilesSetProfilePolicyRequestEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetProfilePolicyRequestEvent((SetEntityProfilePolicyRequest)e.Request);
+					return;
+				}
+			}
+			else
+			{
+				Type type2 = e.Result.GetType();
+				if (type2 == typeof(LoginResult) && PlayFabEvents._instance.OnLoginResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLoginResultEvent((LoginResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AcceptTradeResponse) && PlayFabEvents._instance.OnAcceptTradeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAcceptTradeResultEvent((AcceptTradeResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(AddFriendResult) && PlayFabEvents._instance.OnAddFriendResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddFriendResultEvent((AddFriendResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AddGenericIDResult) && PlayFabEvents._instance.OnAddGenericIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddGenericIDResultEvent((AddGenericIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AddOrUpdateContactEmailResult) && PlayFabEvents._instance.OnAddOrUpdateContactEmailResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddOrUpdateContactEmailResultEvent((AddOrUpdateContactEmailResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AddSharedGroupMembersResult) && PlayFabEvents._instance.OnAddSharedGroupMembersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddSharedGroupMembersResultEvent((AddSharedGroupMembersResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AddUsernamePasswordResult) && PlayFabEvents._instance.OnAddUsernamePasswordResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddUsernamePasswordResultEvent((AddUsernamePasswordResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ModifyUserVirtualCurrencyResult) && PlayFabEvents._instance.OnAddUserVirtualCurrencyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAddUserVirtualCurrencyResultEvent((ModifyUserVirtualCurrencyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AndroidDevicePushNotificationRegistrationResult) && PlayFabEvents._instance.OnAndroidDevicePushNotificationRegistrationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAndroidDevicePushNotificationRegistrationResultEvent((AndroidDevicePushNotificationRegistrationResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AttributeInstallResult) && PlayFabEvents._instance.OnAttributeInstallResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAttributeInstallResultEvent((AttributeInstallResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CancelTradeResponse) && PlayFabEvents._instance.OnCancelTradeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCancelTradeResultEvent((CancelTradeResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ConfirmPurchaseResult) && PlayFabEvents._instance.OnConfirmPurchaseResultEvent != null)
+				{
+					PlayFabEvents._instance.OnConfirmPurchaseResultEvent((ConfirmPurchaseResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ConsumeItemResult) && PlayFabEvents._instance.OnConsumeItemResultEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumeItemResultEvent((ConsumeItemResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ConsumePSNEntitlementsResult) && PlayFabEvents._instance.OnConsumePSNEntitlementsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumePSNEntitlementsResultEvent((ConsumePSNEntitlementsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ConsumeXboxEntitlementsResult) && PlayFabEvents._instance.OnConsumeXboxEntitlementsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnConsumeXboxEntitlementsResultEvent((ConsumeXboxEntitlementsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateSharedGroupResult) && PlayFabEvents._instance.OnCreateSharedGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCreateSharedGroupResultEvent((CreateSharedGroupResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.ExecuteCloudScriptResult) && PlayFabEvents._instance.OnExecuteCloudScriptResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExecuteCloudScriptResultEvent((PlayFab.ClientModels.ExecuteCloudScriptResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetAccountInfoResult) && PlayFabEvents._instance.OnGetAccountInfoResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAccountInfoResultEvent((GetAccountInfoResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetAdPlacementsResult) && PlayFabEvents._instance.OnGetAdPlacementsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAdPlacementsResultEvent((GetAdPlacementsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListUsersCharactersResult) && PlayFabEvents._instance.OnGetAllUsersCharactersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetAllUsersCharactersResultEvent((ListUsersCharactersResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCatalogItemsResult) && PlayFabEvents._instance.OnGetCatalogItemsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCatalogItemsResultEvent((GetCatalogItemsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCharacterDataResult) && PlayFabEvents._instance.OnGetCharacterDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterDataResultEvent((GetCharacterDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCharacterInventoryResult) && PlayFabEvents._instance.OnGetCharacterInventoryResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterInventoryResultEvent((GetCharacterInventoryResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCharacterLeaderboardResult) && PlayFabEvents._instance.OnGetCharacterLeaderboardResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterLeaderboardResultEvent((GetCharacterLeaderboardResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCharacterDataResult) && PlayFabEvents._instance.OnGetCharacterReadOnlyDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterReadOnlyDataResultEvent((GetCharacterDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetCharacterStatisticsResult) && PlayFabEvents._instance.OnGetCharacterStatisticsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCharacterStatisticsResultEvent((GetCharacterStatisticsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetContentDownloadUrlResult) && PlayFabEvents._instance.OnGetContentDownloadUrlResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetContentDownloadUrlResultEvent((GetContentDownloadUrlResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CurrentGamesResult) && PlayFabEvents._instance.OnGetCurrentGamesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetCurrentGamesResultEvent((CurrentGamesResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLeaderboardResult) && PlayFabEvents._instance.OnGetFriendLeaderboardResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendLeaderboardResultEvent((GetLeaderboardResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetFriendLeaderboardAroundPlayerResult) && PlayFabEvents._instance.OnGetFriendLeaderboardAroundPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendLeaderboardAroundPlayerResultEvent((GetFriendLeaderboardAroundPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetFriendsListResult) && PlayFabEvents._instance.OnGetFriendsListResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetFriendsListResultEvent((GetFriendsListResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GameServerRegionsResult) && PlayFabEvents._instance.OnGetGameServerRegionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetGameServerRegionsResultEvent((GameServerRegionsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLeaderboardResult) && PlayFabEvents._instance.OnGetLeaderboardResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardResultEvent((GetLeaderboardResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLeaderboardAroundCharacterResult) && PlayFabEvents._instance.OnGetLeaderboardAroundCharacterResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardAroundCharacterResultEvent((GetLeaderboardAroundCharacterResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLeaderboardAroundPlayerResult) && PlayFabEvents._instance.OnGetLeaderboardAroundPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardAroundPlayerResultEvent((GetLeaderboardAroundPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLeaderboardForUsersCharactersResult) && PlayFabEvents._instance.OnGetLeaderboardForUserCharactersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetLeaderboardForUserCharactersResultEvent((GetLeaderboardForUsersCharactersResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPaymentTokenResult) && PlayFabEvents._instance.OnGetPaymentTokenResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPaymentTokenResultEvent((GetPaymentTokenResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPhotonAuthenticationTokenResult) && PlayFabEvents._instance.OnGetPhotonAuthenticationTokenResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPhotonAuthenticationTokenResultEvent((GetPhotonAuthenticationTokenResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerCombinedInfoResult) && PlayFabEvents._instance.OnGetPlayerCombinedInfoResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerCombinedInfoResultEvent((GetPlayerCombinedInfoResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerProfileResult) && PlayFabEvents._instance.OnGetPlayerProfileResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerProfileResultEvent((GetPlayerProfileResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerSegmentsResult) && PlayFabEvents._instance.OnGetPlayerSegmentsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerSegmentsResultEvent((GetPlayerSegmentsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerStatisticsResult) && PlayFabEvents._instance.OnGetPlayerStatisticsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerStatisticsResultEvent((GetPlayerStatisticsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerStatisticVersionsResult) && PlayFabEvents._instance.OnGetPlayerStatisticVersionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerStatisticVersionsResultEvent((GetPlayerStatisticVersionsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerTagsResult) && PlayFabEvents._instance.OnGetPlayerTagsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerTagsResultEvent((GetPlayerTagsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayerTradesResponse) && PlayFabEvents._instance.OnGetPlayerTradesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayerTradesResultEvent((GetPlayerTradesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromFacebookIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookIDsResultEvent((GetPlayFabIDsFromFacebookIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromFacebookInstantGamesIdsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromFacebookInstantGamesIdsResultEvent((GetPlayFabIDsFromFacebookInstantGamesIdsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromGameCenterIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromGameCenterIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGameCenterIDsResultEvent((GetPlayFabIDsFromGameCenterIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromGenericIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromGenericIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGenericIDsResultEvent((GetPlayFabIDsFromGenericIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromGoogleIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromGoogleIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromGoogleIDsResultEvent((GetPlayFabIDsFromGoogleIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromKongregateIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromKongregateIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromKongregateIDsResultEvent((GetPlayFabIDsFromKongregateIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromNintendoSwitchDeviceIdsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResultEvent((GetPlayFabIDsFromNintendoSwitchDeviceIdsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromPSNAccountIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromPSNAccountIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromPSNAccountIDsResultEvent((GetPlayFabIDsFromPSNAccountIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromSteamIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromSteamIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromSteamIDsResultEvent((GetPlayFabIDsFromSteamIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromTwitchIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromTwitchIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromTwitchIDsResultEvent((GetPlayFabIDsFromTwitchIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPlayFabIDsFromXboxLiveIDsResult) && PlayFabEvents._instance.OnGetPlayFabIDsFromXboxLiveIDsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPlayFabIDsFromXboxLiveIDsResultEvent((GetPlayFabIDsFromXboxLiveIDsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPublisherDataResult) && PlayFabEvents._instance.OnGetPublisherDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPublisherDataResultEvent((GetPublisherDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetPurchaseResult) && PlayFabEvents._instance.OnGetPurchaseResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetPurchaseResultEvent((GetPurchaseResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetSharedGroupDataResult) && PlayFabEvents._instance.OnGetSharedGroupDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetSharedGroupDataResultEvent((GetSharedGroupDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetStoreItemsResult) && PlayFabEvents._instance.OnGetStoreItemsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetStoreItemsResultEvent((GetStoreItemsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTimeResult) && PlayFabEvents._instance.OnGetTimeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTimeResultEvent((GetTimeResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitleDataResult) && PlayFabEvents._instance.OnGetTitleDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitleDataResultEvent((GetTitleDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitleNewsResult) && PlayFabEvents._instance.OnGetTitleNewsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitleNewsResultEvent((GetTitleNewsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitlePublicKeyResult) && PlayFabEvents._instance.OnGetTitlePublicKeyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTitlePublicKeyResultEvent((GetTitlePublicKeyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTradeStatusResponse) && PlayFabEvents._instance.OnGetTradeStatusResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetTradeStatusResultEvent((GetTradeStatusResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetUserDataResult) && PlayFabEvents._instance.OnGetUserDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserDataResultEvent((GetUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetUserInventoryResult) && PlayFabEvents._instance.OnGetUserInventoryResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserInventoryResultEvent((GetUserInventoryResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetUserDataResult) && PlayFabEvents._instance.OnGetUserPublisherDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserPublisherDataResultEvent((GetUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetUserDataResult) && PlayFabEvents._instance.OnGetUserPublisherReadOnlyDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserPublisherReadOnlyDataResultEvent((GetUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetUserDataResult) && PlayFabEvents._instance.OnGetUserReadOnlyDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetUserReadOnlyDataResultEvent((GetUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetWindowsHelloChallengeResponse) && PlayFabEvents._instance.OnGetWindowsHelloChallengeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGetWindowsHelloChallengeResultEvent((GetWindowsHelloChallengeResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GrantCharacterToUserResult) && PlayFabEvents._instance.OnGrantCharacterToUserResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGrantCharacterToUserResultEvent((GrantCharacterToUserResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkAndroidDeviceIDResult) && PlayFabEvents._instance.OnLinkAndroidDeviceIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkAndroidDeviceIDResultEvent((LinkAndroidDeviceIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResult) && PlayFabEvents._instance.OnLinkAppleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkAppleResultEvent((PlayFab.ClientModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkCustomIDResult) && PlayFabEvents._instance.OnLinkCustomIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkCustomIDResultEvent((LinkCustomIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkFacebookAccountResult) && PlayFabEvents._instance.OnLinkFacebookAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkFacebookAccountResultEvent((LinkFacebookAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkFacebookInstantGamesIdResult) && PlayFabEvents._instance.OnLinkFacebookInstantGamesIdResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkFacebookInstantGamesIdResultEvent((LinkFacebookInstantGamesIdResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkGameCenterAccountResult) && PlayFabEvents._instance.OnLinkGameCenterAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkGameCenterAccountResultEvent((LinkGameCenterAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkGoogleAccountResult) && PlayFabEvents._instance.OnLinkGoogleAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkGoogleAccountResultEvent((LinkGoogleAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkIOSDeviceIDResult) && PlayFabEvents._instance.OnLinkIOSDeviceIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkIOSDeviceIDResultEvent((LinkIOSDeviceIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkKongregateAccountResult) && PlayFabEvents._instance.OnLinkKongregateResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkKongregateResultEvent((LinkKongregateAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResult) && PlayFabEvents._instance.OnLinkNintendoAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkNintendoAccountResultEvent((PlayFab.ClientModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkNintendoSwitchDeviceIdResult) && PlayFabEvents._instance.OnLinkNintendoSwitchDeviceIdResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkNintendoSwitchDeviceIdResultEvent((LinkNintendoSwitchDeviceIdResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResult) && PlayFabEvents._instance.OnLinkOpenIdConnectResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkOpenIdConnectResultEvent((PlayFab.ClientModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkPSNAccountResult) && PlayFabEvents._instance.OnLinkPSNAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkPSNAccountResultEvent((LinkPSNAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkSteamAccountResult) && PlayFabEvents._instance.OnLinkSteamAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkSteamAccountResultEvent((LinkSteamAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkTwitchAccountResult) && PlayFabEvents._instance.OnLinkTwitchResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkTwitchResultEvent((LinkTwitchAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkWindowsHelloAccountResponse) && PlayFabEvents._instance.OnLinkWindowsHelloResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkWindowsHelloResultEvent((LinkWindowsHelloAccountResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(LinkXboxAccountResult) && PlayFabEvents._instance.OnLinkXboxAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLinkXboxAccountResultEvent((LinkXboxAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(MatchmakeResult) && PlayFabEvents._instance.OnMatchmakeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMatchmakeResultEvent((MatchmakeResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(OpenTradeResponse) && PlayFabEvents._instance.OnOpenTradeResultEvent != null)
+				{
+					PlayFabEvents._instance.OnOpenTradeResultEvent((OpenTradeResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PayForPurchaseResult) && PlayFabEvents._instance.OnPayForPurchaseResultEvent != null)
+				{
+					PlayFabEvents._instance.OnPayForPurchaseResultEvent((PayForPurchaseResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PurchaseItemResult) && PlayFabEvents._instance.OnPurchaseItemResultEvent != null)
+				{
+					PlayFabEvents._instance.OnPurchaseItemResultEvent((PurchaseItemResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RedeemCouponResult) && PlayFabEvents._instance.OnRedeemCouponResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRedeemCouponResultEvent((RedeemCouponResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnRefreshPSNAuthTokenResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRefreshPSNAuthTokenResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(RegisterForIOSPushNotificationResult) && PlayFabEvents._instance.OnRegisterForIOSPushNotificationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRegisterForIOSPushNotificationResultEvent((RegisterForIOSPushNotificationResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RegisterPlayFabUserResult) && PlayFabEvents._instance.OnRegisterPlayFabUserResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRegisterPlayFabUserResultEvent((RegisterPlayFabUserResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RemoveContactEmailResult) && PlayFabEvents._instance.OnRemoveContactEmailResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveContactEmailResultEvent((RemoveContactEmailResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RemoveFriendResult) && PlayFabEvents._instance.OnRemoveFriendResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveFriendResultEvent((RemoveFriendResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RemoveGenericIDResult) && PlayFabEvents._instance.OnRemoveGenericIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveGenericIDResultEvent((RemoveGenericIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RemoveSharedGroupMembersResult) && PlayFabEvents._instance.OnRemoveSharedGroupMembersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRemoveSharedGroupMembersResultEvent((RemoveSharedGroupMembersResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ReportAdActivityResult) && PlayFabEvents._instance.OnReportAdActivityResultEvent != null)
+				{
+					PlayFabEvents._instance.OnReportAdActivityResultEvent((ReportAdActivityResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnReportDeviceInfoResultEvent != null)
+				{
+					PlayFabEvents._instance.OnReportDeviceInfoResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ReportPlayerClientResult) && PlayFabEvents._instance.OnReportPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnReportPlayerResultEvent((ReportPlayerClientResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RestoreIOSPurchasesResult) && PlayFabEvents._instance.OnRestoreIOSPurchasesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRestoreIOSPurchasesResultEvent((RestoreIOSPurchasesResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RewardAdActivityResult) && PlayFabEvents._instance.OnRewardAdActivityResultEvent != null)
+				{
+					PlayFabEvents._instance.OnRewardAdActivityResultEvent((RewardAdActivityResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(SendAccountRecoveryEmailResult) && PlayFabEvents._instance.OnSendAccountRecoveryEmailResultEvent != null)
+				{
+					PlayFabEvents._instance.OnSendAccountRecoveryEmailResultEvent((SendAccountRecoveryEmailResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetFriendTagsResult) && PlayFabEvents._instance.OnSetFriendTagsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnSetFriendTagsResultEvent((SetFriendTagsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetPlayerSecretResult) && PlayFabEvents._instance.OnSetPlayerSecretResultEvent != null)
+				{
+					PlayFabEvents._instance.OnSetPlayerSecretResultEvent((SetPlayerSecretResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(StartGameResult) && PlayFabEvents._instance.OnStartGameResultEvent != null)
+				{
+					PlayFabEvents._instance.OnStartGameResultEvent((StartGameResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(StartPurchaseResult) && PlayFabEvents._instance.OnStartPurchaseResultEvent != null)
+				{
+					PlayFabEvents._instance.OnStartPurchaseResultEvent((StartPurchaseResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ModifyUserVirtualCurrencyResult) && PlayFabEvents._instance.OnSubtractUserVirtualCurrencyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnSubtractUserVirtualCurrencyResultEvent((ModifyUserVirtualCurrencyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkAndroidDeviceIDResult) && PlayFabEvents._instance.OnUnlinkAndroidDeviceIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkAndroidDeviceIDResultEvent((UnlinkAndroidDeviceIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnUnlinkAppleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkAppleResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkCustomIDResult) && PlayFabEvents._instance.OnUnlinkCustomIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkCustomIDResultEvent((UnlinkCustomIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkFacebookAccountResult) && PlayFabEvents._instance.OnUnlinkFacebookAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkFacebookAccountResultEvent((UnlinkFacebookAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkFacebookInstantGamesIdResult) && PlayFabEvents._instance.OnUnlinkFacebookInstantGamesIdResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkFacebookInstantGamesIdResultEvent((UnlinkFacebookInstantGamesIdResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkGameCenterAccountResult) && PlayFabEvents._instance.OnUnlinkGameCenterAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkGameCenterAccountResultEvent((UnlinkGameCenterAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkGoogleAccountResult) && PlayFabEvents._instance.OnUnlinkGoogleAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkGoogleAccountResultEvent((UnlinkGoogleAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkIOSDeviceIDResult) && PlayFabEvents._instance.OnUnlinkIOSDeviceIDResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkIOSDeviceIDResultEvent((UnlinkIOSDeviceIDResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkKongregateAccountResult) && PlayFabEvents._instance.OnUnlinkKongregateResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkKongregateResultEvent((UnlinkKongregateAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnUnlinkNintendoAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkNintendoAccountResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkNintendoSwitchDeviceIdResult) && PlayFabEvents._instance.OnUnlinkNintendoSwitchDeviceIdResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkNintendoSwitchDeviceIdResultEvent((UnlinkNintendoSwitchDeviceIdResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnUnlinkOpenIdConnectResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkOpenIdConnectResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkPSNAccountResult) && PlayFabEvents._instance.OnUnlinkPSNAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkPSNAccountResultEvent((UnlinkPSNAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkSteamAccountResult) && PlayFabEvents._instance.OnUnlinkSteamAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkSteamAccountResultEvent((UnlinkSteamAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkTwitchAccountResult) && PlayFabEvents._instance.OnUnlinkTwitchResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkTwitchResultEvent((UnlinkTwitchAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkWindowsHelloAccountResponse) && PlayFabEvents._instance.OnUnlinkWindowsHelloResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkWindowsHelloResultEvent((UnlinkWindowsHelloAccountResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlinkXboxAccountResult) && PlayFabEvents._instance.OnUnlinkXboxAccountResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlinkXboxAccountResultEvent((UnlinkXboxAccountResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlockContainerItemResult) && PlayFabEvents._instance.OnUnlockContainerInstanceResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlockContainerInstanceResultEvent((UnlockContainerItemResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UnlockContainerItemResult) && PlayFabEvents._instance.OnUnlockContainerItemResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUnlockContainerItemResultEvent((UnlockContainerItemResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ClientModels.EmptyResponse) && PlayFabEvents._instance.OnUpdateAvatarUrlResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateAvatarUrlResultEvent((PlayFab.ClientModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateCharacterDataResult) && PlayFabEvents._instance.OnUpdateCharacterDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateCharacterDataResultEvent((UpdateCharacterDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateCharacterStatisticsResult) && PlayFabEvents._instance.OnUpdateCharacterStatisticsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateCharacterStatisticsResultEvent((UpdateCharacterStatisticsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdatePlayerStatisticsResult) && PlayFabEvents._instance.OnUpdatePlayerStatisticsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdatePlayerStatisticsResultEvent((UpdatePlayerStatisticsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateSharedGroupDataResult) && PlayFabEvents._instance.OnUpdateSharedGroupDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateSharedGroupDataResultEvent((UpdateSharedGroupDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateUserDataResult) && PlayFabEvents._instance.OnUpdateUserDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserDataResultEvent((UpdateUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateUserDataResult) && PlayFabEvents._instance.OnUpdateUserPublisherDataResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserPublisherDataResultEvent((UpdateUserDataResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateUserTitleDisplayNameResult) && PlayFabEvents._instance.OnUpdateUserTitleDisplayNameResultEvent != null)
+				{
+					PlayFabEvents._instance.OnUpdateUserTitleDisplayNameResultEvent((UpdateUserTitleDisplayNameResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ValidateAmazonReceiptResult) && PlayFabEvents._instance.OnValidateAmazonIAPReceiptResultEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateAmazonIAPReceiptResultEvent((ValidateAmazonReceiptResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ValidateGooglePlayPurchaseResult) && PlayFabEvents._instance.OnValidateGooglePlayPurchaseResultEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateGooglePlayPurchaseResultEvent((ValidateGooglePlayPurchaseResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ValidateIOSReceiptResult) && PlayFabEvents._instance.OnValidateIOSReceiptResultEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateIOSReceiptResultEvent((ValidateIOSReceiptResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ValidateWindowsReceiptResult) && PlayFabEvents._instance.OnValidateWindowsStoreReceiptResultEvent != null)
+				{
+					PlayFabEvents._instance.OnValidateWindowsStoreReceiptResultEvent((ValidateWindowsReceiptResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(WriteEventResponse) && PlayFabEvents._instance.OnWriteCharacterEventResultEvent != null)
+				{
+					PlayFabEvents._instance.OnWriteCharacterEventResultEvent((WriteEventResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(WriteEventResponse) && PlayFabEvents._instance.OnWritePlayerEventResultEvent != null)
+				{
+					PlayFabEvents._instance.OnWritePlayerEventResultEvent((WriteEventResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(WriteEventResponse) && PlayFabEvents._instance.OnWriteTitleEventResultEvent != null)
+				{
+					PlayFabEvents._instance.OnWriteTitleEventResultEvent((WriteEventResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetEntityTokenResponse) && PlayFabEvents._instance.OnAuthenticationGetEntityTokenResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAuthenticationGetEntityTokenResultEvent((GetEntityTokenResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ValidateEntityTokenResponse) && PlayFabEvents._instance.OnAuthenticationValidateEntityTokenResultEvent != null)
+				{
+					PlayFabEvents._instance.OnAuthenticationValidateEntityTokenResultEvent((ValidateEntityTokenResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.ExecuteCloudScriptResult) && PlayFabEvents._instance.OnCloudScriptExecuteEntityCloudScriptResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptExecuteEntityCloudScriptResultEvent((PlayFab.CloudScriptModels.ExecuteCloudScriptResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ExecuteFunctionResult) && PlayFabEvents._instance.OnCloudScriptExecuteFunctionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptExecuteFunctionResultEvent((ExecuteFunctionResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListFunctionsResult) && PlayFabEvents._instance.OnCloudScriptListFunctionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListFunctionsResultEvent((ListFunctionsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListHttpFunctionsResult) && PlayFabEvents._instance.OnCloudScriptListHttpFunctionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListHttpFunctionsResultEvent((ListHttpFunctionsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListQueuedFunctionsResult) && PlayFabEvents._instance.OnCloudScriptListQueuedFunctionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptListQueuedFunctionsResultEvent((ListQueuedFunctionsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForEntityTriggeredActionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForFunctionExecutionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForPlayerTriggeredActionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptPostFunctionResultForScheduledTaskResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptPostFunctionResultForScheduledTaskResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptRegisterHttpFunctionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptRegisterHttpFunctionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptRegisterQueuedFunctionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptRegisterQueuedFunctionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.CloudScriptModels.EmptyResult) && PlayFabEvents._instance.OnCloudScriptUnregisterFunctionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnCloudScriptUnregisterFunctionResultEvent((PlayFab.CloudScriptModels.EmptyResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(AbortFileUploadsResponse) && PlayFabEvents._instance.OnDataAbortFileUploadsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataAbortFileUploadsResultEvent((AbortFileUploadsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(DeleteFilesResponse) && PlayFabEvents._instance.OnDataDeleteFilesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataDeleteFilesResultEvent((DeleteFilesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(FinalizeFileUploadsResponse) && PlayFabEvents._instance.OnDataFinalizeFileUploadsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataFinalizeFileUploadsResultEvent((FinalizeFileUploadsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetFilesResponse) && PlayFabEvents._instance.OnDataGetFilesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataGetFilesResultEvent((GetFilesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetObjectsResponse) && PlayFabEvents._instance.OnDataGetObjectsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataGetObjectsResultEvent((GetObjectsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InitiateFileUploadsResponse) && PlayFabEvents._instance.OnDataInitiateFileUploadsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataInitiateFileUploadsResultEvent((InitiateFileUploadsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetObjectsResponse) && PlayFabEvents._instance.OnDataSetObjectsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnDataSetObjectsResultEvent((SetObjectsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(WriteEventsResponse) && PlayFabEvents._instance.OnEventsWriteEventsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnEventsWriteEventsResultEvent((WriteEventsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(WriteEventsResponse) && PlayFabEvents._instance.OnEventsWriteTelemetryEventsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnEventsWriteTelemetryEventsResultEvent((WriteEventsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateExperimentResult) && PlayFabEvents._instance.OnExperimentationCreateExperimentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationCreateExperimentResultEvent((CreateExperimentResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ExperimentationModels.EmptyResponse) && PlayFabEvents._instance.OnExperimentationDeleteExperimentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationDeleteExperimentResultEvent((PlayFab.ExperimentationModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetExperimentsResult) && PlayFabEvents._instance.OnExperimentationGetExperimentsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetExperimentsResultEvent((GetExperimentsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLatestScorecardResult) && PlayFabEvents._instance.OnExperimentationGetLatestScorecardResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetLatestScorecardResultEvent((GetLatestScorecardResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTreatmentAssignmentResult) && PlayFabEvents._instance.OnExperimentationGetTreatmentAssignmentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationGetTreatmentAssignmentResultEvent((GetTreatmentAssignmentResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ExperimentationModels.EmptyResponse) && PlayFabEvents._instance.OnExperimentationStartExperimentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationStartExperimentResultEvent((PlayFab.ExperimentationModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ExperimentationModels.EmptyResponse) && PlayFabEvents._instance.OnExperimentationStopExperimentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationStopExperimentResultEvent((PlayFab.ExperimentationModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.ExperimentationModels.EmptyResponse) && PlayFabEvents._instance.OnExperimentationUpdateExperimentResultEvent != null)
+				{
+					PlayFabEvents._instance.OnExperimentationUpdateExperimentResultEvent((PlayFab.ExperimentationModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsGetDetailsResponse) && PlayFabEvents._instance.OnInsightsGetDetailsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetDetailsResultEvent((InsightsGetDetailsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsGetLimitsResponse) && PlayFabEvents._instance.OnInsightsGetLimitsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetLimitsResultEvent((InsightsGetLimitsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsGetOperationStatusResponse) && PlayFabEvents._instance.OnInsightsGetOperationStatusResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetOperationStatusResultEvent((InsightsGetOperationStatusResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsGetPendingOperationsResponse) && PlayFabEvents._instance.OnInsightsGetPendingOperationsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsGetPendingOperationsResultEvent((InsightsGetPendingOperationsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsOperationResponse) && PlayFabEvents._instance.OnInsightsSetPerformanceResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsSetPerformanceResultEvent((InsightsOperationResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InsightsOperationResponse) && PlayFabEvents._instance.OnInsightsSetStorageRetentionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnInsightsSetStorageRetentionResultEvent((InsightsOperationResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsAcceptGroupApplicationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAcceptGroupApplicationResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsAcceptGroupInvitationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAcceptGroupInvitationResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsAddMembersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsAddMembersResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ApplyToGroupResponse) && PlayFabEvents._instance.OnGroupsApplyToGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsApplyToGroupResultEvent((ApplyToGroupResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsBlockEntityResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsBlockEntityResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsChangeMemberRoleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsChangeMemberRoleResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateGroupResponse) && PlayFabEvents._instance.OnGroupsCreateGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsCreateGroupResultEvent((CreateGroupResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateGroupRoleResponse) && PlayFabEvents._instance.OnGroupsCreateRoleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsCreateRoleResultEvent((CreateGroupRoleResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsDeleteGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsDeleteGroupResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsDeleteRoleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsDeleteRoleResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetGroupResponse) && PlayFabEvents._instance.OnGroupsGetGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsGetGroupResultEvent((GetGroupResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(InviteToGroupResponse) && PlayFabEvents._instance.OnGroupsInviteToGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsInviteToGroupResultEvent((InviteToGroupResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(IsMemberResponse) && PlayFabEvents._instance.OnGroupsIsMemberResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsIsMemberResultEvent((IsMemberResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListGroupApplicationsResponse) && PlayFabEvents._instance.OnGroupsListGroupApplicationsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupApplicationsResultEvent((ListGroupApplicationsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListGroupBlocksResponse) && PlayFabEvents._instance.OnGroupsListGroupBlocksResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupBlocksResultEvent((ListGroupBlocksResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListGroupInvitationsResponse) && PlayFabEvents._instance.OnGroupsListGroupInvitationsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupInvitationsResultEvent((ListGroupInvitationsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListGroupMembersResponse) && PlayFabEvents._instance.OnGroupsListGroupMembersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListGroupMembersResultEvent((ListGroupMembersResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMembershipResponse) && PlayFabEvents._instance.OnGroupsListMembershipResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListMembershipResultEvent((ListMembershipResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMembershipOpportunitiesResponse) && PlayFabEvents._instance.OnGroupsListMembershipOpportunitiesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsListMembershipOpportunitiesResultEvent((ListMembershipOpportunitiesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsRemoveGroupApplicationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveGroupApplicationResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsRemoveGroupInvitationResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveGroupInvitationResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsRemoveMembersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsRemoveMembersResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.GroupsModels.EmptyResponse) && PlayFabEvents._instance.OnGroupsUnblockEntityResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUnblockEntityResultEvent((PlayFab.GroupsModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateGroupResponse) && PlayFabEvents._instance.OnGroupsUpdateGroupResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUpdateGroupResultEvent((UpdateGroupResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(UpdateGroupRoleResponse) && PlayFabEvents._instance.OnGroupsUpdateRoleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnGroupsUpdateRoleResultEvent((UpdateGroupRoleResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetLanguageListResponse) && PlayFabEvents._instance.OnLocalizationGetLanguageListResultEvent != null)
+				{
+					PlayFabEvents._instance.OnLocalizationGetLanguageListResultEvent((GetLanguageListResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CancelAllMatchmakingTicketsForPlayerResult) && PlayFabEvents._instance.OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelAllMatchmakingTicketsForPlayerResultEvent((CancelAllMatchmakingTicketsForPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CancelAllServerBackfillTicketsForPlayerResult) && PlayFabEvents._instance.OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelAllServerBackfillTicketsForPlayerResultEvent((CancelAllServerBackfillTicketsForPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CancelMatchmakingTicketResult) && PlayFabEvents._instance.OnMultiplayerCancelMatchmakingTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelMatchmakingTicketResultEvent((CancelMatchmakingTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CancelServerBackfillTicketResult) && PlayFabEvents._instance.OnMultiplayerCancelServerBackfillTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCancelServerBackfillTicketResultEvent((CancelServerBackfillTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(BuildAliasDetailsResponse) && PlayFabEvents._instance.OnMultiplayerCreateBuildAliasResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildAliasResultEvent((BuildAliasDetailsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateBuildWithCustomContainerResponse) && PlayFabEvents._instance.OnMultiplayerCreateBuildWithCustomContainerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildWithCustomContainerResultEvent((CreateBuildWithCustomContainerResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateBuildWithManagedContainerResponse) && PlayFabEvents._instance.OnMultiplayerCreateBuildWithManagedContainerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateBuildWithManagedContainerResultEvent((CreateBuildWithManagedContainerResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateMatchmakingTicketResult) && PlayFabEvents._instance.OnMultiplayerCreateMatchmakingTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateMatchmakingTicketResultEvent((CreateMatchmakingTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateRemoteUserResponse) && PlayFabEvents._instance.OnMultiplayerCreateRemoteUserResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateRemoteUserResultEvent((CreateRemoteUserResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateServerBackfillTicketResult) && PlayFabEvents._instance.OnMultiplayerCreateServerBackfillTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateServerBackfillTicketResultEvent((CreateServerBackfillTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(CreateMatchmakingTicketResult) && PlayFabEvents._instance.OnMultiplayerCreateServerMatchmakingTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerCreateServerMatchmakingTicketResultEvent((CreateMatchmakingTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteAssetResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteAssetResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteBuildResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteBuildAliasResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildAliasResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteBuildRegionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteBuildRegionResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteCertificateResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteCertificateResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteContainerImageRepositoryResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteContainerImageRepositoryResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerDeleteRemoteUserResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerDeleteRemoteUserResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(EnableMultiplayerServersForTitleResponse) && PlayFabEvents._instance.OnMultiplayerEnableMultiplayerServersForTitleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerEnableMultiplayerServersForTitleResultEvent((EnableMultiplayerServersForTitleResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetAssetUploadUrlResponse) && PlayFabEvents._instance.OnMultiplayerGetAssetUploadUrlResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetAssetUploadUrlResultEvent((GetAssetUploadUrlResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetBuildResponse) && PlayFabEvents._instance.OnMultiplayerGetBuildResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetBuildResultEvent((GetBuildResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(BuildAliasDetailsResponse) && PlayFabEvents._instance.OnMultiplayerGetBuildAliasResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetBuildAliasResultEvent((BuildAliasDetailsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetContainerRegistryCredentialsResponse) && PlayFabEvents._instance.OnMultiplayerGetContainerRegistryCredentialsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetContainerRegistryCredentialsResultEvent((GetContainerRegistryCredentialsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMatchResult) && PlayFabEvents._instance.OnMultiplayerGetMatchResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchResultEvent((GetMatchResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMatchmakingQueueResult) && PlayFabEvents._instance.OnMultiplayerGetMatchmakingQueueResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchmakingQueueResultEvent((GetMatchmakingQueueResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMatchmakingTicketResult) && PlayFabEvents._instance.OnMultiplayerGetMatchmakingTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMatchmakingTicketResultEvent((GetMatchmakingTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMultiplayerServerDetailsResponse) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerDetailsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerDetailsResultEvent((GetMultiplayerServerDetailsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMultiplayerServerLogsResponse) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerLogsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerServerLogsResultEvent((GetMultiplayerServerLogsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetMultiplayerServerLogsResponse) && PlayFabEvents._instance.OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent((GetMultiplayerServerLogsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetQueueStatisticsResult) && PlayFabEvents._instance.OnMultiplayerGetQueueStatisticsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetQueueStatisticsResultEvent((GetQueueStatisticsResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetRemoteLoginEndpointResponse) && PlayFabEvents._instance.OnMultiplayerGetRemoteLoginEndpointResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetRemoteLoginEndpointResultEvent((GetRemoteLoginEndpointResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetServerBackfillTicketResult) && PlayFabEvents._instance.OnMultiplayerGetServerBackfillTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetServerBackfillTicketResultEvent((GetServerBackfillTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitleEnabledForMultiplayerServersStatusResponse) && PlayFabEvents._instance.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetTitleEnabledForMultiplayerServersStatusResultEvent((GetTitleEnabledForMultiplayerServersStatusResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitleMultiplayerServersQuotasResponse) && PlayFabEvents._instance.OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerGetTitleMultiplayerServersQuotasResultEvent((GetTitleMultiplayerServersQuotasResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(JoinMatchmakingTicketResult) && PlayFabEvents._instance.OnMultiplayerJoinMatchmakingTicketResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerJoinMatchmakingTicketResultEvent((JoinMatchmakingTicketResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMultiplayerServersResponse) && PlayFabEvents._instance.OnMultiplayerListArchivedMultiplayerServersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListArchivedMultiplayerServersResultEvent((ListMultiplayerServersResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListAssetSummariesResponse) && PlayFabEvents._instance.OnMultiplayerListAssetSummariesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListAssetSummariesResultEvent((ListAssetSummariesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListBuildAliasesForTitleResponse) && PlayFabEvents._instance.OnMultiplayerListBuildAliasesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListBuildAliasesResultEvent((ListBuildAliasesForTitleResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListBuildSummariesResponse) && PlayFabEvents._instance.OnMultiplayerListBuildSummariesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListBuildSummariesResultEvent((ListBuildSummariesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListCertificateSummariesResponse) && PlayFabEvents._instance.OnMultiplayerListCertificateSummariesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListCertificateSummariesResultEvent((ListCertificateSummariesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListContainerImagesResponse) && PlayFabEvents._instance.OnMultiplayerListContainerImagesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListContainerImagesResultEvent((ListContainerImagesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListContainerImageTagsResponse) && PlayFabEvents._instance.OnMultiplayerListContainerImageTagsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListContainerImageTagsResultEvent((ListContainerImageTagsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMatchmakingQueuesResult) && PlayFabEvents._instance.OnMultiplayerListMatchmakingQueuesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMatchmakingQueuesResultEvent((ListMatchmakingQueuesResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMatchmakingTicketsForPlayerResult) && PlayFabEvents._instance.OnMultiplayerListMatchmakingTicketsForPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMatchmakingTicketsForPlayerResultEvent((ListMatchmakingTicketsForPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListMultiplayerServersResponse) && PlayFabEvents._instance.OnMultiplayerListMultiplayerServersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListMultiplayerServersResultEvent((ListMultiplayerServersResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListPartyQosServersResponse) && PlayFabEvents._instance.OnMultiplayerListPartyQosServersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListPartyQosServersResultEvent((ListPartyQosServersResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListQosServersResponse) && PlayFabEvents._instance.OnMultiplayerListQosServersResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListQosServersResultEvent((ListQosServersResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListQosServersForTitleResponse) && PlayFabEvents._instance.OnMultiplayerListQosServersForTitleResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListQosServersForTitleResultEvent((ListQosServersForTitleResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListServerBackfillTicketsForPlayerResult) && PlayFabEvents._instance.OnMultiplayerListServerBackfillTicketsForPlayerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListServerBackfillTicketsForPlayerResultEvent((ListServerBackfillTicketsForPlayerResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(ListVirtualMachineSummariesResponse) && PlayFabEvents._instance.OnMultiplayerListVirtualMachineSummariesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerListVirtualMachineSummariesResultEvent((ListVirtualMachineSummariesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(RemoveMatchmakingQueueResult) && PlayFabEvents._instance.OnMultiplayerRemoveMatchmakingQueueResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRemoveMatchmakingQueueResultEvent((RemoveMatchmakingQueueResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(RequestMultiplayerServerResponse) && PlayFabEvents._instance.OnMultiplayerRequestMultiplayerServerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRequestMultiplayerServerResultEvent((RequestMultiplayerServerResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(RolloverContainerRegistryCredentialsResponse) && PlayFabEvents._instance.OnMultiplayerRolloverContainerRegistryCredentialsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerRolloverContainerRegistryCredentialsResultEvent((RolloverContainerRegistryCredentialsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetMatchmakingQueueResult) && PlayFabEvents._instance.OnMultiplayerSetMatchmakingQueueResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerSetMatchmakingQueueResultEvent((SetMatchmakingQueueResult)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerShutdownMultiplayerServerResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerShutdownMultiplayerServerResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerUntagContainerImageResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUntagContainerImageResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(BuildAliasDetailsResponse) && PlayFabEvents._instance.OnMultiplayerUpdateBuildAliasResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildAliasResultEvent((BuildAliasDetailsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUpdateBuildRegionsResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(PlayFab.MultiplayerModels.EmptyResponse) && PlayFabEvents._instance.OnMultiplayerUploadCertificateResultEvent != null)
+				{
+					PlayFabEvents._instance.OnMultiplayerUploadCertificateResultEvent((PlayFab.MultiplayerModels.EmptyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetGlobalPolicyResponse) && PlayFabEvents._instance.OnProfilesGetGlobalPolicyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetGlobalPolicyResultEvent((GetGlobalPolicyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetEntityProfileResponse) && PlayFabEvents._instance.OnProfilesGetProfileResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetProfileResultEvent((GetEntityProfileResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetEntityProfilesResponse) && PlayFabEvents._instance.OnProfilesGetProfilesResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetProfilesResultEvent((GetEntityProfilesResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(GetTitlePlayersFromMasterPlayerAccountIdsResponse) && PlayFabEvents._instance.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesGetTitlePlayersFromMasterPlayerAccountIdsResultEvent((GetTitlePlayersFromMasterPlayerAccountIdsResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetGlobalPolicyResponse) && PlayFabEvents._instance.OnProfilesSetGlobalPolicyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetGlobalPolicyResultEvent((SetGlobalPolicyResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetProfileLanguageResponse) && PlayFabEvents._instance.OnProfilesSetProfileLanguageResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetProfileLanguageResultEvent((SetProfileLanguageResponse)e.Result);
+					return;
+				}
+				if (type2 == typeof(SetEntityProfilePolicyResponse) && PlayFabEvents._instance.OnProfilesSetProfilePolicyResultEvent != null)
+				{
+					PlayFabEvents._instance.OnProfilesSetProfilePolicyResultEvent((SetEntityProfilePolicyResponse)e.Result);
+					return;
+				}
+			}
+		}
+
+		private static PlayFabEvents _instance;
+
+		public delegate void PlayFabErrorEvent(PlayFabRequestCommon request, PlayFabError error);
+
+		public delegate void PlayFabResultEvent<in TResult>(TResult result) where TResult : PlayFabResultCommon;
+
+		public delegate void PlayFabRequestEvent<in TRequest>(TRequest request) where TRequest : PlayFabRequestCommon;
+	}
+}

@@ -1,0 +1,113 @@
+﻿using System;
+using UnityEngine.Serialization;
+
+namespace UnityEngine.UI
+{
+	[RequireComponent(typeof(CanvasRenderer))]
+	[AddComponentMenu("UI/Raw Image", 12)]
+	public class RawImage : MaskableGraphic
+	{
+		protected RawImage()
+		{
+			base.useLegacyMeshGeneration = false;
+		}
+
+		public override Texture mainTexture
+		{
+			get
+			{
+				if (!(this.m_Texture == null))
+				{
+					return this.m_Texture as Texture;
+				}
+				if (this.material != null && this.material.mainTexture != null)
+				{
+					return this.material.mainTexture;
+				}
+				return Graphic.s_WhiteTexture;
+			}
+		}
+
+		public Texture texture
+		{
+			get
+			{
+				return this.m_Texture;
+			}
+			set
+			{
+				if (this.m_Texture == value)
+				{
+					return;
+				}
+				this.m_Texture = value;
+				this.SetVerticesDirty();
+				this.SetMaterialDirty();
+			}
+		}
+
+		public Rect uvRect
+		{
+			get
+			{
+				return this.m_UVRect;
+			}
+			set
+			{
+				if (this.m_UVRect == value)
+				{
+					return;
+				}
+				this.m_UVRect = value;
+				this.SetVerticesDirty();
+			}
+		}
+
+		public override void SetNativeSize()
+		{
+			Texture mainTexture = this.mainTexture;
+			if (mainTexture != null)
+			{
+				int num = Mathf.RoundToInt((float)mainTexture.width * this.uvRect.width);
+				int num2 = Mathf.RoundToInt((float)mainTexture.height * this.uvRect.height);
+				base.rectTransform.anchorMax = base.rectTransform.anchorMin;
+				base.rectTransform.sizeDelta = new Vector2((float)num, (float)num2);
+			}
+		}
+
+		protected override void OnPopulateMesh(VertexHelper vh)
+		{
+			Texture mainTexture = this.mainTexture;
+			vh.Clear();
+			if (mainTexture != null)
+			{
+				Rect pixelAdjustedRect = base.GetPixelAdjustedRect();
+				Vector4 vector = new Vector4(pixelAdjustedRect.x, pixelAdjustedRect.y, pixelAdjustedRect.x + pixelAdjustedRect.width, pixelAdjustedRect.y + pixelAdjustedRect.height);
+				Vector2 texelSize = mainTexture.texelSize;
+				float num = (float)mainTexture.width * texelSize.x;
+				float num2 = (float)mainTexture.height * texelSize.y;
+				Color32 color = this.color;
+				vh.AddVert(new Vector3(vector.x, vector.y), color, new Vector4(this.m_UVRect.xMin * num, this.m_UVRect.yMin * num2));
+				vh.AddVert(new Vector3(vector.x, vector.w), color, new Vector4(this.m_UVRect.xMin * num, this.m_UVRect.yMax * num2));
+				vh.AddVert(new Vector3(vector.z, vector.w), color, new Vector4(this.m_UVRect.xMax * num, this.m_UVRect.yMax * num2));
+				vh.AddVert(new Vector3(vector.z, vector.y), color, new Vector4(this.m_UVRect.xMax * num, this.m_UVRect.yMin * num2));
+				vh.AddTriangle(0, 1, 2);
+				vh.AddTriangle(2, 3, 0);
+			}
+		}
+
+		protected override void OnDidApplyAnimationProperties()
+		{
+			this.SetMaterialDirty();
+			this.SetVerticesDirty();
+			base.SetRaycastDirty();
+		}
+
+		[FormerlySerializedAs("m_Tex")]
+		[SerializeField]
+		private Texture m_Texture;
+
+		[SerializeField]
+		private Rect m_UVRect = new Rect(0f, 0f, 1f, 1f);
+	}
+}

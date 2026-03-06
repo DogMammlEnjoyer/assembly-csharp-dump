@@ -1,0 +1,17 @@
+﻿using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: InternalsVisibleTo("Unity.VisualEffectGraph.EditorTests")]
+[assembly: InternalsVisibleTo("Unity.VisualEffectGraph.EditorTests-testable")]
+[assembly: InternalsVisibleTo("Unity.VisualEffectGraph.Editor")]
+[assembly: InternalsVisibleTo("Unity.VisualEffectGraph.Editor-testable")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.Tests")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.Tests-testable")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.PerformanceEditorTests")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.PerformanceEditorTests-testable")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.PerformanceRuntimeTests")]
+[assembly: InternalsVisibleTo("Unity.Testing.VisualEffectGraph.PerformanceRuntimeTests-testable")]
+[assembly: InternalsVisibleTo("VisualEffect.Playable.Editor")]

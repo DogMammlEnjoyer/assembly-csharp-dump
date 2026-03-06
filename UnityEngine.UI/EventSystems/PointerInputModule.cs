@@ -1,0 +1,356 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace UnityEngine.EventSystems
+{
+	public abstract class PointerInputModule : BaseInputModule
+	{
+		protected bool GetPointerData(int id, out PointerEventData data, bool create)
+		{
+			if (!this.m_PointerData.TryGetValue(id, out data) && create)
+			{
+				data = new PointerEventData(base.eventSystem)
+				{
+					pointerId = id
+				};
+				this.m_PointerData.Add(id, data);
+				return true;
+			}
+			return false;
+		}
+
+		protected void RemovePointerData(PointerEventData data)
+		{
+			this.m_PointerData.Remove(data.pointerId);
+		}
+
+		protected PointerEventData GetTouchPointerEventData(Touch input, out bool pressed, out bool released)
+		{
+			PointerEventData pointerEventData;
+			bool pointerData = this.GetPointerData(input.fingerId, out pointerEventData, true);
+			pointerEventData.Reset();
+			pressed = (pointerData || input.phase == TouchPhase.Began);
+			released = (input.phase == TouchPhase.Canceled || input.phase == TouchPhase.Ended);
+			if (pointerData)
+			{
+				pointerEventData.position = input.position;
+			}
+			if (pressed)
+			{
+				pointerEventData.delta = Vector2.zero;
+			}
+			else
+			{
+				pointerEventData.delta = input.position - pointerEventData.position;
+			}
+			pointerEventData.position = input.position;
+			pointerEventData.button = PointerEventData.InputButton.Left;
+			if (input.phase == TouchPhase.Canceled)
+			{
+				pointerEventData.pointerCurrentRaycast = default(RaycastResult);
+			}
+			else
+			{
+				base.eventSystem.RaycastAll(pointerEventData, this.m_RaycastResultCache);
+				RaycastResult pointerCurrentRaycast = BaseInputModule.FindFirstRaycast(this.m_RaycastResultCache);
+				pointerEventData.pointerCurrentRaycast = pointerCurrentRaycast;
+				this.m_RaycastResultCache.Clear();
+			}
+			pointerEventData.pressure = input.pressure;
+			pointerEventData.altitudeAngle = input.altitudeAngle;
+			pointerEventData.azimuthAngle = input.azimuthAngle;
+			pointerEventData.radius = Vector2.one * input.radius;
+			pointerEventData.radiusVariance = Vector2.one * input.radiusVariance;
+			return pointerEventData;
+		}
+
+		protected void CopyFromTo(PointerEventData from, PointerEventData to)
+		{
+			to.position = from.position;
+			to.delta = from.delta;
+			to.scrollDelta = from.scrollDelta;
+			to.pointerCurrentRaycast = from.pointerCurrentRaycast;
+			to.pointerEnter = from.pointerEnter;
+			to.pressure = from.pressure;
+			to.tangentialPressure = from.tangentialPressure;
+			to.altitudeAngle = from.altitudeAngle;
+			to.azimuthAngle = from.azimuthAngle;
+			to.twist = from.twist;
+			to.radius = from.radius;
+			to.radiusVariance = from.radiusVariance;
+		}
+
+		protected PointerEventData.FramePressState StateForMouseButton(int buttonId)
+		{
+			bool mouseButtonDown = base.input.GetMouseButtonDown(buttonId);
+			bool mouseButtonUp = base.input.GetMouseButtonUp(buttonId);
+			if (mouseButtonDown && mouseButtonUp)
+			{
+				return PointerEventData.FramePressState.PressedAndReleased;
+			}
+			if (mouseButtonDown)
+			{
+				return PointerEventData.FramePressState.Pressed;
+			}
+			if (mouseButtonUp)
+			{
+				return PointerEventData.FramePressState.Released;
+			}
+			return PointerEventData.FramePressState.NotChanged;
+		}
+
+		protected virtual PointerInputModule.MouseState GetMousePointerEventData()
+		{
+			return this.GetMousePointerEventData(0);
+		}
+
+		protected virtual PointerInputModule.MouseState GetMousePointerEventData(int id)
+		{
+			PointerEventData pointerEventData;
+			bool pointerData = this.GetPointerData(-1, out pointerEventData, true);
+			pointerEventData.Reset();
+			if (pointerData)
+			{
+				pointerEventData.position = base.input.mousePosition;
+			}
+			Vector2 mousePosition = base.input.mousePosition;
+			if (Cursor.lockState == CursorLockMode.Locked)
+			{
+				pointerEventData.position = new Vector2(-1f, -1f);
+				pointerEventData.delta = Vector2.zero;
+			}
+			else
+			{
+				pointerEventData.delta = mousePosition - pointerEventData.position;
+				pointerEventData.position = mousePosition;
+			}
+			pointerEventData.scrollDelta = base.input.mouseScrollDelta;
+			pointerEventData.button = PointerEventData.InputButton.Left;
+			base.eventSystem.RaycastAll(pointerEventData, this.m_RaycastResultCache);
+			RaycastResult pointerCurrentRaycast = BaseInputModule.FindFirstRaycast(this.m_RaycastResultCache);
+			pointerEventData.pointerCurrentRaycast = pointerCurrentRaycast;
+			this.m_RaycastResultCache.Clear();
+			PointerEventData pointerEventData2;
+			this.GetPointerData(-2, out pointerEventData2, true);
+			pointerEventData2.Reset();
+			this.CopyFromTo(pointerEventData, pointerEventData2);
+			pointerEventData2.button = PointerEventData.InputButton.Right;
+			PointerEventData pointerEventData3;
+			this.GetPointerData(-3, out pointerEventData3, true);
+			pointerEventData3.Reset();
+			this.CopyFromTo(pointerEventData, pointerEventData3);
+			pointerEventData3.button = PointerEventData.InputButton.Middle;
+			this.m_MouseState.SetButtonState(PointerEventData.InputButton.Left, this.StateForMouseButton(0), pointerEventData);
+			this.m_MouseState.SetButtonState(PointerEventData.InputButton.Right, this.StateForMouseButton(1), pointerEventData2);
+			this.m_MouseState.SetButtonState(PointerEventData.InputButton.Middle, this.StateForMouseButton(2), pointerEventData3);
+			return this.m_MouseState;
+		}
+
+		protected PointerEventData GetLastPointerEventData(int id)
+		{
+			PointerEventData result;
+			this.GetPointerData(id, out result, false);
+			return result;
+		}
+
+		private static bool ShouldStartDrag(Vector2 pressPos, Vector2 currentPos, float threshold, bool useDragThreshold)
+		{
+			return !useDragThreshold || (pressPos - currentPos).sqrMagnitude >= threshold * threshold;
+		}
+
+		protected virtual void ProcessMove(PointerEventData pointerEvent)
+		{
+			GameObject newEnterTarget = (Cursor.lockState == CursorLockMode.Locked) ? null : pointerEvent.pointerCurrentRaycast.gameObject;
+			base.HandlePointerExitAndEnter(pointerEvent, newEnterTarget);
+		}
+
+		protected virtual void ProcessDrag(PointerEventData pointerEvent)
+		{
+			if (!pointerEvent.IsPointerMoving() || Cursor.lockState == CursorLockMode.Locked || pointerEvent.pointerDrag == null)
+			{
+				return;
+			}
+			if (!pointerEvent.dragging && PointerInputModule.ShouldStartDrag(pointerEvent.pressPosition, pointerEvent.position, (float)base.eventSystem.pixelDragThreshold, pointerEvent.useDragThreshold))
+			{
+				ExecuteEvents.Execute<IBeginDragHandler>(pointerEvent.pointerDrag, pointerEvent, ExecuteEvents.beginDragHandler);
+				pointerEvent.dragging = true;
+			}
+			if (pointerEvent.dragging)
+			{
+				if (pointerEvent.pointerPress != pointerEvent.pointerDrag)
+				{
+					ExecuteEvents.Execute<IPointerUpHandler>(pointerEvent.pointerPress, pointerEvent, ExecuteEvents.pointerUpHandler);
+					pointerEvent.eligibleForClick = false;
+					pointerEvent.pointerPress = null;
+					pointerEvent.rawPointerPress = null;
+				}
+				ExecuteEvents.Execute<IDragHandler>(pointerEvent.pointerDrag, pointerEvent, ExecuteEvents.dragHandler);
+			}
+		}
+
+		public override bool IsPointerOverGameObject(int pointerId)
+		{
+			PointerEventData lastPointerEventData = this.GetLastPointerEventData(pointerId);
+			return lastPointerEventData != null && lastPointerEventData.pointerEnter != null;
+		}
+
+		protected void ClearSelection()
+		{
+			BaseEventData baseEventData = this.GetBaseEventData();
+			foreach (PointerEventData currentPointerData in this.m_PointerData.Values)
+			{
+				base.HandlePointerExitAndEnter(currentPointerData, null);
+			}
+			this.m_PointerData.Clear();
+			base.eventSystem.SetSelectedGameObject(null, baseEventData);
+		}
+
+		public override string ToString()
+		{
+			string str = "<b>Pointer Input Module of type: </b>";
+			Type type = base.GetType();
+			StringBuilder stringBuilder = new StringBuilder(str + ((type != null) ? type.ToString() : null));
+			stringBuilder.AppendLine();
+			foreach (KeyValuePair<int, PointerEventData> keyValuePair in this.m_PointerData)
+			{
+				if (keyValuePair.Value != null)
+				{
+					stringBuilder.AppendLine("<B>Pointer:</b> " + keyValuePair.Key.ToString());
+					stringBuilder.AppendLine(keyValuePair.Value.ToString());
+				}
+			}
+			return stringBuilder.ToString();
+		}
+
+		protected void DeselectIfSelectionChanged(GameObject currentOverGo, BaseEventData pointerEvent)
+		{
+			if (ExecuteEvents.GetEventHandler<ISelectHandler>(currentOverGo) != base.eventSystem.currentSelectedGameObject)
+			{
+				base.eventSystem.SetSelectedGameObject(null, pointerEvent);
+			}
+		}
+
+		public const int kMouseLeftId = -1;
+
+		public const int kMouseRightId = -2;
+
+		public const int kMouseMiddleId = -3;
+
+		public const int kFakeTouchesId = -4;
+
+		protected Dictionary<int, PointerEventData> m_PointerData = new Dictionary<int, PointerEventData>();
+
+		private readonly PointerInputModule.MouseState m_MouseState = new PointerInputModule.MouseState();
+
+		protected class ButtonState
+		{
+			public PointerInputModule.MouseButtonEventData eventData
+			{
+				get
+				{
+					return this.m_EventData;
+				}
+				set
+				{
+					this.m_EventData = value;
+				}
+			}
+
+			public PointerEventData.InputButton button
+			{
+				get
+				{
+					return this.m_Button;
+				}
+				set
+				{
+					this.m_Button = value;
+				}
+			}
+
+			private PointerEventData.InputButton m_Button;
+
+			private PointerInputModule.MouseButtonEventData m_EventData;
+		}
+
+		protected class MouseState
+		{
+			public bool AnyPressesThisFrame()
+			{
+				int count = this.m_TrackedButtons.Count;
+				for (int i = 0; i < count; i++)
+				{
+					if (this.m_TrackedButtons[i].eventData.PressedThisFrame())
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+
+			public bool AnyReleasesThisFrame()
+			{
+				int count = this.m_TrackedButtons.Count;
+				for (int i = 0; i < count; i++)
+				{
+					if (this.m_TrackedButtons[i].eventData.ReleasedThisFrame())
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+
+			public PointerInputModule.ButtonState GetButtonState(PointerEventData.InputButton button)
+			{
+				PointerInputModule.ButtonState buttonState = null;
+				int count = this.m_TrackedButtons.Count;
+				for (int i = 0; i < count; i++)
+				{
+					if (this.m_TrackedButtons[i].button == button)
+					{
+						buttonState = this.m_TrackedButtons[i];
+						break;
+					}
+				}
+				if (buttonState == null)
+				{
+					buttonState = new PointerInputModule.ButtonState
+					{
+						button = button,
+						eventData = new PointerInputModule.MouseButtonEventData()
+					};
+					this.m_TrackedButtons.Add(buttonState);
+				}
+				return buttonState;
+			}
+
+			public void SetButtonState(PointerEventData.InputButton button, PointerEventData.FramePressState stateForMouseButton, PointerEventData data)
+			{
+				PointerInputModule.ButtonState buttonState = this.GetButtonState(button);
+				buttonState.eventData.buttonState = stateForMouseButton;
+				buttonState.eventData.buttonData = data;
+			}
+
+			private List<PointerInputModule.ButtonState> m_TrackedButtons = new List<PointerInputModule.ButtonState>();
+		}
+
+		public class MouseButtonEventData
+		{
+			public bool PressedThisFrame()
+			{
+				return this.buttonState == PointerEventData.FramePressState.Pressed || this.buttonState == PointerEventData.FramePressState.PressedAndReleased;
+			}
+
+			public bool ReleasedThisFrame()
+			{
+				return this.buttonState == PointerEventData.FramePressState.Released || this.buttonState == PointerEventData.FramePressState.PressedAndReleased;
+			}
+
+			public PointerEventData.FramePressState buttonState;
+
+			public PointerEventData buttonData;
+		}
+	}
+}

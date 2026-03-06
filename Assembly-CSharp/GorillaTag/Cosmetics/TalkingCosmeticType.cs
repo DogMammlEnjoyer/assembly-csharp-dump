@@ -6,6 +6,9 @@ namespace GorillaTag.Cosmetics
 	{
 		RobotSkull,
 		CreepyDoll,
+		MicrophoneGNN,
+		MicrophoneGC,
+		MicrophonePirateRadio,
 		AddYourNewCosmeticHere
 	}
 }

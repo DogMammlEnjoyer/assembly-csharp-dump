@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meta</RootNamespace>
+    <AssemblyName>Meta.WitAi</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AudioClipAudioSource.cs" />
+    <Compile Include="Conduit\ConduitActionAttribute.cs" />
+    <Compile Include="Conduit\ConduitAssemblyAttribute.cs" />
+    <Compile Include="Conduit\ConduitDispatcher.cs" />
+    <Compile Include="Conduit\ConduitDispatcherFactory.cs" />
+    <Compile Include="Conduit\ConduitEntityAttribute.cs" />
+    <Compile Include="Conduit\ConduitParameterAttribute.cs" />
+    <Compile Include="Conduit\ConduitParameterValue.cs" />
+    <Compile Include="Conduit\ConduitUtilities.cs" />
+    <Compile Include="Conduit\ConduitValueAttribute.cs" />
+    <Compile Include="Conduit\HandleEntityResolutionFailure.cs" />
+    <Compile Include="Conduit\IConduitDispatcher.cs" />
+    <Compile Include="Conduit\IInstanceResolver.cs" />
+    <Compile Include="Conduit\IManifestLoader.cs" />
+    <Compile Include="Conduit\IManifestMethod.cs" />
+    <Compile Include="Conduit\InvocationContext.cs" />
+    <Compile Include="Conduit\IParameterProvider.cs" />
+    <Compile Include="Conduit\Manifest.cs" />
+    <Compile Include="Conduit\ManifestAction.cs" />
+    <Compile Include="Conduit\ManifestEntity.cs" />
+    <Compile Include="Conduit\ManifestErrorHandler.cs" />
+    <Compile Include="Conduit\ManifestLoader.cs" />
+    <Compile Include="Conduit\ManifestParameter.cs" />
+    <Compile Include="Conduit\ParameterProvider.cs" />
+    <Compile Include="Conduit\WitKeyword.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Voice\Audio\AudioClipSettings.cs" />
+    <Compile Include="Voice\Audio\AudioClipStreamDelegate.cs" />
+    <Compile Include="Voice\Audio\AudioClipStreamSampleDelegate.cs" />
+    <Compile Include="Voice\Audio\BaseAudioClipStream.cs" />
+    <Compile Include="Voice\Audio\BaseAudioPlayer.cs" />
+    <Compile Include="Voice\Audio\BaseAudioSystem.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderJson.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderMp3.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderMp3Frame.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderOpus.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderPcm.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderPcmType.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioDecoderWav.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioJsonDecodeDelegate.cs" />
+    <Compile Include="Voice\Audio\Decoding\AudioSampleDecodeDelegate.cs" />
+    <Compile Include="Voice\Audio\Decoding\IAudioDecoder.cs" />
+    <Compile Include="Voice\Audio\IAudioClipProvider.cs" />
+    <Compile Include="Voice\Audio\IAudioClipSetter.cs" />
+    <Compile Include="Voice\Audio\IAudioClipStream.cs" />
+    <Compile Include="Voice\Audio\IAudioPlayer.cs" />
+    <Compile Include="Voice\Audio\IAudioSourceProvider.cs" />
+    <Compile Include="Voice\Audio\IAudioSystem.cs" />
+    <Compile Include="Voice\Audio\RawAudioClipStream.cs" />
+    <Compile Include="Voice\Audio\SimulatedAudioPlayer.cs" />
+    <Compile Include="Voice\Audio\UnityAudioPlayer.cs" />
+    <Compile Include="Voice\Audio\UnityAudioSystem.cs" />
+    <Compile Include="Voice\INLPRequestOptions.cs" />
+    <Compile Include="Voice\INLPRequestResponseDecoder.cs" />
+    <Compile Include="Voice\INLPRequestResults.cs" />
+    <Compile Include="Voice\ITranscriptionRequestOptions.cs" />
+    <Compile Include="Voice\ITranscriptionRequestResults.cs" />
+    <Compile Include="Voice\IVoiceRequestOptions.cs" />
+    <Compile Include="Voice\IVoiceRequestResults.cs" />
+    <Compile Include="Voice\Net\Encoding\Wit\WitChunk.cs" />
+    <Compile Include="Voice\Net\Encoding\Wit\WitChunkConverter.cs" />
+    <Compile Include="Voice\Net\Encoding\Wit\WitChunkHeader.cs" />
+    <Compile Include="Voice\Net\PubSub\IPubSubAdapter.cs" />
+    <Compile Include="Voice\Net\PubSub\IPubSubSubscriber.cs" />
+    <Compile Include="Voice\Net\PubSub\PubSubResponseOptions.cs" />
+    <Compile Include="Voice\Net\PubSub\PubSubSettings.cs" />
+    <Compile Include="Voice\Net\PubSub\PubSubSubscriptionState.cs" />
+    <Compile Include="Voice\Net\PubSub\PubSubTopicSubscriptionDelegate.cs" />
+    <Compile Include="Voice\Net\WebSockets\IWebSocket.cs" />
+    <Compile Include="Voice\Net\WebSockets\IWebSocketProvider.cs" />
+    <Compile Include="Voice\Net\WebSockets\IWitWebSocketClient.cs" />
+    <Compile Include="Voice\Net\WebSockets\IWitWebSocketClientProvider.cs" />
+    <Compile Include="Voice\Net\WebSockets\IWitWebSocketRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\MockWebSocket.cs" />
+    <Compile Include="Voice\Net\WebSockets\NativeWebSocketWrapper.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketAuthRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketJsonRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketMessageRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketSpeechRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketSubscriptionRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketSubscriptionType.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketTranscribeRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\Requests\WitWebSocketTtsRequest.cs" />
+    <Compile Include="Voice\Net\WebSockets\UploadChunkDelegate.cs" />
+    <Compile Include="Voice\Net\WebSockets\WebSocketCloseCode.cs" />
+    <Compile Include="Voice\Net\WebSockets\WitWebSocketAdapter.cs" />
+    <Compile Include="Voice\Net\WebSockets\WitWebSocketClient.cs" />
+    <Compile Include="Voice\Net\WebSockets\WitWebSocketConnectionState.cs" />
+    <Compile Include="Voice\Net\WebSockets\WitWebSocketResponseProcessor.cs" />
+    <Compile Include="Voice\Net\WebSockets\WitWebSocketSettings.cs" />
+    <Compile Include="Voice\NLPRequest.cs" />
+    <Compile Include="Voice\NLPRequestEvents.cs" />
+    <Compile Include="Voice\NLPRequestInputType.cs" />
+    <Compile Include="Voice\NLPRequestResponseEvent.cs" />
+    <Compile Include="Voice\NLPRequestResponseValidatorEvent.cs" />
+    <Compile Include="Voice\TranscriptionRequest.cs" />
+    <Compile Include="Voice\TranscriptionRequestEvent.cs" />
+    <Compile Include="Voice\TranscriptionRequestEvents.cs" />
+    <Compile Include="Voice\UserTranscriptionRequestEvent.cs" />
+    <Compile Include="Voice\VoiceRequest.cs" />
+    <Compile Include="Voice\VoiceRequestEvents.cs" />
+    <Compile Include="Voice\VoiceRequestState.cs" />
+    <Compile Include="WitAi\ArrayNodeReference.cs" />
+    <Compile Include="WitAi\Attributes\ButtonAttribute.cs" />
+    <Compile Include="WitAi\Attributes\DropDownAttribute.cs" />
+    <Compile Include="WitAi\Attributes\HiddenTextAttribute.cs" />
+    <Compile Include="WitAi\Attributes\HideIfAttribute.cs" />
+    <Compile Include="WitAi\Attributes\HideWhenSetAttribute.cs" />
+    <Compile Include="WitAi\Attributes\LabelAttribute.cs" />
+    <Compile Include="WitAi\Attributes\ObjectTypeAttribute.cs" />
+    <Compile Include="WitAi\Attributes\ShowIfAttribute.cs" />
+    <Compile Include="WitAi\Attributes\TooltipBoxAttribute.cs" />
+    <Compile Include="WitAi\Attributes\WitConfigurationAssetRefreshAttribute.cs" />
+    <Compile Include="WitAi\AudioDurationTracker.cs" />
+    <Compile Include="WitAi\BaseSpeechService.cs" />
+    <Compile Include="WitAi\CallbackHandlers\ComparisonMethod.cs" />
+    <Compile Include="WitAi\CallbackHandlers\ConfidenceRange.cs" />
+    <Compile Include="WitAi\CallbackHandlers\FormattedValueEvents.cs" />
+    <Compile Include="WitAi\CallbackHandlers\MatchMethod.cs" />
+    <Compile Include="WitAi\CallbackHandlers\MultiValueEvent.cs" />
+    <Compile Include="WitAi\CallbackHandlers\OutOfScopeUtteranceHandler.cs" />
+    <Compile Include="WitAi\CallbackHandlers\SimpleIntentHandler.cs" />
+    <Compile Include="WitAi\CallbackHandlers\SimpleStringEntityHandler.cs" />
+    <Compile Include="WitAi\CallbackHandlers\StringEntityMatchEvent.cs" />
+    <Compile Include="WitAi\CallbackHandlers\ValueEvent.cs" />
+    <Compile Include="WitAi\CallbackHandlers\ValuePathMatcher.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitIntentMatcher.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitResponseErrorEvent.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitResponseEvent.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitResponseHandler.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitResponseMatcher.cs" />
+    <Compile Include="WitAi\CallbackHandlers\WitUtteranceMatcher.cs" />
+    <Compile Include="WitAi\Comment.cs" />
+    <Compile Include="WitAi\Composer\Attributes\VersionTagDropdownAttribute.cs" />
+    <Compile Include="WitAi\Configuration\WitEndpointConfig.cs" />
+    <Compile Include="WitAi\Configuration\WitRequestOptions.cs" />
+    <Compile Include="WitAi\Configuration\WitRuntimeConfiguration.cs" />
+    <Compile Include="WitAi\Data\AudioBuffer.cs" />
+    <Compile Include="WitAi\Data\AudioBufferConfiguration.cs" />
+    <Compile Include="WitAi\Data\AudioBufferPrefabProvider.cs" />
+    <Compile Include="WitAi\Data\Configuration\WitConfiguration.cs" />
+    <Compile Include="WitAi\Data\Configuration\WitConfigurationCache.cs" />
+    <Compile Include="WitAi\Data\Configuration\WitConfigurationCacheKey.cs" />
+    <Compile Include="WitAi\Data\Entities\DynamicEntityDataProvider.cs" />
+    <Compile Include="WitAi\Data\Entities\DynamicEntityKeywordRegistry.cs" />
+    <Compile Include="WitAi\Data\Entities\DynamicEntityProvider.cs" />
+    <Compile Include="WitAi\Data\Entities\RegisteredDynamicEntityKeyword.cs" />
+    <Compile Include="WitAi\Data\Entities\WitDynamicEntities.cs" />
+    <Compile Include="WitAi\Data\Entities\WitDynamicEntitiesData.cs" />
+    <Compile Include="WitAi\Data\Entities\WitDynamicEntity.cs" />
+    <Compile Include="WitAi\Data\Entities\WitEntityData.cs" />
+    <Compile Include="WitAi\Data\Entities\WitEntityDataBase.cs" />
+    <Compile Include="WitAi\Data\Entities\WitEntityFloatData.cs" />
+    <Compile Include="WitAi\Data\Entities\WitEntityIntData.cs" />
+    <Compile Include="WitAi\Data\Entities\WitSimpleDynamicEntity.cs" />
+    <Compile Include="WitAi\Data\IAudioBufferProvider.cs" />
+    <Compile Include="WitAi\Data\Intents\WitIntentData.cs" />
+    <Compile Include="WitAi\Data\RingBuffer.cs" />
+    <Compile Include="WitAi\Data\ValueReferences\IStringReference.cs" />
+    <Compile Include="WitAi\Data\ValueReferences\StringReference.cs" />
+    <Compile Include="WitAi\Data\VoiceSession.cs" />
+    <Compile Include="WitAi\Data\WitFloatValue.cs" />
+    <Compile Include="WitAi\Data\WitIntValue.cs" />
+    <Compile Include="WitAi\Data\WitStringValue.cs" />
+    <Compile Include="WitAi\Data\WitValue.cs" />
+    <Compile Include="WitAi\Events\AudioBufferEvents.cs" />
+    <Compile Include="WitAi\Events\AudioDurationTrackerFinishedEvent.cs" />
+    <Compile Include="WitAi\Events\EventCategoryAttribute.cs" />
+    <Compile Include="WitAi\Events\EventRegistry.cs" />
+    <Compile Include="WitAi\Events\IWitByteDataReadyHandler.cs" />
+    <Compile Include="WitAi\Events\IWitByteDataSentHandler.cs" />
+    <Compile Include="WitAi\Events\SpeechEvents.cs" />
+    <Compile Include="WitAi\Events\TelemetryEvents.cs" />
+    <Compile Include="WitAi\Events\UnityEventListeners\AudioEventListener.cs" />
+    <Compile Include="WitAi\Events\UnityEventListeners\TranscriptionEventListener.cs" />
+    <Compile Include="WitAi\Events\VoiceEvents.cs" />
+    <Compile Include="WitAi\Events\VoiceServiceRequestEvent.cs" />
+    <Compile Include="WitAi\Events\VoiceState.cs" />
+    <Compile Include="WitAi\Events\WitByteDataEvent.cs" />
+    <Compile Include="WitAi\Events\WitErrorEvent.cs" />
+    <Compile Include="WitAi\Events\WitMicLevelChangedEvent.cs" />
+    <Compile Include="WitAi\Events\WitObjectEvent.cs" />
+    <Compile Include="WitAi\Events\WitRequestCreatedEvent.cs" />
+    <Compile Include="WitAi\Events\WitRequestOptionsEvent.cs" />
+    <Compile Include="WitAi\Events\WitResponseEvent.cs" />
+    <Compile Include="WitAi\Events\WitSampleEvent.cs" />
+    <Compile Include="WitAi\Events\WitTranscriptionEvent.cs" />
+    <Compile Include="WitAi\Events\WitValidationEvent.cs" />
+    <Compile Include="WitAi\Interfaces\CustomTranscriptionProvider.cs" />
+    <Compile Include="WitAi\Interfaces\IAudioEventProvider.cs" />
+    <Compile Include="WitAi\Interfaces\IAudioInputEvents.cs" />
+    <Compile Include="WitAi\Interfaces\IAudioUploadHandler.cs" />
+    <Compile Include="WitAi\Interfaces\IDataUploadHandler.cs" />
+    <Compile Include="WitAi\Interfaces\IDynamicEntitiesProvider.cs" />
+    <Compile Include="WitAi\Interfaces\ISpeechEvents.cs" />
+    <Compile Include="WitAi\Interfaces\ITranscriptionEvent.cs" />
+    <Compile Include="WitAi\Interfaces\ITranscriptionEventProvider.cs" />
+    <Compile Include="WitAi\Interfaces\ITranscriptionProvider.cs" />
+    <Compile Include="WitAi\Interfaces\IVoiceServiceRequestProvider.cs" />
+    <Compile Include="WitAi\Interfaces\IWitConfigurationProvider.cs" />
+    <Compile Include="WitAi\Interfaces\IWitConfigurationSetter.cs" />
+    <Compile Include="WitAi\Interfaces\IWitInspectorTools.cs" />
+    <Compile Include="WitAi\IRequest.cs" />
+    <Compile Include="WitAi\ITelemetryEventsProvider.cs" />
+    <Compile Include="WitAi\IVoiceActivationHandler.cs" />
+    <Compile Include="WitAi\IVoiceEventProvider.cs" />
+    <Compile Include="WitAi\IVoiceService.cs" />
+    <Compile Include="WitAi\IWitRequestConfiguration.cs" />
+    <Compile Include="WitAi\IWitRequestEndpointInfo.cs" />
+    <Compile Include="WitAi\IWitRuntimeConfigProvider.cs" />
+    <Compile Include="WitAi\IWitRuntimeConfigSetter.cs" />
+    <Compile Include="WitAi\Lib\VoiceLipSyncMic.cs" />
+    <Compile Include="WitAi\MatchIntent.cs" />
+    <Compile Include="WitAi\MatchIntentRegistry.cs" />
+    <Compile Include="WitAi\ObjectNodeReference.cs" />
+    <Compile Include="WitAi\PluggableBase.cs" />
+    <Compile Include="WitAi\RegisteredMatchIntent.cs" />
+    <Compile Include="WitAi\Requests\AudioStreamHandler.cs" />
+    <Compile Include="WitAi\Requests\IVRequest.cs" />
+    <Compile Include="WitAi\Requests\IVRequestDownloadDecoder.cs" />
+    <Compile Include="WitAi\Requests\IWitVRequest.cs" />
+    <Compile Include="WitAi\Requests\TextStreamHandler.cs" />
+    <Compile Include="WitAi\Requests\VoiceErrorSimulationType.cs" />
+    <Compile Include="WitAi\Requests\VoiceEventToRequestEventMapper.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceMockRequest.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequest.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequestEvent.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequestEvents.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequestEventsWrapper.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequestOptions.cs" />
+    <Compile Include="WitAi\Requests\VoiceServiceRequestResults.cs" />
+    <Compile Include="WitAi\Requests\VRequest.cs" />
+    <Compile Include="WitAi\Requests\VRequestDecodeDelegate.cs" />
+    <Compile Include="WitAi\Requests\VRequestMethod.cs" />
+    <Compile Include="WitAi\Requests\VRequestProgressDelegate.cs" />
+    <Compile Include="WitAi\Requests\VRequestResponse.cs" />
+    <Compile Include="WitAi\Requests\VRequestResponseDelegate.cs" />
+    <Compile Include="WitAi\Requests\WitAudioRequestOption.cs" />
+    <Compile Include="WitAi\Requests\WitMessageVRequest.cs" />
+    <Compile Include="WitAi\Requests\WitResponseDecoder.cs" />
+    <Compile Include="WitAi\Requests\WitSocketRequest.cs" />
+    <Compile Include="WitAi\Requests\WitTTSVRequest.cs" />
+    <Compile Include="WitAi\Requests\WitUnityRequest.cs" />
+    <Compile Include="WitAi\Requests\WitVRequest.cs" />
+    <Compile Include="WitAi\ServiceReferences\AudioInputServiceReference.cs" />
+    <Compile Include="WitAi\ServiceReferences\CombinedAudioEventReference.cs" />
+    <Compile Include="WitAi\ServiceReferences\VoiceServiceAudioEventReference.cs" />
+    <Compile Include="WitAi\Utilities\CaptionData.cs" />
+    <Compile Include="WitAi\Utilities\CaptionEvent.cs" />
+    <Compile Include="WitAi\Utilities\DictionaryList.cs" />
+    <Compile Include="WitAi\Utilities\DynamicRangeAttribute.cs" />
+    <Compile Include="WitAi\Utilities\EventSystemInstantiator.cs" />
+    <Compile Include="WitAi\Utilities\FloatToStringEvent.cs" />
+    <Compile Include="WitAi\Utilities\GameObjectSearchUtility.cs" />
+    <Compile Include="WitAi\Utilities\IOUtility.cs" />
+    <Compile Include="WitAi\Utilities\ReflectionUtils.cs" />
+    <Compile Include="WitAi\Utilities\StringEvent.cs" />
+    <Compile Include="WitAi\Utilities\StringToStringEvent.cs" />
+    <Compile Include="WitAi\Utilities\VoiceServiceReference.cs" />
+    <Compile Include="WitAi\Utilities\WitRuntimeStyles.cs" />
+    <Compile Include="WitAi\ValidatePartialIntent.cs" />
+    <Compile Include="WitAi\VoiceService.cs" />
+    <Compile Include="WitAi\Wit.cs" />
+    <Compile Include="WitAi\WitAuthUtility.cs" />
+    <Compile Include="WitAi\WitConduitParameterProvider.cs" />
+    <Compile Include="WitAi\WitRequest.cs" />
+    <Compile Include="WitAi\WitRequestFactory.cs" />
+    <Compile Include="WitAi\WitRequestSettings.cs" />
+    <Compile Include="WitAi\WitResponseReference.cs" />
+    <Compile Include="WitAi\WitResultUtilities.cs" />
+    <Compile Include="WitAi\WitRuntimeRequestConfiguration.cs" />
+    <Compile Include="WitAi\WitService.cs" />
+    <Compile Include="WitAi\WrapHttpWebRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Meta.Net.endel.nativewebsocket\Meta.Net.endel.nativewebsocket.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA065}</Project>
+      <Name>Meta.Net.endel.nativewebsocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.Voice.NLayer\Meta.Voice.NLayer.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA067}</Project>
+      <Name>Meta.Voice.NLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.Voice.Opus\Meta.Voice.Opus.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA068}</Project>
+      <Name>Meta.Voice.Opus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.VoiceSDK.Mic.Common\Meta.VoiceSDK.Mic.Common.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA069}</Project>
+      <Name>Meta.VoiceSDK.Mic.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.VoiceSDK.Mic.Other\Meta.VoiceSDK.Mic.Other.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06A}</Project>
+      <Name>Meta.VoiceSDK.Mic.Other</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06E}</Project>
+      <Name>Meta.WitAi.Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestAudioModule\UnityEngine.UnityWebRequestAudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12D}</Project>
+      <Name>UnityEngine.UnityWebRequestAudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA12E}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VoiceSDK.Telemetry.Runtime\VoiceSDK.Telemetry.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13D}</Project>
+      <Name>VoiceSDK.Telemetry.Runtime</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

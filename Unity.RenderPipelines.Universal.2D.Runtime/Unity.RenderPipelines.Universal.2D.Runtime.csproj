@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine.Rendering.Universal</RootNamespace>
+    <AssemblyName>Unity.RenderPipelines.Universal.2D.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$BurstDirectCallInitializer.cs" />
+    <Compile Include="CinemachineUniversalPixelPerfect.cs" />
+    <Compile Include="Clipper.cs" />
+    <Compile Include="ClipperBase.cs" />
+    <Compile Include="ClipperException.cs" />
+    <Compile Include="ClipperOffset.cs" />
+    <Compile Include="ClipType.cs" />
+    <Compile Include="ClipTypes.cs" />
+    <Compile Include="CompositeShadowCaster2D.cs" />
+    <Compile Include="CopyCameraSortingLayerPass.cs" />
+    <Compile Include="Directions.cs" />
+    <Compile Include="DoublePoint.cs" />
+    <Compile Include="DrawLight2DPass.cs" />
+    <Compile Include="DrawNormal2DPass.cs" />
+    <Compile Include="DrawRenderer2DPass.cs" />
+    <Compile Include="DrawShadow2DPass.cs" />
+    <Compile Include="EdgeDictionary.cs" />
+    <Compile Include="EdgeSides.cs" />
+    <Compile Include="EndType.cs" />
+    <Compile Include="EndTypes.cs" />
+    <Compile Include="GlobalPropertiesPass.cs" />
+    <Compile Include="IEdgeStore.cs" />
+    <Compile Include="ILight2DCullResult.cs" />
+    <Compile Include="Int128.cs" />
+    <Compile Include="IntersectNode.cs" />
+    <Compile Include="IntPoint.cs" />
+    <Compile Include="IntRect.cs" />
+    <Compile Include="IPixelPerfectCamera.cs" />
+    <Compile Include="IRenderPass2D.cs" />
+    <Compile Include="Join.cs" />
+    <Compile Include="JoinType.cs" />
+    <Compile Include="JoinTypes.cs" />
+    <Compile Include="LayerBatch.cs" />
+    <Compile Include="LayerUtility.cs" />
+    <Compile Include="Light2D.cs" />
+    <Compile Include="Light2DBlendStyle.cs" />
+    <Compile Include="Light2DCullResult.cs" />
+    <Compile Include="Light2DLookupTexture.cs" />
+    <Compile Include="Light2DManager.cs" />
+    <Compile Include="LightBatch.cs" />
+    <Compile Include="LightBuffer.cs" />
+    <Compile Include="LightStats.cs" />
+    <Compile Include="LightUtility.cs" />
+    <Compile Include="LocalMinima.cs" />
+    <Compile Include="Maxima.cs" />
+    <Compile Include="MyIntersectNodeSort.cs" />
+    <Compile Include="OutPt.cs" />
+    <Compile Include="OutRec.cs" />
+    <Compile Include="PerLight2D.cs" />
+    <Compile Include="PixelPerfectBackgroundPass.cs" />
+    <Compile Include="PixelPerfectCamera.cs" />
+    <Compile Include="PixelPerfectCameraInternal.cs" />
+    <Compile Include="PolyFillType.cs" />
+    <Compile Include="PolyFillTypes.cs" />
+    <Compile Include="PolyNode.cs" />
+    <Compile Include="PolyTree.cs" />
+    <Compile Include="PolyType.cs" />
+    <Compile Include="PolyTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Render2DLightingPass.cs" />
+    <Compile Include="Renderer2D.cs" />
+    <Compile Include="Renderer2DData.cs" />
+    <Compile Include="RendererLighting.cs" />
+    <Compile Include="RenderPassEvent2D.cs" />
+    <Compile Include="Scanbeam.cs" />
+    <Compile Include="ScriptableRenderPass2DExtension.cs" />
+    <Compile Include="ShadowCaster2D.cs" />
+    <Compile Include="ShadowCasterGroup2D.cs" />
+    <Compile Include="ShadowCasterGroup2DManager.cs" />
+    <Compile Include="ShadowEdge.cs" />
+    <Compile Include="ShadowMesh2D.cs" />
+    <Compile Include="ShadowRendering.cs" />
+    <Compile Include="ShadowShape2D.cs" />
+    <Compile Include="ShadowShape2DProvider.cs" />
+    <Compile Include="ShadowShape2DProvider_Collider2D.cs" />
+    <Compile Include="ShadowShape2DProvider_SpriteRenderer.cs" />
+    <Compile Include="ShadowShapeProvider2DUtility.cs" />
+    <Compile Include="ShadowUtility.cs" />
+    <Compile Include="ShapeProviderUtility.cs" />
+    <Compile Include="TEdge.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="UpscalePass.cs" />
+    <Compile Include="UTess\ArraySlice.cs" />
+    <Compile Include="UTess\ArraySliceDebugView.cs" />
+    <Compile Include="UTess\DelaEdgeCompare.cs" />
+    <Compile Include="UTess\ICondition2.cs" />
+    <Compile Include="UTess\IntersectionCompare.cs" />
+    <Compile Include="UTess\ModuleHandle.cs" />
+    <Compile Include="UTess\PlanarGraph.cs" />
+    <Compile Include="UTess\TessCellCompare.cs" />
+    <Compile Include="UTess\TessEdgeCompare.cs" />
+    <Compile Include="UTess\Tessellator.cs" />
+    <Compile Include="UTess\TessEventCompare.cs" />
+    <Compile Include="UTess\TessJunctionCompare.cs" />
+    <Compile Include="UTess\TessLink.cs" />
+    <Compile Include="UTess\UBounds.cs" />
+    <Compile Include="UTess\UCircle.cs" />
+    <Compile Include="UTess\UEncroachingSegment.cs" />
+    <Compile Include="UTess\UEvent.cs" />
+    <Compile Include="UTess\UEventType.cs" />
+    <Compile Include="UTess\UHull.cs" />
+    <Compile Include="UTess\UStar.cs" />
+    <Compile Include="UTess\UTriangle.cs" />
+    <Compile Include="UTess\XCompare.cs" />
+    <Compile Include="VertexDictionary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipeline.Universal.ShaderLibrary\Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0CF}</Project>
+      <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D0}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D7}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SpriteMaskModule\UnityEngine.SpriteMaskModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA116}</Project>
+      <Name>UnityEngine.SpriteMaskModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

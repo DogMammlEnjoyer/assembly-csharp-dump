@@ -1,0 +1,67 @@
+﻿using System;
+using System.Xml.XPath;
+
+namespace MS.Internal.Xml.XPath
+{
+	internal class XPathDescendantIterator : XPathAxisIterator
+	{
+		public XPathDescendantIterator(XPathNavigator nav, XPathNodeType type, bool matchSelf) : base(nav, type, matchSelf)
+		{
+		}
+
+		public XPathDescendantIterator(XPathNavigator nav, string name, string namespaceURI, bool matchSelf) : base(nav, name, namespaceURI, matchSelf)
+		{
+		}
+
+		public XPathDescendantIterator(XPathDescendantIterator it) : base(it)
+		{
+			this._level = it._level;
+		}
+
+		public override XPathNodeIterator Clone()
+		{
+			return new XPathDescendantIterator(this);
+		}
+
+		public override bool MoveNext()
+		{
+			if (this.first)
+			{
+				this.first = false;
+				if (this.matchSelf && this.Matches)
+				{
+					this.position = 1;
+					return true;
+				}
+			}
+			for (;;)
+			{
+				if (!this.nav.MoveToFirstChild())
+				{
+					while (this._level != 0)
+					{
+						if (this.nav.MoveToNext())
+						{
+							goto IL_78;
+						}
+						this.nav.MoveToParent();
+						this._level--;
+					}
+					break;
+				}
+				this._level++;
+				IL_78:
+				if (this.Matches)
+				{
+					goto Block_7;
+				}
+			}
+			return false;
+			Block_7:
+			this.position++;
+			return true;
+		}
+
+		private int _level;
+	}
+}

@@ -301,7 +301,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 			{
 				TakeMyHand_HandLink takeMyHand_HandLink2 = this.isLeftHanded ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink;
 				Vector3 position5 = (this.isLeftHanded ? VRRig.LocalRig.leftHand : VRRig.LocalRig.rightHand).overrideTarget.position;
-				foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+				foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 				{
 					if (!vrrig.isLocal)
 					{

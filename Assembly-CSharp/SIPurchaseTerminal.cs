@@ -21,12 +21,12 @@ public class SIPurchaseTerminal : MonoBehaviour, ITouchScreenStation
 			this.DelayedOnEnable();
 			return;
 		}
-		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.DelayedOnEnable));
+		CosmeticsV2Spawner_Dirty.OnPreFinalizing = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPreFinalizing, new Action(this.DelayedOnEnable));
 	}
 
 	private void DelayedOnEnable()
 	{
-		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.DelayedOnEnable));
+		CosmeticsV2Spawner_Dirty.OnPreFinalizing = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPreFinalizing, new Action(this.DelayedOnEnable));
 		CosmeticsController instance = CosmeticsController.instance;
 		instance.OnGetCurrency = (Action)Delegate.Combine(instance.OnGetCurrency, new Action(this.OnUpdateCurrencyBalance));
 		this.OnUpdateCurrencyBalance();

@@ -2614,8 +2614,6 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 
 	private AudioSource audioSrc;
 
-	private bool _isListeningFor_OnPostInstantiateAllPrefabs2;
-
 	protected Transform _defaultAnchor;
 
 	protected bool _isDefaultAnchorSet;

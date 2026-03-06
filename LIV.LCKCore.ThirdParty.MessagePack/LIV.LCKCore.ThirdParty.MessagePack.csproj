@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA061}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SouthPointe.Serialization.MessagePack</RootNamespace>
+    <AssemblyName>LIV.LCKCore.ThirdParty.MessagePack</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArrayHelper.cs" />
+    <Compile Include="ArrayOptions.cs" />
+    <Compile Include="BoolHandler.cs" />
+    <Compile Include="ByteArrayHandler.cs" />
+    <Compile Include="ByteHandler.cs" />
+    <Compile Include="CamelCaseNamingStrategy.cs" />
+    <Compile Include="CharHandler.cs" />
+    <Compile Include="Color32Handler.cs" />
+    <Compile Include="ColorHandler.cs" />
+    <Compile Include="CustomExtensions.cs" />
+    <Compile Include="DateTimeHandler.cs" />
+    <Compile Include="DateTimeOptions.cs" />
+    <Compile Include="DateTimePackingFormat.cs" />
+    <Compile Include="DecimalHandler.cs" />
+    <Compile Include="DefaultNamingStrategy.cs" />
+    <Compile Include="DoubleHandler.cs" />
+    <Compile Include="DynamicArrayHandler.cs" />
+    <Compile Include="DynamicDictionaryHandler.cs" />
+    <Compile Include="DynamicEnumHandler.cs" />
+    <Compile Include="DynamicListHandler.cs" />
+    <Compile Include="DynamicMapHandler.cs" />
+    <Compile Include="DynamicNullableHandler.cs" />
+    <Compile Include="EnumOptions.cs" />
+    <Compile Include="EnumPackingFormat.cs" />
+    <Compile Include="Float32Bits.cs" />
+    <Compile Include="Float64Bits.cs" />
+    <Compile Include="FloatHandler.cs" />
+    <Compile Include="Format.cs" />
+    <Compile Include="FormatException.cs" />
+    <Compile Include="FormatReader.cs" />
+    <Compile Include="FormatWriter.cs" />
+    <Compile Include="GuidHandler.cs" />
+    <Compile Include="IExtTypeHandler.cs" />
+    <Compile Include="IMapNamingStrategy.cs" />
+    <Compile Include="IntHandler.cs" />
+    <Compile Include="ITypeHandler.cs" />
+    <Compile Include="JsonConverter.cs" />
+    <Compile Include="JsonOptions.cs" />
+    <Compile Include="Lazy.cs" />
+    <Compile Include="LongHandler.cs" />
+    <Compile Include="MapDefinition.cs" />
+    <Compile Include="MapOptions.cs" />
+    <Compile Include="MessagePackFormatter.cs" />
+    <Compile Include="NonSerializedAttribute.cs" />
+    <Compile Include="ObjectHandler.cs" />
+    <Compile Include="OnDeserializedAttribute.cs" />
+    <Compile Include="OnDeserializingAttribute.cs" />
+    <Compile Include="OnSerializedAttribute.cs" />
+    <Compile Include="OnSerializingAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuaternionHandler.cs" />
+    <Compile Include="SByteHandler.cs" />
+    <Compile Include="SerializationContext.cs" />
+    <Compile Include="ShortHandler.cs" />
+    <Compile Include="SnakeCaseNamingStrategy.cs" />
+    <Compile Include="StringHandler.cs" />
+    <Compile Include="TimeSpanHandler.cs" />
+    <Compile Include="TypeHandlers.cs" />
+    <Compile Include="UIntHandler.cs" />
+    <Compile Include="ULongHandler.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="UriHandler.cs" />
+    <Compile Include="UShortHandler.cs" />
+    <Compile Include="Vector2Handler.cs" />
+    <Compile Include="Vector2IntHandler.cs" />
+    <Compile Include="Vector3Handler.cs" />
+    <Compile Include="Vector3IntHandler.cs" />
+    <Compile Include="Vector4Handler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

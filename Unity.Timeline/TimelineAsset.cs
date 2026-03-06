@@ -1,0 +1,679 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Playables;
+
+namespace UnityEngine.Timeline
+{
+	[ExcludeFromPreset]
+	[Serializable]
+	public class TimelineAsset : PlayableAsset, ISerializationCallbackReceiver, ITimelineClipAsset, IPropertyPreview
+	{
+		private void UpgradeToLatestVersion()
+		{
+		}
+
+		public TimelineAsset.EditorSettings editorSettings
+		{
+			get
+			{
+				return this.m_EditorSettings;
+			}
+		}
+
+		public override double duration
+		{
+			get
+			{
+				if (this.m_DurationMode != TimelineAsset.DurationMode.BasedOnClips)
+				{
+					return this.m_FixedDuration;
+				}
+				DiscreteTime lhs = this.CalculateItemsDuration();
+				if (lhs <= 0)
+				{
+					return 0.0;
+				}
+				return (double)lhs.OneTickBefore();
+			}
+		}
+
+		public double fixedDuration
+		{
+			get
+			{
+				DiscreteTime lhs = (DiscreteTime)this.m_FixedDuration;
+				if (lhs <= 0)
+				{
+					return 0.0;
+				}
+				return (double)lhs.OneTickBefore();
+			}
+			set
+			{
+				this.m_FixedDuration = Math.Max(0.0, value);
+			}
+		}
+
+		public TimelineAsset.DurationMode durationMode
+		{
+			get
+			{
+				return this.m_DurationMode;
+			}
+			set
+			{
+				this.m_DurationMode = value;
+			}
+		}
+
+		public override IEnumerable<PlayableBinding> outputs
+		{
+			get
+			{
+				foreach (TrackAsset trackAsset in this.GetOutputTracks())
+				{
+					foreach (PlayableBinding playableBinding in trackAsset.outputs)
+					{
+						yield return playableBinding;
+					}
+					IEnumerator<PlayableBinding> enumerator2 = null;
+				}
+				IEnumerator<TrackAsset> enumerator = null;
+				yield break;
+				yield break;
+			}
+		}
+
+		public ClipCaps clipCaps
+		{
+			get
+			{
+				ClipCaps clipCaps = ClipCaps.All;
+				foreach (TrackAsset trackAsset in this.GetRootTracks())
+				{
+					foreach (TimelineClip timelineClip in trackAsset.clips)
+					{
+						clipCaps &= timelineClip.clipCaps;
+					}
+				}
+				return clipCaps;
+			}
+		}
+
+		public int outputTrackCount
+		{
+			get
+			{
+				this.UpdateOutputTrackCache();
+				return this.m_CacheOutputTracks.Length;
+			}
+		}
+
+		public int rootTrackCount
+		{
+			get
+			{
+				this.UpdateRootTrackCache();
+				return this.m_CacheRootTracks.Count;
+			}
+		}
+
+		private void OnValidate()
+		{
+			this.editorSettings.frameRate = TimelineAsset.GetValidFrameRate(this.editorSettings.frameRate);
+		}
+
+		public TrackAsset GetRootTrack(int index)
+		{
+			this.UpdateRootTrackCache();
+			return this.m_CacheRootTracks[index];
+		}
+
+		public IEnumerable<TrackAsset> GetRootTracks()
+		{
+			this.UpdateRootTrackCache();
+			return this.m_CacheRootTracks;
+		}
+
+		public TrackAsset GetOutputTrack(int index)
+		{
+			this.UpdateOutputTrackCache();
+			return this.m_CacheOutputTracks[index];
+		}
+
+		public IEnumerable<TrackAsset> GetOutputTracks()
+		{
+			this.UpdateOutputTrackCache();
+			return this.m_CacheOutputTracks;
+		}
+
+		private static double GetValidFrameRate(double frameRate)
+		{
+			return Math.Min(Math.Max(frameRate, TimelineAsset.EditorSettings.kMinFrameRate), TimelineAsset.EditorSettings.kMaxFrameRate);
+		}
+
+		private void UpdateRootTrackCache()
+		{
+			if (this.m_CacheRootTracks == null)
+			{
+				if (this.m_Tracks == null)
+				{
+					this.m_CacheRootTracks = new List<TrackAsset>();
+					return;
+				}
+				this.m_CacheRootTracks = new List<TrackAsset>(this.m_Tracks.Count);
+				if (this.markerTrack != null)
+				{
+					this.m_CacheRootTracks.Add(this.markerTrack);
+				}
+				foreach (ScriptableObject scriptableObject in this.m_Tracks)
+				{
+					TrackAsset trackAsset = scriptableObject as TrackAsset;
+					if (trackAsset != null)
+					{
+						this.m_CacheRootTracks.Add(trackAsset);
+					}
+				}
+			}
+		}
+
+		private void UpdateOutputTrackCache()
+		{
+			if (this.m_CacheOutputTracks == null)
+			{
+				List<TrackAsset> list = new List<TrackAsset>();
+				foreach (TrackAsset trackAsset in this.flattenedTracks)
+				{
+					if (trackAsset != null && trackAsset.GetType() != typeof(GroupTrack) && !trackAsset.isSubTrack)
+					{
+						list.Add(trackAsset);
+					}
+				}
+				this.m_CacheOutputTracks = list.ToArray();
+			}
+		}
+
+		internal TrackAsset[] flattenedTracks
+		{
+			get
+			{
+				if (this.m_CacheFlattenedTracks == null)
+				{
+					List<TrackAsset> list = new List<TrackAsset>(this.m_Tracks.Count * 2);
+					this.UpdateRootTrackCache();
+					list.AddRange(this.m_CacheRootTracks);
+					for (int i = 0; i < this.m_CacheRootTracks.Count; i++)
+					{
+						TimelineAsset.AddSubTracksRecursive(this.m_CacheRootTracks[i], ref list);
+					}
+					this.m_CacheFlattenedTracks = list.ToArray();
+				}
+				return this.m_CacheFlattenedTracks;
+			}
+		}
+
+		public MarkerTrack markerTrack
+		{
+			get
+			{
+				return this.m_MarkerTrack;
+			}
+		}
+
+		internal List<ScriptableObject> trackObjects
+		{
+			get
+			{
+				return this.m_Tracks;
+			}
+		}
+
+		internal void AddTrackInternal(TrackAsset track)
+		{
+			this.m_Tracks.Add(track);
+			track.parent = this;
+			this.Invalidate();
+		}
+
+		internal void RemoveTrack(TrackAsset track)
+		{
+			this.m_Tracks.Remove(track);
+			this.Invalidate();
+			TrackAsset trackAsset = track.parent as TrackAsset;
+			if (trackAsset != null)
+			{
+				trackAsset.RemoveSubTrack(track);
+			}
+		}
+
+		public override Playable CreatePlayable(PlayableGraph graph, GameObject go)
+		{
+			bool autoRebalance = false;
+			bool createOutputs = graph.GetPlayableCount() == 0;
+			ScriptPlayable<TimelinePlayable> playable = TimelinePlayable.Create(graph, this.GetOutputTracks(), go, autoRebalance, createOutputs);
+			playable.SetDuration(this.duration);
+			playable.SetPropagateSetTime(true);
+			if (!playable.IsValid<ScriptPlayable<TimelinePlayable>>())
+			{
+				return Playable.Null;
+			}
+			return playable;
+		}
+
+		void ISerializationCallbackReceiver.OnBeforeSerialize()
+		{
+			this.m_Version = 0;
+		}
+
+		void ISerializationCallbackReceiver.OnAfterDeserialize()
+		{
+			this.Invalidate();
+			if (this.m_Version < 0)
+			{
+				this.UpgradeToLatestVersion();
+			}
+		}
+
+		private void __internalAwake()
+		{
+			if (this.m_Tracks == null)
+			{
+				this.m_Tracks = new List<ScriptableObject>();
+			}
+			for (int i = this.m_Tracks.Count - 1; i >= 0; i--)
+			{
+				TrackAsset trackAsset = this.m_Tracks[i] as TrackAsset;
+				if (trackAsset != null)
+				{
+					trackAsset.parent = this;
+				}
+			}
+		}
+
+		public void GatherProperties(PlayableDirector director, IPropertyCollector driver)
+		{
+			foreach (TrackAsset trackAsset in this.GetOutputTracks())
+			{
+				if (!trackAsset.mutedInHierarchy)
+				{
+					trackAsset.GatherProperties(director, driver);
+				}
+			}
+		}
+
+		public void CreateMarkerTrack()
+		{
+			if (this.m_MarkerTrack == null)
+			{
+				this.m_MarkerTrack = ScriptableObject.CreateInstance<MarkerTrack>();
+				TimelineCreateUtilities.SaveAssetIntoObject(this.m_MarkerTrack, this);
+				this.m_MarkerTrack.parent = this;
+				this.m_MarkerTrack.name = "Markers";
+				this.Invalidate();
+			}
+		}
+
+		internal void RemoveMarkerTrack()
+		{
+			if (this.m_MarkerTrack != null)
+			{
+				Object markerTrack = this.m_MarkerTrack;
+				this.m_MarkerTrack = null;
+				TimelineCreateUtilities.RemoveAssetFromObject(markerTrack, this);
+				this.Invalidate();
+			}
+		}
+
+		internal void Invalidate()
+		{
+			this.m_CacheRootTracks = null;
+			this.m_CacheOutputTracks = null;
+			this.m_CacheFlattenedTracks = null;
+		}
+
+		internal void UpdateFixedDurationWithItemsDuration()
+		{
+			this.m_FixedDuration = (double)this.CalculateItemsDuration();
+		}
+
+		private DiscreteTime CalculateItemsDuration()
+		{
+			DiscreteTime discreteTime = new DiscreteTime(0);
+			foreach (TrackAsset trackAsset in this.flattenedTracks)
+			{
+				if (!trackAsset.mutedInHierarchy)
+				{
+					discreteTime = DiscreteTime.Max(discreteTime, (DiscreteTime)trackAsset.end);
+				}
+			}
+			if (discreteTime <= 0)
+			{
+				return new DiscreteTime(0);
+			}
+			return discreteTime;
+		}
+
+		private static void AddSubTracksRecursive(TrackAsset track, ref List<TrackAsset> allTracks)
+		{
+			if (track == null)
+			{
+				return;
+			}
+			allTracks.AddRange(track.GetChildTracks());
+			foreach (TrackAsset track2 in track.GetChildTracks())
+			{
+				TimelineAsset.AddSubTracksRecursive(track2, ref allTracks);
+			}
+		}
+
+		public TrackAsset CreateTrack(Type type, TrackAsset parent, string name)
+		{
+			if (parent != null && parent.timelineAsset != this)
+			{
+				throw new InvalidOperationException("Addtrack cannot parent to a track not in the Timeline");
+			}
+			if (!typeof(TrackAsset).IsAssignableFrom(type))
+			{
+				throw new InvalidOperationException("Supplied type must be a track asset");
+			}
+			if (parent != null && !TimelineCreateUtilities.ValidateParentTrack(parent, type))
+			{
+				throw new InvalidOperationException("Cannot assign a child of type " + type.Name + " to a parent of type " + parent.GetType().Name);
+			}
+			string text = name;
+			if (string.IsNullOrEmpty(text))
+			{
+				text = type.Name;
+			}
+			string trackName;
+			if (parent != null)
+			{
+				trackName = TimelineCreateUtilities.GenerateUniqueActorName(parent.subTracksObjects, text);
+			}
+			else
+			{
+				trackName = TimelineCreateUtilities.GenerateUniqueActorName(this.trackObjects, text);
+			}
+			return this.AllocateTrack(parent, trackName, type);
+		}
+
+		public T CreateTrack<T>(TrackAsset parent, string trackName) where T : TrackAsset, new()
+		{
+			return (T)((object)this.CreateTrack(typeof(T), parent, trackName));
+		}
+
+		public T CreateTrack<T>(string trackName) where T : TrackAsset, new()
+		{
+			return (T)((object)this.CreateTrack(typeof(T), null, trackName));
+		}
+
+		public T CreateTrack<T>() where T : TrackAsset, new()
+		{
+			return (T)((object)this.CreateTrack(typeof(T), null, null));
+		}
+
+		public bool DeleteClip(TimelineClip clip)
+		{
+			if (clip == null || clip.GetParentTrack() == null)
+			{
+				return false;
+			}
+			if (this != clip.GetParentTrack().timelineAsset)
+			{
+				Debug.LogError("Cannot delete a clip from this timeline");
+				return false;
+			}
+			if (clip.curves != null)
+			{
+				TimelineUndo.PushDestroyUndo(this, clip.GetParentTrack(), clip.curves);
+			}
+			if (clip.asset != null)
+			{
+				this.DeleteRecordedAnimation(clip);
+				TimelineUndo.PushDestroyUndo(this, clip.GetParentTrack(), clip.asset);
+			}
+			TrackAsset parentTrack = clip.GetParentTrack();
+			parentTrack.RemoveClip(clip);
+			parentTrack.CalculateExtrapolationTimes();
+			return true;
+		}
+
+		public bool DeleteTrack(TrackAsset track)
+		{
+			if (track.timelineAsset != this)
+			{
+				return false;
+			}
+			track.parent as TrackAsset != null;
+			foreach (TrackAsset track2 in track.GetChildTracks())
+			{
+				this.DeleteTrack(track2);
+			}
+			this.DeleteRecordedAnimation(track);
+			foreach (TimelineClip clip in new List<TimelineClip>(track.clips))
+			{
+				this.DeleteClip(clip);
+			}
+			this.RemoveTrack(track);
+			TimelineUndo.PushDestroyUndo(this, this, track);
+			return true;
+		}
+
+		internal void MoveLastTrackBefore(TrackAsset asset)
+		{
+			if (this.m_Tracks == null || this.m_Tracks.Count < 2 || asset == null)
+			{
+				return;
+			}
+			ScriptableObject scriptableObject = this.m_Tracks[this.m_Tracks.Count - 1];
+			if (scriptableObject == asset)
+			{
+				return;
+			}
+			for (int i = 0; i < this.m_Tracks.Count - 1; i++)
+			{
+				if (this.m_Tracks[i] == asset)
+				{
+					for (int j = this.m_Tracks.Count - 1; j > i; j--)
+					{
+						this.m_Tracks[j] = this.m_Tracks[j - 1];
+					}
+					this.m_Tracks[i] = scriptableObject;
+					this.Invalidate();
+					return;
+				}
+			}
+		}
+
+		private TrackAsset AllocateTrack(TrackAsset trackAssetParent, string trackName, Type trackType)
+		{
+			if (trackAssetParent != null && trackAssetParent.timelineAsset != this)
+			{
+				throw new InvalidOperationException("Addtrack cannot parent to a track not in the Timeline");
+			}
+			if (!typeof(TrackAsset).IsAssignableFrom(trackType))
+			{
+				throw new InvalidOperationException("Supplied type must be a track asset");
+			}
+			TrackAsset trackAsset = (TrackAsset)ScriptableObject.CreateInstance(trackType);
+			trackAsset.name = trackName;
+			PlayableAsset masterAsset = (trackAssetParent != null) ? trackAssetParent : this;
+			TimelineCreateUtilities.SaveAssetIntoObject(trackAsset, masterAsset);
+			if (trackAssetParent != null)
+			{
+				trackAssetParent.AddChild(trackAsset);
+			}
+			else
+			{
+				this.AddTrackInternal(trackAsset);
+			}
+			return trackAsset;
+		}
+
+		private void DeleteRecordedAnimation(TrackAsset track)
+		{
+			AnimationTrack animationTrack = track as AnimationTrack;
+			if (animationTrack != null && animationTrack.infiniteClip != null)
+			{
+				TimelineUndo.PushDestroyUndo(this, track, animationTrack.infiniteClip);
+			}
+			if (track.curves != null)
+			{
+				TimelineUndo.PushDestroyUndo(this, track, track.curves);
+			}
+		}
+
+		private void DeleteRecordedAnimation(TimelineClip clip)
+		{
+			if (clip == null)
+			{
+				return;
+			}
+			if (clip.curves != null)
+			{
+				TimelineUndo.PushDestroyUndo(this, clip.GetParentTrack(), clip.curves);
+			}
+			if (!clip.recordable)
+			{
+				return;
+			}
+			AnimationPlayableAsset animationPlayableAsset = clip.asset as AnimationPlayableAsset;
+			if (animationPlayableAsset == null || animationPlayableAsset.clip == null)
+			{
+				return;
+			}
+			TimelineUndo.PushDestroyUndo(this, animationPlayableAsset, animationPlayableAsset.clip);
+		}
+
+		private const int k_LatestVersion = 0;
+
+		[SerializeField]
+		[HideInInspector]
+		private int m_Version;
+
+		[HideInInspector]
+		[SerializeField]
+		private List<ScriptableObject> m_Tracks;
+
+		[HideInInspector]
+		[SerializeField]
+		private double m_FixedDuration;
+
+		[HideInInspector]
+		[NonSerialized]
+		private TrackAsset[] m_CacheOutputTracks;
+
+		[HideInInspector]
+		[NonSerialized]
+		private List<TrackAsset> m_CacheRootTracks;
+
+		[HideInInspector]
+		[NonSerialized]
+		private TrackAsset[] m_CacheFlattenedTracks;
+
+		[HideInInspector]
+		[SerializeField]
+		private TimelineAsset.EditorSettings m_EditorSettings = new TimelineAsset.EditorSettings();
+
+		[SerializeField]
+		private TimelineAsset.DurationMode m_DurationMode;
+
+		[HideInInspector]
+		[SerializeField]
+		private MarkerTrack m_MarkerTrack;
+
+		private enum Versions
+		{
+			Initial
+		}
+
+		private static class TimelineAssetUpgrade
+		{
+		}
+
+		[Obsolete("MediaType has been deprecated. It is no longer required, and will be removed in a future release.", false)]
+		public enum MediaType
+		{
+			Animation,
+			Audio,
+			Texture,
+			[Obsolete("Use Texture MediaType instead. (UnityUpgradable) -> UnityEngine.Timeline.TimelineAsset/MediaType.Texture", false)]
+			Video = 2,
+			Script,
+			Hybrid,
+			Group
+		}
+
+		public enum DurationMode
+		{
+			BasedOnClips,
+			FixedLength
+		}
+
+		[Serializable]
+		public class EditorSettings
+		{
+			[Obsolete("EditorSettings.fps has been deprecated. Use editorSettings.frameRate instead.", false)]
+			public float fps
+			{
+				get
+				{
+					return (float)this.m_Framerate;
+				}
+				set
+				{
+					this.m_Framerate = (double)Mathf.Clamp(value, (float)TimelineAsset.EditorSettings.kMinFrameRate, (float)TimelineAsset.EditorSettings.kMaxFrameRate);
+				}
+			}
+
+			public double frameRate
+			{
+				get
+				{
+					return this.m_Framerate;
+				}
+				set
+				{
+					this.m_Framerate = TimelineAsset.GetValidFrameRate(value);
+				}
+			}
+
+			public void SetStandardFrameRate(StandardFrameRates enumValue)
+			{
+				FrameRate frameRate = TimeUtility.ToFrameRate(enumValue);
+				if (!frameRate.IsValid())
+				{
+					throw new ArgumentException(string.Format("StandardFrameRates {0}, is not defined", enumValue.ToString()));
+				}
+				this.m_Framerate = frameRate.rate;
+			}
+
+			public bool scenePreview
+			{
+				get
+				{
+					return this.m_ScenePreview;
+				}
+				set
+				{
+					this.m_ScenePreview = value;
+				}
+			}
+
+			internal static readonly double kMinFrameRate = TimeUtility.kFrameRateEpsilon;
+
+			internal static readonly double kMaxFrameRate = 1000.0;
+
+			internal static readonly double kDefaultFrameRate = 60.0;
+
+			[HideInInspector]
+			[SerializeField]
+			[FrameRateField]
+			private double m_Framerate = TimelineAsset.EditorSettings.kDefaultFrameRate;
+
+			[HideInInspector]
+			[SerializeField]
+			private bool m_ScenePreview = true;
+		}
+	}
+}

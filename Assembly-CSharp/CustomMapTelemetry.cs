@@ -44,7 +44,7 @@ public class CustomMapTelemetry : MonoBehaviour
 		{
 			return;
 		}
-		CustomMapTelemetry.mapEnterTime = Time.unscaledTime;
+		CustomMapTelemetry.mapEnterTime = Time.realtimeSinceStartup;
 		float value = Random.value;
 		if (value <= 0.01f)
 		{
@@ -96,7 +96,7 @@ public class CustomMapTelemetry : MonoBehaviour
 		NetworkSystem.Instance.OnPlayerJoined -= CustomMapTelemetry.OnPlayerJoinedRoom;
 		NetworkSystem.Instance.OnPlayerLeft -= CustomMapTelemetry.OnPlayerLeftRoom;
 		CustomMapTelemetry.inPrivateRoom = (NetworkSystem.Instance.InRoom && NetworkSystem.Instance.SessionIsPrivate);
-		int num = Mathf.RoundToInt(Time.unscaledTime - CustomMapTelemetry.mapEnterTime);
+		int num = Mathf.RoundToInt(Time.realtimeSinceStartup - CustomMapTelemetry.mapEnterTime);
 		if (num < 30)
 		{
 			return;
@@ -147,7 +147,7 @@ public class CustomMapTelemetry : MonoBehaviour
 		{
 			return;
 		}
-		int num = Mathf.RoundToInt(Time.unscaledTime - CustomMapTelemetry.mapEnterTime);
+		int num = Mathf.RoundToInt(Time.realtimeSinceStartup - CustomMapTelemetry.mapEnterTime);
 		CustomMapTelemetry.AverageFPS = CustomMapTelemetry.totalFPS / CustomMapTelemetry.frameCounter;
 		CustomMapTelemetry.AverageDrawCalls = CustomMapTelemetry.totalDrawCalls / CustomMapTelemetry.frameCounter;
 		CustomMapTelemetry.AveragePlayerCount = CustomMapTelemetry.totalPlayerCount / CustomMapTelemetry.frameCounter;

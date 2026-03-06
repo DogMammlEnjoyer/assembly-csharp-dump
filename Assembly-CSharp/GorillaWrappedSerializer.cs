@@ -1,5 +1,6 @@
 ﻿using System;
 using Fusion;
+using GorillaTag;
 using Photon.Pun;
 using UnityEngine;
 
@@ -92,13 +93,8 @@ internal abstract class GorillaWrappedSerializer : NetworkBehaviour, IPunObserva
 	private void FailedToSpawn()
 	{
 		Debug.LogError("Failed to network instantiate");
-		if (this.netView.IsMine)
-		{
-			PhotonNetwork.Destroy(this.netView.GetView);
-			return;
-		}
+		MonkeAgentCleanup.RegisterForDestroy(this.netView.GetView);
 		this.netView.GetView.ObservedComponents.Remove(this);
-		base.gameObject.SetActive(false);
 	}
 
 	protected abstract void OnFailedSpawn();

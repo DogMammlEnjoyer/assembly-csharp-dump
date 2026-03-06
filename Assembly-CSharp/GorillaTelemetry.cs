@@ -2474,8 +2474,8 @@ public static class GorillaTelemetry
 		{
 			for (;;)
 			{
-				float start = Time.time;
-				while (Time.time < start + GorillaTelemetry.TELEMETRY_FLUSH_SEC)
+				float start = Time.realtimeSinceStartup;
+				while (Time.realtimeSinceStartup < start + GorillaTelemetry.TELEMETRY_FLUSH_SEC)
 				{
 					yield return null;
 				}

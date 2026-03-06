@@ -8,6 +8,22 @@ using Valve.VR;
 
 public class ControllerInputPoller : MonoBehaviour
 {
+	public bool LeftHandValid
+	{
+		get
+		{
+			return this.leftControllerIsValid || this.handTrackingActive;
+		}
+	}
+
+	public bool RightHandValid
+	{
+		get
+		{
+			return this.rightControllerIsValid || this.handTrackingActive;
+		}
+	}
+
 	[DebugReadout]
 	public bool leftIndexPressed
 	{
@@ -155,10 +171,12 @@ public class ControllerInputPoller : MonoBehaviour
 
 	public void LateUpdate()
 	{
-		if (!this.leftControllerDevice.isValid)
+		this.leftControllerIsValid = this.leftControllerDevice.isValid;
+		if (!this.leftControllerIsValid)
 		{
 			this.leftControllerDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-			if (this.leftControllerDevice.isValid)
+			this.leftControllerIsValid = this.leftControllerDevice.isValid;
+			if (this.leftControllerIsValid)
 			{
 				this.controllerType = GorillaControllerType.OCULUS_DEFAULT;
 				if (this.leftControllerDevice.name.ToLower().Contains("knuckles"))
@@ -168,7 +186,8 @@ public class ControllerInputPoller : MonoBehaviour
 				Debug.Log(string.Format("Found left controller: {0} ControllerType: {1}", this.leftControllerDevice.name, this.controllerType));
 			}
 		}
-		if (!this.rightControllerDevice.isValid)
+		this.rightControllerIsValid = this.rightControllerDevice.isValid;
+		if (!this.rightControllerIsValid)
 		{
 			this.rightControllerDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 		}
@@ -229,6 +248,7 @@ public class ControllerInputPoller : MonoBehaviour
 			this.CalculateGrabState(this.leftControllerGripFloat, ref this.leftGrab, ref this.leftGrabRelease, out this.leftGrabMomentary, out this.leftGrabReleaseMomentary, 0.1f, 0.01f);
 			this.CalculateGrabState(this.rightControllerGripFloat, ref this.rightGrab, ref this.rightGrabRelease, out this.rightGrabMomentary, out this.rightGrabReleaseMomentary, 0.1f, 0.01f);
 		}
+		this.handTrackingActive = false;
 		this.leftControllerDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out this._leftVelocity);
 		this.leftControllerDevice.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out this._leftAngularVelocity);
 		this.rightControllerDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out this._rightVelocity);
@@ -663,6 +683,12 @@ public class ControllerInputPoller : MonoBehaviour
 
 	public InputDevice headDevice;
 
+	public bool leftControllerIsValid;
+
+	public bool rightControllerIsValid;
+
+	public bool handTrackingActive;
+
 	public bool leftControllerPrimaryButton;
 
 	public bool leftControllerSecondaryButton;
@@ -727,11 +753,23 @@ public class ControllerInputPoller : MonoBehaviour
 
 	public Vector2 rightControllerPrimary2DAxis;
 
+	public AnimationCurve handTriggerCurve;
+
+	public AnimationCurve handGripCurve;
+
 	private List<Action> onUpdate = new List<Action>();
 
 	private List<Action> onUpdateNext = new List<Action>();
 
 	private bool didModifyOnUpdate;
+
+	public Vector3 leftHandOffset = new Vector3(0.01f, -0.16f, 0f);
+
+	public Quaternion leftHandRotation = Quaternion.Euler(89f, 6f, 11f);
+
+	public Vector3 rightHandOffset = new Vector3(-0.01f, -0.16f, 0f);
+
+	public Quaternion rightHandRotation = Quaternion.Euler(89f, 6f, 11f);
 
 	private static ControllerInputPoller._InputCallbacksCadenceInfo _g_callbacks_onPressStart = new ControllerInputPoller._InputCallbacksCadenceInfo(32);
 

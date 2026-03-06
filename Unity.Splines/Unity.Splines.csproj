@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnityEngine.Splines</RootNamespace>
+    <AssemblyName>Unity.Splines</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArrayUtility.cs" />
+    <Compile Include="BezierCurve.cs" />
+    <Compile Include="BezierKnot.cs" />
+    <Compile Include="BezierTangent.cs" />
+    <Compile Include="CurveUtility.cs" />
+    <Compile Include="DataPoint.cs" />
+    <Compile Include="DataPointComparer.cs" />
+    <Compile Include="DistanceToInterpolation.cs" />
+    <Compile Include="EmbeddedSplineData.cs" />
+    <Compile Include="EmbeddedSplineDataField.cs" />
+    <Compile Include="EmbeddedSplineDataFieldsAttribute.cs" />
+    <Compile Include="EmbeddedSplineDataType.cs" />
+    <Compile Include="ExtrudeSettings.cs" />
+    <Compile Include="ExtrusionShapes\Circle.cs" />
+    <Compile Include="ExtrusionShapes\Road.cs" />
+    <Compile Include="ExtrusionShapes\ShapeType.cs" />
+    <Compile Include="ExtrusionShapes\ShapeTypeUtility.cs" />
+    <Compile Include="ExtrusionShapes\SplineShape.cs" />
+    <Compile Include="ExtrusionShapes\Square.cs" />
+    <Compile Include="GetPosition.cs" />
+    <Compile Include="GetPositionTangentNormal.cs" />
+    <Compile Include="IDataPoint.cs" />
+    <Compile Include="IExtrudeShape.cs" />
+    <Compile Include="IHasEmptyCurves.cs" />
+    <Compile Include="IInterpolator.cs" />
+    <Compile Include="Interpolators\LerpColor.cs" />
+    <Compile Include="Interpolators\LerpFloat.cs" />
+    <Compile Include="Interpolators\LerpFloat2.cs" />
+    <Compile Include="Interpolators\LerpFloat3.cs" />
+    <Compile Include="Interpolators\LerpFloat4.cs" />
+    <Compile Include="Interpolators\LerpQuaternion.cs" />
+    <Compile Include="Interpolators\SlerpFloat2.cs" />
+    <Compile Include="Interpolators\SlerpFloat3.cs" />
+    <Compile Include="Interpolators\SlerpQuaternion.cs" />
+    <Compile Include="Interpolators\SmoothStepFloat.cs" />
+    <Compile Include="Interpolators\SmoothStepFloat2.cs" />
+    <Compile Include="Interpolators\SmoothStepFloat3.cs" />
+    <Compile Include="Interpolators\SmoothStepFloat4.cs" />
+    <Compile Include="InterpolatorUtility.cs" />
+    <Compile Include="ISpline.cs" />
+    <Compile Include="ISplineContainer.cs" />
+    <Compile Include="ISplineModificationHandler.cs" />
+    <Compile Include="ISplineProvider.cs" />
+    <Compile Include="KnotLinkCollection.cs" />
+    <Compile Include="MathUtility.cs" />
+    <Compile Include="NativeSpline.cs" />
+    <Compile Include="PathIndexUnit.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RamerDouglasPeucker.cs" />
+    <Compile Include="SliceDirection.cs" />
+    <Compile Include="Spline.cs" />
+    <Compile Include="SplineAnimate.cs" />
+    <Compile Include="SplineComponent.cs" />
+    <Compile Include="SplineComputeBufferScope.cs" />
+    <Compile Include="SplineContainer.cs" />
+    <Compile Include="SplineData.cs" />
+    <Compile Include="SplineDataDictionary.cs" />
+    <Compile Include="SplineDataHandleAttribute.cs" />
+    <Compile Include="SplineDataKeyValuePair.cs" />
+    <Compile Include="SplineExtrude.cs" />
+    <Compile Include="SplineFactory.cs" />
+    <Compile Include="SplineIndexAttribute.cs" />
+    <Compile Include="SplineInfo.cs" />
+    <Compile Include="SplineInstantiate.cs" />
+    <Compile Include="SplineJobs.cs" />
+    <Compile Include="SplineKnotIndex.cs" />
+    <Compile Include="SplineMath.cs" />
+    <Compile Include="SplineMesh.cs" />
+    <Compile Include="SplineModification.cs" />
+    <Compile Include="SplineModificationData.cs" />
+    <Compile Include="SplinePath.2.cs" />
+    <Compile Include="SplinePath.cs" />
+    <Compile Include="SplinePathRef.cs" />
+    <Compile Include="SplineRange.cs" />
+    <Compile Include="SplineSlice.cs" />
+    <Compile Include="SplineType.cs" />
+    <Compile Include="SplineTypeUtility.cs" />
+    <Compile Include="SplineUtility.cs" />
+    <Compile Include="TangentMode.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

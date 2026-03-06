@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity.XR.CoreUtils</RootNamespace>
+    <AssemblyName>Unity.XR.CoreUtils</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ARTrackablesParentTransformChangedEventArgs.cs" />
+    <Compile Include="Bindings\BindingsGroup.cs" />
+    <Compile Include="Bindings\EventBinding.cs" />
+    <Compile Include="Bindings\IEventBinding.cs" />
+    <Compile Include="Bindings\Variables\BindableEnum.cs" />
+    <Compile Include="Bindings\Variables\BindableVariable.cs" />
+    <Compile Include="Bindings\Variables\BindableVariableAlloc.cs" />
+    <Compile Include="Bindings\Variables\BindableVariableBase.cs" />
+    <Compile Include="Bindings\Variables\BindableVariableTaskPredicate.cs" />
+    <Compile Include="Bindings\Variables\BindableVariableTaskState.cs" />
+    <Compile Include="Bindings\Variables\IReadOnlyBindableVariable.cs" />
+    <Compile Include="BoolUnityEvent.cs" />
+    <Compile Include="BoundsExtensions.cs" />
+    <Compile Include="BoundsUtils.cs" />
+    <Compile Include="CachedComponentFilter.cs" />
+    <Compile Include="CachedSearchType.cs" />
+    <Compile Include="CameraExtensions.cs" />
+    <Compile Include="Capabilities\CapabilityDictionary.cs" />
+    <Compile Include="Capabilities\CapabilityProfile.cs" />
+    <Compile Include="Capabilities\CustomCapabilityKeyAttribute.cs" />
+    <Compile Include="Capabilities\ICapabilityModifier.cs" />
+    <Compile Include="Capabilities\StandardCapabilityKeys.cs" />
+    <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="CollectionPool.cs" />
+    <Compile Include="Collections\HashSetList.cs" />
+    <Compile Include="Collections\ReadOnlyList.cs" />
+    <Compile Include="Collections\ReadOnlyListSpan.cs" />
+    <Compile Include="Collections\SerializableDictionary.cs" />
+    <Compile Include="ColorUnityEvent.cs" />
+    <Compile Include="ComponentUtils.2.cs" />
+    <Compile Include="ComponentUtils.cs" />
+    <Compile Include="Datums\AnimationCurveDatum.cs" />
+    <Compile Include="Datums\AnimationCurveDatumProperty.cs" />
+    <Compile Include="Datums\Datum.cs" />
+    <Compile Include="Datums\DatumProperty.cs" />
+    <Compile Include="Datums\FloatDatum.cs" />
+    <Compile Include="Datums\FloatDatumProperty.cs" />
+    <Compile Include="Datums\IntDatum.cs" />
+    <Compile Include="Datums\IntDatumProperty.cs" />
+    <Compile Include="Datums\StringDatum.cs" />
+    <Compile Include="Datums\StringDatumProperty.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="EnumValues.cs" />
+    <Compile Include="FloatUnityEvent.cs" />
+    <Compile Include="GameObjectExtensions.cs" />
+    <Compile Include="GameObjectUtils.cs" />
+    <Compile Include="GeometryUtils.cs" />
+    <Compile Include="GuidExtensions.cs" />
+    <Compile Include="GuidUtil.cs" />
+    <Compile Include="GUI\EnumDisplayAttribute.cs" />
+    <Compile Include="GUI\FlagsPropertyAttribute.cs" />
+    <Compile Include="HashCodeUtil.cs" />
+    <Compile Include="HashSetExtensions.cs" />
+    <Compile Include="IComponentHost.cs" />
+    <Compile Include="IntUnityEvent.cs" />
+    <Compile Include="LayerMaskExtensions.cs" />
+    <Compile Include="ListExtensions.cs" />
+    <Compile Include="MaterialUtils.cs" />
+    <Compile Include="MathUtility.cs" />
+    <Compile Include="MonoBehaviourExtensions.cs" />
+    <Compile Include="NativeArrayUtils.cs" />
+    <Compile Include="ObjectPool.cs" />
+    <Compile Include="OnDestroyNotifier.cs" />
+    <Compile Include="PoseExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuaternionExtensions.cs" />
+    <Compile Include="QuaternionUnityEvent.cs" />
+    <Compile Include="ReadOnlyAttribute.cs" />
+    <Compile Include="ReflectionUtils.cs" />
+    <Compile Include="ScriptableSettings.cs" />
+    <Compile Include="ScriptableSettingsBase.2.cs" />
+    <Compile Include="ScriptableSettingsBase.cs" />
+    <Compile Include="ScriptableSettingsPathAttribute.cs" />
+    <Compile Include="SerializableGuid.cs" />
+    <Compile Include="SerializableGuidUtil.cs" />
+    <Compile Include="StopwatchExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="StringUnityEvent.cs" />
+    <Compile Include="TextureUtils.cs" />
+    <Compile Include="TransformExtensions.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="UndoBlock.cs" />
+    <Compile Include="UnityObjectUtils.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Vector2Extensions.cs" />
+    <Compile Include="Vector2UnityEvent.cs" />
+    <Compile Include="Vector3Extensions.cs" />
+    <Compile Include="Vector3UnityEvent.cs" />
+    <Compile Include="Vector4UnityEvent.cs" />
+    <Compile Include="XRLoggingUtils.cs" />
+    <Compile Include="XROrigin.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SpatialTracking\UnityEngine.SpatialTracking.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA115}</Project>
+      <Name>UnityEngine.SpatialTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SubsystemsModule\UnityEngine.SubsystemsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11A}</Project>
+      <Name>UnityEngine.SubsystemsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

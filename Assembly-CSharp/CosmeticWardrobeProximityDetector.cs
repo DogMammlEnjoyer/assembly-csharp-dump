@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GorillaLocomotion;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -22,47 +21,27 @@ public class CosmeticWardrobeProximityDetector : MonoBehaviour
 		}
 	}
 
-	public static bool IsUserNearWardrobe(string userID)
+	public static bool IsUserNearWardrobe(int actorNr)
 	{
-		int layerMask = LayerMask.GetMask(new string[]
+		LayerMask.GetMask(new string[]
 		{
 			"Gorilla Tag Collider"
-		}) | LayerMask.GetMask(new string[]
+		});
+		LayerMask.GetMask(new string[]
 		{
 			"Gorilla Body Collider"
 		});
+		VRRigCache.Instance.GetActiveRigs(CosmeticWardrobeProximityDetector.rigs);
+		RigContainer rigContainer;
+		if (!VRRigCache.Instance.TryGetVrrig(NetPlayer.Get(actorNr).GetPlayerRef(), out rigContainer))
+		{
+			return false;
+		}
 		foreach (SphereCollider sphereCollider in CosmeticWardrobeProximityDetector.wardrobeNearbyDetection)
 		{
-			int num = Physics.OverlapSphereNonAlloc(sphereCollider.transform.position, sphereCollider.radius, CosmeticWardrobeProximityDetector.overlapColliders, layerMask);
-			num = Mathf.Min(num, CosmeticWardrobeProximityDetector.overlapColliders.Length);
-			if (num > 0)
+			if ((rigContainer.HeadCollider.transform.position - sphereCollider.transform.position).magnitude <= sphereCollider.radius)
 			{
-				for (int i = 0; i < num; i++)
-				{
-					Collider collider = CosmeticWardrobeProximityDetector.overlapColliders[i];
-					if (!(collider == null))
-					{
-						GameObject gameObject = collider.attachedRigidbody.gameObject;
-						VRRig component = gameObject.GetComponent<VRRig>();
-						if (component == null || component.creator == null || component.creator.IsNull || string.IsNullOrEmpty(component.creator.UserId))
-						{
-							if (gameObject.GetComponent<GTPlayer>() == null || NetworkSystem.Instance.LocalPlayer == null)
-							{
-								goto IL_135;
-							}
-							if (userID == NetworkSystem.Instance.LocalPlayer.UserId)
-							{
-								return true;
-							}
-						}
-						else if (userID == component.creator.UserId)
-						{
-							return true;
-						}
-						CosmeticWardrobeProximityDetector.overlapColliders[i] = null;
-					}
-					IL_135:;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -70,6 +49,8 @@ public class CosmeticWardrobeProximityDetector : MonoBehaviour
 
 	[SerializeField]
 	private SphereCollider wardrobeNearbyCollider;
+
+	private static List<VRRig> rigs = new List<VRRig>();
 
 	private static List<SphereCollider> wardrobeNearbyDetection = new List<SphereCollider>();
 

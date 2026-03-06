@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA05C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KID</RootNamespace>
+    <AssemblyName>KID</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\OpenAPIDateConverter.cs" />
+    <Compile Include="Model\AbstractOpenAPISchema.cs" />
+    <Compile Include="Model\AgeCategory.cs" />
+    <Compile Include="Model\AgeCategoryV2.cs" />
+    <Compile Include="Model\AgeCriteria.cs" />
+    <Compile Include="Model\AgeRange.cs" />
+    <Compile Include="Model\AgeRangeV2.cs" />
+    <Compile Include="Model\AgeStatusType.cs" />
+    <Compile Include="Model\AwaitChallengeResponse.cs" />
+    <Compile Include="Model\Challenge.cs" />
+    <Compile Include="Model\ChallengeType.cs" />
+    <Compile Include="Model\CheckAgeAppealRequest.cs" />
+    <Compile Include="Model\CheckAgeAppealResponse.cs" />
+    <Compile Include="Model\CheckAgeGateRequest.cs" />
+    <Compile Include="Model\CheckAgeGateResponse.cs" />
+    <Compile Include="Model\ClientErrorResponse.cs" />
+    <Compile Include="Model\CreateAdultVerificationRequest.cs" />
+    <Compile Include="Model\CreateAdultVerificationResponse.cs" />
+    <Compile Include="Model\CreateAgeAssuranceVerificationRequest.cs" />
+    <Compile Include="Model\CreateAgeAssuranceVerificationResponse.cs" />
+    <Compile Include="Model\CreateAgeVerificationRequest.cs" />
+    <Compile Include="Model\CreateAgeVerificationResponse.cs" />
+    <Compile Include="Model\CreateClientAuthTokenRequest.cs" />
+    <Compile Include="Model\CreateCustomAgeVerificationRequest.cs" />
+    <Compile Include="Model\CreateParentalConsentChallengeRequest.cs" />
+    <Compile Include="Model\CreateParentalConsentChallengeResponse.cs" />
+    <Compile Include="Model\CreateVerificationRequest.cs" />
+    <Compile Include="Model\CreateVerificationResponse.cs" />
+    <Compile Include="Model\GenerateChallengeOTPRequest.cs" />
+    <Compile Include="Model\GenerateChallengeOTPResponse.cs" />
+    <Compile Include="Model\GetAdultVerificationRequestStatusResponse.cs" />
+    <Compile Include="Model\GetAgeAssuranceVerificationRequestStatusResponse.cs" />
+    <Compile Include="Model\GetAgeGateRequirementsResponse.cs" />
+    <Compile Include="Model\GetAgeVerificationStatusResponse.cs" />
+    <Compile Include="Model\GetChallengeStatusResponse.cs" />
+    <Compile Include="Model\GetDefaultPermissionsResponse.cs" />
+    <Compile Include="Model\IssueAuthTokenResponse.cs" />
+    <Compile Include="Model\Permission.cs" />
+    <Compile Include="Model\RefreshClientAuthTokenRequest.cs" />
+    <Compile Include="Model\RequestedPermission.cs" />
+    <Compile Include="Model\SendEmailRequest.cs" />
+    <Compile Include="Model\Session.cs" />
+    <Compile Include="Model\SetChallengeStatusRequest.cs" />
+    <Compile Include="Model\SetGuardianManagedSessionPermissionsRequest.cs" />
+    <Compile Include="Model\SetGuardianManagedSessionPermissionsResponse.cs" />
+    <Compile Include="Model\ShouldDisplayAgeGateResponse.cs" />
+    <Compile Include="Model\TestVerificationWebhookRequest.cs" />
+    <Compile Include="Model\UpgradeSessionRequest.cs" />
+    <Compile Include="Model\UpgradeSessionResponse.cs" />
+    <Compile Include="Model\VerificationMethod.cs" />
+    <Compile Include="Model\VerificationOptions.cs" />
+    <Compile Include="Model\VerificationStatus.cs" />
+    <Compile Include="Model\VerificationStatusV2.cs" />
+    <Compile Include="Model\VerificationSubject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA082}</Project>
+      <Name>Newtonsoft.Json</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

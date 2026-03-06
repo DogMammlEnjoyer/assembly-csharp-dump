@@ -93,9 +93,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.GetRankInformationRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.GetRankInformationRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.GetRankInformationRetryCount + 1)));
 				this.GetRankInformationRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.GetRankInformationInProgress = false;
 				this.RequestGetRankInformation(data.playfabIds, callback);
 			}
@@ -213,9 +213,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.CreateMatchIdRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.CreateMatchIdRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.CreateMatchIdRetryCount + 1)));
 				this.CreateMatchIdRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.CreateMatchIdInProgress = false;
 				this.RequestCreateMatchId(callback);
 			}
@@ -316,9 +316,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.ValidateMatchJoinRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.ValidateMatchJoinRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.ValidateMatchJoinRetryCount + 1)));
 				this.ValidateMatchJoinRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.ValidateMatchJoinInProgress = false;
 				this.RequestValidateMatchJoin(data.matchId, callback);
 			}
@@ -435,9 +435,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.SubmitMatchScoresRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.SubmitMatchScoresRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.SubmitMatchScoresRetryCount + 1)));
 				this.SubmitMatchScoresRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.SubmitMatchScoresInProgress = false;
 				this.RequestSubmitMatchScores(data.matchId, data.playerScores);
 			}
@@ -570,9 +570,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.PingMatchRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.PingMatchRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.PingMatchRetryCount + 1)));
 				this.ValidateMatchJoinRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.PingMatchInProgress = false;
 				this.RequestPingRoom(data.matchId, callback);
 			}
@@ -670,9 +670,9 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 		{
 			if (this.UnlockCompetitiveQueueRetryCount < this.MAX_SERVER_RETRIES)
 			{
-				float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.UnlockCompetitiveQueueRetryCount + 1)));
+				float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.UnlockCompetitiveQueueRetryCount + 1)));
 				this.ValidateMatchJoinRetryCount++;
-				yield return new WaitForSeconds(seconds);
+				yield return new WaitForSecondsRealtime(time);
 				this.UnlockCompetitiveQueueInProgress = false;
 				this.RequestUnlockCompetitiveQueue(data.unlocked, callback);
 			}

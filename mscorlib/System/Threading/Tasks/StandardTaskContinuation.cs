@@ -1,0 +1,71 @@
+﻿using System;
+
+namespace System.Threading.Tasks
+{
+	internal class StandardTaskContinuation : TaskContinuation
+	{
+		internal StandardTaskContinuation(Task task, TaskContinuationOptions options, TaskScheduler scheduler)
+		{
+			this.m_task = task;
+			this.m_options = options;
+			this.m_taskScheduler = scheduler;
+			if (DebuggerSupport.LoggingOn)
+			{
+				CausalityTraceLevel traceLevel = CausalityTraceLevel.Required;
+				Task task2 = this.m_task;
+				string str = "Task.ContinueWith: ";
+				Delegate action = task.m_action;
+				DebuggerSupport.TraceOperationCreation(traceLevel, task2, str + ((action != null) ? action.ToString() : null), 0UL);
+			}
+			DebuggerSupport.AddToActiveTasks(this.m_task);
+		}
+
+		internal override void Run(Task completedTask, bool bCanInlineContinuationTask)
+		{
+			TaskContinuationOptions options = this.m_options;
+			bool flag = completedTask.IsCompletedSuccessfully ? ((options & TaskContinuationOptions.NotOnRanToCompletion) == TaskContinuationOptions.None) : (completedTask.IsCanceled ? ((options & TaskContinuationOptions.NotOnCanceled) == TaskContinuationOptions.None) : ((options & TaskContinuationOptions.NotOnFaulted) == TaskContinuationOptions.None));
+			Task task = this.m_task;
+			if (flag)
+			{
+				if (!task.IsCanceled && DebuggerSupport.LoggingOn)
+				{
+					DebuggerSupport.TraceOperationRelation(CausalityTraceLevel.Important, task, CausalityRelation.AssignDelegate);
+				}
+				task.m_taskScheduler = this.m_taskScheduler;
+				if (bCanInlineContinuationTask && (options & TaskContinuationOptions.ExecuteSynchronously) != TaskContinuationOptions.None)
+				{
+					TaskContinuation.InlineIfPossibleOrElseQueue(task, true);
+					return;
+				}
+				try
+				{
+					task.ScheduleAndStart(true);
+					return;
+				}
+				catch (TaskSchedulerException)
+				{
+					return;
+				}
+			}
+			task.InternalCancel(false);
+		}
+
+		internal override Delegate[] GetDelegateContinuationsForDebugger()
+		{
+			if (this.m_task.m_action == null)
+			{
+				return this.m_task.GetDelegateContinuationsForDebugger();
+			}
+			return new Delegate[]
+			{
+				this.m_task.m_action
+			};
+		}
+
+		internal readonly Task m_task;
+
+		internal readonly TaskContinuationOptions m_options;
+
+		private readonly TaskScheduler m_taskScheduler;
+	}
+}

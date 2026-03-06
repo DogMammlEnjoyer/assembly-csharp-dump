@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace System.Linq.Parallel
+{
+	internal class GroupByGrouping<TGroupKey, TElement> : IGrouping<TGroupKey, TElement>, IEnumerable<!1>, IEnumerable
+	{
+		internal GroupByGrouping(KeyValuePair<Wrapper<TGroupKey>, ListChunk<TElement>> keyValues)
+		{
+			this._keyValues = keyValues;
+		}
+
+		TGroupKey IGrouping<!0, !1>.Key
+		{
+			get
+			{
+				return this._keyValues.Key.Value;
+			}
+		}
+
+		IEnumerator<TElement> IEnumerable<!1>.GetEnumerator()
+		{
+			return this._keyValues.Value.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return ((IEnumerable<!1>)this).GetEnumerator();
+		}
+
+		private KeyValuePair<Wrapper<TGroupKey>, ListChunk<TElement>> _keyValues;
+	}
+}

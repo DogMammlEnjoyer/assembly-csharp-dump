@@ -1,0 +1,31 @@
+﻿using System;
+using System.Runtime.InteropServices;
+
+namespace System.EnterpriseServices.Internal
+{
+	/// <summary>Imports authenticated, encrypted SOAP client proxies. This class cannot be inherited.</summary>
+	[Guid("346D5B9F-45E1-45c0-AADF-1B7D221E9063")]
+	public sealed class SoapClientImport : ISoapClientImport
+	{
+		/// <summary>Initializes a new instance of the <see cref="T:System.EnterpriseServices.Internal.SoapClientImport" /> class.</summary>
+		[MonoTODO]
+		public SoapClientImport()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Creates a .NET remoting client configuration file that includes security and authentication options.</summary>
+		/// <param name="progId">The programmatic identifier of the class. If an empty string (""), this method returns without doing anything.</param>
+		/// <param name="virtualRoot">The name of the virtual root.</param>
+		/// <param name="baseUrl">The base URL that contains the virtual root.</param>
+		/// <param name="authentication">The type of ASP.NET authentication to use.</param>
+		/// <param name="assemblyName">The name of the assembly.</param>
+		/// <param name="typeName">The name of the type.</param>
+		/// <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+		[MonoTODO]
+		public void ProcessClientTlbEx(string progId, string virtualRoot, string baseUrl, string authentication, string assemblyName, string typeName)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}

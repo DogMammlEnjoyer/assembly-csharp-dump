@@ -1,0 +1,28 @@
+﻿using System;
+using UnityEngine.InputSystem.Layouts;
+using UnityEngine.InputSystem.Utilities;
+
+namespace UnityEngine.InputSystem.LowLevel
+{
+	internal struct LinearAccelerationState : IInputStateTypeInfo
+	{
+		public static FourCC kFormat
+		{
+			get
+			{
+				return new FourCC('L', 'A', 'A', 'C');
+			}
+		}
+
+		public FourCC format
+		{
+			get
+			{
+				return LinearAccelerationState.kFormat;
+			}
+		}
+
+		[InputControl(displayName = "Acceleration", processors = "CompensateDirection", noisy = true)]
+		public Vector3 acceleration;
+	}
+}

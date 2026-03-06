@@ -227,7 +227,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 					else
 					{
 						num++;
-						if (num >= siplayer.totalGadgetLimit)
+						if (num >= siplayer.TotalGadgetLimit)
 						{
 							this.gameEntityManager.DestroyItemLocal(gameEntityFromNetId.id);
 							break;
@@ -1013,7 +1013,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 				num++;
 			}
 		}
-		if (num > siplayer.totalGadgetLimit)
+		if (num > siplayer.TotalGadgetLimit)
 		{
 			return false;
 		}

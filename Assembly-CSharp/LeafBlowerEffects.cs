@@ -19,7 +19,11 @@ public class LeafBlowerEffects : MonoBehaviour, ISpawnable
 	{
 		this.headToleranceAngleCos = Mathf.Cos(0.017453292f * this.headToleranceAngle);
 		this.squareHitAngleCos = Mathf.Cos(0.017453292f * this.squareHitAngle);
-		this.fan = rig.cosmeticReferences.Get(this.fanRef).GetComponent<CosmeticFan>();
+		GameObject gameObject = rig.cosmeticReferences.Get(this.fanRef);
+		if (gameObject != null)
+		{
+			this.fan = gameObject.GetComponent<CosmeticFan>();
+		}
 	}
 
 	public void StartFan()
@@ -95,12 +99,12 @@ public class LeafBlowerEffects : MonoBehaviour, ISpawnable
 		Vector3 forward = this.gunBarrel.transform.forward;
 		if (NetworkSystem.Instance.InRoom)
 		{
-			using (List<VRRig>.Enumerator enumerator = GorillaParent.instance.vrrigs.GetEnumerator())
+			using (IEnumerator<RigContainer> enumerator = VRRigCache.ActiveRigContainers.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					VRRig rig = enumerator.Current;
-					this.TryBlowFace(rig, position, forward);
+					RigContainer rigContainer = enumerator.Current;
+					this.TryBlowFace(rigContainer.Rig, position, forward);
 				}
 				return;
 			}

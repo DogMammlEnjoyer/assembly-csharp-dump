@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using GorillaLocomotion;
+using GorillaTagScripts;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -14,6 +15,19 @@ public class GamePlayer : MonoBehaviour
 	public bool DidJoinWithItems { get; set; }
 
 	public bool AdditionalDataInitialized { get; set; }
+
+	public bool IsSubscribed
+	{
+		get
+		{
+			if (Time.frameCount != this._lastSubscriptionCheck)
+			{
+				this._isSubscribed = SubscriptionManager.IsPlayerSubscribed(this.rig);
+				this._lastSubscriptionCheck = Time.frameCount;
+			}
+			return this._isSubscribed;
+		}
+	}
 
 	private void Awake()
 	{
@@ -768,6 +782,10 @@ public class GamePlayer : MonoBehaviour
 	public CallLimiter netStateLimiter;
 
 	public CallLimiter netSnapLimiter;
+
+	private int _lastSubscriptionCheck;
+
+	private bool _isSubscribed;
 
 	public Action OnPlayerInitialized;
 

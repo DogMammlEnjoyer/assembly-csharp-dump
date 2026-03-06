@@ -383,9 +383,9 @@ namespace GorillaTagScripts.Builder
 			{
 				if (this.voteRetryCount < this.maxRetriesOnFail)
 				{
-					float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.voteRetryCount + 1)));
+					float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.voteRetryCount + 1)));
 					this.voteRetryCount++;
-					yield return new WaitForSeconds(seconds);
+					yield return new WaitForSecondsRealtime(time);
 					this.voteInProgress = false;
 					this.RequestVote(data.mapId, data.vote == 1, callback);
 				}
@@ -546,9 +546,9 @@ namespace GorillaTagScripts.Builder
 			{
 				if (this.postPublishMapRetryCount < this.maxRetriesOnFail)
 				{
-					float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.postPublishMapRetryCount + 1)));
+					float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.postPublishMapRetryCount + 1)));
 					this.postPublishMapRetryCount++;
-					yield return new WaitForSeconds(seconds);
+					yield return new WaitForSecondsRealtime(time);
 					this.publishRequestInProgress = false;
 					this.RequestPublishMap(data.userdataMetadataKey);
 				}
@@ -649,9 +649,9 @@ namespace GorillaTagScripts.Builder
 			{
 				if (this.getMapDataFromIDRetryCount < this.maxRetriesOnFail)
 				{
-					float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.getMapDataFromIDRetryCount + 1)));
+					float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.getMapDataFromIDRetryCount + 1)));
 					this.getMapDataFromIDRetryCount++;
-					yield return new WaitForSeconds(seconds);
+					yield return new WaitForSecondsRealtime(time);
 					this.getMapDataFromIDInProgress = false;
 					this.RequestMapDataFromID(data.mapId, callback);
 				}
@@ -703,7 +703,7 @@ namespace GorillaTagScripts.Builder
 				return false;
 			}
 			this.getTopMapsInProgress = true;
-			this.lastGetTopMapsTime = Time.timeAsDouble;
+			this.lastGetTopMapsTime = Time.realtimeSinceStartupAsDouble;
 			base.StartCoroutine(this.GetTopMaps(new SharedBlocksManager.GetMapsRequest
 			{
 				mothershipId = MothershipClientContext.MothershipId,
@@ -783,9 +783,9 @@ namespace GorillaTagScripts.Builder
 			{
 				if (this.getTopMapsRetryCount < this.maxRetriesOnFail)
 				{
-					float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.getTopMapsRetryCount + 1)));
+					float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.getTopMapsRetryCount + 1)));
 					this.getTopMapsRetryCount++;
-					yield return new WaitForSeconds(seconds);
+					yield return new WaitForSecondsRealtime(time);
 					this.getTopMapsInProgress = false;
 					this.RequestGetTopMaps(data.page, data.pageSize, data.sort);
 				}
@@ -930,9 +930,9 @@ namespace GorillaTagScripts.Builder
 			{
 				if (this.updateMapActiveRetryCount < this.maxRetriesOnFail)
 				{
-					float seconds = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.updateMapActiveRetryCount + 1)));
+					float time = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.updateMapActiveRetryCount + 1)));
 					this.updateMapActiveRetryCount++;
-					yield return new WaitForSeconds(seconds);
+					yield return new WaitForSecondsRealtime(time);
 					this.updateMapActiveInProgress = false;
 					this.RequestUpdateMapActive(data.userdataMetadataKey, data.setActive);
 				}
@@ -1025,7 +1025,7 @@ namespace GorillaTagScripts.Builder
 
 		private IEnumerator RetryAfterWaitTime(float waitTime, Action function)
 		{
-			yield return new WaitForSeconds(waitTime);
+			yield return new WaitForSecondsRealtime(waitTime);
 			if (function != null)
 			{
 				function();
@@ -1062,7 +1062,7 @@ namespace GorillaTagScripts.Builder
 		{
 			while (!PlayFabSettings.staticPlayer.IsClientLoggedIn())
 			{
-				yield return new WaitForSeconds(5f);
+				yield return new WaitForSecondsRealtime(5f);
 			}
 			PlayFabClientAPI.GetTitleData(request, successCallback, failCallback, null, null);
 			yield break;
@@ -1221,7 +1221,7 @@ namespace GorillaTagScripts.Builder
 		{
 			while (!PlayFabSettings.staticPlayer.IsClientLoggedIn())
 			{
-				yield return new WaitForSeconds(5f);
+				yield return new WaitForSecondsRealtime(5f);
 			}
 			try
 			{

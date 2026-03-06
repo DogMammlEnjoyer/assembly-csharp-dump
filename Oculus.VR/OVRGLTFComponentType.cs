@@ -1,0 +1,12 @@
+﻿using System;
+
+public enum OVRGLTFComponentType
+{
+	NONE,
+	BYTE = 5120,
+	UNSIGNED_BYTE,
+	SHORT,
+	UNSIGNED_SHORT,
+	UNSIGNED_INT = 5125,
+	FLOAT
+}

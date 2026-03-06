@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GorillaLocomotion;
 using GorillaNetworking;
+using GTMathUtil;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -11,14 +11,17 @@ public class GorillaFriendCollider : MonoBehaviour, IGorillaSliceableSimple
 	{
 		this.thisCapsule = base.GetComponent<CapsuleCollider>();
 		this.thisBox = base.GetComponent<BoxCollider>();
-		this.jiggleAmount = Random.Range(0f, 1f);
-		this.tagAndBodyLayerMask = (LayerMask.GetMask(new string[]
+		if (!GorillaFriendCollider.updateAdded)
 		{
-			"Gorilla Tag Collider"
-		}) | LayerMask.GetMask(new string[]
-		{
-			"Gorilla Body Collider"
-		}));
+			GorillaFriendCollider.updateAdded = true;
+			VRRigCache.OnActiveRigsChanged += GorillaFriendCollider.UpdateActiveRigs;
+			GorillaFriendCollider.UpdateActiveRigs();
+		}
+	}
+
+	private static void UpdateActiveRigs()
+	{
+		VRRigCache.Instance.GetActiveRigs(GorillaFriendCollider.playerRigs);
 	}
 
 	public void OnEnable()
@@ -44,87 +47,31 @@ public class GorillaFriendCollider : MonoBehaviour, IGorillaSliceableSimple
 	{
 		using (GorillaFriendCollider.profiler_SliceUpdate.Auto())
 		{
-			float time = Time.time;
-			if (this._nextUpdateTime < 0f)
+			if (NetworkSystem.Instance.InRoom || this.runCheckWhileNotInRoom)
 			{
-				this._nextUpdateTime = time + 1f + this.jiggleAmount;
-			}
-			else if (time >= this._nextUpdateTime)
-			{
-				this._nextUpdateTime = time + 1f;
-				if (NetworkSystem.Instance.InRoom || this.runCheckWhileNotInRoom)
-				{
-					this.RefreshPlayersInSphere();
-				}
+				this.RefreshPlayersWithinBounds();
 			}
 		}
 	}
 
-	public void RefreshPlayersInSphere()
+	public void RefreshPlayersWithinBounds()
 	{
 		this.playerIDsCurrentlyTouching.Clear();
-		if (this.thisBox != null)
+		for (int i = 0; i < GorillaFriendCollider.playerRigs.Count; i++)
 		{
-			this.collisions = Physics.OverlapBoxNonAlloc(this.thisBox.transform.position, this.thisBox.size / 2f, this.overlapColliders, this.thisBox.transform.rotation, this.tagAndBodyLayerMask);
-		}
-		else
-		{
-			this.collisions = Physics.OverlapSphereNonAlloc(base.transform.position, this.thisCapsule.radius, this.overlapColliders, this.tagAndBodyLayerMask);
-		}
-		this.collisions = Mathf.Min(this.collisions, this.overlapColliders.Length);
-		if (this.collisions > 0)
-		{
-			for (int i = 0; i < this.collisions; i++)
+			float y = GorillaFriendCollider.playerRigs[i].bodyTransform.transform.position.y;
+			bool flag = !this.applyCapsuleYLimits || (y >= this.capsuleColliderYLimits.x && y <= this.capsuleColliderYLimits.y);
+			bool flag2 = (this.thisBox != null && WithinBounds.PointWithinBoxColliderBounds(GorillaFriendCollider.playerRigs[i].rigContainer.SpeakerHead.position, this.thisBox)) || (this.thisBox == null && this.thisCapsule != null && WithinBounds.PointWithinCapsuleColliderBounds(GorillaFriendCollider.playerRigs[i].rigContainer.SpeakerHead.position, this.thisCapsule));
+			if (flag && flag2)
 			{
-				this.otherCollider = this.overlapColliders[i];
-				if (!(this.otherCollider == null) && !(this.otherCollider.attachedRigidbody == null))
-				{
-					this.otherColliderGO = this.otherCollider.attachedRigidbody.gameObject;
-					this.collidingRig = this.otherColliderGO.GetComponent<VRRig>();
-					if (this.collidingRig == null || this.collidingRig.creator == null || this.collidingRig.creator.IsNull || string.IsNullOrEmpty(this.collidingRig.creator.UserId))
-					{
-						GTPlayer component = this.otherColliderGO.GetComponent<GTPlayer>();
-						if (component == null || NetworkSystem.Instance.LocalPlayer == null)
-						{
-							goto IL_264;
-						}
-						if (this.thisCapsule != null && this.applyCapsuleYLimits)
-						{
-							float y = component.bodyCollider.transform.position.y;
-							if (y < this.capsuleColliderYLimits.x || y > this.capsuleColliderYLimits.y)
-							{
-								goto IL_264;
-							}
-						}
-						string userId = NetworkSystem.Instance.LocalPlayer.UserId;
-						this.AddUserID(userId);
-					}
-					else
-					{
-						if (this.thisCapsule != null && this.applyCapsuleYLimits)
-						{
-							float y2 = this.collidingRig.bodyTransform.transform.position.y;
-							if (y2 < this.capsuleColliderYLimits.x || y2 > this.capsuleColliderYLimits.y)
-							{
-								goto IL_264;
-							}
-						}
-						string userId = this.collidingRig.creator.UserId;
-						this.AddUserID(userId);
-					}
-					this.overlapColliders[i] = null;
-				}
-				IL_264:;
+				this.playerIDsCurrentlyTouching.Add(GorillaFriendCollider.playerRigs[i].isLocal ? NetworkSystem.Instance.LocalPlayer.UserId : GorillaFriendCollider.playerRigs[i].creator.UserId);
 			}
-			if (NetworkSystem.Instance.InRoom && NetworkSystem.Instance.LocalPlayer != null && this.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId) && GorillaComputer.instance.friendJoinCollider != this)
-			{
-				GorillaComputer.instance.allowedMapsToJoin = this.myAllowedMapsToJoin;
-				GorillaComputer.instance.friendJoinCollider = this;
-				GorillaComputer.instance.UpdateScreen();
-			}
-			this.otherCollider = null;
-			this.otherColliderGO = null;
-			this.collidingRig = null;
+		}
+		if (NetworkSystem.Instance.InRoom && NetworkSystem.Instance.LocalPlayer != null && this.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId) && GorillaComputer.instance.friendJoinCollider != this)
+		{
+			GorillaComputer.instance.allowedMapsToJoin = this.myAllowedMapsToJoin;
+			GorillaComputer.instance.friendJoinCollider = this;
+			GorillaComputer.instance.UpdateScreen();
 		}
 	}
 
@@ -146,23 +93,13 @@ public class GorillaFriendCollider : MonoBehaviour, IGorillaSliceableSimple
 
 	private readonly Collider[] overlapColliders = new Collider[20];
 
-	private int tagAndBodyLayerMask;
-
-	private float jiggleAmount;
-
-	private Collider otherCollider;
-
-	private GameObject otherColliderGO;
-
-	private VRRig collidingRig;
-
-	private int collisions;
-
-	private WaitForSeconds wait1Sec = new WaitForSeconds(1f);
-
 	public bool manualRefreshOnly;
 
 	private float _nextUpdateTime = -1f;
+
+	private static List<VRRig> playerRigs = new List<VRRig>();
+
+	private static bool updateAdded = false;
 
 	private static readonly ProfilerMarker profiler_SliceUpdate = new ProfilerMarker("GT/FriendCollider.SliceUpdate");
 }

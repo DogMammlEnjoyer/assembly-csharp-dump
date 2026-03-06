@@ -1,0 +1,381 @@
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using UnityEngine.Bindings;
+using UnityEngine.Internal;
+using UnityEngine.Rendering;
+using UnityEngine.Scripting;
+
+namespace UnityEngine
+{
+	[NativeHeader("Runtime/Graphics/QualitySettings.h")]
+	[StaticAccessor("GetQualitySettings()", StaticAccessorType.Dot)]
+	[NativeHeader("Runtime/Misc/PlayerSettings.h")]
+	public sealed class QualitySettings : Object
+	{
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public static event Action<int, int> activeQualityLevelChanged;
+
+		[RequiredByNativeCode]
+		internal static void OnActiveQualityLevelChanged(int previousQualityLevel, int currentQualityLevel)
+		{
+			Action<int, int> action = QualitySettings.activeQualityLevelChanged;
+			if (action != null)
+			{
+				action(previousQualityLevel, currentQualityLevel);
+			}
+		}
+
+		public static void IncreaseLevel([DefaultValue("false")] bool applyExpensiveChanges)
+		{
+			QualitySettings.SetQualityLevel(QualitySettings.GetQualityLevel() + 1, applyExpensiveChanges);
+		}
+
+		public static void DecreaseLevel([DefaultValue("false")] bool applyExpensiveChanges)
+		{
+			QualitySettings.SetQualityLevel(QualitySettings.GetQualityLevel() - 1, applyExpensiveChanges);
+		}
+
+		public static void SetQualityLevel(int index)
+		{
+			QualitySettings.SetQualityLevel(index, true);
+		}
+
+		public static void IncreaseLevel()
+		{
+			QualitySettings.IncreaseLevel(false);
+		}
+
+		public static void DecreaseLevel()
+		{
+			QualitySettings.DecreaseLevel(false);
+		}
+
+		[Obsolete("Use GetQualityLevel and SetQualityLevel", false)]
+		public static QualityLevel currentLevel
+		{
+			get
+			{
+				return (QualityLevel)QualitySettings.GetQualityLevel();
+			}
+			set
+			{
+				QualitySettings.SetQualityLevel((int)value, true);
+			}
+		}
+
+		public static void ForEach(Action callback)
+		{
+			bool flag = callback == null;
+			if (!flag)
+			{
+				int qualityLevel = QualitySettings.GetQualityLevel();
+				try
+				{
+					for (int i = 0; i < QualitySettings.count; i++)
+					{
+						QualitySettings.SetQualityLevel(i, false);
+						callback();
+					}
+				}
+				finally
+				{
+					QualitySettings.SetQualityLevel(qualityLevel, false);
+				}
+			}
+		}
+
+		public static void ForEach(Action<int, string> callback)
+		{
+			bool flag = callback == null;
+			if (!flag)
+			{
+				int qualityLevel = QualitySettings.GetQualityLevel();
+				try
+				{
+					for (int i = 0; i < QualitySettings.count; i++)
+					{
+						QualitySettings.SetQualityLevel(i, false);
+						callback(i, QualitySettings.names[i]);
+					}
+				}
+				finally
+				{
+					QualitySettings.SetQualityLevel(qualityLevel, false);
+				}
+			}
+		}
+
+		private QualitySettings()
+		{
+		}
+
+		public static extern int pixelLightCount { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("ShadowQuality")]
+		public static extern ShadowQuality shadows { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern ShadowProjection shadowProjection { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int shadowCascades { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float shadowDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("ShadowResolution")]
+		public static extern ShadowResolution shadowResolution { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("ShadowmaskMode")]
+		public static extern ShadowmaskMode shadowmaskMode { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float shadowNearPlaneOffset { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float shadowCascade2Split { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static Vector3 shadowCascade4Split
+		{
+			get
+			{
+				Vector3 result;
+				QualitySettings.get_shadowCascade4Split_Injected(out result);
+				return result;
+			}
+			set
+			{
+				QualitySettings.set_shadowCascade4Split_Injected(ref value);
+			}
+		}
+
+		[NativeProperty("LODBias")]
+		public static extern float lodBias { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("MeshLODThreshold")]
+		public static extern float meshLodThreshold { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("AnisotropicTextures")]
+		public static extern AnisotropicFiltering anisotropicFiltering { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeProperty("GlobalTextureMipmapLimit")]
+		[Obsolete("masterTextureLimit has been deprecated. Use globalTextureMipmapLimit instead (UnityUpgradable) -> globalTextureMipmapLimit", false)]
+		public static extern int masterTextureLimit { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int globalTextureMipmapLimit { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int maximumLODLevel { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool enableLODCrossFade { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int particleRaycastBudget { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool softParticles { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool softVegetation { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int vSyncCount { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int realtimeGICPUUsage { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int antiAliasing { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int asyncUploadTimeSlice { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int asyncUploadBufferSize { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool asyncUploadPersistentBuffer { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeName("SetLODSettings")]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		public static extern void SetLODSettings(float lodBias, int maximumLODLevel, bool setDirty = true);
+
+		[NativeThrows]
+		[NativeName("SetTextureMipmapLimitSettings")]
+		public unsafe static void SetTextureMipmapLimitSettings(string groupName, TextureMipmapLimitSettings textureMipmapLimitSettings)
+		{
+			try
+			{
+				ManagedSpanWrapper managedSpanWrapper;
+				if (!StringMarshaller.TryMarshalEmptyOrNullString(groupName, ref managedSpanWrapper))
+				{
+					ReadOnlySpan<char> readOnlySpan = groupName.AsSpan();
+					fixed (char* ptr = readOnlySpan.GetPinnableReference())
+					{
+						managedSpanWrapper = new ManagedSpanWrapper((void*)ptr, readOnlySpan.Length);
+					}
+				}
+				QualitySettings.SetTextureMipmapLimitSettings_Injected(ref managedSpanWrapper, ref textureMipmapLimitSettings);
+			}
+			finally
+			{
+				char* ptr = null;
+			}
+		}
+
+		[NativeThrows]
+		[NativeName("GetTextureMipmapLimitSettings")]
+		public unsafe static TextureMipmapLimitSettings GetTextureMipmapLimitSettings(string groupName)
+		{
+			TextureMipmapLimitSettings result;
+			try
+			{
+				ManagedSpanWrapper managedSpanWrapper;
+				if (!StringMarshaller.TryMarshalEmptyOrNullString(groupName, ref managedSpanWrapper))
+				{
+					ReadOnlySpan<char> readOnlySpan = groupName.AsSpan();
+					fixed (char* ptr = readOnlySpan.GetPinnableReference())
+					{
+						managedSpanWrapper = new ManagedSpanWrapper((void*)ptr, readOnlySpan.Length);
+					}
+				}
+				TextureMipmapLimitSettings textureMipmapLimitSettings;
+				QualitySettings.GetTextureMipmapLimitSettings_Injected(ref managedSpanWrapper, out textureMipmapLimitSettings);
+			}
+			finally
+			{
+				char* ptr = null;
+				TextureMipmapLimitSettings textureMipmapLimitSettings;
+				result = textureMipmapLimitSettings;
+			}
+			return result;
+		}
+
+		public static extern bool realtimeReflectionProbes { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool billboardsFaceCameraPosition { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool useLegacyDetailDistribution { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float resolutionScalingFixedDPIFactor { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern TerrainQualityOverrides terrainQualityOverrides { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainPixelError { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainDetailDensityScale { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainBasemapDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainDetailDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainTreeDistance { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainBillboardStart { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainFadeLength { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float terrainMaxTrees { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeName("RenderPipeline")]
+		private static ScriptableObject INTERNAL_renderPipeline
+		{
+			get
+			{
+				return Unmarshal.UnmarshalUnityObject<ScriptableObject>(QualitySettings.get_INTERNAL_renderPipeline_Injected());
+			}
+			set
+			{
+				QualitySettings.set_INTERNAL_renderPipeline_Injected(Object.MarshalledUnityObject.Marshal<ScriptableObject>(value));
+			}
+		}
+
+		public static RenderPipelineAsset renderPipeline
+		{
+			get
+			{
+				return QualitySettings.INTERNAL_renderPipeline as RenderPipelineAsset;
+			}
+			set
+			{
+				QualitySettings.INTERNAL_renderPipeline = value;
+			}
+		}
+
+		[NativeName("GetRenderPipelineAssetAt")]
+		internal static ScriptableObject InternalGetRenderPipelineAssetAt(int index)
+		{
+			return Unmarshal.UnmarshalUnityObject<ScriptableObject>(QualitySettings.InternalGetRenderPipelineAssetAt_Injected(index));
+		}
+
+		public static RenderPipelineAsset GetRenderPipelineAssetAt(int index)
+		{
+			bool flag = index < 0 || index >= QualitySettings.names.Length;
+			if (flag)
+			{
+				throw new IndexOutOfRangeException(string.Format("{0} is out of range [0..{1}[", "index", QualitySettings.names.Length));
+			}
+			return QualitySettings.InternalGetRenderPipelineAssetAt(index) as RenderPipelineAsset;
+		}
+
+		[Obsolete("blendWeights is obsolete. Use skinWeights instead (UnityUpgradable) -> skinWeights", true)]
+		public static extern BlendWeights blendWeights { [NativeName("GetSkinWeights")] [MethodImpl(MethodImplOptions.InternalCall)] get; [NativeThrows] [NativeName("SetSkinWeights")] [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern SkinWeights skinWeights { [MethodImpl(MethodImplOptions.InternalCall)] get; [NativeThrows] [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int count { [NativeName("GetQualitySettingsCount")] [MethodImpl(MethodImplOptions.InternalCall)] get; }
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		internal static extern int GetStrippedMaximumLODLevel();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		internal static extern void SetStrippedMaximumLODLevel(int maximumLODLevel);
+
+		public static extern bool streamingMipmapsActive { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern float streamingMipmapsMemoryBudget { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int streamingMipmapsRenderersPerFrame { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int streamingMipmapsMaxLevelReduction { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern bool streamingMipmapsAddAllCameras { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		public static extern int streamingMipmapsMaxFileIORequests { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[StaticAccessor("QualitySettingsScripting", StaticAccessorType.DoubleColon)]
+		public static extern int maxQueuedFrames { [MethodImpl(MethodImplOptions.InternalCall)] get; [MethodImpl(MethodImplOptions.InternalCall)] set; }
+
+		[NativeName("GetCurrentIndex")]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		public static extern int GetQualityLevel();
+
+		[FreeFunction]
+		public static Object GetQualitySettings()
+		{
+			return Unmarshal.UnmarshalUnityObject<Object>(QualitySettings.GetQualitySettings_Injected());
+		}
+
+		[NativeName("SetCurrentIndex")]
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		public static extern void SetQualityLevel(int index, [DefaultValue("true")] bool applyExpensiveChanges);
+
+		[NativeProperty("QualitySettingsNames")]
+		public static extern string[] names { [MethodImpl(MethodImplOptions.InternalCall)] get; }
+
+		public static extern ColorSpace desiredColorSpace { [StaticAccessor("GetPlayerSettings()", StaticAccessorType.Dot)] [NativeName("GetColorSpace")] [MethodImpl(MethodImplOptions.InternalCall)] get; }
+
+		public static extern ColorSpace activeColorSpace { [NativeName("GetColorSpace")] [StaticAccessor("GetPlayerSettings()", StaticAccessorType.Dot)] [MethodImpl(MethodImplOptions.InternalCall)] get; }
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void get_shadowCascade4Split_Injected(out Vector3 ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_shadowCascade4Split_Injected([In] ref Vector3 value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void SetTextureMipmapLimitSettings_Injected(ref ManagedSpanWrapper groupName, [In] ref TextureMipmapLimitSettings textureMipmapLimitSettings);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void GetTextureMipmapLimitSettings_Injected(ref ManagedSpanWrapper groupName, out TextureMipmapLimitSettings ret);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr get_INTERNAL_renderPipeline_Injected();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern void set_INTERNAL_renderPipeline_Injected(IntPtr value);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr InternalGetRenderPipelineAssetAt_Injected(int index);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private static extern IntPtr GetQualitySettings_Injected();
+	}
+}

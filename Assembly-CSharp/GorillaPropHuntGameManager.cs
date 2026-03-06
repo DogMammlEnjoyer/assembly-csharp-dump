@@ -132,7 +132,7 @@ public sealed class GorillaPropHuntGameManager : GorillaTagManager
 		base.StopPlaying();
 		this._ph_gameState = GorillaPropHuntGameManager.EPropHuntGameState.StoppedGameMode;
 		GameMode.ParticipatingPlayersChanged -= this._OnParticipatingPlayersChanged;
-		foreach (VRRig rig in GorillaParent.instance.vrrigs)
+		foreach (VRRig rig in VRRigCache.ActiveRigs)
 		{
 			GorillaSkin.ApplyToRig(rig, null, GorillaSkin.SkinType.gameMode);
 			this._ResetRigAppearance(rig);

@@ -45,7 +45,7 @@ public class FriendSystem : MonoBehaviour
 			completionCallback = callback,
 			sendingPlayerId = NetworkSystem.Instance.LocalPlayer.UserId.GetHashCode(),
 			targetPlayerId = targetPlayer.UserId.GetHashCode(),
-			localTimeSent = Time.time,
+			localTimeSent = Time.realtimeSinceStartup,
 			zone = stationZone
 		};
 		this.pendingFriendRequests.Add(item);
@@ -58,7 +58,7 @@ public class FriendSystem : MonoBehaviour
 		{
 			completionCallback = callback,
 			targetPlayerId = friend.Presence.FriendLinkId.GetHashCode(),
-			localTimeSent = Time.time
+			localTimeSent = Time.realtimeSinceStartup
 		});
 		FriendBackendController.Instance.RemoveFriend(friend);
 	}
@@ -124,7 +124,7 @@ public class FriendSystem : MonoBehaviour
 	{
 		if (succeeded)
 		{
-			this.lastFriendsListRefresh = Time.time;
+			this.lastFriendsListRefresh = Time.realtimeSinceStartup;
 			switch (FriendBackendController.Instance.MyPrivacyState)
 			{
 			default:
@@ -161,7 +161,7 @@ public class FriendSystem : MonoBehaviour
 				}
 				this.indexesToRemove.Add(i);
 			}
-			else if (this.pendingFriendRequests[i].localTimeSent + this.friendRequestExpirationTime < Time.time)
+			else if (this.pendingFriendRequests[i].localTimeSent + this.friendRequestExpirationTime < Time.realtimeSinceStartup)
 			{
 				this.indexesToRemove.Add(i);
 			}
@@ -189,7 +189,7 @@ public class FriendSystem : MonoBehaviour
 					}
 					this.indexesToRemove.Add(i);
 				}
-				else if (this.pendingFriendRemovals[i].localTimeSent + this.friendRequestExpirationTime < Time.time)
+				else if (this.pendingFriendRemovals[i].localTimeSent + this.friendRequestExpirationTime < Time.realtimeSinceStartup)
 				{
 					this.indexesToRemove.Add(i);
 				}

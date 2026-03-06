@@ -551,7 +551,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 			this.racers.Clear();
 			if (participantActorNumbers.Length != 0)
 			{
-				foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+				foreach (VRRig vrrig in VRRigCache.ActiveRigs)
 				{
 					int actorNumber = vrrig.OwningNetPlayer.ActorNumber;
 					if (participantActorNumbers.BinarySearch(actorNumber) >= 0 && !RacingManager.instance.IsActorLockedIntoAnyRace(actorNumber))

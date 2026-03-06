@@ -1,0 +1,53 @@
+﻿using System;
+using System.Text;
+
+namespace Unity.XR.CoreUtils
+{
+	public static class StringExtensions
+	{
+		public static string FirstToUpper(this string str)
+		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return string.Empty;
+			}
+			if (str.Length == 1)
+			{
+				return char.ToUpper(str[0]).ToString();
+			}
+			return string.Format("{0}{1}", char.ToUpper(str[0]), str.Substring(1));
+		}
+
+		public static string InsertSpacesBetweenWords(this string str)
+		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return string.Empty;
+			}
+			StringExtensions.k_StringBuilder.Length = 0;
+			StringExtensions.k_StringBuilder.Append(str[0]);
+			int length = str.Length;
+			for (int i = 0; i < length - 1; i++)
+			{
+				char c = str[i];
+				char c2 = str[i + 1];
+				bool flag = char.IsLower(c);
+				bool flag2 = char.IsLower(c2);
+				bool flag3 = flag && !flag2;
+				if (i + 2 < length)
+				{
+					bool flag4 = char.IsLower(str[i + 2]);
+					flag3 |= (!flag && !flag2 && flag4);
+				}
+				if (flag3)
+				{
+					StringExtensions.k_StringBuilder.Append(' ');
+				}
+				StringExtensions.k_StringBuilder.Append(c2);
+			}
+			return StringExtensions.k_StringBuilder.ToString();
+		}
+
+		private static readonly StringBuilder k_StringBuilder = new StringBuilder();
+	}
+}

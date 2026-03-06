@@ -100,6 +100,12 @@ namespace GorillaTag.Reactions
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SpawnFire(SinglePool pool, Vector3 pos, Vector3 normal, float scale)
 		{
+			FireManager.SpawnFire(pool, pos, normal, scale, null);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SpawnFire(SinglePool pool, Vector3 pos, Vector3 normal, float scale, Quaternion? rotationOverride)
+		{
 			int key;
 			if (FireManager._fireSpatialGrid.TryGetValue(FireManager.GetSpatialGridPos(pos), out key))
 			{
@@ -108,7 +114,14 @@ namespace GorillaTag.Reactions
 			}
 			GameObject gameObject = pool.Instantiate(false);
 			gameObject.transform.position = pos;
-			gameObject.transform.up = normal;
+			if (rotationOverride != null)
+			{
+				gameObject.transform.rotation = rotationOverride.Value;
+			}
+			else
+			{
+				gameObject.transform.up = normal;
+			}
 			gameObject.transform.localScale = Vector3.one * scale;
 			gameObject.SetActive(true);
 		}

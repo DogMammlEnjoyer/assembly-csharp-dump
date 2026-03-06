@@ -1,0 +1,58 @@
+﻿using System;
+using System.Globalization;
+using System.Runtime.Serialization;
+
+namespace System.Security.AccessControl
+{
+	/// <summary>The exception that is thrown when a method in the <see cref="N:System.Security.AccessControl" /> namespace attempts to enable a privilege that it does not have.</summary>
+	[Serializable]
+	public sealed class PrivilegeNotHeldException : UnauthorizedAccessException, ISerializable
+	{
+		/// <summary>Initializes a new instance of the <see cref="T:System.Security.AccessControl.PrivilegeNotHeldException" /> class.</summary>
+		public PrivilegeNotHeldException() : base("The process does not possess some privilege required for this operation.")
+		{
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Security.AccessControl.PrivilegeNotHeldException" /> class by using the specified privilege.</summary>
+		/// <param name="privilege">The privilege that is not enabled.</param>
+		public PrivilegeNotHeldException(string privilege) : base(string.Format(CultureInfo.CurrentCulture, "The process does not possess the '{0}' privilege which is required for this operation.", privilege))
+		{
+			this._privilegeName = privilege;
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Security.AccessControl.PrivilegeNotHeldException" /> class by using the specified exception.</summary>
+		/// <param name="privilege">The privilege that is not enabled.</param>
+		/// <param name="inner">The exception that is the cause of the current exception. If the innerException parameter is not a null reference (<see langword="Nothing" /> in Visual Basic), the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</param>
+		public PrivilegeNotHeldException(string privilege, Exception inner) : base(string.Format(CultureInfo.CurrentCulture, "The process does not possess the '{0}' privilege which is required for this operation.", privilege), inner)
+		{
+			this._privilegeName = privilege;
+		}
+
+		private PrivilegeNotHeldException(SerializationInfo info, StreamingContext context) : base(info, context)
+		{
+			this._privilegeName = info.GetString("PrivilegeName");
+		}
+
+		/// <summary>Sets the <paramref name="info" /> parameter with information about the exception.</summary>
+		/// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+		/// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+		[SecurityCritical]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			base.GetObjectData(info, context);
+			info.AddValue("PrivilegeName", this._privilegeName, typeof(string));
+		}
+
+		/// <summary>Gets the name of the privilege that is not enabled.</summary>
+		/// <returns>The name of the privilege that the method failed to enable.</returns>
+		public string PrivilegeName
+		{
+			get
+			{
+				return this._privilegeName;
+			}
+		}
+
+		private readonly string _privilegeName;
+	}
+}

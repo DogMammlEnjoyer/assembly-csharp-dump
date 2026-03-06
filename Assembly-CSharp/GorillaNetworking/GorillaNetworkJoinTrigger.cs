@@ -160,12 +160,6 @@ namespace GorillaNetworking
 
 		public virtual byte GetRoomSize(bool subscribed)
 		{
-			GameModeType gameModeType;
-			return RoomSystem.GetRoomSizeForCreate(this.zone, Enum.TryParse<GameModeType>(GorillaComputer.instance.currentGameMode.Value, true, out gameModeType) ? gameModeType : GameModeType.Casual, false, subscribed);
-		}
-
-		public virtual byte GetRoomSizeTemp(bool subscribed)
-		{
 			return RoomSystem.GetRoomSizeForCreate(this.zone, this.GetDesiredGameModeType(), false, subscribed);
 		}
 

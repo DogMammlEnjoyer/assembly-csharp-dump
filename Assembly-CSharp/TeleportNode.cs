@@ -36,7 +36,11 @@ public class TeleportNode : GorillaTriggerBox
 			return;
 		}
 		Physics.SyncTransforms();
-		Vector3 position = transform2.TransformPoint(transform.InverseTransformPoint(instance.transform.position));
+		Vector3 position = transform2.transform.position;
+		if (this.seamless)
+		{
+			position = transform2.TransformPoint(transform.InverseTransformPoint(instance.transform.position));
+		}
 		Quaternion rhs = Quaternion.Inverse(transform.rotation) * instance.transform.rotation;
 		Quaternion rotation = transform2.rotation * rhs;
 		base.StartCoroutine(this.DelayedTeleport(instance, position, rotation));
@@ -56,7 +60,11 @@ public class TeleportNode : GorillaTriggerBox
 	[SerializeField]
 	private XSceneRef teleportToRef;
 
-	public bool subsOnly;
+	[SerializeField]
+	private bool seamless = true;
+
+	[SerializeField]
+	private bool subsOnly;
 
 	private float teleportTime;
 }

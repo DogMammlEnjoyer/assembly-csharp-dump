@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GorillaExtensions;
 using GorillaGameModes;
 using Photon.Pun;
 using Photon.Realtime;
@@ -331,11 +332,11 @@ public class GorillaGuardianZoneManager : MonoBehaviourPunCallbacks, IPunObserva
 	{
 		GorillaGuardianZoneManager.<>c__DisplayClass49_0 CS$<>8__locals1 = new GorillaGuardianZoneManager.<>c__DisplayClass49_0();
 		CS$<>8__locals1.playerPositions = new List<Vector3>();
-		foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+		foreach (RigContainer rigContainer in VRRigCache.ActiveRigContainers)
 		{
-			if (!(vrrig == null))
+			if (!rigContainer.IsNull())
 			{
-				CS$<>8__locals1.playerPositions.Add(vrrig.transform.position);
+				CS$<>8__locals1.playerPositions.Add(rigContainer.transform.position);
 			}
 		}
 		this._sortedIdolPositions.Clear();

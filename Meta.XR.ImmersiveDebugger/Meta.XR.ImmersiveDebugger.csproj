@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA073}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meta.XR.ImmersiveDebugger</RootNamespace>
+    <AssemblyName>Meta.XR.ImmersiveDebugger</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DebugData.cs" />
+    <Compile Include="DebugInspector.cs" />
+    <Compile Include="DebugInspectorManager.cs" />
+    <Compile Include="ExampleCustomIntegrationConfig.cs" />
+    <Compile Include="Gizmo\DebugGizmos.cs" />
+    <Compile Include="Gizmo\GizmoRenderer.cs" />
+    <Compile Include="Gizmo\GizmoRendererManager.cs" />
+    <Compile Include="Gizmo\GizmoTypeInfo.cs" />
+    <Compile Include="Gizmo\GizmoTypesRegistry.cs" />
+    <Compile Include="Gizmo\PolylineRenderer.cs" />
+    <Compile Include="Hierarchy\ComponentItem.cs" />
+    <Compile Include="Hierarchy\GameObjectItem.cs" />
+    <Compile Include="Hierarchy\Item.2.cs" />
+    <Compile Include="Hierarchy\Item.cs" />
+    <Compile Include="Hierarchy\ItemWithChildren.cs" />
+    <Compile Include="Hierarchy\Manager.cs" />
+    <Compile Include="Hierarchy\SceneItem.cs" />
+    <Compile Include="Hierarchy\SceneRegistry.cs" />
+    <Compile Include="InspectedData.cs" />
+    <Compile Include="InspectedDataRegistry.cs" />
+    <Compile Include="InspectedHandle.cs" />
+    <Compile Include="InspectedItemBase.cs" />
+    <Compile Include="InspectedMember.cs" />
+    <Compile Include="Manager\ActionHook.cs" />
+    <Compile Include="Manager\ActionManager.cs" />
+    <Compile Include="Manager\ActionManagerForAddon.cs" />
+    <Compile Include="Manager\Category.cs" />
+    <Compile Include="Manager\DebugManager.cs" />
+    <Compile Include="Manager\DebugManagerAddon.cs" />
+    <Compile Include="Manager\GizmoHook.cs" />
+    <Compile Include="Manager\GizmoManager.cs" />
+    <Compile Include="Manager\GizmoManagerForAddon.cs" />
+    <Compile Include="Manager\Hook.cs" />
+    <Compile Include="Manager\IDebugManager.cs" />
+    <Compile Include="Manager\ManagerUtils.cs" />
+    <Compile Include="Manager\SubManagerForAddon.cs" />
+    <Compile Include="Manager\Tweak.2.cs" />
+    <Compile Include="Manager\Tweak.cs" />
+    <Compile Include="Manager\TweakEnum.cs" />
+    <Compile Include="Manager\TweakManager.cs" />
+    <Compile Include="Manager\TweakManagerForAddon.cs" />
+    <Compile Include="Manager\TweakUtils.cs" />
+    <Compile Include="Manager\Watch.2.cs" />
+    <Compile Include="Manager\Watch.cs" />
+    <Compile Include="Manager\WatchManager.cs" />
+    <Compile Include="Manager\WatchManagerForAddon.cs" />
+    <Compile Include="Manager\WatchTexture.cs" />
+    <Compile Include="Manager\WatchUtils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeSettings.cs" />
+    <Compile Include="SceneSetup.cs" />
+    <Compile Include="Telemetry.cs" />
+    <Compile Include="TestSceneUsage.cs" />
+    <Compile Include="UIEditorSetup.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="UserInterface\CategoryButton.cs" />
+    <Compile Include="UserInterface\Console.cs" />
+    <Compile Include="UserInterface\ConsoleLine.cs" />
+    <Compile Include="UserInterface\DebugBar.cs" />
+    <Compile Include="UserInterface\DebugInterface.cs" />
+    <Compile Include="UserInterface\DebugPanel.cs" />
+    <Compile Include="UserInterface\Generic\Background.cs" />
+    <Compile Include="UserInterface\Generic\Button.cs" />
+    <Compile Include="UserInterface\Generic\ButtonForAction.cs" />
+    <Compile Include="UserInterface\Generic\ButtonWithIcon.cs" />
+    <Compile Include="UserInterface\Generic\ButtonWithLabel.cs" />
+    <Compile Include="UserInterface\Generic\Controller.cs" />
+    <Compile Include="UserInterface\Generic\Cursor.cs" />
+    <Compile Include="UserInterface\Generic\Dropdown.cs" />
+    <Compile Include="UserInterface\Generic\DropdownMenuItem.cs" />
+    <Compile Include="UserInterface\Generic\Extensions.cs" />
+    <Compile Include="UserInterface\Generic\Flex.cs" />
+    <Compile Include="UserInterface\Generic\Icon.cs" />
+    <Compile Include="UserInterface\Generic\Image.cs" />
+    <Compile Include="UserInterface\Generic\ImageStyle.cs" />
+    <Compile Include="UserInterface\Generic\InteractableController.cs" />
+    <Compile Include="UserInterface\Generic\Interface.cs" />
+    <Compile Include="UserInterface\Generic\Label.cs" />
+    <Compile Include="UserInterface\Generic\LayoutStyle.cs" />
+    <Compile Include="UserInterface\Generic\OverlayCanvas.cs" />
+    <Compile Include="UserInterface\Generic\OverlayCanvasPanel.cs" />
+    <Compile Include="UserInterface\Generic\Panel.cs" />
+    <Compile Include="UserInterface\Generic\PointerHandler.cs" />
+    <Compile Include="UserInterface\Generic\ProxyController.cs" />
+    <Compile Include="UserInterface\Generic\ProxyFlex.cs" />
+    <Compile Include="UserInterface\Generic\ScrollView.cs" />
+    <Compile Include="UserInterface\Generic\ScrollViewport.cs" />
+    <Compile Include="UserInterface\Generic\Slider.cs" />
+    <Compile Include="UserInterface\Generic\Style.cs" />
+    <Compile Include="UserInterface\Generic\Switch.cs" />
+    <Compile Include="UserInterface\Generic\TextArea.cs" />
+    <Compile Include="UserInterface\Generic\TextStyle.cs" />
+    <Compile Include="UserInterface\Generic\Toggle.cs" />
+    <Compile Include="UserInterface\Generic\ToggleForGizmo.cs" />
+    <Compile Include="UserInterface\Generic\ToggleWithLabel.cs" />
+    <Compile Include="UserInterface\HierarchyItemButton.cs" />
+    <Compile Include="UserInterface\IDebugUIPanel.cs" />
+    <Compile Include="UserInterface\IInspector.cs" />
+    <Compile Include="UserInterface\IMember.cs" />
+    <Compile Include="UserInterface\Inspector.cs" />
+    <Compile Include="UserInterface\InspectorPanel.cs" />
+    <Compile Include="UserInterface\LogEntry.cs" />
+    <Compile Include="UserInterface\Member.cs" />
+    <Compile Include="UserInterface\PanelInputModule.cs" />
+    <Compile Include="UserInterface\PanelRaycaster.cs" />
+    <Compile Include="UserInterface\PanelScrollRect.cs" />
+    <Compile Include="UserInterface\ProxyCameraRig.cs" />
+    <Compile Include="UserInterface\ProxyConsoleLine.cs" />
+    <Compile Include="UserInterface\ProxyInputModule.cs" />
+    <Compile Include="UserInterface\SeverityEntry.cs" />
+    <Compile Include="UserInterface\Utils.cs" />
+    <Compile Include="UserInterface\Value.cs" />
+    <Compile Include="UserInterface\Values.cs" />
+    <Compile Include="Utils\AssemblyParser.cs" />
+    <Compile Include="Utils\ConsoleLogsCache.cs" />
+    <Compile Include="Utils\FloatContainer.cs" />
+    <Compile Include="Utils\InstanceCache.cs" />
+    <Compile Include="Utils\InstanceHandle.cs" />
+    <Compile Include="Utils\IntegerContainer.cs" />
+    <Compile Include="Utils\MemberInfoExtensions.cs" />
+    <Compile Include="Utils\ValueContainer.cs" />
+    <Compile Include="Utils\ValueStruct.cs" />
+    <Compile Include="Utils\Vector2Container.cs" />
+    <Compile Include="Utils\Vector3Container.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Meta.XR.ImmersiveDebugger.Interface\Meta.XR.ImmersiveDebugger.Interface.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA074}</Project>
+      <Name>Meta.XR.ImmersiveDebugger.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Oculus.VR\Oculus.VR.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08B}</Project>
+      <Name>Oculus.VR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11F}</Project>
+      <Name>UnityEngine.TextRenderingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

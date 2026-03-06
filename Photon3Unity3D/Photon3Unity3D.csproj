@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D797127B-CA92-4ED8-858C-14DE627DA87D}</ProjectGuid>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Photon3Unity3D</RootNamespace>
@@ -117,11 +117,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA86F}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
-      <Project>{D797127B-CA92-4ED8-858C-14DE627DA8E6}</Project>
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F8}</Project>
       <Name>UnityEngine</Name>
     </ProjectReference>
   </ItemGroup>

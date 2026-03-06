@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,16 +23,16 @@ namespace GorillaTagScripts.AI
 
 		protected void ChooseRandomTarget()
 		{
-			int randomTarget = Random.Range(0, GorillaParent.instance.vrrigs.Count);
-			int num = GorillaParent.instance.vrrigs.FindIndex((VRRig x) => x.creator != null && x.creator == GorillaParent.instance.vrrigs[randomTarget].creator);
+			int randomTarget = Random.Range(0, VRRigCache.ActiveRigs.Count);
+			int num = VRRigCache.ActiveRigContainers.FindIndex((RigContainer x) => x.Rig.creator != null && x.Rig.creator == VRRigCache.ActiveRigContainers[randomTarget].Rig.creator);
 			if (num == -1)
 			{
-				num = Random.Range(0, GorillaParent.instance.vrrigs.Count);
+				num = Random.Range(0, VRRigCache.ActiveRigs.Count);
 			}
-			if (num < GorillaParent.instance.vrrigs.Count)
+			if (num < VRRigCache.ActiveRigContainers.Count)
 			{
-				this.targetPlayer = GorillaParent.instance.vrrigs[num].creator;
-				this.followTarget = GorillaParent.instance.vrrigs[num].head.rigTarget;
+				this.targetPlayer = VRRigCache.ActiveRigContainers[num].Rig.creator;
+				this.followTarget = VRRigCache.ActiveRigContainers[num].Rig.head.rigTarget;
 				NavMeshHit navMeshHit;
 				this.targetIsOnNavMesh = NavMesh.SamplePosition(this.followTarget.position, out navMeshHit, this.navMeshSampleRange, 1);
 				return;
@@ -44,19 +45,20 @@ namespace GorillaTagScripts.AI
 		{
 			VRRig vrrig = null;
 			float num = float.MaxValue;
-			foreach (VRRig vrrig2 in GorillaParent.instance.vrrigs)
+			foreach (RigContainer rigContainer in VRRigCache.ActiveRigContainers)
 			{
-				if (vrrig2.head != null && !(vrrig2.head.rigTarget == null))
+				VRRig rig = rigContainer.Rig;
+				if (rig.head != null && !rig.head.rigTarget.IsNull())
 				{
-					float sqrMagnitude = (base.transform.position - vrrig2.head.rigTarget.transform.position).sqrMagnitude;
+					float sqrMagnitude = (base.transform.position - rig.head.rigTarget.transform.position).sqrMagnitude;
 					if (sqrMagnitude < this.minChaseRange * this.minChaseRange && sqrMagnitude < num)
 					{
 						num = sqrMagnitude;
-						vrrig = vrrig2;
+						vrrig = rig;
 					}
 				}
 			}
-			if (vrrig != null)
+			if (vrrig.IsNotNull())
 			{
 				this.targetPlayer = vrrig.creator;
 				this.followTarget = vrrig.head.rigTarget;

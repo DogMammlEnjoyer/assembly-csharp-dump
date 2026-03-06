@@ -20,7 +20,7 @@ namespace GorillaTag.Cosmetics
 					{
 						if (!(o is AudioSource))
 						{
-							if (!(o is VoicePitchShiftCosmetic))
+							if (!(o is VoiceShiftCosmetic))
 							{
 								if (!(o is Rigidbody))
 								{
@@ -753,7 +753,7 @@ namespace GorillaTag.Cosmetics
 					{
 						if (num == 11278)
 						{
-							((VoicePitchShiftCosmetic)this.target).Pitch = this.curve.Evaluate(f);
+							((VoiceShiftCosmetic)this.target).Pitch = this.curve.Evaluate(f);
 							return;
 						}
 						if (num == 1049617)

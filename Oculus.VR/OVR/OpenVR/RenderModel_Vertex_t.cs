@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace OVR.OpenVR
+{
+	public struct RenderModel_Vertex_t
+	{
+		public HmdVector3_t vPosition;
+
+		public HmdVector3_t vNormal;
+
+		public float rfTextureCoord0;
+
+		public float rfTextureCoord1;
+	}
+}

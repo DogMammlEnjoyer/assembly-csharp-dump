@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Oculus.VR</RootNamespace>
+    <AssemblyName>Oculus.VR</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\OVR\Scripts\FixMethodDelegate.cs" />
+    <Compile Include="Assets\OVR\Scripts\FixRecord.cs" />
+    <Compile Include="Assets\OVR\Scripts\RangedRecord.cs" />
+    <Compile Include="Assets\OVR\Scripts\Record.cs" />
+    <Compile Include="InlineLinkAttribute.cs" />
+    <Compile Include="IOVRAnchorComponent.cs" />
+    <Compile Include="IOVRSceneComponent.cs" />
+    <Compile Include="Meta\XR\FoveationMethod.cs" />
+    <Compile Include="Meta\XR\InputActions\InputActionDefinition.cs" />
+    <Compile Include="Meta\XR\InputActions\InputActionSet.cs" />
+    <Compile Include="Meta\XR\InputActions\RuntimeSettings.cs" />
+    <Compile Include="Meta\XR\InputActions\UserInputActionSet.cs" />
+    <Compile Include="Meta\XR\MetaXREyeTrackedFoveationFeature.cs" />
+    <Compile Include="Meta\XR\MetaXRFeature.cs" />
+    <Compile Include="Meta\XR\MetaXRFoveationFeature.cs" />
+    <Compile Include="Meta\XR\MetaXRSpaceWarp.cs" />
+    <Compile Include="Meta\XR\MetaXRSubsampledLayout.cs" />
+    <Compile Include="Meta\XR\Samples\MetaCodeSampleAttribute.cs" />
+    <Compile Include="Meta\XR\Samples\SampleMetadata.cs" />
+    <Compile Include="Meta\XR\Samples\Telemetry\SampleTelemetryEvents.cs" />
+    <Compile Include="Meta\XR\Util\Feature.cs" />
+    <Compile Include="Meta\XR\Util\FeatureAttribute.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="NodeStatePropertyType.cs" />
+    <Compile Include="OperationResultExtensions.cs" />
+    <Compile Include="OVRAnchor.cs" />
+    <Compile Include="OVRAnchorContainer.cs" />
+    <Compile Include="OVRAudioSourceTest.cs" />
+    <Compile Include="OVRAutoDestroyInMRC.cs" />
+    <Compile Include="OVRBody.cs" />
+    <Compile Include="OVRBone.cs" />
+    <Compile Include="OVRBoneCapsule.cs" />
+    <Compile Include="OVRBoundary.cs" />
+    <Compile Include="OVRBounded2D.cs" />
+    <Compile Include="OVRBounded3D.cs" />
+    <Compile Include="OVRBuildInfo.cs" />
+    <Compile Include="OVRCameraRig.cs" />
+    <Compile Include="OVRChromaticAberration.cs" />
+    <Compile Include="OVRChunkType.cs" />
+    <Compile Include="OVRColocationSession.cs" />
+    <Compile Include="OVRComposition.cs" />
+    <Compile Include="OVRCompositionUtil.cs" />
+    <Compile Include="OVRControllerDrivenHandPosesSample.cs" />
+    <Compile Include="OVRControllerHelper.cs" />
+    <Compile Include="OVRControllerTest.cs" />
+    <Compile Include="OVRCubemapCapture.cs" />
+    <Compile Include="OVRCursor.cs" />
+    <Compile Include="OVRCustomFace.cs" />
+    <Compile Include="OVRCustomFaceExtensions.cs" />
+    <Compile Include="OVRCustomSkeleton.cs" />
+    <Compile Include="OVRDebugHeadController.cs" />
+    <Compile Include="OVRDebugInfo.cs" />
+    <Compile Include="OVRDeserialize.cs" />
+    <Compile Include="OVRDisplay.cs" />
+    <Compile Include="OVRDynamicObject.cs" />
+    <Compile Include="OVREnumerable.2.cs" />
+    <Compile Include="OVREnumerable.cs" />
+    <Compile Include="OVREnumExtensions.cs" />
+    <Compile Include="OVRExtensions.cs" />
+    <Compile Include="OVRExternalComposition.cs" />
+    <Compile Include="OVREyeGaze.cs" />
+    <Compile Include="OVRFace.cs" />
+    <Compile Include="OVRFaceExpressions.cs" />
+    <Compile Include="OVRFuture.cs" />
+    <Compile Include="OVRGazePointer.cs" />
+    <Compile Include="OVRGLTFAccessor.cs" />
+    <Compile Include="OVRGLTFAnimatinonNode.cs" />
+    <Compile Include="OVRGLTFAnimationNodeMorphTargetHandler.cs" />
+    <Compile Include="OVRGLTFComponentType.cs" />
+    <Compile Include="OVRGLTFInputNode.cs" />
+    <Compile Include="OVRGLTFLoader.cs" />
+    <Compile Include="OVRGLTFScene.cs" />
+    <Compile Include="OVRGLTFType.cs" />
+    <Compile Include="OVRGrabbable.cs" />
+    <Compile Include="OVRGrabber.cs" />
+    <Compile Include="OVRGridCube.cs" />
+    <Compile Include="OVRHand.cs" />
+    <Compile Include="OVRHandSkeletonVersion.cs" />
+    <Compile Include="OVRHandTest.cs" />
+    <Compile Include="OVRHandTrackingWideMotionModeSample.cs" />
+    <Compile Include="OVRHaptics.cs" />
+    <Compile Include="OVRHapticsClip.cs" />
+    <Compile Include="OVRHeadsetEmulator.cs" />
+    <Compile Include="OVRHumanBodyBonesMappingsInterface.cs" />
+    <Compile Include="OVRInput.cs" />
+    <Compile Include="OVRInputRayData.cs" />
+    <Compile Include="OVRKtxTexture.cs" />
+    <Compile Include="OVRLayerAttribute.cs" />
+    <Compile Include="OVRLocatable.cs" />
+    <Compile Include="OVRManager.cs" />
+    <Compile Include="OVRMarkerPayload.cs" />
+    <Compile Include="OVRMarkerPayloadType.cs" />
+    <Compile Include="OVRMaterialData.cs" />
+    <Compile Include="OVRMesh.cs" />
+    <Compile Include="OVRMeshAttributes.cs" />
+    <Compile Include="OVRMeshData.cs" />
+    <Compile Include="OVRMeshJobs.cs" />
+    <Compile Include="OVRMeshRenderer.cs" />
+    <Compile Include="OVRMicrogestureEventSource.cs" />
+    <Compile Include="OVRMicrogesturesSample.cs" />
+    <Compile Include="OVRMixedReality.cs" />
+    <Compile Include="OVRMixedRealityCaptureConfiguration.cs" />
+    <Compile Include="OVRMixedRealityCaptureConfigurationExtensions.cs" />
+    <Compile Include="OVRMixedRealityCaptureSettings.cs" />
+    <Compile Include="OVRMixedRealityCaptureTest.cs" />
+    <Compile Include="OVRModeParms.cs" />
+    <Compile Include="OVRMonoscopic.cs" />
+    <Compile Include="OVRNativeBuffer.cs" />
+    <Compile Include="OVRNativeList.2.cs" />
+    <Compile Include="OVRNativeList.cs" />
+    <Compile Include="OVRNetwork.cs" />
+    <Compile Include="OVRNodeStateProperties.cs" />
+    <Compile Include="OVRObjectPool.cs" />
+    <Compile Include="OVROverlay.cs" />
+    <Compile Include="OVROverlayCanvas.cs" />
+    <Compile Include="OVROverlayCanvasManager.cs" />
+    <Compile Include="OVROverlayCanvasSettings.cs" />
+    <Compile Include="OVROverlayCanvas_TMPChanged.cs" />
+    <Compile Include="OVROverlayMeshGenerator.cs" />
+    <Compile Include="OVRPassthroughColorLut.cs" />
+    <Compile Include="OVRPassthroughLayer.cs" />
+    <Compile Include="OVRPermissionsRequester.cs" />
+    <Compile Include="OVRPlatformMenu.cs" />
+    <Compile Include="OVRPlayerController.cs" />
+    <Compile Include="OVRPlugin.cs" />
+    <Compile Include="OVRPointerVisualizer.cs" />
+    <Compile Include="OVRPose.cs" />
+    <Compile Include="OVRProfile.cs" />
+    <Compile Include="OVRProfilerScope.cs" />
+    <Compile Include="OVRProgressIndicator.cs" />
+    <Compile Include="OVRRaycaster.cs" />
+    <Compile Include="OVRRayHelper.cs" />
+    <Compile Include="OVRRayTransformer.cs" />
+    <Compile Include="OVRReadOnlyAttribute.cs" />
+    <Compile Include="OVRResetOrientation.cs" />
+    <Compile Include="OVRResources.cs" />
+    <Compile Include="OVRResult.2.cs" />
+    <Compile Include="OVRResult.3.cs" />
+    <Compile Include="OVRResult.cs" />
+    <Compile Include="OVRResultStatus.cs" />
+    <Compile Include="OVRRoomLayout.cs" />
+    <Compile Include="OVRRuntimeAssetsBase.cs" />
+    <Compile Include="OVRRuntimeController.cs" />
+    <Compile Include="OVRRuntimeSettings.cs" />
+    <Compile Include="OVRSampledEventSender.cs" />
+    <Compile Include="OVRScene.cs" />
+    <Compile Include="OVRSceneAnchor.cs" />
+    <Compile Include="OVRSceneLoader.cs" />
+    <Compile Include="OVRSceneManager.cs" />
+    <Compile Include="OVRSceneModelLoader.cs" />
+    <Compile Include="OVRSceneObjectTransformType.cs" />
+    <Compile Include="OVRScenePlane.cs" />
+    <Compile Include="OVRScenePlaneMeshFilter.cs" />
+    <Compile Include="OVRScenePrefabOverride.cs" />
+    <Compile Include="OVRSceneRoom.cs" />
+    <Compile Include="OVRSceneSampleController.cs" />
+    <Compile Include="OVRSceneVolume.cs" />
+    <Compile Include="OVRSceneVolumeMeshFilter.cs" />
+    <Compile Include="OVRScreenFade.cs" />
+    <Compile Include="OVRSemanticClassification.cs" />
+    <Compile Include="OVRSemanticLabels.cs" />
+    <Compile Include="OVRSharable.cs" />
+    <Compile Include="OVRSimpleJSON\JSON.cs" />
+    <Compile Include="OVRSimpleJSON\JSONArray.cs" />
+    <Compile Include="OVRSimpleJSON\JSONBool.cs" />
+    <Compile Include="OVRSimpleJSON\JSONContainerType.cs" />
+    <Compile Include="OVRSimpleJSON\JSONLazyCreator.cs" />
+    <Compile Include="OVRSimpleJSON\JSONNode.cs" />
+    <Compile Include="OVRSimpleJSON\JSONNodeType.cs" />
+    <Compile Include="OVRSimpleJSON\JSONNull.cs" />
+    <Compile Include="OVRSimpleJSON\JSONNumber.cs" />
+    <Compile Include="OVRSimpleJSON\JSONObject.cs" />
+    <Compile Include="OVRSimpleJSON\JSONString.cs" />
+    <Compile Include="OVRSimpleJSON\JSONTextMode.cs" />
+    <Compile Include="OVRSimultaneousHandsAndControllersSample.cs" />
+    <Compile Include="OVRSkeleton.cs" />
+    <Compile Include="OVRSkeletonRenderer.cs" />
+    <Compile Include="OVRSpace.cs" />
+    <Compile Include="OVRSpaceQuery.cs" />
+    <Compile Include="OVRSpaceUser.cs" />
+    <Compile Include="OVRSpatialAnchor.cs" />
+    <Compile Include="OVRStorable.cs" />
+    <Compile Include="OVRSystemPerfMetrics.cs" />
+    <Compile Include="OVRTask.2.cs" />
+    <Compile Include="OVRTask.cs" />
+    <Compile Include="OVRTaskBuilder.cs" />
+    <Compile Include="OVRTelemetry.cs" />
+    <Compile Include="OVRTelemetryConstants.cs" />
+    <Compile Include="OVRTelemetryMarker.cs" />
+    <Compile Include="OVRTextureData.cs" />
+    <Compile Include="OVRTextureFormat.cs" />
+    <Compile Include="OVRTextureQualityFiltering.cs" />
+    <Compile Include="OVRTracker.cs" />
+    <Compile Include="OVRTriangleMesh.cs" />
+    <Compile Include="OVRUnityHumanoidSkeletonRetargeter.cs" />
+    <Compile Include="OVRVignette.cs" />
+    <Compile Include="OVRVirtualKeyboard.cs" />
+    <Compile Include="OVRVirtualKeyboardControllerInputHandler.cs" />
+    <Compile Include="OVRVirtualKeyboardHandInputHandler.cs" />
+    <Compile Include="OVRVirtualKeyboardInputFieldTextHandler.cs" />
+    <Compile Include="OVRVirtualKeyboardSampleControls.cs" />
+    <Compile Include="OVRVirtualKeyboardSampleInputHandler.cs" />
+    <Compile Include="OVRVirtualKeyboardSampleWPMPrompt.cs" />
+    <Compile Include="OVRWaitCursor.cs" />
+    <Compile Include="OVR\Input\UIButtonSquishHelper.cs" />
+    <Compile Include="OVR\OpenVR\AppOverrideKeys_t.cs" />
+    <Compile Include="OVR\OpenVR\CameraVideoStreamFrameHeader_t.cs" />
+    <Compile Include="OVR\OpenVR\ChaperoneCalibrationState.cs" />
+    <Compile Include="OVR\OpenVR\Compositor_CumulativeStats.cs" />
+    <Compile Include="OVR\OpenVR\Compositor_FrameTiming.cs" />
+    <Compile Include="OVR\OpenVR\Compositor_OverlaySettings.cs" />
+    <Compile Include="OVR\OpenVR\COpenVRContext.cs" />
+    <Compile Include="OVR\OpenVR\CVRApplications.cs" />
+    <Compile Include="OVR\OpenVR\CVRChaperone.cs" />
+    <Compile Include="OVR\OpenVR\CVRChaperoneSetup.cs" />
+    <Compile Include="OVR\OpenVR\CVRCompositor.cs" />
+    <Compile Include="OVR\OpenVR\CVRDriverManager.cs" />
+    <Compile Include="OVR\OpenVR\CVRExtendedDisplay.cs" />
+    <Compile Include="OVR\OpenVR\CVRInput.cs" />
+    <Compile Include="OVR\OpenVR\CVRIOBuffer.cs" />
+    <Compile Include="OVR\OpenVR\CVRNotifications.cs" />
+    <Compile Include="OVR\OpenVR\CVROverlay.cs" />
+    <Compile Include="OVR\OpenVR\CVRRenderModels.cs" />
+    <Compile Include="OVR\OpenVR\CVRResources.cs" />
+    <Compile Include="OVR\OpenVR\CVRScreenshots.cs" />
+    <Compile Include="OVR\OpenVR\CVRSettingHelper.cs" />
+    <Compile Include="OVR\OpenVR\CVRSettings.cs" />
+    <Compile Include="OVR\OpenVR\CVRSpatialAnchors.cs" />
+    <Compile Include="OVR\OpenVR\CVRSystem.cs" />
+    <Compile Include="OVR\OpenVR\CVRTrackedCamera.cs" />
+    <Compile Include="OVR\OpenVR\D3D12TextureData_t.cs" />
+    <Compile Include="OVR\OpenVR\DistortionCoordinates_t.cs" />
+    <Compile Include="OVR\OpenVR\DriverDirectMode_FrameTiming.cs" />
+    <Compile Include="OVR\OpenVR\EChaperoneConfigFile.cs" />
+    <Compile Include="OVR\OpenVR\EChaperoneImportFlags.cs" />
+    <Compile Include="OVR\OpenVR\ECollisionBoundsStyle.cs" />
+    <Compile Include="OVR\OpenVR\EColorSpace.cs" />
+    <Compile Include="OVR\OpenVR\EDeviceActivityLevel.cs" />
+    <Compile Include="OVR\OpenVR\EDualAnalogWhich.cs" />
+    <Compile Include="OVR\OpenVR\EGamepadTextInputLineMode.cs" />
+    <Compile Include="OVR\OpenVR\EGamepadTextInputMode.cs" />
+    <Compile Include="OVR\OpenVR\EHiddenAreaMeshType.cs" />
+    <Compile Include="OVR\OpenVR\EIOBufferError.cs" />
+    <Compile Include="OVR\OpenVR\EIOBufferMode.cs" />
+    <Compile Include="OVR\OpenVR\EOverlayDirection.cs" />
+    <Compile Include="OVR\OpenVR\ETextureType.cs" />
+    <Compile Include="OVR\OpenVR\ETrackedControllerRole.cs" />
+    <Compile Include="OVR\OpenVR\ETrackedDeviceClass.cs" />
+    <Compile Include="OVR\OpenVR\ETrackedDeviceProperty.cs" />
+    <Compile Include="OVR\OpenVR\ETrackedPropertyError.cs" />
+    <Compile Include="OVR\OpenVR\ETrackingResult.cs" />
+    <Compile Include="OVR\OpenVR\ETrackingUniverseOrigin.cs" />
+    <Compile Include="OVR\OpenVR\EVRApplicationError.cs" />
+    <Compile Include="OVR\OpenVR\EVRApplicationProperty.cs" />
+    <Compile Include="OVR\OpenVR\EVRApplicationTransitionState.cs" />
+    <Compile Include="OVR\OpenVR\EVRApplicationType.cs" />
+    <Compile Include="OVR\OpenVR\EVRButtonId.cs" />
+    <Compile Include="OVR\OpenVR\EVRComponentProperty.cs" />
+    <Compile Include="OVR\OpenVR\EVRCompositorError.cs" />
+    <Compile Include="OVR\OpenVR\EVRCompositorTimingMode.cs" />
+    <Compile Include="OVR\OpenVR\EVRControllerAxisType.cs" />
+    <Compile Include="OVR\OpenVR\EVRControllerEventOutputType.cs" />
+    <Compile Include="OVR\OpenVR\EVREventType.cs" />
+    <Compile Include="OVR\OpenVR\EVREye.cs" />
+    <Compile Include="OVR\OpenVR\EVRFirmwareError.cs" />
+    <Compile Include="OVR\OpenVR\EVRInitError.cs" />
+    <Compile Include="OVR\OpenVR\EVRInputError.cs" />
+    <Compile Include="OVR\OpenVR\EVRInputFilterCancelType.cs" />
+    <Compile Include="OVR\OpenVR\EVRMouseButton.cs" />
+    <Compile Include="OVR\OpenVR\EVRMuraCorrectionMode.cs" />
+    <Compile Include="OVR\OpenVR\EVRNotificationError.cs" />
+    <Compile Include="OVR\OpenVR\EVRNotificationStyle.cs" />
+    <Compile Include="OVR\OpenVR\EVRNotificationType.cs" />
+    <Compile Include="OVR\OpenVR\EVROverlayError.cs" />
+    <Compile Include="OVR\OpenVR\EVROverlayIntersectionMaskPrimitiveType.cs" />
+    <Compile Include="OVR\OpenVR\EVRRenderModelError.cs" />
+    <Compile Include="OVR\OpenVR\EVRScreenshotError.cs" />
+    <Compile Include="OVR\OpenVR\EVRScreenshotPropertyFilenames.cs" />
+    <Compile Include="OVR\OpenVR\EVRScreenshotType.cs" />
+    <Compile Include="OVR\OpenVR\EVRSettingsError.cs" />
+    <Compile Include="OVR\OpenVR\EVRSkeletalMotionRange.cs" />
+    <Compile Include="OVR\OpenVR\EVRSkeletalTransformSpace.cs" />
+    <Compile Include="OVR\OpenVR\EVRSpatialAnchorError.cs" />
+    <Compile Include="OVR\OpenVR\EVRState.cs" />
+    <Compile Include="OVR\OpenVR\EVRSubmitFlags.cs" />
+    <Compile Include="OVR\OpenVR\EVRTrackedCameraError.cs" />
+    <Compile Include="OVR\OpenVR\EVRTrackedCameraFrameLayout.cs" />
+    <Compile Include="OVR\OpenVR\EVRTrackedCameraFrameType.cs" />
+    <Compile Include="OVR\OpenVR\EVSync.cs" />
+    <Compile Include="OVR\OpenVR\HiddenAreaMesh_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdColor_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdMatrix33_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdMatrix34_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdMatrix44_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdQuad_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdQuaternionf_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdQuaternion_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdRect2_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdVector2_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdVector3d_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdVector3_t.cs" />
+    <Compile Include="OVR\OpenVR\HmdVector4_t.cs" />
+    <Compile Include="OVR\OpenVR\ImuSample_t.cs" />
+    <Compile Include="OVR\OpenVR\Imu_OffScaleFlags.cs" />
+    <Compile Include="OVR\OpenVR\InputAnalogActionData_t.cs" />
+    <Compile Include="OVR\OpenVR\InputDigitalActionData_t.cs" />
+    <Compile Include="OVR\OpenVR\InputOriginInfo_t.cs" />
+    <Compile Include="OVR\OpenVR\InputPoseActionData_t.cs" />
+    <Compile Include="OVR\OpenVR\InputSkeletalActionData_t.cs" />
+    <Compile Include="OVR\OpenVR\IntersectionMaskCircle_t.cs" />
+    <Compile Include="OVR\OpenVR\IntersectionMaskRectangle_t.cs" />
+    <Compile Include="OVR\OpenVR\IVRApplications.cs" />
+    <Compile Include="OVR\OpenVR\IVRChaperone.cs" />
+    <Compile Include="OVR\OpenVR\IVRChaperoneSetup.cs" />
+    <Compile Include="OVR\OpenVR\IVRCompositor.cs" />
+    <Compile Include="OVR\OpenVR\IVRDriverManager.cs" />
+    <Compile Include="OVR\OpenVR\IVRExtendedDisplay.cs" />
+    <Compile Include="OVR\OpenVR\IVRInput.cs" />
+    <Compile Include="OVR\OpenVR\IVRIOBuffer.cs" />
+    <Compile Include="OVR\OpenVR\IVRNotifications.cs" />
+    <Compile Include="OVR\OpenVR\IVROverlay.cs" />
+    <Compile Include="OVR\OpenVR\IVRRenderModels.cs" />
+    <Compile Include="OVR\OpenVR\IVRResources.cs" />
+    <Compile Include="OVR\OpenVR\IVRScreenshots.cs" />
+    <Compile Include="OVR\OpenVR\IVRSettings.cs" />
+    <Compile Include="OVR\OpenVR\IVRSpatialAnchors.cs" />
+    <Compile Include="OVR\OpenVR\IVRSystem.cs" />
+    <Compile Include="OVR\OpenVR\IVRTrackedCamera.cs" />
+    <Compile Include="OVR\OpenVR\NotificationBitmap_t.cs" />
+    <Compile Include="OVR\OpenVR\OpenVR.cs" />
+    <Compile Include="OVR\OpenVR\OpenVRInterop.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_ComponentState_t.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_ControllerMode_State_t.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_t.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_TextureMap_t.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_TextureMap_t_Packed.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_t_Packed.cs" />
+    <Compile Include="OVR\OpenVR\RenderModel_Vertex_t.cs" />
+    <Compile Include="OVR\OpenVR\SpatialAnchorPose_t.cs" />
+    <Compile Include="OVR\OpenVR\Texture_t.cs" />
+    <Compile Include="OVR\OpenVR\TrackedDevicePose_t.cs" />
+    <Compile Include="OVR\OpenVR\VRActiveActionSet_t.cs" />
+    <Compile Include="OVR\OpenVR\VRBoneTransform_t.cs" />
+    <Compile Include="OVR\OpenVR\VRControllerAxis_t.cs" />
+    <Compile Include="OVR\OpenVR\VRControllerState_t.cs" />
+    <Compile Include="OVR\OpenVR\VRControllerState_t_Packed.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_ApplicationLaunch_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Chaperone_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Controller_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Data_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_DualAnalog_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_EditingCameraSurface_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_HapticVibration_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_InputActionManifestLoad_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_InputBindingLoad_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Ipd_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Keyboard_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_MessageOverlay_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Mouse_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Notification_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Overlay_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_PerformanceTest_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Process_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Property_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Reserved_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_ScreenshotProgress_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Screenshot_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Scroll_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_SeatedZeroPoseReset_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_SpatialAnchor_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_Status_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_TouchPadMove_t.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_t_Packed.cs" />
+    <Compile Include="OVR\OpenVR\VREvent_WebConsole_t.cs" />
+    <Compile Include="OVR\OpenVR\VRMessageOverlayResponse.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayFlags.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayInputMethod.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayIntersectionMaskPrimitive_Data_t.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayIntersectionMaskPrimitive_t.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayIntersectionParams_t.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayIntersectionResults_t.cs" />
+    <Compile Include="OVR\OpenVR\VROverlayTransformType.cs" />
+    <Compile Include="OVR\OpenVR\VRTextureBounds_t.cs" />
+    <Compile Include="OVR\OpenVR\VRTextureDepthInfo_t.cs" />
+    <Compile Include="OVR\OpenVR\VRTextureWithDepth_t.cs" />
+    <Compile Include="OVR\OpenVR\VRTextureWithPoseAndDepth_t.cs" />
+    <Compile Include="OVR\OpenVR\VRTextureWithPose_t.cs" />
+    <Compile Include="OVR\OpenVR\VRVulkanTextureData_t.cs" />
+    <Compile Include="ProcessPort.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="UnityEngine\EventSystems\OVRInputModule.cs" />
+    <Compile Include="UnityEngine\EventSystems\OVRPhysicsRaycaster.cs" />
+    <Compile Include="UnityEngine\EventSystems\OVRPointerEventData.cs" />
+    <Compile Include="UnityEngine\EventSystems\PointerEventDataExtension.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0D7}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.Management\Unity.XR.Management.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E1}</Project>
+      <Name>Unity.XR.Management</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.XR.OpenXR\Unity.XR.OpenXR.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E3}</Project>
+      <Name>Unity.XR.OpenXR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EC}</Project>
+      <Name>UnityEngine.AndroidJNIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Name>UnityEngine.AnimationModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EF}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Name>UnityEngine.AudioModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.ImageConversionModule\UnityEngine.ImageConversionModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA101}</Project>
+      <Name>UnityEngine.ImageConversionModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA104}</Project>
+      <Name>UnityEngine.InputLegacyModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA107}</Project>
+      <Name>UnityEngine.JSONSerializeModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.SubsystemsModule\UnityEngine.SubsystemsModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11A}</Project>
+      <Name>UnityEngine.SubsystemsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA11F}</Project>
+      <Name>UnityEngine.TextRenderingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Name>UnityEngine.UIModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.VRModule\UnityEngine.VRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA135}</Project>
+      <Name>UnityEngine.VRModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Name>UnityEngine.XRModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

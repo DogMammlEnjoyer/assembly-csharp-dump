@@ -920,7 +920,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		}
 		GhostReactorShiftManager shiftManager = this.reactor.shiftManager;
 		GhostReactorLevelGenerator levelGenerator = this.reactor.levelGenerator;
-		if (shiftManager == null || !shiftManager.authorizedToDelveDeeper || !shiftManager.ShiftActive)
+		if (shiftManager == null || !shiftManager.ShiftActive)
 		{
 			return;
 		}

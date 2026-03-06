@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA054}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fusion.Common</RootNamespace>
+    <AssemblyName>Fusion.Common</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FusionCommon_ProcessedByFody.cs" />
+    <Compile Include="Fusion\Analyzer\StaticConstructorAttribute.cs" />
+    <Compile Include="Fusion\Analyzer\StaticFieldAttribute.cs" />
+    <Compile Include="Fusion\Analyzer\StaticFieldResetMethodAttribute.cs" />
+    <Compile Include="Fusion\Analyzer\StaticFieldResetMode.cs" />
+    <Compile Include="Fusion\ArrayLengthAttribute.cs" />
+    <Compile Include="Fusion\AssemblyNameAttribute.cs" />
+    <Compile Include="Fusion\Async\AsyncOperationHandler.cs" />
+    <Compile Include="Fusion\Async\TaskManager.cs" />
+    <Compile Include="Fusion\AtomicInt.cs" />
+    <Compile Include="Fusion\BinaryDataAttribute.cs" />
+    <Compile Include="Fusion\BinUtils.cs" />
+    <Compile Include="Fusion\BitSetAttribute.cs" />
+    <Compile Include="Fusion\CompareOperator.cs" />
+    <Compile Include="Fusion\CompressionUtils.cs" />
+    <Compile Include="Fusion\CRC64.cs" />
+    <Compile Include="Fusion\DecoratingPropertyAttribute.cs" />
+    <Compile Include="Fusion\DisplayAsEnumAttribute.cs" />
+    <Compile Include="Fusion\DisplayNameAttribute.cs" />
+    <Compile Include="Fusion\DoIfAttributeBase.cs" />
+    <Compile Include="Fusion\DrawerPropertyAttribute.cs" />
+    <Compile Include="Fusion\DrawIfAttribute.cs" />
+    <Compile Include="Fusion\DrawIfMode.cs" />
+    <Compile Include="Fusion\DrawInlineAttribute.cs" />
+    <Compile Include="Fusion\EditorButtonAttribute.cs" />
+    <Compile Include="Fusion\EditorButtonVisibility.cs" />
+    <Compile Include="Fusion\EngineProfiler.cs" />
+    <Compile Include="Fusion\ErrorIfAttribute.cs" />
+    <Compile Include="Fusion\ExpandableEnumAttribute.cs" />
+    <Compile Include="Fusion\FieldEditorButtonAttribute.cs" />
+    <Compile Include="Fusion\FieldsMask.2.cs" />
+    <Compile Include="Fusion\FieldsMask.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObject.2.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObject.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObjectAttribute.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObjectLoaderMethodAttribute.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObjectLoadResult.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObjectSourceAttribute.cs" />
+    <Compile Include="Fusion\FusionGlobalScriptableObjectUnloadDelegate.cs" />
+    <Compile Include="Fusion\FusionMonoBehaviour.cs" />
+    <Compile Include="Fusion\FusionScriptableObject.cs" />
+    <Compile Include="Fusion\HideArrayElementLabelAttribute.cs" />
+    <Compile Include="Fusion\InlineHelpAttribute.cs" />
+    <Compile Include="Fusion\JsonUtils.cs" />
+    <Compile Include="Fusion\LayerAttribute.cs" />
+    <Compile Include="Fusion\LayerMatrixAttribute.cs" />
+    <Compile Include="Fusion\Mask256.cs" />
+    <Compile Include="Fusion\Maths.cs" />
+    <Compile Include="Fusion\MaxStringByteCountAttribute.cs" />
+    <Compile Include="Fusion\Native.cs" />
+    <Compile Include="Fusion\Primes.cs" />
+    <Compile Include="Fusion\PropertyAttribute.cs" />
+    <Compile Include="Fusion\Protocol\ICommunicator.cs" />
+    <Compile Include="Fusion\Protocol\IMessage.cs" />
+    <Compile Include="Fusion\RangeExAttribute.cs" />
+    <Compile Include="Fusion\ReadOnlyAttribute.cs" />
+    <Compile Include="Fusion\RuntimeFlagsBuildFlags.cs" />
+    <Compile Include="Fusion\RuntimeFlagsBuildTypes.cs" />
+    <Compile Include="Fusion\RuntimeFlagsDotNetVersion.cs" />
+    <Compile Include="Fusion\RuntimeUnityFlagsSetup.cs" />
+    <Compile Include="Fusion\Runtime\Unity\UnityDummyAttribute.cs" />
+    <Compile Include="Fusion\ScenePathAttribute.cs" />
+    <Compile Include="Fusion\ScriptHeaderBackColor.cs" />
+    <Compile Include="Fusion\ScriptHeaderIcon.cs" />
+    <Compile Include="Fusion\ScriptHeaderStyle.cs" />
+    <Compile Include="Fusion\ScriptHelpAttribute.cs" />
+    <Compile Include="Fusion\SerializableType.2.cs" />
+    <Compile Include="Fusion\SerializableType.cs" />
+    <Compile Include="Fusion\SerializableTypeAttribute.cs" />
+    <Compile Include="Fusion\SerializeReferenceTypePickerAttribute.cs" />
+    <Compile Include="Fusion\Timer.cs" />
+    <Compile Include="Fusion\TimerDelta.cs" />
+    <Compile Include="Fusion\ToggleLeftAttribute.cs" />
+    <Compile Include="Fusion\UnitAttribute.cs" />
+    <Compile Include="Fusion\Units.cs" />
+    <Compile Include="Fusion\UnityAddressablesRuntimeKeyAttribute.cs" />
+    <Compile Include="Fusion\UnityAssetGuidAttribute.cs" />
+    <Compile Include="Fusion\UnityResourcePathAttribute.cs" />
+    <Compile Include="Fusion\Unsafe.cs" />
+    <Compile Include="Fusion\UTF32Tools.cs" />
+    <Compile Include="Fusion\Versioning.cs" />
+    <Compile Include="Fusion\WarnIfAttribute.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA055}</Project>
+      <Name>Fusion.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F8}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

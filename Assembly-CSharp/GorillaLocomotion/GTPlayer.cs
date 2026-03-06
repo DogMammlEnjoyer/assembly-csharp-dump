@@ -611,6 +611,13 @@ namespace GorillaLocomotion
 			this.lastOpenHeadPosition = this.headCollider.transform.position;
 			this.leftHand.OnTeleport();
 			this.rightHand.OnTeleport();
+			for (int i = 0; i < 12; i++)
+			{
+				if (this.stiltStates[i].isActive)
+				{
+					this.stiltStates[i].OnTeleport();
+				}
+			}
 			if (!keepVelocity)
 			{
 				this.playerRigidBody.linearVelocity = Vector3.zero;
@@ -3962,10 +3969,13 @@ namespace GorillaLocomotion
 				this.isColliding = false;
 				this.isSliding = false;
 				this.wasSliding = false;
-				this.handFollower.position = this.controllerTransform.position;
-				this.handFollower.rotation = this.controllerTransform.rotation;
-				this.lastPosition = this.handFollower.transform.position;
-				this.lastRotation = this.handFollower.transform.rotation;
+				if (this.handFollower != null)
+				{
+					this.handFollower.position = this.controllerTransform.position;
+					this.handFollower.rotation = this.controllerTransform.rotation;
+				}
+				this.lastPosition = this.controllerTransform.position;
+				this.lastRotation = this.controllerTransform.rotation;
 			}
 
 			public Vector3 GetLastPosition()

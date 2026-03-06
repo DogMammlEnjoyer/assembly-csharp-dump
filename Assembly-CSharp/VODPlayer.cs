@@ -297,34 +297,36 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		VODPlayer.VODStream.VODStreamType type = str.type;
 		if (type == VODPlayer.VODStream.VODStreamType.VIDEO)
 		{
-			this.StartVideoPlayback(str.url, time);
+			this.StartVideoPlayback(str.url, str.ch, time);
 			return;
 		}
 		if (type != VODPlayer.VODStream.VODStreamType.IMAGE)
 		{
 			return;
 		}
-		this.StartImagePlayback(str.url, str.duration, time);
+		this.StartImagePlayback(str.url, str.duration, str.ch, time);
 	}
 
-	private void StartImagePlayback(string url, int duration, double time = 0.0)
+	private void StartImagePlayback(string url, int duration, VODPlayer.VODStream.VODStreamChannel ch, double time = 0.0)
 	{
 		VODPlayer.<StartImagePlayback>d__40 <StartImagePlayback>d__;
 		<StartImagePlayback>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<StartImagePlayback>d__.<>4__this = this;
 		<StartImagePlayback>d__.url = url;
 		<StartImagePlayback>d__.duration = duration;
+		<StartImagePlayback>d__.ch = ch;
 		<StartImagePlayback>d__.time = time;
 		<StartImagePlayback>d__.<>1__state = -1;
 		<StartImagePlayback>d__.<>t__builder.Start<VODPlayer.<StartImagePlayback>d__40>(ref <StartImagePlayback>d__);
 	}
 
-	private void StartVideoPlayback(string url, double time = 0.0)
+	private void StartVideoPlayback(string url, VODPlayer.VODStream.VODStreamChannel ch, double time = 0.0)
 	{
 		VODPlayer.<StartVideoPlayback>d__41 <StartVideoPlayback>d__;
 		<StartVideoPlayback>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<StartVideoPlayback>d__.<>4__this = this;
 		<StartVideoPlayback>d__.url = url;
+		<StartVideoPlayback>d__.ch = ch;
 		<StartVideoPlayback>d__.time = time;
 		<StartVideoPlayback>d__.<>1__state = -1;
 		<StartVideoPlayback>d__.<>t__builder.Start<VODPlayer.<StartVideoPlayback>d__41>(ref <StartVideoPlayback>d__);
@@ -389,7 +391,6 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 
 	private VODPlayer.VODNextStream nextStream;
 
-	[SerializeField]
 	private VODPlayer.VODStreamSchedule schedule;
 
 	[SerializeField]
@@ -469,10 +470,19 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 
 		public int duration;
 
+		public VODPlayer.VODStream.VODStreamChannel ch;
+
 		public enum VODStreamType
 		{
 			VIDEO,
 			IMAGE
+		}
+
+		public enum VODStreamChannel
+		{
+			DEFAULT,
+			VIM,
+			MM
 		}
 	}
 

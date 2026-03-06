@@ -41,8 +41,16 @@ public class Slingshot : ProjectileWeapon
 		{
 			return;
 		}
-		this.leftHandSnap = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapLeft).transform;
-		this.rightHandSnap = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapRight).transform;
+		GameObject gameObject = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapLeft);
+		if (gameObject != null)
+		{
+			this.leftHandSnap = gameObject.transform;
+		}
+		GameObject gameObject2 = this.myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapRight);
+		if (gameObject2 != null)
+		{
+			this.rightHandSnap = gameObject2.transform;
+		}
 		this.currentState = TransferrableObject.PositionState.OnChest;
 		this.itemState = TransferrableObject.ItemStates.State0;
 		if (this.elasticLeft)

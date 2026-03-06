@@ -81,11 +81,22 @@ namespace GorillaNetworking
 				MothershipAuthenticator mothershipAuthenticator2 = PlayFabAuthenticator.instance.mothershipAuthenticator;
 				mothershipAuthenticator2.OnLoginFailure = (Action<string, string, string>)Delegate.Combine(mothershipAuthenticator2.OnLoginFailure, new Action<string, string, string>(delegate(string errorMessage, string errorCode, string traceId)
 				{
-					this.loginFailed = true;
+					this.SetLoginFailed();
 					this.ShowMothershipAuthErrorMessage(errorMessage, errorCode, traceId);
 				}));
 				PlayFabAuthenticator.instance.mothershipAuthenticator.BeginLoginFlow();
 			}
+		}
+
+		private void SetLoginFailed()
+		{
+			this.loginFailed = true;
+			NetworkSystem networkSystem = NetworkSystem.Instance;
+			if (networkSystem == null)
+			{
+				return;
+			}
+			networkSystem.FinishAuthenticating();
 		}
 
 		private void Start()
@@ -346,7 +357,7 @@ namespace GorillaNetworking
 		{
 			this.LogMessage(obj.ErrorMessage);
 			Debug.Log("OnPlayFabError(): " + obj.ErrorMessage);
-			this.loginFailed = true;
+			this.SetLoginFailed();
 			if (obj.ErrorMessage == "The account making this request is currently banned")
 			{
 				using (Dictionary<string, List<string>>.Enumerator enumerator = obj.ErrorDetails.GetEnumerator())
@@ -489,7 +500,7 @@ namespace GorillaNetworking
 					int num = (int)Mathf.Pow(2f, (float)(this.playFabAuthRetryCount + 1));
 					Debug.LogWarning(string.Format("Retrying PlayFab auth... Retry attempt #{0}, waiting for {1} seconds", this.playFabAuthRetryCount + 1, num));
 					this.playFabAuthRetryCount++;
-					yield return new WaitForSeconds((float)num);
+					yield return new WaitForSecondsRealtime((float)num);
 				}
 				else
 				{
@@ -603,7 +614,7 @@ namespace GorillaNetworking
 					int num = (int)Mathf.Pow(2f, (float)(this.playFabCacheRetryCount + 1));
 					Debug.LogWarning(string.Format("Retrying PlayFab auth... Retry attempt #{0}, waiting for {1} seconds", this.playFabCacheRetryCount + 1, num));
 					this.playFabCacheRetryCount++;
-					yield return new WaitForSeconds((float)num);
+					yield return new WaitForSecondsRealtime((float)num);
 					base.StartCoroutine(this.CachePlayFabId(new PlayFabAuthenticator.CachePlayFabIdRequest
 					{
 						Platform = this.platform.ToString(),

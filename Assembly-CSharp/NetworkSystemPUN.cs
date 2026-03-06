@@ -10,6 +10,7 @@ using ExitGames.Client.Photon;
 using Fusion;
 using GorillaTag;
 using GorillaTag.Audio;
+using GorillaTagScripts;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Voice.PUN;
@@ -290,109 +291,129 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public override void FinishAuthenticating()
 	{
+		if (PhotonNetwork.AuthValues == null)
+		{
+			this._taskCancelTokens.ForEach(delegate(CancellationTokenSource cts)
+			{
+				cts.Cancel();
+				cts.Dispose();
+			});
+			this._taskCancelTokens.Clear();
+			return;
+		}
 		this.internalState = NetworkSystemPUN.InternalState.Authenticated;
 	}
 
-	private Task WaitForState(CancellationToken ct, params NetworkSystemPUN.InternalState[] desiredStates)
+	private Task WaitForState(CancellationToken ct, NetworkSystemPUN.InternalState[] desiredStates, float timeout)
 	{
 		NetworkSystemPUN.<WaitForState>d__61 <WaitForState>d__;
 		<WaitForState>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<WaitForState>d__.<>4__this = this;
 		<WaitForState>d__.ct = ct;
 		<WaitForState>d__.desiredStates = desiredStates;
+		<WaitForState>d__.timeout = timeout;
 		<WaitForState>d__.<>1__state = -1;
 		<WaitForState>d__.<>t__builder.Start<NetworkSystemPUN.<WaitForState>d__61>(ref <WaitForState>d__);
 		return <WaitForState>d__.<>t__builder.Task;
 	}
 
-	private Task<bool> WaitForStateCheck(params NetworkSystemPUN.InternalState[] desiredStates)
+	private Task<bool> WaitForStateCheck(NetworkSystemPUN.InternalState[] desiredStates, float timeout = 10f)
 	{
 		NetworkSystemPUN.<WaitForStateCheck>d__62 <WaitForStateCheck>d__;
 		<WaitForStateCheck>d__.<>t__builder = AsyncTaskMethodBuilder<bool>.Create();
 		<WaitForStateCheck>d__.<>4__this = this;
 		<WaitForStateCheck>d__.desiredStates = desiredStates;
+		<WaitForStateCheck>d__.timeout = timeout;
 		<WaitForStateCheck>d__.<>1__state = -1;
 		<WaitForStateCheck>d__.<>t__builder.Start<NetworkSystemPUN.<WaitForStateCheck>d__62>(ref <WaitForStateCheck>d__);
 		return <WaitForStateCheck>d__.<>t__builder.Task;
 	}
 
+	private Task<bool> WaitForStateCheck(NetworkSystemPUN.InternalState desiredState, float timeout = 10f)
+	{
+		return this.WaitForStateCheck(new NetworkSystemPUN.InternalState[]
+		{
+			desiredState
+		}, timeout);
+	}
+
 	private Task<NetJoinResult> MakeOrFindRoom(string roomName, RoomConfig opts, int regionIndex = -1)
 	{
-		NetworkSystemPUN.<MakeOrFindRoom>d__63 <MakeOrFindRoom>d__;
+		NetworkSystemPUN.<MakeOrFindRoom>d__64 <MakeOrFindRoom>d__;
 		<MakeOrFindRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<MakeOrFindRoom>d__.<>4__this = this;
 		<MakeOrFindRoom>d__.roomName = roomName;
 		<MakeOrFindRoom>d__.opts = opts;
 		<MakeOrFindRoom>d__.regionIndex = regionIndex;
 		<MakeOrFindRoom>d__.<>1__state = -1;
-		<MakeOrFindRoom>d__.<>t__builder.Start<NetworkSystemPUN.<MakeOrFindRoom>d__63>(ref <MakeOrFindRoom>d__);
+		<MakeOrFindRoom>d__.<>t__builder.Start<NetworkSystemPUN.<MakeOrFindRoom>d__64>(ref <MakeOrFindRoom>d__);
 		return <MakeOrFindRoom>d__.<>t__builder.Task;
 	}
 
 	private Task<bool> TryJoinRoom(string roomName, RoomConfig opts)
 	{
-		NetworkSystemPUN.<TryJoinRoom>d__64 <TryJoinRoom>d__;
+		NetworkSystemPUN.<TryJoinRoom>d__65 <TryJoinRoom>d__;
 		<TryJoinRoom>d__.<>t__builder = AsyncTaskMethodBuilder<bool>.Create();
 		<TryJoinRoom>d__.<>4__this = this;
 		<TryJoinRoom>d__.roomName = roomName;
 		<TryJoinRoom>d__.opts = opts;
 		<TryJoinRoom>d__.<>1__state = -1;
-		<TryJoinRoom>d__.<>t__builder.Start<NetworkSystemPUN.<TryJoinRoom>d__64>(ref <TryJoinRoom>d__);
+		<TryJoinRoom>d__.<>t__builder.Start<NetworkSystemPUN.<TryJoinRoom>d__65>(ref <TryJoinRoom>d__);
 		return <TryJoinRoom>d__.<>t__builder.Task;
 	}
 
 	private Task<bool> TryJoinRoomInRegion(string roomName, RoomConfig opts, int regionIndex)
 	{
-		NetworkSystemPUN.<TryJoinRoomInRegion>d__65 <TryJoinRoomInRegion>d__;
+		NetworkSystemPUN.<TryJoinRoomInRegion>d__66 <TryJoinRoomInRegion>d__;
 		<TryJoinRoomInRegion>d__.<>t__builder = AsyncTaskMethodBuilder<bool>.Create();
 		<TryJoinRoomInRegion>d__.<>4__this = this;
 		<TryJoinRoomInRegion>d__.roomName = roomName;
 		<TryJoinRoomInRegion>d__.opts = opts;
 		<TryJoinRoomInRegion>d__.regionIndex = regionIndex;
 		<TryJoinRoomInRegion>d__.<>1__state = -1;
-		<TryJoinRoomInRegion>d__.<>t__builder.Start<NetworkSystemPUN.<TryJoinRoomInRegion>d__65>(ref <TryJoinRoomInRegion>d__);
+		<TryJoinRoomInRegion>d__.<>t__builder.Start<NetworkSystemPUN.<TryJoinRoomInRegion>d__66>(ref <TryJoinRoomInRegion>d__);
 		return <TryJoinRoomInRegion>d__.<>t__builder.Task;
 	}
 
 	private Task<NetJoinResult> TryCreateRoom(string roomName, RoomConfig opts)
 	{
-		NetworkSystemPUN.<TryCreateRoom>d__66 <TryCreateRoom>d__;
+		NetworkSystemPUN.<TryCreateRoom>d__67 <TryCreateRoom>d__;
 		<TryCreateRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<TryCreateRoom>d__.<>4__this = this;
 		<TryCreateRoom>d__.roomName = roomName;
 		<TryCreateRoom>d__.opts = opts;
 		<TryCreateRoom>d__.<>1__state = -1;
-		<TryCreateRoom>d__.<>t__builder.Start<NetworkSystemPUN.<TryCreateRoom>d__66>(ref <TryCreateRoom>d__);
+		<TryCreateRoom>d__.<>t__builder.Start<NetworkSystemPUN.<TryCreateRoom>d__67>(ref <TryCreateRoom>d__);
 		return <TryCreateRoom>d__.<>t__builder.Task;
 	}
 
 	private Task<NetJoinResult> JoinRandomPublicRoom(RoomConfig opts)
 	{
-		NetworkSystemPUN.<JoinRandomPublicRoom>d__67 <JoinRandomPublicRoom>d__;
+		NetworkSystemPUN.<JoinRandomPublicRoom>d__68 <JoinRandomPublicRoom>d__;
 		<JoinRandomPublicRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<JoinRandomPublicRoom>d__.<>4__this = this;
 		<JoinRandomPublicRoom>d__.opts = opts;
 		<JoinRandomPublicRoom>d__.<>1__state = -1;
-		<JoinRandomPublicRoom>d__.<>t__builder.Start<NetworkSystemPUN.<JoinRandomPublicRoom>d__67>(ref <JoinRandomPublicRoom>d__);
+		<JoinRandomPublicRoom>d__.<>t__builder.Start<NetworkSystemPUN.<JoinRandomPublicRoom>d__68>(ref <JoinRandomPublicRoom>d__);
 		return <JoinRandomPublicRoom>d__.<>t__builder.Task;
 	}
 
 	public override Task<NetJoinResult> ConnectToRoom(string roomName, RoomConfig opts, int regionIndex = -1)
 	{
-		NetworkSystemPUN.<ConnectToRoom>d__68 <ConnectToRoom>d__;
+		NetworkSystemPUN.<ConnectToRoom>d__69 <ConnectToRoom>d__;
 		<ConnectToRoom>d__.<>t__builder = AsyncTaskMethodBuilder<NetJoinResult>.Create();
 		<ConnectToRoom>d__.<>4__this = this;
 		<ConnectToRoom>d__.roomName = roomName;
 		<ConnectToRoom>d__.opts = opts;
 		<ConnectToRoom>d__.regionIndex = regionIndex;
 		<ConnectToRoom>d__.<>1__state = -1;
-		<ConnectToRoom>d__.<>t__builder.Start<NetworkSystemPUN.<ConnectToRoom>d__68>(ref <ConnectToRoom>d__);
+		<ConnectToRoom>d__.<>t__builder.Start<NetworkSystemPUN.<ConnectToRoom>d__69>(ref <ConnectToRoom>d__);
 		return <ConnectToRoom>d__.<>t__builder.Task;
 	}
 
 	public override Task JoinFriendsRoom(string userID, int actorIDToFollow, string keyToFollow, string shufflerToFollow)
 	{
-		NetworkSystemPUN.<JoinFriendsRoom>d__69 <JoinFriendsRoom>d__;
+		NetworkSystemPUN.<JoinFriendsRoom>d__70 <JoinFriendsRoom>d__;
 		<JoinFriendsRoom>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<JoinFriendsRoom>d__.<>4__this = this;
 		<JoinFriendsRoom>d__.userID = userID;
@@ -400,7 +421,7 @@ public class NetworkSystemPUN : NetworkSystem
 		<JoinFriendsRoom>d__.keyToFollow = keyToFollow;
 		<JoinFriendsRoom>d__.shufflerToFollow = shufflerToFollow;
 		<JoinFriendsRoom>d__.<>1__state = -1;
-		<JoinFriendsRoom>d__.<>t__builder.Start<NetworkSystemPUN.<JoinFriendsRoom>d__69>(ref <JoinFriendsRoom>d__);
+		<JoinFriendsRoom>d__.<>t__builder.Start<NetworkSystemPUN.<JoinFriendsRoom>d__70>(ref <JoinFriendsRoom>d__);
 		return <JoinFriendsRoom>d__.<>t__builder.Task;
 	}
 
@@ -429,21 +450,21 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public override Task ReturnToSinglePlayer()
 	{
-		NetworkSystemPUN.<ReturnToSinglePlayer>d__72 <ReturnToSinglePlayer>d__;
+		NetworkSystemPUN.<ReturnToSinglePlayer>d__73 <ReturnToSinglePlayer>d__;
 		<ReturnToSinglePlayer>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<ReturnToSinglePlayer>d__.<>4__this = this;
 		<ReturnToSinglePlayer>d__.<>1__state = -1;
-		<ReturnToSinglePlayer>d__.<>t__builder.Start<NetworkSystemPUN.<ReturnToSinglePlayer>d__72>(ref <ReturnToSinglePlayer>d__);
+		<ReturnToSinglePlayer>d__.<>t__builder.Start<NetworkSystemPUN.<ReturnToSinglePlayer>d__73>(ref <ReturnToSinglePlayer>d__);
 		return <ReturnToSinglePlayer>d__.<>t__builder.Task;
 	}
 
 	private Task InternalDisconnect()
 	{
-		NetworkSystemPUN.<InternalDisconnect>d__73 <InternalDisconnect>d__;
+		NetworkSystemPUN.<InternalDisconnect>d__74 <InternalDisconnect>d__;
 		<InternalDisconnect>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<InternalDisconnect>d__.<>4__this = this;
 		<InternalDisconnect>d__.<>1__state = -1;
-		<InternalDisconnect>d__.<>t__builder.Start<NetworkSystemPUN.<InternalDisconnect>d__73>(ref <InternalDisconnect>d__);
+		<InternalDisconnect>d__.<>t__builder.Start<NetworkSystemPUN.<InternalDisconnect>d__74>(ref <InternalDisconnect>d__);
 		return <InternalDisconnect>d__.<>t__builder.Task;
 	}
 
@@ -497,16 +518,24 @@ public class NetworkSystemPUN : NetworkSystem
 			this.localRecorder.AutoStart = this.VoiceSettings.AutoStart;
 			this.localRecorder.Encrypt = this.VoiceSettings.Encrypt;
 			this.localRecorder.FrameDuration = this.VoiceSettings.FrameDuration;
-			this.localRecorder.SamplingRate = this.VoiceSettings.SamplingRate;
 			this.localRecorder.InterestGroup = this.VoiceSettings.InterestGroup;
 			this.localRecorder.SourceType = this.VoiceSettings.InputSourceType;
 			this.localRecorder.MicrophoneType = this.VoiceSettings.MicrophoneType;
 			this.localRecorder.UseMicrophoneTypeFallback = this.VoiceSettings.UseFallback;
 			this.localRecorder.VoiceDetection = this.VoiceSettings.Detect;
 			this.localRecorder.VoiceDetectionThreshold = this.VoiceSettings.Threshold;
-			this.localRecorder.Bitrate = this.VoiceSettings.Bitrate;
 			this.localRecorder.VoiceDetectionDelayMs = this.VoiceSettings.Delay;
 			this.localRecorder.DebugEchoMode = this.VoiceSettings.DebugEcho;
+			if (!SubscriptionManager.IsLocalSubscribed())
+			{
+				this.localRecorder.SamplingRate = this.VoiceSettings.SamplingRate;
+				this.localRecorder.Bitrate = this.VoiceSettings.Bitrate;
+			}
+			else
+			{
+				this.localRecorder.SamplingRate = this.VoiceSettings.SubsSamplingRate;
+				this.localRecorder.Bitrate = this.VoiceSettings.SubsBitrate;
+			}
 			this.VoiceNetworkObject.AddComponent<VoiceToLoudness>();
 			this.punVoice.PrimaryRecorder = this.localRecorder;
 		}
@@ -625,10 +654,10 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public override Task AwaitSceneReady()
 	{
-		NetworkSystemPUN.<AwaitSceneReady>d__88 <AwaitSceneReady>d__;
+		NetworkSystemPUN.<AwaitSceneReady>d__89 <AwaitSceneReady>d__;
 		<AwaitSceneReady>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 		<AwaitSceneReady>d__.<>1__state = -1;
-		<AwaitSceneReady>d__.<>t__builder.Start<NetworkSystemPUN.<AwaitSceneReady>d__88>(ref <AwaitSceneReady>d__);
+		<AwaitSceneReady>d__.<>t__builder.Start<NetworkSystemPUN.<AwaitSceneReady>d__89>(ref <AwaitSceneReady>d__);
 		return <AwaitSceneReady>d__.<>t__builder.Task;
 	}
 
@@ -999,11 +1028,11 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public void OnDisconnected(DisconnectCause cause)
 	{
-		NetworkSystemPUN.<OnDisconnected>d__117 <OnDisconnected>d__;
+		NetworkSystemPUN.<OnDisconnected>d__118 <OnDisconnected>d__;
 		<OnDisconnected>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<OnDisconnected>d__.<>4__this = this;
 		<OnDisconnected>d__.<>1__state = -1;
-		<OnDisconnected>d__.<>t__builder.Start<NetworkSystemPUN.<OnDisconnected>d__117>(ref <OnDisconnected>d__);
+		<OnDisconnected>d__.<>t__builder.Start<NetworkSystemPUN.<OnDisconnected>d__118>(ref <OnDisconnected>d__);
 	}
 
 	public void OnMasterClientSwitched(Player newMasterClient)

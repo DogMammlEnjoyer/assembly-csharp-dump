@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA05B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GT_CustomMapSupportRuntime</RootNamespace>
+    <AssemblyName>GT_CustomMapSupportRuntime</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessDoorPlaceholder.cs" />
+    <Compile Include="AgentBehaviours.cs" />
+    <Compile Include="AIAgent.cs" />
+    <Compile Include="AISpawnManager.cs" />
+    <Compile Include="AISpawnPoint.cs" />
+    <Compile Include="AttackType.cs" />
+    <Compile Include="CMSExtensions.cs" />
+    <Compile Include="CMSZoneShaderSettings.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="CustomMapEjectButtonSettings.cs" />
+    <Compile Include="CustomMapReviveStation.cs" />
+    <Compile Include="CustomMapSupport\Bezier.cs" />
+    <Compile Include="CustomMapSupport\BezierControlPointMode.cs" />
+    <Compile Include="CustomMapSupport\BezierSpline.cs" />
+    <Compile Include="Descriptor.cs" />
+    <Compile Include="ExportLightingType.cs" />
+    <Compile Include="ForceVolumeProperties.cs" />
+    <Compile Include="GliderWindVolumeProperties.cs" />
+    <Compile Include="GrabbableEntity.cs" />
+    <Compile Include="GTObject.cs" />
+    <Compile Include="GTObjectPlaceholder.cs" />
+    <Compile Include="HandHoldSettings.cs" />
+    <Compile Include="LoadZoneSettings.cs" />
+    <Compile Include="LuauTriggerSettings.cs" />
+    <Compile Include="MapBoundarySettings.cs" />
+    <Compile Include="MapDescriptor.cs" />
+    <Compile Include="MapEntity.cs" />
+    <Compile Include="MapOrientationPoint.cs" />
+    <Compile Include="MapPackageInfo.cs" />
+    <Compile Include="MapSpawnManager.cs" />
+    <Compile Include="MapSpawnPoint.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="MovingSurfaceSettings.cs" />
+    <Compile Include="MultiPartFire.cs" />
+    <Compile Include="NavAgentType.cs" />
+    <Compile Include="ObjectActivationTriggerSettings.cs" />
+    <Compile Include="PlayAnimationTriggerSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RopeSwingSegment.cs" />
+    <Compile Include="SurfaceMoverSettings.cs" />
+    <Compile Include="SurfaceOverrideSettings.cs" />
+    <Compile Include="SurfaceSoundOverride.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RefSafetyRulesAttribute.cs" />
+    <Compile Include="TagZoneSettings.cs" />
+    <Compile Include="TeleporterSettings.cs" />
+    <Compile Include="TriggerSettings.cs" />
+    <Compile Include="TriggerSource.cs" />
+    <Compile Include="UberShaderDynamicLight.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="VirtualStumpReturnWatchProps.cs" />
+    <Compile Include="WaterVolumeProperties.cs" />
+    <Compile Include="ZiplineSegment.cs" />
+    <Compile Include="ZoneShaderTriggerSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA082}</Project>
+      <Name>Newtonsoft.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F8}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

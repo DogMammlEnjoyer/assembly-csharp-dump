@@ -404,7 +404,7 @@ public class MonkeVoteMachine : MonoBehaviour
 
 	private void OnVoteEntered(MonkeVoteOption option, Collider votingCollider)
 	{
-		if (this._waitingOnVote || (Time.time < this._voteCooldownEnd && !this._isTestingPoll))
+		if (this._waitingOnVote || (Time.realtimeSinceStartup < this._voteCooldownEnd && !this._isTestingPoll))
 		{
 			this.PlayVoteFailEffects();
 			return;
@@ -447,7 +447,7 @@ public class MonkeVoteMachine : MonoBehaviour
 		if (success)
 		{
 			this.PlayVoteSuccessEffects();
-			this._voteCooldownEnd = Time.time + this._voteCooldown;
+			this._voteCooldownEnd = Time.realtimeSinceStartup + this._voteCooldown;
 			ValueTuple<int, int> vote = this.GetVote(id);
 			int num = vote.Item1;
 			int num2 = vote.Item2;
