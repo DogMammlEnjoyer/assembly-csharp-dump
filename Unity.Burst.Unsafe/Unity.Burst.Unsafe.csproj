@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B8}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Unity.Burst.Unsafe</RootNamespace>
@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Runtime\System.Runtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0AB}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D2}</Project>
       <Name>System.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

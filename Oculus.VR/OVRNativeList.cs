@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 
-internal struct OVRNativeList<[IsUnmanaged] T> : IDisposable, IReadOnlyList<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T> where T : struct, ValueType
+internal struct OVRNativeList<[IsUnmanaged] T> : IDisposable, IReadOnlyList<T>, IEnumerable<!0>, IEnumerable, IReadOnlyCollection<T> where T : struct, ValueType
 {
 	public int Count { readonly get; private set; }
 

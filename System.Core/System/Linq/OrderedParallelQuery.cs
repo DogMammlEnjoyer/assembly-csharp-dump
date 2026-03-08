@@ -26,7 +26,7 @@ namespace System.Linq
 		{
 			get
 			{
-				return (IOrderedEnumerable<TSource>)this._sortOp;
+				return (IOrderedEnumerable<!0>)this._sortOp;
 			}
 		}
 

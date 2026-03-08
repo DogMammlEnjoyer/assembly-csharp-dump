@@ -16,11 +16,7 @@ public class HoseSimulator : MonoBehaviour, ISpawnable
 
 	void ISpawnable.OnSpawn(VRRig rig)
 	{
-		GameObject gameObject = rig.cosmeticReferences.Get(this.startAnchorRef);
-		if (gameObject != null)
-		{
-			this.anchors = gameObject.GetComponent<HoseSimulatorAnchors>();
-		}
+		this.anchors = rig.cosmeticReferences.Get(this.startAnchorRef).GetComponent<HoseSimulatorAnchors>();
 		if (this.skinnedMeshRenderer != null)
 		{
 			Bounds localBounds = this.skinnedMeshRenderer.localBounds;

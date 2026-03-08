@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E0}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49507}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnityEngine.XR.Interaction.Toolkit</RootNamespace>
@@ -497,79 +497,79 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0B7}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494DE}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0BD}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494E4}</Project>
       <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0C1}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494E8}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DC}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49503}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.XR.CoreUtils\Unity.XR.CoreUtils.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0DF}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49506}</Project>
       <Name>Unity.XR.CoreUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.XR.OpenXR\Unity.XR.OpenXR.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E3}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4950A}</Project>
       <Name>Unity.XR.OpenXR</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0ED}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49514}</Project>
       <Name>UnityEngine.AnimationModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49517}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputForUIModule\UnityEngine.InputForUIModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA103}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4952A}</Project>
       <Name>UnityEngine.InputForUIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA104}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4952B}</Project>
       <Name>UnityEngine.InputLegacyModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10E}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49535}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA10F}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49536}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.SpatialTracking\UnityEngine.SpatialTracking.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA115}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4953C}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIElementsModule\UnityEngine.UIElementsModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA123}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4954A}</Project>
       <Name>UnityEngine.UIElementsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA124}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4954B}</Project>
       <Name>UnityEngine.UIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49549}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4955F}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

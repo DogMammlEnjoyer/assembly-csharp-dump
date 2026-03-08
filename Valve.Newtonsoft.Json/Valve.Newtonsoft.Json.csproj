@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA139}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49560}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Valve.Newtonsoft.Json</RootNamespace>
@@ -231,19 +231,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA07D}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A4}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA09E}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C5}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Runtime.Serialization\System.Runtime.Serialization.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0AC}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D3}</Project>
       <Name>System.Runtime.Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0A1}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C8}</Project>
       <Name>System</Name>
     </ProjectReference>
   </ItemGroup>

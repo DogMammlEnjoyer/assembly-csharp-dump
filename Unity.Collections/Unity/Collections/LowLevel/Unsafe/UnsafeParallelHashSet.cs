@@ -12,7 +12,7 @@ namespace Unity.Collections.LowLevel.Unsafe
 	{
 		typeof(int)
 	})]
-	public struct UnsafeParallelHashSet<[IsUnmanaged] T> : INativeDisposable, IDisposable, IEnumerable<T>, IEnumerable where T : struct, ValueType, IEquatable<T>
+	public struct UnsafeParallelHashSet<[IsUnmanaged] T> : INativeDisposable, IDisposable, IEnumerable<!0>, IEnumerable where T : struct, ValueType, IEquatable<T>
 	{
 		public UnsafeParallelHashSet(int capacity, AllocatorManager.AllocatorHandle allocator)
 		{

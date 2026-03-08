@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06A}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49491}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Meta.WitAi.Lib</RootNamespace>
@@ -46,23 +46,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meta.VoiceSDK.Mic.Common\Meta.VoiceSDK.Mic.Common.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA069}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49490}</Project>
       <Name>Meta.VoiceSDK.Mic.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06E}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49495}</Project>
       <Name>Meta.WitAi.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49517}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
   </ItemGroup>

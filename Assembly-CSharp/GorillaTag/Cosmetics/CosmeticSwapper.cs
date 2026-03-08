@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using GorillaGameModes;
 using GorillaNetworking;
 using UnityEngine;
@@ -66,34 +65,111 @@ namespace GorillaTag.Cosmetics
 
 		private void TriggerSwap(VRRig rig)
 		{
-			CosmeticSwapper.<TriggerSwap>d__22 <TriggerSwap>d__;
-			<TriggerSwap>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<TriggerSwap>d__.<>4__this = this;
-			<TriggerSwap>d__.rig = rig;
-			<TriggerSwap>d__.<>1__state = -1;
-			<TriggerSwap>d__.<>t__builder.Start<CosmeticSwapper.<TriggerSwap>d__22>(ref <TriggerSwap>d__);
+			if (GorillaGameManager.instance != null && this.gameModeExclusion.Contains(GorillaGameManager.instance.GameType()))
+			{
+				return;
+			}
+			if (rig == null || this.controller == null || this.cosmeticIDs.Count == 0)
+			{
+				return;
+			}
+			if (rig != GorillaTagger.Instance.offlineVRRig)
+			{
+				return;
+			}
+			if (this.swapMode == CosmeticSwapper.SwapMode.AllAtOnce)
+			{
+				foreach (string nameOrId in this.cosmeticIDs)
+				{
+					CosmeticSwapper.CosmeticState? cosmeticState = this.SwapInCosmeticWithReturn(nameOrId, rig);
+					if (cosmeticState != null)
+					{
+						this.AddNewSwappedCosmetic(cosmeticState.Value);
+					}
+				}
+				return;
+			}
+			int cosmeticStepIndex = this.CosmeticStepIndex;
+			if (cosmeticStepIndex < 0 || cosmeticStepIndex >= this.cosmeticIDs.Count)
+			{
+				return;
+			}
+			string nameOrId2 = this.cosmeticIDs[cosmeticStepIndex];
+			CosmeticSwapper.CosmeticState? cosmeticState2 = this.SwapInCosmeticWithReturn(nameOrId2, rig);
+			if (cosmeticState2 != null)
+			{
+				this.AddNewSwappedCosmetic(cosmeticState2.Value);
+				if (cosmeticStepIndex == this.cosmeticIDs.Count - 1)
+				{
+					if (this.holdFinalStep)
+					{
+						this.MarkFinalCosmeticStep();
+					}
+					if (this.OnSwappingSequenceCompleted != null)
+					{
+						this.OnSwappingSequenceCompleted.Invoke(rig);
+						return;
+					}
+				}
+				else
+				{
+					this.UnmarkFinalCosmeticStep();
+				}
+			}
 		}
 
-		private Awaitable<CosmeticSwapper.CosmeticState?> SwapInCosmeticWithReturn(string nameOrId, VRRig rig)
+		private CosmeticSwapper.CosmeticState? SwapInCosmeticWithReturn(string nameOrId, VRRig rig)
 		{
-			CosmeticSwapper.<SwapInCosmeticWithReturn>d__23 <SwapInCosmeticWithReturn>d__;
-			<SwapInCosmeticWithReturn>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder<CosmeticSwapper.CosmeticState?>.Create();
-			<SwapInCosmeticWithReturn>d__.<>4__this = this;
-			<SwapInCosmeticWithReturn>d__.nameOrId = nameOrId;
-			<SwapInCosmeticWithReturn>d__.<>1__state = -1;
-			<SwapInCosmeticWithReturn>d__.<>t__builder.Start<CosmeticSwapper.<SwapInCosmeticWithReturn>d__23>(ref <SwapInCosmeticWithReturn>d__);
-			return <SwapInCosmeticWithReturn>d__.<>t__builder.Task;
+			if (this.controller == null)
+			{
+				return null;
+			}
+			CosmeticsController.CosmeticItem cosmeticItem = this.FindItem(nameOrId);
+			if (cosmeticItem.isNullItem)
+			{
+				Debug.LogWarning("Cosmetic not found: " + nameOrId);
+				return null;
+			}
+			bool isLeftHand;
+			CosmeticsController.CosmeticSlots cosmeticSlot = this.GetCosmeticSlot(cosmeticItem, out isLeftHand);
+			if (cosmeticSlot == CosmeticsController.CosmeticSlots.Count)
+			{
+				Debug.LogWarning("Could not determine slot for: " + cosmeticItem.displayName);
+				return null;
+			}
+			CosmeticsController.CosmeticItem cosmeticItem2 = this.controller.currentWornSet.items[(int)cosmeticSlot];
+			if (!cosmeticItem2.isNullItem && cosmeticItem2.itemName == cosmeticItem.itemName)
+			{
+				return null;
+			}
+			this.controller.ApplyCosmeticItemToSet(this.controller.tempUnlockedSet, cosmeticItem, isLeftHand, false);
+			this.controller.UpdateWornCosmetics(true);
+			return new CosmeticSwapper.CosmeticState?(new CosmeticSwapper.CosmeticState
+			{
+				cosmeticId = nameOrId,
+				replacedItem = cosmeticItem2,
+				slot = cosmeticSlot,
+				isLeftHand = isLeftHand
+			});
 		}
 
-		private Awaitable RestorePreviousCosmetic(CosmeticSwapper.CosmeticState state)
+		private void RestorePreviousCosmetic(CosmeticSwapper.CosmeticState state)
 		{
-			CosmeticSwapper.<RestorePreviousCosmetic>d__24 <RestorePreviousCosmetic>d__;
-			<RestorePreviousCosmetic>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<RestorePreviousCosmetic>d__.<>4__this = this;
-			<RestorePreviousCosmetic>d__.state = state;
-			<RestorePreviousCosmetic>d__.<>1__state = -1;
-			<RestorePreviousCosmetic>d__.<>t__builder.Start<CosmeticSwapper.<RestorePreviousCosmetic>d__24>(ref <RestorePreviousCosmetic>d__);
-			return <RestorePreviousCosmetic>d__.<>t__builder.Task;
+			if (this.controller == null)
+			{
+				return;
+			}
+			CosmeticsController.CosmeticItem cosmeticItem = this.FindItem(state.cosmeticId);
+			if (cosmeticItem.isNullItem)
+			{
+				return;
+			}
+			this.controller.RemoveCosmeticItemFromSet(this.controller.tempUnlockedSet, cosmeticItem.displayName, false);
+			if (!state.replacedItem.isNullItem)
+			{
+				this.controller.ApplyCosmeticItemToSet(this.controller.tempUnlockedSet, state.replacedItem, state.isLeftHand, false);
+			}
+			this.controller.UpdateWornCosmetics(true);
 		}
 
 		private CosmeticsController.CosmeticItem FindItem(string nameOrId)
@@ -136,11 +212,41 @@ namespace GorillaTag.Cosmetics
 
 		public void Tick()
 		{
-			CosmeticSwapper.<Tick>d__31 <Tick>d__;
-			<Tick>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<Tick>d__.<>4__this = this;
-			<Tick>d__.<>1__state = -1;
-			<Tick>d__.<>t__builder.Start<CosmeticSwapper.<Tick>d__31>(ref <Tick>d__);
+			if (this.newSwappedCosmetics.Count > 0)
+			{
+				if (this.GetCurrentMode() == CosmeticSwapper.SwapMode.StepByStep)
+				{
+					if (this.isAtFinalCosmeticStep && this.ShouldHoldFinalStep())
+					{
+						if (Time.time - this.lastCosmeticSwapTime <= this.stepTimeout)
+						{
+							return;
+						}
+						this.isAtFinalCosmeticStep = false;
+					}
+					if (Time.time - this.lastCosmeticSwapTime > this.stepTimeout)
+					{
+						while (this.newSwappedCosmetics.Count > 0)
+						{
+							CosmeticSwapper.CosmeticState state = this.newSwappedCosmetics.Pop();
+							this.RestorePreviousCosmetic(state);
+						}
+						this.isAtFinalCosmeticStep = false;
+						this.lastCosmeticSwapTime = float.PositiveInfinity;
+						return;
+					}
+				}
+				else if (this.GetCurrentMode() == CosmeticSwapper.SwapMode.AllAtOnce && Time.time - this.lastCosmeticSwapTime > this.stepTimeout)
+				{
+					while (this.newSwappedCosmetics.Count > 0)
+					{
+						CosmeticSwapper.CosmeticState state2 = this.newSwappedCosmetics.Pop();
+						this.RestorePreviousCosmetic(state2);
+					}
+					this.lastCosmeticSwapTime = float.PositiveInfinity;
+					this.isAtFinalCosmeticStep = false;
+				}
+			}
 		}
 
 		private void AddNewSwappedCosmetic(CosmeticSwapper.CosmeticState state)

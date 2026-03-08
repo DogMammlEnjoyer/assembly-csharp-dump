@@ -909,7 +909,7 @@ namespace System.Collections.Generic
 			/// <summary>Enumerates the elements of a <see cref="T:System.Collections.Generic.SortedDictionary`2.KeyCollection" />.</summary>
 			/// <typeparam name="TKey" />
 			/// <typeparam name="TValue" />
-			public struct Enumerator : IEnumerator<TKey>, IDisposable, IEnumerator
+			public struct Enumerator : IEnumerator<!0>, IDisposable, IEnumerator
 			{
 				internal Enumerator(SortedDictionary<TKey, TValue> dictionary)
 				{

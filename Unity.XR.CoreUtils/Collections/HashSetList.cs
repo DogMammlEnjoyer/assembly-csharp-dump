@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Unity.XR.CoreUtils.Collections
 {
-	public class HashSetList<T> : ICollection<T>, IEnumerable<!0>, IEnumerable, ISerializable, IDeserializationCallback, ISet<T>, IReadOnlyCollection<T>
+	public class HashSetList<T> : ICollection<T>, IEnumerable<T>, IEnumerable, ISerializable, IDeserializationCallback, ISet<T>, IReadOnlyCollection<T>
 	{
 		public int Count
 		{

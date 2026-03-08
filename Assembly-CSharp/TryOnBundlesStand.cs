@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmetics;
 using GorillaNetworking;
@@ -139,21 +140,120 @@ public class TryOnBundlesStand : MonoBehaviour, IBuildValidation
 
 	private void TryOnBundle(string BundleID)
 	{
-		TryOnBundlesStand.<TryOnBundle>d__34 <TryOnBundle>d__;
-		<TryOnBundle>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<TryOnBundle>d__.BundleID = BundleID;
-		<TryOnBundle>d__.<>1__state = -1;
-		<TryOnBundle>d__.<>t__builder.Start<TryOnBundlesStand.<TryOnBundle>d__34>(ref <TryOnBundle>d__);
+		CosmeticsController.CosmeticItem itemFromDict = CosmeticsController.instance.GetItemFromDict(BundleID);
+		if (itemFromDict.isNullItem)
+		{
+			return;
+		}
+		foreach (CosmeticsController.CosmeticItem cosmeticItem in CosmeticsController.instance.tryOnSet.items)
+		{
+			if (!itemFromDict.bundledItems.Contains(cosmeticItem.itemName))
+			{
+				CosmeticsController.instance.RemoveCosmeticItemFromSet(CosmeticsController.instance.tryOnSet, cosmeticItem.itemName, false);
+			}
+		}
+		foreach (string text in itemFromDict.bundledItems)
+		{
+			if (!CosmeticsController.instance.tryOnSet.HasItem(text))
+			{
+				CosmeticsController.instance.ApplyCosmeticItemToSet(CosmeticsController.instance.tryOnSet, CosmeticsController.instance.GetItemFromDict(text), false, false);
+			}
+		}
+	}
+
+	private void LoadBundle(TryOnBundleButton pressedTryOnBundleButton, bool isLeftHand)
+	{
+		TryOnBundlesStand.<LoadBundle>d__35 <LoadBundle>d__;
+		<LoadBundle>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<LoadBundle>d__.<>4__this = this;
+		<LoadBundle>d__.pressedTryOnBundleButton = pressedTryOnBundleButton;
+		<LoadBundle>d__.isLeftHand = isLeftHand;
+		<LoadBundle>d__.<>1__state = -1;
+		<LoadBundle>d__.<>t__builder.Start<TryOnBundlesStand.<LoadBundle>d__35>(ref <LoadBundle>d__);
 	}
 
 	public void PressTryOnBundleButton(TryOnBundleButton pressedTryOnBundleButton, bool isLeftHand)
 	{
-		TryOnBundlesStand.<PressTryOnBundleButton>d__35 <PressTryOnBundleButton>d__;
-		<PressTryOnBundleButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<PressTryOnBundleButton>d__.<>4__this = this;
-		<PressTryOnBundleButton>d__.pressedTryOnBundleButton = pressedTryOnBundleButton;
-		<PressTryOnBundleButton>d__.<>1__state = -1;
-		<PressTryOnBundleButton>d__.<>t__builder.Start<TryOnBundlesStand.<PressTryOnBundleButton>d__35>(ref <PressTryOnBundleButton>d__);
+		if (pressedTryOnBundleButton.playfabBundleID == "NULL")
+		{
+			Debug.LogError("TryOnBundlesStand - PressTryOnBundleButton - Invalid bundle ID");
+			return;
+		}
+		CosmeticsController.CosmeticItem itemFromDict = CosmeticsController.instance.GetItemFromDict(pressedTryOnBundleButton.playfabBundleID);
+		if (itemFromDict.isNullItem)
+		{
+			Debug.LogError("TryOnBundlesStand - PressTryOnBundleButton - Bundle is Null + " + pressedTryOnBundleButton.playfabBundleID);
+			return;
+		}
+		bool flag = false;
+		for (int i = 0; i < itemFromDict.bundledItems.Length; i++)
+		{
+			if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(itemFromDict.bundledItems[i]) == null)
+			{
+				flag = true;
+			}
+		}
+		if (flag)
+		{
+			this.LoadBundle(pressedTryOnBundleButton, isLeftHand);
+			return;
+		}
+		if (this.SelectedButtonIndex != pressedTryOnBundleButton.buttonIndex)
+		{
+			this.ClearSelectedBundle();
+		}
+		switch (CosmeticsController.instance.CheckIfCosmeticSetMatchesItemSet(CosmeticsController.instance.tryOnSet, pressedTryOnBundleButton.playfabBundleID))
+		{
+		case CosmeticsController.EWearingCosmeticSet.NotASet:
+			Debug.LogError("TryOnBundlesStand - PressTryOnBundleButton - Item is Not A Set");
+			break;
+		case CosmeticsController.EWearingCosmeticSet.NotWearing:
+			this.TryOnBundle(pressedTryOnBundleButton.playfabBundleID);
+			this.SelectedButtonIndex = pressedTryOnBundleButton.buttonIndex;
+			break;
+		case CosmeticsController.EWearingCosmeticSet.Partial:
+			if (pressedTryOnBundleButton.isOn)
+			{
+				this.ClearSelectedBundle();
+			}
+			else
+			{
+				this.TryOnBundle(pressedTryOnBundleButton.playfabBundleID);
+				this.SelectedButtonIndex = pressedTryOnBundleButton.buttonIndex;
+			}
+			break;
+		case CosmeticsController.EWearingCosmeticSet.Complete:
+			this.ClearSelectedBundle();
+			break;
+		}
+		if (this.SelectedButtonIndex != -1)
+		{
+			if (!this.bError)
+			{
+				this.selectedBundleImage.sprite = BundleManager.instance.storeBundlesById[pressedTryOnBundleButton.playfabBundleID].bundleImage;
+				pressedTryOnBundleButton.isOn = true;
+				this.purchaseButton.offText = this.GetPurchaseButtonText(pressedTryOnBundleButton.playfabBundleID);
+				this.computerScreenText.text = this.GetComputerScreenText(pressedTryOnBundleButton.playfabBundleID);
+				this.AlreadyOwnCheck();
+			}
+			pressedTryOnBundleButton.UpdateColor();
+		}
+		else
+		{
+			if (!this.bError)
+			{
+				this.computerScreenText.text = this.ComputerDefaultTextTitleDataValue;
+				this.purchaseButton.offText = this.PurchaseButtonDefaultTextTitleDataValue;
+			}
+			pressedTryOnBundleButton.isOn = false;
+			this.selectedBundleImage.sprite = null;
+			this.purchaseButton.offText = this.PurchaseButtonDefaultTextTitleDataValue;
+			this.purchaseButton.ResetButton();
+			this.purchaseButton.UpdateColor();
+		}
+		CosmeticsController.instance.UpdateShoppingCart();
+		CosmeticsController.instance.UpdateWornCosmetics(true);
+		pressedTryOnBundleButton.UpdateColor();
 	}
 
 	private string GetComputerScreenText(string playfabBundleID)

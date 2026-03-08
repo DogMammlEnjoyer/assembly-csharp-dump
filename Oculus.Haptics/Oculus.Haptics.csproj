@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA084}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Oculus.Haptics</RootNamespace>
@@ -55,23 +55,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.VR\Oculus.VR.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08B}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494B2}</Project>
       <Name>Oculus.VR</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.XR.OpenXR\Unity.XR.OpenXR.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0E3}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4950A}</Project>
       <Name>Unity.XR.OpenXR</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA138}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4955F}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

@@ -19,6 +19,7 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using Steamworks;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Serialization;
 
@@ -494,71 +495,193 @@ namespace GorillaNetworking
 			appliedSlots.Add(slot);
 		}
 
-		private Awaitable PrivApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs, List<CosmeticsController.CosmeticSlots> appliedSlots)
+		private void PrivApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs, List<CosmeticsController.CosmeticSlots> appliedSlots)
 		{
-			CosmeticsController.<PrivApplyCosmeticItemToSet>d__166 <PrivApplyCosmeticItemToSet>d__;
-			<PrivApplyCosmeticItemToSet>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<PrivApplyCosmeticItemToSet>d__.<>4__this = this;
-			<PrivApplyCosmeticItemToSet>d__.set = set;
-			<PrivApplyCosmeticItemToSet>d__.newItem = newItem;
-			<PrivApplyCosmeticItemToSet>d__.isLeftHand = isLeftHand;
-			<PrivApplyCosmeticItemToSet>d__.applyToPlayerPrefs = applyToPlayerPrefs;
-			<PrivApplyCosmeticItemToSet>d__.appliedSlots = appliedSlots;
-			<PrivApplyCosmeticItemToSet>d__.<>1__state = -1;
-			<PrivApplyCosmeticItemToSet>d__.<>t__builder.Start<CosmeticsController.<PrivApplyCosmeticItemToSet>d__166>(ref <PrivApplyCosmeticItemToSet>d__);
-			return <PrivApplyCosmeticItemToSet>d__.<>t__builder.Task;
+			if (newItem.isNullItem)
+			{
+				return;
+			}
+			VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(newItem.itemName);
+			if (CosmeticsController.CosmeticSet.IsHoldable(newItem))
+			{
+				BodyDockPositions.DockingResult dockingResult = GorillaTagger.Instance.offlineVRRig.GetComponent<BodyDockPositions>().ToggleWithHandedness(newItem.displayName, isLeftHand, newItem.bothHandsHoldable);
+				foreach (BodyDockPositions.DropPositions pos in dockingResult.positionsDisabled)
+				{
+					CosmeticsController.CosmeticSlots cosmeticSlots = this.DropPositionToCosmeticSlot(pos);
+					if (cosmeticSlots != CosmeticsController.CosmeticSlots.Count)
+					{
+						int num = (int)cosmeticSlots;
+						set.items[num] = this.nullItem;
+						if (applyToPlayerPrefs)
+						{
+							this.SaveItemPreference(cosmeticSlots, num, this.nullItem);
+						}
+					}
+				}
+				using (List<BodyDockPositions.DropPositions>.Enumerator enumerator = dockingResult.dockedPosition.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						BodyDockPositions.DropPositions dropPositions = enumerator.Current;
+						if (dropPositions != BodyDockPositions.DropPositions.None)
+						{
+							CosmeticsController.CosmeticSlots cosmeticSlots2 = this.DropPositionToCosmeticSlot(dropPositions);
+							int num2 = (int)cosmeticSlots2;
+							set.items[num2] = newItem;
+							if (applyToPlayerPrefs)
+							{
+								this.SaveItemPreference(cosmeticSlots2, num2, newItem);
+							}
+							appliedSlots.Add(cosmeticSlots2);
+						}
+					}
+					return;
+				}
+			}
+			if (newItem.itemCategory == CosmeticsController.CosmeticCategory.Paw)
+			{
+				CosmeticsController.CosmeticSlots cosmeticSlots3 = isLeftHand ? CosmeticsController.CosmeticSlots.HandLeft : CosmeticsController.CosmeticSlots.HandRight;
+				int slotIdx = (int)cosmeticSlots3;
+				this.ApplyCosmeticToSet(set, newItem, slotIdx, cosmeticSlots3, applyToPlayerPrefs, appliedSlots);
+				CosmeticsController.CosmeticSlots cosmeticSlots4 = CosmeticsController.CosmeticSet.OppositeSlot(cosmeticSlots3);
+				int num3 = (int)cosmeticSlots4;
+				if (newItem.bothHandsHoldable)
+				{
+					this.ApplyCosmeticToSet(set, this.nullItem, num3, cosmeticSlots4, applyToPlayerPrefs, appliedSlots);
+					return;
+				}
+				if (set.items[num3].itemName == newItem.itemName)
+				{
+					this.ApplyCosmeticToSet(set, this.nullItem, num3, cosmeticSlots4, applyToPlayerPrefs, appliedSlots);
+				}
+				if (set.items[num3].bothHandsHoldable)
+				{
+					this.ApplyCosmeticToSet(set, this.nullItem, num3, cosmeticSlots4, applyToPlayerPrefs, appliedSlots);
+					return;
+				}
+			}
+			else
+			{
+				CosmeticsController.CosmeticSlots cosmeticSlots5 = CosmeticsController.CategoryToNonTransferrableSlot(newItem.itemCategory);
+				int slotIdx2 = (int)cosmeticSlots5;
+				this.ApplyCosmeticToSet(set, newItem, slotIdx2, cosmeticSlots5, applyToPlayerPrefs, appliedSlots);
+			}
 		}
 
-		public Awaitable ApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs)
+		public void ApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs)
 		{
-			CosmeticsController.<ApplyCosmeticItemToSet>d__168 <ApplyCosmeticItemToSet>d__;
-			<ApplyCosmeticItemToSet>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<ApplyCosmeticItemToSet>d__.<>4__this = this;
-			<ApplyCosmeticItemToSet>d__.set = set;
-			<ApplyCosmeticItemToSet>d__.newItem = newItem;
-			<ApplyCosmeticItemToSet>d__.isLeftHand = isLeftHand;
-			<ApplyCosmeticItemToSet>d__.applyToPlayerPrefs = applyToPlayerPrefs;
-			<ApplyCosmeticItemToSet>d__.<>1__state = -1;
-			<ApplyCosmeticItemToSet>d__.<>t__builder.Start<CosmeticsController.<ApplyCosmeticItemToSet>d__168>(ref <ApplyCosmeticItemToSet>d__);
-			return <ApplyCosmeticItemToSet>d__.<>t__builder.Task;
+			this.ApplyCosmeticItemToSet(set, newItem, isLeftHand, applyToPlayerPrefs, CosmeticsController._g_default_outAppliedSlotsList_for_applyCosmeticItemToSet);
 		}
 
-		public Awaitable ApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs, List<CosmeticsController.CosmeticSlots> outAppliedSlotsList)
+		public void ApplyCosmeticItemToSet(CosmeticsController.CosmeticSet set, CosmeticsController.CosmeticItem newItem, bool isLeftHand, bool applyToPlayerPrefs, List<CosmeticsController.CosmeticSlots> outAppliedSlotsList)
 		{
-			CosmeticsController.<ApplyCosmeticItemToSet>d__169 <ApplyCosmeticItemToSet>d__;
-			<ApplyCosmeticItemToSet>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<ApplyCosmeticItemToSet>d__.<>4__this = this;
-			<ApplyCosmeticItemToSet>d__.set = set;
-			<ApplyCosmeticItemToSet>d__.newItem = newItem;
-			<ApplyCosmeticItemToSet>d__.isLeftHand = isLeftHand;
-			<ApplyCosmeticItemToSet>d__.applyToPlayerPrefs = applyToPlayerPrefs;
-			<ApplyCosmeticItemToSet>d__.outAppliedSlotsList = outAppliedSlotsList;
-			<ApplyCosmeticItemToSet>d__.<>1__state = -1;
-			<ApplyCosmeticItemToSet>d__.<>t__builder.Start<CosmeticsController.<ApplyCosmeticItemToSet>d__169>(ref <ApplyCosmeticItemToSet>d__);
-			return <ApplyCosmeticItemToSet>d__.<>t__builder.Task;
+			outAppliedSlotsList.Clear();
+			if (newItem.itemCategory == CosmeticsController.CosmeticCategory.Set)
+			{
+				bool flag = false;
+				Dictionary<CosmeticsController.CosmeticItem, bool> dictionary = new Dictionary<CosmeticsController.CosmeticItem, bool>();
+				foreach (string itemID in newItem.bundledItems)
+				{
+					CosmeticsController.CosmeticItem itemFromDict = this.GetItemFromDict(itemID);
+					if (this.AnyMatch(set, itemFromDict))
+					{
+						flag = true;
+						dictionary.Add(itemFromDict, true);
+					}
+					else
+					{
+						dictionary.Add(itemFromDict, false);
+					}
+				}
+				using (Dictionary<CosmeticsController.CosmeticItem, bool>.Enumerator enumerator = dictionary.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						KeyValuePair<CosmeticsController.CosmeticItem, bool> keyValuePair = enumerator.Current;
+						if (flag)
+						{
+							if (keyValuePair.Value)
+							{
+								this.PrivApplyCosmeticItemToSet(set, keyValuePair.Key, isLeftHand, applyToPlayerPrefs, outAppliedSlotsList);
+							}
+						}
+						else
+						{
+							this.PrivApplyCosmeticItemToSet(set, keyValuePair.Key, isLeftHand, applyToPlayerPrefs, outAppliedSlotsList);
+						}
+					}
+					return;
+				}
+			}
+			this.PrivApplyCosmeticItemToSet(set, newItem, isLeftHand, applyToPlayerPrefs, outAppliedSlotsList);
 		}
 
 		public void RemoveCosmeticItemFromSet(CosmeticsController.CosmeticSet set, string itemName, bool applyToPlayerPrefs)
 		{
-			CosmeticsController.<RemoveCosmeticItemFromSet>d__170 <RemoveCosmeticItemFromSet>d__;
-			<RemoveCosmeticItemFromSet>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<RemoveCosmeticItemFromSet>d__.<>4__this = this;
-			<RemoveCosmeticItemFromSet>d__.set = set;
-			<RemoveCosmeticItemFromSet>d__.itemName = itemName;
-			<RemoveCosmeticItemFromSet>d__.applyToPlayerPrefs = applyToPlayerPrefs;
-			<RemoveCosmeticItemFromSet>d__.<>1__state = -1;
-			<RemoveCosmeticItemFromSet>d__.<>t__builder.Start<CosmeticsController.<RemoveCosmeticItemFromSet>d__170>(ref <RemoveCosmeticItemFromSet>d__);
+			this.cachedSet.CopyItems(set);
+			for (int i = 0; i < 16; i++)
+			{
+				if (set.items[i].displayName == itemName)
+				{
+					set.items[i] = this.nullItem;
+					if (applyToPlayerPrefs)
+					{
+						this.SaveItemPreference((CosmeticsController.CosmeticSlots)i, i, this.nullItem);
+					}
+				}
+			}
+			VRRig offlineVRRig = GorillaTagger.Instance.offlineVRRig;
+			BodyDockPositions component = offlineVRRig.GetComponent<BodyDockPositions>();
+			set.ActivateCosmetics(this.cachedSet, offlineVRRig, component, offlineVRRig.cosmeticsObjectRegistry);
+		}
+
+		private void RepressButton(FittingRoomButton pressedButton, bool isLeftHand)
+		{
+			CosmeticsController.<RepressButton>d__171 <RepressButton>d__;
+			<RepressButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<RepressButton>d__.<>4__this = this;
+			<RepressButton>d__.pressedButton = pressedButton;
+			<RepressButton>d__.isLeftHand = isLeftHand;
+			<RepressButton>d__.<>1__state = -1;
+			<RepressButton>d__.<>t__builder.Start<CosmeticsController.<RepressButton>d__171>(ref <RepressButton>d__);
 		}
 
 		public void PressFittingRoomButton(FittingRoomButton pressedFittingRoomButton, bool isLeftHand)
 		{
-			CosmeticsController.<PressFittingRoomButton>d__171 <PressFittingRoomButton>d__;
-			<PressFittingRoomButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<PressFittingRoomButton>d__.<>4__this = this;
-			<PressFittingRoomButton>d__.pressedFittingRoomButton = pressedFittingRoomButton;
-			<PressFittingRoomButton>d__.isLeftHand = isLeftHand;
-			<PressFittingRoomButton>d__.<>1__state = -1;
-			<PressFittingRoomButton>d__.<>t__builder.Start<CosmeticsController.<PressFittingRoomButton>d__171>(ref <PressFittingRoomButton>d__);
+			if (pressedFittingRoomButton.currentCosmeticItem.itemName == null || pressedFittingRoomButton.currentCosmeticItem.itemName == this.nullItem.itemName || pressedFittingRoomButton.currentCosmeticItem.itemName == "")
+			{
+				return;
+			}
+			if (pressedFittingRoomButton.currentCosmeticItem.itemCategory == CosmeticsController.CosmeticCategory.Set)
+			{
+				CosmeticsController.CosmeticItem currentCosmeticItem = pressedFittingRoomButton.currentCosmeticItem;
+				bool flag = false;
+				for (int i = 0; i < currentCosmeticItem.bundledItems.Length; i++)
+				{
+					if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(currentCosmeticItem.bundledItems[i]) == null)
+					{
+						flag = true;
+					}
+				}
+				if (flag)
+				{
+					this.RepressButton(pressedFittingRoomButton, isLeftHand);
+					return;
+				}
+			}
+			else if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(pressedFittingRoomButton.currentCosmeticItem.itemName) == null)
+			{
+				this.RepressButton(pressedFittingRoomButton, isLeftHand);
+				return;
+			}
+			TryOnBundlesStand tryOnBundlesStand = BundleManager.instance._tryOnBundlesStand;
+			if (tryOnBundlesStand != null)
+			{
+				tryOnBundlesStand.ClearSelectedBundle();
+			}
+			this.ApplyCosmeticItemToSet(this.tryOnSet, pressedFittingRoomButton.currentCosmeticItem, isLeftHand, false);
+			this.UpdateShoppingCart();
+			this.UpdateWornCosmetics(true);
 		}
 
 		public CosmeticsController.EWearingCosmeticSet CheckIfCosmeticSetMatchesItemSet(CosmeticsController.CosmeticSet set, string itemName)
@@ -634,38 +757,47 @@ namespace GorillaNetworking
 
 		public void PressWardrobeItemButton(CosmeticsController.CosmeticItem cosmeticItem, bool isLeftHand, bool isTempCosm)
 		{
-			CosmeticsController.<PressWardrobeItemButton>d__175 <PressWardrobeItemButton>d__;
-			<PressWardrobeItemButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<PressWardrobeItemButton>d__.<>4__this = this;
-			<PressWardrobeItemButton>d__.cosmeticItem = cosmeticItem;
-			<PressWardrobeItemButton>d__.isLeftHand = isLeftHand;
-			<PressWardrobeItemButton>d__.isTempCosm = isTempCosm;
-			<PressWardrobeItemButton>d__.<>1__state = -1;
-			<PressWardrobeItemButton>d__.<>t__builder.Start<CosmeticsController.<PressWardrobeItemButton>d__175>(ref <PressWardrobeItemButton>d__);
+			if (cosmeticItem.isNullItem)
+			{
+				return;
+			}
+			CosmeticsController.CosmeticItem itemFromDict = this.GetItemFromDict(cosmeticItem.itemName);
+			if (isTempCosm)
+			{
+				this.PressTemporaryWardrobeItemButton(itemFromDict, isLeftHand);
+			}
+			else
+			{
+				this.PressWardrobeItemButton(itemFromDict, isLeftHand);
+			}
+			this.UpdateWornCosmetics(true);
+			Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
+			if (onCosmeticsUpdated == null)
+			{
+				return;
+			}
+			onCosmeticsUpdated();
 		}
 
-		private Awaitable PressWardrobeItemButton(CosmeticsController.CosmeticItem item, bool isLeftHand)
+		private void PressWardrobeItemButton(CosmeticsController.CosmeticItem item, bool isLeftHand)
 		{
-			CosmeticsController.<PressWardrobeItemButton>d__176 <PressWardrobeItemButton>d__;
-			<PressWardrobeItemButton>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<PressWardrobeItemButton>d__.<>4__this = this;
-			<PressWardrobeItemButton>d__.item = item;
-			<PressWardrobeItemButton>d__.isLeftHand = isLeftHand;
-			<PressWardrobeItemButton>d__.<>1__state = -1;
-			<PressWardrobeItemButton>d__.<>t__builder.Start<CosmeticsController.<PressWardrobeItemButton>d__176>(ref <PressWardrobeItemButton>d__);
-			return <PressWardrobeItemButton>d__.<>t__builder.Task;
+			List<CosmeticsController.CosmeticSlots> list = CollectionPool<List<CosmeticsController.CosmeticSlots>, CosmeticsController.CosmeticSlots>.Get();
+			if (list.Capacity < 16)
+			{
+				list.Capacity = 16;
+			}
+			this.ApplyCosmeticItemToSet(this.currentWornSet, item, isLeftHand, true, list);
+			foreach (CosmeticsController.CosmeticSlots cosmeticSlots in list)
+			{
+				this.tryOnSet.items[(int)cosmeticSlots] = this.nullItem;
+			}
+			CollectionPool<List<CosmeticsController.CosmeticSlots>, CosmeticsController.CosmeticSlots>.Release(list);
+			this.UpdateShoppingCart();
 		}
 
-		private Awaitable PressTemporaryWardrobeItemButton(CosmeticsController.CosmeticItem item, bool isLeftHand)
+		private void PressTemporaryWardrobeItemButton(CosmeticsController.CosmeticItem item, bool isLeftHand)
 		{
-			CosmeticsController.<PressTemporaryWardrobeItemButton>d__177 <PressTemporaryWardrobeItemButton>d__;
-			<PressTemporaryWardrobeItemButton>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-			<PressTemporaryWardrobeItemButton>d__.<>4__this = this;
-			<PressTemporaryWardrobeItemButton>d__.item = item;
-			<PressTemporaryWardrobeItemButton>d__.isLeftHand = isLeftHand;
-			<PressTemporaryWardrobeItemButton>d__.<>1__state = -1;
-			<PressTemporaryWardrobeItemButton>d__.<>t__builder.Start<CosmeticsController.<PressTemporaryWardrobeItemButton>d__177>(ref <PressTemporaryWardrobeItemButton>d__);
-			return <PressTemporaryWardrobeItemButton>d__.<>t__builder.Task;
+			this.ApplyCosmeticItemToSet(this.tempUnlockedSet, item, isLeftHand, false);
 		}
 
 		public void PressWardrobeFunctionButton(string function)
@@ -896,11 +1028,38 @@ namespace GorillaNetworking
 
 		private void RefreshItemToBuyPreview()
 		{
-			CosmeticsController.<RefreshItemToBuyPreview>d__183 <RefreshItemToBuyPreview>d__;
-			<RefreshItemToBuyPreview>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<RefreshItemToBuyPreview>d__.<>4__this = this;
-			<RefreshItemToBuyPreview>d__.<>1__state = -1;
-			<RefreshItemToBuyPreview>d__.<>t__builder.Start<CosmeticsController.<RefreshItemToBuyPreview>d__183>(ref <RefreshItemToBuyPreview>d__);
+			if (this.itemToBuy.bundledItems != null && this.itemToBuy.bundledItems.Length != 0)
+			{
+				List<string> list = new List<string>();
+				foreach (string itemID in this.itemToBuy.bundledItems)
+				{
+					this.tempItem = this.GetItemFromDict(itemID);
+					list.Add(this.tempItem.displayName);
+				}
+				this.iterator = 0;
+				while (this.iterator < this.itemCheckouts.Count)
+				{
+					if (!this.itemCheckouts[this.iterator].IsNull())
+					{
+						this.itemCheckouts[this.iterator].checkoutHeadModel.SetCosmeticActiveArray(list.ToArray(), new bool[list.Count]);
+					}
+					this.iterator++;
+				}
+			}
+			else
+			{
+				this.iterator = 0;
+				while (this.iterator < this.itemCheckouts.Count)
+				{
+					if (!this.itemCheckouts[this.iterator].IsNull())
+					{
+						this.itemCheckouts[this.iterator].checkoutHeadModel.SetCosmeticActive(this.itemToBuy.displayName, false);
+					}
+					this.iterator++;
+				}
+			}
+			this.ApplyCosmeticItemToSet(this.tryOnSet, this.itemToBuy, this.checkoutCartButtonPressedWithLeft, false);
+			this.UpdateWornCosmetics(true);
 		}
 
 		public void PressPurchaseItemButton(PurchaseItemButton pressedPurchaseItemButton, bool isLeftHand)
@@ -910,13 +1069,13 @@ namespace GorillaNetworking
 
 		public void PurchaseBundle(StoreBundle bundleToPurchase, ICreatorCodeProvider ccp)
 		{
-			CosmeticsController.<PurchaseBundle>d__185 <PurchaseBundle>d__;
+			CosmeticsController.<PurchaseBundle>d__186 <PurchaseBundle>d__;
 			<PurchaseBundle>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<PurchaseBundle>d__.<>4__this = this;
 			<PurchaseBundle>d__.bundleToPurchase = bundleToPurchase;
 			<PurchaseBundle>d__.ccp = ccp;
 			<PurchaseBundle>d__.<>1__state = -1;
-			<PurchaseBundle>d__.<>t__builder.Start<CosmeticsController.<PurchaseBundle>d__185>(ref <PurchaseBundle>d__);
+			<PurchaseBundle>d__.<>t__builder.Start<CosmeticsController.<PurchaseBundle>d__186>(ref <PurchaseBundle>d__);
 		}
 
 		private void OnCreatorCodeFailure()
@@ -936,13 +1095,89 @@ namespace GorillaNetworking
 
 		public void ProcessPurchaseItemState(string buttonSide, bool isLeftHand)
 		{
-			CosmeticsController.<ProcessPurchaseItemState>d__188 <ProcessPurchaseItemState>d__;
-			<ProcessPurchaseItemState>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<ProcessPurchaseItemState>d__.<>4__this = this;
-			<ProcessPurchaseItemState>d__.buttonSide = buttonSide;
-			<ProcessPurchaseItemState>d__.isLeftHand = isLeftHand;
-			<ProcessPurchaseItemState>d__.<>1__state = -1;
-			<ProcessPurchaseItemState>d__.<>t__builder.Start<CosmeticsController.<ProcessPurchaseItemState>d__188>(ref <ProcessPurchaseItemState>d__);
+			switch (this.currentPurchaseItemStage)
+			{
+			case CosmeticsController.PurchaseItemStages.Start:
+				this.itemToBuy = this.nullItem;
+				this.FormattedPurchaseText("SELECT AN ITEM FROM YOUR CART TO PURCHASE!", null, null, false, false);
+				this.UpdateShoppingCart();
+				return;
+			case CosmeticsController.PurchaseItemStages.CheckoutButtonPressed:
+				GorillaTelemetry.PostShopEvent(GorillaTagger.Instance.offlineVRRig, GTShopEventType.checkout_start, this.currentCart);
+				this.searchIndex = this.unlockedCosmetics.FindIndex((CosmeticsController.CosmeticItem x) => this.itemToBuy.itemName == x.itemName);
+				if (this.searchIndex > -1)
+				{
+					this.FormattedPurchaseText("YOU ALREADY OWN THIS ITEM!", "-", "-", true, true);
+					this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.ItemOwned;
+					return;
+				}
+				if (this.itemToBuy.cost <= this.currencyBalance)
+				{
+					this.FormattedPurchaseText("DO YOU WANT TO BUY THIS ITEM?", "NO!", "YES!", false, false);
+					this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.ItemSelected;
+					return;
+				}
+				this.FormattedPurchaseText("INSUFFICIENT SHINY ROCKS FOR THIS ITEM!", "-", "-", true, true);
+				this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.Start;
+				return;
+			case CosmeticsController.PurchaseItemStages.ItemSelected:
+				if (buttonSide == "right")
+				{
+					GorillaTelemetry.PostShopEvent(GorillaTagger.Instance.offlineVRRig, GTShopEventType.item_select, this.itemToBuy);
+					this.FormattedPurchaseText("ARE YOU REALLY SURE?", "YES! I NEED IT!", "LET ME THINK ABOUT IT", false, false);
+					this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.FinalPurchaseAcknowledgement;
+					return;
+				}
+				this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.CheckoutButtonPressed;
+				this.ProcessPurchaseItemState(null, isLeftHand);
+				return;
+			case CosmeticsController.PurchaseItemStages.ItemOwned:
+			case CosmeticsController.PurchaseItemStages.Buying:
+				break;
+			case CosmeticsController.PurchaseItemStages.FinalPurchaseAcknowledgement:
+				if (buttonSide == "left")
+				{
+					this.FormattedPurchaseText("PURCHASING ITEM...", "-", "-", true, true);
+					this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.Buying;
+					this.isLastHandTouchedLeft = isLeftHand;
+					this.PurchaseItem();
+					return;
+				}
+				this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.CheckoutButtonPressed;
+				this.ProcessPurchaseItemState(null, isLeftHand);
+				return;
+			case CosmeticsController.PurchaseItemStages.Success:
+			{
+				this.FormattedPurchaseText("SUCCESS! ENJOY YOUR NEW ITEM!", "-", "-", true, true);
+				GorillaTagger.Instance.offlineVRRig.AddCosmetic(this.itemToBuy.itemName);
+				CosmeticsController.CosmeticItem itemFromDict = this.GetItemFromDict(this.itemToBuy.itemName);
+				if (itemFromDict.bundledItems != null)
+				{
+					foreach (string cosmeticId in itemFromDict.bundledItems)
+					{
+						GorillaTagger.Instance.offlineVRRig.AddCosmetic(cosmeticId);
+					}
+				}
+				this.tryOnSet.ClearSet(this.nullItem);
+				this.UpdateShoppingCart();
+				this.ApplyCosmeticItemToSet(this.currentWornSet, itemFromDict, isLeftHand, true);
+				this.UpdateShoppingCart();
+				this.UpdateWornCosmetics();
+				this.UpdateWardrobeModelsAndButtons();
+				Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
+				if (onCosmeticsUpdated == null)
+				{
+					return;
+				}
+				onCosmeticsUpdated();
+				break;
+			}
+			case CosmeticsController.PurchaseItemStages.Failure:
+				this.FormattedPurchaseText("ERROR IN PURCHASING ITEM! NO MONEY WAS SPENT. SELECT ANOTHER ITEM.", "-", "-", true, true);
+				return;
+			default:
+				return;
+			}
 		}
 
 		public void FormattedPurchaseText(string finalLineVar, string leftPurchaseButtonText = null, string rightPurchaseButtonText = null, bool leftButtonOn = false, bool rightButtonOn = false)
@@ -1062,12 +1297,8 @@ namespace GorillaNetworking
 					this.ModifyUnlockList(this.unlockedThrowables, num, relock);
 					return;
 				case CosmeticsController.CosmeticCategory.Chest:
-					if (this.allCosmetics[num].itemName != "Slingshot")
-					{
-						this.ModifyUnlockList(this.unlockedChests, num, relock);
-						return;
-					}
-					break;
+					this.ModifyUnlockList(this.unlockedChests, num, relock);
+					return;
 				case CosmeticsController.CosmeticCategory.Fur:
 					this.ModifyUnlockList(this.unlockedFurs, num, relock);
 					return;
@@ -1790,7 +2021,7 @@ namespace GorillaNetworking
 						{
 							this.unlockedBacks.Add(cosmeticItem2);
 						}
-						else if (cosmeticItem2.itemCategory == CosmeticsController.CosmeticCategory.Chest && cosmeticItem2.itemName != "Slingshot" && !this.unlockedChests.Contains(cosmeticItem2))
+						else if (cosmeticItem2.itemCategory == CosmeticsController.CosmeticCategory.Chest && !this.unlockedChests.Contains(cosmeticItem2))
 						{
 							this.unlockedChests.Add(cosmeticItem2);
 						}
@@ -2300,14 +2531,33 @@ namespace GorillaNetworking
 
 		public void ProcessExternalUnlock(string itemID, bool autoEquip, bool isLeftHand)
 		{
-			CosmeticsController.<ProcessExternalUnlock>d__241 <ProcessExternalUnlock>d__;
-			<ProcessExternalUnlock>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-			<ProcessExternalUnlock>d__.<>4__this = this;
-			<ProcessExternalUnlock>d__.itemID = itemID;
-			<ProcessExternalUnlock>d__.autoEquip = autoEquip;
-			<ProcessExternalUnlock>d__.isLeftHand = isLeftHand;
-			<ProcessExternalUnlock>d__.<>1__state = -1;
-			<ProcessExternalUnlock>d__.<>t__builder.Start<CosmeticsController.<ProcessExternalUnlock>d__241>(ref <ProcessExternalUnlock>d__);
+			this.UnlockItem(itemID, false);
+			GorillaTagger.Instance.offlineVRRig.AddCosmetic(itemID);
+			this.UpdateMyCosmetics();
+			if (autoEquip)
+			{
+				CosmeticsController.CosmeticItem itemFromDict = this.GetItemFromDict(itemID);
+				GorillaTelemetry.PostShopEvent(GorillaTagger.Instance.offlineVRRig, GTShopEventType.external_item_claim, itemFromDict);
+				List<CosmeticsController.CosmeticSlots> list = CollectionPool<List<CosmeticsController.CosmeticSlots>, CosmeticsController.CosmeticSlots>.Get();
+				if (list.Capacity < 16)
+				{
+					list.Capacity = 16;
+				}
+				this.ApplyCosmeticItemToSet(this.currentWornSet, itemFromDict, isLeftHand, true, list);
+				foreach (CosmeticsController.CosmeticSlots cosmeticSlots in list)
+				{
+					this.tryOnSet.items[(int)cosmeticSlots] = this.nullItem;
+				}
+				CollectionPool<List<CosmeticsController.CosmeticSlots>, CosmeticsController.CosmeticSlots>.Release(list);
+				this.UpdateShoppingCart();
+				this.UpdateWornCosmetics(true);
+				Action onCosmeticsUpdated = this.OnCosmeticsUpdated;
+				if (onCosmeticsUpdated == null)
+				{
+					return;
+				}
+				onCosmeticsUpdated();
+			}
 		}
 
 		public void AddTempUnlockToWardrobe(string cosmeticID)
@@ -2337,12 +2587,8 @@ namespace GorillaNetworking
 				this.ModifyUnlockList(this.unlockedThrowables, num, false);
 				return;
 			case CosmeticsController.CosmeticCategory.Chest:
-				if (this.allCosmetics[num].itemName != "Slingshot")
-				{
-					this.ModifyUnlockList(this.unlockedChests, num, false);
-					return;
-				}
-				break;
+				this.ModifyUnlockList(this.unlockedChests, num, false);
+				return;
 			case CosmeticsController.CosmeticCategory.Fur:
 				this.ModifyUnlockList(this.unlockedFurs, num, false);
 				return;
@@ -2401,12 +2647,8 @@ namespace GorillaNetworking
 				this.ModifyUnlockList(this.unlockedThrowables, num, true);
 				return;
 			case CosmeticsController.CosmeticCategory.Chest:
-				if (this.allCosmetics[num].itemName != "Slingshot")
-				{
-					this.ModifyUnlockList(this.unlockedChests, num, true);
-					return;
-				}
-				break;
+				this.ModifyUnlockList(this.unlockedChests, num, true);
+				return;
 			case CosmeticsController.CosmeticCategory.Fur:
 				this.ModifyUnlockList(this.unlockedFurs, num, true);
 				return;
@@ -3325,48 +3567,101 @@ namespace GorillaNetworking
 				return "slot_" + slot.ToString();
 			}
 
-			private Awaitable ActivateCosmetic(CosmeticsController.CosmeticSet prevSet, VRRig rig, int slotIndex, CosmeticItemRegistry cosmeticsObjectRegistry, BodyDockPositions bDock, int activationVersion)
+			private void ActivateCosmetic(CosmeticsController.CosmeticSet prevSet, VRRig rig, int slotIndex, CosmeticItemRegistry cosmeticsObjectRegistry, BodyDockPositions bDock)
 			{
-				CosmeticsController.CosmeticSet.<ActivateCosmetic>d__30 <ActivateCosmetic>d__;
-				<ActivateCosmetic>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-				<ActivateCosmetic>d__.<>4__this = this;
-				<ActivateCosmetic>d__.prevSet = prevSet;
-				<ActivateCosmetic>d__.rig = rig;
-				<ActivateCosmetic>d__.slotIndex = slotIndex;
-				<ActivateCosmetic>d__.cosmeticsObjectRegistry = cosmeticsObjectRegistry;
-				<ActivateCosmetic>d__.bDock = bDock;
-				<ActivateCosmetic>d__.activationVersion = activationVersion;
-				<ActivateCosmetic>d__.<>1__state = -1;
-				<ActivateCosmetic>d__.<>t__builder.Start<CosmeticsController.CosmeticSet.<ActivateCosmetic>d__30>(ref <ActivateCosmetic>d__);
-				return <ActivateCosmetic>d__.<>t__builder.Task;
+				CosmeticsController.CosmeticItem cosmeticItem = prevSet.items[slotIndex];
+				string itemNameFromDisplayName = CosmeticsController.instance.GetItemNameFromDisplayName(cosmeticItem.displayName);
+				CosmeticsController.CosmeticItem cosmeticItem2 = this.items[slotIndex];
+				string itemNameFromDisplayName2 = CosmeticsController.instance.GetItemNameFromDisplayName(cosmeticItem2.displayName);
+				BodyDockPositions.DropPositions dropPositions = CosmeticsController.CosmeticSlotToDropPosition((CosmeticsController.CosmeticSlots)slotIndex);
+				if (cosmeticItem2.itemCategory != CosmeticsController.CosmeticCategory.None && !CosmeticsController.CompareCategoryToSavedCosmeticSlots(cosmeticItem2.itemCategory, (CosmeticsController.CosmeticSlots)slotIndex))
+				{
+					return;
+				}
+				if (cosmeticItem2.isHoldable && dropPositions == BodyDockPositions.DropPositions.None)
+				{
+					return;
+				}
+				if (!(itemNameFromDisplayName == itemNameFromDisplayName2))
+				{
+					if (!cosmeticItem.isNullItem)
+					{
+						if (cosmeticItem.isHoldable)
+						{
+							bDock.TransferrableItemDisableAtPosition(dropPositions);
+						}
+						CosmeticItemInstance cosmeticItemInstance = cosmeticsObjectRegistry.Cosmetic(cosmeticItem.displayName);
+						if (cosmeticItemInstance != null)
+						{
+							cosmeticItemInstance.DisableItem((CosmeticsController.CosmeticSlots)slotIndex);
+						}
+					}
+					if (!cosmeticItem2.isNullItem)
+					{
+						if (cosmeticItem2.isHoldable)
+						{
+							bDock.TransferrableItemEnableAtPosition(cosmeticItem2.displayName, dropPositions);
+						}
+						CosmeticItemInstance cosmeticItemInstance2 = cosmeticsObjectRegistry.Cosmetic(cosmeticItem2.displayName);
+						if (rig.IsItemAllowed(itemNameFromDisplayName2) && cosmeticItemInstance2 != null)
+						{
+							cosmeticItemInstance2.EnableItem((CosmeticsController.CosmeticSlots)slotIndex, rig);
+							if (rig.isLocal && (slotIndex == 0 || slotIndex == 2))
+							{
+								PlayerPrefFlags.TouchIf(PlayerPrefFlags.Flag.SHOW_1P_COSMETICS, false);
+							}
+						}
+					}
+					return;
+				}
+				if (cosmeticItem2.isNullItem)
+				{
+					return;
+				}
+				CosmeticItemInstance cosmeticItemInstance3 = cosmeticsObjectRegistry.Cosmetic(cosmeticItem2.displayName);
+				if (cosmeticItemInstance3 != null)
+				{
+					if (!rig.IsItemAllowed(itemNameFromDisplayName2))
+					{
+						cosmeticItemInstance3.DisableItem((CosmeticsController.CosmeticSlots)slotIndex);
+						return;
+					}
+					if (cosmeticItem2.isHoldable)
+					{
+						bDock.TransferrableItemEnableAtPosition(cosmeticItem2.displayName, dropPositions);
+					}
+					cosmeticItemInstance3.EnableItem((CosmeticsController.CosmeticSlots)slotIndex, rig);
+				}
 			}
 
-			public Awaitable ActivateCosmetics(CosmeticsController.CosmeticSet prevSet, VRRig rig, BodyDockPositions bDock, CosmeticItemRegistry cosmeticsObjectRegistry, int activationVersion = -1)
+			public void ActivateCosmetics(CosmeticsController.CosmeticSet prevSet, VRRig rig, BodyDockPositions bDock, CosmeticItemRegistry cosmeticsObjectRegistry)
 			{
-				CosmeticsController.CosmeticSet.<ActivateCosmetics>d__31 <ActivateCosmetics>d__;
-				<ActivateCosmetics>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-				<ActivateCosmetics>d__.<>4__this = this;
-				<ActivateCosmetics>d__.prevSet = prevSet;
-				<ActivateCosmetics>d__.rig = rig;
-				<ActivateCosmetics>d__.bDock = bDock;
-				<ActivateCosmetics>d__.cosmeticsObjectRegistry = cosmeticsObjectRegistry;
-				<ActivateCosmetics>d__.activationVersion = activationVersion;
-				<ActivateCosmetics>d__.<>1__state = -1;
-				<ActivateCosmetics>d__.<>t__builder.Start<CosmeticsController.CosmeticSet.<ActivateCosmetics>d__31>(ref <ActivateCosmetics>d__);
-				return <ActivateCosmetics>d__.<>t__builder.Task;
+				int num = 16;
+				for (int i = 0; i < num; i++)
+				{
+					this.ActivateCosmetic(prevSet, rig, i, cosmeticsObjectRegistry, bDock);
+				}
+				this.OnSetActivated(prevSet, this, rig.creator);
 			}
 
-			public Awaitable DeactivateAllCosmetcs(BodyDockPositions bDock, CosmeticsController.CosmeticItem nullItem, CosmeticItemRegistry cosmeticObjectRegistry)
+			public void DeactivateAllCosmetcs(BodyDockPositions bDock, CosmeticsController.CosmeticItem nullItem, CosmeticItemRegistry cosmeticObjectRegistry)
 			{
-				CosmeticsController.CosmeticSet.<DeactivateAllCosmetcs>d__32 <DeactivateAllCosmetcs>d__;
-				<DeactivateAllCosmetcs>d__.<>t__builder = Awaitable.AwaitableAsyncMethodBuilder.Create();
-				<DeactivateAllCosmetcs>d__.<>4__this = this;
-				<DeactivateAllCosmetcs>d__.bDock = bDock;
-				<DeactivateAllCosmetcs>d__.nullItem = nullItem;
-				<DeactivateAllCosmetcs>d__.cosmeticObjectRegistry = cosmeticObjectRegistry;
-				<DeactivateAllCosmetcs>d__.<>1__state = -1;
-				<DeactivateAllCosmetcs>d__.<>t__builder.Start<CosmeticsController.CosmeticSet.<DeactivateAllCosmetcs>d__32>(ref <DeactivateAllCosmetcs>d__);
-				return <DeactivateAllCosmetcs>d__.<>t__builder.Task;
+				bDock.DisableAllTransferableItems();
+				int num = 16;
+				for (int i = 0; i < num; i++)
+				{
+					CosmeticsController.CosmeticItem cosmeticItem = this.items[i];
+					if (!cosmeticItem.isNullItem)
+					{
+						CosmeticsController.CosmeticSlots cosmeticSlot = (CosmeticsController.CosmeticSlots)i;
+						CosmeticItemInstance cosmeticItemInstance = cosmeticObjectRegistry.Cosmetic(cosmeticItem.displayName);
+						if (cosmeticItemInstance != null)
+						{
+							cosmeticItemInstance.DisableItem(cosmeticSlot);
+						}
+						this.items[i] = nullItem;
+					}
+				}
 			}
 
 			public void LoadFromPlayerPreferences(CosmeticsController controller)

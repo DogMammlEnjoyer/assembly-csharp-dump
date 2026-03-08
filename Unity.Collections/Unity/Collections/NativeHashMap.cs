@@ -15,7 +15,7 @@ namespace Unity.Collections
 		typeof(int),
 		typeof(int)
 	})]
-	public struct NativeHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KVPair<!0, !1>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
+	public struct NativeHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KVPair<TKey, TValue>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
 	{
 		public NativeHashMap(int initialCapacity, AllocatorManager.AllocatorHandle allocator)
 		{

@@ -11,7 +11,7 @@ namespace System.Collections.Generic
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(ICollectionDebugView<>))]
 	[Serializable]
-	public class LinkedList<T> : ICollection<T>, IEnumerable<T>, IEnumerable, ICollection, IReadOnlyCollection<T>, ISerializable, IDeserializationCallback
+	public class LinkedList<T> : ICollection<T>, IEnumerable<!0>, IEnumerable, ICollection, IReadOnlyCollection<T>, ISerializable, IDeserializationCallback
 	{
 		/// <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.LinkedList`1" /> class that is empty.</summary>
 		public LinkedList()
@@ -674,7 +674,7 @@ namespace System.Collections.Generic
 		/// <summary>Enumerates the elements of a <see cref="T:System.Collections.Generic.LinkedList`1" />.</summary>
 		/// <typeparam name="T" />
 		[Serializable]
-		public struct Enumerator : IEnumerator<T>, IDisposable, IEnumerator, ISerializable, IDeserializationCallback
+		public struct Enumerator : IEnumerator<!0>, IDisposable, IEnumerator, ISerializable, IDeserializationCallback
 		{
 			internal Enumerator(LinkedList<T> list)
 			{

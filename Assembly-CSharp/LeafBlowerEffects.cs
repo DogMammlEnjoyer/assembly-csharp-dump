@@ -19,11 +19,7 @@ public class LeafBlowerEffects : MonoBehaviour, ISpawnable
 	{
 		this.headToleranceAngleCos = Mathf.Cos(0.017453292f * this.headToleranceAngle);
 		this.squareHitAngleCos = Mathf.Cos(0.017453292f * this.squareHitAngle);
-		GameObject gameObject = rig.cosmeticReferences.Get(this.fanRef);
-		if (gameObject != null)
-		{
-			this.fan = gameObject.GetComponent<CosmeticFan>();
-		}
+		this.fan = rig.cosmeticReferences.Get(this.fanRef).GetComponent<CosmeticFan>();
 	}
 
 	public void StartFan()

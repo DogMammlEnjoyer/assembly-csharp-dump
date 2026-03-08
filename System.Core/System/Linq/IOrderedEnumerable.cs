@@ -6,7 +6,7 @@ namespace System.Linq
 {
 	/// <summary>Represents a sorted sequence.</summary>
 	/// <typeparam name="TElement">The type of the elements of the sequence.</typeparam>
-	public interface IOrderedEnumerable<out TElement> : IEnumerable<!0>, IEnumerable
+	public interface IOrderedEnumerable<out TElement> : IEnumerable<TElement>, IEnumerable
 	{
 		/// <summary>Performs a subsequent ordering on the elements of an <see cref="T:System.Linq.IOrderedEnumerable`1" /> according to a key.</summary>
 		/// <param name="keySelector">The <see cref="T:System.Func`2" /> used to extract the key for each element.</param>

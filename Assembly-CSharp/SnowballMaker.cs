@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using GorillaLocomotion;
 using GorillaTag;
 using UnityEngine;
@@ -167,12 +166,11 @@ public class SnowballMaker : MonoBehaviourPostTick
 
 	private void InitializeSnowballFromMatIndex(int matIndex)
 	{
-		SnowballMaker.<InitializeSnowballFromMatIndex>d__27 <InitializeSnowballFromMatIndex>d__;
-		<InitializeSnowballFromMatIndex>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<InitializeSnowballFromMatIndex>d__.<>4__this = this;
-		<InitializeSnowballFromMatIndex>d__.matIndex = matIndex;
-		<InitializeSnowballFromMatIndex>d__.<>1__state = -1;
-		<InitializeSnowballFromMatIndex>d__.<>t__builder.Start<SnowballMaker.<InitializeSnowballFromMatIndex>d__27>(ref <InitializeSnowballFromMatIndex>d__);
+		string itemName;
+		if (CosmeticsV2Spawner_Dirty.GetThrowableIDFromMaterialIndex(this.isLeftHand, matIndex, out itemName))
+		{
+			VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(itemName);
+		}
 	}
 
 	public bool isLeftHand;

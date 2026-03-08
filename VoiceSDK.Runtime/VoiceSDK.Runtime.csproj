@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13C}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49563}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VoiceSDK.Runtime</RootNamespace>
@@ -64,35 +64,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AssistantCoreSDKRuntime\AssistantCoreSDKRuntime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA04A}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49471}</Project>
       <Name>AssistantCoreSDKRuntime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06E}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49495}</Project>
       <Name>Meta.WitAi.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi.TTS\Meta.WitAi.TTS.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06F}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49496}</Project>
       <Name>Meta.WitAi.TTS</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi\Meta.WitAi.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06D}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49494}</Project>
       <Name>Meta.WitAi</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0EC}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49513}</Project>
       <Name>UnityEngine.AndroidJNIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA122}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49549}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>

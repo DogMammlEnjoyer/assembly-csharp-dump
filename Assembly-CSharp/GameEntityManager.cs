@@ -1096,22 +1096,19 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		int typeId = gameEntity.typeId;
 		int num = dictionary[typeId];
 		dictionary[typeId] = num - 1;
-		if (RoomSystem.JoinedRoom)
+		GamePlayer gamePlayer;
+		if (GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
 		{
-			GamePlayer gamePlayer;
-			if (gameEntity.heldByActorNumber != -1 && GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
+			gamePlayer.ClearGrabbedIfHeld(gameEntity.id);
+			if (gamePlayer.IsLocal())
 			{
-				gamePlayer.ClearGrabbedIfHeld(gameEntity.id);
-				if (gamePlayer.IsLocal())
-				{
-					GamePlayerLocal.instance.ClearGrabbedIfHeld(gameEntity.id);
-				}
+				GamePlayerLocal.instance.ClearGrabbedIfHeld(gameEntity.id);
 			}
-			GamePlayer gamePlayer2;
-			if (gameEntity.snappedByActorNumber != -1 && GamePlayer.TryGetGamePlayer(gameEntity.snappedByActorNumber, out gamePlayer2))
-			{
-				gamePlayer2.ClearSnappedIfSnapped(gameEntity.id);
-			}
+		}
+		GamePlayer gamePlayer2;
+		if (GamePlayer.TryGetGamePlayer(gameEntity.snappedByActorNumber, out gamePlayer2))
+		{
+			gamePlayer2.ClearSnappedIfSnapped(gameEntity.id);
 		}
 		this.RemoveGameEntity(gameEntity);
 		if (gameEntity.isBuiltIn)

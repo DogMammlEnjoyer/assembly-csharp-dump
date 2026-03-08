@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Fusion;
 using GorillaGameModes;
 using GorillaNetworking;
@@ -52,11 +51,18 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	private void ActivateDefaultSlingShot()
 	{
-		GorillaPaintbrawlManager.<ActivateDefaultSlingShot>d__38 <ActivateDefaultSlingShot>d__;
-		<ActivateDefaultSlingShot>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<ActivateDefaultSlingShot>d__.<>4__this = this;
-		<ActivateDefaultSlingShot>d__.<>1__state = -1;
-		<ActivateDefaultSlingShot>d__.<>t__builder.Start<GorillaPaintbrawlManager.<ActivateDefaultSlingShot>d__38>(ref <ActivateDefaultSlingShot>d__);
+		if (this._isDefaultSlingshotSynced)
+		{
+			return;
+		}
+		if (GorillaTagger.Instance.offlineVRRig != null && !Slingshot.IsSlingShotEnabled())
+		{
+			CosmeticsController instance = CosmeticsController.instance;
+			CosmeticsController.CosmeticItem itemFromDict = instance.GetItemFromDict("Slingshot");
+			instance.ApplyCosmeticItemToSet(instance.currentWornSet, itemFromDict, true, false);
+			instance.UpdateWornCosmetics(true);
+			this._isDefaultSlingshotSynced = true;
+		}
 	}
 
 	public override void Awake()
@@ -69,7 +75,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	public override void StartPlaying()
 	{
 		base.StartPlaying();
-		this._defaultSlingshotState = GorillaPaintbrawlManager.DefaultSlingshotState.Inactive;
+		this._isDefaultSlingshotSynced = false;
 		this.ActivatePaintbrawlBalloons(true);
 		this.VerifyPlayersInDict<int>(this.playerLives);
 		this.VerifyPlayersInDict<GorillaPaintbrawlManager.PaintbrawlStatus>(this.playerStatusDict);
@@ -82,16 +88,17 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	public override void StopPlaying()
 	{
 		base.StopPlaying();
-		if (this._defaultSlingshotState == GorillaPaintbrawlManager.DefaultSlingshotState.Active)
+		this._isDefaultSlingshotSynced = false;
+		if (Slingshot.IsSlingShotEnabled())
 		{
 			CosmeticsController instance = CosmeticsController.instance;
+			CosmeticsController.CosmeticItem itemFromDict = instance.GetItemFromDict("Slingshot");
 			if (instance.currentWornSet.HasItem("Slingshot"))
 			{
-				instance.RemoveCosmeticItemFromSet(instance.currentWornSet, "Slingshot", false);
+				instance.ApplyCosmeticItemToSet(instance.currentWornSet, itemFromDict, true, false);
+				instance.UpdateWornCosmetics(true);
 			}
-			instance.UpdateWornCosmetics(true);
 		}
-		this._defaultSlingshotState = GorillaPaintbrawlManager.DefaultSlingshotState.Inactive;
 		this.ActivatePaintbrawlBalloons(false);
 		base.StopAllCoroutines();
 		this.coroutineRunning = false;
@@ -921,7 +928,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	private GorillaPaintbrawlManager.PaintbrawlState currentState;
 
-	private GorillaPaintbrawlManager.DefaultSlingshotState _defaultSlingshotState;
+	private bool _isDefaultSlingshotSynced;
 
 	public enum PaintbrawlStatus
 	{
@@ -944,12 +951,5 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 		CountingDownToStart,
 		GameStart,
 		GameRunning
-	}
-
-	private enum DefaultSlingshotState
-	{
-		Inactive,
-		Activating,
-		Active
 	}
 }

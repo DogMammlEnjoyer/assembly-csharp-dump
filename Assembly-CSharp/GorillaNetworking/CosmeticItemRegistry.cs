@@ -110,129 +110,27 @@ namespace GorillaNetworking
 			}
 		}
 
-		public CosmeticItemInstance Cosmetic(string playfabId)
+		public CosmeticItemInstance Cosmetic(string itemName)
 		{
-			if (string.IsNullOrEmpty(playfabId) || playfabId == "NOTHING")
+			if (string.IsNullOrEmpty(itemName) || itemName == "NOTHING")
 			{
 				return null;
 			}
 			CosmeticItemInstance result;
-			if (!this._nameToCosmeticMap.TryGetValue(playfabId, out result))
+			if (!this._nameToCosmeticMap.TryGetValue(itemName, out result))
 			{
-				CosmeticsV2Spawner_Dirty.ProcessLoadOpInfos(this.rig, playfabId, this);
+				CosmeticsV2Spawner_Dirty.ProcessLoadOpInfos(this.rig, itemName, this);
 				return null;
 			}
 			return result;
-		}
-
-		public void RequestCosmetic(string playfabId, ICosmeticRequestCallback callback)
-		{
-			if (!CosmeticsV2Spawner_Dirty.isPrepared && !CosmeticsV2Spawner_Dirty.isFinalizingSetup)
-			{
-				Debug.LogError("[GT/CosmeticItemRegistry]  ERROR!!!  RequestCosmetic: Cannot request cosmetic before cosmetic spawner is prepared.");
-				return;
-			}
-			if (string.IsNullOrEmpty(playfabId) || playfabId == "NOTHING")
-			{
-				if (callback != null)
-				{
-					callback.OnCosmeticLoaded(playfabId, null);
-				}
-				return;
-			}
-			CosmeticItemInstance instance;
-			if (this._nameToCosmeticMap.TryGetValue(playfabId, out instance))
-			{
-				if (callback != null)
-				{
-					callback.OnCosmeticLoaded(playfabId, instance);
-				}
-				return;
-			}
-			List<ICosmeticRequestCallback> list;
-			if (!this._pendingCallbacks.TryGetValue(playfabId, out list))
-			{
-				list = new List<ICosmeticRequestCallback>(4);
-				this._pendingCallbacks.Add(playfabId, list);
-			}
-			list.Add(callback);
-			CosmeticsV2Spawner_Dirty.ProcessLoadOpInfos(this.rig, playfabId, this);
-		}
-
-		public Awaitable<CosmeticItemInstance> AwaitCosmetic(string playfabId)
-		{
-			AwaitableCompletionSource<CosmeticItemInstance> awaitableCompletionSource = new AwaitableCompletionSource<CosmeticItemInstance>();
-			if (!CosmeticsV2Spawner_Dirty.isPrepared && !CosmeticsV2Spawner_Dirty.isFinalizingSetup)
-			{
-				Debug.LogError("[GT/CosmeticItemRegistry]  ERROR!!!  AwaitCosmetic: Cannot request cosmetic before cosmetic spawner is prepared.");
-				AwaitableCompletionSource<CosmeticItemInstance> awaitableCompletionSource2 = awaitableCompletionSource;
-				CosmeticItemInstance cosmeticItemInstance = null;
-				awaitableCompletionSource2.SetResult(cosmeticItemInstance);
-				return awaitableCompletionSource.Awaitable;
-			}
-			this.RequestCosmetic(playfabId, new CosmeticItemRegistry._AwaitCosmeticRequestCallback(awaitableCompletionSource));
-			return awaitableCompletionSource.Awaitable;
-		}
-
-		public void FlushPendingCallbacks()
-		{
-			if (this._pendingCallbacks.Count == 0)
-			{
-				return;
-			}
-			CosmeticItemRegistry._flushKeysBuffer.Clear();
-			foreach (KeyValuePair<string, List<ICosmeticRequestCallback>> keyValuePair in this._pendingCallbacks)
-			{
-				string text;
-				List<ICosmeticRequestCallback> list;
-				keyValuePair.Deconstruct(out text, out list);
-				string text2 = text;
-				List<ICosmeticRequestCallback> list2 = list;
-				CosmeticItemInstance instance;
-				if (this._nameToCosmeticMap.TryGetValue(text2, out instance))
-				{
-					for (int i = 0; i < list2.Count; i++)
-					{
-						if (list2[i] != null)
-						{
-							list2[i].OnCosmeticLoaded(text2, instance);
-						}
-					}
-					list2.Clear();
-					CosmeticItemRegistry._flushKeysBuffer.Add(text2);
-				}
-			}
-			for (int j = 0; j < CosmeticItemRegistry._flushKeysBuffer.Count; j++)
-			{
-				this._pendingCallbacks.Remove(CosmeticItemRegistry._flushKeysBuffer[j]);
-			}
 		}
 
 		private Dictionary<string, CosmeticItemInstance> _nameToCosmeticMap = new Dictionary<string, CosmeticItemInstance>();
 
 		private HashSet<GameObject> initializedCosmetics = new HashSet<GameObject>();
 
-		private readonly Dictionary<string, List<ICosmeticRequestCallback>> _pendingCallbacks = new Dictionary<string, List<ICosmeticRequestCallback>>();
-
 		private GameObject _nullItem;
 
 		private VRRig rig;
-
-		private static readonly List<string> _flushKeysBuffer = new List<string>(32);
-
-		private struct _AwaitCosmeticRequestCallback : ICosmeticRequestCallback
-		{
-			public _AwaitCosmeticRequestCallback(AwaitableCompletionSource<CosmeticItemInstance> source)
-			{
-				this._source = source;
-			}
-
-			public void OnCosmeticLoaded(string itemName, CosmeticItemInstance instance)
-			{
-				this._source.SetResult(instance);
-			}
-
-			private AwaitableCompletionSource<CosmeticItemInstance> _source;
-		}
 	}
 }

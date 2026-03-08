@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA095}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494BC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Photon.Voice.Fusion</RootNamespace>
@@ -48,43 +48,43 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA056}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947D}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Runtime\Fusion.Runtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA057}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947E}</Project>
       <Name>Fusion.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Sockets\Fusion.Sockets.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA058}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947F}</Project>
       <Name>Fusion.Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA08F}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494B6}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonRealtime\PhotonRealtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA090}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494B7}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice.API\PhotonVoice.API.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA093}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494BA}</Project>
       <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhotonVoice\PhotonVoice.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA094}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494BB}</Project>
       <Name>PhotonVoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F0}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49517}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F5}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
   </ItemGroup>

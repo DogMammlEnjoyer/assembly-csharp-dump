@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using GorillaExtensions;
 using GorillaNetworking;
 using UnityEngine;
@@ -206,42 +205,6 @@ public class BodyDockPositions : MonoBehaviour
 						this.EnableTransferrableGameObject(allItemsIndex, startingPosition, startingState);
 						return j;
 					}
-				}
-			}
-		}
-		else if (this.myRig != null)
-		{
-			string itemNameFromDisplayName2 = CosmeticsController.instance.GetItemNameFromDisplayName(this.allObjects[allItemsIndex].gameObject.name);
-			if (!this.myRig.IsItemAllowed(itemNameFromDisplayName2))
-			{
-				return -1;
-			}
-			int num = -1;
-			for (int k = 0; k < this.myRig.ActiveTransferrableObjectIndexLength(); k++)
-			{
-				if (this.myRig.ActiveTransferrableObjectIndex(k) == allItemsIndex)
-				{
-					num = k;
-					break;
-				}
-			}
-			if (num >= 0)
-			{
-				this.myRig.SetTransferrablePosStates(num, startingState);
-				this.myRig.SetTransferrableDockPosition(num, startingPosition);
-				this.EnableTransferrableGameObject(allItemsIndex, startingPosition, startingState);
-				return num;
-			}
-			for (int l = 0; l < this.myRig.ActiveTransferrableObjectIndexLength(); l++)
-			{
-				if (this.myRig.ActiveTransferrableObjectIndex(l) == -1)
-				{
-					this.myRig.SetActiveTransferrableObjectIndex(l, allItemsIndex);
-					this.myRig.SetTransferrablePosStates(l, startingState);
-					this.myRig.SetTransferrableItemStates(l, (TransferrableObject.ItemStates)0);
-					this.myRig.SetTransferrableDockPosition(l, startingPosition);
-					this.EnableTransferrableGameObject(allItemsIndex, startingPosition, startingState);
-					return l;
 				}
 			}
 		}
@@ -738,11 +701,31 @@ public class BodyDockPositions : MonoBehaviour
 
 	private void UpdateHandState()
 	{
-		BodyDockPositions.<UpdateHandState>d__66 <UpdateHandState>d__;
-		<UpdateHandState>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<UpdateHandState>d__.<>4__this = this;
-		<UpdateHandState>d__.<>1__state = -1;
-		<UpdateHandState>d__.<>t__builder.Start<BodyDockPositions.<UpdateHandState>d__66>(ref <UpdateHandState>d__);
+		for (int i = 0; i < 2; i++)
+		{
+			GameObject[] array = (i == 0) ? this.leftHandThrowables : this.rightHandThrowables;
+			int num = (i == 0) ? this.myRig.LeftThrowableProjectileIndex : this.myRig.RightThrowableProjectileIndex;
+			string itemName;
+			if (num > -1 && CosmeticsV2Spawner_Dirty.GetPlayfabIdFromThrowableIndex(i == 0, num, out itemName))
+			{
+				this.myRig.cosmeticsObjectRegistry.Cosmetic(itemName);
+			}
+			for (int j = 0; j < array.Length; j++)
+			{
+				GameObject gameObject = array[j];
+				if (!(gameObject == null))
+				{
+					bool activeSelf = gameObject.activeSelf;
+					bool flag = gameObject.GetComponent<SnowballThrowable>().throwableMakerIndex == num;
+					array[j].SetActive(flag);
+					if (activeSelf && !flag)
+					{
+						this.throwableDisabledIndex[i] = j;
+						this.throwableDisabledTime[i] = Time.time + 0.02f;
+					}
+				}
+			}
+		}
 	}
 
 	internal GameObject GetLeftHandThrowable()

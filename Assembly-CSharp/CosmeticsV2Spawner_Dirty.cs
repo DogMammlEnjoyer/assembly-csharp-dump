@@ -15,8 +15,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 {
-	public static bool isFinalizingSetup { get; private set; }
-
 	public static bool isPrepared { get; private set; }
 
 	void IDelayedExecListener.OnDelayedAction(int contextId)
@@ -279,7 +277,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 
 	public static void ProcessLoadOpInfos(VRRig rig, string playfabId, CosmeticItemRegistry registry)
 	{
-		CosmeticsV2Spawner_Dirty.<>c__DisplayClass41_0 CS$<>8__locals1 = new CosmeticsV2Spawner_Dirty.<>c__DisplayClass41_0();
+		CosmeticsV2Spawner_Dirty.<>c__DisplayClass37_0 CS$<>8__locals1 = new CosmeticsV2Spawner_Dirty.<>c__DisplayClass37_0();
 		CS$<>8__locals1.registry = registry;
 		if (!CosmeticsV2Spawner_Dirty.processedIdsByRig.ContainsKey(rig))
 		{
@@ -305,7 +303,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 		List<CosmeticsV2Spawner_Dirty.LoadOpInfo> list = CosmeticsV2Spawner_Dirty._g_loadOpInfosForRigAndCosmeticIDDicts[CosmeticsV2Spawner_Dirty._gVRRigDatasIndexByRig[rig]][playfabId];
 		for (int i = 0; i < list.Count; i++)
 		{
-			CosmeticsV2Spawner_Dirty.<>c__DisplayClass41_1 CS$<>8__locals2 = new CosmeticsV2Spawner_Dirty.<>c__DisplayClass41_1();
+			CosmeticsV2Spawner_Dirty.<>c__DisplayClass37_1 CS$<>8__locals2 = new CosmeticsV2Spawner_Dirty.<>c__DisplayClass37_1();
 			CS$<>8__locals2.CS$<>8__locals1 = CS$<>8__locals1;
 			CS$<>8__locals2.currentIndex = CosmeticsV2Spawner_Dirty._g_loadOp_to_index.Count;
 			CosmeticsV2Spawner_Dirty._ProcessLoadOpInfo(CS$<>8__locals2.currentIndex, list[i]);
@@ -644,14 +642,13 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 
 	private static void _Step5_InitializeVRRigsAndCosmeticsControllerFinalize()
 	{
-		CosmeticsV2Spawner_Dirty.isFinalizingSetup = true;
 		CosmeticsController.instance.UpdateWardrobeModelsAndButtons();
 		try
 		{
-			Action onPreFinalizing = CosmeticsV2Spawner_Dirty.OnPreFinalizing;
-			if (onPreFinalizing != null)
+			Action onPostInstantiateAllPrefabs = CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs;
+			if (onPostInstantiateAllPrefabs != null)
 			{
-				onPreFinalizing();
+				onPostInstantiateAllPrefabs();
 			}
 		}
 		catch (Exception exception)
@@ -669,7 +666,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 		try
 		{
 			CosmeticsController.instance.UpdateWornCosmetics();
-			CosmeticsV2Spawner_Dirty.<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0();
+			CosmeticsV2Spawner_Dirty.<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0();
 		}
 		catch (Exception exception3)
 		{
@@ -697,7 +694,6 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 		{
 			Debug.LogException(exception5);
 		}
-		CosmeticsV2Spawner_Dirty.isFinalizingSetup = false;
 		CosmeticsV2Spawner_Dirty.isPrepared = true;
 		CosmeticsV2Spawner_Dirty.k_stopwatch.Stop();
 		Debug.Log("_Step5_InitializeVRRigsAndCosmeticsControllerFinalize" + string.Format(": Done preparing cosmetics system in {0:0.0000} seconds.", (double)CosmeticsV2Spawner_Dirty.k_stopwatch.ElapsedMilliseconds / 1000.0));
@@ -709,7 +705,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 	}
 
 	[CompilerGenerated]
-	internal static void <ProcessLoadOpInfos>g__PostCompletionProcess|41_0()
+	internal static void <ProcessLoadOpInfos>g__PostCompletionProcess|37_0()
 	{
 		foreach (KeyValuePair<CosmeticItemRegistry, List<GameObject>> keyValuePair in CosmeticsV2Spawner_Dirty.currentGOBatchByRegistry)
 		{
@@ -756,12 +752,11 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 			CosmeticsV2Spawner_Dirty.sides[key].Clear();
 			CosmeticsV2Spawner_Dirty.overrides[key].Clear();
 			key.RefreshRig();
-			key.FlushPendingCallbacks();
 		}
 	}
 
 	[CompilerGenerated]
-	internal static GameObject <ProcessLoadOpInfos>g__ObjectToInitialize|41_1(CosmeticsV2Spawner_Dirty.LoadOpInfo loadOpInfo)
+	internal static GameObject <ProcessLoadOpInfos>g__ObjectToInitialize|37_1(CosmeticsV2Spawner_Dirty.LoadOpInfo loadOpInfo)
 	{
 		if (loadOpInfo.resultGObj == null)
 		{
@@ -793,17 +788,17 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 	}
 
 	[CompilerGenerated]
-	internal static void <_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0()
+	internal static void <_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0()
 	{
-		CosmeticsV2Spawner_Dirty.<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d <<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d;
-		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d.<>1__state = -1;
-		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d.<>t__builder.Start<CosmeticsV2Spawner_Dirty.<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d>(ref <<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|48_0>d);
+		CosmeticsV2Spawner_Dirty.<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d <<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d;
+		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d.<>1__state = -1;
+		<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d.<>t__builder.Start<CosmeticsV2Spawner_Dirty.<<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d>(ref <<_Step5_InitializeVRRigsAndCosmeticsControllerFinalize>g__StartupRerun|44_0>d);
 	}
 
 	private static CosmeticsV2Spawner_Dirty _instance;
 
-	public static Action OnPreFinalizing;
+	public static Action OnPostInstantiateAllPrefabs;
 
 	[OnEnterPlay_SetNull]
 	private static Transform _gDeactivatedSpawnParent;

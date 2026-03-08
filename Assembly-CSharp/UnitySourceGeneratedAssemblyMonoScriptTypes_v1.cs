@@ -20016,10 +20016,10 @@ internal class UnitySourceGeneratedAssemblyMonoScriptTypes_v1
 			0,
 			0,
 			0,
-			"Not showing all elements because this array is too big (102001 elements)"
+			"Not showing all elements because this array is too big (101881 elements)"
 		};
 		result.TotalFiles = 2293;
-		result.TotalTypes = 3264;
+		result.TotalTypes = 3262;
 		result.IsEditorOnly = false;
 		return result;
 	}

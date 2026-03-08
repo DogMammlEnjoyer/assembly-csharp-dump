@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA057}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F4947E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion.Runtime</RootNamespace>
@@ -463,27 +463,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA054}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947B}</Project>
       <Name>Fusion.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA055}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947C}</Project>
       <Name>Fusion.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Realtime\Fusion.Realtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA056}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947D}</Project>
       <Name>Fusion.Realtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Sockets\Fusion.Sockets.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA058}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4947F}</Project>
       <Name>Fusion.Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA0F8}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951F}</Project>
       <Name>UnityEngine</Name>
     </ProjectReference>
   </ItemGroup>

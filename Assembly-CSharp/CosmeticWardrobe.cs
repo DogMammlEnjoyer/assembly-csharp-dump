@@ -132,15 +132,45 @@ public class CosmeticWardrobe : MonoBehaviour
 		onWardrobeUpdateDisplays();
 	}
 
+	private void RepressButton(GorillaPressableButton button, bool isLeft, string itemName)
+	{
+		CosmeticWardrobe.<RepressButton>d__25 <RepressButton>d__;
+		<RepressButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<RepressButton>d__.<>4__this = this;
+		<RepressButton>d__.button = button;
+		<RepressButton>d__.isLeft = isLeft;
+		<RepressButton>d__.itemName = itemName;
+		<RepressButton>d__.<>1__state = -1;
+		<RepressButton>d__.<>t__builder.Start<CosmeticWardrobe.<RepressButton>d__25>(ref <RepressButton>d__);
+	}
+
 	private void HandlePressedSelectCosmeticButton(GorillaPressableButton button, bool isLeft)
 	{
-		CosmeticWardrobe.<HandlePressedSelectCosmeticButton>d__25 <HandlePressedSelectCosmeticButton>d__;
-		<HandlePressedSelectCosmeticButton>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<HandlePressedSelectCosmeticButton>d__.<>4__this = this;
-		<HandlePressedSelectCosmeticButton>d__.button = button;
-		<HandlePressedSelectCosmeticButton>d__.isLeft = isLeft;
-		<HandlePressedSelectCosmeticButton>d__.<>1__state = -1;
-		<HandlePressedSelectCosmeticButton>d__.<>t__builder.Start<CosmeticWardrobe.<HandlePressedSelectCosmeticButton>d__25>(ref <HandlePressedSelectCosmeticButton>d__);
+		for (int i = 0; i < this.cosmeticCollectionDisplays.Length; i++)
+		{
+			if (this.cosmeticCollectionDisplays[i].selectButton == button)
+			{
+				if (string.IsNullOrEmpty(this.cosmeticCollectionDisplays[i].currentCosmeticItem.itemName) || this.cosmeticCollectionDisplays[i].currentCosmeticItem.itemName == "NOTHING")
+				{
+					return;
+				}
+				if (VRRig.LocalRig.cosmeticsObjectRegistry.Cosmetic(this.cosmeticCollectionDisplays[i].currentCosmeticItem.itemName) == null)
+				{
+					this.RepressButton(button, isLeft, this.cosmeticCollectionDisplays[i].currentCosmeticItem.itemName);
+				}
+				else
+				{
+					CosmeticsController.instance.PressWardrobeItemButton(this.cosmeticCollectionDisplays[i].currentCosmeticItem, isLeft, this.m_useTemporarySet);
+					if (isLeft)
+					{
+						this.cosmeticCategoryButtons[CosmeticWardrobe.selectedCategoryIndex].slot2RemovedItem = CosmeticsController.instance.nullItem;
+						return;
+					}
+					this.cosmeticCategoryButtons[CosmeticWardrobe.selectedCategoryIndex].slot1RemovedItem = CosmeticsController.instance.nullItem;
+					return;
+				}
+			}
+		}
 	}
 
 	private void HandleChangeCategory(GorillaPressableButton button, bool isLeft)

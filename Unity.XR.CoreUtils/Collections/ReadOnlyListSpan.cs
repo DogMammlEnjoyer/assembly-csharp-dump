@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Unity.XR.CoreUtils.Collections
 {
-	public struct ReadOnlyListSpan<T> : IReadOnlyList<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, IEquatable<ReadOnlyListSpan<T>>
+	public struct ReadOnlyListSpan<T> : IReadOnlyList<T>, IEnumerable<!0>, IEnumerable, IReadOnlyCollection<T>, IEquatable<ReadOnlyListSpan<T>>
 	{
 		public int Count
 		{

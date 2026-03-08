@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13B}</ProjectGuid>
+    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49562}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Oculus.Voice.Composer</RootNamespace>
@@ -46,19 +46,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meta.Wit.Composer\Meta.Wit.Composer.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06B}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49492}</Project>
       <Name>Meta.Wit.Composer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi\Meta.WitAi.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA06D}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49494}</Project>
       <Name>Meta.WitAi</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA081}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\VoiceSDK.Runtime\VoiceSDK.Runtime.csproj">
-      <Project>{70C9B59A-872B-4E2F-93DE-1E09EC3EA13C}</Project>
+      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49563}</Project>
       <Name>VoiceSDK.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1272,7 +1272,7 @@ namespace System.Collections.Generic
 				{
 					if (enumerator.MoveNext())
 					{
-						T t = enumerator.Current;
+						!0 ! = enumerator.Current;
 						num++;
 					}
 				}

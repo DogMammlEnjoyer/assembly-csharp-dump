@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq.Parallel
 {
-	internal class ListChunk<TInputOutput> : IEnumerable<!0>, IEnumerable
+	internal class ListChunk<TInputOutput> : IEnumerable<TInputOutput>, IEnumerable
 	{
 		internal ListChunk(int size)
 		{

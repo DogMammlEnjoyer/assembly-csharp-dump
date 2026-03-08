@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Fusion;
 using GorillaExtensions;
 using GorillaGameModes;
@@ -34,12 +33,12 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 {
 	private void CosmeticsV2_Awake()
 	{
-		CosmeticsV2Spawner_Dirty.OnPreFinalizing = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPreFinalizing, new Action(this.Handle_CosmeticsV2_OnPreFinalizing));
+		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Combine(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
 	}
 
-	internal void Handle_CosmeticsV2_OnPreFinalizing()
+	internal void Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics()
 	{
-		CosmeticsV2Spawner_Dirty.OnPreFinalizing = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPreFinalizing, new Action(this.Handle_CosmeticsV2_OnPreFinalizing));
+		CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs = (Action)Delegate.Remove(CosmeticsV2Spawner_Dirty.OnPostInstantiateAllPrefabs, new Action(this.Handle_CosmeticsV2_OnPostInstantiateAllPrefabs_DoEnableAllCosmetics));
 		this.CheckForEarlyAccess();
 		this.SetCosmeticsActive(false);
 	}
@@ -2473,21 +2472,31 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	public void SetCosmeticsActive(bool playfx)
 	{
-		VRRig.<SetCosmeticsActive>d__490 <SetCosmeticsActive>d__;
-		<SetCosmeticsActive>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<SetCosmeticsActive>d__.<>4__this = this;
-		<SetCosmeticsActive>d__.playfx = playfx;
-		<SetCosmeticsActive>d__.<>1__state = -1;
-		<SetCosmeticsActive>d__.<>t__builder.Start<VRRig.<SetCosmeticsActive>d__490>(ref <SetCosmeticsActive>d__);
+		if (CosmeticsController.instance == null)
+		{
+			return;
+		}
+		this.prevSet.CopyItems(this.mergedSet);
+		this.mergedSet.MergeSets(this.inTryOnRoom ? this.tryOnSet : null, this.cosmeticSet);
+		BodyDockPositions component = base.GetComponent<BodyDockPositions>();
+		this.mergedSet.ActivateCosmetics(this.prevSet, this, component, this.cosmeticsObjectRegistry);
+		if (!playfx)
+		{
+			return;
+		}
+		if (this.cosmeticsActivationPS != null)
+		{
+			this.cosmeticsActivationPS.Play();
+		}
+		if (this.cosmeticsActivationSBP != null)
+		{
+			this.cosmeticsActivationSBP.Play();
+		}
 	}
 
 	public void RefreshCosmetics()
 	{
-		VRRig.<RefreshCosmetics>d__493 <RefreshCosmetics>d__;
-		<RefreshCosmetics>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<RefreshCosmetics>d__.<>4__this = this;
-		<RefreshCosmetics>d__.<>1__state = -1;
-		<RefreshCosmetics>d__.<>t__builder.Start<VRRig.<RefreshCosmetics>d__493>(ref <RefreshCosmetics>d__);
+		this.mergedSet.ActivateCosmetics(this.mergedSet, this, this.myBodyDockPositions, this.cosmeticsObjectRegistry);
 	}
 
 	public void GetCosmeticsPlayFabCatalogData()
@@ -2965,11 +2974,40 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	void IPreDisable.PreDisable()
 	{
-		VRRig.<IPreDisable-PreDisable>d__549 <IPreDisable-PreDisable>d__;
-		<IPreDisable-PreDisable>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<IPreDisable-PreDisable>d__.<>4__this = this;
-		<IPreDisable-PreDisable>d__.<>1__state = -1;
-		<IPreDisable-PreDisable>d__.<>t__builder.Start<VRRig.<IPreDisable-PreDisable>d__549>(ref <IPreDisable-PreDisable>d__);
+		try
+		{
+			this.ClearRopeData();
+			if (this.currentRopeSwingTarget)
+			{
+				this.currentRopeSwingTarget.SetParent(base.transform);
+			}
+			this.EnableHuntWatch(false);
+			this.EnablePaintbrawlCosmetics(false);
+			this.EnableSuperInfectionHands(false);
+			this.ClearPartyMemberStatus();
+			this._playerOwnedCosmetics.Clear();
+			this._playerOwnedCosmeticsAge.Clear();
+			if (this.cosmeticSet != null)
+			{
+				this.mergedSet.DeactivateAllCosmetcs(this.myBodyDockPositions, CosmeticsController.instance.nullItem, this.cosmeticsObjectRegistry);
+				this.mergedSet.ClearSet(CosmeticsController.instance.nullItem);
+				this.prevSet.ClearSet(CosmeticsController.instance.nullItem);
+				this.tryOnSet.ClearSet(CosmeticsController.instance.nullItem);
+				this.cosmeticSet.ClearSet(CosmeticsController.instance.nullItem);
+			}
+			if (!this.isOfflineVRRig)
+			{
+				PlayerCosmeticsSystem.RemoveCosmeticCallback(this.creator.ActorNumber);
+				this.pendingCosmeticUpdate = true;
+				VRRig.LocalRig.leftHandLink.BreakLinkTo(this.leftHandLink);
+				VRRig.LocalRig.leftHandLink.BreakLinkTo(this.rightHandLink);
+				VRRig.LocalRig.rightHandLink.BreakLinkTo(this.leftHandLink);
+				VRRig.LocalRig.rightHandLink.BreakLinkTo(this.rightHandLink);
+			}
+		}
+		catch (Exception)
+		{
+		}
 	}
 
 	public void OnDisable()
@@ -3968,8 +4006,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public CosmeticsController.CosmeticSet mergedSet;
 
 	public CosmeticsController.CosmeticSet prevSet;
-
-	internal int _cosmeticsActivationVersion;
 
 	[NonSerialized]
 	public readonly List<GameObject> activeCosmetics = new List<GameObject>(16);

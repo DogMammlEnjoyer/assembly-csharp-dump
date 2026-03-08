@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace System.Linq.Parallel
 {
-	internal sealed class SortQueryOperator<TInputOutput, TSortKey> : UnaryQueryOperator<TInputOutput, TInputOutput>, IOrderedEnumerable<TInputOutput>, IEnumerable<!0>, IEnumerable
+	internal sealed class SortQueryOperator<TInputOutput, TSortKey> : UnaryQueryOperator<TInputOutput, TInputOutput>, IOrderedEnumerable<!0>, IEnumerable<!0>, IEnumerable
 	{
 		internal SortQueryOperator(IEnumerable<TInputOutput> source, Func<TInputOutput, TSortKey> keySelector, IComparer<TSortKey> comparer, bool descending) : base(source, true)
 		{
