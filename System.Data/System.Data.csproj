@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494C7}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.Data</RootNamespace>
@@ -755,39 +755,39 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A4}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Configuration\System.Configuration.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C4}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCE}</Project>
       <Name>System.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C5}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCF}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Drawing\System.Drawing.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C9}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD3}</Project>
       <Name>System.Drawing</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.EnterpriseServices\System.EnterpriseServices.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494CA}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD4}</Project>
       <Name>System.EnterpriseServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Numerics\System.Numerics.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D0}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DDA}</Project>
       <Name>System.Numerics</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Transactions\System.Transactions.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D6}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE0}</Project>
       <Name>System.Transactions</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Xml\System.Xml.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D7}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE1}</Project>
       <Name>System.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD2}</Project>
       <Name>System</Name>
     </ProjectReference>
   </ItemGroup>

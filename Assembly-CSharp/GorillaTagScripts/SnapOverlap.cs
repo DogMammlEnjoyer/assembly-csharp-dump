@@ -9,5 +9,7 @@ namespace GorillaTagScripts
 		public SnapBounds bounds;
 
 		public SnapOverlap nextOverlap;
+
+		public bool inPool = true;
 	}
 }

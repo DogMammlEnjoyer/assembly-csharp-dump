@@ -31,12 +31,12 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentNullException("collection");
 			}
-			ICollection<T> collection2 = collection as ICollection<!0>;
+			ICollection<T> collection2 = collection as ICollection<T>;
 			if (collection2 == null)
 			{
 				this._size = 0;
 				this._items = LowLevelList<T>.s_emptyArray;
-				foreach (!0 item in collection)
+				foreach (T item in collection)
 				{
 					this.Add(item);
 				}
@@ -222,7 +222,7 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException("index");
 			}
-			ICollection<T> collection2 = collection as ICollection<!0>;
+			ICollection<T> collection2 = collection as ICollection<T>;
 			if (collection2 != null)
 			{
 				int count = collection2.Count;
@@ -249,7 +249,7 @@ namespace System.Collections.Generic
 			}
 			else
 			{
-				foreach (!0 item in collection)
+				foreach (T item in collection)
 				{
 					this.Insert(index++, item);
 				}

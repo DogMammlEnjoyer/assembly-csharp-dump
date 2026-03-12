@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494CA}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.EnterpriseServices</RootNamespace>
@@ -163,11 +163,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A4}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Transactions\System.Transactions.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D6}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE0}</Project>
       <Name>System.Transactions</Name>
     </ProjectReference>
   </ItemGroup>

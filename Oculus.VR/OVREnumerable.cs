@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-internal readonly struct OVREnumerable<T> : IEnumerable<T>, IEnumerable
+internal readonly struct OVREnumerable<T> : IEnumerable<!0>, IEnumerable
 {
 	public OVREnumerable(IEnumerable<T> enumerable)
 	{

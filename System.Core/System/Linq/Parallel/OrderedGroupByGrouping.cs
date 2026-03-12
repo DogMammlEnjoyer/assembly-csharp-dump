@@ -38,7 +38,7 @@ namespace System.Linq.Parallel
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<!2>)this).GetEnumerator();
+			return ((IEnumerable<TElement>)this).GetEnumerator();
 		}
 
 		internal void Add(TElement value, TOrderKey orderKey)

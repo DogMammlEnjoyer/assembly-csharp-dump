@@ -35,6 +35,10 @@ public class TeleportNode : GorillaTriggerBox
 			Debug.LogError("[TeleportNode] GTPlayer.Instance is null.");
 			return;
 		}
+		if (this.triggerPlaySpaceCorrection)
+		{
+			GTPlayer.CorrectPlaySpaceOffset();
+		}
 		Physics.SyncTransforms();
 		Vector3 position = transform2.transform.position;
 		if (this.seamless)
@@ -65,6 +69,9 @@ public class TeleportNode : GorillaTriggerBox
 
 	[SerializeField]
 	private bool subsOnly;
+
+	[SerializeField]
+	private bool triggerPlaySpaceCorrection;
 
 	private float teleportTime;
 }

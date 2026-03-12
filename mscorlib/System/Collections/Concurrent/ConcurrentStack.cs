@@ -32,7 +32,7 @@ namespace System.Collections.Concurrent
 		private void InitializeFromCollection(IEnumerable<T> collection)
 		{
 			ConcurrentStack<T>.Node node = null;
-			foreach (!0 value in collection)
+			foreach (T value in collection)
 			{
 				node = new ConcurrentStack<T>.Node(value)
 				{
@@ -440,7 +440,7 @@ namespace System.Collections.Concurrent
 		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate through the collection.</returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<!0>)this).GetEnumerator();
+			return ((IEnumerable<T>)this).GetEnumerator();
 		}
 
 		private volatile ConcurrentStack<T>.Node _head;

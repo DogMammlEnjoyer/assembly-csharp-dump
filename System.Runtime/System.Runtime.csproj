@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494D2}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.Runtime</RootNamespace>
@@ -44,19 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A4}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.ComponentModel.Composition\System.ComponentModel.Composition.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C3}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCD}</Project>
       <Name>System.ComponentModel.Composition</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C5}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCF}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD2}</Project>
       <Name>System</Name>
     </ProjectReference>
   </ItemGroup>

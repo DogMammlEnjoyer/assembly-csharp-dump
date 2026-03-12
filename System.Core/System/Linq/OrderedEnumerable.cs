@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-	internal abstract class OrderedEnumerable<TElement> : IOrderedEnumerable<TElement>, IEnumerable<TElement>, IEnumerable, IPartition<TElement>, IIListProvider<TElement>
+	internal abstract class OrderedEnumerable<TElement> : IOrderedEnumerable<!0>, IEnumerable<!0>, IEnumerable, IPartition<TElement>, IIListProvider<TElement>
 	{
 		private int[] SortedMap(Buffer<TElement> buffer)
 		{

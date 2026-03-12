@@ -36,7 +36,7 @@ namespace System.Runtime.CompilerServices
 			{
 				throw new ArgumentNullException("collection");
 			}
-			ICollection<T> collection2 = collection as ICollection<!0>;
+			ICollection<T> collection2 = collection as ICollection<T>;
 			if (collection2 != null)
 			{
 				int count = collection2.Count;
@@ -47,7 +47,7 @@ namespace System.Runtime.CompilerServices
 			}
 			this._size = 0;
 			this._items = new T[4];
-			foreach (!0 item in collection)
+			foreach (T item in collection)
 			{
 				this.Add(item);
 			}

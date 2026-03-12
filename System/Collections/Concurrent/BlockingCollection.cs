@@ -1078,7 +1078,7 @@ namespace System.Collections.Concurrent
 		/// <exception cref="T:System.ObjectDisposedException">The <see cref="T:System.Collections.Concurrent.BlockingCollection`1" /> has been disposed.</exception>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<!0>)this).GetEnumerator();
+			return ((IEnumerable<T>)this).GetEnumerator();
 		}
 
 		private static void ValidateCollectionsArray(BlockingCollection<T>[] collections, bool isAddOperation)

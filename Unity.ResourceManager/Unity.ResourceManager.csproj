@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49500}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94E0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Unity.ResourceManager</RootNamespace>
@@ -141,27 +141,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49516}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E20}</Project>
       <Name>UnityEngine.AssetBundleModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4952E}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E38}</Project>
       <Name>UnityEngine.JSONSerializeModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UnityWebRequestAssetBundleModule\UnityEngine.UnityWebRequestAssetBundleModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49553}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E5D}</Project>
       <Name>UnityEngine.UnityWebRequestAssetBundleModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49555}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E5F}</Project>
       <Name>UnityEngine.UnityWebRequestModule</Name>
     </ProjectReference>
   </ItemGroup>

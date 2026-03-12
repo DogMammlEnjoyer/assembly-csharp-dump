@@ -1243,7 +1243,7 @@ namespace System.Collections.Generic
 			{
 				return false;
 			}
-			if (other is ICollection<!0> && (other as ICollection<!0>).Count == 0)
+			if (other is ICollection<T> && (other as ICollection<T>).Count == 0)
 			{
 				return false;
 			}
@@ -1272,7 +1272,7 @@ namespace System.Collections.Generic
 				{
 					if (enumerator.MoveNext())
 					{
-						!0 ! = enumerator.Current;
+						T t = enumerator.Current;
 						num++;
 					}
 				}

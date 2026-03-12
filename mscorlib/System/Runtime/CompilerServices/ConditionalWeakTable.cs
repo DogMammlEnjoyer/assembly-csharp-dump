@@ -466,7 +466,7 @@ namespace System.Runtime.CompilerServices
 				}
 				else
 				{
-					enumerator2 = ((IEnumerable<KeyValuePair<!0, !1>>)Array.Empty<KeyValuePair<TKey, TValue>>()).GetEnumerator();
+					enumerator2 = ((IEnumerable<KeyValuePair<TKey, TValue>>)Array.Empty<KeyValuePair<TKey, TValue>>()).GetEnumerator();
 				}
 				enumerator = enumerator2;
 			}
@@ -475,7 +475,7 @@ namespace System.Runtime.CompilerServices
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<KeyValuePair<!0, !1>>)this).GetEnumerator();
+			return ((IEnumerable<KeyValuePair<TKey, TValue>>)this).GetEnumerator();
 		}
 
 		private const int INITIAL_SIZE = 13;

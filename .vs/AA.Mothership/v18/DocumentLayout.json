@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Kingh\\OneDrive\\Desktop\\AssemblyCsharpFinalAllFiles\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{70C9B59A-872B-4E2F-93DE-1E09EC3EA048}|Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj|c:\\users\\kingh\\onedrive\\desktop\\assemblycsharpfinalallfiles\\assembly-csharp-firstpass\\plane.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C9B59A-872B-4E2F-93DE-1E09EC3EA048}|Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj|solutionrelative:assembly-csharp-firstpass\\plane.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,19 +30,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Plane.cs",
-              "DocumentMoniker": "C:\\Users\\Kingh\\OneDrive\\Desktop\\AssemblyCsharpFinalAllFiles\\Assembly-CSharp-firstpass\\Plane.cs",
-              "RelativeDocumentMoniker": "Assembly-CSharp-firstpass\\Plane.cs",
-              "ToolTip": "C:\\Users\\Kingh\\OneDrive\\Desktop\\AssemblyCsharpFinalAllFiles\\Assembly-CSharp-firstpass\\Plane.cs",
-              "RelativeToolTip": "Assembly-CSharp-firstpass\\Plane.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-06T18:29:09.142Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",

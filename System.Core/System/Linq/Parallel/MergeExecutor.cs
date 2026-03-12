@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace System.Linq.Parallel
 {
-	internal class MergeExecutor<TInputOutput> : IEnumerable<TInputOutput>, IEnumerable
+	internal class MergeExecutor<TInputOutput> : IEnumerable<!0>, IEnumerable
 	{
 		private MergeExecutor()
 		{

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-	internal sealed class OrderedPartition<TElement> : IPartition<TElement>, IIListProvider<TElement>, IEnumerable<TElement>, IEnumerable
+	internal sealed class OrderedPartition<TElement> : IPartition<TElement>, IIListProvider<TElement>, IEnumerable<!0>, IEnumerable
 	{
 		public OrderedPartition(OrderedEnumerable<TElement> source, int minIdxInclusive, int maxIdxInclusive)
 		{

@@ -77,9 +77,9 @@ namespace Valve.Newtonsoft.Json.Linq
 		internal static IEnumerable<U> Values<T, U>(this IEnumerable<T> source, object key) where T : JToken
 		{
 			ValidationUtils.ArgumentNotNull(source, "source");
-			foreach (!0 ! in source)
+			foreach (T t in source)
 			{
-				JToken token = !;
+				JToken token = t;
 				if (key == null)
 				{
 					if (token is JValue)

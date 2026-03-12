@@ -6,7 +6,7 @@ using Valve.Newtonsoft.Json.Utilities;
 
 namespace Valve.Newtonsoft.Json.Linq
 {
-	public struct JEnumerable<T> : IJEnumerable<T>, IEnumerable<!0>, IEnumerable, IEquatable<JEnumerable<T>> where T : JToken
+	public struct JEnumerable<T> : IJEnumerable<T>, IEnumerable<T>, IEnumerable, IEquatable<JEnumerable<T>> where T : JToken
 	{
 		public JEnumerable(IEnumerable<T> enumerable)
 		{

@@ -7,6 +7,7 @@ using BoingKit;
 using CjLib;
 using GorillaExtensions;
 using GorillaNetworking;
+using GorillaTag;
 using GorillaTagScripts.Builder;
 using Ionic.Zlib;
 using Photon.Pun;
@@ -2082,7 +2083,14 @@ namespace GorillaTagScripts
 				break;
 			case BuilderPiece.State.OnShelf:
 			case BuilderPiece.State.Displayed:
-				if (shelfOwner == -1 && !this.ValidatePieceWorldTransform(localPosition, localRotation))
+				if (!this.isTableMutable || shelfOwner == -1)
+				{
+					if (!this.ValidatePieceWorldTransform(localPosition, localRotation))
+					{
+						return false;
+					}
+				}
+				else if (shelfOwner < 0 || shelfOwner > this.dispenserShelves.Count - 1)
 				{
 					return false;
 				}
@@ -2095,6 +2103,10 @@ namespace GorillaTagScripts
 				if (!this.isTableMutable)
 				{
 					GTDev.LogError<string>(string.Format("Deserialized bad CreatePiece parameters. OnConveyor piece in immutable table {0}", pieceId), null);
+					return false;
+				}
+				if (shelfOwner < 0 || shelfOwner > this.conveyors.Count - 1)
+				{
 					return false;
 				}
 				break;
@@ -2144,7 +2156,22 @@ namespace GorillaTagScripts
 		public bool ValidatePieceWorldTransform(Vector3 position, Quaternion rotation)
 		{
 			float num = 10000f;
-			return position.IsValid(num) && rotation.IsValid() && (this.roomCenter.position - position).sqrMagnitude <= this.acceptableSqrDistFromCenter;
+			return position.IsValid(num) && rotation.IsValid() && (this.roomCenter.position - position).sqrMagnitude <= this.acceptableSqrDistFromCenter && this.ValidatePositionInArea(position);
+		}
+
+		public bool ValidatePositionInArea(Vector3 position)
+		{
+			using (List<SimpleAABB>.Enumerator enumerator = this.m_areaBounds.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					if (enumerator.Current.IsInBounds(position))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 		private BuilderPiece CreatePieceInternal(int newPieceType, int newPieceId, Vector3 position, Quaternion rotation, BuilderPiece.State state, int materialType, int activateTimeStamp, BuilderTable table)
@@ -2747,7 +2774,7 @@ namespace GorillaTagScripts
 						{
 							return false;
 						}
-						if ((this.roomCenter.position - position).sqrMagnitude > this.acceptableSqrDistFromCenter)
+						if ((this.roomCenter.position - position).sqrMagnitude > this.acceptableSqrDistFromCenter || !this.ValidatePositionInArea(position))
 						{
 							return false;
 						}
@@ -2825,7 +2852,7 @@ namespace GorillaTagScripts
 			int pieceId = cmd.pieceId;
 			int localCommandId = cmd.localCommandId;
 			int actorNumber = cmd.player.ActorNumber;
-			if ((cmd.player == null || !cmd.player.IsLocal) && !this.ValidateDropPieceParams(pieceId, cmd.localPosition, cmd.localRotation, cmd.velocity, cmd.angVelocity, cmd.player))
+			if (!this.ValidateDropPieceParams(pieceId, cmd.localPosition, cmd.localRotation, cmd.velocity, cmd.angVelocity, cmd.player))
 			{
 				return;
 			}
@@ -5928,6 +5955,8 @@ namespace GorillaTagScripts
 		private BuilderTable.SnapParams currSnapParams;
 
 		public int maxPlacementChildDepth = 5;
+
+		public List<SimpleAABB> m_areaBounds = new List<SimpleAABB>();
 
 		private static List<BuilderPiece> tempPieces = new List<BuilderPiece>(256);
 

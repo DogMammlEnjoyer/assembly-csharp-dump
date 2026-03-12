@@ -96,7 +96,7 @@ namespace UnityEngine.InputSystem.Utilities
 
 		internal int m_Length;
 
-		public struct Enumerator : IEnumerator<TValue>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
 		{
 			internal Enumerator(TValue[] array, int index, int length)
 			{

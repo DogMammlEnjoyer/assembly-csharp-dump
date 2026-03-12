@@ -176,7 +176,7 @@ namespace System.Runtime.Collections
 
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
-			foreach (KeyValuePair<!0, !1> keyValuePair in this.innerDictionary)
+			foreach (KeyValuePair<TKey, TValue> keyValuePair in this.innerDictionary)
 			{
 				yield return keyValuePair;
 			}

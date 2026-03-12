@@ -47,7 +47,7 @@ namespace System.Collections.Generic
 			{
 				ThrowHelper.ThrowArgumentNullException(ExceptionArgument.collection);
 			}
-			ICollection<T> collection2 = collection as ICollection<!0>;
+			ICollection<T> collection2 = collection as ICollection<T>;
 			if (collection2 == null)
 			{
 				this._size = 0;
@@ -898,7 +898,7 @@ namespace System.Collections.Generic
 			{
 				ThrowHelper.ThrowArgumentOutOfRange_IndexException();
 			}
-			ICollection<T> collection2 = collection as ICollection<!0>;
+			ICollection<T> collection2 = collection as ICollection<T>;
 			if (collection2 != null)
 			{
 				int count = collection2.Count;
@@ -929,7 +929,7 @@ namespace System.Collections.Generic
 					{
 						while (enumerator.MoveNext())
 						{
-							!0 item = enumerator.Current;
+							T item = enumerator.Current;
 							this.Insert(index++, item);
 						}
 						goto IL_FB;

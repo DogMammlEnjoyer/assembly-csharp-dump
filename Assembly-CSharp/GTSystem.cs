@@ -85,12 +85,12 @@ public abstract class GTSystem<T> : MonoBehaviour, IReadOnlyList<T>, IEnumerable
 
 	IEnumerator<T> IEnumerable<!0>.GetEnumerator()
 	{
-		return ((IEnumerable<!0>)this._instances).GetEnumerator();
+		return ((IEnumerable<T>)this._instances).GetEnumerator();
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return ((IEnumerable<!0>)this._instances).GetEnumerator();
+		return ((IEnumerable<T>)this._instances).GetEnumerator();
 	}
 
 	int IReadOnlyCollection<!0>.Count

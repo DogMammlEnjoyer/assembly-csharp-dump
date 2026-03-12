@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace System.Linq
 {
-	internal sealed class EmptyPartition<TElement> : IPartition<TElement>, IIListProvider<TElement>, IEnumerable<TElement>, IEnumerable, IEnumerator<!0>, IDisposable, IEnumerator
+	internal sealed class EmptyPartition<TElement> : IPartition<TElement>, IIListProvider<TElement>, IEnumerable<!0>, IEnumerable, IEnumerator<!0>, IDisposable, IEnumerator
 	{
 		private EmptyPartition()
 		{

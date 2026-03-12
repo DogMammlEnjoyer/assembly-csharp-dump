@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-	internal interface IPartition<TElement> : IIListProvider<TElement>, IEnumerable<TElement>, IEnumerable
+	internal interface IPartition<TElement> : IIListProvider<TElement>, IEnumerable<!0>, IEnumerable
 	{
 		IPartition<TElement> Skip(int count);
 

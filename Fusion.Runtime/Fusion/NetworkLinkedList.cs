@@ -302,7 +302,7 @@ namespace Fusion
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<!0>)this).GetEnumerator();
+			return ((IEnumerable<T>)this).GetEnumerator();
 		}
 
 		void INetworkLinkedList.Add(object item)
@@ -356,7 +356,7 @@ namespace Fusion
 			public Lazy<T[]> _items;
 		}
 
-		public struct Enumerator : IEnumerator<T>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
 		{
 			internal Enumerator(NetworkLinkedList<T> list)
 			{

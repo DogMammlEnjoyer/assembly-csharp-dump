@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-	internal interface IIListProvider<TElement> : IEnumerable<TElement>, IEnumerable
+	internal interface IIListProvider<TElement> : IEnumerable<!0>, IEnumerable
 	{
 		TElement[] ToArray();
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Valve.Newtonsoft.Json.Linq
 {
-	public interface IJEnumerable<T> : IEnumerable<!0>, IEnumerable where T : JToken
+	public interface IJEnumerable<T> : IEnumerable<T>, IEnumerable where T : JToken
 	{
 		IJEnumerable<JToken> this[object key]
 		{

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F4949E}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DA8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Meta.XR.MultiplayerBlocks</RootNamespace>
@@ -81,43 +81,43 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meta.XR.BuildingBlocks\Meta.XR.BuildingBlocks.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49498}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DA2}</Project>
       <Name>Meta.XR.BuildingBlocks</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.XR.ImmersiveDebugger.Interface\Meta.XR.ImmersiveDebugger.Interface.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4949B}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DA5}</Project>
       <Name>Meta.XR.ImmersiveDebugger.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\meta.xr.mrutilitykit\meta.xr.mrutilitykit.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4949C}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DA6}</Project>
       <Name>meta.xr.mrutilitykit</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.Interaction\Oculus.Interaction.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494AC}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB6}</Project>
       <Name>Oculus.Interaction</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.Platform\Oculus.Platform.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494B1}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DBB}</Project>
       <Name>Oculus.Platform</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.VR\Oculus.VR.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494B2}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DBC}</Project>
       <Name>Oculus.VR</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49513}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E1D}</Project>
       <Name>UnityEngine.AndroidJNIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49536}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E40}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
   </ItemGroup>

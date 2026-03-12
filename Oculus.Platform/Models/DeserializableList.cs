@@ -18,7 +18,7 @@ namespace Oculus.Platform.Models
 		{
 			get
 			{
-				return ((ICollection<!0>)this._Data).IsReadOnly;
+				return ((ICollection<T>)this._Data).IsReadOnly;
 			}
 		}
 

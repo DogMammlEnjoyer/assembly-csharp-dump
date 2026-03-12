@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F494BF}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sirenix.OdinInspector</RootNamespace>
@@ -199,23 +199,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A4}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C5}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCF}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494C8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD2}</Project>
       <Name>System</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F4951C}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49546}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E50}</Project>
       <Name>UnityEngine.TextRenderingModule</Name>
     </ProjectReference>
   </ItemGroup>

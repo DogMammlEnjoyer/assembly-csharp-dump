@@ -582,7 +582,7 @@ namespace Unity.Properties
 
 			public TypeConstructor()
 			{
-				this.m_OverrideConstructor = (PropertyBagStore.GetPropertyBag<T>() as IConstructor<!0>);
+				this.m_OverrideConstructor = (PropertyBagStore.GetPropertyBag<T>() as IConstructor<T>);
 				this.SetImplicitConstructor();
 			}
 
@@ -672,7 +672,7 @@ namespace Unity.Properties
 
 			object TypeUtility.ITypeConstructor.Instantiate()
 			{
-				return ((TypeUtility.ITypeConstructor<!0>)this).Instantiate();
+				return ((TypeUtility.ITypeConstructor<T>)this).Instantiate();
 			}
 
 			private Func<T> m_ExplicitConstructor;

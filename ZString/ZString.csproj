@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18F4708F-2162-4A84-81B2-9F3D68F49568}</ProjectGuid>
+    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94E72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZString</RootNamespace>
@@ -112,15 +112,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494A8}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F494D1}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DDB}</Project>
       <Name>System.Runtime.CompilerServices.Unsafe</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
-      <Project>{18F4708F-2162-4A84-81B2-9F3D68F49503}</Project>
+      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E0D}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
   </ItemGroup>

@@ -239,7 +239,10 @@ namespace GorillaTagScripts
 			this.snapOverlapPool.Capacity = this.snapOverlapPool.Capacity + count;
 			for (int i = 0; i < count; i++)
 			{
-				this.snapOverlapPool.Add(new SnapOverlap());
+				this.snapOverlapPool.Add(new SnapOverlap
+				{
+					inPool = true
+				});
 			}
 		}
 
@@ -254,13 +257,19 @@ namespace GorillaTagScripts
 			snapOverlap.otherPlane = otherPlane;
 			snapOverlap.bounds = bounds;
 			snapOverlap.nextOverlap = null;
+			snapOverlap.inPool = false;
 			return snapOverlap;
 		}
 
 		public void DestroySnapOverlap(SnapOverlap snapOverlap)
 		{
+			if (snapOverlap.inPool)
+			{
+				return;
+			}
 			snapOverlap.otherPlane = null;
 			snapOverlap.nextOverlap = null;
+			snapOverlap.inPool = true;
 			this.snapOverlapPool.Add(snapOverlap);
 		}
 

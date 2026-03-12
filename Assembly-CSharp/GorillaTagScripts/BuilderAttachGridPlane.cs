@@ -44,6 +44,7 @@ namespace GorillaTagScripts
 				this.SetConnected(snapOverlap.bounds, false);
 				pool.DestroySnapOverlap(snapOverlap);
 			}
+			this.firstOverlap = null;
 			int num = this.width * this.length;
 			for (int i = 0; i < num; i++)
 			{

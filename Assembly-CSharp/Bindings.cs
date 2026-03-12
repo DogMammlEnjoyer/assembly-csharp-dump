@@ -1401,49 +1401,49 @@ public static class Bindings
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int New(lua_State* L)
 		{
-			return Bindings.Vec3Functions.New_00004965$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.New_00004969$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Add(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Add_00004966$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Sub(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Mul(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Div(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Div_00004969$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Unm(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Eq(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.Invoke(L);
 		}
 
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
@@ -1458,84 +1458,84 @@ public static class Bindings
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Dot(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Cross(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Project(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Project_00004973$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Length(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Length_00004970$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Length_00004974$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Normalize(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int SafeNormal(lua_State* L)
 		{
-			return Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Distance(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Lerp(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Rotate(lua_State* L)
 		{
-			return Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int ZeroVector(lua_State* L)
 		{
-			return Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int OneVector(lua_State* L)
 		{
-			return Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int NearlyEqual(lua_State* L)
 		{
-			return Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.Invoke(L);
+			return Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
@@ -1740,24 +1740,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int New_00004965$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int New_00004969$PostfixBurstDelegate(lua_State* L);
 
-		internal static class New_00004965$BurstDirectCall
+		internal static class New_00004969$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.New_00004965$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.New_00004969$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.New_00004965$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.New_00004965$PostfixBurstDelegate>(new Bindings.Vec3Functions.New_00004965$PostfixBurstDelegate(Bindings.Vec3Functions.New)).Value;
+					Bindings.Vec3Functions.New_00004969$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.New_00004969$PostfixBurstDelegate>(new Bindings.Vec3Functions.New_00004969$PostfixBurstDelegate(Bindings.Vec3Functions.New)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.New_00004965$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.New_00004969$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.New_00004965$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.New_00004969$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1765,7 +1765,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.New_00004965$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.New_00004969$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1778,24 +1778,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Add_00004966$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Add_0000496A$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Add_00004966$BurstDirectCall
+		internal static class Add_0000496A$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Add_00004966$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Add_00004966$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Add_00004966$PostfixBurstDelegate>(new Bindings.Vec3Functions.Add_00004966$PostfixBurstDelegate(Bindings.Vec3Functions.Add)).Value;
+					Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Add_0000496A$PostfixBurstDelegate>(new Bindings.Vec3Functions.Add_0000496A$PostfixBurstDelegate(Bindings.Vec3Functions.Add)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Add_00004966$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Add_00004966$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1803,7 +1803,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Add_00004966$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Add_0000496A$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1816,24 +1816,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Sub_00004967$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Sub_0000496B$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Sub_00004967$BurstDirectCall
+		internal static class Sub_0000496B$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Sub_00004967$PostfixBurstDelegate>(new Bindings.Vec3Functions.Sub_00004967$PostfixBurstDelegate(Bindings.Vec3Functions.Sub)).Value;
+					Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Sub_0000496B$PostfixBurstDelegate>(new Bindings.Vec3Functions.Sub_0000496B$PostfixBurstDelegate(Bindings.Vec3Functions.Sub)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1841,7 +1841,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Sub_00004967$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Sub_0000496B$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1854,24 +1854,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Mul_00004968$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Mul_0000496C$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Mul_00004968$BurstDirectCall
+		internal static class Mul_0000496C$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Mul_00004968$PostfixBurstDelegate>(new Bindings.Vec3Functions.Mul_00004968$PostfixBurstDelegate(Bindings.Vec3Functions.Mul)).Value;
+					Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Mul_0000496C$PostfixBurstDelegate>(new Bindings.Vec3Functions.Mul_0000496C$PostfixBurstDelegate(Bindings.Vec3Functions.Mul)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1879,7 +1879,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Mul_00004968$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Mul_0000496C$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1892,24 +1892,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Div_00004969$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Div_0000496D$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Div_00004969$BurstDirectCall
+		internal static class Div_0000496D$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Div_00004969$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Div_00004969$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Div_00004969$PostfixBurstDelegate>(new Bindings.Vec3Functions.Div_00004969$PostfixBurstDelegate(Bindings.Vec3Functions.Div)).Value;
+					Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Div_0000496D$PostfixBurstDelegate>(new Bindings.Vec3Functions.Div_0000496D$PostfixBurstDelegate(Bindings.Vec3Functions.Div)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Div_00004969$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Div_00004969$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1917,7 +1917,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Div_00004969$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Div_0000496D$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1930,24 +1930,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Unm_0000496A$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Unm_0000496E$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Unm_0000496A$BurstDirectCall
+		internal static class Unm_0000496E$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Unm_0000496A$PostfixBurstDelegate>(new Bindings.Vec3Functions.Unm_0000496A$PostfixBurstDelegate(Bindings.Vec3Functions.Unm)).Value;
+					Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Unm_0000496E$PostfixBurstDelegate>(new Bindings.Vec3Functions.Unm_0000496E$PostfixBurstDelegate(Bindings.Vec3Functions.Unm)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1955,7 +1955,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Unm_0000496A$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Unm_0000496E$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -1968,24 +1968,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Eq_0000496B$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Eq_0000496F$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Eq_0000496B$BurstDirectCall
+		internal static class Eq_0000496F$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Eq_0000496B$PostfixBurstDelegate>(new Bindings.Vec3Functions.Eq_0000496B$PostfixBurstDelegate(Bindings.Vec3Functions.Eq)).Value;
+					Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Eq_0000496F$PostfixBurstDelegate>(new Bindings.Vec3Functions.Eq_0000496F$PostfixBurstDelegate(Bindings.Vec3Functions.Eq)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -1993,7 +1993,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Eq_0000496B$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Eq_0000496F$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2006,24 +2006,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Dot_0000496D$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Dot_00004971$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Dot_0000496D$BurstDirectCall
+		internal static class Dot_00004971$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Dot_0000496D$PostfixBurstDelegate>(new Bindings.Vec3Functions.Dot_0000496D$PostfixBurstDelegate(Bindings.Vec3Functions.Dot)).Value;
+					Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Dot_00004971$PostfixBurstDelegate>(new Bindings.Vec3Functions.Dot_00004971$PostfixBurstDelegate(Bindings.Vec3Functions.Dot)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2031,7 +2031,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Dot_0000496D$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Dot_00004971$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2044,24 +2044,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Cross_0000496E$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Cross_00004972$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Cross_0000496E$BurstDirectCall
+		internal static class Cross_00004972$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Cross_0000496E$PostfixBurstDelegate>(new Bindings.Vec3Functions.Cross_0000496E$PostfixBurstDelegate(Bindings.Vec3Functions.Cross)).Value;
+					Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Cross_00004972$PostfixBurstDelegate>(new Bindings.Vec3Functions.Cross_00004972$PostfixBurstDelegate(Bindings.Vec3Functions.Cross)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2069,7 +2069,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Cross_0000496E$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Cross_00004972$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2082,24 +2082,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Project_0000496F$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Project_00004973$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Project_0000496F$BurstDirectCall
+		internal static class Project_00004973$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Project_00004973$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Project_0000496F$PostfixBurstDelegate>(new Bindings.Vec3Functions.Project_0000496F$PostfixBurstDelegate(Bindings.Vec3Functions.Project)).Value;
+					Bindings.Vec3Functions.Project_00004973$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Project_00004973$PostfixBurstDelegate>(new Bindings.Vec3Functions.Project_00004973$PostfixBurstDelegate(Bindings.Vec3Functions.Project)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Project_00004973$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Project_00004973$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2107,7 +2107,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Project_0000496F$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Project_00004973$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2120,24 +2120,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Length_00004970$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Length_00004974$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Length_00004970$BurstDirectCall
+		internal static class Length_00004974$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Length_00004970$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Length_00004974$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Length_00004970$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Length_00004970$PostfixBurstDelegate>(new Bindings.Vec3Functions.Length_00004970$PostfixBurstDelegate(Bindings.Vec3Functions.Length)).Value;
+					Bindings.Vec3Functions.Length_00004974$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Length_00004974$PostfixBurstDelegate>(new Bindings.Vec3Functions.Length_00004974$PostfixBurstDelegate(Bindings.Vec3Functions.Length)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Length_00004970$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Length_00004974$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Length_00004970$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Length_00004974$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2145,7 +2145,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Length_00004970$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Length_00004974$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2158,24 +2158,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Normalize_00004971$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Normalize_00004975$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Normalize_00004971$BurstDirectCall
+		internal static class Normalize_00004975$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Normalize_00004971$PostfixBurstDelegate>(new Bindings.Vec3Functions.Normalize_00004971$PostfixBurstDelegate(Bindings.Vec3Functions.Normalize)).Value;
+					Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Normalize_00004975$PostfixBurstDelegate>(new Bindings.Vec3Functions.Normalize_00004975$PostfixBurstDelegate(Bindings.Vec3Functions.Normalize)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2183,7 +2183,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Normalize_00004971$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Normalize_00004975$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2196,24 +2196,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int SafeNormal_00004972$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int SafeNormal_00004976$PostfixBurstDelegate(lua_State* L);
 
-		internal static class SafeNormal_00004972$BurstDirectCall
+		internal static class SafeNormal_00004976$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.SafeNormal_00004972$PostfixBurstDelegate>(new Bindings.Vec3Functions.SafeNormal_00004972$PostfixBurstDelegate(Bindings.Vec3Functions.SafeNormal)).Value;
+					Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.SafeNormal_00004976$PostfixBurstDelegate>(new Bindings.Vec3Functions.SafeNormal_00004976$PostfixBurstDelegate(Bindings.Vec3Functions.SafeNormal)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2221,7 +2221,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.SafeNormal_00004972$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.SafeNormal_00004976$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2234,24 +2234,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Distance_00004973$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Distance_00004977$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Distance_00004973$BurstDirectCall
+		internal static class Distance_00004977$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Distance_00004973$PostfixBurstDelegate>(new Bindings.Vec3Functions.Distance_00004973$PostfixBurstDelegate(Bindings.Vec3Functions.Distance)).Value;
+					Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Distance_00004977$PostfixBurstDelegate>(new Bindings.Vec3Functions.Distance_00004977$PostfixBurstDelegate(Bindings.Vec3Functions.Distance)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2259,7 +2259,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Distance_00004973$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Distance_00004977$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2272,24 +2272,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Lerp_00004974$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Lerp_00004978$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Lerp_00004974$BurstDirectCall
+		internal static class Lerp_00004978$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Lerp_00004974$PostfixBurstDelegate>(new Bindings.Vec3Functions.Lerp_00004974$PostfixBurstDelegate(Bindings.Vec3Functions.Lerp)).Value;
+					Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Lerp_00004978$PostfixBurstDelegate>(new Bindings.Vec3Functions.Lerp_00004978$PostfixBurstDelegate(Bindings.Vec3Functions.Lerp)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2297,7 +2297,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Lerp_00004974$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Lerp_00004978$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2310,24 +2310,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Rotate_00004975$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Rotate_00004979$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Rotate_00004975$BurstDirectCall
+		internal static class Rotate_00004979$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Rotate_00004975$PostfixBurstDelegate>(new Bindings.Vec3Functions.Rotate_00004975$PostfixBurstDelegate(Bindings.Vec3Functions.Rotate)).Value;
+					Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.Rotate_00004979$PostfixBurstDelegate>(new Bindings.Vec3Functions.Rotate_00004979$PostfixBurstDelegate(Bindings.Vec3Functions.Rotate)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2335,7 +2335,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.Rotate_00004975$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.Rotate_00004979$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2348,24 +2348,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int ZeroVector_00004976$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int ZeroVector_0000497A$PostfixBurstDelegate(lua_State* L);
 
-		internal static class ZeroVector_00004976$BurstDirectCall
+		internal static class ZeroVector_0000497A$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.ZeroVector_00004976$PostfixBurstDelegate>(new Bindings.Vec3Functions.ZeroVector_00004976$PostfixBurstDelegate(Bindings.Vec3Functions.ZeroVector)).Value;
+					Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.ZeroVector_0000497A$PostfixBurstDelegate>(new Bindings.Vec3Functions.ZeroVector_0000497A$PostfixBurstDelegate(Bindings.Vec3Functions.ZeroVector)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2373,7 +2373,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.ZeroVector_00004976$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.ZeroVector_0000497A$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2386,24 +2386,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int OneVector_00004977$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int OneVector_0000497B$PostfixBurstDelegate(lua_State* L);
 
-		internal static class OneVector_00004977$BurstDirectCall
+		internal static class OneVector_0000497B$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.OneVector_00004977$PostfixBurstDelegate>(new Bindings.Vec3Functions.OneVector_00004977$PostfixBurstDelegate(Bindings.Vec3Functions.OneVector)).Value;
+					Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.OneVector_0000497B$PostfixBurstDelegate>(new Bindings.Vec3Functions.OneVector_0000497B$PostfixBurstDelegate(Bindings.Vec3Functions.OneVector)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2411,7 +2411,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.OneVector_00004977$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.OneVector_0000497B$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2424,24 +2424,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int NearlyEqual_00004978$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int NearlyEqual_0000497C$PostfixBurstDelegate(lua_State* L);
 
-		internal static class NearlyEqual_00004978$BurstDirectCall
+		internal static class NearlyEqual_0000497C$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.Pointer == 0)
+				if (Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.NearlyEqual_00004978$PostfixBurstDelegate>(new Bindings.Vec3Functions.NearlyEqual_00004978$PostfixBurstDelegate(Bindings.Vec3Functions.NearlyEqual)).Value;
+					Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.Vec3Functions.NearlyEqual_0000497C$PostfixBurstDelegate>(new Bindings.Vec3Functions.NearlyEqual_0000497C$PostfixBurstDelegate(Bindings.Vec3Functions.NearlyEqual)).Value;
 				}
-				A_0 = Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.Pointer;
+				A_0 = Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2449,7 +2449,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.Vec3Functions.NearlyEqual_00004978$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.Vec3Functions.NearlyEqual_0000497C$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2469,21 +2469,21 @@ public static class Bindings
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int New(lua_State* L)
 		{
-			return Bindings.QuatFunctions.New_00004979$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.New_0000497D$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Mul(lua_State* L)
 		{
-			return Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Eq(lua_State* L)
 		{
-			return Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.Invoke(L);
 		}
 
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
@@ -2498,28 +2498,28 @@ public static class Bindings
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int FromEuler(lua_State* L)
 		{
-			return Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int FromDirection(lua_State* L)
 		{
-			return Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int GetUpVector(lua_State* L)
 		{
-			return Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
 		[MonoPInvokeCallback(typeof(lua_CFunction))]
 		public unsafe static int Euler(lua_State* L)
 		{
-			return Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.Invoke(L);
+			return Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.Invoke(L);
 		}
 
 		[BurstCompile]
@@ -2594,24 +2594,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int New_00004979$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int New_0000497D$PostfixBurstDelegate(lua_State* L);
 
-		internal static class New_00004979$BurstDirectCall
+		internal static class New_0000497D$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.New_00004979$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.New_0000497D$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.New_00004979$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.New_00004979$PostfixBurstDelegate>(new Bindings.QuatFunctions.New_00004979$PostfixBurstDelegate(Bindings.QuatFunctions.New)).Value;
+					Bindings.QuatFunctions.New_0000497D$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.New_0000497D$PostfixBurstDelegate>(new Bindings.QuatFunctions.New_0000497D$PostfixBurstDelegate(Bindings.QuatFunctions.New)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.New_00004979$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.New_0000497D$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.New_00004979$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.New_0000497D$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2619,7 +2619,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.New_00004979$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.New_0000497D$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2632,24 +2632,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Mul_0000497A$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Mul_0000497E$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Mul_0000497A$BurstDirectCall
+		internal static class Mul_0000497E$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Mul_0000497A$PostfixBurstDelegate>(new Bindings.QuatFunctions.Mul_0000497A$PostfixBurstDelegate(Bindings.QuatFunctions.Mul)).Value;
+					Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Mul_0000497E$PostfixBurstDelegate>(new Bindings.QuatFunctions.Mul_0000497E$PostfixBurstDelegate(Bindings.QuatFunctions.Mul)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2657,7 +2657,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.Mul_0000497A$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.Mul_0000497E$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2670,24 +2670,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Eq_0000497B$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Eq_0000497F$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Eq_0000497B$BurstDirectCall
+		internal static class Eq_0000497F$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Eq_0000497B$PostfixBurstDelegate>(new Bindings.QuatFunctions.Eq_0000497B$PostfixBurstDelegate(Bindings.QuatFunctions.Eq)).Value;
+					Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Eq_0000497F$PostfixBurstDelegate>(new Bindings.QuatFunctions.Eq_0000497F$PostfixBurstDelegate(Bindings.QuatFunctions.Eq)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2695,7 +2695,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.Eq_0000497B$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.Eq_0000497F$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2708,24 +2708,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int FromEuler_0000497D$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int FromEuler_00004981$PostfixBurstDelegate(lua_State* L);
 
-		internal static class FromEuler_0000497D$BurstDirectCall
+		internal static class FromEuler_00004981$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.FromEuler_0000497D$PostfixBurstDelegate>(new Bindings.QuatFunctions.FromEuler_0000497D$PostfixBurstDelegate(Bindings.QuatFunctions.FromEuler)).Value;
+					Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.FromEuler_00004981$PostfixBurstDelegate>(new Bindings.QuatFunctions.FromEuler_00004981$PostfixBurstDelegate(Bindings.QuatFunctions.FromEuler)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2733,7 +2733,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.FromEuler_0000497D$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.FromEuler_00004981$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2746,24 +2746,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int FromDirection_0000497E$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int FromDirection_00004982$PostfixBurstDelegate(lua_State* L);
 
-		internal static class FromDirection_0000497E$BurstDirectCall
+		internal static class FromDirection_00004982$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.FromDirection_0000497E$PostfixBurstDelegate>(new Bindings.QuatFunctions.FromDirection_0000497E$PostfixBurstDelegate(Bindings.QuatFunctions.FromDirection)).Value;
+					Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.FromDirection_00004982$PostfixBurstDelegate>(new Bindings.QuatFunctions.FromDirection_00004982$PostfixBurstDelegate(Bindings.QuatFunctions.FromDirection)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2771,7 +2771,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.FromDirection_0000497E$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.FromDirection_00004982$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2784,24 +2784,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int GetUpVector_0000497F$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int GetUpVector_00004983$PostfixBurstDelegate(lua_State* L);
 
-		internal static class GetUpVector_0000497F$BurstDirectCall
+		internal static class GetUpVector_00004983$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.GetUpVector_0000497F$PostfixBurstDelegate>(new Bindings.QuatFunctions.GetUpVector_0000497F$PostfixBurstDelegate(Bindings.QuatFunctions.GetUpVector)).Value;
+					Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.GetUpVector_00004983$PostfixBurstDelegate>(new Bindings.QuatFunctions.GetUpVector_00004983$PostfixBurstDelegate(Bindings.QuatFunctions.GetUpVector)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2809,7 +2809,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.GetUpVector_0000497F$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.GetUpVector_00004983$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);
@@ -2822,24 +2822,24 @@ public static class Bindings
 		}
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		internal unsafe delegate int Euler_00004980$PostfixBurstDelegate(lua_State* L);
+		internal unsafe delegate int Euler_00004984$PostfixBurstDelegate(lua_State* L);
 
-		internal static class Euler_00004980$BurstDirectCall
+		internal static class Euler_00004984$BurstDirectCall
 		{
 			[BurstDiscard]
 			private static void GetFunctionPointerDiscard(ref IntPtr A_0)
 			{
-				if (Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.Pointer == 0)
+				if (Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.Pointer == 0)
 				{
-					Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Euler_00004980$PostfixBurstDelegate>(new Bindings.QuatFunctions.Euler_00004980$PostfixBurstDelegate(Bindings.QuatFunctions.Euler)).Value;
+					Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.Pointer = BurstCompiler.CompileFunctionPointer<Bindings.QuatFunctions.Euler_00004984$PostfixBurstDelegate>(new Bindings.QuatFunctions.Euler_00004984$PostfixBurstDelegate(Bindings.QuatFunctions.Euler)).Value;
 				}
-				A_0 = Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.Pointer;
+				A_0 = Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.Pointer;
 			}
 
 			private static IntPtr GetFunctionPointer()
 			{
 				IntPtr result = (IntPtr)0;
-				Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.GetFunctionPointerDiscard(ref result);
+				Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.GetFunctionPointerDiscard(ref result);
 				return result;
 			}
 
@@ -2847,7 +2847,7 @@ public static class Bindings
 			{
 				if (BurstCompiler.IsEnabled)
 				{
-					IntPtr functionPointer = Bindings.QuatFunctions.Euler_00004980$BurstDirectCall.GetFunctionPointer();
+					IntPtr functionPointer = Bindings.QuatFunctions.Euler_00004984$BurstDirectCall.GetFunctionPointer();
 					if (functionPointer != 0)
 					{
 						return calli(System.Int32(lua_State*), L, functionPointer);

@@ -231,7 +231,7 @@ namespace GorillaTagScripts
 					flag = true;
 					SubscriptionManager.localSubscriptionDetails = new SubscriptionManager.SubscriptionDetails
 					{
-						active = true,
+						active = (DateTime.Now < purchase.ExpirationTime),
 						subscriptionActiveUntilDate = purchase.ExpirationTime
 					};
 				}

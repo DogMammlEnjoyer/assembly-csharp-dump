@@ -81,7 +81,7 @@ namespace Unity.Properties
 			IndexedCollectionPropertyBag
 		}
 
-		public struct Enumerator : IEnumerator<IProperty<TContainer>>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<IProperty<!0>>, IEnumerator, IDisposable
 		{
 			public IProperty<TContainer> Current { readonly get; private set; }
 

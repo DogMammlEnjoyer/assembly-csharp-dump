@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq.Parallel
 {
-	internal abstract class MergeEnumerator<TInputOutput> : IEnumerator<!0>, IDisposable, IEnumerator
+	internal abstract class MergeEnumerator<TInputOutput> : IEnumerator<TInputOutput>, IDisposable, IEnumerator
 	{
 		protected MergeEnumerator(QueryTaskGroupState taskGroupState)
 		{
@@ -19,7 +19,7 @@ namespace System.Linq.Parallel
 		{
 			get
 			{
-				return ((IEnumerator<!0>)this).Current;
+				return ((IEnumerator<TInputOutput>)this).Current;
 			}
 		}
 

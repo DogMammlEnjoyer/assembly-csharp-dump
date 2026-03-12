@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq.Parallel
 {
-	internal class GroupByGrouping<TGroupKey, TElement> : IGrouping<TGroupKey, TElement>, IEnumerable<TElement>, IEnumerable
+	internal class GroupByGrouping<TGroupKey, TElement> : IGrouping<TGroupKey, TElement>, IEnumerable<!1>, IEnumerable
 	{
 		internal GroupByGrouping(KeyValuePair<Wrapper<TGroupKey>, ListChunk<TElement>> keyValues)
 		{
@@ -26,7 +26,7 @@ namespace System.Linq.Parallel
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<!1>)this).GetEnumerator();
+			return ((IEnumerable<TElement>)this).GetEnumerator();
 		}
 
 		private KeyValuePair<Wrapper<TGroupKey>, ListChunk<TElement>> _keyValues;

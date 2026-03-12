@@ -280,9 +280,13 @@ public class BuilderPiece : MonoBehaviour
 		}
 	}
 
+	public void UpdateCollidersEnabled(bool _enabled)
+	{
+		this.SetCollidersEnabled<Collider>(this.colliders, _enabled);
+	}
+
 	private void SetCollidersEnabled<T>(List<T> components, bool enabled) where T : Collider
 	{
-		enabled &= this.tableOwner.IsInBuilderZone();
 		if (components == null)
 		{
 			return;

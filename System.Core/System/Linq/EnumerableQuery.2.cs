@@ -7,7 +7,7 @@ namespace System.Linq
 {
 	/// <summary>Represents an <see cref="T:System.Collections.Generic.IEnumerable`1" /> collection as an <see cref="T:System.Linq.IQueryable`1" /> data source.</summary>
 	/// <typeparam name="T">The type of the data in the collection.</typeparam>
-	public class EnumerableQuery<T> : EnumerableQuery, IOrderedQueryable<T>, IQueryable<T>, IEnumerable<!0>, IEnumerable, IQueryable, IOrderedQueryable, IQueryProvider
+	public class EnumerableQuery<T> : EnumerableQuery, IOrderedQueryable<T>, IQueryable<T>, IEnumerable<T>, IEnumerable, IQueryable, IOrderedQueryable, IQueryProvider
 	{
 		/// <summary>Gets the query provider that is associated with this instance.</summary>
 		/// <returns>The query provider that is associated with this instance.</returns>

@@ -3375,6 +3375,21 @@ namespace GorillaLocomotion
 			}
 		}
 
+		public static void CorrectPlaySpaceOffset()
+		{
+			if (GTPlayer._instance == null)
+			{
+				Debug.Log("GTPlayer _instance is not yet assigned");
+				return;
+			}
+			Vector3 position = GTPlayer._instance.turnParent.transform.position;
+			Quaternion rotation = GTPlayer._instance.turnParent.transform.rotation;
+			GTPlayer._instance.turnParent.transform.localPosition = Vector3.zero;
+			GTPlayer._instance.turnParent.transform.localRotation = Quaternion.identity;
+			GTPlayer._instance.transform.position = position;
+			GTPlayer._instance.transform.rotation = rotation;
+		}
+
 		[CompilerGenerated]
 		internal static void <BeginClimbing>g__SnapAxis|433_0(ref float val, float maxDist)
 		{
