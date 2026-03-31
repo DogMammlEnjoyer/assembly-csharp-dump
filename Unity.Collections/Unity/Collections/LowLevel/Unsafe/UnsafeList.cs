@@ -15,7 +15,7 @@ namespace Unity.Collections.LowLevel.Unsafe
 	{
 		typeof(int)
 	})]
-	public struct UnsafeList<[IsUnmanaged] T> : INativeDisposable, IDisposable, INativeList<T>, IIndexable<T>, IEnumerable<T>, IEnumerable where T : struct, ValueType
+	public struct UnsafeList<[IsUnmanaged] T> : INativeDisposable, IDisposable, INativeList<T>, IIndexable<T>, IEnumerable<!0>, IEnumerable where T : struct, ValueType
 	{
 		public int Length
 		{

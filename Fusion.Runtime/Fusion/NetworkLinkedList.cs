@@ -9,7 +9,7 @@ namespace Fusion
 {
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(NetworkLinkedList<>.DebuggerProxy))]
-	public struct NetworkLinkedList<T> : IEnumerable<T>, IEnumerable, INetworkLinkedList
+	public struct NetworkLinkedList<T> : IEnumerable<!0>, IEnumerable, INetworkLinkedList
 	{
 		private unsafe int Head
 		{
@@ -302,7 +302,7 @@ namespace Fusion
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<T>)this).GetEnumerator();
+			return ((IEnumerable<!0>)this).GetEnumerator();
 		}
 
 		void INetworkLinkedList.Add(object item)
@@ -356,7 +356,7 @@ namespace Fusion
 			public Lazy<T[]> _items;
 		}
 
-		public struct Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
+		public struct Enumerator : IEnumerator<T>, IEnumerator, IDisposable
 		{
 			internal Enumerator(NetworkLinkedList<T> list)
 			{

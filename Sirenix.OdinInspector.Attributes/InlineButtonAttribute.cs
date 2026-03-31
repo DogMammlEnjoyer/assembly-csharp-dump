@@ -40,8 +40,10 @@ namespace Sirenix.OdinInspector
 
 		public string ShowIf;
 
+		[ColorResolver]
 		public string ButtonColor;
 
+		[ColorResolver]
 		public string TextColor;
 
 		public SdfIconType Icon;

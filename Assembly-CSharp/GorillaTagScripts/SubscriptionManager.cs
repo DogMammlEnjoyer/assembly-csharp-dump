@@ -10,6 +10,14 @@ namespace GorillaTagScripts
 {
 	public class SubscriptionManager : MonoBehaviour
 	{
+		public static bool LocalSubscriptionDataInitialized
+		{
+			get
+			{
+				return SubscriptionManager._localSubscriptionDataInitialized;
+			}
+		}
+
 		public static bool SubsOnlyMatchmaking
 		{
 			get
@@ -30,11 +38,11 @@ namespace GorillaTagScripts
 
 		private void Awake()
 		{
-			SubscriptionManager.<Awake>d__21 <Awake>d__;
+			SubscriptionManager.<Awake>d__24 <Awake>d__;
 			<Awake>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<Awake>d__.<>4__this = this;
 			<Awake>d__.<>1__state = -1;
-			<Awake>d__.<>t__builder.Start<SubscriptionManager.<Awake>d__21>(ref <Awake>d__);
+			<Awake>d__.<>t__builder.Start<SubscriptionManager.<Awake>d__24>(ref <Awake>d__);
 		}
 
 		protected void OnEnable()
@@ -46,10 +54,10 @@ namespace GorillaTagScripts
 
 		public static void InitializePersonalSubscriptionData()
 		{
-			SubscriptionManager.<InitializePersonalSubscriptionData>d__29 <InitializePersonalSubscriptionData>d__;
+			SubscriptionManager.<InitializePersonalSubscriptionData>d__32 <InitializePersonalSubscriptionData>d__;
 			<InitializePersonalSubscriptionData>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<InitializePersonalSubscriptionData>d__.<>1__state = -1;
-			<InitializePersonalSubscriptionData>d__.<>t__builder.Start<SubscriptionManager.<InitializePersonalSubscriptionData>d__29>(ref <InitializePersonalSubscriptionData>d__);
+			<InitializePersonalSubscriptionData>d__.<>t__builder.Start<SubscriptionManager.<InitializePersonalSubscriptionData>d__32>(ref <InitializePersonalSubscriptionData>d__);
 		}
 
 		protected void OnDisable()
@@ -223,6 +231,10 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
+			if (SubscriptionManager._localSubscriptionDataInitialized)
+			{
+				return;
+			}
 			bool flag = false;
 			foreach (Purchase purchase in msg.GetPurchaseList())
 			{
@@ -340,6 +352,8 @@ namespace GorillaTagScripts
 		private Dictionary<VRRig, NetPlayer> rigs = new Dictionary<VRRig, NetPlayer>();
 
 		private static SubscriptionManager.SubscriptionDetails localSubscriptionDetails;
+
+		private static bool _localSubscriptionDataInitialized;
 
 		public const string SUB_PREFIX = "SMKEYPREFIX";
 

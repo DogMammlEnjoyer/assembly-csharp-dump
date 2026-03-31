@@ -15,11 +15,11 @@ namespace Liv.Lck
 			}
 			return string.Concat(new string[]
 			{
-				"Camera with ID ",
+				"Camera with ID \"",
 				missingCameraId,
-				" not found. The known Camera IDs are: ",
+				"\" not found. The known Camera IDs are: [",
 				text,
-				". Have you miss-spelt, or forgotten to set the ID on your LckCamera component?"
+				"]. Have you miss-spelt, or forgotten to set the ID on your LckCamera component?"
 			});
 		}
 
@@ -33,11 +33,11 @@ namespace Liv.Lck
 			}
 			return string.Concat(new string[]
 			{
-				"Monitor with ID ",
+				"Monitor with ID \"",
 				missingMonitorId,
-				" not found. The known Monitor IDs are: ",
+				"\" not found. The known Monitor IDs are: [",
 				text,
-				". Have you miss-spelt, or forgotten to set the ID on your LckMonitor component?"
+				"]. Have you miss-spelt, or forgotten to set the ID on your LckMonitor component?"
 			});
 		}
 	}

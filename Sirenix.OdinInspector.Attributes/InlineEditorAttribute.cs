@@ -7,6 +7,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class InlineEditorAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"expanded",
+			"ExpandedHasValue"
+		})]
 		public bool Expanded
 		{
 			get
@@ -75,11 +81,13 @@ namespace Sirenix.OdinInspector
 
 		public float PreviewHeight = 35f;
 
+		[LabelWidth(220f)]
 		public bool IncrementInlineEditorDrawerDepth = true;
 
-		public InlineEditorObjectFieldModes ObjectFieldMode;
-
+		[LabelWidth(220f)]
 		public bool DisableGUIForVCSLockedAssets = true;
+
+		public InlineEditorObjectFieldModes ObjectFieldMode;
 
 		public PreviewAlignment PreviewAlignment = PreviewAlignment.Right;
 	}

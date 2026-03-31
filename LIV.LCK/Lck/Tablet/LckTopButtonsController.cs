@@ -116,6 +116,11 @@ namespace Liv.Lck.Tablet
 			this._onStreamPageOpened.Invoke();
 		}
 
+		public void SetCameraPageVisualsManually()
+		{
+			this._topButtonsHelper.SetCameraPageVisualsManually();
+		}
+
 		[InjectLck]
 		private ILckService _lckService;
 

@@ -129,6 +129,10 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 		for (int i = 0; i < this.siTerminals.Length; i++)
 		{
 			this.siTerminals[i].gameObject.SetActive(true);
+			if (this.siTerminals[i].dispenser && this.siTerminals[i].dispenser.isTryOn)
+			{
+				this.siManager.RegisterTryOnDispenser();
+			}
 		}
 		for (int j = 0; j < this.siDeposits.Length; j++)
 		{
@@ -161,6 +165,10 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 		}
 		for (int i = 0; i < this.siTerminals.Length; i++)
 		{
+			if (this.siTerminals[i].dispenser && this.siTerminals[i].dispenser.isTryOn)
+			{
+				this.siManager.UnregisterTryOnDispenser();
+			}
 			this.siTerminals[i].gameObject.SetActive(false);
 			this.siTerminals[i].Reset();
 		}

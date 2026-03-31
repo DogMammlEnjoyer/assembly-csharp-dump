@@ -7,9 +7,20 @@ namespace Liv.Lck.GorillaTag
 {
 	public class GtButton : MonoBehaviour
 	{
+		private void Awake()
+		{
+			if (this._initializeType == ButtonInitializeType.Awake)
+			{
+				this.InitSetUp();
+			}
+		}
+
 		private void Start()
 		{
-			this.InitSetUp();
+			if (this._initializeType == ButtonInitializeType.Start)
+			{
+				this.InitSetUp();
+			}
 		}
 
 		public void SetDisabled(bool isDisabled)
@@ -91,6 +102,9 @@ namespace Liv.Lck.GorillaTag
 
 		[SerializeField]
 		private bool _doFlipping = true;
+
+		[SerializeField]
+		private ButtonInitializeType _initializeType;
 
 		[Space(10f)]
 		[Header("UI Elements")]

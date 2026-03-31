@@ -67,7 +67,7 @@ namespace System.Collections.Generic
 				this.CopyFrom(hashSet);
 				return;
 			}
-			ICollection<T> collection2 = collection as ICollection<T>;
+			ICollection<T> collection2 = collection as ICollection<!0>;
 			int capacity = (collection2 == null) ? 0 : collection2.Count;
 			this.Initialize(capacity);
 			this.UnionWith(collection);
@@ -411,7 +411,7 @@ namespace System.Collections.Generic
 			{
 				return;
 			}
-			ICollection<T> collection = other as ICollection<T>;
+			ICollection<T> collection = other as ICollection<!0>;
 			if (collection != null)
 			{
 				if (collection.Count == 0)
@@ -528,7 +528,7 @@ namespace System.Collections.Generic
 			{
 				return false;
 			}
-			ICollection<T> collection = other as ICollection<T>;
+			ICollection<T> collection = other as ICollection<!0>;
 			if (collection != null)
 			{
 				if (collection.Count == 0)
@@ -565,7 +565,7 @@ namespace System.Collections.Generic
 			{
 				return true;
 			}
-			ICollection<T> collection = other as ICollection<T>;
+			ICollection<T> collection = other as ICollection<!0>;
 			if (collection != null)
 			{
 				if (collection.Count == 0)
@@ -601,7 +601,7 @@ namespace System.Collections.Generic
 			{
 				return false;
 			}
-			ICollection<T> collection = other as ICollection<T>;
+			ICollection<T> collection = other as ICollection<!0>;
 			if (collection != null)
 			{
 				if (collection.Count == 0)
@@ -669,7 +669,7 @@ namespace System.Collections.Generic
 			{
 				return this._count == hashSet.Count && this.ContainsAllElements(hashSet);
 			}
-			ICollection<T> collection = other as ICollection<T>;
+			ICollection<T> collection = other as ICollection<!0>;
 			if (collection != null && this._count == 0 && collection.Count > 0)
 			{
 				return false;
@@ -1113,7 +1113,7 @@ namespace System.Collections.Generic
 				{
 					if (enumerator.MoveNext())
 					{
-						T t = enumerator.Current;
+						!0 ! = enumerator.Current;
 						num++;
 					}
 				}
@@ -1264,7 +1264,7 @@ namespace System.Collections.Generic
 
 		/// <summary>Enumerates the elements of a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
 		[Serializable]
-		public struct Enumerator : IEnumerator<T>, IDisposable, IEnumerator
+		public struct Enumerator : IEnumerator<!0>, IDisposable, IEnumerator
 		{
 			internal Enumerator(HashSet<T> set)
 			{

@@ -133,8 +133,8 @@ public class GamePlayer : MonoBehaviour
 	{
 		if (entityId.IsValid())
 		{
-			this.ClearSnappedIfSnapped(entityId);
-			this.ClearGrabbedIfHeld(entityId);
+			this.ClearSnappedIfSnapped(entityId, gameEntityManager);
+			this.ClearGrabbedIfHeld(entityId, gameEntityManager);
 		}
 		this.SetSlot(slotIndex, entityId, gameEntityManager);
 	}
@@ -145,7 +145,10 @@ public class GamePlayer : MonoBehaviour
 		{
 			return;
 		}
-		entityId.IsValid();
+		if (entityId.IsValid())
+		{
+			manager.GetGameEntity(entityId);
+		}
 		GamePlayer.SlotData slotData = this.slots[slotIndex];
 		slotData.entityId = entityId;
 		slotData.entityManager = manager;
@@ -176,22 +179,22 @@ public class GamePlayer : MonoBehaviour
 		}
 	}
 
-	public void ClearGrabbedIfHeld(GameEntityId gameBallId)
+	public void ClearGrabbedIfHeld(GameEntityId gameBallId, GameEntityManager manager)
 	{
 		for (int i = 0; i <= 1; i++)
 		{
-			if (this.slots[i].entityId == gameBallId)
+			if (this.slots[i].entityId == gameBallId && this.slots[i].entityManager == manager)
 			{
 				this.ClearGrabbed(i);
 			}
 		}
 	}
 
-	public void ClearSnappedIfSnapped(GameEntityId gameBallId)
+	public void ClearSnappedIfSnapped(GameEntityId gameBallId, GameEntityManager manager)
 	{
 		for (int i = 2; i <= 3; i++)
 		{
-			if (this.slots[i].entityId == gameBallId)
+			if (this.slots[i].entityId == gameBallId && this.slots[i].entityManager == manager)
 			{
 				this.ClearSlot(i);
 			}
@@ -273,10 +276,17 @@ public class GamePlayer : MonoBehaviour
 		int num;
 		for (int i = 0; i < 4; i = num)
 		{
-			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager != null && this.slots[i].entityManager != ignoreEntitiesInManager)
+			if (this.slots[i].entityId != GameEntityId.Invalid && this.slots[i].entityManager != null)
 			{
-				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
-				yield return gameEntity;
+				if (this.slots[i].entityManager != ignoreEntitiesInManager)
+				{
+					GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
+					yield return gameEntity;
+				}
+				else
+				{
+					this.slots[i].entityManager.GetGameEntity(this.slots[i].entityId);
+				}
 			}
 			num = i + 1;
 		}
@@ -303,7 +313,7 @@ public class GamePlayer : MonoBehaviour
 		}
 	}
 
-	public int MigrateToEntityManager(GameEntityManager newEntityManager)
+	public int AuthorityMigrateToEntityManager(GameEntityManager newEntityManager)
 	{
 		int num = 0;
 		for (int i = 0; i < 4; i++)
@@ -312,7 +322,7 @@ public class GamePlayer : MonoBehaviour
 			if (entityId != GameEntityId.Invalid && this.slots[i].entityManager != newEntityManager)
 			{
 				GameEntity gameEntity = this.slots[i].entityManager.GetGameEntity(entityId);
-				if (gameEntity != null && gameEntity.IsValidToMigrate())
+				if (gameEntity != null)
 				{
 					GameEntityId entityId2 = gameEntity.MigrateToEntityManager(newEntityManager);
 					GamePlayer.SlotData slotData = this.slots[i];
@@ -326,9 +336,9 @@ public class GamePlayer : MonoBehaviour
 		return num;
 	}
 
-	internal bool IsInSlot(int slotIndex, int entityIndex)
+	internal bool IsInSlot(int slotIndex, int entityIndex, GameEntityManager manager)
 	{
-		return this.slots[slotIndex].entityId.index == entityIndex;
+		return this.slots[slotIndex].entityId.index == entityIndex && this.slots[slotIndex].entityManager == manager;
 	}
 
 	internal bool TryGetSlotData(int slotIndex, out GamePlayer.SlotData out_slotData)
@@ -346,7 +356,7 @@ public class GamePlayer : MonoBehaviour
 			return false;
 		}
 		out_entity = slotData.entityManager.GetGameEntity(slotData.entityId);
-		return true;
+		return out_entity != null;
 	}
 
 	public GameEntityId GetGameEntityId(bool isLeftHand)
@@ -558,6 +568,7 @@ public class GamePlayer : MonoBehaviour
 
 	public void SerializeNetworkState(BinaryWriter writer, NetPlayer player, GameEntityManager manager)
 	{
+		string str = "";
 		for (int i = 0; i < 4; i++)
 		{
 			if (this.slots[i].entityManager == manager)
@@ -570,6 +581,7 @@ public class GamePlayer : MonoBehaviour
 					GameEntity gameEntity = manager.GetGameEntity(this.slots[i].entityId);
 					if (gameEntity != null)
 					{
+						str += string.Format(" [{0}: {1}/{2}]", i, gameEntity.gameObject.name, netIdFromEntityId);
 						value = BitPackUtils.PackHandPosRotForNetwork(gameEntity.transform.localPosition, gameEntity.transform.localRotation);
 					}
 				}

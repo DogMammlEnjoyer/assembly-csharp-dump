@@ -142,6 +142,18 @@ namespace GorillaGameModes
 			}
 			else
 			{
+				bool flag = PlayerPrefFlags.Check(PlayerPrefFlags.Flag.GAME_MODE_SELECTOR_IS_SUPER);
+				if (!flag)
+				{
+					if (mode == GameModeType.SuperCasual)
+					{
+						mode = GameModeType.Casual;
+					}
+					else if (mode == GameModeType.SuperInfect)
+					{
+						mode = GameModeType.Infection;
+					}
+				}
 				HashSet<GameModeType> hashSet;
 				if (isPrivate && this.privateZoneGameModesLookup.ContainsKey(zone))
 				{
@@ -159,14 +171,15 @@ namespace GorillaGameModes
 				{
 					return mode;
 				}
-				using (HashSet<GameModeType>.Enumerator enumerator = hashSet.GetEnumerator())
+				GameModeType result = GameModeType.Casual;
+				foreach (GameModeType gameModeType in hashSet)
 				{
-					if (enumerator.MoveNext())
+					if (flag || (gameModeType != GameModeType.SuperCasual && gameModeType != GameModeType.SuperInfect))
 					{
-						return enumerator.Current;
+						return gameModeType;
 					}
 				}
-				return GameModeType.Casual;
+				return result;
 			}
 		}
 

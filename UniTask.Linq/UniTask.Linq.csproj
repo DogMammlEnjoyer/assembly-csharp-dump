@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D909}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cysharp.Threading.Tasks.Linq</RootNamespace>
+    <AssemblyName>UniTask.Linq</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aggregate.cs" />
+    <Compile Include="All.cs" />
+    <Compile Include="Any.cs" />
+    <Compile Include="AppendPrepend.cs" />
+    <Compile Include="AsyncEnumerableSorter.cs" />
+    <Compile Include="AsyncEnumeratorAwaitSelectorBase.cs" />
+    <Compile Include="AsyncEnumeratorBase.cs" />
+    <Compile Include="AsyncSelectorEnumerableSorter.cs" />
+    <Compile Include="AsyncSelectorWithCancellationEnumerableSorter.cs" />
+    <Compile Include="Average.cs" />
+    <Compile Include="Buffer.cs" />
+    <Compile Include="BufferSkip.cs" />
+    <Compile Include="CancellationTokenDisposable.cs" />
+    <Compile Include="Cast.cs" />
+    <Compile Include="CombineLatest.10.cs" />
+    <Compile Include="CombineLatest.11.cs" />
+    <Compile Include="CombineLatest.12.cs" />
+    <Compile Include="CombineLatest.13.cs" />
+    <Compile Include="CombineLatest.14.cs" />
+    <Compile Include="CombineLatest.2.cs" />
+    <Compile Include="CombineLatest.3.cs" />
+    <Compile Include="CombineLatest.4.cs" />
+    <Compile Include="CombineLatest.5.cs" />
+    <Compile Include="CombineLatest.6.cs" />
+    <Compile Include="CombineLatest.7.cs" />
+    <Compile Include="CombineLatest.8.cs" />
+    <Compile Include="CombineLatest.9.cs" />
+    <Compile Include="CombineLatest.cs" />
+    <Compile Include="Concat.cs" />
+    <Compile Include="Contains.cs" />
+    <Compile Include="Count.cs" />
+    <Compile Include="Create.cs" />
+    <Compile Include="DefaultIfEmpty.cs" />
+    <Compile Include="Distinct.2.cs" />
+    <Compile Include="Distinct.cs" />
+    <Compile Include="DistinctAwait.cs" />
+    <Compile Include="DistinctAwaitWithCancellation.cs" />
+    <Compile Include="DistinctUntilChanged.2.cs" />
+    <Compile Include="DistinctUntilChanged.cs" />
+    <Compile Include="DistinctUntilChangedAwait.cs" />
+    <Compile Include="DistinctUntilChangedAwaitWithCancellation.cs" />
+    <Compile Include="Do.cs" />
+    <Compile Include="ElementAt.cs" />
+    <Compile Include="Empty.cs" />
+    <Compile Include="EveryUpdate.cs" />
+    <Compile Include="EveryValueChangedStandardObject.cs" />
+    <Compile Include="EveryValueChangedUnityObject.cs" />
+    <Compile Include="Except.cs" />
+    <Compile Include="First.cs" />
+    <Compile Include="ForEach.cs" />
+    <Compile Include="GroupBy.2.cs" />
+    <Compile Include="GroupBy.cs" />
+    <Compile Include="GroupByAwait.2.cs" />
+    <Compile Include="GroupByAwait.cs" />
+    <Compile Include="GroupByAwaitWithCancellation.2.cs" />
+    <Compile Include="GroupByAwaitWithCancellation.cs" />
+    <Compile Include="GroupJoin.cs" />
+    <Compile Include="GroupJoinAwait.cs" />
+    <Compile Include="GroupJoinAwaitWithCancellation.cs" />
+    <Compile Include="IAsyncWriter.cs" />
+    <Compile Include="Intersect.cs" />
+    <Compile Include="Join.cs" />
+    <Compile Include="JoinAwait.cs" />
+    <Compile Include="JoinAwaitWithCancellation.cs" />
+    <Compile Include="Last.cs" />
+    <Compile Include="LongCount.cs" />
+    <Compile Include="Max.cs" />
+    <Compile Include="Min.cs" />
+    <Compile Include="Never.cs" />
+    <Compile Include="OfType.cs" />
+    <Compile Include="OrderedAsyncEnumerable.2.cs" />
+    <Compile Include="OrderedAsyncEnumerable.cs" />
+    <Compile Include="OrderedAsyncEnumerableAwait.cs" />
+    <Compile Include="OrderedAsyncEnumerableAwaitWithCancellation.cs" />
+    <Compile Include="Pairwise.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publish.cs" />
+    <Compile Include="QueueOperator.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Repeat.cs" />
+    <Compile Include="Return.cs" />
+    <Compile Include="Reverse.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="SelectAwait.cs" />
+    <Compile Include="SelectAwaitWithCancellation.cs" />
+    <Compile Include="SelectInt.cs" />
+    <Compile Include="SelectIntAwait.cs" />
+    <Compile Include="SelectIntAwaitWithCancellation.cs" />
+    <Compile Include="SelectMany.cs" />
+    <Compile Include="SelectManyAwait.cs" />
+    <Compile Include="SelectManyAwaitWithCancellation.cs" />
+    <Compile Include="SequenceEqual.cs" />
+    <Compile Include="SingleOperator.cs" />
+    <Compile Include="Skip.cs" />
+    <Compile Include="SkipLast.cs" />
+    <Compile Include="SkipUntil.cs" />
+    <Compile Include="SkipUntilCanceled.cs" />
+    <Compile Include="SkipWhile.cs" />
+    <Compile Include="SkipWhileAwait.cs" />
+    <Compile Include="SkipWhileAwaitWithCancellation.cs" />
+    <Compile Include="SkipWhileInt.cs" />
+    <Compile Include="SkipWhileIntAwait.cs" />
+    <Compile Include="SkipWhileIntAwaitWithCancellation.cs" />
+    <Compile Include="Subscribe.cs" />
+    <Compile Include="Sum.cs" />
+    <Compile Include="SyncSelectorAsyncEnumerableSorter.cs" />
+    <Compile Include="Take.cs" />
+    <Compile Include="TakeLast.cs" />
+    <Compile Include="TakeUntil.cs" />
+    <Compile Include="TakeUntilCanceled.cs" />
+    <Compile Include="TakeWhile.cs" />
+    <Compile Include="TakeWhileAwait.cs" />
+    <Compile Include="TakeWhileAwaitWithCancellation.cs" />
+    <Compile Include="TakeWhileInt.cs" />
+    <Compile Include="TakeWhileIntAwait.cs" />
+    <Compile Include="TakeWhileIntAwaitWithCancellation.cs" />
+    <Compile Include="Throw.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="TimerFrame.cs" />
+    <Compile Include="ToArray.cs" />
+    <Compile Include="ToDictionary.cs" />
+    <Compile Include="ToHashSet.cs" />
+    <Compile Include="ToList.cs" />
+    <Compile Include="ToLookup.cs" />
+    <Compile Include="ToObservable.cs" />
+    <Compile Include="ToUniTaskAsyncEnumerable.cs" />
+    <Compile Include="ToUniTaskAsyncEnumerableObservable.cs" />
+    <Compile Include="ToUniTaskAsyncEnumerableTask.cs" />
+    <Compile Include="ToUniTaskAsyncEnumerableUniTask.cs" />
+    <Compile Include="UniTaskAsyncEnumerable.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+    <Compile Include="Where.cs" />
+    <Compile Include="WhereAwait.cs" />
+    <Compile Include="WhereAwaitWithCancellation.cs" />
+    <Compile Include="WhereInt.cs" />
+    <Compile Include="WhereIntAwait.cs" />
+    <Compile Include="WhereIntAwaitWithCancellation.cs" />
+    <Compile Include="Zip.cs" />
+    <Compile Include="ZipAwait.cs" />
+    <Compile Include="ZipAwaitWithCancellation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniTask\UniTask.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D907}</Project>
+      <Name>UniTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

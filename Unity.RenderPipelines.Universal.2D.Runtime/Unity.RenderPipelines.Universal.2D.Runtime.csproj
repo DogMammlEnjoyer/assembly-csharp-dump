@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94E06}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D92D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnityEngine.Rendering.Universal</RootNamespace>
@@ -150,39 +150,39 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE8}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D90F}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DF2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D919}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipeline.Universal.ShaderLibrary\Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E00}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D927}</Project>
       <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E01}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D928}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E08}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D92F}</Project>
       <Name>Unity.RenderPipelines.Universal.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E3F}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.SpriteMaskModule\UnityEngine.SpriteMaskModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E47}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D96E}</Project>
       <Name>UnityEngine.SpriteMaskModule</Name>
     </ProjectReference>
   </ItemGroup>

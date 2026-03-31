@@ -55,7 +55,7 @@ namespace Liv.Lck.DependencyInjection
 			{
 				if (this._provider == null)
 				{
-					LckLog.Log("Service provider not built yet, building now.");
+					LckLog.Log("Service provider not built yet, building now.", "GetService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 51);
 					this.Build();
 				}
 				LckServiceProvider provider = this._provider;
@@ -73,7 +73,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: GetService failed for type " + typeof(T).Name + ". Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: GetService failed for type " + typeof(T).Name + ". Exception: " + ex.Message, "GetService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 59);
 				t = default(T);
 			}
 			return t;
@@ -105,11 +105,11 @@ namespace Liv.Lck.DependencyInjection
 			{
 				this._provider = this._collection.Build();
 				this._lckMonoBehaviourDependencyInjector = new LckMonoBehaviourDependencyInjector(this._provider);
-				LckLog.Log("LCK DI provider built successfully.");
+				LckLog.Log("LCK DI provider built successfully.", "Build", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 87);
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: Failed to build the service provider. Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: Failed to build the service provider. Exception: " + ex.Message, "Build", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 91);
 			}
 		}
 
@@ -130,11 +130,11 @@ namespace Liv.Lck.DependencyInjection
 				this._collection = new LckDiCollection();
 				this._provider = null;
 				this._lckMonoBehaviourDependencyInjector = null;
-				LckLog.Log("LCK DI registry has been reset.");
+				LckLog.Log("LCK DI registry has been reset.", "Reset", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 109);
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: Failed to reset the DI registry. Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: Failed to reset the DI registry. Exception: " + ex.Message, "Reset", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiRegistry.cs", 113);
 			}
 		}
 

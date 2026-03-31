@@ -5,6 +5,11 @@ namespace Sirenix.OdinInspector
 	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 	public class PolymorphicDrawerSettingsAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showBaseType"
+		})]
 		public bool ShowBaseType
 		{
 			get
@@ -17,6 +22,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"nonDefaultConstructorPreference"
+		})]
+		[LabelWidth(210f)]
 		public NonDefaultConstructorPreference NonDefaultConstructorPreference
 		{
 			get
@@ -45,6 +56,7 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[LabelWidth(190f)]
 		public bool ReadOnlyIfNotNullReference;
 
 		public string CreateInstanceFunction;

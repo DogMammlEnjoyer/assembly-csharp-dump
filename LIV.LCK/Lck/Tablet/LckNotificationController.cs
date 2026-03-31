@@ -181,7 +181,14 @@ namespace Liv.Lck.Tablet
 			{
 				yield break;
 			}
-			yield return new WaitForSeconds(this._notificationShowDuration);
+			if (this._currentNotification.ShowDuration != this._notificationShowDuration)
+			{
+				yield return new WaitForSeconds(this._currentNotification.ShowDuration);
+			}
+			else
+			{
+				yield return new WaitForSeconds(this._notificationShowDuration);
+			}
 			this._currentNotification.HideNotification();
 			this._onScreenUIController.OnNotificationEnded();
 			this._currentNotification = null;

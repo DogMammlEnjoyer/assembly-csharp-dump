@@ -108,13 +108,13 @@ namespace Liv.Lck
 					{
 						if (success)
 						{
-							LckLog.Log("LCK Photo saved to gallery: " + path);
+							LckLog.Log("LCK Photo saved to gallery: " + path, "CopyImageToGalleryWhenReady", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckPhotoCapture.cs", 133);
 							this._eventBus.Trigger<LckEvents.PhotoCaptureSavedEvent>(new LckEvents.PhotoCaptureSavedEvent(LckResult.NewSuccess()));
 						}
 						else
 						{
 							this._eventBus.Trigger<LckEvents.PhotoCaptureSavedEvent>(new LckEvents.PhotoCaptureSavedEvent(LckResult.NewError(LckError.FailedToCopyPhotoToGallery, "Failed to copy photo to Gallery")));
-							LckLog.LogError("LCK Failed to save photo to gallery");
+							LckLog.LogError("LCK Failed to save photo to gallery", "CopyImageToGalleryWhenReady", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckPhotoCapture.cs", 141);
 						}
 						this._isCapturing = false;
 						this.ProcessQueue();
@@ -178,7 +178,7 @@ namespace Liv.Lck
 									}
 									catch
 									{
-										LckLog.LogError("LCK Failed to encode image during Photo Capture");
+										LckLog.LogError("LCK Failed to encode image during Photo Capture", "SaveRenderTextureToFile", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckPhotoCapture.cs", 212);
 										LckMonoBehaviourMediator instance2 = LckMonoBehaviourMediator.Instance;
 										Action action3;
 										if ((action3 = <>9__3) == null)
@@ -263,7 +263,12 @@ namespace Liv.Lck
 
 		public void Dispose()
 		{
-			this._eventBus.RemoveListener<LckEvents.ActiveCameraTrackTextureChangedEvent>(new Action<LckEvents.ActiveCameraTrackTextureChangedEvent>(this.OnCameraTrackTextureChanged));
+			ILckEventBus eventBus = this._eventBus;
+			if (eventBus == null)
+			{
+				return;
+			}
+			eventBus.RemoveListener<LckEvents.ActiveCameraTrackTextureChangedEvent>(new Action<LckEvents.ActiveCameraTrackTextureChangedEvent>(this.OnCameraTrackTextureChanged));
 		}
 
 		private readonly ILckVideoTextureProvider _videoTextureProvider;

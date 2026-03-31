@@ -34,9 +34,4 @@ public static class NetworkSystemRaiseEvent
 	{
 		TargetActors = new int[1]
 	};
-
-	public static readonly NetEventOptions newWeb = new NetEventOptions
-	{
-		Flags = new WebFlags(3)
-	};
 }

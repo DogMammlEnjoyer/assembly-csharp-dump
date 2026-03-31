@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using UnityEngine;
 
 namespace Sirenix.OdinInspector
 {
@@ -18,6 +19,7 @@ namespace Sirenix.OdinInspector
 
 		public string ParentFolder;
 
+		[HideInInspector]
 		[Obsolete("Use RequireExistingPath instead.", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool RequireValidPath;

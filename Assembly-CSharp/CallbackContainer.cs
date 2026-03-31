@@ -16,6 +16,11 @@ internal class CallbackContainer<T> : ListProcessorAbstract<T> where T : ICallBa
 		this.ProcessListSafe();
 	}
 
+	public void RunCallbacks()
+	{
+		this.ProcessList();
+	}
+
 	protected override void ProcessItem(in T item)
 	{
 		T t = item;

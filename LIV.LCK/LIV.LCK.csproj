@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D8F}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liv</RootNamespace>
@@ -52,7 +52,6 @@
     <Compile Include="Lck\Cosmetics\ILckCosmeticsManager.cs" />
     <Compile Include="Lck\Cosmetics\LckCosmeticDefinition.cs" />
     <Compile Include="Lck\Cosmetics\LckCosmeticDependantBehaviourBase.cs" />
-    <Compile Include="Lck\Cosmetics\LckCosmeticsFeatureFlagManagerDefault.cs" />
     <Compile Include="Lck\Cosmetics\LckCosmeticsManager.cs" />
     <Compile Include="Lck\Cosmetics\LckCosmeticType.cs" />
     <Compile Include="Lck\Cosmetics\LckCosmeticUtils.cs" />
@@ -98,8 +97,10 @@
     <Compile Include="Lck\ILckStorageWatcher.cs" />
     <Compile Include="Lck\ILckVideoCapturer.cs" />
     <Compile Include="Lck\ILckVideoMixer.cs" />
+    <Compile Include="Lck\InteractionSystemDetector.cs" />
     <Compile Include="Lck\LckAudioCapture.cs" />
     <Compile Include="Lck\LckAudioCaptureFMOD.cs" />
+    <Compile Include="Lck\LckAudioCaptureFMODAndUnity.cs" />
     <Compile Include="Lck\LckAudioCaptureWwise.cs" />
     <Compile Include="Lck\LckAudioHardLimiter.cs" />
     <Compile Include="Lck\LckAudioLimiterUtils.cs" />
@@ -114,8 +115,8 @@
     <Compile Include="Lck\LckEarlyUpdate.cs" />
     <Compile Include="Lck\LckEncodeLooper.cs" />
     <Compile Include="Lck\LckError.cs" />
-    <Compile Include="Lck\LckErrorEventTelemetryBridge.cs" />
     <Compile Include="Lck\LckEventBus.cs" />
+    <Compile Include="Lck\LckEventErrorLogger.cs" />
     <Compile Include="Lck\LckEventForwarder.cs" />
     <Compile Include="Lck\LckEvents.cs" />
     <Compile Include="Lck\LckHideObjectFromCamera.cs" />
@@ -178,8 +179,9 @@
     <Compile Include="Lck\Streaming\LckInternalErrorState.cs" />
     <Compile Include="Lck\Streaming\LckInvalidArgumentState.cs" />
     <Compile Include="Lck\Streaming\LckMissingTrackingIdState.cs" />
+    <Compile Include="Lck\Streaming\LckRateLimiterBackoffState.cs" />
+    <Compile Include="Lck\Streaming\LckServiceUnavailableState.cs" />
     <Compile Include="Lck\Streaming\LckStreamingBaseState.cs" />
-    <Compile Include="Lck\Streaming\LckStreamingCheckSubscribedState.cs" />
     <Compile Include="Lck\Streaming\LckStreamingConfiguredCorrectlyState.cs" />
     <Compile Include="Lck\Streaming\LckStreamingController.cs" />
     <Compile Include="Lck\Streaming\LckStreamingGetCurrentState.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Lck\UI\LckToggleHelper.cs" />
     <Compile Include="Lck\UnityAsyncOperationExtensions.cs" />
     <Compile Include="Lck\UpdateTimingMode.cs" />
+    <Compile Include="Lck\Utilities\ChannelMixingUtils.cs" />
     <Compile Include="Lck\Utilities\FileUtility.cs" />
     <Compile Include="NGFX\EventType.cs" />
     <Compile Include="NGFX\Handle.cs" />
@@ -235,67 +238,67 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LIV.LCKCore\LIV.LCKCore.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D91}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8B3}</Project>
       <Name>LIV.LCKCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\LIV.NativeAudioBridge\LIV.NativeAudioBridge.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D93}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8B5}</Project>
       <Name>LIV.NativeAudioBridge</Name>
     </ProjectReference>
     <ProjectReference Include="..\NativeGallery\NativeGallery.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB0}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D2}</Project>
       <Name>NativeGallery</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E01}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D928}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E08}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D92F}</Project>
       <Name>Unity.RenderPipelines.Universal.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E0D}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D934}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E1D}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D944}</Project>
       <Name>UnityEngine.AndroidJNIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E20}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D947}</Project>
       <Name>UnityEngine.AssetBundleModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E21}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D948}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.ImageConversionModule\UnityEngine.ImageConversionModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E32}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D959}</Project>
       <Name>UnityEngine.ImageConversionModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E40}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E55}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97C}</Project>
       <Name>UnityEngine.UIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E53}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E69}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D990}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

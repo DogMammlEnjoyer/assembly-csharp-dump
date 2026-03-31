@@ -8,7 +8,7 @@ using System.Text;
 namespace Fusion
 {
 	[DebuggerDisplay("Length = {Length}")]
-	public struct FixedArray<[IsUnmanaged] T> : IEnumerable<T>, IEnumerable where T : struct, ValueType
+	public struct FixedArray<[IsUnmanaged] T> : IEnumerable<!0>, IEnumerable where T : struct, ValueType
 	{
 		public int Length
 		{

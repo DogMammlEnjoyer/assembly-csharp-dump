@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DD7}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.IO.Hashing</RootNamespace>
@@ -78,15 +78,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Memory\System.Memory.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD8}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8FA}</Project>
       <Name>System.Memory</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DDB}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8FD}</Project>
       <Name>System.Runtime.CompilerServices.Unsafe</Name>
     </ProjectReference>
   </ItemGroup>

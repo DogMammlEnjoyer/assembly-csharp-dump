@@ -4,6 +4,12 @@ namespace Sirenix.OdinInspector
 {
 	public sealed class RequiredListLengthAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"minLength",
+			"minLengthIsSet"
+		})]
 		public int MinLength
 		{
 			get
@@ -17,6 +23,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"maxLength",
+			"maxLengthIsSet"
+		})]
 		public int MaxLength
 		{
 			get
@@ -54,6 +66,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"prefabKind",
+			"prefabKindIsSet"
+		})]
 		public PrefabKind PrefabKind
 		{
 			get

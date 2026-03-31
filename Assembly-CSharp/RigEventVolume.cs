@@ -5,6 +5,24 @@ using UnityEngine.Events;
 
 public class RigEventVolume : MonoBehaviour, IBuildValidation
 {
+	public VRRig[] Rigs
+	{
+		get
+		{
+			return this.rigs.ToArray();
+		}
+	}
+
+	public int RigCount
+	{
+		get
+		{
+			return this.gameObjects.Keys.Count;
+		}
+	}
+
+	public event Action OnCountChanged;
+
 	private void OnEnable()
 	{
 		if (this.rigCollection == null)
@@ -61,6 +79,7 @@ public class RigEventVolume : MonoBehaviour, IBuildValidation
 			if (!this.gameObjects.ContainsKey(rigEventVolumeTrigger))
 			{
 				this.gameObjects.Add(rigEventVolumeTrigger, 0);
+				this.rigs.Add(rigEventVolumeTrigger.Rig);
 				int num = (this.rigCollection == null) ? 1 : this.rigCollection.Rigs.Count;
 				this.countChanged(this.gameObjects.Count - 1, this.gameObjects.Count, num, num, rigEventVolumeTrigger);
 				if (rigEventVolumeTrigger.Rig == VRRig.LocalRig)
@@ -96,6 +115,7 @@ public class RigEventVolume : MonoBehaviour, IBuildValidation
 			if (this.gameObjects[rigEventVolumeTrigger] < 0)
 			{
 				this.gameObjects.Remove(rigEventVolumeTrigger);
+				this.rigs.Remove(rigEventVolumeTrigger.Rig);
 				int num2 = (this.rigCollection == null) ? 1 : this.rigCollection.Rigs.Count;
 				this.countChanged(this.gameObjects.Count + 1, this.gameObjects.Count, num2, num2, rigEventVolumeTrigger);
 				if (rigEventVolumeTrigger.Rig == VRRig.LocalRig)
@@ -126,12 +146,10 @@ public class RigEventVolume : MonoBehaviour, IBuildValidation
 			if ((this.mode == RigEventVolume.Mode.RELATIVE && (float)newValue / (float)newPlayerCount >= this.relThreshold && (float)oldValue / (float)oldPlayerCount < this.relThreshold) || (this.mode == RigEventVolume.Mode.ABSOLUTE && newValue >= this.absThreshold && oldValue < this.absThreshold))
 			{
 				UnityEvent goesOverThreshold = this.GoesOverThreshold;
-				if (goesOverThreshold == null)
+				if (goesOverThreshold != null)
 				{
-					return;
+					goesOverThreshold.Invoke();
 				}
-				goesOverThreshold.Invoke();
-				return;
 			}
 		}
 		else if (newValue < oldValue)
@@ -147,13 +165,18 @@ public class RigEventVolume : MonoBehaviour, IBuildValidation
 			if ((this.mode == RigEventVolume.Mode.RELATIVE && (float)newValue / (float)newPlayerCount < this.relThreshold && (float)oldValue / (float)oldPlayerCount >= this.relThreshold) || (this.mode == RigEventVolume.Mode.ABSOLUTE && newValue < this.absThreshold && oldValue >= this.absThreshold))
 			{
 				UnityEvent goesUnderThreshold = this.GoesUnderThreshold;
-				if (goesUnderThreshold == null)
+				if (goesUnderThreshold != null)
 				{
-					return;
+					goesUnderThreshold.Invoke();
 				}
-				goesUnderThreshold.Invoke();
 			}
 		}
+		Action onCountChanged = this.OnCountChanged;
+		if (onCountChanged == null)
+		{
+			return;
+		}
+		onCountChanged();
 	}
 
 	bool IBuildValidation.BuildValidationCheck()
@@ -199,6 +222,8 @@ public class RigEventVolume : MonoBehaviour, IBuildValidation
 
 	[SerializeField]
 	private UnityEvent<VRRig> LocalRigExits;
+
+	private List<VRRig> rigs = new List<VRRig>();
 
 	private enum Mode
 	{

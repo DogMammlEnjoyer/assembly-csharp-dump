@@ -153,7 +153,7 @@ namespace Liv.Lck.Tablet
 		{
 			if (this._lckService == null)
 			{
-				LckLog.LogWarning("LCK Could not get Service");
+				LckLog.LogWarning("LCK Could not get Service", "EnsureLckService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckRecordButton.cs", 199);
 			}
 		}
 

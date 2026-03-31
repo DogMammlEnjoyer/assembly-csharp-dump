@@ -47,13 +47,13 @@ namespace Liv.Lck.GorillaTag
 			}
 		}
 
-		private void SetDefaultState()
+		public void SetDefaultState()
 		{
 			this._bodyRenderer.material = this._settings.DefaultBodyMaterial;
 			this._currentState = GtTopButton.TopButtonState.Default;
 		}
 
-		private void SetSelectedState()
+		public void SetSelectedState()
 		{
 			this._bodyRenderer.material = this._settings.SelectedBodyMaterial;
 			this._currentState = GtTopButton.TopButtonState.Selected;

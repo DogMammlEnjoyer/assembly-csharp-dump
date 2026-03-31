@@ -480,7 +480,12 @@ namespace GorillaNetworking
 			for (int i = 0; i < 16; i++)
 			{
 				CosmeticsController.CosmeticSlots slot = (CosmeticsController.CosmeticSlots)i;
-				this.SaveItemPreference(slot, i, this.currentWornSet.items[i]);
+				CosmeticsController.CosmeticItem cosmeticItem = this.currentWornSet.items[i];
+				if (cosmeticItem.itemName == "Slingshot")
+				{
+					cosmeticItem = this.nullItem;
+				}
+				this.SaveItemPreference(slot, i, cosmeticItem);
 			}
 		}
 
@@ -1719,6 +1724,10 @@ namespace GorillaNetworking
 			{
 				yield return new WaitForSecondsRealtime(1f);
 			}
+			while (!PlayFabClientAPI.IsClientLoggedIn())
+			{
+				yield return new WaitForSecondsRealtime(1f);
+			}
 			for (;;)
 			{
 				if (GorillaComputer.instance != null && GorillaComputer.instance.startupMillis != 0L)
@@ -2249,11 +2258,7 @@ namespace GorillaNetworking
 					CosmeticsController.PushTerminalMessage(this.validatedCreatorCode.terminalId, "THIS PURCHASE SUPPORTED\n" + CreatorCodes.supportedMember.name + "!");
 				}
 				this.buyingBundle = false;
-				if (PhotonNetwork.InRoom)
-				{
-					object[] data = new object[0];
-					NetworkSystemRaiseEvent.RaiseEvent(9, data, NetworkSystemRaiseEvent.newWeb, true);
-				}
+				this.UpdateMyCosmetics();
 				base.StartCoroutine(this.CheckIfMyCosmeticsUpdated(this.BundlePlayfabItemName));
 			}
 			else
@@ -2749,14 +2754,14 @@ namespace GorillaNetworking
 			int num = CosmeticsController.selectedOutfit;
 			if (forward)
 			{
-				num = (num + 1) % this.outfitSystemConfig.maxOutfits;
+				num = (num + 1) % CosmeticsController.maxOutfits;
 			}
 			else
 			{
 				num--;
 				if (num < 0)
 				{
-					num = this.outfitSystemConfig.maxOutfits - 1;
+					num = CosmeticsController.maxOutfits - 1;
 				}
 			}
 			this.LoadSavedOutfit(num);
@@ -2764,7 +2769,7 @@ namespace GorillaNetworking
 
 		public void LoadSavedOutfit(int newOutfitIndex)
 		{
-			if (!CosmeticsController.CanScrollOutfits() || newOutfitIndex == CosmeticsController.selectedOutfit || newOutfitIndex < 0 || newOutfitIndex >= this.outfitSystemConfig.maxOutfits)
+			if (!CosmeticsController.CanScrollOutfits() || newOutfitIndex == CosmeticsController.selectedOutfit || newOutfitIndex < 0 || newOutfitIndex >= CosmeticsController.maxOutfits)
 			{
 				return;
 			}
@@ -2808,26 +2813,11 @@ namespace GorillaNetworking
 
 		private void LoadSavedOutfits()
 		{
-			if (CosmeticsController.loadedSavedOutfits || CosmeticsController.loadOutfitsInProgress)
-			{
-				return;
-			}
-			CosmeticsController.loadOutfitsInProgress = true;
-			this.savedOutfits = new CosmeticsController.CosmeticSet[this.outfitSystemConfig.maxOutfits];
-			this.savedColors = new Vector3[this.outfitSystemConfig.maxOutfits];
-			if (!MothershipClientApiUnity.GetUserDataValue(this.outfitSystemConfig.mothershipKey, new Action<MothershipUserData>(this.GetSavedOutfitsSuccess), new Action<MothershipError, int>(this.GetSavedOutfitsFail), ""))
-			{
-				GTDev.LogError<string>("CosmeticsController LoadSavedOutfits GetUserDataValue failed", null);
-				this.ClearOutfits();
-				CosmeticsController.loadOutfitsInProgress = false;
-				CosmeticsController.loadedSavedOutfits = true;
-				Action onOutfitsUpdated = this.OnOutfitsUpdated;
-				if (onOutfitsUpdated == null)
-				{
-					return;
-				}
-				onOutfitsUpdated();
-			}
+			CosmeticsController.<LoadSavedOutfits>d__269 <LoadSavedOutfits>d__;
+			<LoadSavedOutfits>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+			<LoadSavedOutfits>d__.<>4__this = this;
+			<LoadSavedOutfits>d__.<>1__state = -1;
+			<LoadSavedOutfits>d__.<>t__builder.Start<CosmeticsController.<LoadSavedOutfits>d__269>(ref <LoadSavedOutfits>d__);
 		}
 
 		private void GetSavedOutfitsSuccess(MothershipUserData response)
@@ -2863,7 +2853,7 @@ namespace GorillaNetworking
 		private void GetSavedOutfitsComplete()
 		{
 			int num = PlayerPrefs.GetInt(this.outfitSystemConfig.selectedOutfitPref, 0);
-			if (num < 0 || num >= this.outfitSystemConfig.maxOutfits)
+			if (num < 0 || num >= CosmeticsController.maxOutfits)
 			{
 				num = 0;
 			}
@@ -3014,7 +3004,7 @@ namespace GorillaNetworking
 			try
 			{
 				string[] array = response.Split(this.outfitSystemConfig.outfitSeparator, StringSplitOptions.None);
-				for (int i = 0; i < this.outfitSystemConfig.maxOutfits; i++)
+				for (int i = 0; i < CosmeticsController.maxOutfits; i++)
 				{
 					this.savedOutfits[i] = new CosmeticsController.CosmeticSet();
 					if (i >= array.Length)
@@ -3259,6 +3249,8 @@ namespace GorillaNetworking
 		private static bool loadedSavedOutfits = false;
 
 		private static int selectedOutfit = 0;
+
+		private static int maxOutfits = -1;
 
 		private static readonly Vector3 defaultColor = new Vector3(0f, 0f, 0f);
 
@@ -3682,6 +3674,11 @@ namespace GorillaNetworking
 						{
 							Debug.Log("LoadFromPlayerPreferences: Could not find item stored in player prefs: \"" + @string + "\"");
 							this.items[i] = controller.nullItem;
+						}
+						else if (item.itemName == "Slingshot")
+						{
+							this.items[i] = controller.nullItem;
+							PlayerPrefs.SetString(CosmeticsController.CosmeticSet.SlotPlayerPreferenceName(slot), "NOTHING");
 						}
 						else if (!CosmeticsController.CompareCategoryToSavedCosmeticSlots(item.itemCategory, slot))
 						{

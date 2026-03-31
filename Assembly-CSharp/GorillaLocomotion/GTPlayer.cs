@@ -33,7 +33,7 @@ namespace GorillaLocomotion
 				{
 					return this._bodyInitialHeight;
 				}
-				return Mathf.Max(0.2f, Vector3.Dot(GorillaIK.playerIK.bodyBone.up, Vector3.up)) * this._bodyInitialHeight;
+				return Mathf.Max(0.2f, Vector3.Dot(GorillaIK.playerIK.bodyBone.up, GTPlayerTransform.Up)) * this._bodyInitialHeight;
 			}
 		}
 
@@ -45,11 +45,27 @@ namespace GorillaLocomotion
 			}
 		}
 
+		public ref readonly GTPlayer.HandState LeftHandRef
+		{
+			get
+			{
+				return ref this.leftHand;
+			}
+		}
+
 		public GTPlayer.HandState RightHand
 		{
 			get
 			{
 				return this.rightHand;
+			}
+		}
+
+		public ref readonly GTPlayer.HandState RightHandRef
+		{
+			get
+			{
+				return ref this.rightHand;
 			}
 		}
 
@@ -586,7 +602,22 @@ namespace GorillaLocomotion
 			this.teleportToTrain = enable;
 		}
 
-		public void TeleportTo(Vector3 position, Quaternion rotation, bool keepVelocity = false, bool center = false)
+		public void TeleportTo(Vector3 position, Quaternion rotation)
+		{
+			this.teleportTo(position, rotation, false, false);
+		}
+
+		public void TeleportTo(Vector3 position, Quaternion rotation, bool keepVelocity)
+		{
+			this.teleportTo(position, rotation, keepVelocity, false);
+		}
+
+		public void TeleportTo(Vector3 position, Quaternion rotation, bool keepVelocity, bool center)
+		{
+			this.teleportTo(position, rotation, keepVelocity, center);
+		}
+
+		private void teleportTo(Vector3 position, Quaternion rotation, bool keepVelocity, bool center)
 		{
 			if (center)
 			{
@@ -651,7 +682,7 @@ namespace GorillaLocomotion
 			{
 				this.Turn(num);
 			}
-			this.TeleportTo(position2, base.transform.rotation, false, false);
+			this.TeleportTo(position2, base.transform.rotation);
 			if (maintainVelocity)
 			{
 				this.SetPlayerVelocity(playerVelocity);
@@ -676,6 +707,14 @@ namespace GorillaLocomotion
 				this.velocityHistory[i] = newVelocity;
 			}
 			this.playerRigidBody.AddForce(newVelocity - this.playerRigidBody.linearVelocity, ForceMode.VelocityChange);
+		}
+
+		public int GravityOverrideCount
+		{
+			get
+			{
+				return this.gravityOverrides.Count;
+			}
 		}
 
 		public void SetGravityOverride(Object caller, Action<GTPlayer> gravityFunction)
@@ -762,29 +801,22 @@ namespace GorillaLocomotion
 			{
 				this.ApplyGravityOverrides();
 			}
-			else
+			else if (this.halloweenLevitationBonusStrength > 0f || this.halloweenLevitationStrength > 0f)
 			{
-				if (!this.isClimbing)
+				float num = Time.time - this.lastTouchedGroundTimestamp;
+				if (num < this.halloweenLevitationTotalDuration)
 				{
-					this.playerRigidBody.AddForce(Physics.gravity * this.scale, ForceMode.Acceleration);
+					this.playerRigidBody.AddForce(Vector3.up * (this.halloweenLevitationStrength * Mathf.InverseLerp(this.halloweenLevitationFullStrengthDuration, this.halloweenLevitationTotalDuration, num)), ForceMode.Acceleration);
 				}
-				if (this.halloweenLevitationBonusStrength > 0f || this.halloweenLevitationStrength > 0f)
+				float y = this.playerRigidBody.linearVelocity.y;
+				if (y <= this.halloweenLevitateBonusFullAtYSpeed)
 				{
-					float num = Time.time - this.lastTouchedGroundTimestamp;
-					if (num < this.halloweenLevitationTotalDuration)
-					{
-						this.playerRigidBody.AddForce(Vector3.up * (this.halloweenLevitationStrength * Mathf.InverseLerp(this.halloweenLevitationFullStrengthDuration, this.halloweenLevitationTotalDuration, num)), ForceMode.Acceleration);
-					}
-					float y = this.playerRigidBody.linearVelocity.y;
-					if (y <= this.halloweenLevitateBonusFullAtYSpeed)
-					{
-						this.playerRigidBody.AddForce(Vector3.up * this.halloweenLevitationBonusStrength, ForceMode.Acceleration);
-					}
-					else if (y <= this.halloweenLevitateBonusOffAtYSpeed)
-					{
-						float num2 = Mathf.InverseLerp(this.halloweenLevitateBonusOffAtYSpeed, this.halloweenLevitateBonusFullAtYSpeed, this.playerRigidBody.linearVelocity.y);
-						this.playerRigidBody.AddForce(Vector3.up * (this.halloweenLevitationBonusStrength * num2), ForceMode.Acceleration);
-					}
+					this.playerRigidBody.AddForce(Vector3.up * this.halloweenLevitationBonusStrength, ForceMode.Acceleration);
+				}
+				else if (y <= this.halloweenLevitateBonusOffAtYSpeed)
+				{
+					float num2 = Mathf.InverseLerp(this.halloweenLevitateBonusOffAtYSpeed, this.halloweenLevitateBonusFullAtYSpeed, this.playerRigidBody.linearVelocity.y);
+					this.playerRigidBody.AddForce(Vector3.up * (this.halloweenLevitationBonusStrength * num2), ForceMode.Acceleration);
 				}
 			}
 			if (this.enableHoverMode)
@@ -1051,7 +1083,7 @@ namespace GorillaLocomotion
 				}
 			}
 			this.hasHoverPoint = flag;
-			this.bodyCollider.enabled = (this.bodyCollider.transform.position - this.hoverboardVisual.transform.TransformPoint(Vector3.up * this.hoverBodyCollisionRadiusUpOffset)).IsLongerThan(this.hoverBodyHasCollisionsOutsideRadius);
+			this.bodyCollider.enabled = (this.bodyCollider.transform.position - this.hoverboardVisual.transform.TransformPoint(GTPlayerTransform.Up * this.hoverBodyCollisionRadiusUpOffset)).IsLongerThan(this.hoverBodyHasCollisionsOutsideRadius);
 		}
 
 		private Vector3 HoverboardFixedUpdate(Vector3 velocity)
@@ -1211,7 +1243,7 @@ namespace GorillaLocomotion
 				{
 					this.bodyCollider.radius = this.bodyMaxRadius / this.scale;
 				}
-				if (Physics.SphereCast(this.PositionWithOffset(this.headCollider.transform, this.bodyOffset), this.bodyMaxRadius, Vector3.down, out this.bodyHitInfo, this.bodyInitialHeight * this.scale - this.bodyMaxRadius, this.locomotionEnabledLayers, QueryTriggerInteraction.Ignore))
+				if (Physics.SphereCast(this.PositionWithOffset(this.headCollider.transform, this.bodyOffset), this.bodyMaxRadius, GTPlayerTransform.Down, out this.bodyHitInfo, this.bodyInitialHeight * this.scale - this.bodyMaxRadius, this.locomotionEnabledLayers, QueryTriggerInteraction.Ignore))
 				{
 					this.bodyCollider.height = (this.bodyHitInfo.distance + this.bodyMaxRadius) / this.scale;
 				}
@@ -1231,9 +1263,9 @@ namespace GorillaLocomotion
 			}
 			this.bodyCollider.height = Mathf.Lerp(this.bodyCollider.height, this.bodyInitialHeight, this.bodyLerp);
 			this.bodyCollider.radius = Mathf.Lerp(this.bodyCollider.radius, this.bodyInitialRadius, this.bodyLerp);
-			this.bodyOffsetVector = Vector3.down * this.bodyCollider.height / 2f;
+			this.bodyOffsetVector = GTPlayerTransform.Down * this.bodyCollider.height / 2f;
 			this.bodyCollider.transform.position = this.PositionWithOffset(this.headCollider.transform, this.bodyOffset) + this.bodyOffsetVector * this.scale;
-			this.bodyCollider.transform.eulerAngles = new Vector3(0f, this.headCollider.transform.eulerAngles.y, 0f);
+			this.bodyCollider.transform.rotation = Quaternion.FromToRotation(this.headCollider.transform.up, GTPlayerTransform.Up) * this.headCollider.transform.rotation;
 		}
 
 		private Vector3 PositionWithOffset(Transform transformToModify, Vector3 offsetVector)
@@ -1297,11 +1329,6 @@ namespace GorillaLocomotion
 			}
 			float time = Time.time;
 			Vector3 position = this.headCollider.transform.position;
-			if (this.playerRotationOverrideFrame < Time.frameCount - 1)
-			{
-				this.playerRotationOverride = Quaternion.Slerp(Quaternion.identity, this.playerRotationOverride, Mathf.Exp(-this.playerRotationOverrideDecayRate * Time.deltaTime));
-			}
-			base.transform.rotation = this.playerRotationOverride;
 			this.turnParent.transform.localScale = VRRig.LocalRig.transform.localScale;
 			this.playerRigidBody.MovePosition(this.playerRigidBody.position + position - this.headCollider.transform.position);
 			if (Mathf.Abs(this.lastScale - this.scale) > 0.001f)
@@ -1371,16 +1398,16 @@ namespace GorillaLocomotion
 			}
 			if (!this.didAJump && (this.leftHand.wasColliding || this.rightHand.wasColliding))
 			{
-				base.transform.position = base.transform.position + 4.9f * Vector3.down * this.calcDeltaTime * this.calcDeltaTime * this.scale;
-				if (Vector3.Dot(this.averagedVelocity, this.slideAverageNormal) <= 0f && Vector3.Dot(Vector3.up, this.slideAverageNormal) > 0f)
+				base.transform.position = base.transform.position + 4.9f * GTPlayerTransform.PhysicsDown * this.calcDeltaTime * this.calcDeltaTime * this.scale;
+				if (Vector3.Dot(this.averagedVelocity, this.slideAverageNormal) <= 0f && Vector3.Dot(GTPlayerTransform.PhysicsUp, this.slideAverageNormal) > 0f)
 				{
-					base.transform.position = base.transform.position - Vector3.Project(Mathf.Min(this.stickDepth * this.scale, Vector3.Project(this.averagedVelocity, this.slideAverageNormal).magnitude * this.calcDeltaTime) * this.slideAverageNormal, Vector3.down);
+					base.transform.position = base.transform.position - Vector3.Project(Mathf.Min(this.stickDepth * this.scale, Vector3.Project(this.averagedVelocity, this.slideAverageNormal).magnitude * this.calcDeltaTime) * this.slideAverageNormal, GTPlayerTransform.PhysicsDown);
 				}
 			}
 			if (!this.didAJump && this.anyHandWasSliding)
 			{
 				base.transform.position = base.transform.position + this.slideVelocity * this.calcDeltaTime;
-				this.slideVelocity += 9.8f * Vector3.down * this.calcDeltaTime * this.scale;
+				this.slideVelocity += 9.8f * GTPlayerTransform.PhysicsDown * this.calcDeltaTime * this.scale;
 			}
 			float paddleBoostFactor = (Time.time > this.boostEnabledUntilTimestamp) ? 0f : (Time.deltaTime * Mathf.Clamp(this.playerRigidBody.linearVelocity.magnitude * this.hoverboardPaddleBoostMultiplier, 0f, this.hoverboardPaddleBoostMax));
 			int num2 = 0;
@@ -1829,8 +1856,8 @@ namespace GorillaLocomotion
 			{
 				bool flag8 = false;
 				this.ClearRaycasthitBuffer(ref this.rayCastNonAllocColliders);
-				Vector3 origin = this.PositionWithOffset(this.headCollider.transform, this.bodyOffset) + (this.bodyInitialHeight * this.scale - this.bodyMaxRadius) * Vector3.down;
-				this.bufferCount = Physics.SphereCastNonAlloc(origin, this.bodyMaxRadius, Vector3.down, this.rayCastNonAllocColliders, this.minimumRaycastDistance * this.scale, this.locomotionEnabledLayers.value);
+				Vector3 origin = this.PositionWithOffset(this.headCollider.transform, this.bodyOffset) + (this.bodyInitialHeight * this.scale - this.bodyMaxRadius) * GTPlayerTransform.Down;
+				this.bufferCount = Physics.SphereCastNonAlloc(origin, this.bodyMaxRadius, GTPlayerTransform.Down, this.rayCastNonAllocColliders, this.minimumRaycastDistance * this.scale, this.locomotionEnabledLayers.value);
 				if (this.bufferCount > 0)
 				{
 					this.tempHitInfo = this.rayCastNonAllocColliders[0];
@@ -1989,7 +2016,7 @@ namespace GorillaLocomotion
 		{
 			Quaternion quaternion;
 			Quaternion quaternion2;
-			QuaternionUtil.DecomposeSwingTwist(rotationDelta, Vector3.up, out quaternion, out quaternion2);
+			QuaternionUtil.DecomposeSwingTwist(rotationDelta, GTPlayerTransform.PhysicsUp, out quaternion, out quaternion2);
 			float num = quaternion2.eulerAngles.y;
 			if (num > 270f)
 			{
@@ -2618,12 +2645,13 @@ namespace GorillaLocomotion
 			{
 				position = this.leftHand.controllerTransform.position;
 			}
-			this.turnParent.transform.RotateAround(position, base.transform.up, degrees);
+			this.turnParent.transform.RotateAround(position, GTPlayerTransform.Up, degrees);
 			this.degreesTurnedThisFrame = degrees;
 			this.averagedVelocity = Vector3.zero;
+			Quaternion rotation = Quaternion.AngleAxis(degrees, GTPlayerTransform.Up);
 			for (int i = 0; i < this.velocityHistory.Length; i++)
 			{
-				this.velocityHistory[i] = Quaternion.Euler(0f, degrees, 0f) * this.velocityHistory[i];
+				this.velocityHistory[i] = rotation * this.velocityHistory[i];
 				this.averagedVelocity += this.velocityHistory[i];
 			}
 			this.averagedVelocity /= (float)this.velocityHistorySize;
@@ -2655,15 +2683,15 @@ namespace GorillaLocomotion
 			Vector3 localPosition = this.climbHelper.localPosition;
 			if (climbable.snapX)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.x, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.x, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapY)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.y, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.y, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapZ)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|433_0(ref localPosition.z, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.z, climbable.maxDistanceSnap);
 			}
 			this.climbHelperTargetPos = localPosition;
 			climbable.isBeingClimbed = true;
@@ -2840,10 +2868,11 @@ namespace GorillaLocomotion
 		private void StoreVelocities()
 		{
 			this.velocityIndex = (this.velocityIndex + 1) % this.velocityHistorySize;
-			this.currentVelocity = (base.transform.position - this.lastPosition - this.MovingSurfaceMovement()) / this.calcDeltaTime;
+			this.currentVelocity = (base.transform.position - this.lastPosition - GTPlayerTransform.RotationPosOffsetChange - this.MovingSurfaceMovement()) / this.calcDeltaTime;
 			this.velocityHistory[this.velocityIndex] = this.currentVelocity;
 			this.averagedVelocity = this.velocityHistory.Average();
 			this.lastPosition = base.transform.position;
+			GTPlayerTransform.ResetRotationPositionOffset();
 		}
 
 		private void AntiTeleportTechnology()
@@ -3211,12 +3240,12 @@ namespace GorillaLocomotion
 
 		public void DoLaunch(Vector3 velocity)
 		{
-			GTPlayer.<DoLaunch>d__469 <DoLaunch>d__;
+			GTPlayer.<DoLaunch>d__479 <DoLaunch>d__;
 			<DoLaunch>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DoLaunch>d__.<>4__this = this;
 			<DoLaunch>d__.velocity = velocity;
 			<DoLaunch>d__.<>1__state = -1;
-			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__469>(ref <DoLaunch>d__);
+			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__479>(ref <DoLaunch>d__);
 		}
 
 		private void OnEnable()
@@ -3375,23 +3404,8 @@ namespace GorillaLocomotion
 			}
 		}
 
-		public static void CorrectPlaySpaceOffset()
-		{
-			if (GTPlayer._instance == null)
-			{
-				Debug.Log("GTPlayer _instance is not yet assigned");
-				return;
-			}
-			Vector3 position = GTPlayer._instance.turnParent.transform.position;
-			Quaternion rotation = GTPlayer._instance.turnParent.transform.rotation;
-			GTPlayer._instance.turnParent.transform.localPosition = Vector3.zero;
-			GTPlayer._instance.turnParent.transform.localRotation = Quaternion.identity;
-			GTPlayer._instance.transform.position = position;
-			GTPlayer._instance.transform.rotation = rotation;
-		}
-
 		[CompilerGenerated]
-		internal static void <BeginClimbing>g__SnapAxis|433_0(ref float val, float maxDist)
+		internal static void <BeginClimbing>g__SnapAxis|443_0(ref float val, float maxDist)
 		{
 			if (val > maxDist)
 			{
@@ -3540,6 +3554,9 @@ namespace GorillaLocomotion
 		public bool isUserPresent;
 
 		public GameObject turnParent;
+
+		[SerializeField]
+		public GameObject RecordingRig;
 
 		public GorillaSurfaceOverride currentOverride;
 
@@ -3700,7 +3717,7 @@ namespace GorillaLocomotion
 
 		private List<WaterCurrent> activeWaterCurrents = new List<WaterCurrent>(16);
 
-		private Quaternion playerRotationOverride;
+		private Quaternion playerRotationOverride = Quaternion.identity;
 
 		private int playerRotationOverrideFrame = -1;
 
@@ -4017,9 +4034,9 @@ namespace GorillaLocomotion
 				Vector3 vector2 = this.GetLastPosition();
 				Vector3 a = vector - vector2;
 				bool flag = this.gtPlayer.lastMovingSurfaceContact == GTPlayer.MovingSurfaceContactPoint.LEFT;
-				if (!this.gtPlayer.didAJump && this.wasSliding && Vector3.Dot(this.gtPlayer.slideAverageNormal, Vector3.up) > 0f)
+				if (!this.gtPlayer.didAJump && this.wasSliding && Vector3.Dot(this.gtPlayer.slideAverageNormal, GTPlayerTransform.PhysicsUp) > 0f)
 				{
-					a += Vector3.Project(-this.gtPlayer.slideAverageNormal * this.gtPlayer.stickDepth * this.gtPlayer.scale, Vector3.down);
+					a += Vector3.Project(-this.gtPlayer.slideAverageNormal * this.gtPlayer.stickDepth * this.gtPlayer.scale, GTPlayerTransform.PhysicsDown);
 				}
 				float num = this.gtPlayer.minimumRaycastDistance * this.gtPlayer.scale;
 				if (this.gtPlayer.IsFrozen && GorillaGameManager.instance is GorillaFreezeTagManager)
@@ -4029,13 +4046,13 @@ namespace GorillaLocomotion
 				Vector3 vector3 = Vector3.zero;
 				if (flag && !this.gtPlayer.exitMovingSurface)
 				{
-					vector3 = Vector3.Project(-this.gtPlayer.lastMovingSurfaceHit.normal * (this.gtPlayer.stickDepth * this.gtPlayer.scale), Vector3.down);
+					vector3 = Vector3.Project(-this.gtPlayer.lastMovingSurfaceHit.normal * (this.gtPlayer.stickDepth * this.gtPlayer.scale), GTPlayerTransform.PhysicsDown);
 					if (this.gtPlayer.scale < 0.5f)
 					{
 						Vector3 normalized = this.gtPlayer.MovingSurfaceMovement().normalized;
 						if (normalized != Vector3.zero)
 						{
-							float num2 = Vector3.Dot(Vector3.up, normalized);
+							float num2 = Vector3.Dot(GTPlayerTransform.PhysicsUp, normalized);
 							if ((double)num2 > 0.9 || (double)num2 < -0.9)
 							{
 								vector3 *= 6f;
@@ -4070,7 +4087,7 @@ namespace GorillaLocomotion
 					b = Vector3.zero;
 					this.slipPercentage = 0f;
 					this.isSliding = false;
-					this.slideNormal = Vector3.up;
+					this.slideNormal = GTPlayerTransform.PhysicsUp;
 					this.isColliding = false;
 					this.materialTouchIndex = 0;
 					this.surfaceOverride = null;

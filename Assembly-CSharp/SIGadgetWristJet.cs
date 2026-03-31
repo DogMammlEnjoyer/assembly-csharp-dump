@@ -25,6 +25,10 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 		this._hasInactiveStateVisual = (this.inactiveStateVisual != null);
 		this._hasActiveStateVisual = (this.activeStateVisual != null);
 		this._gaugeMatPropBlock = new MaterialPropertyBlock();
+		this._baseFuelSpendRate = this.fuelSpendRate;
+		this._baseJetForce = this.jetForce;
+		this._baseMaxVerticalSpeed = this.maxVerticalSpeed;
+		this._baseMaxHorizontalSpeed = this.maxHorizontalSpeed;
 		if (this.m_gaugeMatSlots == null)
 		{
 			this.m_gaugeMatSlots = Array.Empty<GTRendererMatSlot>();
@@ -284,13 +288,13 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 		switch (this.jetType)
 		{
 		case SIGadgetWristJet.WristJetType.Jet:
-			this.fuelSpendRate *= (withUpgrades.Contains(SIUpgradeType.Thruster_Jet_Duration) ? 0.8f : 1f);
-			this.jetForce *= (withUpgrades.Contains(SIUpgradeType.Thruster_Jet_Accel) ? 1.2f : 1f);
+			this.fuelSpendRate = this._baseFuelSpendRate * (withUpgrades.Contains(SIUpgradeType.Thruster_Jet_Duration) ? 0.8f : 1f);
+			this.jetForce = this._baseJetForce * (withUpgrades.Contains(SIUpgradeType.Thruster_Jet_Accel) ? 1.2f : 1f);
 			break;
 		case SIGadgetWristJet.WristJetType.Propellor:
-			this.fuelSpendRate *= (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Duration) ? 0.8f : 1f);
-			this.maxVerticalSpeed *= (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Speed) ? 1.2f : 1f);
-			this.maxHorizontalSpeed *= (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Speed) ? 1.2f : 1f);
+			this.fuelSpendRate = this._baseFuelSpendRate * (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Duration) ? 0.8f : 1f);
+			this.maxVerticalSpeed = this._baseMaxVerticalSpeed * (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Speed) ? 1.2f : 1f);
+			this.maxHorizontalSpeed = this._baseMaxHorizontalSpeed * (withUpgrades.Contains(SIUpgradeType.Thruster_Prop_Speed) ? 1.2f : 1f);
 			break;
 		}
 		AudioClip clip;
@@ -453,6 +457,14 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 	private float _throttle;
 
 	private float _currentBurnRate;
+
+	private float _baseFuelSpendRate;
+
+	private float _baseJetForce;
+
+	private float _baseMaxVerticalSpeed;
+
+	private float _baseMaxHorizontalSpeed;
 
 	private enum State
 	{

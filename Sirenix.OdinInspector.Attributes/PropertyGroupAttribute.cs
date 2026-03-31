@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using UnityEngine;
 
 namespace Sirenix.OdinInspector
 {
@@ -11,6 +12,11 @@ namespace Sirenix.OdinInspector
 		{
 			this.GroupID = groupId;
 			this.Order = order;
+			if (groupId == null)
+			{
+				this.GroupName = string.Empty;
+				return;
+			}
 			int num = groupId.LastIndexOf('/');
 			this.GroupName = ((num >= 0 && num < groupId.Length) ? groupId.Substring(num + 1) : groupId);
 		}
@@ -55,16 +61,36 @@ namespace Sirenix.OdinInspector
 		{
 		}
 
+		private static bool ValidateGroupName(string value, ref string errorMessage)
+		{
+			if (string.IsNullOrEmpty(value))
+			{
+				return true;
+			}
+			if (value.Contains("."))
+			{
+				errorMessage = "GroupName can't contain the '.' character";
+				return false;
+			}
+			return true;
+		}
+
+		[HideInInspector]
 		public string GroupID;
 
+		[Delayed]
+		[ValidateInput("ValidateGroupName", null, InfoMessageType.Error)]
 		public string GroupName;
 
+		[HideInInspector]
 		public float Order;
 
+		[LabelWidth(200f)]
 		public bool HideWhenChildrenAreInvisible = true;
 
-		public string VisibleIf;
-
+		[LabelWidth(200f)]
 		public bool AnimateVisibility = true;
+
+		public string VisibleIf;
 	}
 }

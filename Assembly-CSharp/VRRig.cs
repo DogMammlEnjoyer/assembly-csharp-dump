@@ -938,9 +938,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			{
 				this.ScaleUpdate();
 			}
-			base.transform.eulerAngles = new Vector3(0f, this.mainCamera.transform.rotation.eulerAngles.y, 0f);
 			this.syncPos = this.mainCamera.transform.position + this.headConstraint.rotation * this.head.trackingPositionOffset * this.lastScaleFactor + base.transform.rotation * this.headBodyOffset * this.lastScaleFactor;
-			base.transform.position = this.syncPos;
+			base.transform.SetPositionAndRotation(this.syncPos, GTPlayerTransform.BodyRotation);
 			this.head.MapMine(this.lastScaleFactor, this.playerOffsetTransform);
 			this.rightHand.MapMine(this.lastScaleFactor, this.playerOffsetTransform);
 			this.leftHand.MapMine(this.lastScaleFactor, this.playerOffsetTransform);
@@ -1264,6 +1263,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		InputStruct inputStruct = new InputStruct
 		{
 			headRotation = BitPackUtils.PackQuaternionForNetwork(this.head.rigTarget.localRotation),
+			rotation = BitPackUtils.PackQuaternionForNetwork(base.transform.rotation),
 			usingNewIK = this.ShouldUseNewIKMethod(this.myIk.usingUpdatedIK)
 		};
 		if (inputStruct.usingNewIK)
@@ -1351,8 +1351,16 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		this.syncPos = BitPackUtils.UnpackWorldPosFromNetwork(data.position);
 		this.handSync = data.handPosition;
 		int packedFields = data.packedFields;
-		int num = packedFields & 511;
-		this.syncRotation.eulerAngles = this.SanitizeVector3(new Vector3(0f, (float)num, 0f));
+		if (GTPlayerTransform.UseNetRotation)
+		{
+			quaternion = BitPackUtils.UnpackQuaternionFromNetwork(data.rotation);
+			ref this.syncRotation.SetValueSafe(quaternion);
+		}
+		else
+		{
+			int num = packedFields & 511;
+			this.syncRotation.eulerAngles = this.SanitizeVector3(new Vector3(0f, (float)num, 0f));
+		}
 		this.remoteUseReplacementVoice = ((packedFields & 512) != 0);
 		if ((packedFields & 4194304) != 0 && SubscriptionManager.GetSubscriptionDetails(this).active)
 		{
@@ -1448,6 +1456,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	{
 		InputStruct inputStruct = this.SerializeWriteShared();
 		stream.SendNext(inputStruct.headRotation);
+		stream.SendNext(inputStruct.rotation);
 		stream.SendNext(inputStruct.usingNewIK);
 		if (inputStruct.usingNewIK)
 		{
@@ -1505,6 +1514,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		InputStruct inputStruct = new InputStruct
 		{
 			headRotation = (int)stream.ReceiveNext(),
+			rotation = (int)stream.ReceiveNext(),
 			usingNewIK = (bool)stream.ReceiveNext()
 		};
 		if (inputStruct.usingNewIK)
@@ -2005,7 +2015,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			int length2 = text.Length;
 			if (length2 > 0 && length == length2 && GorillaComputer.instance.CheckAutoBanListForName(text))
 			{
-				if (text.Length > 12)
+				if (text.Length > 11)
 				{
 					text = text.Substring(0, 11);
 				}
@@ -3043,6 +3053,10 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			this._rankedInfoUpdated = false;
 			this.TemporaryCosmeticEffects.Clear();
 			this.m_sentRankedScore = false;
+			if (this.inDuplicationZone)
+			{
+				this.ClearDuplicationZone(this.duplicationZone);
+			}
 			try
 			{
 				CallLimitType<CallLimiter>[] callSettings = this.fxSettings.callSettings;
@@ -4167,8 +4181,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public float doNotLerpConstant = 1f;
 
 	public string tempString;
-
-	private Player tempPlayer;
 
 	internal NetPlayer creator;
 

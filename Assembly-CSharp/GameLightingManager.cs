@@ -336,6 +336,14 @@ public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 		this.lightData[lightIndex] = value;
 	}
 
+	public Light GR_NearsightedDimLight
+	{
+		get
+		{
+			return this._GR_NearsightedDimLight;
+		}
+	}
+
 	[OnEnterPlay_SetNull]
 	public static volatile GameLightingManager instance;
 
@@ -390,6 +398,9 @@ public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 	private int nextLightUpdate;
 
 	private int nextLightCacheUpdate;
+
+	[SerializeField]
+	private Light _GR_NearsightedDimLight;
 
 	public struct LightInput
 	{

@@ -134,7 +134,6 @@ public class NetworkSystemPUN : NetworkSystem
 		NetworkSystem.reusableSB.Append(", ");
 		this.AppendStringFromDict(customProperties, "mmrTier", 8, NetworkSystem.reusableSB);
 		NetworkSystem.reusableSB.Append("}");
-		Debug.Log(NetworkSystem.reusableSB.ToString());
 		return NetworkSystem.reusableSB.ToString();
 	}
 
@@ -541,7 +540,7 @@ public class NetworkSystemPUN : NetworkSystem
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError("An exception was thrown when trying to setup photon voice, please check microphone permissions.:/n" + ex.ToString());
+			Debug.LogError("An exception was thrown when trying to setup photon voice, please check microphone permissions:\n" + ex.ToString());
 		}
 	}
 
@@ -712,7 +711,9 @@ public class NetworkSystemPUN : NetworkSystem
 			return;
 		}
 		PlayerPrefs.SetString("playerName", id);
+		string nickName = PhotonNetwork.LocalPlayer.NickName;
 		PhotonNetwork.LocalPlayer.NickName = id;
+		nickName != id;
 	}
 
 	public override string GetMyNickName()
@@ -992,7 +993,7 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public void OnJoinRoomFailed(short returnCode, string message)
 	{
-		Debug.Log("onJoinRoomFailed " + returnCode.ToString() + message);
+		Debug.Log("onJoinRoomFailed " + returnCode.ToString() + " " + message);
 		if (this.internalState == NetworkSystemPUN.InternalState.Searching_Joining)
 		{
 			if (returnCode == 32765)

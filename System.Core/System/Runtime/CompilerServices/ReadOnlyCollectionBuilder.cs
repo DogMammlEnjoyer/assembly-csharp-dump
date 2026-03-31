@@ -9,7 +9,7 @@ namespace System.Runtime.CompilerServices
 	/// <summary>The builder for read only collection.</summary>
 	/// <typeparam name="T">The type of the collection element.</typeparam>
 	[Serializable]
-	public sealed class ReadOnlyCollectionBuilder<T> : IList<!0>, ICollection<!0>, IEnumerable<!0>, IEnumerable, IList, ICollection
+	public sealed class ReadOnlyCollectionBuilder<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection
 	{
 		/// <summary>Constructs a ReadOnlyCollectionBuilder.</summary>
 		public ReadOnlyCollectionBuilder()
@@ -47,7 +47,7 @@ namespace System.Runtime.CompilerServices
 			}
 			this._size = 0;
 			this._items = new T[4];
-			foreach (T item in collection)
+			foreach (!0 item in collection)
 			{
 				this.Add(item);
 			}

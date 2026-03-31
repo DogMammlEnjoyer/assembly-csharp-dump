@@ -9,7 +9,7 @@ namespace System.Collections.ObjectModel
 	[DebuggerTypeProxy(typeof(ICollectionDebugView<>))]
 	[DebuggerDisplay("Count = {Count}")]
 	[Serializable]
-	public class Collection<T> : IList<!0>, ICollection<!0>, IEnumerable<!0>, IEnumerable, IList, ICollection, IReadOnlyList<!0>, IReadOnlyCollection<T>
+	public class Collection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection, IReadOnlyList<!0>, IReadOnlyCollection<T>
 	{
 		/// <summary>Initializes a new instance of the <see cref="T:System.Collections.ObjectModel.Collection`1" /> class that is empty.</summary>
 		public Collection()

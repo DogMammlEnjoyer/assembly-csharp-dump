@@ -160,9 +160,9 @@ public class GorillaScoreBoard : MonoBehaviour
 		if (doIt)
 		{
 			text = new string(Array.FindAll<char>(text.ToCharArray(), (char c) => Utils.IsASCIILetterOrDigit(c)));
-			if (text.Length > 12)
+			if (text.Length > 11)
 			{
-				text = text.Substring(0, 10);
+				text = text.Substring(0, 11);
 			}
 			text = text.ToUpper();
 		}
@@ -183,11 +183,19 @@ public class GorillaScoreBoard : MonoBehaviour
 	{
 		GorillaScoreboardTotalUpdater.RegisterScoreboard(this);
 		this._isDirty = true;
+		SubscriptionManager.OnSubscriptionData = (Action)Delegate.Remove(SubscriptionManager.OnSubscriptionData, new Action(this.SetDirty));
+		SubscriptionManager.OnSubscriptionData = (Action)Delegate.Combine(SubscriptionManager.OnSubscriptionData, new Action(this.SetDirty));
 	}
 
 	private void OnDisable()
 	{
 		GorillaScoreboardTotalUpdater.UnregisterScoreboard(this);
+		SubscriptionManager.OnSubscriptionData = (Action)Delegate.Remove(SubscriptionManager.OnSubscriptionData, new Action(this.SetDirty));
+	}
+
+	private void SetDirty()
+	{
+		this._isDirty = true;
 	}
 
 	public GameObject scoreBoardLinePrefab;

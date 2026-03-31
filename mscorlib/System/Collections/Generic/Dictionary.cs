@@ -104,7 +104,7 @@ namespace System.Collections.Generic
 
 		public Dictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer)
 		{
-			ICollection<KeyValuePair<TKey, TValue>> collection2 = collection as ICollection<KeyValuePair<TKey, TValue>>;
+			ICollection<KeyValuePair<!0, !1>> collection2 = collection as ICollection<KeyValuePair<!0, !1>>;
 			this..ctor((collection2 != null) ? collection2.Count : 0, comparer);
 			if (collection == null)
 			{

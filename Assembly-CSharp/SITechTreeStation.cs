@@ -48,7 +48,7 @@ public class SITechTreeStation : MonoBehaviour, ITouchScreenStation
 	{
 		get
 		{
-			return this.ActivePlayer.gamePlayer.rig.OwningNetPlayer.SanitizedNickName;
+			return this.ActivePlayer.gamePlayer.rig.Creator.SanitizedNickName;
 		}
 	}
 
@@ -234,9 +234,9 @@ public class SITechTreeStation : MonoBehaviour, ITouchScreenStation
 	public void ZoneDataSerializeRead(BinaryReader reader)
 	{
 		this.currentNodeId = reader.ReadInt32();
-		if (!Enum.IsDefined(typeof(SIUpgradeType), this.CurrentNode.upgradeType))
+		if (this.CurrentNode == null || !Enum.IsDefined(typeof(SIUpgradeType), this.CurrentNode.upgradeType))
 		{
-			GTDev.LogError<string>("issue with currentnodeid wee woo wee woo", null);
+			GTDev.LogError<string>(string.Format("SITechTreeStation.ZoneDataSerializeRead: Invalid currentNodeId {0} for page {1}. Falling back to first node.", this.currentNodeId, this.parentTerminal.ActivePage), null);
 			this.currentNodeId = (int)this.CurrentPage.AllNodes[0].Value.upgradeType;
 		}
 		this.helpScreenIndex = Mathf.Clamp(reader.ReadInt32(), 0, this.helpPopupScreens.Length - 1);

@@ -56,6 +56,7 @@ namespace Sirenix.OdinInspector
 
 		public string Title;
 
+		[LabelWidth(200f)]
 		public bool DisableAutomaticLabelWidth;
 
 		public float LabelWidth;

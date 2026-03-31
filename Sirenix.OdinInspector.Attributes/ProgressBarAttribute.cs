@@ -139,6 +139,12 @@ namespace Sirenix.OdinInspector
 			this.ValueLabelAlignmentHasValue = false;
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"drawValueLabel",
+			"DrawValueLabelHasValue"
+		})]
 		public bool DrawValueLabel
 		{
 			get
@@ -154,6 +160,12 @@ namespace Sirenix.OdinInspector
 
 		public bool DrawValueLabelHasValue { get; private set; }
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"valueLabelAlignment",
+			"ValueLabelAlignmentHasValue"
+		})]
 		public TextAlignment ValueLabelAlignment
 		{
 			get
@@ -193,12 +205,14 @@ namespace Sirenix.OdinInspector
 
 		public int Height;
 
+		[ColorResolver]
 		public string ColorGetter;
 
 		public string BackgroundColorGetter;
 
 		public bool Segmented;
 
+		[LabelWidth(160f)]
 		public string CustomValueStringGetter;
 
 		private bool drawValueLabel;

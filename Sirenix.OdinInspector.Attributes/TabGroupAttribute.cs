@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Sirenix.OdinInspector.Internal;
+using UnityEngine;
 
 namespace Sirenix.OdinInspector
 {
@@ -94,18 +95,23 @@ namespace Sirenix.OdinInspector
 
 		public const string DEFAULT_NAME = "_DefaultTabGroup";
 
+		[HideInInspector]
 		public string TabName;
 
+		[HideInInspector]
 		public string TabId;
 
 		public bool UseFixedHeight;
 
 		public bool Paddingless;
 
+		[LabelWidth(270f)]
 		public bool HideTabGroupIfTabGroupOnlyHasOneTab;
 
+		[HideInInspector]
 		public string TextColor;
 
+		[HideInInspector]
 		public SdfIconType Icon;
 
 		public TabLayouting TabLayouting;
@@ -117,7 +123,23 @@ namespace Sirenix.OdinInspector
 		{
 			public TabSubGroupAttribute(TabGroupAttribute tab, string groupId, float order) : base(groupId, order)
 			{
-				this.Tab = tab;
+				if (tab == null)
+				{
+					this.Name = null;
+					this.Icon = SdfIconType.None;
+					this.TextColor = null;
+					return;
+				}
+				this.Name = tab.TabName;
+				this.Icon = tab.Icon;
+				this.TextColor = tab.TextColor;
+			}
+
+			public TabSubGroupAttribute(string groupId, float order, string tabName, SdfIconType tabIcon, string textColor) : base(groupId, order)
+			{
+				this.Name = tabName;
+				this.Icon = tabIcon;
+				this.TextColor = textColor;
 			}
 
 			protected override void CombineValuesWith(PropertyGroupAttribute other)
@@ -125,22 +147,27 @@ namespace Sirenix.OdinInspector
 				TabGroupAttribute.TabSubGroupAttribute tabSubGroupAttribute = other as TabGroupAttribute.TabSubGroupAttribute;
 				if (tabSubGroupAttribute != null)
 				{
-					if (this.Tab.TextColor == null)
+					if (this.TextColor == null)
 					{
-						this.Tab.TextColor = tabSubGroupAttribute.Tab.TextColor;
+						this.TextColor = tabSubGroupAttribute.TextColor;
 					}
-					if (this.Tab.Icon == SdfIconType.None)
+					if (this.Icon == SdfIconType.None)
 					{
-						this.Tab.Icon = tabSubGroupAttribute.Tab.Icon;
+						this.Icon = tabSubGroupAttribute.Icon;
 					}
-					if (this.Tab.TabName == null)
+					if (this.Name == null)
 					{
-						this.Tab.TabName = tabSubGroupAttribute.Tab.TabName;
+						this.Name = tabSubGroupAttribute.Name;
 					}
 				}
 			}
 
-			public TabGroupAttribute Tab;
+			public string Name;
+
+			public SdfIconType Icon;
+
+			[ColorResolver]
+			public string TextColor;
 		}
 	}
 }

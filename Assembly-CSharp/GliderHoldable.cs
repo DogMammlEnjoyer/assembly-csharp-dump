@@ -615,7 +615,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 				this.subtlePlayerPitch = Mathf.Lerp(a4, this.subtlePlayerPitch, Mathf.Exp(-this.subtlePlayerPitchRateExp * dt));
 				lhs2 = Quaternion.AngleAxis(this.subtlePlayerPitch, -base.transform.right);
 			}
-			GTPlayer.Instance.PlayerRotationOverride = lhs2 * rhs2;
+			Quaternion quaternion = lhs2 * rhs2;
+			GTPlayerTransform.ApplyRotationOverride(quaternion, Time.frameCount);
 		}
 		this.UpdateGliderPosition();
 		if (this.syncedState.riderId != NetworkSystem.Instance.LocalPlayer.ActorNumber)

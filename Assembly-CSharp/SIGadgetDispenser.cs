@@ -10,6 +10,14 @@ using UnityEngine.UI;
 
 public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 {
+	internal bool isTryOn
+	{
+		get
+		{
+			return this.m_isTryOn;
+		}
+	}
+
 	public SIScreenRegion ScreenRegion
 	{
 		get
@@ -82,8 +90,12 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 		}
 	}
 
-	private void OnEnable()
+	protected void OnEnable()
 	{
+		if (this.m_isTryOn)
+		{
+			SIGadgetDispenser.g_tryOnOptions = this.m_tryOnOptions;
+		}
 		this._RefreshButtonsUsableState();
 	}
 
@@ -146,6 +158,11 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 			sidispenserGadgetListEntry.SetStation(this, this.parentTerminal.zeroZeroImage, this.parentTerminal.onePointTwoText);
 			this.gadgetEntries.Add(sidispenserGadgetListEntry);
 		}
+		if (this.m_isTryOn && base.isActiveAndEnabled)
+		{
+			SIGadgetDispenser.g_tryOnOptions = this.m_tryOnOptions;
+		}
+		this._RefreshButtonsUsableState();
 		this.Reset();
 	}
 
@@ -280,7 +297,6 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 
 	public void UpdateGadgetListVisibility()
 	{
-		this.m_isTryOn = false;
 		foreach (SIDispenserGadgetListEntry sidispenserGadgetListEntry in this.gadgetEntries)
 		{
 			sidispenserGadgetListEntry.gameObject.SetActive(false);
@@ -293,7 +309,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 				SIDispenserGadgetListEntry sidispenserGadgetListEntry2 = this.gadgetEntries[num++];
 				sidispenserGadgetListEntry2.SetTechTreeNode(sitechTreeNode);
 				sidispenserGadgetListEntry2.gameObject.SetActive(true);
-				sidispenserGadgetListEntry2.DispenseButton.SetUsable(sitechTreeNode.IsAllowed);
+				sidispenserGadgetListEntry2.DispenseButton.SetUsable(this.m_isTryOn || sitechTreeNode.IsAllowed);
 			}
 		}
 		this.noDispensableGadgetsMessage.SetActive(num == 0);
@@ -375,7 +391,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 				if (treeNode2 != null && treeNode2.IsDispensableGadget)
 				{
 					this._currentNode = data;
-					this.DispenseGadgetForPlayer(this.ActivePlayer);
+					this.AuthorityDispenseGadgetForPlayer(this.ActivePlayer);
 					this.UpdateState(SIGadgetDispenser.GadgetDispenserTerminalState.GadgetDispensed);
 				}
 			}
@@ -391,7 +407,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 			}
 			if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Dispense)
 			{
-				this.DispenseGadgetForPlayer(this.ActivePlayer);
+				this.AuthorityDispenseGadgetForPlayer(this.ActivePlayer);
 				this.UpdateState(SIGadgetDispenser.GadgetDispenserTerminalState.GadgetDispensed);
 			}
 			return;
@@ -437,9 +453,12 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 		}
 	}
 
-	public void DispenseGadgetForPlayer(SIPlayer player)
+	public void AuthorityDispenseGadgetForPlayer(SIPlayer player)
 	{
-		this.m_isTryOn = false;
+		if (!this.IsAuthority)
+		{
+			return;
+		}
 		int num = 0;
 		int staticHash = this.CurrentNode.unlockedGadgetPrefab.name.GetStaticHash();
 		for (int i = player.activePlayerGadgets.Count - 1; i >= 0; i--)
@@ -465,7 +484,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 		{
 			num2 |= 1 << graphNode.Value.upgradeType.GetNodeId();
 		}
-		upgrades.SetBits(upgrades.GetBits() & num2);
+		upgrades.SetBits(this.m_isTryOn ? num2 : (upgrades.GetBits() & num2));
 		foreach (SITechTreeNode sitechTreeNode in this.CurrentPage.DispensableGadgets)
 		{
 			if (sitechTreeNode != this.CurrentNode)
@@ -473,15 +492,12 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 				upgrades.Remove(sitechTreeNode.upgradeType);
 			}
 		}
-		GameEntityId id = this.GameEntityManager.RequestCreateItem(staticHash, this.gadgetDispensePosition.position, this.gadgetDispensePosition.rotation, upgrades.GetCreateData(player));
-		if (this.m_isTryOn && id.IsValid())
+		long num3 = upgrades.GetCreateData(player);
+		if (this.m_isTryOn)
 		{
-			GameEntity gameEntity = this.GameEntityManager.GetGameEntity(id);
-			if (gameEntity != null)
-			{
-				gameEntity.gameObject.AddComponent<GameEntityDelayedDestroy>().Configure(this.m_tryOnLifetime, this.m_tryOnBeepClip, this.m_tryOnExplosionClip, this.m_tryOnBeepPhases, this.m_tryOnBeepVolume, this.m_tryOnExplosionVolume);
-			}
+			num3 |= long.MinValue;
 		}
+		this.GameEntityManager.RequestCreateItem(staticHash, this.gadgetDispensePosition.position, this.gadgetDispensePosition.rotation, num3);
 		this.dispenseSoundBankPlayer.Play();
 	}
 
@@ -536,44 +552,39 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 	public SICombinedTerminal parentTerminal;
 
 	[Header("TryOn")]
-	[FormerlySerializedAs("isTryOn")]
 	[SerializeField]
 	private bool m_isTryOn;
 
 	[SerializeField]
-	private float m_tryOnLifetime = 30f;
-
-	[SerializeField]
-	private AudioClip m_tryOnBeepClip;
-
-	[SerializeField]
-	private AudioClip m_tryOnExplosionClip;
-
-	[SerializeField]
-	private GameEntityDelayedDestroy.BeepPhase[] m_tryOnBeepPhases = new GameEntityDelayedDestroy.BeepPhase[]
+	private GameEntityDelayedDestroy.Options m_tryOnOptions = new GameEntityDelayedDestroy.Options
 	{
-		new GameEntityDelayedDestroy.BeepPhase
+		delay = 30f,
+		explosionVolume = 1f,
+		beepVolume = 1f,
+		beepPhases = new GameEntityDelayedDestroy.BeepPhase[]
 		{
-			timeRemaining = 10f,
-			interval = 1f
-		},
-		new GameEntityDelayedDestroy.BeepPhase
-		{
-			timeRemaining = 5f,
-			interval = 0.5f
-		},
-		new GameEntityDelayedDestroy.BeepPhase
-		{
-			timeRemaining = 2f,
-			interval = 0.1f
+			new GameEntityDelayedDestroy.BeepPhase
+			{
+				timeRemaining = 10f,
+				interval = 1f
+			},
+			new GameEntityDelayedDestroy.BeepPhase
+			{
+				timeRemaining = 5f,
+				interval = 0.5f
+			},
+			new GameEntityDelayedDestroy.BeepPhase
+			{
+				timeRemaining = 2f,
+				interval = 0.25f
+			}
 		}
 	};
 
-	[SerializeField]
-	private float m_tryOnBeepVolume = 1f;
-
-	[SerializeField]
-	private float m_tryOnExplosionVolume = 1f;
+	internal static GameEntityDelayedDestroy.Options g_tryOnOptions = new GameEntityDelayedDestroy.Options
+	{
+		delay = 1f
+	};
 
 	public GameObject waitingForScanScreen;
 

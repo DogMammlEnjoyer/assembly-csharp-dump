@@ -20,17 +20,17 @@ namespace Liv.Lck
 
 		public virtual void EnableCapture()
 		{
-			LckLog.Log("Wwise: enable capture");
+			LckLog.Log("Wwise: enable capture", "EnableCapture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioCaptureWwise.cs", 81);
 		}
 
 		public virtual void DisableCapture()
 		{
-			LckLog.Log("Wwise: disable capture");
+			LckLog.Log("Wwise: disable capture", "DisableCapture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioCaptureWwise.cs", 97);
 		}
 
 		private void OnDestroy()
 		{
-			LckLog.Log("Wwise destroyed");
+			LckLog.Log("Wwise destroyed", "OnDestroy", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioCaptureWwise.cs", 120);
 		}
 
 		public void GetAudioData(ILckAudioSource.AudioDataCallbackDelegate callback)

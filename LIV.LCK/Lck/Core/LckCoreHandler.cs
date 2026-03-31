@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Liv.Lck.Settings;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -23,6 +24,8 @@ namespace Liv.Lck.Core
 			{
 				Debug.Log("LCK Core Handler initializing...");
 			}
+			IReadOnlyCollection<InteractionSystemDetector.InteractionSystem> availableInteractionSystems = InteractionSystemDetector.GetAvailableInteractionSystems();
+			string interactionSystems = (availableInteractionSystems.Count == 0) ? "Unknown" : string.Join<InteractionSystemDetector.InteractionSystem>(";", availableInteractionSystems);
 			GameInfo gameInfo = new GameInfo
 			{
 				GameName = instance.GameName,
@@ -33,27 +36,33 @@ namespace Liv.Lck.Core
 				RenderPipeline = LckCoreHandler.GetRenderPipelineType(),
 				GraphicsAPI = SystemInfo.graphicsDeviceType.ToString(),
 				Platform = Application.platform.ToString(),
-				PersistentDataPath = Application.persistentDataPath
+				PersistentDataPath = Application.persistentDataPath,
+				InteractionSystems = interactionSystems
 			};
 			LckInfo lckInfo = new LckInfo
 			{
-				Version = "1.4.3",
-				BuildNumber = -1,
-				ForceStagingEnvironment = LckSettings.Instance.ForceStagingEnvironment
+				Version = "1.4.5",
+				BuildNumber = -1
 			};
 			LckCoreHandler.LckCoreInitializationResult = LckCore.Initialize(instance.TrackingId, gameInfo, lckInfo);
-			if (LckCoreHandler.LckCoreInitializationResult.IsOk)
+			if (!LckCoreHandler.LckCoreInitializationResult.IsOk)
 			{
-				return;
-			}
-			CoreError? err = LckCoreHandler.LckCoreInitializationResult.Err;
-			CoreError coreError = CoreError.MissingTrackingId;
-			if (err.GetValueOrDefault() == coreError & err != null)
-			{
+				CoreError? err = LckCoreHandler.LckCoreInitializationResult.Err;
+				CoreError coreError = CoreError.MissingTrackingId;
+				if (!(err.GetValueOrDefault() == coreError & err != null))
+				{
+					err = LckCoreHandler.LckCoreInitializationResult.Err;
+					coreError = CoreError.InvalidTrackingId;
+					if (!(err.GetValueOrDefault() == coreError & err != null))
+					{
+						Debug.LogError(string.Format("LCK: LCK Core initialization failed: {0} - {1}", LckCoreHandler.LckCoreInitializationResult.Err, LckCoreHandler.LckCoreInitializationResult.Message));
+						return;
+					}
+				}
 				Debug.LogError("LCK: Missing or bad Tracking ID supplied. Recording and streaming will not be available.");
 				return;
 			}
-			Debug.LogError(string.Format("LCK: LCK Core initialization failed: {0} - {1}", LckCoreHandler.LckCoreInitializationResult.Err, LckCoreHandler.LckCoreInitializationResult.Message));
+			LckLog.OnLckCoreInitialized();
 		}
 
 		private static string GetRenderPipelineType()

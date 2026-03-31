@@ -8,6 +8,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public sealed class InfoBoxAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"icon",
+			"HasDefinedIcon"
+		})]
 		public SdfIconType Icon
 		{
 			get
@@ -53,6 +59,7 @@ namespace Sirenix.OdinInspector
 
 		public bool GUIAlwaysEnabled;
 
+		[ColorResolver]
 		public string IconColor;
 
 		private SdfIconType icon;

@@ -7,6 +7,14 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class ButtonAttribute : ShowInInspectorAttribute
 	{
+		[PropertyOrder(-6f)]
+		[ShowInInspector]
+		[ButtonHeightSelector]
+		[OdinDesignerBinding(new string[]
+		{
+			"buttonHeight",
+			"HasDefinedButtonHeight"
+		})]
 		public int ButtonHeight
 		{
 			get
@@ -20,6 +28,13 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[PropertyOrder(-7f)]
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"buttonIconAlignment",
+			"HasDefinedButtonIconAlignment"
+		})]
 		public IconAlignment IconAlignment
 		{
 			get
@@ -33,6 +48,13 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[PropertyOrder(-5f)]
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"buttonAlignment",
+			"HasDefinedButtonAlignment"
+		})]
 		public float ButtonAlignment
 		{
 			get
@@ -46,6 +68,13 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[PropertyOrder(-4f)]
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"stretch",
+			"HasDefinedStretch"
+		})]
 		public bool Stretch
 		{
 			get
@@ -59,6 +88,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"drawResult",
+			"drawResultIsSet"
+		})]
 		public bool DrawResult
 		{
 			get
@@ -189,8 +224,10 @@ namespace Sirenix.OdinInspector
 			this.Icon = icon;
 		}
 
+		[PropertyOrder(-10f)]
 		public string Name;
 
+		[PropertyOrder(-9f)]
 		public ButtonStyle Style;
 
 		public bool Expanded;
@@ -199,6 +236,7 @@ namespace Sirenix.OdinInspector
 
 		public bool DirtyOnClick = true;
 
+		[PropertyOrder(-8f)]
 		public SdfIconType Icon;
 
 		private int buttonHeight;

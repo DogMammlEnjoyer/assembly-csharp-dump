@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using Cysharp.Text;
 using GorillaLocomotion;
 using GorillaLocomotion.Climbing;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -39,6 +41,60 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 		}
 	}
 
+	public void DebugSlotsReport(string header)
+	{
+		try
+		{
+			string format = "[SlotsReport] {0} | currManager={1} localActor={2} | slots: ";
+			GameEntityManager gameEntityManager = this.currGameEntityManager;
+			object arg = (gameEntityManager != null) ? new GTZone?(gameEntityManager.zone) : null;
+			Player localPlayer = PhotonNetwork.LocalPlayer;
+			string text = string.Format(format, header, arg, (localPlayer != null) ? localPlayer.ActorNumber : -1);
+			for (int i = 0; i < 4; i++)
+			{
+				GameEntity gameEntity;
+				GamePlayer.SlotData slotData;
+				if (this.gamePlayer.TryGetSlotEntity(i, out gameEntity))
+				{
+					if (gameEntity != null)
+					{
+						string str = text;
+						string format2 = "[{0}: id={1} '{2}' type={3} mgr={4}] ";
+						object[] array = new object[5];
+						array[0] = i;
+						array[1] = gameEntity.id.index;
+						array[2] = gameEntity.name;
+						array[3] = gameEntity.typeId;
+						int num = 4;
+						GameEntityManager manager = gameEntity.manager;
+						array[num] = ((manager != null) ? new GTZone?(manager.zone) : null);
+						text = str + string.Format(format2, array);
+					}
+					else
+					{
+						text += string.Format("[{0}: STALE entity returned by TryGetSlotEntity!] ", i);
+					}
+				}
+				else if (this.gamePlayer.TryGetSlotData(i, out slotData))
+				{
+					string str2 = text;
+					string format3 = "[{0}: rawId={1} mgr={2} ORPHANED_SLOT_DATA] ";
+					object arg2 = i;
+					object arg3 = slotData.entityId.index;
+					GameEntityManager entityManager = slotData.entityManager;
+					text = str2 + string.Format(format3, arg2, arg3, (entityManager != null) ? new GTZone?(entityManager.zone) : null);
+				}
+				else
+				{
+					text += string.Format("[{0}: empty] ", i);
+				}
+			}
+		}
+		catch (Exception)
+		{
+		}
+	}
+
 	private void UpdateInput(int handIndex)
 	{
 		XRNode xrnode = this.GetXRNode(handIndex);
@@ -68,16 +124,22 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 		{
 			return;
 		}
+		this.DebugSlotsReport(string.Format("Pre-Migrate to zone={0}", (newEntityManager != null) ? new GTZone?(newEntityManager.zone) : null));
 		if (newEntityManager.IsAuthority())
 		{
-			this.gamePlayer.MigrateToEntityManager(newEntityManager);
+			this.gamePlayer.AuthorityMigrateToEntityManager(newEntityManager);
 		}
 		this.currGameEntityManager = newEntityManager;
 		List<GameEntityCreateData> entityData;
-		if (GamePlayerLocal.TryGetMigrationRecoveryList(newEntityManager, out entityData))
+		if (this.joinWithItemsSentForCurrentMigration)
+		{
+			this.joinWithItemsSentForCurrentMigration = false;
+		}
+		else if (GamePlayerLocal.TryGetMigrationRecoveryList(newEntityManager, out entityData))
 		{
 			this.currGameEntityManager.RequestMigrationRecovery(entityData);
 		}
+		this.DebugSlotsReport(string.Format("Post-Migrate to zone={0}", (newEntityManager != null) ? new GTZone?(newEntityManager.zone) : null));
 	}
 
 	public void SetGrabbed(GameEntityId gameBallId, int handIndex)
@@ -93,11 +155,11 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 		EquipmentInteractor.instance.disableRightGrab = gameBallId.IsValid();
 	}
 
-	public void ClearGrabbedIfHeld(GameEntityId gameBallId)
+	public void ClearGrabbedIfHeld(GameEntityId gameBallId, GameEntityManager manager)
 	{
 		for (int i = 0; i <= 1; i++)
 		{
-			if (this.gamePlayer.IsInSlot(i, gameBallId.index))
+			if (this.gamePlayer.IsInSlot(i, gameBallId.index, manager))
 			{
 				this.ClearGrabbed(i);
 			}
@@ -177,27 +239,35 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 				Vector3 vector2 = transform.InverseTransformPoint(position2);
 				Quaternion quaternion = Quaternion.Inverse(transform.rotation) * rotation2;
 				gameEntityManager.RequestGrabEntity(gameEntityId, flag, vector2, quaternion);
-				GamePlayerLocal.SetGrabSlotRecoveryData(handIndex, gameEntity.typeId, gameEntity.createData, vector2, quaternion);
+				if (gameEntity.GetComponent<GameEntityDelayedDestroy>() == null)
+				{
+					GamePlayerLocal.SetGrabSlotRecoveryData(handIndex, gameEntity.typeId, gameEntity.createData, vector2, quaternion);
+					int num3 = 1 - handIndex;
+					if (GamePlayer.IsGrabSlot(num3) && GamePlayerLocal.slotsRecoveryData[num3].entityTypeId == gameEntity.typeId)
+					{
+						GamePlayerLocal.SetSlotRecoveryData(num3, -1, 0L);
+					}
+				}
 			}
 		}
 		if (flag3 && num2 < 0.15000000596046448)
 		{
 			Vector3 position3 = this.gamePlayer.GetHandTransform(handIndex).position;
 			GameTriggerInteractable gameTriggerInteractable = null;
-			float num3 = float.MaxValue;
-			int num4 = 0;
-			while (num4 < GameTriggerInteractable.LocalInteractableTriggers.Count && !GameTriggerInteractable.LocalInteractableTriggers[num4].triggerInteractionActive)
+			float num4 = float.MaxValue;
+			int num5 = 0;
+			while (num5 < GameTriggerInteractable.LocalInteractableTriggers.Count && !GameTriggerInteractable.LocalInteractableTriggers[num5].triggerInteractionActive)
 			{
-				if (GameTriggerInteractable.LocalInteractableTriggers[num4].PointWithinInteractableArea(position3))
+				if (GameTriggerInteractable.LocalInteractableTriggers[num5].PointWithinInteractableArea(position3))
 				{
-					float magnitude = (GameTriggerInteractable.LocalInteractableTriggers[num4].interactableCenter.position - position3).magnitude;
-					if (magnitude <= num3)
+					float magnitude = (GameTriggerInteractable.LocalInteractableTriggers[num5].interactableCenter.position - position3).magnitude;
+					if (magnitude <= num4)
 					{
-						num3 = magnitude;
-						gameTriggerInteractable = GameTriggerInteractable.LocalInteractableTriggers[num4];
+						num4 = magnitude;
+						gameTriggerInteractable = GameTriggerInteractable.LocalInteractableTriggers[num5];
 					}
 				}
-				num4++;
+				num5++;
 			}
 			if (gameTriggerInteractable != null)
 			{
@@ -231,7 +301,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 				{
 					gameEntityManager.RequestSnapEntity(grabbedGameEntityId, flag, superInfectionSnapPoint.jointType);
 					int slot;
-					if (GameSnappable.TryGetJointToSnapIndex(superInfectionSnapPoint.jointType, out slot))
+					if (gameEntity.GetComponent<GameEntityDelayedDestroy>() == null && GameSnappable.TryGetJointToSnapIndex(superInfectionSnapPoint.jointType, out slot))
 					{
 						GamePlayerLocal.SetSlotRecoveryData(slot, gameEntity.typeId, gameEntity.createData);
 						GamePlayerLocal.SaveSnapSlotsRateLimited();
@@ -437,7 +507,6 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 					utf16ValueStringBuilder.Append("|");
 				}
 			}
-			Debug.Log("POOP - _SaveSnapSlotsImmediately - sb=" + utf16ValueStringBuilder.ToString() + "\n(keywords: gameentitymanager, gameplayer, save)");
 			PlayerPrefs.SetString("GT_SnappedItems_V1", utf16ValueStringBuilder.ToString());
 			PlayerPrefs.Save();
 		}
@@ -462,17 +531,14 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 				rot = Quaternion.identity
 			};
 		}
-		string @string = PlayerPrefs.GetString("GT_SnappedItems_V1");
-		string[] array = @string.Split('|', StringSplitOptions.RemoveEmptyEntries);
-		Debug.Log("POOP - _LoadSnappedPlayerPrefsToCache - rawString=\"" + @string + "\"\n(keywords: gameentitymanager, gameplayer, save)");
-		string[] array2 = array;
-		for (int k = 0; k < array2.Length; k++)
+		string[] array = PlayerPrefs.GetString("GT_SnappedItems_V1").Split('|', StringSplitOptions.RemoveEmptyEntries);
+		for (int k = 0; k < array.Length; k++)
 		{
-			string[] array3 = array2[k].Split(',', StringSplitOptions.None);
+			string[] array2 = array[k].Split(',', StringSplitOptions.None);
 			int num;
 			int entityTypeId;
 			long createData;
-			if (array3.Length >= 3 && int.TryParse(array3[0], out num) && num < 4 && GamePlayer.IsSnapSlot(num) && int.TryParse(array3[1], out entityTypeId) && long.TryParse(array3[2], out createData))
+			if (array2.Length >= 3 && int.TryParse(array2[0], out num) && num < 4 && GamePlayer.IsSnapSlot(num) && int.TryParse(array2[1], out entityTypeId) && long.TryParse(array2[2], out createData))
 			{
 				GamePlayerLocal.slotsRecoveryData[num] = new GamePlayerLocal.SlotRecoveryData
 				{
@@ -504,10 +570,16 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 		{
 			GamePlayerLocal.SlotRecoveryData slotRecoveryData = GamePlayerLocal.slotsRecoveryData[i];
 			int entityTypeId = slotRecoveryData.entityTypeId;
-			bool flag = entityTypeId != -1;
+			bool flag = entityTypeId != -1 && newEntityManager.FactoryPrefabById(entityTypeId) != null;
 			GamePlayer.SlotData slotData;
 			bool flag2 = gamePlayer.TryGetSlotData(i, out slotData);
-			if (flag || flag2)
+			if (!flag && !flag2)
+			{
+				if (entityTypeId != -1)
+				{
+				}
+			}
+			else
 			{
 				bool flag3 = newEntityManager != null && newEntityManager == slotData.entityManager;
 				GameEntity gameEntity = flag3 ? newEntityManager.GetGameEntity(slotData.entityId) : null;
@@ -521,15 +593,40 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 					Debug.unityLogger.Log(flag ? LogType.Log : LogType.Error, message);
 					if (flag)
 					{
-						GamePlayerLocal._migrationRecoveryList.Add(new GameEntityCreateData
+						long createData = slotRecoveryData.createData;
+						if (newEntityManager.LocalValidateMigrationRecoveryItem(entityTypeId, ref createData))
 						{
-							entityTypeId = entityTypeId,
-							position = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].pos : Vector3.zero),
-							rotation = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].rot : Quaternion.identity),
-							createData = slotRecoveryData.createData,
-							createdByEntityId = -1,
-							slotIndex = i
-						});
+							bool flag7 = false;
+							for (int j = 0; j < 4; j++)
+							{
+								GamePlayer.SlotData slotData2;
+								if (j != i && gamePlayer.TryGetSlotData(j, out slotData2) && !(slotData2.entityManager == null))
+								{
+									GameEntity gameEntity2 = slotData2.entityManager.GetGameEntity(slotData2.entityId);
+									if (gameEntity2 != null && gameEntity2.typeId == entityTypeId)
+									{
+										flag7 = true;
+										break;
+									}
+								}
+							}
+							if (flag7)
+							{
+								GamePlayerLocal.SetSlotRecoveryData(i, -1, 0L);
+							}
+							else
+							{
+								GamePlayerLocal._migrationRecoveryList.Add(new GameEntityCreateData
+								{
+									entityTypeId = entityTypeId,
+									position = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].pos : Vector3.zero),
+									rotation = (GamePlayer.IsGrabSlot(i) ? GamePlayerLocal.grabSlotsExtraRecoveryData[i].rot : Quaternion.identity),
+									createData = createData,
+									createdByEntityId = -1,
+									slotIndex = i
+								});
+							}
+						}
 					}
 				}
 			}
@@ -574,6 +671,9 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 
 	[NonSerialized]
 	public GameEntityManager currGameEntityManager;
+
+	[NonSerialized]
+	internal bool joinWithItemsSentForCurrentMigration;
 
 	private static readonly List<GameEntityCreateData> _migrationRecoveryList = new List<GameEntityCreateData>(4);
 

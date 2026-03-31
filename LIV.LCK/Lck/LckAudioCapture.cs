@@ -42,7 +42,7 @@ namespace Liv.Lck
 				{
 					if (!this._audioBuffer.TryExtendFrom(data))
 					{
-						LckLog.LogWarning("LCK Audio Capture losing data. Expecting this to be a lag spike.");
+						LckLog.LogWarning("LCK Audio Capture losing data. Expecting this to be a lag spike.", "OnAudioFilterRead", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioCapture.cs", 48);
 					}
 				}
 			}

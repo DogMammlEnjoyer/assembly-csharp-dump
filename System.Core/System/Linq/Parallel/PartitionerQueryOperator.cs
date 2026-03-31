@@ -31,8 +31,8 @@ namespace System.Linq.Parallel
 			{
 				while (enumerator.MoveNext())
 				{
-					TElement telement = enumerator.Current;
-					yield return telement;
+					!0 ! = enumerator.Current;
+					yield return !;
 				}
 			}
 			IEnumerator<TElement> enumerator = null;

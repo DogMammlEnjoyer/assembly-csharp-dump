@@ -56,7 +56,7 @@ namespace System.Collections.Concurrent
 			{
 				throw new InvalidOperationException("GetPartitions returned an incorrect number of partitions.");
 			}
-			IEnumerator<TSource>[] array = new IEnumerator<TSource>[partitionCount];
+			IEnumerator<TSource>[] array = new IEnumerator<!0>[partitionCount];
 			for (int i = 0; i < partitionCount; i++)
 			{
 				array[i] = new OrderablePartitioner<TSource>.EnumeratorDropIndices(orderablePartitions[i]);

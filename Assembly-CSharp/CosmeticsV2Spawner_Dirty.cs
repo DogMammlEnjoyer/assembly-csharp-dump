@@ -458,7 +458,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 			if (snowballThrowable != null)
 			{
 				CosmeticsV2Spawner_Dirty.AddPartToThrowableLists(loadOpInfo, snowballThrowable);
-				goto IL_61D;
+				goto IL_63A;
 			}
 			TransferrableObject transferrableObject = componentInChildren3 as TransferrableObject;
 			if (transferrableObject == null)
@@ -467,7 +467,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 				{
 					throw new Exception("Encountered unexpected HoldableObject derived type on cosmetic part: \"" + loadOpInfo.cosmeticInfoV2.displayName + "\"");
 				}
-				goto IL_61D;
+				goto IL_63A;
 			}
 			else
 			{
@@ -511,25 +511,30 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 				{
 					vrrigData.vrRig.projectileWeapon = projectileWeapon;
 				}
-				if (transferrableObject.myIndex > 0 && transferrableObject.myIndex < vrrigData.bdPositions_allObjects_length)
+				if (transferrableObject.myIndex <= 0 || transferrableObject.myIndex >= vrrigData.bdPositions_allObjects_length)
 				{
-					vrrigData.bdPositionsComp._allObjects[transferrableObject.myIndex] = transferrableObject;
-					goto IL_61D;
+					goto IL_63A;
 				}
-				goto IL_61D;
+				vrrigData.bdPositionsComp._allObjects[transferrableObject.myIndex] = transferrableObject;
+				if (!vrrigData.vrRig.isOfflineVRRig)
+				{
+					vrrigData.bdPositionsComp.RefreshTransferrableItems();
+					goto IL_63A;
+				}
+				goto IL_63A;
 			}
 			break;
 		}
 		case ECosmeticPartType.Functional:
 			vrrigData.vrRig_cosmetics.Add(transform2.gameObject);
-			goto IL_61D;
+			goto IL_63A;
 		case ECosmeticPartType.FirstPerson:
 		case ECosmeticPartType.LocalRig:
 			vrrigData.vrRig_override.Add(transform2.gameObject);
-			goto IL_61D;
+			goto IL_63A;
 		}
 		throw new ArgumentOutOfRangeException("Unexpected ECosmeticPartType value encountered: " + string.Format("{0}, ", loadOpInfo.part.partType) + string.Format("int: {0}.", (int)loadOpInfo.part.partType));
-		IL_61D:
+		IL_63A:
 		if (loadOpInfo.vrRigIndex > -1)
 		{
 			CosmeticsV2Spawner_Dirty._gVRRigDatas[loadOpInfo.vrRigIndex] = vrrigData;

@@ -2263,7 +2263,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		if (gameEntity.heldByActorNumber >= 0 && GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
 		{
 			int handIndex = gamePlayer.FindHandIndex(entityId);
-			gamePlayer.ClearGrabbedIfHeld(entityId);
+			gamePlayer.ClearGrabbedIfHeld(entityId, this.gameEntityManager);
 			if (gameEntity.heldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
 			{
 				GamePlayerLocal.instance.gamePlayer.ClearGrabbed(handIndex);

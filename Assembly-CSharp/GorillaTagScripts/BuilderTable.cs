@@ -2064,8 +2064,9 @@ namespace GorillaTagScripts
 				if (!this.isTableMutable)
 				{
 					GTDev.LogError<string>(string.Format("Deserialized bad CreatePiece parameters. held piece in immutable table {0}", pieceId), null);
+					return false;
 				}
-				else if (localPosition.sqrMagnitude > 6.25f)
+				if (localPosition.sqrMagnitude > 6.25f)
 				{
 					return false;
 				}
@@ -2281,6 +2282,10 @@ namespace GorillaTagScripts
 
 		private bool ValidateAttachPieceParams(int pieceId, int attachIndex, int parentId, int parentAttachIndex, int piecePlacement)
 		{
+			if (pieceId == parentId)
+			{
+				return false;
+			}
 			BuilderPiece piece = this.GetPiece(pieceId);
 			if (piece == null)
 			{
@@ -2394,6 +2399,13 @@ namespace GorillaTagScripts
 						{
 							piece2.ClearParentHeld();
 							this.playerToArmShelfLeft.Remove(actorNumber);
+							Vector3 position;
+							Quaternion rotation;
+							piece2.transform.GetPositionAndRotation(out position, out rotation);
+							if (!this.ValidatePieceWorldTransform(position, rotation))
+							{
+								this.RecyclePieceInternal(piece2.pieceId, true, false, -1);
+							}
 						}
 					}
 					this.playerToArmShelfLeft.TryAdd(actorNumber, pieceId);
@@ -2410,6 +2422,13 @@ namespace GorillaTagScripts
 						{
 							piece3.ClearParentHeld();
 							this.playerToArmShelfRight.Remove(actorNumber);
+							Vector3 position2;
+							Quaternion rotation2;
+							piece3.transform.GetPositionAndRotation(out position2, out rotation2);
+							if (!this.ValidatePieceWorldTransform(position2, rotation2))
+							{
+								this.RecyclePieceInternal(piece3.pieceId, true, false, -1);
+							}
 						}
 					}
 					this.playerToArmShelfRight.TryAdd(actorNumber, pieceId);
@@ -5433,6 +5452,11 @@ namespace GorillaTagScripts
 			{
 				return;
 			}
+			Vector3 position;
+			Quaternion rotation;
+			VRRigCache.Instance.localRig.SpeakerHead.transform.GetPositionAndRotation(out position, out rotation);
+			bool flag = this.ValidatePieceWorldTransform(position, rotation);
+			int actorNumber = NetworkSystem.Instance.LocalPlayer.ActorNumber;
 			BinaryReader binaryReader = new BinaryReader(new MemoryStream(bytes));
 			BuilderTable.tempPeiceIds.Clear();
 			BuilderTable.tempParentPeiceIds.Clear();
@@ -5442,21 +5466,21 @@ namespace GorillaTagScripts
 			BuilderTable.tempInLeftHand.Clear();
 			BuilderTable.tempPiecePlacement.Clear();
 			int num = binaryReader.ReadInt32();
-			bool flag = this.conveyors != null;
+			bool flag2 = this.conveyors != null;
 			for (int i = 0; i < num; i++)
 			{
 				int selection = binaryReader.ReadInt32();
-				if (flag && i < this.conveyors.Count)
+				if (flag2 && i < this.conveyors.Count)
 				{
 					this.conveyors[i].SetSelection(selection);
 				}
 			}
 			int num2 = binaryReader.ReadInt32();
-			bool flag2 = this.dispenserShelves != null;
+			bool flag3 = this.dispenserShelves != null;
 			for (int j = 0; j < num2; j++)
 			{
 				int selection2 = binaryReader.ReadInt32();
-				if (flag2 && j < this.dispenserShelves.Count)
+				if (flag3 && j < this.dispenserShelves.Count)
 				{
 					this.dispenserShelves[j].SetSelection(selection2);
 				}
@@ -5489,7 +5513,7 @@ namespace GorillaTagScripts
 					num8 = num5;
 					num5 = -1;
 				}
-				if (this.ValidateDeserializedRootPieceState(num4, state, num8, num5, vector, quaternion))
+				if ((num5 != actorNumber || flag) && this.ValidateDeserializedRootPieceState(num4, state, num8, num5, vector, quaternion))
 				{
 					BuilderPiece builderPiece = this.CreatePieceInternal(newPieceType, num4, vector, quaternion, state, materialType, activateTimeStamp, this);
 					BuilderTable.tempPeiceIds.Add(num4);
@@ -5553,7 +5577,7 @@ namespace GorillaTagScripts
 					num13 = num11;
 					num11 = -1;
 				}
-				if (this.ValidateDeserializedChildPieceState(num10, state2))
+				if ((num11 != actorNumber || flag) && this.ValidateDeserializedChildPieceState(num10, state2))
 				{
 					BuilderPiece builderPiece2 = this.CreatePieceInternal(newPieceType2, num10, this.roomCenter.position, Quaternion.identity, state2, materialType2, activateTimeStamp2, this);
 					builderPiece2.SetFunctionalPieceState(fState2, NetPlayer.Get(PhotonNetwork.MasterClient), PhotonNetwork.ServerTimestamp);

@@ -37,13 +37,13 @@ namespace Liv.Lck.Cosmetics
 		{
 			if (this._targetGameObject == null)
 			{
-				LckLog.LogError("LCK: Target GameObject is not assigned on LckGameObjectSwapCosmetic. Cannot apply skin.");
+				LckLog.LogError("LCK: Target GameObject is not assigned on LckGameObjectSwapCosmetic. Cannot apply skin.", "OnCosmeticLoaded", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckGameObjectSwapCosmetic.cs", 47);
 				return;
 			}
 			GameObject gameObject = assets.FirstOrDefault<Object>() as GameObject;
 			if (gameObject == null)
 			{
-				LckLog.LogWarning("LCK: Expected a GameObject from the cosmetic bundle, but found none or it was invalid.");
+				LckLog.LogWarning("LCK: Expected a GameObject from the cosmetic bundle, but found none or it was invalid.", "OnCosmeticLoaded", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckGameObjectSwapCosmetic.cs", 55);
 				return;
 			}
 			if (this._instantiatedCosmetic != null)
@@ -68,7 +68,7 @@ namespace Liv.Lck.Cosmetics
 				"' to replace '",
 				this._targetGameObject.name,
 				"'."
-			}));
+			}), "OnCosmeticLoaded", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckGameObjectSwapCosmetic.cs", 75);
 		}
 
 		private void SetLayerRecursively(GameObject obj, int layer)

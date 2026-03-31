@@ -23,7 +23,7 @@ namespace Liv.Lck
 			}
 			this._camera.enabled = false;
 			LckMediator.RegisterCamera(this);
-			LckLog.Log("Configuring URP camera data for camera: " + this._cameraId);
+			LckLog.Log("Configuring URP camera data for camera: " + this._cameraId, "Awake", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCamera.cs", 31);
 			UniversalAdditionalCameraData universalAdditionalCameraData;
 			if (!this._camera.TryGetComponent<UniversalAdditionalCameraData>(out universalAdditionalCameraData))
 			{

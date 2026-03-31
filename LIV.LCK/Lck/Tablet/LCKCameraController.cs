@@ -86,7 +86,6 @@ namespace Liv.Lck.Tablet
 			int num = LayerMask.NameToLayer(this._tabletRenderingLayer);
 			if (num == -1)
 			{
-				LckLog.LogError("LCK Tablet layer '" + this._tabletRenderingLayer + "' not found. Please add it to Project Settings > Tags and Layers.");
 				return;
 			}
 			foreach (GameObject gameObject in this._objectsHiddenFromSelfieCamera)
@@ -298,13 +297,13 @@ namespace Liv.Lck.Tablet
 		{
 			if (this._lckService == null)
 			{
-				LckLog.LogError("No Lck Service found when trying to set mic state to: " + isMicOn.ToString());
+				LckLog.LogError("No Lck Service found when trying to set mic state to: " + isMicOn.ToString(), "ToggleMicrophoneRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LCKCameraController.cs", 534);
 				return;
 			}
 			LckResult lckResult = this._lckService.SetMicrophoneCaptureActive(isMicOn);
 			if (!lckResult.Success)
 			{
-				LckLog.LogError(string.Format("LCK Could not enable microphone capture: {0}", lckResult.Error));
+				LckLog.LogError(string.Format("LCK Could not enable microphone capture: {0}", lckResult.Error), "ToggleMicrophoneRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LCKCameraController.cs", 541);
 			}
 		}
 
@@ -475,9 +474,14 @@ namespace Liv.Lck.Tablet
 		{
 			if (this._lckService == null)
 			{
+				LckLog.LogWarning("LCK: SetActiveLckCamera(\"" + cameraId + "\") called before LCK service is initialized - Active camera will not be set", "SetActiveLckCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LCKCameraController.cs", 779);
 				return;
 			}
-			this._lckService.SetActiveCamera(cameraId, null);
+			LckResult lckResult = this._lckService.SetActiveCamera(cameraId, null);
+			if (!lckResult.Success)
+			{
+				LckLog.LogError("LCK: Failed to set active camera (id=\"" + cameraId + "\"): " + lckResult.Message, "SetActiveLckCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LCKCameraController.cs", 787);
+			}
 		}
 
 		[InjectLck]

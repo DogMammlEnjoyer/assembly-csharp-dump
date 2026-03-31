@@ -8,10 +8,13 @@ namespace Liv.Lck.Tablet
 		VideoSaved,
 		PhotoSaved,
 		EnterStreamCode,
-		CheckSubscribed,
 		ConfigureStream,
 		InternalError,
 		MissingTrackingId,
-		InvalidArgument
+		InvalidTrackingId,
+		InvalidArgument,
+		UnknownStreamingError,
+		ServiceUnavailable,
+		RateLimiterBackoff
 	}
 }

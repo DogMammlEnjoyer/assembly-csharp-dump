@@ -24,7 +24,7 @@ namespace System.Collections.Concurrent
 		{
 			this._crossSegmentLock = new object();
 			int num = 32;
-			ICollection<T> collection2 = collection as ICollection<T>;
+			ICollection<T> collection2 = collection as ICollection<!0>;
 			if (collection2 != null)
 			{
 				int count = collection2.Count;
@@ -101,7 +101,7 @@ namespace System.Collections.Concurrent
 		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate through the collection.</returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<T>)this).GetEnumerator();
+			return ((IEnumerable<!0>)this).GetEnumerator();
 		}
 
 		bool IProducerConsumerCollection<!0>.TryAdd(T item)
@@ -142,8 +142,8 @@ namespace System.Collections.Concurrent
 				int num = 0;
 				while (enumerator.MoveNext())
 				{
-					T t = enumerator.Current;
-					array[num++] = t;
+					!0 ! = enumerator.Current;
+					array[num++] = !;
 				}
 			}
 			return array;
@@ -269,8 +269,8 @@ namespace System.Collections.Concurrent
 			{
 				while (enumerator.MoveNext())
 				{
-					T t = enumerator.Current;
-					array[num++] = t;
+					!0 ! = enumerator.Current;
+					array[num++] = !;
 				}
 			}
 		}

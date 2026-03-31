@@ -63,6 +63,7 @@ namespace Sirenix.OdinInspector
 
 		public bool IncludeChildren;
 
+		[LabelWidth(170f)]
 		public bool ContinuousValidationCheck;
 	}
 }

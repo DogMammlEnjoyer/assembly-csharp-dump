@@ -4986,8 +4986,8 @@ namespace System.Linq
 					yield return tsource;
 					while (e.MoveNext())
 					{
-						TSource tsource2 = e.Current;
-						yield return tsource2;
+						!0 ! = e.Current;
+						yield return !;
 					}
 					yield break;
 				}
@@ -5033,8 +5033,8 @@ namespace System.Linq
 							yield return tsource;
 							while (e.MoveNext())
 							{
-								TSource tsource2 = e.Current;
-								yield return tsource2;
+								!0 ! = e.Current;
+								yield return !;
 							}
 							yield break;
 						}
@@ -6338,7 +6338,7 @@ namespace System.Linq
 				}
 				else
 				{
-					if (onlyIfCheap && !(this._source is ICollection<TSource>))
+					if (onlyIfCheap && !(this._source is ICollection<!0>))
 					{
 						return -1;
 					}
@@ -6459,7 +6459,7 @@ namespace System.Linq
 					array[num] = singleLinkedNode.Item;
 					num++;
 				}
-				ICollection<TSource> collection = this._source as ICollection<TSource>;
+				ICollection<TSource> collection = this._source as ICollection<!0>;
 				if (collection != null)
 				{
 					collection.CopyTo(array, num);
@@ -6495,7 +6495,7 @@ namespace System.Linq
 					IEnumerator<TSource> enumerator = this._appended.GetEnumerator(this._appendCount);
 					while (enumerator.MoveNext())
 					{
-						TSource item = enumerator.Current;
+						!0 item = enumerator.Current;
 						list.Add(item);
 					}
 				}
@@ -6516,7 +6516,7 @@ namespace System.Linq
 				}
 				else
 				{
-					if (onlyIfCheap && !(this._source is ICollection<TSource>))
+					if (onlyIfCheap && !(this._source is ICollection<!0>))
 					{
 						return -1;
 					}
@@ -6550,7 +6550,7 @@ namespace System.Linq
 
 			internal override Enumerable.ConcatIterator<TSource> Concat(IEnumerable<TSource> next)
 			{
-				bool hasOnlyCollections = next is ICollection<TSource> && this._first is ICollection<TSource> && this._second is ICollection<TSource>;
+				bool hasOnlyCollections = next is ICollection<!0> && this._first is ICollection<!0> && this._second is ICollection<!0>;
 				return new Enumerable.ConcatNIterator<TSource>(this, next, 2, hasOnlyCollections);
 			}
 
@@ -6643,7 +6643,7 @@ namespace System.Linq
 				{
 					return new Enumerable.Concat2Iterator<TSource>(this, next);
 				}
-				bool hasOnlyCollections = this._hasOnlyCollections && next is ICollection<TSource>;
+				bool hasOnlyCollections = this._hasOnlyCollections && next is ICollection<!0>;
 				return new Enumerable.ConcatNIterator<TSource>(this, next, this._headIndex + 1, hasOnlyCollections);
 			}
 
@@ -6662,7 +6662,7 @@ namespace System.Linq
 					{
 						concatNIterator2 = concatNIterator;
 						IEnumerable<TSource> head = concatNIterator2._head;
-						ICollection<TSource> collection = head as ICollection<TSource>;
+						ICollection<!0> collection = head as ICollection<!0>;
 						int num2 = (collection != null) ? collection.Count : head.Count<TSource>();
 						num += num2;
 					}
@@ -6749,7 +6749,7 @@ namespace System.Linq
 					do
 					{
 						concatNIterator2 = concatNIterator;
-						ICollection<TSource> collection = (ICollection<TSource>)concatNIterator2._head;
+						ICollection<TSource> collection = (ICollection<!0>)concatNIterator2._head;
 						int count2 = collection.Count;
 						if (count2 > 0)
 						{
@@ -6759,7 +6759,7 @@ namespace System.Linq
 					}
 					while ((concatNIterator = concatNIterator2.PreviousN) != null);
 					Enumerable.Concat2Iterator<TSource> concat2Iterator = (Enumerable.Concat2Iterator<TSource>)concatNIterator2._tail;
-					ICollection<TSource> collection2 = (ICollection<TSource>)concat2Iterator._second;
+					ICollection<TSource> collection2 = (ICollection<!0>)concat2Iterator._second;
 					int count3 = collection2.Count;
 					if (count3 > 0)
 					{
@@ -6767,7 +6767,7 @@ namespace System.Linq
 					}
 					if (num > count3)
 					{
-						((ICollection<TSource>)concat2Iterator._first).CopyTo(array, 0);
+						((ICollection<!0>)concat2Iterator._first).CopyTo(array, 0);
 					}
 					return array;
 				}
@@ -6930,7 +6930,7 @@ namespace System.Linq
 			public int GetCount(bool onlyIfCheap)
 			{
 				int num;
-				if (!onlyIfCheap || this._source is ICollection<TSource> || this._source is ICollection)
+				if (!onlyIfCheap || this._source is ICollection<!0> || this._source is ICollection)
 				{
 					num = this._source.Count<TSource>();
 				}
@@ -7821,7 +7821,7 @@ namespace System.Linq
 				{
 					return iilistProvider.GetCount(true);
 				}
-				ICollection<TSource> collection = source as ICollection<TSource>;
+				ICollection<TSource> collection = source as ICollection<!0>;
 				if (collection != null)
 				{
 					return collection.Count;

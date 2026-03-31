@@ -18,11 +18,6 @@ namespace Liv.Lck.Settings
 					if (LckSettings._instance != null)
 					{
 						Debug.Log("LCK Settings loaded from Resources");
-						Guid guid;
-						if (!Guid.TryParse(LckSettings._instance.TrackingId, out guid))
-						{
-							Debug.LogError("LCK TrackingId has not been set. This is only valid in development builds. Please set it in the LCK settings");
-						}
 					}
 					else
 					{
@@ -47,6 +42,23 @@ namespace Liv.Lck.Settings
 		}
 
 		public const string SettingsPath = "Assets/Resources/LckSettings.asset";
+
+		public const int RequiredAndroidApiLevel = 29;
+
+		[SerializeField]
+		public bool ShowSetupWizard = true;
+
+		[SerializeField]
+		[HideInInspector]
+		public string DismissedUpdateVersion = "";
+
+		[SerializeField]
+		[HideInInspector]
+		public string LastShownOverviewVersion = "";
+
+		[SerializeField]
+		[HideInInspector]
+		public string DismissedNotificationBarVersion = "";
 
 		[SerializeField]
 		public string TrackingId = "";
@@ -122,21 +134,14 @@ namespace Liv.Lck.Settings
 		[Tooltip("The format Photo images will be saved in.")]
 		public LckSettings.ImageFileFormat ImageCaptureFileFormat = LckSettings.ImageFileFormat.PNG;
 
-		[Header("Telemetry")]
-		[SerializeField]
-		public bool AllowDeviceTelemetry = true;
-
 		[Space(10f)]
 		[Header("Tablet Using Collider Settings")]
 		[Tooltip("When using the 'LCK Tablet Using Collider' prefab. Trigger events will check this tag. Make sure to add this tag on your XR Rig Direct Interactors for both controllers")]
 		[SerializeField]
 		public string TriggerEnterTag = "Hand";
 
-		[Header("Debug")]
-		public bool ForceStagingEnvironment;
-
 		[HideInInspector]
-		public const string Version = "1.4.3";
+		public const string Version = "1.4.5";
 
 		[HideInInspector]
 		public const int Build = -1;

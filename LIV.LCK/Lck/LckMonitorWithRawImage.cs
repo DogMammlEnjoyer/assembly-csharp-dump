@@ -11,7 +11,7 @@ namespace Liv.Lck
 			base.SetRenderTexture(renderTexture);
 			if (this._monitorImage == null)
 			{
-				LckLog.LogWarning("LckMonitorWithRawImage has no Raw Image assigned.");
+				LckLog.LogWarning("LckMonitorWithRawImage has no Raw Image assigned.", "SetRenderTexture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMonitorWithRawImage.cs", 20);
 				return;
 			}
 			this._monitorImage.texture = renderTexture;

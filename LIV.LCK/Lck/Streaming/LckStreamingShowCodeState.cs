@@ -31,11 +31,18 @@ namespace Liv.Lck.Streaming
 		{
 			LckStreamingShowCodeState.<WaitForUserToPairTablet>d__2 <WaitForUserToPairTablet>d__;
 			<WaitForUserToPairTablet>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
+			<WaitForUserToPairTablet>d__.<>4__this = this;
 			<WaitForUserToPairTablet>d__.controller = controller;
 			<WaitForUserToPairTablet>d__.cancellationToken = cancellationToken;
 			<WaitForUserToPairTablet>d__.<>1__state = -1;
 			<WaitForUserToPairTablet>d__.<>t__builder.Start<LckStreamingShowCodeState.<WaitForUserToPairTablet>d__2>(ref <WaitForUserToPairTablet>d__);
 			return <WaitForUserToPairTablet>d__.<>t__builder.Task;
+		}
+
+		private void LoginAttemptExpired(LckStreamingController controller)
+		{
+			controller.Log("Login request timed out after 15 mins, switching to camera mode");
+			controller.ToggleCameraPage();
 		}
 	}
 }

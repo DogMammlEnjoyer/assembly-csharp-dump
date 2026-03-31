@@ -38,18 +38,18 @@ namespace GorillaTag
 			this.m_itemProcessorDelegate = itemProcessorDelegate;
 		}
 
-		public void Add(in T item)
+		public virtual void Add(in T item)
 		{
 			this.m_listCount++;
 			this.m_list.Add(item);
 		}
 
-		public void Remove(in T item)
+		public virtual bool Remove(in T item)
 		{
 			int num = this.m_list.IndexOf(item);
 			if (num < 0)
 			{
-				return;
+				return false;
 			}
 			if (num < this.m_currentIndex)
 			{
@@ -57,6 +57,7 @@ namespace GorillaTag
 			}
 			this.m_listCount--;
 			this.m_list.RemoveAt(num);
+			return true;
 		}
 
 		public void Clear()
@@ -112,6 +113,11 @@ namespace GorillaTag
 				itemProcessorDelegate(t);
 				this.m_currentIndex++;
 			}
+		}
+
+		public IReadOnlyList<T> GetReadonlyList()
+		{
+			return this.m_list;
 		}
 
 		protected readonly List<T> m_list;

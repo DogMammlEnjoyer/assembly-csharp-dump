@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using GorillaTag;
+using GorillaTag.Gravity;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.XR;
@@ -62,6 +63,14 @@ public class GameEntity : MonoBehaviour
 	{
 		this.id = GameEntityId.Invalid;
 		this.rigidBody = base.GetComponent<Rigidbody>();
+		if (this.gravityController == null)
+		{
+			this.gravityController = base.GetComponent<MonkeGravityController>();
+			if (this.gravityController == null)
+			{
+				this.gravityController = base.gameObject.AddComponent<MonkeGravityController>();
+			}
+		}
 		this.heldByActorNumber = -1;
 		this.heldByHandIndex = -1;
 		this.onlyGrabActorNumber = -1;
@@ -136,8 +145,8 @@ public class GameEntity : MonoBehaviour
 			base.GetComponentsInChildren<MeshFilter>(true, this._meshFilters);
 			base.GetComponentsInChildren<SkinnedMeshRenderer>(true, this._grabbableRenderers.skinnedRenderers);
 			List<SkinnedMeshRenderer> skinnedRenderers = this._grabbableRenderers.skinnedRenderers;
-			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<MeshFilter>(this._meshFilters);
-			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<SkinnedMeshRenderer>(skinnedRenderers);
+			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|93_0<MeshFilter>(this._meshFilters);
+			this.<GetGrabbableRenderers>g__RemoveNotOwnedComponents|93_0<SkinnedMeshRenderer>(skinnedRenderers);
 			foreach (GameObject y in this.ignoreObjectGrabRenderers)
 			{
 				for (int j = 0; j < this._meshFilters.Count; j++)
@@ -178,7 +187,7 @@ public class GameEntity : MonoBehaviour
 
 	public void PlayCatchFx()
 	{
-		if (this.audioSource != null)
+		if (this.audioSource != null && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.volume = this.catchSoundVolume;
 			this.audioSource.GTPlayOneShot(this.catchSound, 1f);
@@ -187,7 +196,7 @@ public class GameEntity : MonoBehaviour
 
 	public void PlayThrowFx()
 	{
-		if (this.audioSource != null)
+		if (this.audioSource != null && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.volume = this.throwSoundVolume;
 			this.audioSource.GTPlayOneShot(this.throwSound, 1f);
@@ -196,7 +205,7 @@ public class GameEntity : MonoBehaviour
 
 	public void PlaySnapFx()
 	{
-		if (this.audioSource != null)
+		if (this.audioSource != null && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.volume = this.snapSoundVolume;
 			this.audioSource.GTPlayOneShot(this.snapSound, 1f);
@@ -417,7 +426,7 @@ public class GameEntity : MonoBehaviour
 	}
 
 	[CompilerGenerated]
-	private void <GetGrabbableRenderers>g__RemoveNotOwnedComponents|91_0<T>(List<T> components) where T : Component
+	private void <GetGrabbableRenderers>g__RemoveNotOwnedComponents|93_0<T>(List<T> components) where T : Component
 	{
 		for (int i = 0; i < components.Count; i++)
 		{
@@ -464,8 +473,13 @@ public class GameEntity : MonoBehaviour
 
 	private Rigidbody rigidBody;
 
+	[SerializeField]
+	public MonkeGravityController gravityController;
+
 	[NonSerialized]
 	public GameEntityManager manager;
+
+	internal bool shouldDestroyOnZoneExit;
 
 	public Action OnGrabbed;
 

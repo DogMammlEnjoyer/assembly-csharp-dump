@@ -115,6 +115,10 @@ namespace GorillaTagScripts.Builder
 
 		private void UpdateInput()
 		{
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
 			string defaultResult = "MAP SEARCH : ";
 			string text;
 			if (!LocalisationManager.TryGetKeyForCurrentLocale("SHARE_BLOCKS_TERMINAL_SEARCH_MAP_SEARCH", out text, defaultResult))
@@ -150,6 +154,10 @@ namespace GorillaTagScripts.Builder
 
 		private void DrawScreen()
 		{
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
 			this.UpdateInput();
 			string str;
 			if (!LocalisationManager.TryGetKeyForCurrentLocale("SHARE_BLOCKS_TERMINAL_SEARCH_VOTES", out str, "RECENT VOTES"))

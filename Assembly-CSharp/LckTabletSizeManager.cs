@@ -97,11 +97,19 @@ public class LckTabletSizeManager : MonoBehaviour
 
 	private void SetCameraOnNeck()
 	{
-		GameObject gameObject = Camera.main.transform.Find("LCKBodyCameraSpawner(Clone)").gameObject;
-		if (gameObject != null)
+		GTPlayer instance = GTPlayer.Instance;
+		if (instance == null)
 		{
-			gameObject.GetComponent<LckBodyCameraSpawner>().ManuallySetCameraOnNeck();
+			Debug.LogError("Unable to find playerInstance!");
+			return;
 		}
+		LckBodyCameraSpawner componentInChildren = instance.GetComponentInChildren<LckBodyCameraSpawner>(true);
+		if (componentInChildren == null)
+		{
+			Debug.LogError("Unable to find bodyCameraSpawner!");
+			return;
+		}
+		componentInChildren.ManuallySetCameraOnNeck();
 	}
 
 	private void Update()

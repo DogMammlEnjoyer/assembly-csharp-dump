@@ -9,6 +9,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class ButtonGroupAttribute : PropertyGroupAttribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"buttonIconAlignment",
+			"HasDefinedButtonIconAlignment"
+		})]
 		public IconAlignment IconAlignment
 		{
 			get
@@ -22,6 +28,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"buttonAlignment",
+			"HasDefinedButtonAlignment"
+		})]
 		public int ButtonAlignment
 		{
 			get
@@ -35,6 +47,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"stretch",
+			"HasDefinedStretch"
+		})]
 		public bool Stretch
 		{
 			get
@@ -58,6 +76,7 @@ namespace Sirenix.OdinInspector
 		{
 		}
 
+		[ButtonHeightSelector]
 		public int ButtonHeight;
 
 		private IconAlignment buttonIconAlignment;

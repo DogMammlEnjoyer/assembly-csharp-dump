@@ -10,10 +10,10 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 	[RuntimeInitializeOnLoadMethod]
 	private static void RuntimeInit()
 	{
-		TitleDataActivation.<RuntimeInit>d__1 <RuntimeInit>d__;
+		TitleDataActivation.<RuntimeInit>d__2 <RuntimeInit>d__;
 		<RuntimeInit>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<RuntimeInit>d__.<>1__state = -1;
-		<RuntimeInit>d__.<>t__builder.Start<TitleDataActivation.<RuntimeInit>d__1>(ref <RuntimeInit>d__);
+		<RuntimeInit>d__.<>t__builder.Start<TitleDataActivation.<RuntimeInit>d__2>(ref <RuntimeInit>d__);
 	}
 
 	private static void onTDReferenceDate(string s)
@@ -21,7 +21,9 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 		if (!DateTime.TryParse(s, out TitleDataActivation.ReferenceDate))
 		{
 			Debug.LogError("TitleDataActivation :: onTDReferenceDate :: No Reference Date Set!!");
+			return;
 		}
+		TitleDataActivation.UpdatedReferenceDateFromTitleData = true;
 	}
 
 	private static void onTDReferenceDateError(PlayFabError error)
@@ -31,11 +33,11 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 
 	private void Initialize()
 	{
-		TitleDataActivation.<Initialize>d__15 <Initialize>d__;
+		TitleDataActivation.<Initialize>d__16 <Initialize>d__;
 		<Initialize>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<Initialize>d__.<>4__this = this;
 		<Initialize>d__.<>1__state = -1;
-		<Initialize>d__.<>t__builder.Start<TitleDataActivation.<Initialize>d__15>(ref <Initialize>d__);
+		<Initialize>d__.<>t__builder.Start<TitleDataActivation.<Initialize>d__16>(ref <Initialize>d__);
 	}
 
 	private void onTD(string s)
@@ -47,7 +49,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError("TitleDataActivation :: onTD :: " + ex.Message);
+			Debug.LogError("TitleDataActivation :: onTD ::" + ex.Message + " string was " + s);
 			return;
 		}
 		for (int i = 0; i < titleDataActivationData.Data.Length; i++)
@@ -164,7 +166,9 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 		}
 	}
 
-	public static DateTime ReferenceDate = DateTime.MinValue;
+	public static DateTime ReferenceDate = DateTime.Parse("1/1/2001");
+
+	public static bool UpdatedReferenceDateFromTitleData = false;
 
 	[SerializeField]
 	private string titleDataKey;

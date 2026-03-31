@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D95}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8B7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MeshBaker_Examples_2017.HackTextureAtlas</RootNamespace>
@@ -58,27 +58,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MeshBakerCore\MeshBakerCore.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D94}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8B6}</Project>
       <Name>MeshBakerCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E1E}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D945}</Project>
       <Name>UnityEngine.AnimationModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E33}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95A}</Project>
       <Name>UnityEngine.IMGUIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E35}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95C}</Project>
       <Name>UnityEngine.InputLegacyModule</Name>
     </ProjectReference>
   </ItemGroup>

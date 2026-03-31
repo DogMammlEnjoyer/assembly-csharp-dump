@@ -51,17 +51,47 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	private void ActivateDefaultSlingShot()
 	{
+		if (this._isDefaultSlingshotSynced && !Slingshot.IsSlingShotEnabled())
+		{
+			this._isDefaultSlingshotSynced = false;
+		}
 		if (this._isDefaultSlingshotSynced)
 		{
 			return;
 		}
-		if (GorillaTagger.Instance.offlineVRRig != null && !Slingshot.IsSlingShotEnabled())
+		Object offlineVRRig = GorillaTagger.Instance.offlineVRRig;
+		bool flag = Slingshot.IsSlingShotEnabled();
+		if (offlineVRRig != null && !flag)
 		{
 			CosmeticsController instance = CosmeticsController.instance;
 			CosmeticsController.CosmeticItem itemFromDict = instance.GetItemFromDict("Slingshot");
+			instance.currentWornSet.HasItemOfCategory(CosmeticsController.CosmeticCategory.Chest);
+			instance.currentWornSet.HasItem("Slingshot");
 			instance.ApplyCosmeticItemToSet(instance.currentWornSet, itemFromDict, true, false);
 			instance.UpdateWornCosmetics(true);
-			this._isDefaultSlingshotSynced = true;
+			bool isDefaultSlingshotSynced = instance.currentWornSet.HasItemOfCategory(CosmeticsController.CosmeticCategory.Chest);
+			instance.currentWornSet.HasItem("Slingshot");
+			this._isDefaultSlingshotSynced = isDefaultSlingshotSynced;
+		}
+	}
+
+	private void PreloadSlingshotForActiveRigs(string caller)
+	{
+		int count = CosmeticsV2Spawner_Dirty._gVRRigDatas.Count;
+		int num = 0;
+		for (int i = 0; i < count; i++)
+		{
+			CosmeticsV2Spawner_Dirty.VRRigData vrrigData = CosmeticsV2Spawner_Dirty._gVRRigDatas[i];
+			if (!(vrrigData.vrRig == null) && !this._slingshotPreloadedRigs.Contains(vrrigData.vrRig))
+			{
+				CosmeticItemRegistry cosmeticsObjectRegistry = vrrigData.vrRig.cosmeticsObjectRegistry;
+				if (cosmeticsObjectRegistry != null)
+				{
+					CosmeticsV2Spawner_Dirty.ProcessLoadOpInfos(vrrigData.vrRig, "Slingshot", cosmeticsObjectRegistry);
+					this._slingshotPreloadedRigs.Add(vrrigData.vrRig);
+					num++;
+				}
+			}
 		}
 	}
 
@@ -76,6 +106,8 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	{
 		base.StartPlaying();
 		this._isDefaultSlingshotSynced = false;
+		this._slingshotPreloadedRigs.Clear();
+		this.PreloadSlingshotForActiveRigs("StartPlaying");
 		this.ActivatePaintbrawlBalloons(true);
 		this.VerifyPlayersInDict<int>(this.playerLives);
 		this.VerifyPlayersInDict<GorillaPaintbrawlManager.PaintbrawlStatus>(this.playerStatusDict);
@@ -89,6 +121,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	{
 		base.StopPlaying();
 		this._isDefaultSlingshotSynced = false;
+		PlayerPrefs.GetString("slot_Chest", "NOTHING");
 		if (Slingshot.IsSlingShotEnabled())
 		{
 			CosmeticsController instance = CosmeticsController.instance;
@@ -97,6 +130,8 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 			{
 				instance.ApplyCosmeticItemToSet(instance.currentWornSet, itemFromDict, true, false);
 				instance.UpdateWornCosmetics(true);
+				instance.currentWornSet.HasItemOfCategory(CosmeticsController.CosmeticCategory.Chest);
+				PlayerPrefs.GetString("slot_Chest", "NOTHING");
 			}
 		}
 		this.ActivatePaintbrawlBalloons(false);
@@ -566,6 +601,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 		{
 			this.UpdateBattleState();
 		}
+		this.PreloadSlingshotForActiveRigs(null);
 		this.ActivateDefaultSlingShot();
 	}
 
@@ -929,6 +965,8 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	private GorillaPaintbrawlManager.PaintbrawlState currentState;
 
 	private bool _isDefaultSlingshotSynced;
+
+	private readonly HashSet<VRRig> _slingshotPreloadedRigs = new HashSet<VRRig>(20);
 
 	public enum PaintbrawlStatus
 	{

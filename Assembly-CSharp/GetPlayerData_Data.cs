@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using KID.Model;
 using UnityEngine;
 
 public class GetPlayerData_Data
@@ -17,7 +16,6 @@ public class GetPlayerData_Data
 			}
 			return;
 		}
-		this.AgeStatus = response.AgeStatus;
 		this.status = response.Status;
 		if (this.status != null)
 		{
@@ -27,8 +25,6 @@ public class GetPlayerData_Data
 		}
 		this.HasConfirmedSetup = response.HasConfirmedSetup;
 	}
-
-	public readonly AgeStatusType? AgeStatus;
 
 	public readonly GetSessionResponseType responseType;
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DC9}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sirenix.OdinInspector</RootNamespace>
@@ -47,10 +47,16 @@
     <Compile Include="BoxGroupAttribute.cs" />
     <Compile Include="ButtonAttribute.cs" />
     <Compile Include="ButtonGroupAttribute.cs" />
+    <Compile Include="ButtonHeightSelectorAttribute.cs" />
     <Compile Include="ButtonSizes.cs" />
     <Compile Include="ButtonStyle.cs" />
     <Compile Include="ChildGameObjectsOnlyAttribute.cs" />
     <Compile Include="ColorPaletteAttribute.cs" />
+    <Compile Include="ColorPaletteNameSelectorAttribute.cs" />
+    <Compile Include="ColorResolverAttribute.cs" />
+    <Compile Include="ColumnGroupAttribute.cs" />
+    <Compile Include="ColumnSize.cs" />
+    <Compile Include="ColumnType.cs" />
     <Compile Include="CustomContextMenuAttribute.cs" />
     <Compile Include="CustomValueDrawerAttribute.cs" />
     <Compile Include="DelayedPropertyAttribute.cs" />
@@ -79,6 +85,7 @@
     <Compile Include="EnableInAttribute.cs" />
     <Compile Include="EnumPagingAttribute.cs" />
     <Compile Include="EnumToggleButtonsAttribute.cs" />
+    <Compile Include="ExcludeInOdinDesignerAttribute.cs" />
     <Compile Include="FilePathAttribute.cs" />
     <Compile Include="FolderPathAttribute.cs" />
     <Compile Include="FoldoutGroupAttribute.cs" />
@@ -124,6 +131,7 @@
     <Compile Include="MultiLinePropertyAttribute.cs" />
     <Compile Include="NonDefaultConstructorPreference.cs" />
     <Compile Include="ObjectFieldAlignment.cs" />
+    <Compile Include="OdinDesignerBindingAttribute.cs" />
     <Compile Include="OdinRegisterAttributeAttribute.cs" />
     <Compile Include="OnCollectionChangedAttribute.cs" />
     <Compile Include="OnInspectorDisposeAttribute.cs" />
@@ -196,26 +204,27 @@
     <Compile Include="ValueDropdownList.cs" />
     <Compile Include="VerticalGroupAttribute.cs" />
     <Compile Include="WrapAttribute.cs" />
+    <Compile Include="XAtt.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D0}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCF}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8F1}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8F4}</Project>
       <Name>System</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E50}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D977}</Project>
       <Name>UnityEngine.TextRenderingModule</Name>
     </ProjectReference>
   </ItemGroup>

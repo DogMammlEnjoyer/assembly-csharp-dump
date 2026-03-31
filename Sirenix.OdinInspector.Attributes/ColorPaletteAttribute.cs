@@ -19,6 +19,7 @@ namespace Sirenix.OdinInspector
 			this.ShowAlpha = true;
 		}
 
+		[ColorPaletteNameSelector]
 		public string PaletteName;
 
 		public bool ShowAlpha;

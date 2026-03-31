@@ -53,6 +53,12 @@ public class CustomMapsGorillaZipline : GorillaZipline
 		return true;
 	}
 
+	protected override void OnBeforeClimb(GorillaHandClimber hand, GorillaClimbableRef climbRef)
+	{
+		this.slideHelper.gameObject.SetActive(true);
+		base.OnBeforeClimb(hand, climbRef);
+	}
+
 	private global::BezierControlPointMode[] ConvertControlPointModes(CustomMapSupport.BezierControlPointMode[] refModes)
 	{
 		global::BezierControlPointMode[] array = new global::BezierControlPointMode[refModes.Length];
@@ -77,7 +83,7 @@ public class CustomMapsGorillaZipline : GorillaZipline
 	protected override void Start()
 	{
 		GorillaClimbable slideHelper = this.slideHelper;
-		slideHelper.onBeforeClimb = (Action<GorillaHandClimber, GorillaClimbableRef>)Delegate.Combine(slideHelper.onBeforeClimb, new Action<GorillaHandClimber, GorillaClimbableRef>(base.OnBeforeClimb));
+		slideHelper.onBeforeClimb = (Action<GorillaHandClimber, GorillaClimbableRef>)Delegate.Combine(slideHelper.onBeforeClimb, new Action<GorillaHandClimber, GorillaClimbableRef>(this.OnBeforeClimb));
 	}
 
 	public void Init(GTObjectPlaceholder ziplinePlaceholder)

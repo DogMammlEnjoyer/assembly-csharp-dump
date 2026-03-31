@@ -23,12 +23,12 @@ namespace Liv.Lck
 			RenderTexture cameraTrackTexture = this._videoTextureProvider.CameraTrackTexture;
 			if (cameraTrackTexture == null)
 			{
-				LckLog.LogWarning("LCK Camera track texture not found.");
+				LckLog.LogWarning("LCK Camera track texture not found.", "SetMonitorRenderTexture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckPreviewer.cs", 29);
 				return;
 			}
 			if (monitor == null)
 			{
-				LckLog.LogWarning("LCK Monitor not found.");
+				LckLog.LogWarning("LCK Monitor not found.", "SetMonitorRenderTexture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckPreviewer.cs", 35);
 				return;
 			}
 			monitor.SetRenderTexture(cameraTrackTexture);
@@ -62,7 +62,11 @@ namespace Liv.Lck
 
 		public void Dispose()
 		{
-			this._eventBus.RemoveListener<LckEvents.ActiveCameraTrackTextureChangedEvent>(new Action<LckEvents.ActiveCameraTrackTextureChangedEvent>(this.OnCameraTrackTextureChanged));
+			ILckEventBus eventBus = this._eventBus;
+			if (eventBus != null)
+			{
+				eventBus.RemoveListener<LckEvents.ActiveCameraTrackTextureChangedEvent>(new Action<LckEvents.ActiveCameraTrackTextureChangedEvent>(this.OnCameraTrackTextureChanged));
+			}
 			LckMediator.MonitorRegistered -= this.OnMonitorRegistered;
 			LckMediator.MonitorUnregistered -= LckPreviewer.OnMonitorUnregistered;
 		}

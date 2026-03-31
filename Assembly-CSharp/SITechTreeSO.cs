@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 
 public class SITechTreeSO : ScriptableObject
@@ -27,6 +28,11 @@ public class SITechTreeSO : ScriptableObject
 	public bool TryGetNode(SIUpgradeType upgradeType, out GraphNode<SITechTreeNode> node)
 	{
 		return this._nodeLookup.TryGetValue(upgradeType, out node);
+	}
+
+	public bool TryGetUpgradeTypeByEntityTypeId(int entityTypeId, out SIUpgradeType upgradeType)
+	{
+		return this._upgradeTypeByEntityTypeId.TryGetValue(entityTypeId, out upgradeType);
 	}
 
 	public bool IsValidPage(SITechTreePageId id)
@@ -104,6 +110,7 @@ public class SITechTreeSO : ScriptableObject
 		this.ClearTechTree();
 		this.TreePages = new List<SITechTreePage>();
 		this._spawnableEntities = new List<GameEntity>();
+		int num = 0;
 		foreach (SITechTreePage sitechTreePage in this.treePages)
 		{
 			if (sitechTreePage.IsValid)
@@ -121,11 +128,31 @@ public class SITechTreeSO : ScriptableObject
 				}
 				foreach (SITechTreeNode sitechTreeNode in sitechTreePage.DispensableGadgets)
 				{
+					num++;
 					this.AddSpawnableGadget(sitechTreeNode.unlockedGadgetPrefab);
 				}
 				if (sitechTreePage.Roots.Count > 0)
 				{
 					this.TreePages.Add(sitechTreePage);
+				}
+			}
+		}
+		if (this._upgradeTypeByEntityTypeId.IsCreated)
+		{
+			this._upgradeTypeByEntityTypeId.Clear();
+		}
+		else
+		{
+			this._upgradeTypeByEntityTypeId = new NativeHashMap<int, SIUpgradeType>(num, Allocator.Persistent);
+		}
+		foreach (SITechTreePage sitechTreePage2 in this.treePages)
+		{
+			if (sitechTreePage2.IsValid)
+			{
+				foreach (SITechTreeNode sitechTreeNode2 in sitechTreePage2.DispensableGadgets)
+				{
+					int staticHash = sitechTreeNode2.unlockedGadgetPrefab.gameObject.name.GetStaticHash();
+					this._upgradeTypeByEntityTypeId.TryAdd(staticHash, sitechTreeNode2.upgradeType);
 				}
 			}
 		}
@@ -163,6 +190,10 @@ public class SITechTreeSO : ScriptableObject
 			array[i].ClearGraph();
 		}
 		this._nodeLookup.Clear();
+		if (this._upgradeTypeByEntityTypeId.IsCreated)
+		{
+			this._upgradeTypeByEntityTypeId.Dispose();
+		}
 		this.Initialized = false;
 	}
 
@@ -176,6 +207,8 @@ public class SITechTreeSO : ScriptableObject
 	private SITechTreePage[] treePages;
 
 	private readonly Dictionary<SIUpgradeType, GraphNode<SITechTreeNode>> _nodeLookup = new Dictionary<SIUpgradeType, GraphNode<SITechTreeNode>>();
+
+	private NativeHashMap<int, SIUpgradeType> _upgradeTypeByEntityTypeId;
 
 	private List<GameEntity> _spawnableEntities;
 }

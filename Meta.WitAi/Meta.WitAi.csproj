@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D9E}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Meta</RootNamespace>
@@ -317,59 +317,59 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meta.Net.endel.nativewebsocket\Meta.Net.endel.nativewebsocket.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D96}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8B8}</Project>
       <Name>Meta.Net.endel.nativewebsocket</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.Voice.NLayer\Meta.Voice.NLayer.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D98}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8BA}</Project>
       <Name>Meta.Voice.NLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.Voice.Opus\Meta.Voice.Opus.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D99}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8BB}</Project>
       <Name>Meta.Voice.Opus</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.VoiceSDK.Mic.Common\Meta.VoiceSDK.Mic.Common.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D9A}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8BC}</Project>
       <Name>Meta.VoiceSDK.Mic.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.VoiceSDK.Mic.Other\Meta.VoiceSDK.Mic.Other.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D9B}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8BD}</Project>
       <Name>Meta.VoiceSDK.Mic.Other</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D9F}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8C1}</Project>
       <Name>Meta.WitAi.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DEE}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D915}</Project>
       <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E21}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D948}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E53}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UnityWebRequestAudioModule\UnityEngine.UnityWebRequestAudioModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E5E}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D985}</Project>
       <Name>UnityEngine.UnityWebRequestAudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E5F}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D986}</Project>
       <Name>UnityEngine.UnityWebRequestModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\VoiceSDK.Telemetry.Runtime\VoiceSDK.Telemetry.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E6E}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D995}</Project>
       <Name>VoiceSDK.Telemetry.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

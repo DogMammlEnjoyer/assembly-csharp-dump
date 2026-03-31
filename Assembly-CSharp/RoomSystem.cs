@@ -226,6 +226,7 @@ internal class RoomSystem : MonoBehaviour
 		{
 			return;
 		}
+		Debug.Log(string.Format("Player {0} entered room", (newPlayer != null) ? new int?(newPlayer.ActorNumber) : null));
 		if (!RoomSystem.netPlayersInRoom.Contains(newPlayer))
 		{
 			RoomSystem.netPlayersInRoom.Add(newPlayer);
@@ -295,6 +296,7 @@ internal class RoomSystem : MonoBehaviour
 
 	private void OnPlayerLeftRoom(NetPlayer netPlayer)
 	{
+		Debug.Log(string.Format("Player {0} entered room", (netPlayer != null) ? new int?(netPlayer.ActorNumber) : null));
 		if (netPlayer == null)
 		{
 			Debug.LogError("Player that left doesn't have a reference somehow...");

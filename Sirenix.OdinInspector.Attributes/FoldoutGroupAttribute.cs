@@ -7,6 +7,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class FoldoutGroupAttribute : PropertyGroupAttribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"expanded",
+			"HasDefinedExpanded"
+		})]
 		public bool Expanded
 		{
 			get

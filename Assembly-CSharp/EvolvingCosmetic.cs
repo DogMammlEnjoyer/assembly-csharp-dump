@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GorillaLocomotion;
 using GorillaTagScripts;
 using UnityEngine;
@@ -22,40 +23,51 @@ public class EvolvingCosmetic : MonoBehaviour
 			return;
 		}
 		SubscriptionManager.SubscriptionDetails subscriptionDetails = SubscriptionManager.GetSubscriptionDetails(vrrig);
-		int num = 0;
+		this._daysAccrued = new int?(0);
 		switch (this.ageRule)
 		{
 		case EvolvingCosmetic.SubscriptionAgeRule.ItemAge:
-			num = vrrig.CheckCosmeticAge(base.name);
+			this._daysAccrued = new int?(vrrig.CheckCosmeticAge(base.name));
 			break;
 		case EvolvingCosmetic.SubscriptionAgeRule.MinItemSubscriptionAge:
-			num = Mathf.Min(subscriptionDetails.daysAccrued, vrrig.CheckCosmeticAge(base.name));
+			this._daysAccrued = new int?(Mathf.Min(subscriptionDetails.daysAccrued, vrrig.CheckCosmeticAge(base.name)));
 			break;
 		case EvolvingCosmetic.SubscriptionAgeRule.SubscriptionAge:
-			num = subscriptionDetails.daysAccrued;
+			this._daysAccrued = new int?(subscriptionDetails.daysAccrued);
 			break;
 		case EvolvingCosmetic.SubscriptionAgeRule.MinItemSubscriptionAgeActive:
 			if (subscriptionDetails.active)
 			{
-				num = Mathf.Min(subscriptionDetails.daysAccrued, vrrig.CheckCosmeticAge(base.name));
+				this._daysAccrued = new int?(Mathf.Min(subscriptionDetails.daysAccrued, vrrig.CheckCosmeticAge(base.name)));
 			}
 			break;
 		case EvolvingCosmetic.SubscriptionAgeRule.SubscriptionAgeActive:
 			if (subscriptionDetails.active)
 			{
-				num = subscriptionDetails.daysAccrued;
+				this._daysAccrued = new int?(subscriptionDetails.daysAccrued);
 			}
 			break;
 		}
 		for (int i = 0; i < this.ageAwareGameObjects.Length; i++)
 		{
-			EvolvingCosmetic.AgeAwareGameObject ageAwareGameObject = this.ageAwareGameObjects[i];
-			ageAwareGameObject.gameObject.SetActive((!ageAwareGameObject.requireCurrentSubscription || subscriptionDetails.active) && num >= ageAwareGameObject.minActiveDays && (ageAwareGameObject.maxActiveDays == 0 || num < ageAwareGameObject.maxActiveDays));
+			int? daysAccrued = this._daysAccrued;
+			int minActiveDays = this.ageAwareGameObjects[i].minActiveDays;
+			if (daysAccrued.GetValueOrDefault() < minActiveDays & daysAccrued != null)
+			{
+				break;
+			}
+			this._selectedObjectIndex = i;
 		}
+		this.ActivateSelectedIndex();
 		UnityEvent<int> dispatchDaysOnEnable = this.DispatchDaysOnEnable;
 		if (dispatchDaysOnEnable != null)
 		{
-			dispatchDaysOnEnable.Invoke(num);
+			int? daysAccrued = this._daysAccrued;
+			if (daysAccrued == null)
+			{
+				throw new NullReferenceException("_daysAccrued was not set by end of OnEnable.");
+			}
+			dispatchDaysOnEnable.Invoke(daysAccrued.GetValueOrDefault());
 		}
 		if (this.maxDays > 0)
 		{
@@ -64,8 +76,93 @@ public class EvolvingCosmetic : MonoBehaviour
 			{
 				return;
 			}
-			dispatchDaysOnEnableNormalized.Invoke(Mathf.Min((float)num / (float)this.maxDays, 1f));
+			dispatchDaysOnEnableNormalized.Invoke(Mathf.Min((float)this._daysAccrued.Value / (float)this.maxDays, 1f));
 		}
+	}
+
+	public IEnumerable<GameObject> GetAvailableGameObjects()
+	{
+		if (this._daysAccrued == null)
+		{
+			throw new NullReferenceException("_daysAccrued is not calculated.");
+		}
+		bool hasSubscription = SubscriptionManager.IsLocalSubscribed();
+		foreach (EvolvingCosmetic.AgeAwareGameObject ageAwareGameObject in this.ageAwareGameObjects)
+		{
+			if ((!ageAwareGameObject.requireCurrentSubscription || hasSubscription) && ageAwareGameObject.minActiveDays <= this._daysAccrued.Value)
+			{
+				yield return ageAwareGameObject.gameObject;
+			}
+		}
+		EvolvingCosmetic.AgeAwareGameObject[] array = null;
+		yield break;
+	}
+
+	private void ActivateSelectedIndex()
+	{
+		if (!this.IsSelectedIndexAvailable())
+		{
+			return;
+		}
+		for (int i = 0; i < this.ageAwareGameObjects.Length; i++)
+		{
+			this.ageAwareGameObjects[i].gameObject.SetActive(i == this._selectedObjectIndex);
+		}
+	}
+
+	private bool IsSelectedIndexAvailable()
+	{
+		return this.IsIndexAvailable(this._selectedObjectIndex);
+	}
+
+	private bool IsIndexAvailable(int index)
+	{
+		if (index < 0 || index >= this.ageAwareGameObjects.Length)
+		{
+			return false;
+		}
+		EvolvingCosmetic.AgeAwareGameObject ageAwareGameObject = this.ageAwareGameObjects[index];
+		return this._daysAccrued.Value >= ageAwareGameObject.minActiveDays;
+	}
+
+	private void GoBack()
+	{
+		if (!this.CanGoBack())
+		{
+			return;
+		}
+		this._selectedObjectIndex--;
+		this.ActivateSelectedIndex();
+	}
+
+	private void GoForward()
+	{
+		if (!this.CanGoForward())
+		{
+			return;
+		}
+		this._selectedObjectIndex++;
+		this.ActivateSelectedIndex();
+	}
+
+	private void UnselectAll()
+	{
+		this._selectedObjectIndex = 0;
+		EvolvingCosmetic.AgeAwareGameObject[] array = this.ageAwareGameObjects;
+		for (int i = 0; i < array.Length; i++)
+		{
+			array[i].gameObject.SetActive(false);
+		}
+	}
+
+	private bool CanGoBack()
+	{
+		return this.IsIndexAvailable(this._selectedObjectIndex - 1);
+	}
+
+	private bool CanGoForward()
+	{
+		return this.IsIndexAvailable(this._selectedObjectIndex + 1);
 	}
 
 	[SerializeField]
@@ -82,6 +179,10 @@ public class EvolvingCosmetic : MonoBehaviour
 
 	[SerializeField]
 	private UnityEvent<float> DispatchDaysOnEnableNormalized;
+
+	private int _selectedObjectIndex;
+
+	private int? _daysAccrued;
 
 	private enum SubscriptionAgeRule
 	{

@@ -57,11 +57,11 @@ public class GRGameEntityInteractionPoint : MonoBehaviour
 				GamePlayer gamePlayer = GamePlayer.GetGamePlayer(this.gameEntity.heldByActorNumber);
 				if (gamePlayer != null)
 				{
-					gamePlayer.ClearGrabbedIfHeld(this.gameEntity.id);
+					gamePlayer.ClearGrabbedIfHeld(this.gameEntity.id, this.gameEntity.manager);
 				}
 				if (gamePlayer != null && GamePlayerLocal.instance.gamePlayer == gamePlayer)
 				{
-					GamePlayerLocal.instance.ClearGrabbedIfHeld(this.gameEntity.id);
+					GamePlayerLocal.instance.ClearGrabbedIfHeld(this.gameEntity.id, this.gameEntity.manager);
 				}
 				this.OnReleased();
 				return;

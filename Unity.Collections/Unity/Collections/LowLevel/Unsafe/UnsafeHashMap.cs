@@ -13,7 +13,7 @@ namespace Unity.Collections.LowLevel.Unsafe
 		typeof(int),
 		typeof(int)
 	})]
-	public struct UnsafeHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KVPair<!0, !1>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
+	public struct UnsafeHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KVPair<TKey, TValue>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
 	{
 		public UnsafeHashMap(int initialCapacity, AllocatorManager.AllocatorHandle allocator)
 		{

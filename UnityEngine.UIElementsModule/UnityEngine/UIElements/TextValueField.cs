@@ -6,7 +6,7 @@ using UnityEngine.Scripting.APIUpdating;
 namespace UnityEngine.UIElements
 {
 	[MovedFrom(true, "UnityEditor.UIElements", "UnityEditor.UIElementsModule", null)]
-	public abstract class TextValueField<TValueType> : TextInputBaseField<TValueType>, IValueField<TValueType>
+	public abstract class TextValueField<TValueType> : TextInputBaseField<TValueType>, IValueField<!0>
 	{
 		private TextValueField<TValueType>.TextValueInput textValueInput
 		{

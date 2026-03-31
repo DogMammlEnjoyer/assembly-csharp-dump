@@ -8,6 +8,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class PreviewFieldAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"alignment",
+			"alignmentHasValue"
+		})]
 		public ObjectFieldAlignment Alignment
 		{
 			get
@@ -29,6 +35,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"previewGetter",
+			"PreviewGetterHasValue"
+		})]
 		public string PreviewGetter
 		{
 			get

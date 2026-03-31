@@ -55,6 +55,7 @@ namespace Sirenix.OdinInspector
 
 		public string ToggleGroupTitle;
 
+		[LabelWidth(160f)]
 		public bool CollapseOthersOnExpand;
 	}
 }

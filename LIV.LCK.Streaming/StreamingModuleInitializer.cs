@@ -13,7 +13,7 @@ namespace Liv.Lck.Streaming
 			{
 				container.AddSingleton<ILckNativeStreamingService, LckNativeStreamingService>();
 				container.AddSingleton<ILckStreamer, LckStreamer>();
-				LckLog.Log("LCK: Loaded module - Liv.Lck.Streaming");
+				LckLog.Log("LCK: Loaded module - Liv.Lck.Streaming", "Initialize", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamingModuleInitializer.cs", 18);
 			}, "Liv.Lck.Streaming");
 		}
 	}

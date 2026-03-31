@@ -151,15 +151,18 @@ namespace Liv.Lck
 				}
 				onActiveCameraSet(r);
 			});
-			this._errorEventTelemetryBridge = new LckErrorEventTelemetryBridge(this._eventBus, new Action<ILckResult>(telemetryClient.SendErrorTelemetry));
-			this._errorEventTelemetryBridge.Monitor<LckEvents.RecordingStartedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.RecordingPausedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.RecordingResumedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.RecordingStoppedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.StreamingStartedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.StreamingStoppedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.PhotoCaptureSavedEvent, LckResult>();
-			this._errorEventTelemetryBridge.Monitor<LckEvents.LowStorageSpaceDetectedEvent, LckResult>();
+			this._eventErrorLogger = new LckEventErrorLogger(this._eventBus, delegate(ILckResult result)
+			{
+				LckLog.LogError(string.Format("{0}: {1}", result.Error, result.Message), ".ctor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 133);
+			});
+			this._eventErrorLogger.Monitor<LckEvents.RecordingStartedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.RecordingPausedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.RecordingResumedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.RecordingStoppedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.StreamingStartedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.StreamingStoppedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.PhotoCaptureSavedEvent, LckResult>();
+			this._eventErrorLogger.Monitor<LckEvents.LowStorageSpaceDetectedEvent, LckResult>();
 			LogLevel nativeLogLevel = LckSettings.Instance.NativeLogLevel;
 			NI.SetGlobalLogLevel(nativeLogLevel, LckSettings.Instance.ShowOpenGLMessages);
 			this._encoder.SetLogLevel(nativeLogLevel);
@@ -172,7 +175,7 @@ namespace Liv.Lck
 			this._videoCapturer.StartCapturing();
 			if (LckService.VerifyGraphicsApi() && !Application.isEditor)
 			{
-				LckLog.Log(string.Format("LCK version is v{0}#{1}", "1.4.3", -1));
+				LckLog.Log(string.Format("LCK version is v{0}#{1}", "1.4.5", -1), ".ctor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 152);
 			}
 		}
 
@@ -224,8 +227,7 @@ namespace Liv.Lck
 			{
 				return LckResult.NewError(LckError.ServiceDisposed, "Service has been disposed");
 			}
-			ILckStreamer streamer = this._streamer;
-			if (streamer == null || streamer is NullLckStreamer)
+			if (this._streamer == null || this._streamer is NullLckStreamer)
 			{
 				return LckResult.NewError(LckError.StreamerNotImplemented, "LCK streaming package not available");
 			}
@@ -243,8 +245,7 @@ namespace Liv.Lck
 			{
 				return LckResult.NewError(LckError.ServiceDisposed, "Service has been disposed");
 			}
-			ILckStreamer streamer = this._streamer;
-			if (streamer == null || streamer is NullLckStreamer)
+			if (this._streamer == null || this._streamer is NullLckStreamer)
 			{
 				return LckResult.NewError(LckError.StreamerNotImplemented, "LCK streaming package not available");
 			}
@@ -377,8 +378,7 @@ namespace Liv.Lck
 			{
 				return LckResult<bool>.NewError(LckError.ServiceDisposed, "Service has been disposed");
 			}
-			ILckStreamer streamer = this._streamer;
-			if (streamer == null || streamer is NullLckStreamer)
+			if (this._streamer == null || this._streamer is NullLckStreamer)
 			{
 				return LckResult<bool>.NewError(LckError.StreamerNotImplemented, "LCK streaming package not available");
 			}
@@ -668,7 +668,7 @@ namespace Liv.Lck
 					LckMonoBehaviourMediator.StopAllActiveCoroutines();
 				}
 				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.ServiceDisposed));
-				LckLog.Log("LCK service disposed.");
+				LckLog.Log("LCK service disposed.", "Dispose", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 686);
 				this._disposed = true;
 			}
 		}
@@ -701,7 +701,7 @@ namespace Liv.Lck
 				{
 					return true;
 				}
-				LckLog.LogError("LCK requires Vulkan or OpenGLES3 graphics API on Android. Any other api is not supported.");
+				LckLog.LogError("LCK requires Vulkan or OpenGLES3 graphics API on Android. Any other api is not supported.", "VerifyGraphicsApi", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 717);
 				return false;
 			}
 			else
@@ -710,7 +710,7 @@ namespace Liv.Lck
 				{
 					return true;
 				}
-				LckLog.LogError("LCK requires the Vulkan, OpenGLCore or DirectX 11 graphics API on Windows. Any other api is not supported.");
+				LckLog.LogError("LCK requires the Vulkan, OpenGLCore or DirectX 11 graphics API on Windows. Any other api is not supported.", "VerifyGraphicsApi", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 726);
 				return false;
 			}
 		}
@@ -720,7 +720,7 @@ namespace Liv.Lck
 			bool flag = Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor;
 			if (!flag)
 			{
-				LckLog.LogError(string.Format("LCK is not supported on {0}.", Application.platform));
+				LckLog.LogError(string.Format("LCK is not supported on {0}.", Application.platform), "VerifyPlatform", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckService.cs", 737);
 			}
 			return flag;
 		}
@@ -757,7 +757,7 @@ namespace Liv.Lck
 
 		private readonly LckPublicApiEventBridge _eventBridge;
 
-		private readonly LckErrorEventTelemetryBridge _errorEventTelemetryBridge;
+		private readonly LckEventErrorLogger _eventErrorLogger;
 
 		public enum StopReason
 		{

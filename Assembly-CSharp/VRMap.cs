@@ -1,4 +1,5 @@
 ﻿using System;
+using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -52,12 +53,18 @@ public class VRMap
 					this.hasInputDevice = this.myInputDevice.isValid;
 				}
 			}
-			Quaternion lhs2;
+			Quaternion rhs;
 			Vector3 a2;
-			if (this.hasInputDevice && this.myInputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out lhs2) && this.myInputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out a2))
+			if (this.hasInputDevice && this.myInputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out rhs) && this.myInputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out a2))
 			{
-				this.rigTarget.SetPositionAndRotation(a2 + rotation * this.trackingPositionOffset * ratio + playerOffsetTransform.position, lhs2 * Quaternion.Euler(this.trackingRotationOffset));
-				this.rigTarget.RotateAround(playerOffsetTransform.position, Vector3.up, playerOffsetTransform.eulerAngles.y);
+				Quaternion lhs2 = Quaternion.identity;
+				Transform parent = playerOffsetTransform.parent;
+				if (parent.IsNotNull())
+				{
+					lhs2 = parent.rotation;
+				}
+				this.rigTarget.SetPositionAndRotation(a2 + rotation * this.trackingPositionOffset * ratio + playerOffsetTransform.position, lhs2 * rhs * Quaternion.Euler(this.trackingRotationOffset));
+				this.rigTarget.RotateAround(playerOffsetTransform.position, playerOffsetTransform.up, playerOffsetTransform.localEulerAngles.y);
 			}
 		}
 		if (this.handholdOverrideTarget != null)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Liv.Lck.Core;
 using Liv.Lck.Core.Serialization;
@@ -14,26 +13,6 @@ namespace Liv.Lck.Telemetry
 		public LckTelemetryClient(ILckSerializer serializer)
 		{
 			this._serializer = serializer;
-		}
-
-		public void SendErrorTelemetry(ILckResult lckResult)
-		{
-			Dictionary<string, object> context = new Dictionary<string, object>
-			{
-				{
-					"error",
-					lckResult.Error
-				},
-				{
-					"errorString",
-					lckResult.Error.ToString()
-				},
-				{
-					"message",
-					lckResult.Message
-				}
-			};
-			this.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.RecorderError, context));
 		}
 
 		public void SendTelemetry(LckTelemetryEvent lckTelemetryEvent)
@@ -55,12 +34,12 @@ namespace Liv.Lck.Telemetry
 				TelemetryReturnCode telemetryReturnCode = LckCoreTelemetryNative.send_telemetry_event_with_context(lckTelemetryEvent.EventType, intPtr, (UIntPtr)((ulong)((long)array.Length)), this._serializer.SerializationType);
 				if (telemetryReturnCode != TelemetryReturnCode.Ok)
 				{
-					LckLog.LogError(string.Format("Failed to send telemetry event: {0} (return code={1})", lckTelemetryEvent.EventType, telemetryReturnCode));
+					LckLog.LogError(string.Format("Failed to send telemetry event: {0} (return code={1})", lckTelemetryEvent.EventType, telemetryReturnCode), "SerializeAndSend", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckTelemetryClient.cs", 51);
 				}
 			}
 			catch (Exception arg)
 			{
-				LckLog.LogError(string.Format("Failed to send telemetry event: {0}. Exception: {1}", lckTelemetryEvent.EventType, arg));
+				LckLog.LogError(string.Format("Failed to send telemetry event: {0}. Exception: {1}", lckTelemetryEvent.EventType, arg), "SerializeAndSend", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckTelemetryClient.cs", 56);
 			}
 			finally
 			{

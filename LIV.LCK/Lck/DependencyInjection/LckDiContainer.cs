@@ -18,7 +18,7 @@ namespace Liv.Lck.DependencyInjection
 						Object.DontDestroyOnLoad(gameObject);
 						LckDiContainer._instance = gameObject.AddComponent<LckDiContainer>();
 						gameObject.name = "LCK Service Singleton";
-						LckLog.Log("LCK: Created LCK Dependency Injection Service Singleton");
+						LckLog.Log("LCK: Created LCK Dependency Injection Service Singleton", "Instance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiContainer.cs", 21);
 					}
 				}
 				return LckDiContainer._instance;

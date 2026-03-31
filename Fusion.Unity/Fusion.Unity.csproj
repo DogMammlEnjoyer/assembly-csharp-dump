@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D8A}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion</RootNamespace>
@@ -101,71 +101,71 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D85}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A6}</Project>
       <Name>Fusion.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D86}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A7}</Project>
       <Name>Fusion.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Runtime\Fusion.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D88}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A9}</Project>
       <Name>Fusion.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Sockets\Fusion.Sockets.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D89}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8AA}</Project>
       <Name>Fusion.Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Addressables\Unity.Addressables.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE4}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D90B}</Project>
       <Name>Unity.Addressables</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.ResourceManager\Unity.ResourceManager.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E0A}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D931}</Project>
       <Name>Unity.ResourceManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AudioModule\UnityEngine.AudioModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E21}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D948}</Project>
       <Name>UnityEngine.AudioModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E33}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95A}</Project>
       <Name>UnityEngine.IMGUIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E35}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95C}</Project>
       <Name>UnityEngine.InputLegacyModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.JSONSerializeModule\UnityEngine.JSONSerializeModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E38}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95F}</Project>
       <Name>UnityEngine.JSONSerializeModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E3F}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E40}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E50}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D977}</Project>
       <Name>UnityEngine.TextRenderingModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E55}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97C}</Project>
       <Name>UnityEngine.UIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E53}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>

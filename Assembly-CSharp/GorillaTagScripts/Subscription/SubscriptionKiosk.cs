@@ -172,20 +172,18 @@ namespace GorillaTagScripts.Subscription
 				}
 				break;
 			case SubscriptionKiosk.ScreenState.SubscriptionData:
-				if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Cancel)
+				if (buttonType != SITouchscreenButton.SITouchscreenButtonType.Cancel)
 				{
-					Debug.Log("yeet");
-					return;
-				}
-				if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Back)
-				{
-					this.HandScanned();
-					return;
-				}
-				if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Subscribe)
-				{
-					this.UpdateState(SubscriptionKiosk.ScreenState.PurchaseSubscription);
-					return;
+					if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Back)
+					{
+						this.HandScanned();
+						return;
+					}
+					if (buttonType == SITouchscreenButton.SITouchscreenButtonType.Subscribe)
+					{
+						this.UpdateState(SubscriptionKiosk.ScreenState.PurchaseSubscription);
+						return;
+					}
 				}
 				break;
 			case SubscriptionKiosk.ScreenState.PurchaseSubscription:
@@ -339,13 +337,20 @@ namespace GorillaTagScripts.Subscription
 
 		private void PurchaseSubscription(SubscriptionManager.SubscriptionTerm subTerm)
 		{
-			IAP.LaunchCheckoutFlow("fan_club:SUBSCRIPTION__" + subTerm.ToString()).OnComplete(new Message<Purchase>.Callback(this.LaunchCheckoutFlowCallback));
+			try
+			{
+				IAP.LaunchCheckoutFlow("fan_club:SUBSCRIPTION__" + subTerm.ToString()).OnComplete(new Message<Purchase>.Callback(this.LaunchCheckoutFlowCallback));
+			}
+			catch (Exception exception)
+			{
+				Debug.LogException(exception);
+			}
 			this.UpdateState(SubscriptionKiosk.ScreenState.SubscriptionPurchaseInProgress);
 		}
 
 		public void LaunchCheckoutFlowCallback(Message<Purchase> msg)
 		{
-			Debug.Log("SubscriptionKiosk Purchase result: " + msg.Data.ToString());
+			Debug.Log(string.Format("SubscriptionKiosk Purchase result: {0}   isError: {1}   Data: {2}", msg.Type, msg.IsError, msg.Data.ToString()));
 			if (msg.IsError)
 			{
 				Error error = msg.GetError();
@@ -359,7 +364,7 @@ namespace GorillaTagScripts.Subscription
 			else
 			{
 				Purchase purchase = msg.GetPurchase();
-				if (purchase != null && purchase.Sku != "" && purchase.Sku != null)
+				if (purchase != null && !string.IsNullOrEmpty(purchase.Sku))
 				{
 					this.UpdatePurchaseResultScreen(SubscriptionKiosk.PurchaseResult.Success);
 				}

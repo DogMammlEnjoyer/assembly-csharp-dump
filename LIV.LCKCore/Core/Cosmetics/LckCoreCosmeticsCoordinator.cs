@@ -106,8 +106,9 @@ namespace Liv.Lck.Core.Cosmetics
 			}
 			byte[] data = InteropUtilities.CopyUnmanagedByteArray(serializedCosmeticDataPtr, (int)((uint)serializedDataLength));
 			LckAvailableCosmeticInfo lckAvailableCosmeticInfo = this._serializer.Deserialize<LckAvailableCosmeticInfo>(data);
-			string seed = "Cosmetic available at " + lckAvailableCosmeticInfo.CosmeticInfo.CosmeticFilepath + " for players:\n";
-			seed = lckAvailableCosmeticInfo.PlayerIds.Aggregate(seed, (string current, string playerId) => current + "  - " + playerId);
+			string text = "Cosmetic available at " + lckAvailableCosmeticInfo.CosmeticInfo.CosmeticFilepath + " for players:\n";
+			text = lckAvailableCosmeticInfo.PlayerIds.Aggregate(text, (string current, string playerId) => current + "  - " + playerId);
+			Debug.Log(text);
 			Action<LckAvailableCosmeticInfo> onCosmeticAvailable = this.OnCosmeticAvailable;
 			if (onCosmeticAvailable == null)
 			{

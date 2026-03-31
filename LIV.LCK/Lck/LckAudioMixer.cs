@@ -46,7 +46,7 @@ namespace Liv.Lck
 			this.VerifyAudioCaptureComponent();
 			if (this._gameAudioSource == null)
 			{
-				LckLog.LogError("Unable to enable audio capture - game audio source is null");
+				LckLog.LogError("Unable to enable audio capture - game audio source is null", "EnableCapture", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 98);
 				return;
 			}
 			this._gameAudioSource.EnableCapture();
@@ -74,7 +74,7 @@ namespace Liv.Lck
 		{
 			if (this._gameAudioSource == null)
 			{
-				LckLog.LogError("LCK No game audio source found");
+				LckLog.LogError("LCK No game audio source found", "MixAudioArrays", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 126);
 				return null;
 			}
 			bool flag = this._nativeMicrophoneCapture.IsCapturing();
@@ -186,7 +186,7 @@ namespace Liv.Lck
 				float value = this.ApplyLimiter(num2);
 				if (!this._mixedAudioBuffer.TryAdd(value))
 				{
-					LckLog.LogWarning("LCK Mixed audio buffer overflow");
+					LckLog.LogWarning("LCK Mixed audio buffer overflow", "MixBlocksIntoMixedAudioBuffer", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 268);
 					break;
 				}
 			}
@@ -218,7 +218,7 @@ namespace Liv.Lck
 			{
 				if (!this._micAudioBuffer.TryCopyFrom(audioBuffer))
 				{
-					LckLog.LogError("LCK Mic audio data copy failed");
+					LckLog.LogError("LCK Mic audio data copy failed", "MicrophoneAudioDataCallback", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 301);
 					return;
 				}
 				this._lastMicrophoneLevel = (this._lastMicrophoneLevel + LckAudioMixer.CalculateRootMeanSquare(this._micAudioBuffer)) / 2f;
@@ -232,7 +232,7 @@ namespace Liv.Lck
 			{
 				if (!this._gameAudioBuffer.TryCopyFrom(audioBuffer))
 				{
-					LckLog.LogError("LCK Game audio data copy failed");
+					LckLog.LogError("LCK Game audio data copy failed", "GameAudioDataCallback", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 317);
 					return;
 				}
 				this._lastGameAudioLevel = (this._lastGameAudioLevel + LckAudioMixer.CalculateRootMeanSquare(audioBuffer)) / 2f;
@@ -258,7 +258,7 @@ namespace Liv.Lck
 				}
 				if (list.Count == 0)
 				{
-					LckLog.Log("LCK Found no audio listener in the scene, looking for AudioCaptureMarker");
+					LckLog.Log("LCK Found no audio listener in the scene, looking for AudioCaptureMarker", "VerifyAudioCaptureComponent", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 346);
 					LckAudioMarker[] array2 = Object.FindObjectsOfType<LckAudioMarker>(false);
 					if (array2.Length != 0)
 					{
@@ -266,7 +266,7 @@ namespace Liv.Lck
 					}
 					if (array2.Length > 1)
 					{
-						LckLog.LogError("LCK found more than one AudioCaptureMarker in the scene. This is not valid");
+						LckLog.LogError("LCK found more than one AudioCaptureMarker in the scene. This is not valid", "VerifyAudioCaptureComponent", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 357);
 					}
 				}
 				else
@@ -277,7 +277,7 @@ namespace Liv.Lck
 					}
 					if (list.Count > 1)
 					{
-						LckLog.LogError("LCK found more than one active AudioListener in the scene. This is not valid");
+						LckLog.LogError("LCK found more than one active AudioListener in the scene. This is not valid", "VerifyAudioCaptureComponent", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 369);
 					}
 				}
 			}
@@ -300,12 +300,12 @@ namespace Liv.Lck
 		public LckResult SetMicrophoneCaptureActive(bool active)
 		{
 			this._lastMicrophoneLevel = 0f;
-			if (!this.CheckMicAudioPermissions())
-			{
-				return LckResult.NewError(LckError.MicrophonePermissionDenied, "The app has not been granted microphone permissions.");
-			}
 			if (active)
 			{
+				if (!this.CheckMicAudioPermissions())
+				{
+					return LckResult.NewError(LckError.MicrophonePermissionDenied, "The app has not been granted microphone permissions.");
+				}
 				this._nativeMicrophoneCapture.EnableCapture();
 			}
 			else
@@ -391,11 +391,11 @@ namespace Liv.Lck
 			}
 			if (num2 < 0)
 			{
-				LckLog.LogWarning(string.Format("{0} is behind expected sample count ({1}) by ", audioSourceName, num) + string.Format("{0} samples - Padding with silence for missing samples", num3));
+				LckLog.LogWarning(string.Format("{0} is behind expected sample count ({1}) by ", audioSourceName, num) + string.Format("{0} samples - Padding with silence for missing samples", num3), "EnsureAudioSourceSamplesWithinTolerance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 509);
 				LckAudioMixer.PadWithSilence(audioSourceQueue, num3, ref audioSourceRunningSampleCount);
 				return;
 			}
-			LckLog.LogWarning(string.Format("{0} is ahead of expected sample count ({1}) by ", audioSourceName, num) + string.Format("{0} samples - Expecting this to be a result of a lag spike", num3));
+			LckLog.LogWarning(string.Format("{0} is ahead of expected sample count ({1}) by ", audioSourceName, num) + string.Format("{0} samples - Expecting this to be a result of a lag spike", num3), "EnsureAudioSourceSamplesWithinTolerance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckAudioMixer.cs", 517);
 		}
 
 		private void PrepareGameAudioSyncOffset()

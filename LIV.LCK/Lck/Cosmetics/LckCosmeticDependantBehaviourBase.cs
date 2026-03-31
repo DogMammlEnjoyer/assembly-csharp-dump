@@ -13,7 +13,7 @@ namespace Liv.Lck.Cosmetics
 		{
 			if (this._cosmeticType == null)
 			{
-				LckLog.LogWarning("LCK: CosmeticType is not assigned on this dependant!");
+				LckLog.LogWarning("LCK: CosmeticType is not assigned on this dependant!", "GetCosmeticType", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticDependantBase.cs", 30);
 				return string.Empty;
 			}
 			return this._cosmeticType.TypeValue;
@@ -26,7 +26,7 @@ namespace Liv.Lck.Cosmetics
 			this._lckCosmeticDependantPlayerIdSupplier = this._playerIdSupplier.GetComponent<ILckCosmeticDependantPlayerIdSupplier>();
 			if (this._lckCosmeticDependantPlayerIdSupplier == null)
 			{
-				LckLog.LogError("LCK: LckCosmeticDependantBehaviour has no _lckCosmeticDependantPlayerIdSupplier set. Cosmetic dependants will fail to load for: " + base.name);
+				LckLog.LogError("LCK: LckCosmeticDependantBehaviour has no _lckCosmeticDependantPlayerIdSupplier set. Cosmetic dependants will fail to load for: " + base.name, "Awake", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticDependantBase.cs", 46);
 				return;
 			}
 			this._lckCosmeticDependantPlayerIdSupplier.PlayerIdUpdated += delegate()

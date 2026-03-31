@@ -75,32 +75,32 @@ public class GameBall : MonoBehaviour
 
 	public void PlayCatchFx()
 	{
-		if (this.audioSource != null && this._catchSoundDecay <= 0f)
+		if (this.audioSource != null && this._catchSoundDecay <= 0f && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.clip = this.catchSound;
 			this.audioSource.volume = this.catchSoundVolume;
-			this.audioSource.Play();
+			this.audioSource.GTPlay();
 			this._catchSoundDecay = 0.1f;
 		}
 	}
 
 	public void PlayThrowFx()
 	{
-		if (this.audioSource != null)
+		if (this.audioSource != null && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.clip = this.throwSound;
 			this.audioSource.volume = this.throwSoundVolume;
-			this.audioSource.Play();
+			this.audioSource.GTPlay();
 		}
 	}
 
 	public void PlayBounceFX()
 	{
-		if (this.audioSource != null)
+		if (this.audioSource != null && this.audioSource.isActiveAndEnabled)
 		{
 			this.audioSource.clip = this.groundSound;
 			this.audioSource.volume = this.groundSoundVolume;
-			this.audioSource.Play();
+			this.audioSource.GTPlay();
 		}
 	}
 

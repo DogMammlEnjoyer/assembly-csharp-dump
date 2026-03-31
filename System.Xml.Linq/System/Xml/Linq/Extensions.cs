@@ -110,9 +110,9 @@ namespace System.Xml.Linq
 
 		private static IEnumerable<XNode> NodesIterator<T>(IEnumerable<T> source) where T : XContainer
 		{
-			foreach (T t in source)
+			foreach (!0 ! in source)
 			{
-				XContainer root = t;
+				XContainer root = !;
 				if (root != null)
 				{
 					XNode i = root.LastNode;
@@ -352,9 +352,9 @@ namespace System.Xml.Linq
 
 		private static IEnumerable<XElement> GetAncestors<T>(IEnumerable<T> source, XName name, bool self) where T : XNode
 		{
-			foreach (T t in source)
+			foreach (!0 ! in source)
 			{
-				XNode xnode = t;
+				XNode xnode = !;
 				if (xnode != null)
 				{
 					XElement e;
@@ -375,9 +375,9 @@ namespace System.Xml.Linq
 
 		private static IEnumerable<XNode> GetDescendantNodes<T>(IEnumerable<T> source, bool self) where T : XContainer
 		{
-			foreach (T t in source)
+			foreach (!0 ! in source)
 			{
-				XContainer root = t;
+				XContainer root = !;
 				if (root != null)
 				{
 					if (self)
@@ -418,9 +418,9 @@ namespace System.Xml.Linq
 
 		private static IEnumerable<XElement> GetDescendants<T>(IEnumerable<T> source, XName name, bool self) where T : XContainer
 		{
-			foreach (T t in source)
+			foreach (!0 ! in source)
 			{
-				XContainer root = t;
+				XContainer root = !;
 				if (root != null)
 				{
 					if (self)
@@ -470,9 +470,9 @@ namespace System.Xml.Linq
 
 		private static IEnumerable<XElement> GetElements<T>(IEnumerable<T> source, XName name) where T : XContainer
 		{
-			foreach (T t in source)
+			foreach (!0 ! in source)
 			{
-				XContainer root = t;
+				XContainer root = !;
 				if (root != null)
 				{
 					XNode i = root.content as XNode;

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D87}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion.Realtime</RootNamespace>
@@ -131,23 +131,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D85}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A6}</Project>
       <Name>Fusion.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D86}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A7}</Project>
       <Name>Fusion.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Photon3Unity3D\Photon3Unity3D.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DC0}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8E2}</Project>
       <Name>Photon3Unity3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E29}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D950}</Project>
       <Name>UnityEngine</Name>
     </ProjectReference>
   </ItemGroup>

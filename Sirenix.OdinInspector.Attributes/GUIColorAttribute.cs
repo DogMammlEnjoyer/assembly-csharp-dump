@@ -20,6 +20,7 @@ namespace Sirenix.OdinInspector
 
 		public Color Color;
 
+		[ColorResolver]
 		public string GetColor;
 	}
 }

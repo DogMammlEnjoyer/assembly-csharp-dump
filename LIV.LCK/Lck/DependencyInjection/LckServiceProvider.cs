@@ -25,7 +25,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: Failed to get service of type " + typeof(T).Name + ". Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: Failed to get service of type " + typeof(T).Name + ". Exception: " + ex.Message, "GetService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 29);
 				result = default(T);
 			}
 			return result;
@@ -40,7 +40,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: Failed to get service of type " + serviceType.Name + ". Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: Failed to get service of type " + serviceType.Name + ". Exception: " + ex.Message, "GetService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 42);
 				result = null;
 			}
 			return result;
@@ -51,7 +51,7 @@ namespace Liv.Lck.DependencyInjection
 			LckDiServiceRegistration lckDiServiceRegistration;
 			if (!this._registrations.TryGetValue(serviceType, out lckDiServiceRegistration))
 			{
-				LckLog.LogError("LCK Error: Service of type " + serviceType.Name + " has not been registered.");
+				LckLog.LogError("LCK Error: Service of type " + serviceType.Name + " has not been registered.", "ProvideService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 51);
 				throw new InvalidOperationException("Service of type " + serviceType.Name + " has not been registered.");
 			}
 			object result;
@@ -79,7 +79,7 @@ namespace Liv.Lck.DependencyInjection
 					ConstructorInfo[] constructors = lckDiServiceRegistration.ImplementationType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 					if (constructors.Length < 1)
 					{
-						LckLog.LogError(string.Format("LCK Error: {0} has no public constructors.", lckDiServiceRegistration.ImplementationType));
+						LckLog.LogError(string.Format("LCK Error: {0} has no public constructors.", lckDiServiceRegistration.ImplementationType), "ProvideService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 80);
 						result = null;
 					}
 					else
@@ -90,7 +90,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error: Failed to provide service " + serviceType.Name + ". Exception: " + ex.Message);
+				LckLog.LogError("LCK Error: Failed to provide service " + serviceType.Name + ". Exception: " + ex.Message, "ProvideService", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 88);
 				throw;
 			}
 			return result;
@@ -120,7 +120,7 @@ namespace Liv.Lck.DependencyInjection
 							"' for '",
 							registration.ImplementationType.Name,
 							"'."
-						}));
+						}), "CreateInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 107);
 						return null;
 					}
 					list.Add(obj);
@@ -130,7 +130,7 @@ namespace Liv.Lck.DependencyInjection
 				{
 					registration.SetInstance(obj2);
 				}
-				LckLog.Log("Successfully instantiated " + registration.ImplementationType.Name + ".");
+				LckLog.Log("Successfully instantiated " + registration.ImplementationType.Name + ".", "CreateInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 120);
 				result = obj2;
 			}
 			catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Liv.Lck.DependencyInjection
 				string format = "LCK Error: {0} failed to instantiate. Exception: {1}";
 				object implementationType = registration.ImplementationType;
 				Exception innerException = ex.InnerException;
-				LckLog.LogError(string.Format(format, implementationType, ((innerException != null) ? innerException.Message : null) ?? ex.Message));
+				LckLog.LogError(string.Format(format, implementationType, ((innerException != null) ? innerException.Message : null) ?? ex.Message), "CreateInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 125);
 				result = null;
 			}
 			return result;
@@ -150,7 +150,7 @@ namespace Liv.Lck.DependencyInjection
 			{
 				return;
 			}
-			LckLog.Log("Disposing LCK Service Provider and all disposable singleton services.");
+			LckLog.Log("Disposing LCK Service Provider and all disposable singleton services.", "Dispose", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 134);
 			foreach (LckDiServiceRegistration lckDiServiceRegistration in this._registrations.Values)
 			{
 				if (lckDiServiceRegistration.Lifetime == LckDiServiceRegistration.ServiceLifetime.Singleton && lckDiServiceRegistration.Instance != null)
@@ -164,7 +164,7 @@ namespace Liv.Lck.DependencyInjection
 						}
 						catch (Exception ex)
 						{
-							LckLog.LogError("LCK Error: Failed to dispose service of type " + lckDiServiceRegistration.Instance.GetType().Name + ". Exception: " + ex.Message);
+							LckLog.LogError("LCK Error: Failed to dispose service of type " + lckDiServiceRegistration.Instance.GetType().Name + ". Exception: " + ex.Message, "Dispose", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckServiceProvider.cs", 148);
 						}
 					}
 				}

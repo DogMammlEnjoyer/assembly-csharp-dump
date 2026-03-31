@@ -36,43 +36,43 @@ namespace Liv.Lck
 		{
 			if (this._isInitialized)
 			{
-				LckLog.LogWarning("LCKPlugins already initialized");
+				LckLog.LogWarning("LCKPlugins already initialized", "Initialize", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 56);
 				return;
 			}
-			LckLog.Log(string.Format("Initializing {0} plugins", this._pluginsByType.Count));
+			LckLog.Log(string.Format("Initializing {0} plugins", this._pluginsByType.Count), "Initialize", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 60);
 			foreach (ILCKPlugin ilckplugin in this._pluginsByType.Values)
 			{
 				try
 				{
 					ilckplugin.Initialize(lckService);
-					LckLog.Log("Initialized plugin: " + ilckplugin.GetType().Name);
+					LckLog.Log("Initialized plugin: " + ilckplugin.GetType().Name, "Initialize", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 67);
 				}
 				catch (Exception ex)
 				{
-					LckLog.LogError("Failed to initialize plugin " + ilckplugin.GetType().Name + ": " + ex.Message);
+					LckLog.LogError("Failed to initialize plugin " + ilckplugin.GetType().Name + ": " + ex.Message, "Initialize", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 71);
 				}
 			}
 			this._isInitialized = true;
-			LckLog.Log("LCKPlugins initialization complete");
+			LckLog.Log("LCKPlugins initialization complete", "Initialize", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 76);
 		}
 
 		internal void RegisterPlugin(ILCKPlugin plugin)
 		{
 			if (plugin == null)
 			{
-				LckLog.LogError("Attempted to register null plugin");
+				LckLog.LogError("Attempted to register null plugin", "RegisterPlugin", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 87);
 				return;
 			}
 			Type type = plugin.GetType();
 			string pluginName = plugin.PluginName;
 			if (this._pluginsByType.ContainsKey(type))
 			{
-				LckLog.LogWarning("Plugin of type " + type.Name + " is already registered");
+				LckLog.LogWarning("Plugin of type " + type.Name + " is already registered", "RegisterPlugin", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 96);
 				return;
 			}
 			if (this._pluginsByName.ContainsKey(pluginName))
 			{
-				LckLog.LogWarning("Plugin with name '" + pluginName + "' is already registered");
+				LckLog.LogWarning("Plugin with name '" + pluginName + "' is already registered", "RegisterPlugin", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 102);
 				return;
 			}
 			this._pluginsByType[type] = plugin;
@@ -84,7 +84,7 @@ namespace Liv.Lck
 				" (",
 				type.Name,
 				")"
-			}));
+			}), "RegisterPlugin", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 109);
 		}
 
 		public bool HasPlugin<T>() where T : class, ILCKPlugin
@@ -141,7 +141,7 @@ namespace Liv.Lck
 				" (",
 				type.Name,
 				")"
-			}));
+			}), "UnregisterPlugin", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 190);
 		}
 
 		public void Clear()
@@ -149,7 +149,7 @@ namespace Liv.Lck
 			this._pluginsByType.Clear();
 			this._pluginsByName.Clear();
 			this._isInitialized = false;
-			LckLog.Log("Cleared all registered plugins");
+			LckLog.Log("Cleared all registered plugins", "Clear", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPlugins.cs", 201);
 		}
 
 		public int PluginCount

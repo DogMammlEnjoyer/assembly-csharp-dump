@@ -11,6 +11,7 @@ namespace Liv.Lck.Core
 		FailedToCacheCosmetics,
 		ServiceUnavailable,
 		RateLimiterBackoff,
-		LoginAttemptExpired
+		LoginAttemptExpired,
+		InvalidTrackingId
 	}
 }

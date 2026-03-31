@@ -93,7 +93,7 @@ public class SITechTreePage
 					"[SI] Graph node: ",
 					graphNode2.Value.nickName,
 					" [",
-					SITechTreePage.<PrintGraph>g__NodeListText|28_2(graphNode2.Parents),
+					SITechTreePage.<PrintGraph>g__NodeListText|28_0(graphNode2.Parents),
 					"]"
 				}));
 			}
@@ -134,27 +134,7 @@ public class SITechTreePage
 	}
 
 	[CompilerGenerated]
-	internal static string[] <PrintGraph>g__GetChildText|28_0(GraphNode<SITechTreeNode> root)
-	{
-		return (from n in root.TraversePreOrder()
-		select SITechTreePage.<PrintGraph>g__NodeText|28_1(n)).ToArray<string>();
-	}
-
-	[CompilerGenerated]
-	internal static string <PrintGraph>g__NodeText|28_1(GraphNode<SITechTreeNode> graphNode)
-	{
-		return string.Concat(new string[]
-		{
-			SITechTreePage.<PrintGraph>g__NodeListText|28_2(graphNode.Parents),
-			" >> ",
-			graphNode.Value.nickName,
-			" << ",
-			SITechTreePage.<PrintGraph>g__NodeListText|28_2(graphNode.Children)
-		});
-	}
-
-	[CompilerGenerated]
-	internal static string <PrintGraph>g__NodeListText|28_2(List<GraphNode<SITechTreeNode>> nodes)
+	internal static string <PrintGraph>g__NodeListText|28_0(List<GraphNode<SITechTreeNode>> nodes)
 	{
 		return string.Join("|", from n in nodes
 		select n.Value.nickName);

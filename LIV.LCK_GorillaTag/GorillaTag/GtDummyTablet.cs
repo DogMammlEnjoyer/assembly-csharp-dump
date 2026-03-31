@@ -92,7 +92,10 @@ namespace Liv.Lck.GorillaTag
 
 		private void OnCaptureStarted(LckResult result)
 		{
-			this.SetState(true);
+			if (result.Success)
+			{
+				this.SetState(true);
+			}
 		}
 
 		private void OnCaptureStopped(LckResult result)

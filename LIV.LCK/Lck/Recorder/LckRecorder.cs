@@ -20,14 +20,6 @@ namespace Liv.Lck.Recorder
 	{
 		public LckCaptureState CurrentCaptureState { get; private set; }
 
-		private float CurrentRecordingDurationSeconds
-		{
-			get
-			{
-				return Time.time - this._recordingStartTime;
-			}
-		}
-
 		[Preserve]
 		public LckRecorder(ILckNativeRecordingService nativeRecordingService, ILckEncoder encoder, ILckOutputConfigurer outputConfigurer, ILckStorageWatcher storageWatcher, ILckEventBus eventBus, ILckTelemetryClient telemetryClient, ILckTelemetryContextProvider telemetryContextProvider)
 		{
@@ -74,12 +66,12 @@ namespace Liv.Lck.Recorder
 
 		public LckResult StopRecording(LckService.StopReason stopReason)
 		{
-			LckLog.Log(string.Format("LCK {0} triggered with stop reason: {1}", "StopRecording", stopReason));
+			LckLog.Log(string.Format("LCK {0} triggered with stop reason: {1}", "StopRecording", stopReason), "StopRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 99);
 			if (this.CurrentCaptureState != LckCaptureState.InProgress)
 			{
 				return LckResult.NewError(LckError.NotCurrentlyRecording, "No recording currently in progress to stop.");
 			}
-			LckLog.Log(string.Format("LCK StopRecording triggered with stopreason: {0}", stopReason));
+			LckLog.Log(string.Format("LCK StopRecording triggered with stopreason: {0}", stopReason), "StopRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 105);
 			this._stopReason = stopReason;
 			this.StopRecordingProcess();
 			return LckResult.NewSuccess();
@@ -94,9 +86,10 @@ namespace Liv.Lck.Recorder
 			}
 			else
 			{
+				this._accumulatedRecordingDuration += Time.time - this._lastActiveSegmentStartTime;
 				result = LckResult.NewSuccess();
 				this.CurrentCaptureState = LckCaptureState.Paused;
-				LckLog.Log("LCK Recording paused.");
+				LckLog.Log("LCK Recording paused.", "PauseRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 126);
 			}
 			this.TriggerRecordingPausedEvent(result);
 			return result;
@@ -111,9 +104,10 @@ namespace Liv.Lck.Recorder
 			}
 			else
 			{
+				this._lastActiveSegmentStartTime = Time.time;
 				result = LckResult.NewSuccess();
 				this.CurrentCaptureState = LckCaptureState.InProgress;
-				LckLog.Log("LCK Recording resumed.");
+				LckLog.Log("LCK Recording resumed.", "ResumeRecording", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 146);
 			}
 			this.TriggerRecordingResumedEvent(result);
 			return result;
@@ -125,7 +119,7 @@ namespace Liv.Lck.Recorder
 			{
 				return LckResult<TimeSpan>.NewError(LckError.NotCurrentlyRecording, "Recording has not been started.");
 			}
-			return LckResult<TimeSpan>.NewSuccess(TimeSpan.FromSeconds((double)this.CurrentRecordingDurationSeconds));
+			return LckResult<TimeSpan>.NewSuccess(TimeSpan.FromSeconds((double)this.ActualRecordingDurationSeconds));
 		}
 
 		private Task<LckResult> StartNativeMuxerAsync()
@@ -148,23 +142,35 @@ namespace Liv.Lck.Recorder
 			return <StartRecordingAsync>d__.<>t__builder.Task;
 		}
 
+		private float ActualRecordingDurationSeconds
+		{
+			get
+			{
+				if (this.CurrentCaptureState == LckCaptureState.InProgress)
+				{
+					return this._accumulatedRecordingDuration + (Time.time - this._lastActiveSegmentStartTime);
+				}
+				return this._accumulatedRecordingDuration;
+			}
+		}
+
 		private Task<LckResult> StopNativeMuxerAsync()
 		{
-			LckRecorder.<StopNativeMuxerAsync>d__32 <StopNativeMuxerAsync>d__;
+			LckRecorder.<StopNativeMuxerAsync>d__34 <StopNativeMuxerAsync>d__;
 			<StopNativeMuxerAsync>d__.<>t__builder = AsyncTaskMethodBuilder<LckResult>.Create();
 			<StopNativeMuxerAsync>d__.<>4__this = this;
 			<StopNativeMuxerAsync>d__.<>1__state = -1;
-			<StopNativeMuxerAsync>d__.<>t__builder.Start<LckRecorder.<StopNativeMuxerAsync>d__32>(ref <StopNativeMuxerAsync>d__);
+			<StopNativeMuxerAsync>d__.<>t__builder.Start<LckRecorder.<StopNativeMuxerAsync>d__34>(ref <StopNativeMuxerAsync>d__);
 			return <StopNativeMuxerAsync>d__.<>t__builder.Task;
 		}
 
 		private Task StopRecordingAsync()
 		{
-			LckRecorder.<StopRecordingAsync>d__33 <StopRecordingAsync>d__;
+			LckRecorder.<StopRecordingAsync>d__35 <StopRecordingAsync>d__;
 			<StopRecordingAsync>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 			<StopRecordingAsync>d__.<>4__this = this;
 			<StopRecordingAsync>d__.<>1__state = -1;
-			<StopRecordingAsync>d__.<>t__builder.Start<LckRecorder.<StopRecordingAsync>d__33>(ref <StopRecordingAsync>d__);
+			<StopRecordingAsync>d__.<>t__builder.Start<LckRecorder.<StopRecordingAsync>d__35>(ref <StopRecordingAsync>d__);
 			return <StopRecordingAsync>d__.<>t__builder.Task;
 		}
 
@@ -182,17 +188,17 @@ namespace Liv.Lck.Recorder
 					{
 						if (success)
 						{
-							LckLog.Log("LCK Recording saved to gallery: " + path);
+							LckLog.Log("LCK Recording saved to gallery: " + path, "CopyRecordingToGalleryWhenReady", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 333);
 							RecordingData result = new RecordingData
 							{
 								RecordingFilePath = path,
-								RecordingDuration = this.CurrentRecordingDurationSeconds
+								RecordingDuration = this.ActualRecordingDurationSeconds
 							};
 							this.TriggerRecordingSavedEvent(LckResult<RecordingData>.NewSuccess(result));
 							return;
 						}
 						this.TriggerRecordingSavedEvent(LckResult<RecordingData>.NewError(LckError.FailedToCopyRecordingToGallery, "Failed to copy recording to Gallery"));
-						LckLog.LogError("LCK Failed to save recording to gallery");
+						LckLog.LogError("LCK Failed to save recording to gallery", "CopyRecordingToGalleryWhenReady", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 345);
 					});
 				});
 				yield return new WaitUntil(() => task.IsCompleted);
@@ -212,6 +218,7 @@ namespace Liv.Lck.Recorder
 			{
 				this.StopRecordingAsync();
 			}
+			this._storageWatcher.ClearRecordingContext();
 			this._eventBus.RemoveListener<LckEvents.LowStorageSpaceDetectedEvent>(new Action<LckEvents.LowStorageSpaceDetectedEvent>(this.OnLowStorageSpaceDetected));
 			this._eventBus.RemoveListener<LckEvents.EncoderStoppedEvent>(new Action<LckEvents.EncoderStoppedEvent>(this.OnEncoderStopped));
 			this._eventBus.RemoveListener<LckEvents.CaptureErrorEvent>(new Action<LckEvents.CaptureErrorEvent>(this.OnCaptureError));
@@ -226,7 +233,11 @@ namespace Liv.Lck.Recorder
 
 		private void StopRecordingProcess()
 		{
-			LckLog.Log("LCK Stopping Recording");
+			LckLog.Log("LCK Stopping Recording", "StopRecordingProcess", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 380);
+			if (this.CurrentCaptureState == LckCaptureState.InProgress)
+			{
+				this._accumulatedRecordingDuration += Time.time - this._lastActiveSegmentStartTime;
+			}
 			this.CurrentCaptureState = LckCaptureState.Stopping;
 			this.SendRecordingStoppedTelemetry();
 			this.StopRecordingAsync();
@@ -235,8 +246,9 @@ namespace Liv.Lck.Recorder
 		private void SendRecordingStoppedTelemetry()
 		{
 			ulong encodedVideoFrames = this._encoder.GetCurrentSessionData().EncodedVideoFrames;
-			float num = (this.CurrentRecordingDurationSeconds > 0f && encodedVideoFrames > 0UL) ? (encodedVideoFrames / this.CurrentRecordingDurationSeconds) : 0f;
-			this._recordingTelemetryContext.Add("recording.duration", this.CurrentRecordingDurationSeconds);
+			float actualRecordingDurationSeconds = this.ActualRecordingDurationSeconds;
+			float num = (actualRecordingDurationSeconds > 0f && encodedVideoFrames > 0UL) ? (encodedVideoFrames / actualRecordingDurationSeconds) : 0f;
+			this._recordingTelemetryContext.Add("recording.duration", actualRecordingDurationSeconds);
 			this._recordingTelemetryContext.Add("recording.encodedFrames", encodedVideoFrames);
 			this._recordingTelemetryContext.Add("recording.stopReason", this._stopReason.ToString());
 			this._recordingTelemetryContext.Add("recording.actualFramerate", num);
@@ -297,7 +309,7 @@ namespace Liv.Lck.Recorder
 			{
 				return;
 			}
-			LckLog.LogError("Encoder stopped while recording - stopping recording");
+			LckLog.LogError("Encoder stopped while recording - stopping recording", "OnEncoderStopped", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 448);
 			this.StopRecording(LckService.StopReason.Error);
 		}
 
@@ -333,14 +345,11 @@ namespace Liv.Lck.Recorder
 
 		private void OnCaptureError(LckEvents.CaptureErrorEvent captureErrorEvent)
 		{
-			LckCaptureState currentCaptureState = this.CurrentCaptureState;
-			if (currentCaptureState == LckCaptureState.Idle || currentCaptureState == LckCaptureState.Stopping)
+			if (this.CurrentCaptureState == LckCaptureState.Idle || this.CurrentCaptureState == LckCaptureState.Stopping)
 			{
 				return;
 			}
-			string message = "Stopping recording because a capture error occurred: " + captureErrorEvent.Error.Message;
-			this._telemetryClient.SendErrorTelemetry(LckResult.NewError(LckError.RecordingError, message));
-			LckLog.LogError(message);
+			LckLog.LogError("Stopping recording because a capture error occurred: " + captureErrorEvent.Error.Message, "OnCaptureError", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckRecorder.cs", 488);
 			this.StopRecording(LckService.StopReason.Error);
 		}
 
@@ -363,6 +372,10 @@ namespace Liv.Lck.Recorder
 		private MuxerConfig _muxerConfig;
 
 		private float _recordingStartTime;
+
+		private float _accumulatedRecordingDuration;
+
+		private float _lastActiveSegmentStartTime;
 
 		private string _lastRecordingFilePath;
 

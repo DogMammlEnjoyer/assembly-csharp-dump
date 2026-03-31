@@ -49,12 +49,12 @@ namespace Liv.Lck.NativeMicrophone
 				{
 					if (lckNativeMicrophone._audioBuffer.Capacity < length)
 					{
-						LckLog.LogWarning(string.Format("LCK Native Microphone dropping audio: {0} < {1}", lckNativeMicrophone._audioBuffer.Capacity, length));
+						LckLog.LogWarning(string.Format("LCK Native Microphone dropping audio: {0} < {1}", lckNativeMicrophone._audioBuffer.Capacity, length), "AudioDataCallback", ".\\Packages\\tv.liv.lck\\Runtime\\Plugins\\NativeMicrophone\\NativeMicrophone.cs", 103);
 					}
 					int count = Mathf.Min(length, lckNativeMicrophone._audioBuffer.Capacity);
 					if (!lckNativeMicrophone._audioBuffer.TryCopyFrom(dataPtr, count))
 					{
-						LckLog.LogError("LCK Mic Audio data copy failed");
+						LckLog.LogError("LCK Mic Audio data copy failed", "AudioDataCallback", ".\\Packages\\tv.liv.lck\\Runtime\\Plugins\\NativeMicrophone\\NativeMicrophone.cs", 108);
 					}
 					return;
 				}
@@ -64,7 +64,7 @@ namespace Liv.Lck.NativeMicrophone
 					return;
 				}
 			}
-			LckLog.LogError("LCK NativeMicrophone: Could not find instance for key: " + audioCaptureKey.ToString());
+			LckLog.LogError("LCK NativeMicrophone: Could not find instance for key: " + audioCaptureKey.ToString(), "AudioDataCallback", ".\\Packages\\tv.liv.lck\\Runtime\\Plugins\\NativeMicrophone\\NativeMicrophone.cs", 119);
 		}
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]

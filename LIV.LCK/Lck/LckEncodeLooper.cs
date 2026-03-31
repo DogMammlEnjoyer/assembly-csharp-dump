@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Liv.Lck.Collections;
-using Liv.Lck.Core;
 using Liv.Lck.Encoding;
 using Liv.Lck.Telemetry;
 using UnityEngine;
@@ -35,7 +33,7 @@ namespace Liv.Lck
 			AudioBuffer mixedAudio = this._audioMixer.GetMixedAudio(this._videoTime + this._pausedForTime);
 			if (num > 1f)
 			{
-				LckLog.LogWarning("LCK detected lag spike during capture - adjusting capture time accordingly");
+				LckLog.LogWarning("LCK detected lag spike during capture - adjusting capture time accordingly", "EarlyUpdate", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckEncodeLooper.cs", 67);
 				uint num2 = this._outputConfigurer.GetAudioSampleRate().Result * this._outputConfigurer.GetNumberOfAudioChannels().Result;
 				num = (float)mixedAudio.Count / num2;
 			}
@@ -59,25 +57,7 @@ namespace Liv.Lck
 			LckEncodeLooper.EnsureTrackTimeAlignment(ref this._videoTime, this.CalculateAudioTime(), this._prevVideoTime);
 			if (!this._encoder.EncodeFrame(this._videoTime, mixedAudio, this._videoCapturer.HasCurrentFrameBeenCaptured()))
 			{
-				this.HandleEncodeFrameError("LCK EncodeFrame returned false. This indicates a critical error.", new Dictionary<string, object>
-				{
-					{
-						"errorString",
-						"EncodeFrameFailed"
-					},
-					{
-						"message",
-						"LCK EncodeFrame returned false. This indicates a critical error."
-					},
-					{
-						"recordingTime",
-						currentSessionData.CaptureTimeSeconds
-					},
-					{
-						"audioTimestampSamples",
-						currentSessionData.EncodedAudioSamplesPerChannel
-					}
-				});
+				this.HandleEncodeFrameError(string.Format("LCK EncodeFrame returned false. This indicates a critical error. (recordingTime: {0}, audioTimestampSamples: {1})", currentSessionData.CaptureTimeSeconds, currentSessionData.EncodedAudioSamplesPerChannel));
 			}
 			this._videoTime += num;
 		}
@@ -96,25 +76,7 @@ namespace Liv.Lck
 				return true;
 			}
 			EncoderSessionData currentSessionData = this._encoder.GetCurrentSessionData();
-			this.HandleEncodeFrameError("LCK Audio data is null", new Dictionary<string, object>
-			{
-				{
-					"errorString",
-					"EncodeFrameFailed"
-				},
-				{
-					"message",
-					"LCK Audio data is null"
-				},
-				{
-					"captureTime",
-					currentSessionData.CaptureTimeSeconds
-				},
-				{
-					"audioTimestampSamples",
-					currentSessionData.EncodedAudioSamplesPerChannel
-				}
-			});
+			this.HandleEncodeFrameError(string.Format("LCK Audio data is null (captureTime: {0}, audioTimestampSamples: {1})", currentSessionData.CaptureTimeSeconds, currentSessionData.EncodedAudioSamplesPerChannel));
 			return false;
 		}
 
@@ -129,10 +91,9 @@ namespace Liv.Lck
 			LckUpdateManager.UnregisterSingleEarlyUpdate(this);
 		}
 
-		private void HandleEncodeFrameError(string errorMessage, Dictionary<string, object> telemetryData)
+		private void HandleEncodeFrameError(string errorMessage)
 		{
-			LckLog.LogError(errorMessage);
-			this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.RecorderError, telemetryData));
+			LckLog.LogError(errorMessage, "HandleEncodeFrameError", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckEncodeLooper.cs", 135);
 			this._encoder.StopEncodingAsync();
 		}
 
@@ -167,7 +128,7 @@ namespace Liv.Lck
 			{
 				return;
 			}
-			LckLog.LogError(string.Format("Video track is {0}ms ", Mathf.FloorToInt(1000f * num2)) + ((num > 0f) ? "ahead of" : "behind") + " audio track - adjusting video time to re-sync");
+			LckLog.LogError(string.Format("Video track is {0}ms ", Mathf.FloorToInt(1000f * num2)) + ((num > 0f) ? "ahead of" : "behind") + " audio track - adjusting video time to re-sync", "EnsureTrackTimeAlignment", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckEncodeLooper.cs", 176);
 			videoTime = Math.Max(audioTime, prevVideoTime + 0.001f);
 		}
 

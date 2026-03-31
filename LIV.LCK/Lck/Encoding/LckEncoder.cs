@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AOT;
 using Liv.Lck.Collections;
-using Liv.Lck.Core;
 using Liv.Lck.ErrorHandling;
 using Liv.Lck.Telemetry;
 using Liv.NGFX;
@@ -75,7 +74,7 @@ namespace Liv.Lck.Encoding
 			this.InitTextureHandles();
 			this._isActive = true;
 			this._currentEncoderSessionData = default(EncoderSessionData);
-			LckLog.Log("Encoder started successfully");
+			LckLog.Log("Encoder started successfully", "StartEncoding", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 128);
 			LckResult result = LckResult.NewSuccess();
 			this._eventBus.Trigger<LckEvents.EncoderStartedEvent>(new LckEvents.EncoderStartedEvent(result));
 			return result;
@@ -95,7 +94,7 @@ namespace Liv.Lck.Encoding
 		{
 			if (!this.IsActive())
 			{
-				LckLog.LogError("Cannot encode frame - encoder is not open");
+				LckLog.LogError("Cannot encode frame - encoder is not open", "EncodeFrame", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 184);
 				return false;
 			}
 			try
@@ -104,17 +103,7 @@ namespace Liv.Lck.Encoding
 			}
 			catch (Exception ex)
 			{
-				this.HandleEncodeFrameError("LCK EncodeFrame failed: " + ex.Message, new Dictionary<string, object>
-				{
-					{
-						"errorString",
-						"EncodeFrameFailed"
-					},
-					{
-						"message",
-						ex.Message
-					}
-				});
+				this.HandleEncodeFrameError("LCK EncodeFrame failed: " + ex.Message);
 				return false;
 			}
 			return true;
@@ -158,23 +147,23 @@ namespace Liv.Lck.Encoding
 		{
 			if (this._encoderContext == IntPtr.Zero)
 			{
-				LckLog.LogError("Cannot add encoded packet handler - invalid encoder context");
+				LckLog.LogError("Cannot add encoded packet handler - invalid encoder context", "AddEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 242);
 				return;
 			}
 			if (!handler.EncodedPacketCallback.IsValid)
 			{
-				LckLog.LogError("Cannot add encoded packet handler - missing callback object or function pointer");
+				LckLog.LogError("Cannot add encoded packet handler - missing callback object or function pointer", "AddEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 248);
 				return;
 			}
 			if (this._registeredPacketHandlers.Contains(handler))
 			{
-				LckLog.LogError("Cannot add encoded packet handler - it is already registered");
+				LckLog.LogError("Cannot add encoded packet handler - it is already registered", "AddEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 254);
 				return;
 			}
 			this._registeredPacketHandlers.Add(handler);
 			LckEncodedPacketCallback encodedPacketCallback = handler.EncodedPacketCallback;
 			LckNativeEncodingApi.AddEncoderPacketCallback(this._encoderContext, encodedPacketCallback.CallbackObjectPtr, encodedPacketCallback.CallbackFunctionPtr);
-			LckLog.Log("Encoder packet handler added");
+			LckLog.Log("Encoder packet handler added", "AddEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 264);
 		}
 
 		private void AddEncodedPacketHandlers(IEnumerable<LckEncodedPacketHandler> encodedPacketHandlers)
@@ -189,34 +178,34 @@ namespace Liv.Lck.Encoding
 		{
 			if (!this._registeredPacketHandlers.Remove(handler))
 			{
-				LckLog.LogError("Cannot remove encoded packet handler - it is not registered");
+				LckLog.LogError("Cannot remove encoded packet handler - it is not registered", "RemoveEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 279);
 				return;
 			}
 			LckEncodedPacketCallback encodedPacketCallback = handler.EncodedPacketCallback;
 			LckNativeEncodingApi.RemoveEncoderPacketCallback(this._encoderContext, encodedPacketCallback.CallbackObjectPtr, encodedPacketCallback.CallbackFunctionPtr);
-			LckLog.Log("Removed encoded packet handler");
+			LckLog.Log("Removed encoded packet handler", "RemoveEncodedPacketHandler", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 288);
 		}
 
 		private bool CreateEncoderInstance()
 		{
 			if (this._encoderContext != IntPtr.Zero)
 			{
-				LckLog.LogWarning("Encoder context is already set");
+				LckLog.LogWarning("Encoder context is already set", "CreateEncoderInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 295);
 				return false;
 			}
 			this._encoderContext = LckNativeEncodingApi.CreateEncoder();
 			if (this._encoderContext == IntPtr.Zero)
 			{
-				LckLog.LogError("Failed to create native encoder");
+				LckLog.LogError("Failed to create native encoder", "CreateEncoderInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 302);
 				return false;
 			}
 			LckNativeEncodingApi.SetEncoderLogLevel(this._encoderContext, (uint)this._logLevel);
 			if (!LckNativeEncodingApi.SetCaptureErrorCallback(this._encoderContext, new LckNativeEncodingApi.CaptureErrorCallback(LckEncoder.OnNativeCaptureError)))
 			{
-				LckLog.LogError("Failed to set encoder error callback");
+				LckLog.LogError("Failed to set encoder error callback", "CreateEncoderInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 310);
 				return false;
 			}
-			LckLog.Log("Encoder created successfully");
+			LckLog.Log("Encoder created successfully", "CreateEncoderInstance", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 314);
 			return true;
 		}
 
@@ -247,7 +236,7 @@ namespace Liv.Lck.Encoding
 			{
 				if (this.IsActive())
 				{
-					LckLog.LogWarning("LCK can't release native render buffers while encoder is active");
+					LckLog.LogWarning("LCK can't release native render buffers while encoder is active", "ReleaseNativeRenderBuffers", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 354);
 				}
 				else
 				{
@@ -266,7 +255,7 @@ namespace Liv.Lck.Encoding
 
 		private void ReleaseResources()
 		{
-			LckLog.Log("Releasing encoder resources");
+			LckLog.Log("Releasing encoder resources", "ReleaseResources", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 373);
 			this.ReleaseNativeRenderBuffers();
 			CommandBuffer commandBuffer = new CommandBuffer();
 			commandBuffer.IssuePluginEventAndData(LckNativeEncodingApi.GetReleaseResourcesFunction(), 1, this._resourceInitData.ptr());
@@ -334,10 +323,9 @@ namespace Liv.Lck.Encoding
 			}
 		}
 
-		private void HandleEncodeFrameError(string errorMessage, Dictionary<string, object> telemetryData)
+		private void HandleEncodeFrameError(string errorMessage)
 		{
-			LckLog.LogError(errorMessage);
-			this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.RecorderError, telemetryData));
+			LckLog.LogError(errorMessage, "HandleEncodeFrameError", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 450);
 			this.StopEncodingAsync();
 		}
 
@@ -371,7 +359,7 @@ namespace Liv.Lck.Encoding
 				LckEncoder.CaptureErrorDispatcher.PushError(new LckCaptureError(errorType, errorMessage));
 				return;
 			}
-			LckLog.LogError("The CaptureErrorDispatcher reference is null while error occurred - Error will not be handled: " + errorMessage);
+			LckLog.LogError("The CaptureErrorDispatcher reference is null while error occurred - Error will not be handled: " + errorMessage, "OnNativeCaptureError", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 487);
 		}
 
 		public void Dispose()
@@ -385,7 +373,7 @@ namespace Liv.Lck.Encoding
 				LckResult result = this.StopEncodingAsync().Result;
 				if (!result.Success)
 				{
-					LckLog.LogError("LckEncoder was disposed while active, but failed to stop encoding: " + result.Message);
+					LckLog.LogError("LckEncoder was disposed while active, but failed to stop encoding: " + result.Message, "Dispose", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Encoding\\LckEncoder.cs", 502);
 				}
 			}
 			LckEncoder.CaptureErrorDispatcher = null;

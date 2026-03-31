@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94E08}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D92F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Unity.RenderPipelines.Universal.Runtime</RootNamespace>
@@ -327,51 +327,51 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Burst\Unity.Burst.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE8}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D90F}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DF2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D919}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipeline.Universal.ShaderLibrary\Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E00}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D927}</Project>
       <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime.Shared\Unity.RenderPipelines.Core.Runtime.Shared.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E02}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D929}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E01}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D928}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.GPUDriven.Runtime\Unity.RenderPipelines.GPUDriven.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E04}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D92B}</Project>
       <Name>Unity.RenderPipelines.GPUDriven.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.VisualEffectGraph.Runtime\Unity.VisualEffectGraph.Runtime.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E0F}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D936}</Project>
       <Name>Unity.VisualEffectGraph.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E33}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95A}</Project>
       <Name>UnityEngine.IMGUIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.VFXModule\UnityEngine.VFXModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E63}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D98A}</Project>
       <Name>UnityEngine.VFXModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E69}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D990}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

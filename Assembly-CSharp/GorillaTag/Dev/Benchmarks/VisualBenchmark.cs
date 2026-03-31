@@ -17,7 +17,6 @@ namespace GorillaTag.Dev.Benchmarks
 			};
 			List<ProfilerRecorderHandle> list = new List<ProfilerRecorderHandle>(5500);
 			ProfilerRecorderHandle.GetAvailable(list);
-			Debug.Log(string.Format("poop Available stats: {0}", list.Count), this);
 			List<VisualBenchmark.StatInfo> list2 = new List<VisualBenchmark.StatInfo>(600);
 			foreach (ProfilerRecorderHandle handle in list)
 			{
@@ -32,7 +31,6 @@ namespace GorillaTag.Dev.Benchmarks
 				}
 			}
 			this.availableRenderStats = list2.ToArray();
-			Debug.Log(string.Format("poop availableRenderStats: {0}", list2.Count), this);
 			List<Transform> list3 = new List<Transform>(this.benchmarkLocations.Length);
 			foreach (Transform transform in this.benchmarkLocations)
 			{
@@ -71,14 +69,12 @@ namespace GorillaTag.Dev.Benchmarks
 			switch (this.state)
 			{
 			case VisualBenchmark.EState.Setup:
-				Debug.Log("poop start");
 				this.sb.Clear();
 				this.currentLocationIndex = 0;
 				this.lastTime = Time.realtimeSinceStartup;
 				this.state = VisualBenchmark.EState.WaitingBeforeCollectingGarbage;
 				return;
 			case VisualBenchmark.EState.WaitingBeforeCollectingGarbage:
-				Debug.Log("poop wait 1");
 				if (Time.realtimeSinceStartup - this.lastTime >= this.collectGarbageDelay)
 				{
 					this.lastTime = Time.time;
@@ -88,7 +84,6 @@ namespace GorillaTag.Dev.Benchmarks
 				}
 				break;
 			case VisualBenchmark.EState.WaitingBeforeRecordingStats:
-				Debug.Log("poop wait 2");
 				if (Time.time - this.lastTime >= this.recordStatsDelay)
 				{
 					this.lastTime = Time.time;
@@ -104,7 +99,6 @@ namespace GorillaTag.Dev.Benchmarks
 				}
 				break;
 			case VisualBenchmark.EState.TearDown:
-				Debug.Log("poop teardown");
 				Debug.Log(this.sb.ToString());
 				this.state = VisualBenchmark.EState.Setup;
 				if (this.sb.Length > this.sb.Capacity)

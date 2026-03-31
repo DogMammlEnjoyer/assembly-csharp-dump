@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DE2}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D904}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.Xml.Linq</RootNamespace>
@@ -99,19 +99,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mscorlib\mscorlib.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAE}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D0}</Project>
       <Name>mscorlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Core\System.Core.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DCF}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8F1}</Project>
       <Name>System.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Xml\System.Xml.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE1}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D903}</Project>
       <Name>System.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\System\System.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DD2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8F4}</Project>
       <Name>System</Name>
     </ProjectReference>
   </ItemGroup>

@@ -59,14 +59,7 @@ namespace Liv.Lck.Streaming
 		{
 			if (this.IsStreaming)
 			{
-				Dictionary<string, object> context = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Streaming already started"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context));
+				LckLog.LogError("Streaming already started", "StartStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 63);
 				return LckResult.NewError(LckError.StreamingError, "Streaming already started");
 			}
 			if (!this._nativeStreamingService.HasNativeStreamer())
@@ -84,44 +77,23 @@ namespace Liv.Lck.Streaming
 
 		public LckResult StopStreaming(LckService.StopReason stopReason)
 		{
-			LckLog.Log(string.Format("LCK {0} triggered with stop reason: {1}", "StopStreaming", stopReason));
+			LckLog.Log(string.Format("LCK {0} triggered with stop reason: {1}", "StopStreaming", stopReason), "StopStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 85);
 			if (!this._nativeStreamingService.HasNativeStreamer())
 			{
-				Dictionary<string, object> context = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Native streamer does not exist"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context));
+				LckLog.LogError("Native streamer does not exist", "StopStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 89);
 				return LckResult.NewError(LckError.StreamingError, "Native streamer does not exist");
 			}
 			if (this._encoder == null)
 			{
-				Dictionary<string, object> context2 = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Encoder is null"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context2));
+				LckLog.LogError("Encoder is null", "StopStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 95);
 				return LckResult.NewError(LckError.StreamingError, "Encoder is null");
 			}
 			if (!this.IsStreaming)
 			{
-				Dictionary<string, object> context3 = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Streaming is already stopped"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context3));
+				LckLog.LogError("Streaming is already stopped", "StopStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 101);
 				return LckResult.NewError(LckError.StreamingError, "Streaming is already stopped");
 			}
-			LckLog.Log("LCK Stopping Streaming");
+			LckLog.Log("LCK Stopping Streaming", "StopStreaming", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 105);
 			this.CurrentCaptureState = LckCaptureState.Stopping;
 			this.StopStreamingAsync(stopReason);
 			return LckResult.NewSuccess();
@@ -187,39 +159,18 @@ namespace Liv.Lck.Streaming
 		{
 			if (this._nativeStreamingService.HasNativeStreamer())
 			{
-				Dictionary<string, object> context = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Streamer already exists"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context));
+				LckLog.LogError("Streamer already exists", "SetUpNativeStreamer", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 251);
 				return LckResult.NewError(LckError.StreamingError, "Streamer already exists");
 			}
 			if (!this._nativeStreamingService.CreateNativeStreamer())
 			{
-				Dictionary<string, object> context2 = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"LCK Failed to create native streamer"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.SdkError, context2));
+				LckLog.LogError("LCK Failed to create native streamer", "SetUpNativeStreamer", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 257);
 				return LckResult.NewError(LckError.StreamingError, "LCK Failed to create native streamer");
 			}
 			if (!this._nativeStreamingService.GetStreamPacketCallback().IsValid)
 			{
 				this._nativeStreamingService.DestroyNativeStreamer();
-				Dictionary<string, object> context3 = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"LCK Failed to get streamer callback function"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.SdkError, context3));
+				LckLog.LogError("LCK Failed to get streamer callback function", "SetUpNativeStreamer", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 264);
 				return LckResult.NewError(LckError.StreamingError, "LCK Failed to get streamer callback function");
 			}
 			return LckResult.NewSuccess();
@@ -231,19 +182,7 @@ namespace Liv.Lck.Streaming
 			{
 				return;
 			}
-			LckLog.LogError("Encoder stopped while streaming - stopping stream");
-			Dictionary<string, object> context = new Dictionary<string, object>
-			{
-				{
-					"error",
-					"Encoder stopped unexpectedly during streaming."
-				},
-				{
-					"streaming.durationSeconds",
-					this.CurrentStreamDurationSeconds
-				}
-			};
-			this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.RecorderError, context));
+			LckLog.LogError(string.Format("Encoder stopped unexpectedly during streaming (duration: {0}s) - stopping stream", this.CurrentStreamDurationSeconds), "OnEncoderStopped", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 276);
 			this.StopStreaming(LckService.StopReason.Error);
 		}
 
@@ -301,14 +240,11 @@ namespace Liv.Lck.Streaming
 
 		private void OnCaptureError(LckEvents.CaptureErrorEvent captureErrorEvent)
 		{
-			LckCaptureState currentCaptureState = this.CurrentCaptureState;
-			if (currentCaptureState == LckCaptureState.Idle || currentCaptureState == LckCaptureState.Stopping)
+			if (this.CurrentCaptureState == LckCaptureState.Idle || this.CurrentCaptureState == LckCaptureState.Stopping)
 			{
 				return;
 			}
-			string message = "Stopping stream because a capture error occurred: " + captureErrorEvent.Error.Message;
-			this._telemetryClient.SendErrorTelemetry(LckResult.NewError(LckError.StreamingError, message));
-			LckLog.LogError(message);
+			LckLog.LogError("Stopping stream because a capture error occurred: " + captureErrorEvent.Error.Message, "OnCaptureError", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 323);
 			this.StopStreaming(LckService.StopReason.Error);
 		}
 
@@ -320,29 +256,21 @@ namespace Liv.Lck.Streaming
 			}
 			if (this.IsStreaming && !this.StopStreaming(LckService.StopReason.ApplicationLifecycle).Success)
 			{
-				LckLog.LogError("Failed to stop streaming while disposing LckStreamer");
-				Dictionary<string, object> context = new Dictionary<string, object>
-				{
-					{
-						"error",
-						"Failed to stop streaming while disposing LckStreamer"
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.StreamingError, context));
+				LckLog.LogError("Failed to stop streaming while disposing LckStreamer", "Dispose", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 335);
 			}
 			this._eventBus.RemoveListener<LckEvents.EncoderStoppedEvent>(new Action<LckEvents.EncoderStoppedEvent>(this.OnEncoderStopped));
 			this._eventBus.RemoveListener<LckEvents.CaptureErrorEvent>(new Action<LckEvents.CaptureErrorEvent>(this.OnCaptureError));
 			this._nativeStreamingService.DestroyNativeStreamer();
 			this._disposed = true;
-			Dictionary<string, object> context2 = new Dictionary<string, object>
+			Dictionary<string, object> context = new Dictionary<string, object>
 			{
 				{
 					"service",
 					"LckStreamer"
 				}
 			};
-			this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.ServiceDisposed, context2));
-			LckLog.Log("LckStreamer disposed");
+			this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.ServiceDisposed, context));
+			LckLog.Log("LckStreamer disposed", "Dispose", ".\\Packages\\tv.liv.lck-streaming\\Runtime\\Scripts\\LckStreamer.cs", 346);
 		}
 
 		private readonly ILckNativeStreamingService _nativeStreamingService;

@@ -10,11 +10,11 @@ public class SimpleCountdown : ObservableBehavior
 {
 	private void Start()
 	{
-		SimpleCountdown.<Start>d__8 <Start>d__;
+		SimpleCountdown.<Start>d__11 <Start>d__;
 		<Start>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<Start>d__.<>4__this = this;
 		<Start>d__.<>1__state = -1;
-		<Start>d__.<>t__builder.Start<SimpleCountdown.<Start>d__8>(ref <Start>d__);
+		<Start>d__.<>t__builder.Start<SimpleCountdown.<Start>d__11>(ref <Start>d__);
 	}
 
 	private void onTD(string s)
@@ -61,7 +61,20 @@ public class SimpleCountdown : ObservableBehavior
 			return;
 		}
 		DateTime dateTime = this.dt;
-		TimeSpan timeSpan = this.dt - GorillaComputer.instance.GetServerTime();
+		DateTime serverTime = GorillaComputer.instance.GetServerTime();
+		TimeSpan timeSpan;
+		if (this.overrideDt < serverTime)
+		{
+			if (this.mode == SimpleCountdown.Mode.TimeSync)
+			{
+				this.dt = this.timeSyncRule.GetNext(serverTime);
+			}
+			timeSpan = this.dt - serverTime;
+		}
+		else
+		{
+			timeSpan = this.overrideDt - serverTime;
+		}
 		if (timeSpan.TotalHours <= (double)this.hourRange.x || timeSpan.TotalHours >= (double)this.hourRange.y)
 		{
 			timeSpan = timeSpan.Multiply(0.0);
@@ -86,6 +99,9 @@ public class SimpleCountdown : ObservableBehavior
 		case SimpleCountdown.DisplayFormat.HH_MM:
 			this.tmp.text = string.Format("{0:00}:{1:00}", Math.Floor(timeSpan.TotalHours), timeSpan.Minutes);
 			return;
+		case SimpleCountdown.DisplayFormat.MM_SS:
+			this.tmp.text = string.Format("{0:00}:{1:00}", Math.Floor(timeSpan.TotalMinutes), timeSpan.Seconds);
+			return;
 		default:
 			return;
 		}
@@ -99,11 +115,16 @@ public class SimpleCountdown : ObservableBehavior
 	{
 	}
 
+	public void StartCountdown(int seconds)
+	{
+		this.overrideDt = GorillaComputer.instance.GetServerTime().AddSeconds((double)seconds);
+	}
+
 	[SerializeField]
 	private SimpleCountdown.DisplayFormat displayFormat;
 
 	[SerializeField]
-	private bool useTitleData = true;
+	private SimpleCountdown.Mode mode = SimpleCountdown.Mode.TitleData;
 
 	[SerializeField]
 	private string titleDataKey;
@@ -112,17 +133,31 @@ public class SimpleCountdown : ObservableBehavior
 	private string date;
 
 	[SerializeField]
+	private ServerTimeSyncRule timeSyncRule;
+
+	[SerializeField]
 	private Vector2 hourRange = new Vector2(float.MinValue, float.MaxValue);
 
 	private DateTime dt;
 
 	private TextMeshPro tmp;
 
+	private DateTime overrideDt = DateTime.MinValue;
+
+	private enum Mode
+	{
+		None,
+		TitleData,
+		FixedDate,
+		TimeSync
+	}
+
 	private enum DisplayFormat
 	{
 		DD_HH_MM_SS,
 		HH_MM_SS,
 		DD_HH_MM,
-		HH_MM
+		HH_MM,
+		MM_SS
 	}
 }

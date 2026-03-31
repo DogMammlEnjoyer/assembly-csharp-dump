@@ -7,6 +7,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class AssetSelectorAttribute : Attribute
 	{
+		[ShowInInspector]
+		[DelayedProperty]
+		[OdinDesignerBinding(new string[]
+		{
+			"SearchInFolders"
+		})]
 		public string Paths
 		{
 			get
@@ -31,16 +37,22 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[LabelWidth(200f)]
 		public bool IsUniqueList = true;
 
+		[LabelWidth(200f)]
 		public bool DrawDropdownForListElements = true;
 
+		[LabelWidth(200f)]
 		public bool DisableListAddButtonBehaviour;
 
+		[LabelWidth(200f)]
 		public bool ExcludeExistingValuesInList;
 
+		[LabelWidth(200f)]
 		public bool ExpandAllMenuItems = true;
 
+		[LabelWidth(200f)]
 		public bool FlattenTreeView;
 
 		public int DropdownWidth;

@@ -6,13 +6,13 @@ namespace Liv.Lck.Core
 	internal static class LckCoreCosmeticsNative
 	{
 		[DllImport("lck_core", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
-		internal static extern CosmeticsReturnCode get_user_cosmetics_for_session(IntPtr player_ids_array_ptr, UIntPtr player_ids_len, [MarshalAs(UnmanagedType.LPUTF8Str)] string session_id, LckCoreCosmeticsNative.get_user_cosmetics_for_session_on_cosmetic_available_delegate on_cosmetic_available);
+		internal static extern CosmeticsReturnCode get_user_cosmetics_for_session(IntPtr player_ids_array_ptr, UIntPtr player_ids_len, IntPtr session_id, LckCoreCosmeticsNative.get_user_cosmetics_for_session_on_cosmetic_available_delegate on_cosmetic_available);
 
 		[DllImport("lck_core", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
 		internal static extern CosmeticsReturnCode get_local_user_cosmetics(LckCoreCosmeticsNative.get_local_user_cosmetics_on_cosmetic_available_delegate on_cosmetic_available);
 
 		[DllImport("lck_core", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
-		internal static extern CosmeticsReturnCode announce_player_presence_for_session([MarshalAs(UnmanagedType.LPUTF8Str)] string player_id, [MarshalAs(UnmanagedType.LPUTF8Str)] string session_id, LckCoreCosmeticsNative.announce_player_presence_for_session_on_presence_expiry_received_delegate on_presence_expiry_received);
+		internal static extern CosmeticsReturnCode announce_player_presence_for_session(IntPtr player_id, IntPtr session_id, LckCoreCosmeticsNative.announce_player_presence_for_session_on_presence_expiry_received_delegate on_presence_expiry_received);
 
 		private const string __DllName = "lck_core";
 

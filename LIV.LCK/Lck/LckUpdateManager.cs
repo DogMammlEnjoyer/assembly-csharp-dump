@@ -12,7 +12,7 @@ namespace Liv.Lck
 		{
 			if (LckUpdateManager._earlyUpdateSystem != null)
 			{
-				LckLog.LogWarning(string.Format("LCK EarlyUpdateSystem already has a reference ({0}). Note only one system is supported.", LckUpdateManager._earlyUpdateSystem));
+				LckLog.LogWarning(string.Format("LCK EarlyUpdateSystem already has a reference ({0}). Note only one system is supported.", LckUpdateManager._earlyUpdateSystem), "RegisterSingleEarlyUpdate", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckUpdateManager.cs", 25);
 			}
 			LckUpdateManager._earlyUpdateSystem = earlyUpdateSystem;
 		}
@@ -29,7 +29,7 @@ namespace Liv.Lck
 		{
 			if (LckUpdateManager._lateUpdateSystem != null)
 			{
-				LckLog.LogWarning(string.Format("LCK LateUpdateSystem already has a reference ({0}). Note only one system is supported.", LckUpdateManager._lateUpdateSystem));
+				LckLog.LogWarning(string.Format("LCK LateUpdateSystem already has a reference ({0}). Note only one system is supported.", LckUpdateManager._lateUpdateSystem), "RegisterSingleLateUpdate", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckUpdateManager.cs", 48);
 			}
 			LckUpdateManager._lateUpdateSystem = lateUpdateSystem;
 		}

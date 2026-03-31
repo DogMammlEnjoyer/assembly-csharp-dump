@@ -167,15 +167,16 @@ public class SIGadgetLaserZipline : SIGadget, ICallBack
 				this.hasActiveCallback = true;
 				this.activatedAtPoint = this.zipline.transform.TransformPoint(this.ziplineAnchorOffset);
 				this.ziplineDirection = this.zipline.transform.forward;
-				if (this.ziplineDirection.y > 0f)
+				Vector3 up = VRRig.LocalRig.transform.up;
+				if (Vector3.Dot(this.ziplineDirection, up) > 0f)
 				{
 					this.ziplineDirection = -this.ziplineDirection;
 				}
-				if (this.ziplineDirection.y > -0.5f)
+				if (Vector3.Dot(this.ziplineDirection, up) > -0.5f)
 				{
-					this.ziplineDirection.y = 0f;
+					this.ziplineDirection = Vector3.ProjectOnPlane(this.ziplineDirection, up);
 					this.ziplineDirection.Normalize();
-					this.ziplineDirection.y = -0.5f;
+					this.ziplineDirection += up * -0.5f;
 					this.ziplineDirection.Normalize();
 				}
 				this.activatedAtRotation = Quaternion.LookRotation(this.ziplineDirection);
@@ -221,14 +222,15 @@ public class SIGadgetLaserZipline : SIGadget, ICallBack
 				return;
 			}
 			this.isLineBroken = false;
-			Vector3 forward = this.zipline.parent.forward;
-			if (Mathf.Abs(forward.y) < 0.5f)
+			Vector3 vector2 = this.zipline.parent.forward;
+			Vector3 up2 = VRRig.LocalRig.transform.up;
+			if (Mathf.Abs(Vector3.Dot(vector2, up2)) < 0.5f)
 			{
-				forward.y = 0f;
-				forward.Normalize();
-				forward.y = -0.5f;
+				vector2 = Vector3.ProjectOnPlane(vector2, up2);
+				vector2.Normalize();
+				vector2 += up2 * -0.5f;
 			}
-			Quaternion b = this.zipline.parent.InverseTransformRotation(Quaternion.LookRotation(forward));
+			Quaternion b = this.zipline.parent.InverseTransformRotation(Quaternion.LookRotation(vector2));
 			this.zipline.transform.localRotation = Quaternion.Lerp(this.zipline.transform.localRotation, b, Time.deltaTime * 25f);
 			return;
 		}

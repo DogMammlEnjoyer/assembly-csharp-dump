@@ -18,6 +18,8 @@ namespace Constants
 
 		public const float SPEED_TELEPORT_THRESHOLD = 100f;
 
+		public const int MAX_NAME_LENGTH = 11;
+
 		public const string GTFC_APPEND = ":GTFC";
 	}
 }

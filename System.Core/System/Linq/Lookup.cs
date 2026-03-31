@@ -107,7 +107,7 @@ namespace System.Linq
 
 		IGrouping<TKey, TElement>[] IIListProvider<IGrouping<!0, !1>>.ToArray()
 		{
-			IGrouping<TKey, TElement>[] array = new IGrouping<TKey, TElement>[this._count];
+			IGrouping<TKey, TElement>[] array = new IGrouping<!0, !1>[this._count];
 			int num = 0;
 			Grouping<TKey, TElement> grouping = this._lastGrouping;
 			if (grouping != null)

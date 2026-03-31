@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8AE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>K4os.Compression.LZ4</RootNamespace>
+    <AssemblyName>K4os.Compression.LZ4</AssemblyName>
+    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyHook.cs" />
+    <Compile Include="Encoders\EncoderAction.cs" />
+    <Compile Include="Encoders\ILZ4Decoder.cs" />
+    <Compile Include="Encoders\ILZ4Encoder.cs" />
+    <Compile Include="Encoders\LZ4BlockDecoder.cs" />
+    <Compile Include="Encoders\LZ4BlockEncoder.cs" />
+    <Compile Include="Encoders\LZ4ChainDecoder.cs" />
+    <Compile Include="Encoders\LZ4Decoder.cs" />
+    <Compile Include="Encoders\LZ4Encoder.cs" />
+    <Compile Include="Encoders\LZ4EncoderBase.cs" />
+    <Compile Include="Encoders\LZ4EncoderExtensions.cs" />
+    <Compile Include="Encoders\LZ4FastChainEncoder.cs" />
+    <Compile Include="Encoders\LZ4HighChainEncoder.cs" />
+    <Compile Include="Engine\Algorithm.cs" />
+    <Compile Include="Engine\LL.cs" />
+    <Compile Include="Engine\LL32.cs" />
+    <Compile Include="Engine\LL64.cs" />
+    <Compile Include="Engine\LLxx.cs" />
+    <Compile Include="Engine\Pubternal.cs" />
+    <Compile Include="Internal\BufferPool.cs" />
+    <Compile Include="Internal\Mem.cs" />
+    <Compile Include="Internal\Mem32.cs" />
+    <Compile Include="Internal\Mem64.cs" />
+    <Compile Include="Internal\PinnedMemory.cs" />
+    <Compile Include="Internal\UnmanagedResources.cs" />
+    <Compile Include="LZ4Codec.cs" />
+    <Compile Include="LZ4Level.cs" />
+    <Compile Include="LZ4Pickler.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="PickleHeader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Diagnostics\CodeAnalysis\MemberNotNullAttribute.cs" />
+    <Compile Include="System\Diagnostics\CodeAnalysis\MemberNotNullWhenAttribute.cs" />
+    <Compile Include="System\Diagnostics\CodeAnalysis\SetsRequiredMembersAttribute.cs" />
+    <Compile Include="System\Diagnostics\CodeAnalysis\StringSyntaxAttribute.cs" />
+    <Compile Include="System\Diagnostics\CodeAnalysis\UnscopedRefAttribute.cs" />
+    <Compile Include="System\Extensions.cs" />
+    <Compile Include="System\Runtime\CompilerServices\CallerArgumentExpressionAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\CompilerFeatureRequiredAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\InterpolatedStringHandlerArgumentAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\InterpolatedStringHandlerAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsExternalInit.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\ModuleInitializerAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\RequiredMemberAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\SkipLocalsInitAttribute.cs" />
+    <Compile Include="System\Runtime\Versioning\RequiresPreviewFeaturesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8FD}</Project>
+      <Name>System.Runtime.CompilerServices.Unsafe</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

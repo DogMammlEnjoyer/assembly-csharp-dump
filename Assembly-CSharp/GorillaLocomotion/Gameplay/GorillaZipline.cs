@@ -72,7 +72,7 @@ namespace GorillaLocomotion.Gameplay
 			return this.spline.GetDirection(this.currentT);
 		}
 
-		protected void OnBeforeClimb(GorillaHandClimber hand, GorillaClimbableRef climbRef)
+		protected virtual void OnBeforeClimb(GorillaHandClimber hand, GorillaClimbableRef climbRef)
 		{
 			bool flag = this.currentClimber == null;
 			this.currentClimber = hand;

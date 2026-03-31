@@ -160,10 +160,6 @@ namespace GorillaTagScripts
 
 		public override void OnPlayerLeftRoom(Player player)
 		{
-			Debug.LogFormat("Player {0} left room", new object[]
-			{
-				player.ActorNumber
-			});
 			BuilderTable table = this.GetTable();
 			if (table.GetTableState() != BuilderTable.TableState.WaitingForZoneAndRoom)
 			{
@@ -389,10 +385,13 @@ namespace GorillaTagScripts
 			}
 			if (totalBytes <= 0 || totalBytes > 1048576)
 			{
-				Debug.LogError("Builder Table Bytes is too large: " + totalBytes.ToString());
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone())
+			{
+				return;
+			}
 			GTDev.Log<string>("StartBuildTableRPC with current state " + table.GetTableState().ToString(), null);
 			if (table.GetTableState() != BuilderTable.TableState.WaitForMasterResync && table.GetTableState() != BuilderTable.TableState.WaitingForInitalBuild)
 			{
@@ -443,6 +442,10 @@ namespace GorillaTagScripts
 		{
 			MonkeAgent.IncrementRPCCall(info, "SendTableDataRPC");
 			if (!info.Sender.IsMasterClient)
+			{
+				return;
+			}
+			if (this.localClientTableInit.player == null)
 			{
 				return;
 			}
@@ -666,6 +669,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!this.ValidateCallLimits(BuilderTableNetworking.RPC.CreateShelfPieceMaster, info))
 			{
 				return;
@@ -741,6 +748,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -811,6 +822,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -871,6 +886,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -942,6 +961,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1011,6 +1034,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1081,6 +1108,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1137,6 +1168,10 @@ namespace GorillaTagScripts
 					if (angVelocity.IsValid(num3))
 					{
 						BuilderTable table = this.GetTable();
+						if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+						{
+							return;
+						}
 						if (!table.isTableMutable)
 						{
 							return;
@@ -1199,6 +1234,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1279,6 +1318,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1336,6 +1379,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1366,6 +1413,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (!table.isTableMutable)
 			{
 				return;
@@ -1411,6 +1462,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (table.GetTableState() != BuilderTable.TableState.Ready)
 			{
 				return;
@@ -1461,6 +1516,10 @@ namespace GorillaTagScripts
 				timeStamp = PhotonNetwork.ServerTimestamp;
 			}
 			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
 			if (table.ValidateFunctionalPieceState(pieceID, state, NetPlayer.Get(info.Sender)))
 			{
 				table.SetFunctionalPieceState(pieceID, state, NetPlayer.Get(caller), timeStamp);
@@ -1501,6 +1560,10 @@ namespace GorillaTagScripts
 				return;
 			}
 			BuilderTable table = this.GetTable();
+			if (!RoomSystem.WasRoomPrivate && !table.IsInBuilderZone())
+			{
+				return;
+			}
 			if (table.isTableMutable || table.linkedTerminal == null)
 			{
 				return;
@@ -1661,7 +1724,12 @@ namespace GorillaTagScripts
 				GTDev.LogError<string>("SharedTableEventRPC Failed call limits", null);
 				return;
 			}
-			if (this.GetTable().isTableMutable)
+			BuilderTable table = this.GetTable();
+			if (!table.IsInBuilderZone() && !info.Sender.IsLocal)
+			{
+				return;
+			}
+			if (table.isTableMutable)
 			{
 				return;
 			}

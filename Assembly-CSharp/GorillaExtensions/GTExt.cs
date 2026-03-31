@@ -478,6 +478,12 @@ namespace GorillaExtensions
 			return -1;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Vector3 MultiplyBy(this Vector3 vec, in Vector3 mulitplier)
+		{
+			return new Vector3(vec.x * mulitplier.x, vec.y * mulitplier.y, vec.z * mulitplier.z);
+		}
+
 		public static void ForEachBackwards<T>(this List<T> list, Action<T> action)
 		{
 			for (int i = list.Count - 1; i >= 0; i--)
@@ -1871,6 +1877,19 @@ namespace GorillaExtensions
 		public static bool IsNotNull(this Object mono)
 		{
 			return !mono.IsNull();
+		}
+
+		public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max)
+		{
+			ref value.ClampThis(min, max);
+			return value;
+		}
+
+		public static void ClampThis(this Vector3 value, Vector3 min, Vector3 max)
+		{
+			value.x = Mathf.Clamp(value.x, min.x, max.x);
+			value.y = Mathf.Clamp(value.y, min.y, max.y);
+			value.z = Mathf.Clamp(value.z, min.z, max.z);
 		}
 
 		public static string GetPath(this Transform transform)

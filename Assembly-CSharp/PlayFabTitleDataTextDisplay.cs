@@ -56,11 +56,11 @@ public class PlayFabTitleDataTextDisplay : MonoBehaviour, IBuildValidation
 		{
 			Debug.LogError(string.Concat(new string[]
 			{
-				"PlayFabTitleDataTextDisplay: PlayFab error retrieving title data for key ",
+				"PlayFabTitleDataTextDisplay: PlayFab error retrieving title data for key '",
 				this.playfabKey,
-				" displayed ",
+				"' displayed '",
 				this.fallbackText,
-				": ",
+				"': ",
 				error.GenerateErrorReport()
 			}));
 			if (this._fallbackLocalizedText == null || this._fallbackLocalizedText.IsEmpty)

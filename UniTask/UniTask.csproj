@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D907}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniTask</RootNamespace>
+    <AssemblyName>UniTask</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cysharp\Threading\Tasks\AsyncLazy.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AsyncLazy.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AsyncReactiveProperty.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AsyncUnit.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AsyncUnityEventHandler.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AsyncUnityEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AutoResetUniTaskCompletionSource.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AutoResetUniTaskCompletionSource.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\AwaiterActions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CancellationTokenAwaitable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CancellationTokenEqualityComparer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CancellationTokenExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CancellationTokenSourceExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Channel.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Channel.3.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Channel.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ChannelClosedException.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ChannelReader.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ChannelWriter.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTask.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTask.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTaskMethodBuilder.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTaskMethodBuilder.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTaskVoid.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\AsyncUniTaskVoidMethodBuilder.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\IStateMachineRunner.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\IStateMachineRunnerPromise.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\IStateMachineRunnerPromise.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompilerServices\StateMachineUtility.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\CompletedTasks.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\DelayType.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\DeltaTimePlayerLoopTimer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\EnumerableAsyncExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\EnumeratorAsyncExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ExceptionExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ExceptionHolder.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncClickEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncDeselectEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncEndEditEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncEndTextSelectionEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncReactiveProperty.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncSelectEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncSubmitEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncTextSelectionEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IAsyncValueChangedEventHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ICancelPromise.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IConnectableUniTaskAsyncEnumerable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IgnoreTimeScalePlayerLoopTimer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\InjectPlayerLoopTimings.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ArrayPool.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ArrayPoolUtil.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ArrayUtil.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\AsyncSubject.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ContinuationQueue.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\DiagnosticsExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\DisposedObserver.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\EmptyDisposable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\EmptyObserver.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\Error.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ImmutableList.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ListObserver.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\MinimumQueue.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\PlayerLoopRunner.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\PooledDelegate.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\RuntimeHelpersAbstraction.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\SingleAssignmentDisposable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StatePool.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StatePool.3.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StatePool.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StateTuple.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StateTuple.3.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StateTuple.4.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\StateTuple.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ThrowObserver.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\UnityEqualityComparer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\UnityWebRequestResultExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\ValueStopwatch.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Internal\WeakDictionary.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IPlayerLoopItem.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IPromise.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IPromise.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IReadOnlyAsyncReactiveProperty.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IRejectPromise.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IResolvePromise.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IResolvePromise.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ITaskPoolNode.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ITriggerHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskAsyncDisposable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskAsyncEnumerable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskAsyncEnumerator.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskOrderedAsyncEnumerable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskSource.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\IUniTaskSource.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\MoveNextSource.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\PlayerLoopHelper.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\PlayerLoopTimer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\PlayerLoopTiming.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Progress.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ReadOnlyAsyncReactiveProperty.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\RealtimePlayerLoopTimer.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ReturnToMainThread.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\ReturnToSynchronizationContext.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\SingleConsumerUnboundedChannel.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\StateExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\SwitchToMainThreadAwaitable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\SwitchToSynchronizationContextAwaitable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\SwitchToTaskPoolAwaitable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\SwitchToThreadPoolAwaitable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TaskPool.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TaskPool.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TaskTracker.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TextSelectionEventConverter.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TimeoutController.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\TriggerEvent.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncAnimatorIKTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncAnimatorMoveTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncApplicationFocusTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncApplicationPauseTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncApplicationQuitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncAudioFilterReadTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncAwakeTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncBecameInvisibleTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncBecameVisibleTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncBeforeTransformParentChangedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncBeginDragTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCancelTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionEnter2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionEnterTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionExit2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionExitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionStay2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncCollisionStayTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncControllerColliderHitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDeselectTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDestroyTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDisableTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDragTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDrawGizmosSelectedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDrawGizmosTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncDropTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncEnableTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncEndDragTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncFixedUpdateTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncGUITrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncInitializePotentialDragTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncJointBreak2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncJointBreakTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncLateUpdateTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseDownTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseDragTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseEnterTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseExitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseOverTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseUpAsButtonTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMouseUpTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncMoveTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncOnCanvasGroupChangedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncParticleCollisionTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncParticleSystemStoppedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncParticleTriggerTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncParticleUpdateJobScheduledTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPointerClickTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPointerDownTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPointerEnterTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPointerExitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPointerUpTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPostRenderTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPreCullTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncPreRenderTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncRectTransformDimensionsChangeTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncRectTransformRemovedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncRenderImageTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncRenderObjectTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncResetTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncScrollTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncSelectTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncServerInitializedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncStartTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncSubmitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTransformChildrenChangedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTransformParentChangedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerBase.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerEnter2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerEnterTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerExit2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerExitTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerStay2DTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncTriggerStayTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncUpdateSelectedTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncUpdateTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncValidateTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\AsyncWillRenderObjectTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncFixedUpdateHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncLateUpdateHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnAnimatorIKHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnAnimatorMoveHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnApplicationFocusHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnApplicationPauseHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnApplicationQuitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnAudioFilterReadHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnBecameInvisibleHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnBecameVisibleHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnBeforeTransformParentChangedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnBeginDragHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCancelHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCanvasGroupChangedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionEnter2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionEnterHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionExit2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionExitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionStay2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnCollisionStayHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnControllerColliderHitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDeselectHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDisableHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDragHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDrawGizmosHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDrawGizmosSelectedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnDropHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnEnableHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnEndDragHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOneShotTrigger.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnGUIHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnInitializePotentialDragHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnJointBreak2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnJointBreakHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseDownHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseDragHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseEnterHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseExitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseOverHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseUpAsButtonHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMouseUpHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnMoveHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnParticleCollisionHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnParticleSystemStoppedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnParticleTriggerHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnParticleUpdateJobScheduledHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPointerClickHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPointerDownHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPointerEnterHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPointerExitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPointerUpHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPostRenderHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPreCullHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnPreRenderHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnRectTransformDimensionsChangeHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnRectTransformRemovedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnRenderImageHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnRenderObjectHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnScrollHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnSelectHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnServerInitializedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnSubmitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTransformChildrenChangedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTransformParentChangedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerEnter2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerEnterHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerExit2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerExitHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerStay2DHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnTriggerStayHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnUpdateSelectedHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnValidateHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncOnWillRenderObjectHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncResetHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\Triggers\IAsyncUpdateHandler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTask.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTask.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskAsyncEnumerableExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCancelableAsyncEnumerable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCancellationExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCompletionSource.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCompletionSource.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCompletionSourceCore.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskCompletionSourceCoreShared.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskLoopRunners.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskObservableExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskScheduler.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskStatus.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskStatusExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskSynchronizationContext.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UniTaskVoid.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UnityAsyncExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UnityBindingExtensions.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UnityEventHandlerAsyncEnumerable.2.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UnityEventHandlerAsyncEnumerable.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\UnityWebRequestException.cs" />
+    <Compile Include="Cysharp\Threading\Tasks\YieldAwaitable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Runtime\CompilerServices\AsyncMethodBuilderAttribute.cs" />
+    <Compile Include="UnitySourceGeneratedAssemblyMonoScriptTypes_v1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard\netstandard.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Name>netstandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D947}</Project>
+      <Name>UnityEngine.AssetBundleModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Name>UnityEngine.CoreModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.ParticleSystemModule\UnityEngine.ParticleSystemModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D964}</Project>
+      <Name>UnityEngine.ParticleSystemModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
+      <Name>UnityEngine.Physics2DModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
+      <Name>UnityEngine.PhysicsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D986}</Project>
+      <Name>UnityEngine.UnityWebRequestModule</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

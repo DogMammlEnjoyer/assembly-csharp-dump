@@ -7,6 +7,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public sealed class SuffixLabelAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"icon",
+			"HasDefinedIcon"
+		})]
 		public SdfIconType Icon
 		{
 			get
@@ -44,6 +50,7 @@ namespace Sirenix.OdinInspector
 
 		public bool Overlay;
 
+		[ColorResolver]
 		public string IconColor;
 
 		private SdfIconType icon;

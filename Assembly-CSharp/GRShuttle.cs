@@ -128,7 +128,7 @@ public class GRShuttle : MonoBehaviour, IGorillaSliceableSimple
 		position.x *= 0.8f;
 		position.z *= 0.8f;
 		Vector3 position2 = destShuttle.transform.TransformPoint(position);
-		instance.TeleportTo(position2, instance.transform.rotation, false, false);
+		instance.TeleportTo(position2, instance.transform.rotation);
 		instance.turnParent.transform.RotateAround(instance.headCollider.transform.position, sourceShuttle.transform.up, angle);
 		localRig.transform.position = instance.transform.position + b;
 		instance.InitializeValues();

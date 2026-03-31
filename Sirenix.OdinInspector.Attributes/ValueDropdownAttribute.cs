@@ -31,24 +31,34 @@ namespace Sirenix.OdinInspector
 
 		public string ValuesGetter;
 
+		[LabelWidth(230f)]
 		public int NumberOfItemsBeforeEnablingSearch;
 
+		[LabelWidth(230f)]
 		public bool IsUniqueList;
 
+		[LabelWidth(230f)]
 		public bool DrawDropdownForListElements;
 
+		[LabelWidth(230f)]
 		public bool DisableListAddButtonBehaviour;
 
+		[LabelWidth(230f)]
 		public bool ExcludeExistingValuesInList;
 
+		[LabelWidth(230f)]
 		public bool ExpandAllMenuItems;
 
+		[LabelWidth(230f)]
 		public bool AppendNextDrawer;
 
+		[LabelWidth(230f)]
 		public bool DisableGUIInAppendedDrawer;
 
+		[LabelWidth(230f)]
 		public bool DoubleClickToConfirm;
 
+		[LabelWidth(230f)]
 		public bool FlattenTreeView;
 
 		public int DropdownWidth;
@@ -57,12 +67,16 @@ namespace Sirenix.OdinInspector
 
 		public string DropdownTitle;
 
+		[LabelWidth(230f)]
 		public bool SortDropdownItems;
 
+		[LabelWidth(230f)]
 		public bool HideChildProperties;
 
+		[LabelWidth(230f)]
 		public bool CopyValues = true;
 
+		[LabelWidth(230f)]
 		public bool OnlyChangeValueOnConfirm;
 	}
 }

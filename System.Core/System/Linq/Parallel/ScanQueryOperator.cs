@@ -26,7 +26,7 @@ namespace System.Linq.Parallel
 
 		internal override QueryResults<TElement> Open(QuerySettings settings, bool preferStriping)
 		{
-			IList<TElement> list = this._data as IList<TElement>;
+			IList<TElement> list = this._data as IList<!0>;
 			if (list != null)
 			{
 				return new ListQueryResults<TElement>(list, settings.DegreeOfParallelism.GetValueOrDefault(), preferStriping);
@@ -48,7 +48,7 @@ namespace System.Linq.Parallel
 		{
 			get
 			{
-				if (!(this._data is IList<TElement>))
+				if (!(this._data is IList<!0>))
 				{
 					return OrdinalIndexState.Correct;
 				}

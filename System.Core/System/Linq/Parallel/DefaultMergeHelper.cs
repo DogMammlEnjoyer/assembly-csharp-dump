@@ -76,7 +76,7 @@ namespace System.Linq.Parallel
 				return array;
 			}
 			List<TInputOutput> list = new List<TInputOutput>();
-			foreach (TInputOutput item in ((IMergeHelper<TInputOutput>)this))
+			foreach (TInputOutput item in ((IMergeHelper<!0>)this))
 			{
 				list.Add(item);
 			}

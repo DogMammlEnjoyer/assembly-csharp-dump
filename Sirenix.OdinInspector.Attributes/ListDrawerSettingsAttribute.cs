@@ -8,6 +8,12 @@ namespace Sirenix.OdinInspector
 	[DontApplyToListElements]
 	public sealed class ListDrawerSettingsAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"paging",
+			"pagingHasValue"
+		})]
 		public bool ShowPaging
 		{
 			get
@@ -21,6 +27,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"draggable",
+			"draggableHasValue"
+		})]
 		public bool DraggableItems
 		{
 			get
@@ -34,6 +46,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"numberOfItemsPerPage",
+			"numberOfItemsPerPageHasValue"
+		})]
 		public int NumberOfItemsPerPage
 		{
 			get
@@ -47,6 +65,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"isReadOnly",
+			"isReadOnlyHasValue"
+		})]
 		public bool IsReadOnly
 		{
 			get
@@ -60,6 +84,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showItemCount",
+			"showItemCountHasValue"
+		})]
 		public bool ShowItemCount
 		{
 			get
@@ -86,6 +116,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"defaultExpandedState",
+			"defaultExpandedStateHasValue"
+		})]
 		public bool DefaultExpandedState
 		{
 			get
@@ -99,6 +135,12 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showIndexLabels",
+			"showIndexLabelsHasValue"
+		})]
 		public bool ShowIndexLabels
 		{
 			get
@@ -112,6 +154,11 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"onTitleBarGUI"
+		})]
 		public string OnTitleBarGUI
 		{
 			get
@@ -188,8 +235,10 @@ namespace Sirenix.OdinInspector
 
 		public string CustomAddFunction;
 
+		[LabelWidth(200f)]
 		public string CustomRemoveIndexFunction;
 
+		[LabelWidth(200f)]
 		public string CustomRemoveElementFunction;
 
 		public string OnBeginListElementGUI;
@@ -200,6 +249,7 @@ namespace Sirenix.OdinInspector
 
 		public bool AddCopiesLastElement;
 
+		[ColorResolver]
 		public string ElementColor;
 
 		private string onTitleBarGUI;

@@ -104,6 +104,9 @@ public class DebugHudStats : MonoBehaviour
 			case DebugHudStats.State.timeAdjust:
 				this.currentState = DebugHudStats.State.Inactive;
 				break;
+			case DebugHudStats.State.RecordingMode:
+				this.currentState = DebugHudStats.State.Inactive;
+				break;
 			}
 			Application.logMessageReceived -= this.LogMessageReceived;
 			PlayerGameEvents.OnPlayerMoved -= this.OnPlayerMoved;
@@ -258,6 +261,10 @@ public class DebugHudStats : MonoBehaviour
 				this.builder.AppendLine("Press B to advance five minutes [+ R Grip to go back one minute]");
 				this.builder.AppendLine("Press R Trigger to advance one day [+ R Grip to go back one day]");
 			}
+			else if (this.currentState == DebugHudStats.State.RecordingMode)
+			{
+				this.builder.AppendLine();
+			}
 			this.text.text = this.builder.ToString();
 		}
 		this.updateTimer = 0f;
@@ -275,9 +282,10 @@ public class DebugHudStats : MonoBehaviour
 			return "green";
 		case DebugHudStats.State.ShowRBs:
 			return "red";
-		default:
-			return "white";
+		case DebugHudStats.State.RecordingMode:
+			return "#FF00FF";
 		}
+		return "white";
 	}
 
 	private void OnPlayerSwam(float distance, float speed)
@@ -426,6 +434,7 @@ public class DebugHudStats : MonoBehaviour
 		ShowError,
 		ShowStats,
 		ShowRBs,
-		timeAdjust
+		timeAdjust,
+		RecordingMode
 	}
 }

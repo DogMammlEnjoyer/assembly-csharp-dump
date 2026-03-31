@@ -32,10 +32,45 @@ namespace Liv.Lck
 		private void CheckStorageSpace()
 		{
 			this._freeSpace = this.GetAvailableStorageSpace();
-			if (this._freeSpace < 524288000L)
+			long currentStorageThreshold = this.GetCurrentStorageThreshold();
+			if (this._freeSpace < currentStorageThreshold)
 			{
 				this._eventBus.Trigger<LckEvents.LowStorageSpaceDetectedEvent>(new LckEvents.LowStorageSpaceDetectedEvent(LckResult.NewSuccess()));
 			}
+		}
+
+		private long GetCurrentStorageThreshold()
+		{
+			if (!this._isRecordingActive)
+			{
+				return 524288000L;
+			}
+			return this.CalculateEstimatedRecordingSize() + 52428800L;
+		}
+
+		private long CalculateEstimatedRecordingSize()
+		{
+			Func<float> getDurationSeconds = this._getDurationSeconds;
+			float num = (getDurationSeconds != null) ? getDurationSeconds() : 0f;
+			if (num <= 0f)
+			{
+				return 0L;
+			}
+			uint bitrate = this._recordingDescriptor.Bitrate;
+			uint audioBitrate = this._recordingDescriptor.AudioBitrate;
+			return (long)((bitrate + audioBitrate) * num / 8f);
+		}
+
+		public void SetRecordingContext(CameraTrackDescriptor descriptor, Func<float> getDurationSeconds)
+		{
+			this._recordingDescriptor = descriptor;
+			this._getDurationSeconds = getDurationSeconds;
+			this._isRecordingActive = true;
+		}
+
+		public void ClearRecordingContext()
+		{
+			this._isRecordingActive = false;
 		}
 
 		private long GetAvailableStorageSpace()
@@ -57,13 +92,13 @@ namespace Liv.Lck
 				}
 				else
 				{
-					LckLog.LogError("Failed to get Windows storage space: " + Marshal.GetLastWin32Error().ToString());
+					LckLog.LogError("Failed to get Windows storage space: " + Marshal.GetLastWin32Error().ToString(), "GetWindowsAvailableStorageSpace", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckStorageWatcher.cs", 146);
 					result = -1L;
 				}
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("Failed to get Windows storage space: " + ex.Message);
+				LckLog.LogError("Failed to get Windows storage space: " + ex.Message, "GetWindowsAvailableStorageSpace", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckStorageWatcher.cs", 152);
 				result = -1L;
 			}
 			return result;
@@ -71,7 +106,7 @@ namespace Liv.Lck
 
 		public bool HasEnoughFreeStorage()
 		{
-			return this._freeSpace > 524288000L;
+			return this._freeSpace > this.GetCurrentStorageThreshold();
 		}
 
 		public void Dispose()
@@ -81,10 +116,18 @@ namespace Liv.Lck
 
 		private readonly ILckEventBus _eventBus;
 
-		private const long StorageThreshold = 524288000L;
+		private const long DefaultStorageThreshold = 524288000L;
+
+		private const long SafetyBufferBytes = 52428800L;
 
 		private const float PollIntervalInSeconds = 5f;
 
 		private long _freeSpace = long.MaxValue;
+
+		private bool _isRecordingActive;
+
+		private CameraTrackDescriptor _recordingDescriptor;
+
+		private Func<float> _getDurationSeconds;
 	}
 }

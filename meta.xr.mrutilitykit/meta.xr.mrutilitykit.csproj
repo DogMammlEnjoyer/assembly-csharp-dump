@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94DA6}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Meta.XR</RootNamespace>
@@ -147,71 +147,71 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Meta.XR.EnvironmentDepth\Meta.XR.EnvironmentDepth.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DA3}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8C5}</Project>
       <Name>Meta.XR.EnvironmentDepth</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.XR.ImmersiveDebugger\Meta.XR.ImmersiveDebugger.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DA4}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8C6}</Project>
       <Name>Meta.XR.ImmersiveDebugger</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB3}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D5}</Project>
       <Name>Newtonsoft.Json</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.Interaction\Oculus.Interaction.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB6}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D8}</Project>
       <Name>Oculus.Interaction</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.VR\Oculus.VR.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DBC}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8DE}</Project>
       <Name>Oculus.VR</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.AI.Navigation\Unity.AI.Navigation.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DE5}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D90C}</Project>
       <Name>Unity.AI.Navigation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.TextMeshPro\Unity.TextMeshPro.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E0D}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D934}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AIModule\UnityEngine.AIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E1B}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D942}</Project>
       <Name>UnityEngine.AIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E1D}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D944}</Project>
       <Name>UnityEngine.AndroidJNIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E26}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.ParticleSystemModule\UnityEngine.ParticleSystemModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E3D}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D964}</Project>
       <Name>UnityEngine.ParticleSystemModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E40}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.SubsystemsModule\UnityEngine.SubsystemsModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E4B}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D972}</Project>
       <Name>UnityEngine.SubsystemsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E55}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97C}</Project>
       <Name>UnityEngine.UIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E53}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94E69}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D990}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

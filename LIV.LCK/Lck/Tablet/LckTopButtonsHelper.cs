@@ -8,14 +8,20 @@ namespace Liv.Lck.Tablet
 	{
 		public void HideButtons()
 		{
-			this._cameraToggle.SetDisabledState();
-			this._streamToggle.SetDisabledState();
+			this._cameraToggle.SetDisabledState(true);
+			this._streamToggle.SetDisabledState(true);
 		}
 
 		public void ShowButtons()
 		{
 			this._cameraToggle.RestoreToggleState();
 			this._streamToggle.RestoreToggleState();
+		}
+
+		public void SetCameraPageVisualsManually()
+		{
+			this._cameraToggle.SetToggleVisualsOn();
+			this._streamToggle.SetToggleVisualsOff();
 		}
 
 		[SerializeField]

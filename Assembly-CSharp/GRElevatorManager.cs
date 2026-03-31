@@ -732,7 +732,7 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 		{
 			b3 = vector * instance.headCollider.radius * -1.5f;
 		}
-		instance.TeleportTo(a + b3, instance.transform.rotation, false, false);
+		instance.TeleportTo(a + b3, instance.transform.rotation);
 		instance.turnParent.transform.RotateAround(instance.headCollider.transform.position, base.transform.up, num);
 		localRig.transform.position = instance.transform.position + b;
 		instance.InitializeValues();

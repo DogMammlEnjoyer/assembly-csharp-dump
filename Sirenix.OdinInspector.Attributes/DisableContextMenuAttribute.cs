@@ -14,8 +14,10 @@ namespace Sirenix.OdinInspector
 			this.DisableForCollectionElements = disableCollectionElements;
 		}
 
+		[LabelWidth(190f)]
 		public bool DisableForMember;
 
+		[LabelWidth(190f)]
 		public bool DisableForCollectionElements;
 	}
 }

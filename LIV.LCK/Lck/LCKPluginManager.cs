@@ -21,7 +21,7 @@ namespace Liv.Lck
 				}
 				else
 				{
-					LckLog.LogError("LCK service has not been injected.");
+					LckLog.LogError("LCK service has not been injected.", "Start", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 110);
 				}
 			}
 		}
@@ -40,14 +40,14 @@ namespace Liv.Lck
 			}
 			else
 			{
-				LckLog.LogWarning("ExamplePlugin not found");
+				LckLog.LogWarning("ExamplePlugin not found", "TestPluginAccess", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 135);
 			}
 			if (LCKPluginIntegration.HasPlugin<AnotherExamplePlugin>())
 			{
 				LCKPluginIntegration.GetPlugin<AnotherExamplePlugin>().DoSomethingElse();
 				return;
 			}
-			LckLog.LogWarning("AnotherExamplePlugin not found");
+			LckLog.LogWarning("AnotherExamplePlugin not found", "TestPluginAccess", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 146);
 		}
 
 		[InjectLck]

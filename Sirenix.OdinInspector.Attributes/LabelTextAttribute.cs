@@ -43,6 +43,7 @@ namespace Sirenix.OdinInspector
 
 		public SdfIconType Icon;
 
+		[ColorResolver]
 		public string IconColor;
 	}
 }

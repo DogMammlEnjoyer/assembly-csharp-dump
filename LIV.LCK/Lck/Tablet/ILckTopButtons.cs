@@ -7,5 +7,7 @@ namespace Liv.Lck.Tablet
 		void ShowButtons();
 
 		void HideButtons();
+
+		void SetCameraPageVisualsManually();
 	}
 }

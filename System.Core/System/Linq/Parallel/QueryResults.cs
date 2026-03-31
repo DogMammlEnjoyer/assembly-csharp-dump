@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace System.Linq.Parallel
 {
-	internal abstract class QueryResults<T> : IList<T>, ICollection<T>, IEnumerable<!0>, IEnumerable
+	internal abstract class QueryResults<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
 	{
 		internal abstract void GivePartitionedStream(IPartitionedStreamRecipient<T> recipient);
 
@@ -110,7 +110,7 @@ namespace System.Linq.Parallel
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable<T>)this).GetEnumerator();
+			return ((IEnumerable<!0>)this).GetEnumerator();
 		}
 	}
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1096BFF-B94C-476F-9D35-4A0C97E94D89}</ProjectGuid>
+    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fusion.Sockets</RootNamespace>
@@ -134,19 +134,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fusion.Common\Fusion.Common.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D85}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A6}</Project>
       <Name>Fusion.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fusion.Log\Fusion.Log.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94D86}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8A7}</Project>
       <Name>Fusion.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\NanoSockets\NanoSockets.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DAF}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D1}</Project>
       <Name>NanoSockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{C1096BFF-B94C-476F-9D35-4A0C97E94DB2}</Project>
+      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
   </ItemGroup>

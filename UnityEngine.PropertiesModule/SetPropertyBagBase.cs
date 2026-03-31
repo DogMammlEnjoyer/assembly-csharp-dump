@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Unity.Properties
 {
-	public class SetPropertyBagBase<TSet, TElement> : PropertyBag<TSet>, ISetPropertyBag<TSet, TElement>, ICollectionPropertyBag<TSet, TElement>, IPropertyBag<TSet>, IPropertyBag, ICollectionPropertyBagAccept<!0>, ISetPropertyBagAccept<TSet>, ISetPropertyAccept<TSet>, IKeyedProperties<!0, object> where TSet : ISet<TElement>
+	public class SetPropertyBagBase<TSet, TElement> : PropertyBag<TSet>, ISetPropertyBag<TSet, TElement>, ICollectionPropertyBag<TSet, TElement>, IPropertyBag<!0>, IPropertyBag, ICollectionPropertyBagAccept<!0>, ISetPropertyBagAccept<TSet>, ISetPropertyAccept<TSet>, IKeyedProperties<!0, object> where TSet : ISet<TElement>
 	{
 		public override PropertyCollection<TSet> GetProperties()
 		{

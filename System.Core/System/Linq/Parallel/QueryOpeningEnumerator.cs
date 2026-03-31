@@ -42,7 +42,7 @@ namespace System.Linq.Parallel
 		{
 			get
 			{
-				return ((IEnumerator<TOutput>)this).Current;
+				return ((IEnumerator<!0>)this).Current;
 			}
 		}
 

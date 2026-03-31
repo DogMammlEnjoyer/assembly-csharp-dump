@@ -7,6 +7,8 @@ namespace Liv.Lck.Tablet
 	{
 		public bool RemainOnScreen { get; private set; }
 
+		public float ShowDuration { get; private set; } = 3f;
+
 		public GameObject SpawnedGameObject { get; private set; }
 
 		public virtual void ShowNotification()

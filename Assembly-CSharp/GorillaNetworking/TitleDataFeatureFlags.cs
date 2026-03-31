@@ -14,19 +14,29 @@ namespace GorillaNetworking
 		{
 			PlayFabTitleDataCache.Instance.GetTitleData(this.TitleDataKey, delegate(string json)
 			{
-				foreach (FeatureFlagData featureFlagData in JsonUtility.FromJson<FeatureFlagListData>(json).flags)
+				try
 				{
-					if (featureFlagData.valueType == "percent")
+					foreach (FeatureFlagData featureFlagData in JsonUtility.FromJson<FeatureFlagListData>(json).flags)
 					{
-						this.flagValueByName.AddOrUpdate(featureFlagData.name, featureFlagData.value);
-					}
-					List<string> alwaysOnForUsers = featureFlagData.alwaysOnForUsers;
-					if (alwaysOnForUsers != null && alwaysOnForUsers.Count > 0)
-					{
-						this.flagValueByUser.AddOrUpdate(featureFlagData.name, featureFlagData.alwaysOnForUsers);
+						if (featureFlagData.valueType == "percent")
+						{
+							this.flagValueByName.AddOrUpdate(featureFlagData.name, featureFlagData.value);
+						}
+						List<string> alwaysOnForUsers = featureFlagData.alwaysOnForUsers;
+						if (alwaysOnForUsers != null && alwaysOnForUsers.Count > 0)
+						{
+							this.flagValueByUser.AddOrUpdate(featureFlagData.name, featureFlagData.alwaysOnForUsers);
+						}
 					}
 				}
-				this.ready = true;
+				catch (Exception arg)
+				{
+					Debug.LogError(string.Format("Error parsing rollout feature flags: {0}", arg));
+				}
+				finally
+				{
+					this.ready = true;
+				}
 			}, delegate(PlayFabError e)
 			{
 				Debug.LogError("Error fetching rollout feature flags: " + e.ErrorMessage);

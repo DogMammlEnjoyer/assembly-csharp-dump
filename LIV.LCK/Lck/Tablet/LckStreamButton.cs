@@ -80,15 +80,24 @@ namespace Liv.Lck.Tablet
 
 		private void OnStreamingStopped(LckResult result)
 		{
+			this._audioController.PlayDiscreetAudioClip(LckDiscreetAudioController.AudioClip.StreamingStopped);
 			if (!result.Success)
 			{
+				this.SetStoppingAnimationValue(0f);
+				this._streamingController.GoToErrorState();
 				this.OnError();
 				return;
 			}
-			this._state = LckStreamButton.State.WaitUntilTriggerExitOrDelay;
-			this.WaitForTriggerExitOrDelay();
 			this.SetStoppingAnimationValue(0f);
-			this._audioController.PlayDiscreetAudioClip(LckDiscreetAudioController.AudioClip.StreamingStopped);
+			if (this._state == LckStreamButton.State.StoppingAnimationCompleted)
+			{
+				this._state = LckStreamButton.State.WaitUntilTriggerExitOrDelay;
+				this.WaitForTriggerExitOrDelay();
+			}
+			else
+			{
+				this._state = LckStreamButton.State.Idle;
+			}
 			this.ValidateMeshColors(false, false);
 			this._streamButtonText.text = "GO LIVE";
 		}

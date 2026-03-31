@@ -213,7 +213,7 @@ namespace Liv.Lck
 			LckResult lckResult = this.ConfigureFromQualityConfig(qualityOption);
 			if (!lckResult.Success)
 			{
-				LckLog.LogError("LCK: Failed to configure default output settings - " + lckResult.Message);
+				LckLog.LogError("LCK: Failed to configure default output settings - " + lckResult.Message, "ConfigureDefaultSettings", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckOutputConfigurer.cs", 208);
 			}
 		}
 
@@ -298,7 +298,7 @@ namespace Liv.Lck
 
 		private static bool IsValidDescriptor(CameraTrackDescriptor descriptor)
 		{
-			return descriptor.CameraResolutionDescriptor.IsValid() && (descriptor.Bitrate > 0U && descriptor.Framerate > 0U) && descriptor.AudioBitrate > 0U;
+			return descriptor.CameraResolutionDescriptor.IsValid() && descriptor.Bitrate > 0U && descriptor.Framerate > 0U && descriptor.AudioBitrate > 0U;
 		}
 
 		private static LckCameraOrientation GetCameraOrientation(CameraResolutionDescriptor resolution)

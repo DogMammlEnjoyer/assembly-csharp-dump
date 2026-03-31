@@ -104,7 +104,7 @@ namespace GorillaTagScripts
 				if (GorillaComputer.instance.CheckAutoBanListForName(text))
 				{
 					text = new string(Array.FindAll<char>(text.ToCharArray(), (char c) => Utils.IsASCIILetterOrDigit(c)));
-					if (text.Length > 12)
+					if (text.Length > 11)
 					{
 						text = text.Substring(0, 11);
 					}

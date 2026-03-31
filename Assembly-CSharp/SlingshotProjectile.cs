@@ -3,6 +3,7 @@ using GorillaExtensions;
 using GorillaGameModes;
 using GorillaLocomotion;
 using GorillaLocomotion.Swimming;
+using GorillaTag.Gravity;
 using GorillaTag.Reactions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,26 +32,26 @@ public class SlingshotProjectile : MonoBehaviour
 		{
 			component.objectRadiusForWaterCollision = 0.02f * scale;
 		}
+		this.gravityController.GravityMultiplier = this.gravityMultiplier * ((scale < 1f) ? scale : 1f);
 		this.projectileRigidbody.isKinematic = false;
 		this.projectileRigidbody.useGravity = false;
-		this.forceComponent.enabled = true;
-		this.forceComponent.force = Physics.gravity * this.projectileRigidbody.mass * this.gravityMultiplier * ((scale < 1f) ? scale : 1f);
 		this.projectileRigidbody.linearVelocity = velocity;
 		this.projectileOwner = player;
 		this.myProjectileCount = projectileCount;
 		this.projectileRigidbody.position = position;
 		this.ApplyTeamModelAndColor(blueTeam, orangeTeam, shouldOverrideColor, overrideColor);
 		this.remainingLifeTime = this.lifeTime;
-		if (this.forceComponent)
+		if (this.useForwardForce && this.forceComponent)
 		{
 			this.forceComponent.enabled = true;
-			this.forceComponent.force = Physics.gravity * this.projectileRigidbody.mass * this.gravityMultiplier * ((scale < 1f) ? scale : 1f);
-			if (this.useForwardForce)
-			{
-				this.forceComponent.force += this.projectileRigidbody.linearVelocity.normalized * this.forwardForceMultiplier;
-			}
+			this.forceComponent.force = this.projectileRigidbody.linearVelocity.normalized * this.forwardForceMultiplier;
 		}
 		this.isSettled = false;
+		RigContainer rigContainer;
+		if (VRRigCache.Instance.TryGetVrrig(player, out rigContainer))
+		{
+			this.gravityController.SetPersonalGravityDirection(-rigContainer.Rig.transform.up);
+		}
 		UnityEvent<NetPlayer> onLaunch = this.OnLaunch;
 		if (onLaunch == null)
 		{
@@ -71,6 +72,11 @@ public class SlingshotProjectile : MonoBehaviour
 		this.matPropBlock = new MaterialPropertyBlock();
 		this.spawnWorldEffects = base.GetComponent<SpawnWorldEffects>();
 		this.remainingLifeTime = this.lifeTime;
+		this.gravityController = base.GetComponent<MonkeGravityController>();
+		if (this.gravityController == null)
+		{
+			this.gravityController = base.gameObject.AddComponent<MonkeGravityController>();
+		}
 	}
 
 	public void Deactivate()
@@ -502,6 +508,8 @@ public class SlingshotProjectile : MonoBehaviour
 	private bool isSettled;
 
 	private float distanceTraveled;
+
+	private MonkeGravityController gravityController;
 
 	[Serializable]
 	public struct AOEKnockbackConfig

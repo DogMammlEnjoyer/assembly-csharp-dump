@@ -35,10 +35,6 @@ public class TeleportNode : GorillaTriggerBox
 			Debug.LogError("[TeleportNode] GTPlayer.Instance is null.");
 			return;
 		}
-		if (this.triggerPlaySpaceCorrection)
-		{
-			GTPlayer.CorrectPlaySpaceOffset();
-		}
 		Physics.SyncTransforms();
 		Vector3 position = transform2.transform.position;
 		if (this.seamless)
@@ -54,7 +50,7 @@ public class TeleportNode : GorillaTriggerBox
 	private IEnumerator DelayedTeleport(GTPlayer p, Vector3 position, Quaternion rotation)
 	{
 		yield return null;
-		p.TeleportTo(position, rotation, true, false);
+		p.TeleportTo(position, rotation, this.keepVelocity, !this.seamless);
 		yield break;
 	}
 
@@ -68,10 +64,10 @@ public class TeleportNode : GorillaTriggerBox
 	private bool seamless = true;
 
 	[SerializeField]
-	private bool subsOnly;
+	private bool keepVelocity = true;
 
 	[SerializeField]
-	private bool triggerPlaySpaceCorrection;
+	private bool subsOnly;
 
 	private float teleportTime;
 }

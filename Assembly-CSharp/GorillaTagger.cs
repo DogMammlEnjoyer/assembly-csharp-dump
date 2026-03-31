@@ -162,7 +162,7 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 				GRFirstTimeUserExperience grfirstTimeUserExperience2;
 				if (gameObject.TryGetComponent<GRFirstTimeUserExperience>(out grfirstTimeUserExperience2) && grfirstTimeUserExperience2.spawnPoint != null)
 				{
-					GTPlayer.Instance.TeleportTo(grfirstTimeUserExperience2.spawnPoint.position, grfirstTimeUserExperience2.spawnPoint.rotation, false, false);
+					GTPlayer.Instance.TeleportTo(grfirstTimeUserExperience2.spawnPoint.position, grfirstTimeUserExperience2.spawnPoint.rotation);
 					GTPlayer.Instance.InitializeValues();
 					PlayerPrefs.DeleteKey("spawnInWrongStump");
 					PlayerPrefs.Save();

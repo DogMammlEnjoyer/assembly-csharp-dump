@@ -73,7 +73,7 @@ namespace System.Linq
 			{
 				return iilistProvider.GetCount(onlyIfCheap);
 			}
-			if (onlyIfCheap && !(this._source is ICollection<TElement>) && !(this._source is ICollection))
+			if (onlyIfCheap && !(this._source is ICollection<!0>) && !(this._source is ICollection))
 			{
 				return -1;
 			}

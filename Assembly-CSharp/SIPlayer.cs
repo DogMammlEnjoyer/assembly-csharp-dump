@@ -98,8 +98,8 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		{
 			return result;
 		}
-		GamePlayer gamePlayer = GamePlayer.GetGamePlayer(actorNumber);
-		if (gamePlayer == null)
+		GamePlayer gamePlayer;
+		if (!GamePlayer.TryGetGamePlayer(actorNumber, out gamePlayer))
 		{
 			return null;
 		}
@@ -280,6 +280,23 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 	public void SetProgressionLocal()
 	{
 		this.currentProgression = new SIPlayer.ProgressionData(SIProgression.Instance);
+		int num = 0;
+		if (this.currentProgression.techTreeData != null)
+		{
+			for (int i = 0; i < this.currentProgression.techTreeData.Length; i++)
+			{
+				if (this.currentProgression.techTreeData[i] != null)
+				{
+					for (int j = 0; j < this.currentProgression.techTreeData[i].Length; j++)
+					{
+						if (this.currentProgression.techTreeData[i][j])
+						{
+							num++;
+						}
+					}
+				}
+			}
+		}
 		this.gamePlayer.SetInitializePlayer(true);
 		this.UpdateVisualsForAvailableQuestRedemption();
 	}
@@ -622,6 +639,11 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		GameEntity gameEntity;
 		if (!gamePlayer.TryGetSlotEntity(slotIndex, out gameEntity))
 		{
+			GamePlayer.SlotData slotData;
+			if (gamePlayer.TryGetSlotData(slotIndex, out slotData) && Time.time - SIPlayer._debug_lastStaleSlotLogTime > 5f)
+			{
+				SIPlayer._debug_lastStaleSlotLogTime = Time.time;
+			}
 			return false;
 		}
 		IEnergyGadget component = gameEntity.GetComponent<IEnergyGadget>();
@@ -677,6 +699,8 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 	private SIPlayer.ProgressionData currentProgression;
 
 	public List<int> activePlayerGadgets = new List<int>();
+
+	private static float _debug_lastStaleSlotLogTime;
 
 	[Serializable]
 	public struct ProgressionData

@@ -977,36 +977,26 @@ namespace GorillaTagScripts.Builder
 
 		private void FetchConfigurationFromTitleData()
 		{
-			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest
-			{
-				Keys = new List<string>
-				{
-					this.serializationConfig.tableConfigurationKey
-				}
-			}, new Action<GetTitleDataResult>(this.OnGetConfigurationSuccess), new Action<PlayFabError>(this.OnGetConfigurationFail), null, null);
+			PlayFabTitleDataCache.Instance.GetTitleData(this.serializationConfig.tableConfigurationKey, new Action<string>(this.OnGetConfigurationSuccess), new Action<PlayFabError>(this.OnGetConfigurationFail), false);
 		}
 
-		private void OnGetConfigurationSuccess(GetTitleDataResult result)
+		private void OnGetConfigurationSuccess(string dataRecord)
 		{
 			GTDev.Log<string>("SharedBlocksManager OnGetConfigurationSuccess", null);
-			string text;
-			if (result.Data.TryGetValue(this.serializationConfig.tableConfigurationKey, out text))
+			this.tableConfigResponse = dataRecord;
+			this.fetchedTableConfig = true;
+			Action<string> onGetTableConfiguration = this.OnGetTableConfiguration;
+			if (onGetTableConfiguration == null)
 			{
-				this.tableConfigResponse = text;
-				this.fetchedTableConfig = true;
-				Action<string> onGetTableConfiguration = this.OnGetTableConfiguration;
-				if (onGetTableConfiguration == null)
-				{
-					return;
-				}
-				onGetTableConfiguration(this.tableConfigResponse);
+				return;
 			}
+			onGetTableConfiguration(this.tableConfigResponse);
 		}
 
 		private void OnGetConfigurationFail(PlayFabError error)
 		{
-			GTDev.LogWarning<string>("SharedBlocksManager OnGetConfigurationFail " + error.Error.ToString(), null);
-			if (error.Error == PlayFabErrorCode.ConnectionError && this.fetchTableConfigRetryCount < this.maxRetriesOnFail)
+			GTDev.LogWarning<string>("SharedBlocksManager OnGetConfigurationFail " + ((error != null) ? error.ToString() : null), null);
+			if (this.fetchTableConfigRetryCount < this.maxRetriesOnFail)
 			{
 				float waitTime = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.fetchTableConfigRetryCount + 1)));
 				this.fetchTableConfigRetryCount++;
@@ -1040,13 +1030,7 @@ namespace GorillaTagScripts.Builder
 				if (!this.fetchTitleDataBuildInProgress)
 				{
 					this.fetchTitleDataBuildInProgress = true;
-					base.StartCoroutine(this.SendTitleDataRequest(new GetTitleDataRequest
-					{
-						Keys = new List<string>
-						{
-							this.serializationConfig.titleDataKey
-						}
-					}, new Action<GetTitleDataResult>(this.OnGetTitleDataBuildSuccess), new Action<PlayFabError>(this.OnGetTitleDataBuildFail)));
+					PlayFabTitleDataCache.Instance.GetTitleData(this.serializationConfig.titleDataKey, new Action<string>(this.OnGetTitleDataBuildSuccess), new Action<PlayFabError>(this.OnGetTitleDataBuildFail), false);
 				}
 				return;
 			}
@@ -1058,24 +1042,13 @@ namespace GorillaTagScripts.Builder
 			onGetTitleDataBuildComplete(this.titleDataBuildCache);
 		}
 
-		private IEnumerator SendTitleDataRequest(GetTitleDataRequest request, Action<GetTitleDataResult> successCallback, Action<PlayFabError> failCallback)
-		{
-			while (!PlayFabSettings.staticPlayer.IsClientLoggedIn())
-			{
-				yield return new WaitForSecondsRealtime(5f);
-			}
-			PlayFabClientAPI.GetTitleData(request, successCallback, failCallback, null, null);
-			yield break;
-		}
-
-		private void OnGetTitleDataBuildSuccess(GetTitleDataResult result)
+		private void OnGetTitleDataBuildSuccess(string dataRecord)
 		{
 			this.fetchTitleDataBuildInProgress = false;
 			GTDev.Log<string>("SharedBlocksManager OnGetTitleDataBuildSuccess", null);
-			string s;
-			if (result.Data.TryGetValue(this.serializationConfig.titleDataKey, out s) && !s.IsNullOrEmpty())
+			if (!dataRecord.IsNullOrEmpty())
 			{
-				this.titleDataBuildCache = s;
+				this.titleDataBuildCache = dataRecord;
 				this.fetchTitleDataBuildComplete = true;
 				Action<string> onGetTitleDataBuildComplete = this.OnGetTitleDataBuildComplete;
 				if (onGetTitleDataBuildComplete == null)
@@ -1102,8 +1075,8 @@ namespace GorillaTagScripts.Builder
 		private void OnGetTitleDataBuildFail(PlayFabError error)
 		{
 			this.fetchTitleDataBuildInProgress = false;
-			GTDev.LogWarning<string>("SharedBlocksManager FetchTitleDataBuildFail " + error.Error.ToString(), null);
-			if (error.Error == PlayFabErrorCode.ConnectionError && this.fetchTitleDataRetryCount < this.maxRetriesOnFail)
+			GTDev.LogWarning<string>("SharedBlocksManager FetchTitleDataBuildFail " + ((error != null) ? error.ToString() : null), null);
+			if (this.fetchTitleDataRetryCount < this.maxRetriesOnFail)
 			{
 				float waitTime = Random.Range(0.5f, Mathf.Pow(2f, (float)(this.fetchTitleDataRetryCount + 1)));
 				this.fetchTitleDataRetryCount++;
@@ -1293,10 +1266,10 @@ namespace GorillaTagScripts.Builder
 
 		private Task WaitForMothership()
 		{
-			SharedBlocksManager.<WaitForMothership>d__145 <WaitForMothership>d__;
+			SharedBlocksManager.<WaitForMothership>d__144 <WaitForMothership>d__;
 			<WaitForMothership>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 			<WaitForMothership>d__.<>1__state = -1;
-			<WaitForMothership>d__.<>t__builder.Start<SharedBlocksManager.<WaitForMothership>d__145>(ref <WaitForMothership>d__);
+			<WaitForMothership>d__.<>t__builder.Start<SharedBlocksManager.<WaitForMothership>d__144>(ref <WaitForMothership>d__);
 			return <WaitForMothership>d__.<>t__builder.Task;
 		}
 

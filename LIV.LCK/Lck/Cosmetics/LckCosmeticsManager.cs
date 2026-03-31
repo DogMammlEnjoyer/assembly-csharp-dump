@@ -18,7 +18,7 @@ namespace Liv.Lck.Cosmetics
 		{
 			this._cosmeticsCoordinator = cosmeticsCoordinator;
 			this._cosmeticsCoordinator.OnCosmeticAvailable += this.HandleCosmeticAvailable;
-			LckLog.Log("LCK: LckCosmeticsManager initialized.");
+			LckLog.Log("LCK: LckCosmeticsManager initialized.", ".ctor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 36);
 		}
 
 		public void RegisterDependant(ILckCosmeticDependant dependant)
@@ -45,7 +45,7 @@ namespace Liv.Lck.Cosmetics
 				" for player ",
 				dependant.PlayerId,
 				". "
-			}));
+			}), "RegisterDependant", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 52);
 			this.CheckAndApplyCachedCosmetics(dependant);
 		}
 
@@ -64,7 +64,7 @@ namespace Liv.Lck.Cosmetics
 				" for player ",
 				dependant.PlayerId,
 				"."
-			}));
+			}), "UnregisterDependant", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 65);
 			list.Remove(dependant);
 		}
 
@@ -81,7 +81,7 @@ namespace Liv.Lck.Cosmetics
 				assetBundle.Unload(true);
 			}
 			this._loadedAssetBundles.Clear();
-			LckLog.Log("LCK: LckCosmeticsManager disposed.");
+			LckLog.Log("LCK: LckCosmeticsManager disposed.", "Dispose", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 83);
 		}
 
 		private void HandleCosmeticAvailable(LckAvailableCosmeticInfo incomingCosmeticInfo)
@@ -168,7 +168,7 @@ namespace Liv.Lck.Cosmetics
 					return;
 				}
 			}
-			LckLog.LogError("LCK: Failed to find CosmeticType in metadata of " + cosmeticInfo.CosmeticInfo.CosmeticId + ".");
+			LckLog.LogError("LCK: Failed to find CosmeticType in metadata of " + cosmeticInfo.CosmeticInfo.CosmeticId + ".", "DistributeLoadedCosmetic", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 251);
 		}
 
 		private void CheckAndApplyCachedCosmetics(ILckCosmeticDependant dependant)
@@ -196,13 +196,13 @@ namespace Liv.Lck.Cosmetics
 			object obj;
 			if (!metadata.TryGetValue("CosmeticRoots", out obj))
 			{
-				LckLog.LogWarning("LCK: Cosmetic metadata does not include top level CosmeticRoots key");
+				LckLog.LogWarning("LCK: Cosmetic metadata does not include top level CosmeticRoots key", "ParseCosmeticRoots", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 295);
 				return null;
 			}
 			IList<object> list = obj as IList<object>;
 			if (list == null)
 			{
-				LckLog.LogWarning(string.Format("LCK: Cosmetic metadata has invalid CosmeticRoots - unexpected type: {0}", obj.GetType()));
+				LckLog.LogWarning(string.Format("LCK: Cosmetic metadata has invalid CosmeticRoots - unexpected type: {0}", obj.GetType()), "ParseCosmeticRoots", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 301);
 				return null;
 			}
 			List<LckCosmeticsManager.CosmeticRootInfo> list2 = new List<LckCosmeticsManager.CosmeticRootInfo>();
@@ -211,7 +211,7 @@ namespace Liv.Lck.Cosmetics
 				IReadOnlyDictionary<object, object> readOnlyDictionary = obj2 as IReadOnlyDictionary<object, object>;
 				if (readOnlyDictionary == null)
 				{
-					LckLog.LogWarning(string.Format("LCK: Cosmetic metadata has invalid CosmeticRoots item - unexpected type: {0}", obj2.GetType()));
+					LckLog.LogWarning(string.Format("LCK: Cosmetic metadata has invalid CosmeticRoots item - unexpected type: {0}", obj2.GetType()), "ParseCosmeticRoots", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 310);
 				}
 				else
 				{
@@ -234,7 +234,7 @@ namespace Liv.Lck.Cosmetics
 							}
 						}
 					}
-					LckLog.LogWarning("LCK: Cosmetic metadata has invalid CosmeticRoots item - missing rootPath / type");
+					LckLog.LogWarning("LCK: Cosmetic metadata has invalid CosmeticRoots item - missing rootPath / type", "ParseCosmeticRoots", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckCosmeticsManager.cs", 321);
 				}
 			}
 			return list2;

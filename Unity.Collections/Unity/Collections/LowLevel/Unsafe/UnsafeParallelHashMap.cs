@@ -14,7 +14,7 @@ namespace Unity.Collections.LowLevel.Unsafe
 		typeof(int),
 		typeof(int)
 	})]
-	public struct UnsafeParallelHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KeyValue<!0, !1>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
+	public struct UnsafeParallelHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KeyValue<TKey, TValue>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
 	{
 		public UnsafeParallelHashMap(int capacity, AllocatorManager.AllocatorHandle allocator)
 		{

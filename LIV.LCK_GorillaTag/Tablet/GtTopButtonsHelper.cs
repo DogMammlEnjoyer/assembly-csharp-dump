@@ -18,6 +18,12 @@ namespace Liv.Lck.Tablet
 			this._streamButton.RestoreButtonState();
 		}
 
+		public void SetCameraPageVisualsManually()
+		{
+			this._cameraButton.SetSelectedState();
+			this._streamButton.SetDefaultState();
+		}
+
 		[SerializeField]
 		private GtTopButton _cameraButton;
 

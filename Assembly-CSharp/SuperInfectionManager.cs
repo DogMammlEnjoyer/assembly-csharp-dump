@@ -12,6 +12,24 @@ using UnityEngine.Pool;
 [DefaultExecutionOrder(0)]
 public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IFactoryItemProvider
 {
+	public bool HasActiveTryOnDispenser
+	{
+		get
+		{
+			return this.tryOnDispenserCount > 0;
+		}
+	}
+
+	internal void RegisterTryOnDispenser()
+	{
+		this.tryOnDispenserCount++;
+	}
+
+	internal void UnregisterTryOnDispenser()
+	{
+		this.tryOnDispenserCount = Mathf.Max(this.tryOnDispenserCount - 1, 0);
+	}
+
 	private void Awake()
 	{
 		GameEntityManager gameEntityManager = this.gameEntityManager;
@@ -184,7 +202,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 
 	public bool IsZoneReady()
 	{
-		return NetworkSystem.Instance.InRoom && SuperInfectionManager.IsSuperGameMode() && this.zoneSuperInfection.IsNotNull() && VRRig.LocalRig.zoneEntity.currentZone == this.gameEntityManager.zone;
+		return NetworkSystem.Instance.InRoom && SuperInfectionManager.IsSuperGameMode() && this.zoneSuperInfection.IsNotNull() && VRRig.LocalRig.zoneEntity.currentZone == this.gameEntityManager.zone && SIProgression.Instance != null && SIProgression.Instance._treeReady;
 	}
 
 	public bool ShouldClearZone()
@@ -211,6 +229,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 	public void OnCreateGameEntity(GameEntity entity)
 	{
 		SIGadget component = entity.GetComponent<SIGadget>();
+		bool flag = (entity.createData & long.MinValue) != 0L;
 		if (component != null)
 		{
 			SIPlayer siplayer = SIPlayer.Get((int)(entity.createData & (long)((ulong)-1)));
@@ -239,13 +258,20 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 					siplayer.activePlayerGadgets.Add(entity.GetNetId());
 				}
 			}
-			SIUpgradeSet siupgradeSet = new SIUpgradeSet((int)(entity.createData >> 32));
+			SIUpgradeSet siupgradeSet = new SIUpgradeSet((int)((entity.createData & 9223372032559808512L) >> 32));
 			siupgradeSet = component.FilterUpgradeNodes(siupgradeSet);
 			component.ApplyUpgradeNodes(siupgradeSet);
 			component.RefreshUpgradeVisuals(siupgradeSet);
 			if (this.zoneSuperInfection != null)
 			{
 				this.zoneSuperInfection.AddGadget(component);
+			}
+			if (flag)
+			{
+				entity.shouldDestroyOnZoneExit = true;
+				GameEntityDelayedDestroy gameEntityDelayedDestroy = entity.gameObject.AddComponent<GameEntityDelayedDestroy>();
+				gameEntityDelayedDestroy.Configure(SIGadgetDispenser.g_tryOnOptions);
+				gameEntityDelayedDestroy.ResetTimer();
 			}
 		}
 		List<SuperInfectionSnapPoint> list;
@@ -297,7 +323,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 			}
 			else
 			{
-				this.progression.OnClientReady += this.<OnZoneInit>g__WhenReady|43_0;
+				this.progression.OnClientReady += this.<OnZoneInit>g__WhenReady|48_0;
 			}
 		}
 		this.allSnapPoints.Clear();
@@ -980,11 +1006,19 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		{
 			return createData;
 		}
-		return createData >> 32 << 32 | (long)SIPlayer.LocalPlayer.ActorNr;
+		int num = (int)(createData & (long)((ulong)-1));
+		long result = (createData & -4294967296L) | ((long)SIPlayer.LocalPlayer.ActorNr & (long)((ulong)-1));
+		int actorNr = SIPlayer.LocalPlayer.ActorNr;
+		return result;
 	}
 
 	public bool ValidateMigratedGameEntity(int netId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int actorNr)
 	{
+		SIPlayer.Get(actorNr);
+		if ((createData & -9223372036854775808L) != 0L)
+		{
+			return false;
+		}
 		GameObject gameObject = this.gameEntityManager.FactoryPrefabById(entityTypeId);
 		if (gameObject == null)
 		{
@@ -1017,25 +1051,19 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		{
 			return false;
 		}
-		bool flag = false;
-		int num2 = 0;
-		while (num2 < siplayer.CurrentProgression.techTreeData.Length && !flag)
+		SIUpgradeType siupgradeType;
+		if (this.techTreeSO.TryGetUpgradeTypeByEntityTypeId(entityTypeId, out siupgradeType))
 		{
-			for (int j = 0; j < siplayer.CurrentProgression.techTreeData[num2].Length; j++)
+			bool flag = siplayer.CurrentProgression.IsUnlocked(siupgradeType);
+			bool flag2 = SuperInfectionManager._ValidatePlayerHasGadgetUpgrades(createData, siplayer, siupgradeType);
+			new SIUpgradeSet((int)((createData & 9223372032559808512L) >> 32));
+			siplayer.GetUpgrades((SITechTreePageId)siupgradeType.GetPageId());
+			if (!flag || !flag2)
 			{
-				if (siplayer.CurrentProgression.techTreeData[num2][j] && siplayer.progressionSORef.IsValidNode(num2, j))
-				{
-					SITechTreeNode treeNode = siplayer.progressionSORef.GetTreeNode(num2, j);
-					if (treeNode != null && treeNode.IsDispensableGadget && treeNode.unlockedGadgetPrefab.gameObject.name.GetStaticHash() == entityTypeId)
-					{
-						flag = true;
-						break;
-					}
-				}
+				return false;
 			}
-			num2++;
 		}
-		return flag;
+		return true;
 	}
 
 	public bool ValidateCreateMultipleItems(int zoneId, byte[] compressedStateData, int EntityCount)
@@ -1045,7 +1073,37 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 
 	public bool ValidateCreateItem(int nedId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int createdByEntityNetId)
 	{
-		return true;
+		this.gameEntityManager.IsAuthority();
+		SIUpgradeType siupgradeType;
+		if (!this.techTreeSO.TryGetUpgradeTypeByEntityTypeId(entityTypeId, out siupgradeType))
+		{
+			return true;
+		}
+		if ((createData & -9223372036854775808L) != 0L)
+		{
+			bool hasActiveTryOnDispenser = this.HasActiveTryOnDispenser;
+			return this.HasActiveTryOnDispenser;
+		}
+		SIPlayer siplayer = SIPlayer.Get((int)(createData & (long)((ulong)-1)));
+		if (siplayer == null)
+		{
+			return false;
+		}
+		bool flag = siplayer.CurrentProgression.IsUnlocked(siupgradeType);
+		bool flag2 = SuperInfectionManager._ValidatePlayerHasGadgetUpgrades(createData, siplayer, siupgradeType);
+		if (!flag || !flag2)
+		{
+			new SIUpgradeSet((int)((createData & 9223372032559808512L) >> 32));
+			siplayer.GetUpgrades((SITechTreePageId)siupgradeType.GetPageId());
+		}
+		return flag && flag2;
+	}
+
+	private static bool _ValidatePlayerHasGadgetUpgrades(long createData, SIPlayer siPlayer, SIUpgradeType upgradeType)
+	{
+		SIUpgradeSet siupgradeSet = new SIUpgradeSet((int)((createData & 9223372032559808512L) >> 32));
+		SIUpgradeSet upgrades = siPlayer.GetUpgrades((SITechTreePageId)upgradeType.GetPageId());
+		return (siupgradeSet.GetBits() & ~upgrades.GetBits()) == 0;
 	}
 
 	public bool ValidateCreateItemBatchSize(int size)
@@ -1070,9 +1128,9 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 	}
 
 	[CompilerGenerated]
-	private void <OnZoneInit>g__WhenReady|43_0()
+	private void <OnZoneInit>g__WhenReady|48_0()
 	{
-		this.progression.OnClientReady -= this.<OnZoneInit>g__WhenReady|43_0;
+		this.progression.OnClientReady -= this.<OnZoneInit>g__WhenReady|48_0;
 		SIPlayer.SetAndBroadcastProgression();
 	}
 
@@ -1111,6 +1169,8 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 	private const float rpcProximityCheckRange = 3f;
 
 	private bool PendingZoneInit;
+
+	private int tryOnDispenserCount;
 
 	private const int roomFXTypeCount = 5;
 

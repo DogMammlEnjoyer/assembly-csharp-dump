@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UnityEngine.InputSystem.Utilities
 {
-	internal struct OneOrMore<TValue, TList> : IReadOnlyList<TValue>, IEnumerable<!0>, IEnumerable, IReadOnlyCollection<TValue> where TList : IReadOnlyList<TValue>
+	internal struct OneOrMore<TValue, TList> : IReadOnlyList<TValue>, IEnumerable<TValue>, IEnumerable, IReadOnlyCollection<TValue> where TList : IReadOnlyList<TValue>
 	{
 		public int Count
 		{
@@ -79,7 +79,7 @@ namespace UnityEngine.InputSystem.Utilities
 
 		private readonly TList m_Multiple;
 
-		private class Enumerator : IEnumerator<!0>, IEnumerator, IDisposable
+		private class Enumerator : IEnumerator<TValue>, IEnumerator, IDisposable
 		{
 			public bool MoveNext()
 			{

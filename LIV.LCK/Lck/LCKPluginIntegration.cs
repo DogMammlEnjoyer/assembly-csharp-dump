@@ -10,7 +10,7 @@ namespace Liv.Lck
 		{
 			if (lckService == null)
 			{
-				LckLog.LogError("Cannot initialize plugins with null LCK service");
+				LckLog.LogError("Cannot initialize plugins with null LCK service", "InitializePlugins", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 20);
 				return;
 			}
 			LCKPlugins.Instance.Initialize(lckService);
@@ -26,7 +26,7 @@ namespace Liv.Lck
 				}
 				catch (Exception ex)
 				{
-					LckLog.LogError("Failed to shutdown plugin " + ilckplugin.PluginName + ": " + ex.Message);
+					LckLog.LogError("Failed to shutdown plugin " + ilckplugin.PluginName + ": " + ex.Message, "ShutdownPlugins", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 41);
 				}
 			}
 		}
@@ -44,7 +44,7 @@ namespace Liv.Lck
 		public static void LogPluginInfo()
 		{
 			IEnumerable<ILCKPlugin> allPlugins = LCKPlugins.Instance.GetAllPlugins();
-			LckLog.Log(string.Format("Registered plugins ({0}):", allPlugins.Count<ILCKPlugin>()));
+			LckLog.Log(string.Format("Registered plugins ({0}):", allPlugins.Count<ILCKPlugin>()), "LogPluginInfo", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 72);
 			foreach (ILCKPlugin ilckplugin in allPlugins)
 			{
 				LckLog.Log(string.Concat(new string[]
@@ -56,7 +56,7 @@ namespace Liv.Lck
 					" (",
 					ilckplugin.GetType().Name,
 					")"
-				}));
+				}), "LogPluginInfo", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LCKPluginIntegration.cs", 76);
 			}
 		}
 	}

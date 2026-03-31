@@ -55,17 +55,29 @@ namespace GorillaTagScripts.Subscription
 
 		private void OnEnable()
 		{
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
 			GorillaSlicerSimpleManager.RegisterSliceable(this);
 		}
 
 		private void OnDisable()
 		{
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
 			GorillaSlicerSimpleManager.UnregisterSliceable(this);
 			this.ClearAllRigOverrides();
 		}
 
 		private void Update()
 		{
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				return;
+			}
 			this.UpdateDoor();
 			if (!SubscriptionManager.IsLocalSubscribed())
 			{
@@ -133,7 +145,7 @@ namespace GorillaTagScripts.Subscription
 				if (Time.time - this.lastShoveTime >= this.shoveCooldown)
 				{
 					this.lastShoveTime = Time.time;
-					instance.TeleportTo(this.ejectionPoint.position, instance.transform.rotation, true, false);
+					instance.TeleportTo(this.ejectionPoint.position, instance.transform.rotation, true);
 					UnityEvent onEnterRestrictedZone = this.OnEnterRestrictedZone;
 					if (onEnterRestrictedZone == null)
 					{

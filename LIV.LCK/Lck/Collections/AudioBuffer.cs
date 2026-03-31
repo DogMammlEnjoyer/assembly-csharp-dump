@@ -92,15 +92,20 @@ namespace Liv.Lck.Collections
 			return true;
 		}
 
-		public bool TryExtendFrom(float[] source)
+		public bool TryExtendFrom(float[] sourceArray, int sourceIndex, int length)
 		{
-			if (this._logicalCount + source.Length > this._buffer.Length)
+			if (this._logicalCount + length > this._buffer.Length)
 			{
 				return false;
 			}
-			Array.Copy(source, 0, this._buffer, this._logicalCount, source.Length);
-			this._logicalCount += source.Length;
+			Array.Copy(sourceArray, sourceIndex, this._buffer, this._logicalCount, length);
+			this._logicalCount += length;
 			return true;
+		}
+
+		public bool TryExtendFrom(float[] source)
+		{
+			return this.TryExtendFrom(source, 0, source.Length);
 		}
 
 		public bool TryExtendFrom(AudioBuffer source)

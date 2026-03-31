@@ -5,6 +5,11 @@ namespace Sirenix.OdinInspector
 	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 	public class TypeSelectorSettingsAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showNoneItem"
+		})]
 		public bool ShowNoneItem
 		{
 			get
@@ -17,6 +22,11 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showCategories"
+		})]
 		public bool ShowCategories
 		{
 			get
@@ -29,6 +39,11 @@ namespace Sirenix.OdinInspector
 			}
 		}
 
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"preferNamespaces"
+		})]
 		public bool PreferNamespaces
 		{
 			get

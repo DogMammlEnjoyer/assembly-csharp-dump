@@ -12,19 +12,41 @@ namespace Liv.Lck.UI
 	{
 		private void Start()
 		{
-			this._controller.ToggleMicrophoneRecording(true);
-			if (Application.platform == RuntimePlatform.Android && !Application.isEditor && !Permission.HasUserAuthorizedPermission("android.permission.RECORD_AUDIO"))
+			if (Application.platform != RuntimePlatform.Android || Application.isEditor || LckSettings.Instance.MicPermissionType == LckSettings.MicPermissionAskType.NeverAskFromLck)
 			{
-				this._hasMicPermission = false;
-				this.SetMicPermissionOffVisuals();
-				this._controller.ToggleMicrophoneRecording(false);
-				if (this._micToggle && LckSettings.Instance.MicPermissionType == LckSettings.MicPermissionAskType.OnMicUnmute)
+				this._controller.ToggleMicrophoneRecording(true);
+				return;
+			}
+			if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
+			{
+				if (!Permission.HasUserAuthorizedPermission("android.permission.RECORD_AUDIO"))
 				{
-					this._micToggle.onValueChanged.AddListener(new UnityAction<bool>(this.CheckForMicPermission));
+					this._hasMicPermission = false;
+					this.SetMicPermissionOffVisuals();
+					this._controller.ToggleMicrophoneRecording(false);
+					switch (LckSettings.Instance.MicPermissionType)
+					{
+					case LckSettings.MicPermissionAskType.OnAppStartup:
+						this._micLckToggle.SetDisabledState(false);
+						return;
+					case LckSettings.MicPermissionAskType.OnTabletSpawn:
+						this._micLckToggle.SetDisabledState(false);
+						if (!this.UserSelectedDontShowAgain())
+						{
+							this.CheckForMicPermission(true);
+							return;
+						}
+						break;
+					case LckSettings.MicPermissionAskType.OnMicUnmute:
+						this._micToggle.onValueChanged.AddListener(new UnityAction<bool>(this.CheckForMicPermission));
+						return;
+					default:
+						return;
+					}
 				}
-				if (LckSettings.Instance.MicPermissionType == LckSettings.MicPermissionAskType.OnTabletSpawn && !this.UserSelectedDontShowAgain())
+				else
 				{
-					this.CheckForMicPermission(true);
+					this._controller.ToggleMicrophoneRecording(true);
 				}
 			}
 		}
@@ -37,15 +59,17 @@ namespace Liv.Lck.UI
 				{
 					if (this._micToggle && LckSettings.Instance.MicPermissionType == LckSettings.MicPermissionAskType.OnMicUnmute)
 					{
+						this._micLckToggle.SetDisabledState(false);
+						LCKCameraController.ColliderButtonsInUse = false;
 						this._micToggle.onValueChanged.RemoveListener(new UnityAction<bool>(this.CheckForMicPermission));
 					}
 					return;
 				}
-				LckMicTogglePermissionHelper._firstTimeAskingForPermission = false;
+				LckMicTogglePermissionHelper._permissionAskCount++;
 				PermissionCallbacks permissionCallbacks = new PermissionCallbacks();
 				permissionCallbacks.PermissionGranted += this.PermissionCallbacks_PermissionGranted;
 				permissionCallbacks.PermissionDenied += this.PermissionCallbacks_PermissionDenied;
-				LckLog.Log("Requesting Microphone Permission");
+				LckLog.Log("Requesting Microphone Permission", "CheckForMicPermission", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckMicTogglePermissionHelper.cs", 96);
 				Permission.RequestUserPermission("android.permission.RECORD_AUDIO", permissionCallbacks);
 			}
 		}
@@ -53,9 +77,10 @@ namespace Liv.Lck.UI
 		internal void PermissionCallbacks_PermissionGranted(string permissionName)
 		{
 			this._hasMicPermission = true;
-			LckLog.Log("Microphone Permission Granted");
+			LckLog.Log("Microphone Permission Granted", "PermissionCallbacks_PermissionGranted", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckMicTogglePermissionHelper.cs", 105);
 			this.SetMicPermissionOnVisuals();
 			this._controller.ToggleMicrophoneRecording(true);
+			this._micLckToggle.RestoreToggleState();
 			if (this._micToggle && LckSettings.Instance.MicPermissionType == LckSettings.MicPermissionAskType.OnMicUnmute)
 			{
 				this._micToggle.onValueChanged.RemoveListener(new UnityAction<bool>(this.CheckForMicPermission));
@@ -65,14 +90,18 @@ namespace Liv.Lck.UI
 		internal void PermissionCallbacks_PermissionDenied(string permissionName)
 		{
 			this._hasMicPermission = false;
-			LckLog.Log("Microphone Permission Denied");
+			LckLog.Log("Microphone Permission Denied", "PermissionCallbacks_PermissionDenied", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckMicTogglePermissionHelper.cs", 120);
 			this.SetMicPermissionOffVisuals();
 			this._controller.ToggleMicrophoneRecording(false);
+			if (LckSettings.Instance.MicPermissionType != LckSettings.MicPermissionAskType.OnMicUnmute)
+			{
+				this._micLckToggle.SetDisabledState(false);
+			}
 		}
 
 		private bool UserSelectedDontShowAgain()
 		{
-			return !Permission.ShouldShowRequestPermissionRationale("android.permission.RECORD_AUDIO") && !LckMicTogglePermissionHelper._firstTimeAskingForPermission;
+			return LckMicTogglePermissionHelper._permissionAskCount >= 1 && !Permission.ShouldShowRequestPermissionRationale("android.permission.RECORD_AUDIO");
 		}
 
 		public void SetMicPermissionOnVisuals()
@@ -92,21 +121,23 @@ namespace Liv.Lck.UI
 
 		private void OnApplicationFocus(bool focus)
 		{
-			if (focus)
+			if (focus && LckSettings.Instance.MicPermissionType != LckSettings.MicPermissionAskType.NeverAskFromLck)
 			{
 				if (!this._hasMicPermission && Permission.HasUserAuthorizedPermission("android.permission.RECORD_AUDIO"))
 				{
-					LckLog.Log("User allowed mic permission from settings");
+					LckLog.Log("User allowed mic permission from settings", "OnApplicationFocus", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckMicTogglePermissionHelper.cs", 161);
 					this._controller.ToggleMicrophoneRecording(true);
 					this.SetMicPermissionOnVisuals();
+					this._micLckToggle.RestoreToggleState();
 					this._hasMicPermission = true;
 					return;
 				}
 				if (this._hasMicPermission && !Permission.HasUserAuthorizedPermission("android.permission.RECORD_AUDIO"))
 				{
-					LckLog.Log("User disabled mic permission from settings");
+					LckLog.Log("User disabled mic permission from settings", "OnApplicationFocus", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Tablet\\LckMicTogglePermissionHelper.cs", 169);
 					this._controller.ToggleMicrophoneRecording(false);
 					this.SetMicPermissionOffVisuals();
+					this._micLckToggle.SetDisabledState(false);
 					this._hasMicPermission = false;
 				}
 			}
@@ -137,7 +168,7 @@ namespace Liv.Lck.UI
 		[SerializeField]
 		private Image _micToggleIcon;
 
-		private static bool _firstTimeAskingForPermission = true;
+		private static int _permissionAskCount;
 
 		private bool _hasMicPermission = true;
 	}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Liv.Lck.Core;
 using Liv.Lck.Settings;
 using Liv.Lck.Telemetry;
 using UnityEngine;
@@ -94,7 +93,7 @@ namespace Liv.Lck
 			this.CameraTrackTexture.Release();
 			Object.Destroy(this.CameraTrackTexture);
 			this.CameraTrackTexture = null;
-			LckLog.Log("Released camera track texture");
+			LckLog.Log("Released camera track texture", "ReleaseCameraTrackTextures", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckVideoMixer.cs", 109);
 		}
 
 		private LckResult UpdateMonitorTexture(string monitorId)
@@ -130,6 +129,10 @@ namespace Liv.Lck
 
 		private void InitCameraTexture(CameraResolutionDescriptor resolution)
 		{
+			if (!resolution.IsValid())
+			{
+				throw new ArgumentException(string.Format("Invalid resolution: {0}x{1}", resolution.Width, resolution.Height));
+			}
 			this.ReleaseCameraTrackTextures();
 			this.CameraTrackTexture = LckVideoMixer.InitializeTargetRenderTexture(resolution);
 			IEnumerable<ILckCamera> cameras = LckMediator.GetCameras();
@@ -143,15 +146,15 @@ namespace Liv.Lck
 				{
 					if (!enumerator.MoveNext())
 					{
-						goto IL_75;
+						goto IL_A4;
 					}
 					ILckCamera lckCamera = enumerator.Current;
 					this.ActivateCameraById(lckCamera.CameraId, null);
-					goto IL_75;
+					goto IL_A4;
 				}
 			}
 			this.ActivateCameraById(this._activeCamera.CameraId, null);
-			IL_75:
+			IL_A4:
 			this._eventBus.Trigger<LckEvents.ActiveCameraTrackTextureChangedEvent>(new LckEvents.ActiveCameraTrackTextureChangedEvent(LckResult<RenderTexture>.NewSuccess(this.CameraTrackTexture)));
 		}
 
@@ -172,7 +175,7 @@ namespace Liv.Lck
 			LckResult<CameraResolutionDescriptor> result = cameraResolutionChangedEvent.Result;
 			if (!result.Success)
 			{
-				LckLog.LogWarning("LckVideoMixer ignoring failed camera resolution change (" + cameraResolutionChangedEvent.Result.Message + ")");
+				LckLog.LogWarning("LckVideoMixer ignoring failed camera resolution change (" + cameraResolutionChangedEvent.Result.Message + ")", "OnResolutionChanged", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckVideoMixer.cs", 210);
 				return;
 			}
 			this.UpdateTextureResolution(result.Result);
@@ -186,19 +189,33 @@ namespace Liv.Lck
 			}
 			catch (Exception ex)
 			{
-				Dictionary<string, object> context = new Dictionary<string, object>
+				if (!this._hasLoggedResolutionError)
 				{
+					this._hasLoggedResolutionError = true;
+					ILckCamera activeCamera = this._activeCamera;
+					string arg = ((activeCamera != null) ? activeCamera.CameraId : null) ?? "null";
+					ILckCamera activeCamera2 = this._activeCamera;
+					string arg2 = ((activeCamera2 != null) ? activeCamera2.GetType().Name : null) ?? "null";
+					string text = (this.CameraTrackTexture != null) ? string.Format("{0}x{1}, created={2}", this.CameraTrackTexture.width, this.CameraTrackTexture.height, this.CameraTrackTexture.IsCreated()) : "null";
+					IEnumerable<ILckCamera> cameras = LckMediator.GetCameras();
+					int num = (cameras != null) ? cameras.Count<ILckCamera>() : 0;
+					string text2 = (ex.InnerException != null) ? (", InnerException: " + ex.InnerException.GetType().Name + ": " + ex.InnerException.Message) : "";
+					LckLog.LogError(string.Concat(new string[]
 					{
-						"errorString",
-						"SetTrackResolutionFailed"
-					},
-					{
-						"message",
-						ex.Message
-					}
-				};
-				this._telemetryClient.SendTelemetry(new LckTelemetryEvent(LckTelemetryEventType.RecorderError, context));
-				LckLog.LogError(ex.Message);
+						"SetTrackResolution failed (",
+						ex.GetType().Name,
+						"): ",
+						ex.Message,
+						text2,
+						"\n",
+						string.Format("Resolution: {0}x{1}, IsValid: {2}\n", resolution.Width, resolution.Height, resolution.IsValid()),
+						string.Format("ActiveCamera: {0} ({1}), CameraCount: {2}\n", arg, arg2, num),
+						"CurrentTexture: ",
+						text,
+						"\nStackTrace: ",
+						ex.StackTrace
+					}), "UpdateTextureResolution", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckVideoMixer.cs", 238);
+				}
 			}
 		}
 
@@ -207,5 +224,7 @@ namespace Liv.Lck
 		private readonly ILckEventBus _eventBus;
 
 		private readonly ILckTelemetryClient _telemetryClient;
+
+		private bool _hasLoggedResolutionError;
 	}
 }

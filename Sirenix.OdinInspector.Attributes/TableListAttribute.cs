@@ -8,6 +8,12 @@ namespace Sirenix.OdinInspector
 	[Conditional("UNITY_EDITOR")]
 	public class TableListAttribute : Attribute
 	{
+		[ShowInInspector]
+		[OdinDesignerBinding(new string[]
+		{
+			"showPaging",
+			"showPagingHasValue"
+		})]
 		public bool ShowPaging
 		{
 			get

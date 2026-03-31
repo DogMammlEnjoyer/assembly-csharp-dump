@@ -18,7 +18,7 @@ namespace Liv.Lck.ErrorHandling
 
 		public void PushError(LckCaptureError error)
 		{
-			LckLog.LogWarning("Capture error occurred: " + error.Message);
+			LckLog.LogWarning("Capture error occurred: " + error.Message, "PushError", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\ErrorHandling\\MainThreadCaptureErrorDispatcher.cs", 37);
 			this._errorQueue.Enqueue(error);
 		}
 

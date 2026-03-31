@@ -957,7 +957,7 @@ namespace System.Collections.Concurrent
 
 		void ICollection<KeyValuePair<!0, !1>>.Add(KeyValuePair<TKey, TValue> keyValuePair)
 		{
-			((IDictionary<TKey, TValue>)this).Add(keyValuePair.Key, keyValuePair.Value);
+			((IDictionary<!0, !1>)this).Add(keyValuePair.Key, keyValuePair.Value);
 		}
 
 		bool ICollection<KeyValuePair<!0, !1>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
@@ -1022,7 +1022,7 @@ namespace System.Collections.Concurrent
 			{
 				throw new ArgumentException("The value was of an incorrect type for this dictionary.");
 			}
-			((IDictionary<TKey, TValue>)this).Add((TKey)((object)key), value2);
+			((IDictionary<!0, !1>)this).Add((TKey)((object)key), value2);
 		}
 
 		/// <summary>Gets a value that indicates the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.</summary>

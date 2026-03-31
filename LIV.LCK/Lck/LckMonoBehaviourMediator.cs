@@ -43,7 +43,7 @@ namespace Liv.Lck
 			{
 				return;
 			}
-			onApplicationLifecycleEvent(LckMonoBehaviourMediator.ApplicationLifecycleEventType.Pause);
+			onApplicationLifecycleEvent(pauseStatus ? LckMonoBehaviourMediator.ApplicationLifecycleEventType.Pause : LckMonoBehaviourMediator.ApplicationLifecycleEventType.Resume);
 		}
 
 		private void OnApplicationQuit()
@@ -70,6 +70,15 @@ namespace Liv.Lck
 				this._hmd.TryGetFeatureValue(CommonUsages.deviceVelocity, out vector);
 				if (vector.magnitude > 0.01f)
 				{
+					if (this._hMDIsIdle)
+					{
+						this._hMDIsIdle = false;
+						LckMonoBehaviourMediator.LckApplicationLifecycleEventDelegate onApplicationLifecycleEvent = LckMonoBehaviourMediator.OnApplicationLifecycleEvent;
+						if (onApplicationLifecycleEvent != null)
+						{
+							onApplicationLifecycleEvent(LckMonoBehaviourMediator.ApplicationLifecycleEventType.HMDActive);
+						}
+					}
 					this._hMDWasMoving = true;
 					this._hMDIdleTime = 0f;
 					return;
@@ -79,10 +88,11 @@ namespace Liv.Lck
 					this._hMDIdleTime += Time.deltaTime;
 					if (this._hMDIdleTime >= 10f)
 					{
-						LckMonoBehaviourMediator.LckApplicationLifecycleEventDelegate onApplicationLifecycleEvent = LckMonoBehaviourMediator.OnApplicationLifecycleEvent;
-						if (onApplicationLifecycleEvent != null)
+						this._hMDIsIdle = true;
+						LckMonoBehaviourMediator.LckApplicationLifecycleEventDelegate onApplicationLifecycleEvent2 = LckMonoBehaviourMediator.OnApplicationLifecycleEvent;
+						if (onApplicationLifecycleEvent2 != null)
 						{
-							onApplicationLifecycleEvent(LckMonoBehaviourMediator.ApplicationLifecycleEventType.Pause);
+							onApplicationLifecycleEvent2(LckMonoBehaviourMediator.ApplicationLifecycleEventType.HMDIdle);
 						}
 						this._hMDWasMoving = false;
 						return;
@@ -208,12 +218,17 @@ namespace Liv.Lck
 
 		private bool _hMDWasMoving;
 
+		private bool _hMDIsIdle;
+
 		private InputDevice _hmd;
 
 		public enum ApplicationLifecycleEventType
 		{
 			Quit,
-			Pause
+			Pause,
+			Resume,
+			HMDIdle,
+			HMDActive
 		}
 
 		public delegate void LckApplicationLifecycleEventDelegate(LckMonoBehaviourMediator.ApplicationLifecycleEventType applicationLifecycleEventType);

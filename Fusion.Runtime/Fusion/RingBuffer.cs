@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fusion
 {
-	internal class RingBuffer<T> : IEnumerable<T>, IEnumerable where T : struct
+	internal class RingBuffer<T> : IEnumerable<!0>, IEnumerable where T : struct
 	{
 		public RingBuffer(int capacity) : this(capacity, new T[0])
 		{

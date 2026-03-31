@@ -21,12 +21,14 @@ namespace Liv.Lck
 			{
 				LckMediator._cameras.Add(camera.CameraId, camera);
 				Action<ILckCamera> cameraRegistered = LckMediator.CameraRegistered;
-				if (cameraRegistered == null)
+				if (cameraRegistered != null)
 				{
-					return;
+					cameraRegistered(camera);
 				}
-				cameraRegistered(camera);
+				LckLog.Log("ILckCamera registered (id=\"" + camera.CameraId + "\")", "RegisterCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 22);
+				return;
 			}
+			LckLog.LogWarning("RegisterCamera called with already registered camera id: \"" + camera.CameraId + "\"", "RegisterCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 26);
 		}
 
 		public static void UnregisterCamera(ILckCamera camera)
@@ -35,12 +37,14 @@ namespace Liv.Lck
 			{
 				LckMediator._cameras.Remove(camera.CameraId);
 				Action<ILckCamera> cameraUnregistered = LckMediator.CameraUnregistered;
-				if (cameraUnregistered == null)
+				if (cameraUnregistered != null)
 				{
-					return;
+					cameraUnregistered(camera);
 				}
-				cameraUnregistered(camera);
+				LckLog.Log("ILckCamera unregistered (id=\"" + camera.CameraId + "\")", "UnregisterCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 36);
+				return;
 			}
+			LckLog.LogWarning("UnregisterCamera called with unknown camera id: \"" + camera.CameraId + "\"", "UnregisterCamera", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 40);
 		}
 
 		public static void RegisterMonitor(ILckMonitor monitor)
@@ -49,12 +53,14 @@ namespace Liv.Lck
 			{
 				LckMediator._monitors.Add(monitor.MonitorId, monitor);
 				Action<ILckMonitor> monitorRegistered = LckMediator.MonitorRegistered;
-				if (monitorRegistered == null)
+				if (monitorRegistered != null)
 				{
-					return;
+					monitorRegistered(monitor);
 				}
-				monitorRegistered(monitor);
+				LckLog.Log("ILckMonitor registered (id=\"" + monitor.MonitorId + "\")", "RegisterMonitor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 50);
+				return;
 			}
+			LckLog.LogWarning("RegisterMonitor called with already registered monitor id: \"" + monitor.MonitorId + "\"", "RegisterMonitor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 54);
 		}
 
 		public static void UnregisterMonitor(ILckMonitor monitor)
@@ -63,12 +69,14 @@ namespace Liv.Lck
 			{
 				LckMediator._monitors.Remove(monitor.MonitorId);
 				Action<ILckMonitor> monitorUnregistered = LckMediator.MonitorUnregistered;
-				if (monitorUnregistered == null)
+				if (monitorUnregistered != null)
 				{
-					return;
+					monitorUnregistered(monitor);
 				}
-				monitorUnregistered(monitor);
+				LckLog.Log("ILckMonitor unregistered (id=\"" + monitor.MonitorId + "\")", "UnregisterMonitor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 64);
+				return;
 			}
+			LckLog.LogWarning("UnregisterMonitor called with unknown monitor id: \"" + monitor.MonitorId + "\"", "UnregisterMonitor", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Components\\LckMediator.cs", 68);
 		}
 
 		public static ILckCamera GetCameraById(string id)

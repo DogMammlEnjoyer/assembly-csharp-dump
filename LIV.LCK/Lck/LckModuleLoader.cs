@@ -8,7 +8,7 @@ namespace Liv.Lck
 	{
 		public static void RegisterModule(Action<LckDiContainer> configure, string name)
 		{
-			LckLog.Log("LCK: Registered module - " + name);
+			LckLog.Log("LCK: Registered module - " + name, "RegisterModule", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\LckModuleLoader.cs", 16);
 			LckModuleLoader._moduleConfigurators.Add(configure);
 		}
 

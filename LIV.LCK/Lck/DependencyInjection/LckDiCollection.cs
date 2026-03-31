@@ -13,7 +13,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding transient " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding transient " + typeof(TService).Name + ": " + ex.Message, "AddTransient", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 22);
 			}
 		}
 
@@ -25,7 +25,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding transient factory " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding transient factory " + typeof(TService).Name + ": " + ex.Message, "AddTransientFactory", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 38);
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding singleton " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding singleton " + typeof(TService).Name + ": " + ex.Message, "AddSingleton", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 53);
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding singleton factory " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding singleton factory " + typeof(TService).Name + ": " + ex.Message, "AddSingletonFactory", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 69);
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding singleton instance " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding singleton instance " + typeof(TService).Name + ": " + ex.Message, "AddSingleton", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 84);
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace Liv.Lck.DependencyInjection
 			}
 			catch (Exception ex)
 			{
-				LckLog.LogError("LCK Error adding singleton forward for " + typeof(TService).Name + ": " + ex.Message);
+				LckLog.LogError("LCK Error adding singleton forward for " + typeof(TService).Name + ": " + ex.Message, "AddSingletonForward", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 99);
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace Liv.Lck.DependencyInjection
 
 		public LckServiceProvider Build()
 		{
-			LckLog.Log("Building LCK Service Provider.");
+			LckLog.Log("Building LCK Service Provider.", "Build", ".\\Packages\\tv.liv.lck\\Runtime\\Scripts\\Util\\DependencyInjection\\LckDiCollection.cs", 116);
 			return new LckServiceProvider(new Dictionary<Type, LckDiServiceRegistration>(this._registrations));
 		}
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UnityEngine.InputSystem.Utilities
 {
-	internal struct InlinedArray<TValue> : IEnumerable<TValue>, IEnumerable
+	internal struct InlinedArray<TValue> : IEnumerable<!0>, IEnumerable
 	{
 		public int Capacity
 		{

@@ -147,10 +147,17 @@ namespace Liv.Lck.UI
 			}
 		}
 
-		public void SetDisabledState()
+		public void SetDisabledState(bool usePressedPosition = false)
 		{
 			this.IsDisabled = true;
-			this._visuals.anchoredPosition3D = this._togglePressedPosition;
+			if (usePressedPosition)
+			{
+				this._visuals.anchoredPosition3D = this._togglePressedPosition;
+			}
+			else
+			{
+				this._visuals.anchoredPosition3D = new Vector3(0f, 0f, 0f);
+			}
 			this._toggle.enabled = false;
 		}
 

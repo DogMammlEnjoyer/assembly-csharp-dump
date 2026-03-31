@@ -29,7 +29,10 @@ namespace GorillaTag.Cosmetics
 		{
 			if (this._events != null)
 			{
-				this._events.Activate -= this.OnShakeEvent;
+				if (this._events.Activate != null)
+				{
+					this._events.Activate -= this.OnShakeEvent;
+				}
 				this._events.Dispose();
 				this._events = null;
 			}

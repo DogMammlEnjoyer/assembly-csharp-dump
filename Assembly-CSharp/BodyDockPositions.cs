@@ -571,10 +571,10 @@ public class BodyDockPositions : MonoBehaviour
 				}
 				else
 				{
-					VRRig vrrig = this.myRig;
-					CosmeticsController instance = CosmeticsController.instance;
 					TransferrableObject transferrableObject = this.allObjects[num];
-					if (vrrig.IsItemAllowed(instance.GetItemNameFromDisplayName((transferrableObject != null) ? transferrableObject.gameObject.name : null)))
+					string displayName = (transferrableObject != null) ? transferrableObject.gameObject.name : null;
+					string itemNameFromDisplayName = CosmeticsController.instance.GetItemNameFromDisplayName(displayName);
+					if (this.myRig.IsItemAllowed(itemNameFromDisplayName))
 					{
 						int num2 = this.myRig.ActiveTransferrableObjectIndex(i);
 						if (!(this.allObjects[num2] == null))
@@ -616,7 +616,8 @@ public class BodyDockPositions : MonoBehaviour
 		}
 		foreach (int idx in this.objectsToEnable)
 		{
-			this.EnableTransferrableGameObject(this.myRig.ActiveTransferrableObjectIndex(idx), this.myRig.TransferrableDockPosition(idx), this.myRig.TransferrablePosStates(idx));
+			int allItemsIndex = this.myRig.ActiveTransferrableObjectIndex(idx);
+			this.EnableTransferrableGameObject(allItemsIndex, this.myRig.TransferrableDockPosition(idx), this.myRig.TransferrablePosStates(idx));
 		}
 		this.UpdateHandState();
 	}
