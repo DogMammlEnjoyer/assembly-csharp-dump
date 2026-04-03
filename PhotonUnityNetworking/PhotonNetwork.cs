@@ -2482,7 +2482,6 @@ namespace Photon.Pun
 				dictionary.Remove(netView.ViewID);
 				foreach (object[] array in queue)
 				{
-					Debug.LogWarning("Received OnSerialization for view ID " + netView.ViewID.ToString() + ". Found Cached data! Dumping cached state");
 					PhotonNetwork.OnSerializeRead((object[])array[0], (Player)array[1], (int)array[2], (short)array[3]);
 				}
 			}

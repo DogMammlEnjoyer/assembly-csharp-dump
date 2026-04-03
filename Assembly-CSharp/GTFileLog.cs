@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class GTFileLog
 {
-	private static GTFileLog.LogInstance Default
+	private static GTFileLog.FLogInstance Default
 	{
 		get
 		{
@@ -15,12 +15,12 @@ public static class GTFileLog
 				return GTFileLog._default;
 			}
 			object registryLock = GTFileLog._registryLock;
-			GTFileLog.LogInstance @default;
+			GTFileLog.FLogInstance @default;
 			lock (registryLock)
 			{
 				if (GTFileLog._default == null)
 				{
-					GTFileLog._default = new GTFileLog.LogInstance("gt-flog");
+					GTFileLog._default = new GTFileLog.FLogInstance("main");
 				}
 				@default = GTFileLog._default;
 			}
@@ -28,103 +28,130 @@ public static class GTFileLog
 		}
 	}
 
-	public static GTFileLog.LogInstance GetLog(string name)
+	public static GTFileLog.FLogInstance GetLog(string name)
 	{
 		object registryLock = GTFileLog._registryLock;
-		GTFileLog.LogInstance result;
+		GTFileLog.FLogInstance result;
 		lock (registryLock)
 		{
-			GTFileLog.LogInstance logInstance;
-			if (GTFileLog._instances.TryGetValue(name, out logInstance))
+			GTFileLog.FLogInstance flogInstance;
+			if (GTFileLog._instances.TryGetValue(name, out flogInstance))
 			{
-				result = logInstance;
+				result = flogInstance;
 			}
 			else
 			{
-				GTFileLog.LogInstance logInstance2 = new GTFileLog.LogInstance(name);
-				GTFileLog._instances[name] = logInstance2;
-				result = logInstance2;
+				GTFileLog.FLogInstance flogInstance2 = new GTFileLog.FLogInstance(name);
+				GTFileLog._instances[name] = flogInstance2;
+				result = flogInstance2;
 			}
 		}
 		return result;
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void Log(string msg)
 	{
 		GTFileLog.Default.WriteEntry("LOG", msg, StackTraceUtility.ExtractStackTrace());
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void LogWarning(string msg)
 	{
 		GTFileLog.Default.WriteEntry("WARN", msg, StackTraceUtility.ExtractStackTrace());
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void LogError(string msg)
 	{
 		GTFileLog.Default.WriteEntry("ERR", msg, StackTraceUtility.ExtractStackTrace());
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void LogNoTrace(string msg)
 	{
 		GTFileLog.Default.WriteEntryNoTrace("LOG", msg);
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void LogWarningNoTrace(string msg)
 	{
 		GTFileLog.Default.WriteEntryNoTrace("WARN", msg);
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void LogErrorNoTrace(string msg)
 	{
 		GTFileLog.Default.WriteEntryNoTrace("ERR", msg);
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void CLog(string msg)
 	{
 		object registryLock = GTFileLog._registryLock;
 		lock (registryLock)
 		{
-			GTFileLog.Default.WriteEntryNoTrace("LOG", msg);
-			foreach (GTFileLog.LogInstance logInstance in GTFileLog._instances.Values)
+			if (GTFileLog._default != null && GTFileLog._default.IsActive)
 			{
-				logInstance.WriteEntryNoTrace("LOG", msg);
+				GTFileLog._default.WriteEntryNoTrace("LOG", msg);
+			}
+			foreach (GTFileLog.FLogInstance flogInstance in GTFileLog._instances.Values)
+			{
+				if (flogInstance.IsActive)
+				{
+					flogInstance.WriteEntryNoTrace("LOG", msg);
+				}
 			}
 		}
 		Debug.Log("[GT/FLog] " + msg);
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void CLogWarning(string msg)
 	{
 		object registryLock = GTFileLog._registryLock;
 		lock (registryLock)
 		{
-			GTFileLog.Default.WriteEntryNoTrace("WARN", msg);
-			foreach (GTFileLog.LogInstance logInstance in GTFileLog._instances.Values)
+			if (GTFileLog._default != null && GTFileLog._default.IsActive)
 			{
-				logInstance.WriteEntryNoTrace("WARN", msg);
+				GTFileLog._default.WriteEntryNoTrace("WARN", msg);
+			}
+			foreach (GTFileLog.FLogInstance flogInstance in GTFileLog._instances.Values)
+			{
+				if (flogInstance.IsActive)
+				{
+					flogInstance.WriteEntryNoTrace("WARN", msg);
+				}
 			}
 		}
 		Debug.LogWarning("[GT/FLog] " + msg);
 	}
 
 	[Conditional("BETA")]
+	[Conditional("UNITY_EDITOR")]
 	public static void CLogError(string msg)
 	{
 		object registryLock = GTFileLog._registryLock;
 		lock (registryLock)
 		{
-			GTFileLog.Default.WriteEntryNoTrace("ERR", msg);
-			foreach (GTFileLog.LogInstance logInstance in GTFileLog._instances.Values)
+			if (GTFileLog._default != null && GTFileLog._default.IsActive)
 			{
-				logInstance.WriteEntryNoTrace("ERR", msg);
+				GTFileLog._default.WriteEntryNoTrace("ERR", msg);
+			}
+			foreach (GTFileLog.FLogInstance flogInstance in GTFileLog._instances.Values)
+			{
+				if (flogInstance.IsActive)
+				{
+					flogInstance.WriteEntryNoTrace("ERR", msg);
+				}
 			}
 		}
 		Debug.LogError("[GT/FLog] " + msg);
@@ -140,9 +167,9 @@ public static class GTFileLog
 			{
 				GTFileLog._default.Close();
 			}
-			foreach (GTFileLog.LogInstance logInstance in GTFileLog._instances.Values)
+			foreach (GTFileLog.FLogInstance flogInstance in GTFileLog._instances.Values)
 			{
-				logInstance.Close();
+				flogInstance.Close();
 			}
 		}
 	}
@@ -203,57 +230,78 @@ public static class GTFileLog
 
 	private static readonly object _registryLock = new object();
 
-	private static Dictionary<string, GTFileLog.LogInstance> _instances = new Dictionary<string, GTFileLog.LogInstance>();
+	private static Dictionary<string, GTFileLog.FLogInstance> _instances = new Dictionary<string, GTFileLog.FLogInstance>();
 
-	private static GTFileLog.LogInstance _default;
+	private static GTFileLog.FLogInstance _default;
 
 	[ThreadStatic]
 	private static bool _inCallback;
 
-	public sealed class LogInstance
+	public sealed class FLogInstance
 	{
-		internal LogInstance(string prefix)
+		internal FLogInstance(string prefix)
 		{
 			this._prefix = prefix;
 		}
 
+		internal bool IsActive
+		{
+			get
+			{
+				object @lock = this._lock;
+				bool result;
+				lock (@lock)
+				{
+					result = (this._writer != null);
+				}
+				return result;
+			}
+		}
+
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void Log(string msg)
 		{
 			this.WriteEntry("LOG", msg, StackTraceUtility.ExtractStackTrace());
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void LogWarning(string msg)
 		{
 			this.WriteEntry("WARN", msg, StackTraceUtility.ExtractStackTrace());
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void LogError(string msg)
 		{
 			this.WriteEntry("ERR", msg, StackTraceUtility.ExtractStackTrace());
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void LogNoTrace(string msg)
 		{
 			this.WriteEntryNoTrace("LOG", msg);
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void LogWarningNoTrace(string msg)
 		{
 			this.WriteEntryNoTrace("WARN", msg);
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void LogErrorNoTrace(string msg)
 		{
 			this.WriteEntryNoTrace("ERR", msg);
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void CLog(string msg)
 		{
 			this.WriteEntryNoTrace("LOG", msg);
@@ -261,6 +309,7 @@ public static class GTFileLog
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void CLogWarning(string msg)
 		{
 			this.WriteEntryNoTrace("WARN", msg);
@@ -268,6 +317,7 @@ public static class GTFileLog
 		}
 
 		[Conditional("BETA")]
+		[Conditional("UNITY_EDITOR")]
 		public void CLogError(string msg)
 		{
 			this.WriteEntryNoTrace("ERR", msg);
@@ -343,17 +393,23 @@ public static class GTFileLog
 			{
 				return;
 			}
+			if (ApplicationQuittingState.IsQuitting)
+			{
+				this._failed = true;
+				return;
+			}
 			try
 			{
 				string persistentDataPath = Application.persistentDataPath;
 				Directory.CreateDirectory(persistentDataPath);
-				string text = DateTime.UtcNow.ToString("yyyyMMdd_HHmmss");
-				string text2 = Path.Combine(persistentDataPath, this._prefix + "_" + text + ".log");
+				string str = DateTime.UtcNow.ToString("yyyyMMdd_HHmmss");
+				string str2 = "flog_" + this._prefix + "_" + str;
+				string text = Path.Combine(persistentDataPath, str2 + ".log");
 				for (int i = 1; i <= 10; i++)
 				{
 					try
 					{
-						this._writer = new StreamWriter(text2, true)
+						this._writer = new StreamWriter(text, true)
 						{
 							AutoFlush = true
 						};
@@ -361,15 +417,7 @@ public static class GTFileLog
 					}
 					catch (IOException obj) when (i < 10)
 					{
-						text2 = Path.Combine(persistentDataPath, string.Concat(new string[]
-						{
-							this._prefix,
-							"_",
-							text,
-							"_",
-							(i + 1).ToString(),
-							".log"
-						}));
+						text = Path.Combine(persistentDataPath, str2 + "_" + (i + 1).ToString() + ".log");
 					}
 				}
 				if (this._writer == null)
@@ -378,22 +426,49 @@ public static class GTFileLog
 				}
 				this._writer.WriteLine(string.Format("--- {0} log started {1:u} ---", this._prefix, DateTime.UtcNow));
 				this._writer.WriteLine("--- playerName: " + PlayerPrefs.GetString("playerName", "(unset)") + " ---");
-				string text3 = (callerTrace != null) ? GTFileLog.ExtractFirstExternalCaller(callerTrace) : "(no-trace)";
+				string text2 = (callerTrace != null) ? GTFileLog.ExtractFirstExternalCaller(callerTrace) : "(no-trace)";
 				Debug.Log(string.Concat(new string[]
 				{
 					"<color=orange><b>[GT/GTFileLog:",
 					this._prefix,
 					"]</b> Writing to \"",
-					text2,
+					text,
 					"\". First caller: ",
-					text3,
+					text2,
 					"</color>"
 				}));
+				GTFileLog.FLogInstance.PruneOldFlogFiles(persistentDataPath);
 			}
 			catch (Exception ex)
 			{
 				this._failed = true;
 				Debug.LogError("[GT/GTFileLog:" + this._prefix + "] Failed to create log file: " + ex.Message);
+			}
+		}
+
+		private static void PruneOldFlogFiles(string dir)
+		{
+			try
+			{
+				string[] files = Directory.GetFiles(dir, "flog_*.log");
+				if (files.Length > 10)
+				{
+					Array.Sort<string>(files, (string a, string b) => File.GetLastWriteTimeUtc(a).CompareTo(File.GetLastWriteTimeUtc(b)));
+					int num = files.Length - 10;
+					for (int i = 0; i < num; i++)
+					{
+						try
+						{
+							File.Delete(files[i]);
+						}
+						catch
+						{
+						}
+					}
+				}
+			}
+			catch
+			{
 			}
 		}
 
@@ -435,5 +510,9 @@ public static class GTFileLog
 		private readonly object _lock = new object();
 
 		private readonly string _prefix;
+
+		private const string FilePrefix = "flog_";
+
+		private const int MaxFlogFiles = 10;
 	}
 }

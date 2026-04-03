@@ -183,6 +183,11 @@ public class SIGadgetStilt : SIGadget
 
 	protected override void OnUpdateAuthority(float dt)
 	{
+		if (base.IsBlocked(SIExclusionType.AffectsLocalMovement))
+		{
+			this.DisableCurrentStilt();
+			return;
+		}
 		bool isSpinning = this.IsSpinning;
 		bool flag = false;
 		if (this.currentStiltID != StiltID.None)

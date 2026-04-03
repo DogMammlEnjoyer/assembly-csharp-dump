@@ -3,11 +3,20 @@ using UnityEngine;
 
 public class GameLight : MonoBehaviour
 {
+	public bool IsRegistered
+	{
+		get
+		{
+			return this.lightId != -1;
+		}
+	}
+
 	public float InitialIntensity { get; private set; }
 
 	public void Awake()
 	{
 		this.intensityMult = 1;
+		this.lightId = -1;
 	}
 
 	protected void OnEnable()
@@ -47,7 +56,7 @@ public class GameLight : MonoBehaviour
 
 	public Vector4 cachedColorAndIntensity;
 
-	public int lightId;
+	public int lightId = -1;
 
 	public int intensityMult = 1;
 

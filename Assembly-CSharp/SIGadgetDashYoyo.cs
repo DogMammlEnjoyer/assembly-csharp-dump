@@ -414,6 +414,10 @@ public class SIGadgetDashYoyo : SIGadget
 		{
 			return;
 		}
+		if (base.IsBlocked(SIExclusionType.AffectsLocalMovement))
+		{
+			return;
+		}
 		this._successfulYankTime = Time.unscaledTime;
 		float d = this._CalculateDashSpeed(handVelocity.magnitude);
 		GTPlayer instance = GTPlayer.Instance;

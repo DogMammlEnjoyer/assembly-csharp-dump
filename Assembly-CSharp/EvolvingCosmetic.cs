@@ -1,12 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
+using DefaultNamespace;
 using GorillaLocomotion;
+using GorillaNetworking;
+using GorillaTag.CosmeticSystem;
 using GorillaTagScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EvolvingCosmetic : MonoBehaviour
+public class EvolvingCosmetic : MonoBehaviour, ICosmeticStateSync
 {
+	public int StateValue
+	{
+		get
+		{
+			return this.SelectedObjectIndex;
+		}
+	}
+
+	public int SelectedObjectIndex { get; private set; } = -1;
+
+	public string PlayfabId
+	{
+		get
+		{
+			return base.gameObject.name;
+		}
+	}
+
+	private void Awake()
+	{
+		int num;
+		if (EvolvingCosmeticSaveData.Instance.SelectedIndices.TryGetValue(this.PlayfabId, out num) && this.IsIndexAvailable(num))
+		{
+			this.SelectedObjectIndex = num;
+			this.ActivateSelectedIndex();
+		}
+	}
+
 	private void OnEnable()
 	{
 		VRRig vrrig = base.GetComponentInParent<VRRig>();
@@ -21,6 +51,11 @@ public class EvolvingCosmetic : MonoBehaviour
 		if (vrrig == null)
 		{
 			return;
+		}
+		VRRigReliableState reliableState = vrrig.reliableState;
+		if (reliableState != null)
+		{
+			reliableState.RegisterCosmeticStateSyncTarget(this.GetStateSyncSlot(), this);
 		}
 		SubscriptionManager.SubscriptionDetails subscriptionDetails = SubscriptionManager.GetSubscriptionDetails(vrrig);
 		this._daysAccrued = new int?(0);
@@ -56,46 +91,38 @@ public class EvolvingCosmetic : MonoBehaviour
 			{
 				break;
 			}
-			this._selectedObjectIndex = i;
+			this.SelectedObjectIndex = i;
 		}
 		this.ActivateSelectedIndex();
-		UnityEvent<int> dispatchDaysOnEnable = this.DispatchDaysOnEnable;
-		if (dispatchDaysOnEnable != null)
+		if (this._daysAccrued != null)
 		{
-			int? daysAccrued = this._daysAccrued;
-			if (daysAccrued == null)
+			UnityEvent<int> dispatchDaysOnEnable = this.DispatchDaysOnEnable;
+			if (dispatchDaysOnEnable != null)
 			{
-				throw new NullReferenceException("_daysAccrued was not set by end of OnEnable.");
+				dispatchDaysOnEnable.Invoke(Mathf.Min(this._daysAccrued.Value, this.capDays));
 			}
-			dispatchDaysOnEnable.Invoke(daysAccrued.GetValueOrDefault());
-		}
-		if (this.maxDays > 0)
-		{
-			UnityEvent<float> dispatchDaysOnEnableNormalized = this.DispatchDaysOnEnableNormalized;
-			if (dispatchDaysOnEnableNormalized == null)
+			if (this.maxDays > 0)
 			{
-				return;
+				UnityEvent<float> dispatchDaysOnEnableNormalized = this.DispatchDaysOnEnableNormalized;
+				if (dispatchDaysOnEnableNormalized == null)
+				{
+					return;
+				}
+				dispatchDaysOnEnableNormalized.Invoke(Mathf.Min((float)this._daysAccrued.Value / (float)this.maxDays, 1f) * (float)this.multiplier);
 			}
-			dispatchDaysOnEnableNormalized.Invoke(Mathf.Min((float)this._daysAccrued.Value / (float)this.maxDays, 1f));
+			return;
 		}
+		throw new NullReferenceException("_daysAccrued was not set by end of OnEnable.");
 	}
 
-	public IEnumerable<GameObject> GetAvailableGameObjects()
+	private void OnDisable()
 	{
-		if (this._daysAccrued == null)
+		VRRig componentInParent = base.GetComponentInParent<VRRig>();
+		VRRigReliableState vrrigReliableState = (componentInParent != null) ? componentInParent.reliableState : null;
+		if (vrrigReliableState != null)
 		{
-			throw new NullReferenceException("_daysAccrued is not calculated.");
+			vrrigReliableState.UnRegisterCosmeticStateSyncTarget(this.GetStateSyncSlot(), this);
 		}
-		bool hasSubscription = SubscriptionManager.IsLocalSubscribed();
-		foreach (EvolvingCosmetic.AgeAwareGameObject ageAwareGameObject in this.ageAwareGameObjects)
-		{
-			if ((!ageAwareGameObject.requireCurrentSubscription || hasSubscription) && ageAwareGameObject.minActiveDays <= this._daysAccrued.Value)
-			{
-				yield return ageAwareGameObject.gameObject;
-			}
-		}
-		EvolvingCosmetic.AgeAwareGameObject[] array = null;
-		yield break;
 	}
 
 	private void ActivateSelectedIndex()
@@ -106,13 +133,13 @@ public class EvolvingCosmetic : MonoBehaviour
 		}
 		for (int i = 0; i < this.ageAwareGameObjects.Length; i++)
 		{
-			this.ageAwareGameObjects[i].gameObject.SetActive(i == this._selectedObjectIndex);
+			this.ageAwareGameObjects[i].gameObject.SetActive(i == this.SelectedObjectIndex);
 		}
 	}
 
 	private bool IsSelectedIndexAvailable()
 	{
-		return this.IsIndexAvailable(this._selectedObjectIndex);
+		return this.IsIndexAvailable(this.SelectedObjectIndex);
 	}
 
 	private bool IsIndexAvailable(int index)
@@ -125,29 +152,53 @@ public class EvolvingCosmetic : MonoBehaviour
 		return this._daysAccrued.Value >= ageAwareGameObject.minActiveDays;
 	}
 
-	private void GoBack()
+	public void GoBack()
 	{
 		if (!this.CanGoBack())
 		{
 			return;
 		}
-		this._selectedObjectIndex--;
+		int selectedObjectIndex = this.SelectedObjectIndex - 1;
+		this.SelectedObjectIndex = selectedObjectIndex;
 		this.ActivateSelectedIndex();
 	}
 
-	private void GoForward()
+	public void GoForward()
 	{
 		if (!this.CanGoForward())
 		{
 			return;
 		}
-		this._selectedObjectIndex++;
+		int selectedObjectIndex = this.SelectedObjectIndex + 1;
+		this.SelectedObjectIndex = selectedObjectIndex;
 		this.ActivateSelectedIndex();
+	}
+
+	public void MatchStage(EvolvingCosmetic other)
+	{
+		while (this.SelectedObjectIndex > other.SelectedObjectIndex)
+		{
+			int selectedObjectIndex;
+			if (!this.CanGoBack())
+			{
+				IL_42:
+				while (this.SelectedObjectIndex < other.SelectedObjectIndex && this.CanGoForward())
+				{
+					selectedObjectIndex = this.SelectedObjectIndex + 1;
+					this.SelectedObjectIndex = selectedObjectIndex;
+				}
+				this.ActivateSelectedIndex();
+				return;
+			}
+			selectedObjectIndex = this.SelectedObjectIndex - 1;
+			this.SelectedObjectIndex = selectedObjectIndex;
+		}
+		goto IL_42;
 	}
 
 	private void UnselectAll()
 	{
-		this._selectedObjectIndex = 0;
+		this.SelectedObjectIndex = -1;
 		EvolvingCosmetic.AgeAwareGameObject[] array = this.ageAwareGameObjects;
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -155,14 +206,44 @@ public class EvolvingCosmetic : MonoBehaviour
 		}
 	}
 
-	private bool CanGoBack()
+	public bool CanGoBack()
 	{
-		return this.IsIndexAvailable(this._selectedObjectIndex - 1);
+		return this.IsIndexAvailable(this.SelectedObjectIndex - 1);
 	}
 
-	private bool CanGoForward()
+	public bool CanGoForward()
 	{
-		return this.IsIndexAvailable(this._selectedObjectIndex + 1);
+		return this.IsIndexAvailable(this.SelectedObjectIndex + 1);
+	}
+
+	public void OnStateUpdate(int state)
+	{
+		if (!this.IsIndexAvailable(state))
+		{
+			return;
+		}
+		this.SelectedObjectIndex = state;
+		this.ActivateSelectedIndex();
+	}
+
+	private VRRigReliableState.StateSyncSlots GetStateSyncSlot()
+	{
+		CosmeticSO cosmeticSOFromDisplayName = CosmeticsController.instance.GetCosmeticSOFromDisplayName(this.PlayfabId);
+		CosmeticsController.CosmeticCategory value = cosmeticSOFromDisplayName.info.category.Value;
+		VRRigReliableState.StateSyncSlots result;
+		if (value != CosmeticsController.CosmeticCategory.Hat)
+		{
+			if (value != CosmeticsController.CosmeticCategory.Shirt)
+			{
+				throw new Exception(string.Format("Unhandled CosmeticCategory {0}", cosmeticSOFromDisplayName.info.category.Value));
+			}
+			result = VRRigReliableState.StateSyncSlots.Shirt;
+		}
+		else
+		{
+			result = VRRigReliableState.StateSyncSlots.Hat;
+		}
+		return result;
 	}
 
 	[SerializeField]
@@ -172,15 +253,19 @@ public class EvolvingCosmetic : MonoBehaviour
 	private EvolvingCosmetic.AgeAwareGameObject[] ageAwareGameObjects;
 
 	[SerializeField]
+	private int capDays = 1;
+
+	[SerializeField]
 	private UnityEvent<int> DispatchDaysOnEnable;
 
 	[SerializeField]
 	private int maxDays = 1;
 
 	[SerializeField]
-	private UnityEvent<float> DispatchDaysOnEnableNormalized;
+	private int multiplier = 1;
 
-	private int _selectedObjectIndex;
+	[SerializeField]
+	private UnityEvent<float> DispatchDaysOnEnableNormalized;
 
 	private int? _daysAccrued;
 
@@ -198,10 +283,10 @@ public class EvolvingCosmetic : MonoBehaviour
 	{
 		public GameObject gameObject;
 
-		public bool requireCurrentSubscription;
-
 		public int minActiveDays;
 
 		public int maxActiveDays;
+
+		public bool requireCurrentSubscription;
 	}
 }

@@ -58,6 +58,10 @@ public class SIGadgetWing : SIGadget
 		float num = Mathf.Max(Vector3.Dot(lhs, up), 0f);
 		double num2 = PhotonNetwork.Time - (double)GTPlayer.Instance.LastTouchedGroundAtNetworkTime;
 		float num3 = Mathf.Lerp(this.m_flapStrength, this.m_flapDecayedStrength, (float)num2 / this.m_decayDuration);
+		if (base.IsBlocked(SIExclusionType.AffectsLocalMovement))
+		{
+			return;
+		}
 		Vector3 force = up * (num * num3);
 		GTPlayer.Instance.AddForce(force, ForceMode.Impulse);
 		this._lastWingPos = position;

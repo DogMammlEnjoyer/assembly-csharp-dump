@@ -295,7 +295,7 @@ namespace Unity.Collections
 			private T value;
 		}
 
-		public struct ReadOnly : IEnumerable<!0>, IEnumerable
+		public struct ReadOnly : IEnumerable<T>, IEnumerable
 		{
 			internal ReadOnly(ref UnsafeQueue<T> data)
 			{

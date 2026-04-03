@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Cysharp.Threading.Tasks
 {
-	public class UniTaskCompletionSource<T> : IUniTaskSource<!0>, IUniTaskSource, IPromise<T>, IResolvePromise<T>, IRejectPromise, ICancelPromise
+	public class UniTaskCompletionSource<T> : IUniTaskSource<T>, IUniTaskSource, IPromise<T>, IResolvePromise<T>, IRejectPromise, ICancelPromise
 	{
 		[DebuggerHidden]
 		internal void MarkHandled()

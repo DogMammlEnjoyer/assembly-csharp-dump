@@ -80,6 +80,11 @@ public class SIGadgetAirGrab : SIGadget
 		{
 			this.ClearGravityOverride();
 		}
+		if (this.m_airGrabXform != null)
+		{
+			this.m_airGrabXform.gameObject.SetActive(false);
+			this.m_airGrabXform.SetParent(base.transform, false);
+		}
 	}
 
 	private void _HandleStartInteraction()
@@ -136,7 +141,7 @@ public class SIGadgetAirGrab : SIGadget
 		switch (this._state)
 		{
 		case SIGadgetAirGrab.EState.Idle:
-			if (this._isActivated)
+			if (this._isActivated && !base.IsBlocked(SIExclusionType.AffectsLocalMovement))
 			{
 				if (this._groundedUseCounter.TryUse())
 				{

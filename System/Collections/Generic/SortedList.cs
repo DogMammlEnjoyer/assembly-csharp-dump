@@ -940,7 +940,7 @@ namespace System.Collections.Generic
 		}
 
 		[Serializable]
-		private sealed class SortedListKeyEnumerator : IEnumerator<TKey>, IDisposable, IEnumerator
+		private sealed class SortedListKeyEnumerator : IEnumerator<!0>, IDisposable, IEnumerator
 		{
 			internal SortedListKeyEnumerator(SortedList<TKey, TValue> sortedList)
 			{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using GameObjectScheduling;
 using GorillaNetworking;
 using GorillaTagScripts;
@@ -24,57 +25,11 @@ public class BuilderKiosk : MonoBehaviour
 
 	private void Start()
 	{
-		this._puchaseTextLocStr = this._puchaseTextLoc.StringReference;
-		this._itemNameVar = (this._puchaseTextLocStr["item-name"] as StringVariable);
-		this._itemCostVar = (this._puchaseTextLocStr["item-cost"] as IntVariable);
-		this._currencyBalanceVar = (this._puchaseTextLocStr["currency-balance"] as IntVariable);
-		this._finalLineVar = (this._puchaseTextLocStr["final-line-index"] as IntVariable);
-		this.purchaseParticles.Stop();
-		BuilderSetManager.instance.OnOwnedSetsUpdated.AddListener(new UnityAction(this.OnOwnedSetsUpdated));
-		CosmeticsController instance = CosmeticsController.instance;
-		instance.OnGetCurrency = (Action)Delegate.Combine(instance.OnGetCurrency, new Action(this.OnUpdateCurrencyBalance));
-		this.leftPurchaseButton.onPressed += this.PressLeftPurchaseItemButton;
-		this.rightPurchaseButton.onPressed += this.PressRightPurchaseItemButton;
-		BuilderTable builderTable;
-		if (BuilderTable.TryGetBuilderTableForZone(GTZone.monkeBlocks, out builderTable))
-		{
-			builderTable.OnTableConfigurationUpdated.AddListener(new UnityAction(this.UpdateCountdown));
-		}
-		this.UpdateCountdown();
-		this.availableItems.Clear();
-		if (this.isMiniKiosk)
-		{
-			this.availableItems.Add(this.pieceSetForSale);
-		}
-		else
-		{
-			this.availableItems.AddRange(BuilderSetManager.instance.GetPermanentSetsForSale());
-			this.availableItems.AddRange(BuilderSetManager.instance.GetSeasonalSetsForSale());
-		}
-		if (!this.isMiniKiosk)
-		{
-			this.SetupSetButtons();
-		}
-		if (this.availableItems.Count <= 0 || !BuilderSetManager.instance.pulledStoreItems)
-		{
-			this.itemToBuy = BuilderKiosk.nullItem;
-			return;
-		}
-		this.hasInitFromPlayfab = true;
-		if (this.pieceSetForSale != null)
-		{
-			this.itemToBuy = BuilderSetManager.instance.GetStoreItemFromSetID(this.pieceSetForSale.GetIntIdentifier());
-			this.UpdateLabels();
-			this.UpdateDiorama();
-			this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.CheckoutButtonPressed;
-			this.ProcessPurchaseItemState(null, false);
-			return;
-		}
-		this.itemToBuy = BuilderKiosk.nullItem;
-		this.UpdateLabels();
-		this.UpdateDiorama();
-		this.currentPurchaseItemStage = CosmeticsController.PurchaseItemStages.Start;
-		this.ProcessPurchaseItemState(null, false);
+		BuilderKiosk.<Start>d__43 <Start>d__;
+		<Start>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<Start>d__.<>4__this = this;
+		<Start>d__.<>1__state = -1;
+		<Start>d__.<>t__builder.Start<BuilderKiosk.<Start>d__43>(ref <Start>d__);
 	}
 
 	private void UpdateCountdown()

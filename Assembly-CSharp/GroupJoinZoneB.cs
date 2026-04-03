@@ -12,5 +12,9 @@ public enum GroupJoinZoneB
 	GhostReactorTunnel = 64,
 	RankedForest = 128,
 	RankedForestTunnel = 256,
-	GhostReactorDrill = 512
+	GhostReactorDrill = 512,
+	VIMExperience1 = 1024,
+	VIMExperience2 = 2048,
+	VIMExperience3 = 4096,
+	VIMExperience4 = 8192
 }

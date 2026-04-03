@@ -1734,24 +1734,28 @@ namespace GorillaNetworking
 				{
 					this.currentTime = new DateTime((GorillaComputer.instance.startupMillis + (long)(Time.realtimeSinceStartup * 1000f)) * 10000L);
 					this.secondsUntilTomorrow = (int)(this.currentTime.AddDays(1.0).Date - this.currentTime).TotalSeconds;
-					if (this.lastDailyLogin == null || this.lastDailyLogin == "")
+					if (string.IsNullOrEmpty(this.lastDailyLogin))
 					{
 						this.GetLastDailyLogin();
 					}
-					else if (this.currentTime.ToString("o").Substring(0, 10) == this.lastDailyLogin)
+					else
 					{
-						this.checkedDaily = true;
-						this.gotMyDaily = true;
-					}
-					else if (this.currentTime.ToString("o").Substring(0, 10) != this.lastDailyLogin)
-					{
-						this.checkedDaily = true;
-						this.gotMyDaily = false;
-						base.StartCoroutine(this.GetMyDaily());
-					}
-					else if (this.lastDailyLogin == "FAILED")
-					{
-						this.GetLastDailyLogin();
+						string a = this.currentTime.ToString("o").Substring(0, 10);
+						if (a == this.lastDailyLogin)
+						{
+							this.checkedDaily = true;
+							this.gotMyDaily = true;
+						}
+						else if (a != this.lastDailyLogin)
+						{
+							this.checkedDaily = true;
+							this.gotMyDaily = false;
+							base.StartCoroutine(this.GetMyDaily());
+						}
+						else if (this.lastDailyLogin == "FAILED")
+						{
+							this.GetLastDailyLogin();
+						}
 					}
 					this.secondsToWaitToCheckDaily = (this.checkedDaily ? 60f : 10f);
 					this.UpdateCurrencyBoards();

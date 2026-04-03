@@ -16,7 +16,7 @@ namespace Unity.Collections
 		typeof(int),
 		typeof(int)
 	})]
-	public struct NativeParallelHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KeyValue<TKey, TValue>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
+	public struct NativeParallelHashMap<[IsUnmanaged] TKey, [IsUnmanaged] TValue> : INativeDisposable, IDisposable, IEnumerable<KeyValue<!0, !1>>, IEnumerable where TKey : struct, ValueType, IEquatable<TKey> where TValue : struct, ValueType
 	{
 		public NativeParallelHashMap(int capacity, AllocatorManager.AllocatorHandle allocator)
 		{

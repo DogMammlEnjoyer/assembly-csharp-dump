@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D89E}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04DA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfinding</RootNamespace>
@@ -289,55 +289,55 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfinding.ClipperLib\Pathfinding.ClipperLib.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8DF}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DE3}</Project>
       <Name>Pathfinding.ClipperLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfinding.Ionic.Zip.Reduced\Pathfinding.Ionic.Zip.Reduced.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8E0}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DE4}</Project>
       <Name>Pathfinding.Ionic.Zip.Reduced</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfinding.Poly2Tri\Pathfinding.Poly2Tri.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8E1}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DE5}</Project>
       <Name>Pathfinding.Poly2Tri</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D945}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E49}</Project>
       <Name>UnityEngine.AnimationModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.IMGUIModule\UnityEngine.IMGUIModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95A}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E5E}</Project>
       <Name>UnityEngine.IMGUIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95C}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E60}</Project>
       <Name>UnityEngine.InputLegacyModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6A}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6B}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.TerrainModule\UnityEngine.TerrainModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D973}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E77}</Project>
       <Name>UnityEngine.TerrainModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.TextRenderingModule\UnityEngine.TextRenderingModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D977}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E7B}</Project>
       <Name>UnityEngine.TextRenderingModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E7E}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>

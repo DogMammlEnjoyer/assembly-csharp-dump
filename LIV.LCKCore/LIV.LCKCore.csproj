@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8B3}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04DB7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Liv.Lck</RootNamespace>
@@ -80,19 +80,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LIV.LCKCore.ThirdParty.MessagePack\LIV.LCKCore.ThirdParty.MessagePack.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8B4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DB8}</Project>
       <Name>LIV.LCKCore.ThirdParty.MessagePack</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D5}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD9}</Project>
       <Name>Newtonsoft.Json</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
   </ItemGroup>

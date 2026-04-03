@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using GorillaExtensions;
 using GorillaTagScripts;
 using Photon.Pun;
@@ -42,8 +41,15 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 		bool flag = SubscriptionManager.IsLocalSubscribed();
 		if (!this._subscriptionChecked || flag != this._localPlayerSubscribed)
 		{
-			this.<CheckSubscription>g__UpdateSubscriptionState|31_0(flag);
+			this.UpdateSubscriptionState(flag);
 		}
+	}
+
+	private void UpdateSubscriptionState(bool subscribed)
+	{
+		this._localPlayerSubscribed = subscribed;
+		this.UpdateColor();
+		this._subscriptionChecked = true;
 	}
 
 	protected virtual void RefreshText()
@@ -283,14 +289,6 @@ public class GorillaPressableButton : MonoBehaviour, IClickable
 		{
 			this.myText.text = newText;
 		}
-	}
-
-	[CompilerGenerated]
-	private void <CheckSubscription>g__UpdateSubscriptionState|31_0(bool subscribed)
-	{
-		this._localPlayerSubscribed = subscribed;
-		this.UpdateColor();
-		this._subscriptionChecked = true;
 	}
 
 	public Material pressedMaterial;

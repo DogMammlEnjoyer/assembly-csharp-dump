@@ -177,7 +177,15 @@ namespace GorillaLocomotion
 				GTPlayerTransform.RotateToUp(upDir);
 				return;
 			}
-			Vector3 vector = Vector3.RotateTowards(GTPlayerTransform.Up, upDir, speed, 0f);
+			Vector3 vector;
+			if (Vector3.Angle(GTPlayerTransform.Up, upDir) * 0.017453292f <= speed)
+			{
+				vector = upDir;
+			}
+			else
+			{
+				vector = Vector3.RotateTowards(GTPlayerTransform.Up, upDir, speed, 0f);
+			}
 			GTPlayerTransform.RotateToUp(vector);
 		}
 
@@ -194,6 +202,14 @@ namespace GorillaLocomotion
 		public override Vector3 GetWorldPoint()
 		{
 			return GTPlayerTransform.k_bodyTransform.position;
+		}
+
+		public override float Scale
+		{
+			get
+			{
+				return VRRig.LocalRig.scaleFactor;
+			}
 		}
 
 		public override void CallBack()

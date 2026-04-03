@@ -95,7 +95,7 @@ namespace Cysharp.Threading.Tasks
 
 		private static bool isValueType = typeof(T).IsValueType;
 
-		private sealed class WaitAsyncSource : IUniTaskSource<!0>, IUniTaskSource, ITriggerHandler<!0>, ITaskPoolNode<ReadOnlyAsyncReactiveProperty<T>.WaitAsyncSource>
+		private sealed class WaitAsyncSource : IUniTaskSource<T>, IUniTaskSource, ITriggerHandler<T>, ITaskPoolNode<ReadOnlyAsyncReactiveProperty<T>.WaitAsyncSource>
 		{
 			ref ReadOnlyAsyncReactiveProperty<T>.WaitAsyncSource ITaskPoolNode<ReadOnlyAsyncReactiveProperty<!0>.WaitAsyncSource>.NextNode
 			{

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D992}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04E96}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VoiceSDK.Dictation.Runtime</RootNamespace>
@@ -55,35 +55,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AssistantCoreSDKRuntime\AssistantCoreSDKRuntime.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D89C}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DA0}</Project>
       <Name>AssistantCoreSDKRuntime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.Wit.Dictation\Meta.Wit.Dictation.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8BF}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DC3}</Project>
       <Name>Meta.Wit.Dictation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi.Lib\Meta.WitAi.Lib.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8C1}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DC5}</Project>
       <Name>Meta.WitAi.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta.WitAi\Meta.WitAi.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8C0}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DC4}</Project>
       <Name>Meta.WitAi</Name>
     </ProjectReference>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AndroidJNIModule\UnityEngine.AndroidJNIModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D944}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E48}</Project>
       <Name>UnityEngine.AndroidJNIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\VoiceSDK.Runtime\VoiceSDK.Runtime.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D994}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E98}</Project>
       <Name>VoiceSDK.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

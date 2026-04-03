@@ -228,7 +228,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 				GorillaComputer.instance.SetGameModeWithoutButton(CustomMapManager.lastUsedTeleporter.GetAutoLoadGamemode().ToString());
 			}
 			GTDev.Log<string>("[CustomMapManager::TeleportToVirtualStump] Teleporting to Virtual Stump...", null);
-			PrivateUIRoom.ForceStartOverlay();
+			PrivateUIRoom.ForceStartOverlay("");
 			GorillaTagger.Instance.overrideNotInFocus = true;
 			GreyZoneManager greyZoneManager = GreyZoneManager.Instance;
 			if (greyZoneManager != null)
@@ -372,7 +372,7 @@ namespace GorillaTagScripts.VirtualStumpCustomMaps
 				CustomMapManager.delayedTryAutoLoadCoroutine = null;
 			}
 			CustomMapManager.instance.dayNightManager.RequestRepopulateLightmaps();
-			PrivateUIRoom.ForceStartOverlay();
+			PrivateUIRoom.ForceStartOverlay("");
 			GorillaTagger.Instance.overrideNotInFocus = true;
 			CustomMapManager.instance.EnableTeleportHUD(false);
 			CustomMapManager.currentTeleportCallback = callback;

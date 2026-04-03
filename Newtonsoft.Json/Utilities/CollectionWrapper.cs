@@ -10,7 +10,7 @@ namespace Newtonsoft.Json.Utilities
 {
 	[NullableContext(1)]
 	[Nullable(0)]
-	internal class CollectionWrapper<[Nullable(2)] T> : ICollection<T>, IEnumerable<!0>, IEnumerable, IWrappedCollection, IList, ICollection
+	internal class CollectionWrapper<[Nullable(2)] T> : ICollection<T>, IEnumerable<T>, IEnumerable, IWrappedCollection, IList, ICollection
 	{
 		public CollectionWrapper(IList list)
 		{

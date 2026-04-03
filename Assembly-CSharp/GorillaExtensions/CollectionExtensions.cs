@@ -32,5 +32,17 @@ namespace GorillaExtensions
 				i++;
 			}
 		}
+
+		public static bool ContainsAll<T>(this ICollection<T> collection, IEnumerable<T> ts)
+		{
+			foreach (T item in ts)
+			{
+				if (!collection.Contains(item))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 }

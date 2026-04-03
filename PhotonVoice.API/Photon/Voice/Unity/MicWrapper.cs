@@ -38,12 +38,6 @@ namespace Photon.Voice.Unity
 					int frequency = suggestedFrequency;
 					if (suggestedFrequency < num || (num2 != 0 && suggestedFrequency > num2))
 					{
-						logger.LogWarning("[PV] MicWrapper does not support suggested frequency {0} (min: {1}, max: {2}). Setting to {2}", new object[]
-						{
-							suggestedFrequency,
-							num,
-							num2
-						});
 						frequency = num2;
 					}
 					this.mic = UnityMicrophone.Start(device, true, 1, frequency);

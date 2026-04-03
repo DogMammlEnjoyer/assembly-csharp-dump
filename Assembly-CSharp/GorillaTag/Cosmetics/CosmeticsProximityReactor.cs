@@ -82,13 +82,26 @@ namespace GorillaTag.Cosmetics
 			sharedKeysCache.Clear();
 			foreach (CosmeticsProximityReactor.InteractionSetting interactionSetting in this.blocks)
 			{
-				if (interactionSetting.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting.interactionKeys != null && interactionSetting.interactionKeys.Count != 0)
+				if (interactionSetting.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic)
 				{
-					foreach (string text in interactionSetting.interactionKeys)
+					if (interactionSetting.interactionKeys != null)
 					{
-						if (!string.IsNullOrEmpty(text) && !sharedKeysCache.Contains(text))
+						foreach (string text in interactionSetting.interactionKeys)
 						{
-							sharedKeysCache.Add(text);
+							if (!string.IsNullOrEmpty(text) && !sharedKeysCache.Contains(text))
+							{
+								sharedKeysCache.Add(text);
+							}
+						}
+					}
+					if (interactionSetting.listenerKeys != null)
+					{
+						foreach (string text2 in interactionSetting.listenerKeys)
+						{
+							if (!string.IsNullOrEmpty(text2) && !sharedKeysCache.Contains(text2))
+							{
+								sharedKeysCache.Add(text2);
+							}
 						}
 					}
 				}
@@ -140,13 +153,12 @@ namespace GorillaTag.Cosmetics
 				{
 					foreach (CosmeticsProximityReactor.InteractionSetting interactionSetting2 in other.blocks)
 					{
-						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.SharesKeyWith(interactionSetting2))
+						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.CanTriggerFrom(interactionSetting2))
 						{
 							any = true;
-							float num2 = Mathf.Min(interactionSetting.proximityThreshold, interactionSetting2.proximityThreshold);
-							if (num2 < num)
+							if (interactionSetting.proximityThreshold < num)
 							{
-								num = num2;
+								num = interactionSetting.proximityThreshold;
 							}
 						}
 					}
@@ -185,7 +197,7 @@ namespace GorillaTag.Cosmetics
 					bool flag2 = false;
 					foreach (CosmeticsProximityReactor.InteractionSetting interactionSetting2 in other.blocks)
 					{
-						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.SharesKeyWith(interactionSetting2))
+						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.CanTriggerFrom(interactionSetting2))
 						{
 							flag2 = true;
 							break;
@@ -217,7 +229,7 @@ namespace GorillaTag.Cosmetics
 					bool flag = false;
 					foreach (CosmeticsProximityReactor.InteractionSetting interactionSetting2 in other.blocks)
 					{
-						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.SharesKeyWith(interactionSetting2))
+						if (interactionSetting2.mode == CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic && interactionSetting2.AllowsRig(other.MyRig, this.MyRig) && interactionSetting.CanTriggerFrom(interactionSetting2))
 						{
 							flag = true;
 							break;
@@ -381,29 +393,38 @@ namespace GorillaTag.Cosmetics
 				return this.mode == CosmeticsProximityReactor.InteractionMode.GorillaBodyToCosmetic && (this.gorillaBodyMask & kind) > CosmeticsProximityReactor.GorillaBodyPart.None;
 			}
 
-			public bool SharesKeyWith(CosmeticsProximityReactor.InteractionSetting other)
+			public bool CanTriggerFrom(CosmeticsProximityReactor.InteractionSetting other)
 			{
-				if (this.mode != CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic)
+				if (this.mode != CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic || other == null || other.mode != CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic)
 				{
 					return false;
 				}
-				if (other == null)
+				if (other.interactionKeys == null || other.interactionKeys.Count == 0)
 				{
 					return false;
 				}
-				if (other.mode != CosmeticsProximityReactor.InteractionMode.CosmeticToCosmetic)
+				if (this.ignoreKeys != null && this.ignoreKeys.Count > 0)
 				{
-					return false;
-				}
-				if (this.interactionKeys == null || other.interactionKeys == null)
-				{
-					return false;
-				}
-				foreach (string text in this.interactionKeys)
-				{
-					if (!string.IsNullOrEmpty(text) && other.interactionKeys.Contains(text))
+					foreach (string text in other.interactionKeys)
 					{
-						return true;
+						if (!string.IsNullOrEmpty(text) && this.ignoreKeys.Contains(text))
+						{
+							return false;
+						}
+					}
+				}
+				foreach (string text2 in other.interactionKeys)
+				{
+					if (!string.IsNullOrEmpty(text2))
+					{
+						if (this.interactionKeys != null && this.interactionKeys.Contains(text2))
+						{
+							return true;
+						}
+						if (this.listenerKeys != null && this.listenerKeys.Contains(text2))
+						{
+							return true;
+						}
 					}
 				}
 				return false;
@@ -495,8 +516,14 @@ namespace GorillaTag.Cosmetics
 			[Tooltip("Determines what type of interaction this block handles.\n• CosmeticToCosmetic: triggers when two cosmetics with matching keys are nearby.\n• GorillaBodyToCosmetic: triggers when a Gorilla body part (hand, head, etc.) is near this cosmetic.")]
 			public CosmeticsProximityReactor.InteractionMode mode;
 
-			[Tooltip("List of shared string identifiers that link this cosmetic to others.\nCosmetics with matching keys can trigger interactions with each other.")]
+			[Tooltip("Keys this block broadcasts. Other cosmetics whose Key list or listener list contain a matching key can react to this block.")]
 			public List<string> interactionKeys = new List<string>();
+
+			[Tooltip("If the other cosmetic is broadcasting any of these keys, this block will not fire, even if another key matches.")]
+			public List<string> ignoreKeys = new List<string>();
+
+			[Tooltip("Keys this block silently listens for. When the other cosmetic broadcasts one of these keys, this block fires. Listener keys are never broadcast outward, so two Listener-only objects will never trigger each other.")]
+			public List<string> listenerKeys = new List<string>();
 
 			[Tooltip("Specifies which Gorilla body parts (e.g., Hands, Head) can trigger this interaction.\nUse this when the Mode is set to GorillaBodyToCosmetic.")]
 			public CosmeticsProximityReactor.GorillaBodyPart gorillaBodyMask;

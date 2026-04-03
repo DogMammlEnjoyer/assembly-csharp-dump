@@ -120,7 +120,7 @@ public class SIGadgetSlipMitt : SIGadget
 			GTPlayer.Instance.SetRightMaximumSlipThisFrame();
 			this._attachedHandState = GTPlayer.Instance.RightHand;
 		}
-		else if (this._isActivated)
+		else if (this._isActivated && !base.IsBlocked(SIExclusionType.AffectsLocalMovement))
 		{
 			this._PlayHaptic(0.1f);
 			GTPlayer.Instance.SetGravityOverride(this, new Action<GTPlayer>(this._HandleGTPlayerOnUpdateGravity));

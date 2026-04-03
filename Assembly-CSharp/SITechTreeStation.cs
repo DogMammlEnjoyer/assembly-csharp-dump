@@ -48,7 +48,12 @@ public class SITechTreeStation : MonoBehaviour, ITouchScreenStation
 	{
 		get
 		{
-			return this.ActivePlayer.gamePlayer.rig.Creator.SanitizedNickName;
+			NetPlayer creator = this.ActivePlayer.gamePlayer.rig.Creator;
+			if (creator == null)
+			{
+				return null;
+			}
+			return creator.SanitizedNickName;
 		}
 	}
 

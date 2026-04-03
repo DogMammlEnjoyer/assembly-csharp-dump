@@ -6,19 +6,36 @@ using UnityEngine.Events;
 
 public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 {
-	public void StartSequence()
+	private void StartSequence()
 	{
-		SimpleEventSequencer.<StartSequence>d__9 <StartSequence>d__;
-		<StartSequence>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
-		<StartSequence>d__.<>4__this = this;
-		<StartSequence>d__.<>1__state = -1;
-		<StartSequence>d__.<>t__builder.Start<SimpleEventSequencer.<StartSequence>d__9>(ref <StartSequence>d__);
+		this.StartSequenceDelayed(0f);
+	}
+
+	public void StartSequenceDelayed(float delay)
+	{
+		SimpleEventSequencer.<StartSequenceDelayed>d__11 <StartSequenceDelayed>d__;
+		<StartSequenceDelayed>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
+		<StartSequenceDelayed>d__.<>4__this = this;
+		<StartSequenceDelayed>d__.delay = delay;
+		<StartSequenceDelayed>d__.<>1__state = -1;
+		<StartSequenceDelayed>d__.<>t__builder.Start<SimpleEventSequencer.<StartSequenceDelayed>d__11>(ref <StartSequenceDelayed>d__);
 	}
 
 	private void startSequenceImmediate()
 	{
 		this.startTime = Time.time;
 		this.idx = 0;
+	}
+
+	private void startSequenceFrom(int i)
+	{
+		this.startTime = Time.time;
+		this.idx = i;
+	}
+
+	private void stop(int i)
+	{
+		this.idx = -1;
 	}
 
 	private void Awake()
@@ -55,14 +72,6 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (Time.time >= this.startTime + this.enabledNodes[this.idx].Time)
 		{
-			Debug.Log(string.Concat(new string[]
-			{
-				"SimpleEventSequencer :: ",
-				base.name,
-				" :: ",
-				this.enabledNodes[this.idx].Name,
-				" :: Invoke"
-			}));
 			UnityEvent unityEvent = this.enabledNodes[this.idx].UnityEvent;
 			if (unityEvent != null)
 			{
@@ -77,7 +86,7 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 				{
 					if (onCompleteAction == SimpleEventSequencer.OnCompleteAction.Repeat)
 					{
-						this.StartSequence();
+						this.StartSequenceDelayed(this.enabledNodes[this.idx - 1].Time);
 						return;
 					}
 				}
@@ -118,6 +127,26 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 		this.onComplete = SimpleEventSequencer.OnCompleteAction.None;
 	}
 
+	public void TempAudio(string text)
+	{
+		Debug.Log("SimpleEventSequencer :: " + base.name + " :: TempAudio :: " + text);
+	}
+
+	public void TempVFX(string text)
+	{
+		Debug.Log("SimpleEventSequencer :: " + base.name + " :: TempVFX :: " + text);
+	}
+
+	public void Temp(string text)
+	{
+		Debug.Log("SimpleEventSequencer :: " + base.name + " :: Temp :: " + text);
+	}
+
+	public void DebugLog(string text)
+	{
+		Debug.Log("SimpleEventSequencer :: " + base.name + " :: DEBUG :: " + text);
+	}
+
 	[SerializeField]
 	private SimpleEventSequencer.SimpleEventSequencerNode[] nodes;
 
@@ -136,9 +165,35 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 
 	private List<SimpleEventSequencer.SimpleEventSequencerNode> enabledNodes = new List<SimpleEventSequencer.SimpleEventSequencerNode>();
 
+	private SimpleEventSequencer.SimpleEventSequencerNode activeNode;
+
 	[Serializable]
 	private class SimpleEventSequencerNode
 	{
+		private string nameTrim
+		{
+			get
+			{
+				if (this.name.Length <= 33)
+				{
+					return this.name;
+				}
+				return this.name.Substring(0, 30) + "...";
+			}
+		}
+
+		private string notesTrim
+		{
+			get
+			{
+				if (this.notes.Length <= 50)
+				{
+					return this.notes;
+				}
+				return this.notes.Substring(0, 47) + "...";
+			}
+		}
+
 		public float Time
 		{
 			get
@@ -183,19 +238,10 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 		{
 			if (this.enabled)
 			{
-				this.fancyName = string.Format("T+{0} ({1}) : {2}", this.totalTime, this.time, this.name);
+				this.fancyName = string.Format("T+{0} ({1}) : {2}", this.totalTime, this.time, this.nameTrim);
 				return;
 			}
-			this.fancyName = string.Format("Skip ({0}) : {1}", this.time, this.name);
-		}
-
-		private Color getGUIColor()
-		{
-			if (this.enabled)
-			{
-				return Color.white;
-			}
-			return Color.gray3;
+			this.fancyName = string.Format("Skip ({0}) : {1}", this.time, this.nameTrim);
 		}
 
 		[Tooltip("Uncheck to skip this node")]
@@ -212,6 +258,10 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 
 		[SerializeField]
 		private UnityEvent unityEvent;
+
+		[SerializeField]
+		[TextArea(5, 10)]
+		private string notes = "Notes";
 
 		private string fancyName = "New Node";
 

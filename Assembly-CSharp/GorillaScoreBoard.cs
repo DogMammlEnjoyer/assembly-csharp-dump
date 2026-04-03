@@ -160,9 +160,9 @@ public class GorillaScoreBoard : MonoBehaviour
 		if (doIt)
 		{
 			text = new string(Array.FindAll<char>(text.ToCharArray(), (char c) => Utils.IsASCIILetterOrDigit(c)));
-			if (text.Length > 11)
+			if (text.Length > 12)
 			{
-				text = text.Substring(0, 11);
+				text = text.Substring(0, 12);
 			}
 			text = text.ToUpper();
 		}

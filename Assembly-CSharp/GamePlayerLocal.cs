@@ -573,13 +573,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 			bool flag = entityTypeId != -1 && newEntityManager.FactoryPrefabById(entityTypeId) != null;
 			GamePlayer.SlotData slotData;
 			bool flag2 = gamePlayer.TryGetSlotData(i, out slotData);
-			if (!flag && !flag2)
-			{
-				if (entityTypeId != -1)
-				{
-				}
-			}
-			else
+			if (flag || flag2 || entityTypeId == -1)
 			{
 				bool flag3 = newEntityManager != null && newEntityManager == slotData.entityManager;
 				GameEntity gameEntity = flag3 ? newEntityManager.GetGameEntity(slotData.entityId) : null;

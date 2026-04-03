@@ -2,7 +2,7 @@
 
 public class VerifyAgeData
 {
-	public VerifyAgeData(VerifyAgeResponse response, int? age)
+	public VerifyAgeData(VerifyAgeResponse response)
 	{
 		if (response == null)
 		{
@@ -13,7 +13,7 @@ public class VerifyAgeData
 		{
 			return;
 		}
-		this.Session = new TMPSession(response.Session, response.DefaultSession, age, this.Status);
+		this.Session = new TMPSession(response.Session, response.DefaultSession, this.Status);
 	}
 
 	public readonly SessionStatus Status;

@@ -481,8 +481,14 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 
 	private void ElevatorButtonPressedInternal(GRElevator.ButtonType type, GRElevatorManager.ElevatorLocation location)
 	{
-		this.elevatorByLocation[location].PressButtonVisuals(type);
-		this.elevatorByLocation[location].PlayButtonPress();
+		GRElevator grelevator;
+		if (!this.elevatorByLocation.TryGetValue(location, out grelevator) || grelevator == null)
+		{
+			Debug.LogWarning(string.Format("[GRElevatorManager] No elevator registered for location '{0}'. Elevator may not be enabled yet or is missing from allElevators.", location), this);
+			return;
+		}
+		grelevator.PressButtonVisuals(type);
+		grelevator.PlayButtonPress();
 		if (base.IsMine)
 		{
 			this.ProcessElevatorButtonPress(type, location);
@@ -547,6 +553,13 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 				return;
 			}
 			break;
+		case GRElevator.ButtonType.VIMExperience1:
+			if (this.currentState != GRElevatorManager.ElevatorSystemState.WaitingToTeleport)
+			{
+				this.UpdateElevatorState(GRElevatorManager.ElevatorSystemState.DestinationPressed, GRElevatorManager.ElevatorLocation.VIMExperience1);
+				return;
+			}
+			break;
 		default:
 			return;
 		}
@@ -597,13 +610,13 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 		}
 		GRElevatorManager.ElevatorLocation elevatorLocation = this.currentLocation;
 		int num = (int)stream.ReceiveNext();
-		if (num >= 0 && num <= 4)
+		if (num >= 0 && num <= 8)
 		{
 			this.currentLocation = (GRElevatorManager.ElevatorLocation)num;
 		}
 		GRElevatorManager.ElevatorLocation elevatorLocation2 = this.destination;
 		num = (int)stream.ReceiveNext();
-		if (num >= 0 && num <= 4)
+		if (num >= 0 && num <= 8)
 		{
 			this.destination = (GRElevatorManager.ElevatorLocation)num;
 		}
@@ -649,11 +662,11 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		if (elevatorLocation < 0 || elevatorLocation >= 4)
+		if (elevatorLocation < 0 || elevatorLocation >= 8)
 		{
 			return;
 		}
-		if (elevatorButtonPressed < 0 || elevatorButtonPressed >= 8)
+		if (elevatorButtonPressed < 0 || elevatorButtonPressed >= 12)
 		{
 			return;
 		}
@@ -667,7 +680,7 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 		{
 			return;
 		}
-		if (elevatorStartLocation < 0 || elevatorStartLocation >= 4 || elevatorDestinationLocation < 0 || elevatorDestinationLocation >= 4)
+		if (elevatorStartLocation < 0 || elevatorStartLocation >= 8 || elevatorDestinationLocation < 0 || elevatorDestinationLocation >= 8)
 		{
 			return;
 		}
@@ -1254,6 +1267,10 @@ public class GRElevatorManager : NetworkComponent, ITickSystemTick
 		City,
 		GhostReactor,
 		MonkeBlocks,
+		VIMExperience1,
+		VIMExperience2,
+		VIMExperience3,
+		VIMExperience4,
 		None
 	}
 

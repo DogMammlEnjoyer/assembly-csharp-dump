@@ -155,18 +155,32 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 		this.currentState = GorillaPaintbrawlManager.PaintbrawlState.NotEnoughPlayers;
 	}
 
+	private int CopyDictKeysToBuffer<T>(Dictionary<int, T> dict)
+	{
+		int num = 0;
+		foreach (KeyValuePair<int, T> keyValuePair in dict)
+		{
+			if (num >= this.reusableKeyBuffer.Length)
+			{
+				break;
+			}
+			this.reusableKeyBuffer[num++] = keyValuePair.Key;
+		}
+		return num;
+	}
+
 	private void VerifyPlayersInDict<T>(Dictionary<int, T> dict)
 	{
 		if (dict.Count < 1)
 		{
 			return;
 		}
-		int[] array = dict.Keys.ToArray<int>();
-		for (int i = 0; i < array.Length; i++)
+		int num = this.CopyDictKeysToBuffer<T>(dict);
+		for (int i = 0; i < num; i++)
 		{
-			if (!Utils.PlayerInRoom(array[i]))
+			if (!Utils.PlayerInRoom(this.reusableKeyBuffer[i]))
 			{
-				dict.Remove(array[i]);
+				dict.Remove(this.reusableKeyBuffer[i]);
 			}
 		}
 	}
@@ -752,13 +766,16 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 			this.playerLivesArray[i] = 0;
 			this.playerActorNumberArray[i] = -1;
 		}
-		this.keyValuePairs = this.playerLives.ToArray<KeyValuePair<int, int>>();
 		int num = 0;
-		while (num < this.playerLivesArray.Length && num < this.keyValuePairs.Length)
+		foreach (KeyValuePair<int, int> keyValuePair in this.playerLives)
 		{
-			this.playerActorNumberArray[num] = this.keyValuePairs[num].Key;
-			this.playerLivesArray[num] = this.keyValuePairs[num].Value;
-			this.playerStatusArray[num] = this.GetPlayerStatus(NetworkSystem.Instance.GetPlayer(this.keyValuePairs[num].Key));
+			if (num >= this.playerLivesArray.Length)
+			{
+				break;
+			}
+			this.playerActorNumberArray[num] = keyValuePair.Key;
+			this.playerLivesArray[num] = keyValuePair.Value;
+			this.playerStatusArray[num] = this.GetPlayerStatus(NetworkSystem.Instance.GetPlayer(keyValuePair.Key));
 			num++;
 		}
 	}
@@ -853,45 +870,46 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	private void InitializePlayerStatus()
 	{
-		this.keyValuePairsStatus = this.playerStatusDict.ToArray<KeyValuePair<int, GorillaPaintbrawlManager.PaintbrawlStatus>>();
-		foreach (KeyValuePair<int, GorillaPaintbrawlManager.PaintbrawlStatus> keyValuePair in this.keyValuePairsStatus)
+		int num = this.CopyDictKeysToBuffer<GorillaPaintbrawlManager.PaintbrawlStatus>(this.playerStatusDict);
+		for (int i = 0; i < num; i++)
 		{
-			this.playerStatusDict[keyValuePair.Key] = GorillaPaintbrawlManager.PaintbrawlStatus.Normal;
+			this.playerStatusDict[this.reusableKeyBuffer[i]] = GorillaPaintbrawlManager.PaintbrawlStatus.Normal;
 		}
 	}
 
 	private void UpdatePlayerStatus()
 	{
-		this.keyValuePairsStatus = this.playerStatusDict.ToArray<KeyValuePair<int, GorillaPaintbrawlManager.PaintbrawlStatus>>();
-		foreach (KeyValuePair<int, GorillaPaintbrawlManager.PaintbrawlStatus> keyValuePair in this.keyValuePairsStatus)
+		int num = this.CopyDictKeysToBuffer<GorillaPaintbrawlManager.PaintbrawlStatus>(this.playerStatusDict);
+		for (int i = 0; i < num; i++)
 		{
-			GorillaPaintbrawlManager.PaintbrawlStatus playerTeam = this.GetPlayerTeam(keyValuePair.Value);
-			if (this.playerLives.TryGetValue(keyValuePair.Key, out this.outLives) && this.outLives == 0)
+			int key = this.reusableKeyBuffer[i];
+			GorillaPaintbrawlManager.PaintbrawlStatus playerTeam = this.GetPlayerTeam(this.playerStatusDict[key]);
+			if (this.playerLives.TryGetValue(key, out this.outLives) && this.outLives == 0)
 			{
-				this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Eliminated);
+				this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Eliminated);
 			}
-			else if (this.playerHitTimes.TryGetValue(keyValuePair.Key, out this.outHitTime) && this.outHitTime + this.hitCooldown > Time.time)
+			else if (this.playerHitTimes.TryGetValue(key, out this.outHitTime) && this.outHitTime + this.hitCooldown > Time.time)
 			{
-				this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Hit);
+				this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Hit);
 			}
-			else if (this.playerStunTimes.TryGetValue(keyValuePair.Key, out this.outHitTime))
+			else if (this.playerStunTimes.TryGetValue(key, out this.outHitTime))
 			{
 				if (this.outHitTime + this.hitCooldown > Time.time)
 				{
-					this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Stunned);
+					this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Stunned);
 				}
 				else if (this.outHitTime + this.hitCooldown + this.stunGracePeriod > Time.time)
 				{
-					this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Grace);
+					this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Grace);
 				}
 				else
 				{
-					this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Normal);
+					this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Normal);
 				}
 			}
 			else
 			{
-				this.playerStatusDict[keyValuePair.Key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Normal);
+				this.playerStatusDict[key] = (playerTeam | GorillaPaintbrawlManager.PaintbrawlStatus.Normal);
 			}
 		}
 	}
@@ -956,9 +974,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	private NetworkView tempView;
 
-	private KeyValuePair<int, int>[] keyValuePairs;
-
-	private KeyValuePair<int, GorillaPaintbrawlManager.PaintbrawlStatus>[] keyValuePairsStatus;
+	private int[] reusableKeyBuffer = new int[20];
 
 	private GorillaPaintbrawlManager.PaintbrawlStatus tempStatus;
 

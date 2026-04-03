@@ -10,7 +10,7 @@ namespace System.Collections.Concurrent
 	/// <typeparam name="T">The type of elements in the collection.</typeparam>
 	[DebuggerTypeProxy(typeof(BlockingCollectionDebugView<>))]
 	[DebuggerDisplay("Count = {Count}, Type = {_collection}")]
-	public class BlockingCollection<T> : IEnumerable<!0>, IEnumerable, ICollection, IDisposable, IReadOnlyCollection<T>
+	public class BlockingCollection<T> : IEnumerable<T>, IEnumerable, ICollection, IDisposable, IReadOnlyCollection<T>
 	{
 		/// <summary>Gets the bounded capacity of this <see cref="T:System.Collections.Concurrent.BlockingCollection`1" /> instance.</summary>
 		/// <returns>The bounded capacity of this collection, or int.MaxValue if no bound was supplied.</returns>

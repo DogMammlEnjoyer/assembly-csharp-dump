@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D907}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04E0B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniTask</RootNamespace>
@@ -338,35 +338,35 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AssetBundleModule\UnityEngine.AssetBundleModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D947}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E4B}</Project>
       <Name>UnityEngine.AssetBundleModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.ParticleSystemModule\UnityEngine.ParticleSystemModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D964}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E68}</Project>
       <Name>UnityEngine.ParticleSystemModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6A}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6B}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E7E}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UnityWebRequestModule\UnityEngine.UnityWebRequestModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D986}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E8A}</Project>
       <Name>UnityEngine.UnityWebRequestModule</Name>
     </ProjectReference>
   </ItemGroup>

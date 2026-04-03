@@ -340,13 +340,13 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 	{
 		if (!this.appliedExclusionZones.Contains(exclusionZone))
 		{
-			if (this.appliedExclusionZones.Count == 0)
-			{
-				this.appliedExclusionZones.Add(exclusionZone);
-				this.HandleBlockedActionChanged(true);
-				return;
-			}
+			bool activeExclusionFlags = this._activeExclusionFlags != (SIExclusionType)0;
 			this.appliedExclusionZones.Add(exclusionZone);
+			this._activeExclusionFlags |= exclusionZone.exclusionType;
+			if (!activeExclusionFlags)
+			{
+				this.HandleBlockedActionChanged(true);
+			}
 		}
 	}
 
@@ -355,7 +355,8 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 		if (this.appliedExclusionZones.Contains(exclusionZone))
 		{
 			this.appliedExclusionZones.Remove(exclusionZone);
-			if (this.appliedExclusionZones.Count == 0)
+			this.RecalcExclusionFlags();
+			if (this._activeExclusionFlags == (SIExclusionType)0)
 			{
 				this.HandleBlockedActionChanged(false);
 			}
@@ -372,11 +373,27 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 			}
 		}
 		this.appliedExclusionZones.Clear();
+		this._activeExclusionFlags = (SIExclusionType)0;
+	}
+
+	private void RecalcExclusionFlags()
+	{
+		SIExclusionType siexclusionType = (SIExclusionType)0;
+		for (int i = 0; i < this.appliedExclusionZones.Count; i++)
+		{
+			siexclusionType |= this.appliedExclusionZones[i].exclusionType;
+		}
+		this._activeExclusionFlags = siexclusionType;
 	}
 
 	protected bool IsBlocked()
 	{
-		return this.appliedExclusionZones.Count > 0;
+		return (this._activeExclusionFlags & SIExclusionType.AffectsOthers) > (SIExclusionType)0;
+	}
+
+	protected bool IsBlocked(SIExclusionType flag)
+	{
+		return (this._activeExclusionFlags & flag) > (SIExclusionType)0;
 	}
 
 	protected virtual void HandleBlockedActionChanged(bool isBlocked)
@@ -421,6 +438,8 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 	private SIGadget.UpgradeVisual[] UpgradeBasedVisuals;
 
 	private readonly List<SIExclusionZone> appliedExclusionZones = new List<SIExclusionZone>();
+
+	private SIExclusionType _activeExclusionFlags;
 
 	private List<IGameStateReceiver> _gameStateReceivers = new List<IGameStateReceiver>();
 

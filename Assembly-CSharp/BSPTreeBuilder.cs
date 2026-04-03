@@ -17,6 +17,7 @@ public static class BSPTreeBuilder
 			List<BoxCollider> list3 = new List<BoxCollider>();
 			zoneDef.GetComponents<BoxCollider>(list3);
 			list3.AddRange(zoneDef.transform.GetComponentsInChildren<BoxCollider>());
+			Debug.Log(string.Format("SerializableBSPTree zone {0}/{1} box count {2}", zoneDef.zoneId, zoneDef.subZoneId, list3.Count));
 			foreach (BoxCollider boxCollider in list3)
 			{
 				int count = list2.Count;

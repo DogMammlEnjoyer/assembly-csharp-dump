@@ -178,7 +178,10 @@ public class DebugHudStats : MonoBehaviour
 				this.builder.AppendLine("Server Time Unavailable");
 			}
 			ZoneDef currentNode = GorillaTagger.Instance.offlineVRRig.zoneEntity.currentNode;
-			this.zones = ((currentNode != null) ? currentNode.gameObject.name.ToUpperInvariant() : null);
+			if (currentNode != null)
+			{
+				this.zones = string.Format("{0}/{1}/{2}", currentNode.gameObject.name.ToUpperInvariant(), currentNode.zoneId, currentNode.subZoneId);
+			}
 			if (NetworkSystem.Instance.IsMasterClient)
 			{
 				this.builder.Append("H");
@@ -283,7 +286,7 @@ public class DebugHudStats : MonoBehaviour
 		case DebugHudStats.State.ShowRBs:
 			return "red";
 		case DebugHudStats.State.RecordingMode:
-			return "#FF00FF";
+			return "purple";
 		}
 		return "white";
 	}

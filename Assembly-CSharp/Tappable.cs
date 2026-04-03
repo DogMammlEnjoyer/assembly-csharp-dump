@@ -29,6 +29,11 @@ public class Tappable : MonoBehaviour
 		return true;
 	}
 
+	public void OnTap()
+	{
+		this.OnTap(1f);
+	}
+
 	public void OnTap(float tapStrength)
 	{
 		if (!NetworkSystem.Instance.InRoom)

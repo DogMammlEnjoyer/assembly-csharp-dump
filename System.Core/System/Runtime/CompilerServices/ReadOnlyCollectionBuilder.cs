@@ -9,7 +9,7 @@ namespace System.Runtime.CompilerServices
 	/// <summary>The builder for read only collection.</summary>
 	/// <typeparam name="T">The type of the collection element.</typeparam>
 	[Serializable]
-	public sealed class ReadOnlyCollectionBuilder<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection
+	public sealed class ReadOnlyCollectionBuilder<T> : IList<!0>, ICollection<!0>, IEnumerable<!0>, IEnumerable, IList, ICollection
 	{
 		/// <summary>Constructs a ReadOnlyCollectionBuilder.</summary>
 		public ReadOnlyCollectionBuilder()
@@ -36,7 +36,7 @@ namespace System.Runtime.CompilerServices
 			{
 				throw new ArgumentNullException("collection");
 			}
-			ICollection<T> collection2 = collection as ICollection<T>;
+			ICollection<T> collection2 = collection as ICollection<!0>;
 			if (collection2 != null)
 			{
 				int count = collection2.Count;

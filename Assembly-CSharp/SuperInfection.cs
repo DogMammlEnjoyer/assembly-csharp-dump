@@ -443,6 +443,7 @@ public class SuperInfection : MonoBehaviour, IGorillaSliceableSimple
 
 	public SIResourceRegion[] perRoundResourceRegions;
 
+	[NonSerialized]
 	public SuperInfectionManager siManager;
 
 	public Transform resourceResetLoc;

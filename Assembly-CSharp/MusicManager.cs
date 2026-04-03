@@ -113,6 +113,29 @@ public class MusicManager : MonoBehaviour
 		yield break;
 	}
 
+	public static void StopAllMusic()
+	{
+		MusicManager.StopAllMusic(null);
+	}
+
+	public static void StopAllMusic(AudioClip clip)
+	{
+		if (MusicManager.Instance == null)
+		{
+			return;
+		}
+		MusicManager.Instance.StopAllCoroutines();
+		foreach (MusicSource musicSource in MusicManager.Instance.activeSources)
+		{
+			musicSource.UnsetVolumeOverride();
+			musicSource.AudioSource.Stop();
+			if (clip != null)
+			{
+				musicSource.AudioSource.PlayOneShot(clip);
+			}
+		}
+	}
+
 	[OnEnterPlay_SetNull]
 	public static volatile MusicManager Instance;
 

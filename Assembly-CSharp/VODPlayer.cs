@@ -29,6 +29,15 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		<waitOnServerTime>d__.<>t__builder.Start<VODPlayer.<waitOnServerTime>d__21>(ref <waitOnServerTime>d__);
 	}
 
+	private Material getStandby(VODTarget o)
+	{
+		if (!(o.StandbyOverride == null))
+		{
+			return o.StandbyOverride;
+		}
+		return this.standbyMaterial;
+	}
+
 	private void VODTarget_AlertEnabled(VODTarget o)
 	{
 		if (!this.targets.Contains(o))
@@ -40,7 +49,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 				o.Renderer.material = this.playBackMaterial;
 				return;
 			}
-			o.Renderer.material = ((o.StandbyOverride == null) ? this.standbyMaterial : o.StandbyOverride);
+			o.Renderer.material = this.getStandby(o);
 		}
 	}
 
@@ -64,7 +73,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 			this.player.Stop();
 			for (int i = 0; i < this.targets.Count; i++)
 			{
-				this.targets[i].Renderer.material = ((this.targets[i].StandbyOverride == null) ? this.standbyMaterial : this.targets[i].StandbyOverride);
+				this.targets[i].Renderer.material = this.getStandby(this.targets[i]);
 			}
 			this.nextStream = this.NextStream();
 		}
@@ -108,6 +117,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 					this.player.Stop();
 				}
 				VODPlayer.state = VODPlayer.State.IDLE;
+				this.nextStream = null;
 				return;
 			}
 			if (this.player.isPlaying)
@@ -118,7 +128,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 			{
 				for (int i = 0; i < this.targets.Count; i++)
 				{
-					this.targets[i].Renderer.material = this.standbyMaterial;
+					this.targets[i].Renderer.material = this.getStandby(this.targets[i]);
 				}
 				this.imageClearTime = 0f;
 			}
@@ -133,7 +143,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 				{
 					for (int j = 0; j < this.targets.Count; j++)
 					{
-						if (this.targets[j].UpNextText != null)
+						if (this.targets[j].UpNextText != null && this.targets[j].VerifyChannel(this.nextStream.Channel))
 						{
 							this.targets[j].UpNextText.text = string.Format("next: {0} - {1:00}:{2:00}", this.nextStream.Title, timeSpan.Minutes, timeSpan.Seconds);
 						}
@@ -162,21 +172,33 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 
 	private VODPlayer.VODNextStream NextStream()
 	{
-		DateTime serverTime = GorillaComputer.instance.GetServerTime();
-		List<VODPlayer.VODNextStream> list = new List<VODPlayer.VODNextStream>();
-		for (int i = 0; i < this.schedule.hourly.Length; i++)
+		if (this.targets.Count == 0)
 		{
-			DateTime dateTime = new DateTime(serverTime.Year, serverTime.Month, serverTime.Day, serverTime.Hour, this.schedule.hourly[i].minute, 0);
-			list.Add(new VODPlayer.VODNextStream(this.schedule.hourly[i].stream.name, this.schedule.hourly[i].ClampedDateTime(dateTime), this.schedule.hourly[i].stream.url));
-			list.Add(new VODPlayer.VODNextStream(this.schedule.hourly[i].stream.name, this.schedule.hourly[i].ClampedDateTime(dateTime.AddHours(1.0)), this.schedule.hourly[i].stream.url));
+			return null;
 		}
-		list.Sort();
-		for (int j = 0; j < list.Count; j++)
+		List<VODPlayer.VODStream.VODStreamChannel> list = new List<VODPlayer.VODStream.VODStreamChannel>();
+		for (int i = 0; i < this.targets.Count; i++)
 		{
-			if (list[j].StartTime > serverTime)
+			list.AddRange(this.targets[i].Channel);
+		}
+		DateTime serverTime = GorillaComputer.instance.GetServerTime();
+		List<VODPlayer.VODNextStream> list2 = new List<VODPlayer.VODNextStream>();
+		for (int j = 0; j < this.schedule.hourly.Length; j++)
+		{
+			if (list.Contains(this.schedule.hourly[j].stream.ch))
 			{
-				this.cacheVOD(list[j].Url);
-				return list[j];
+				DateTime dateTime = new DateTime(serverTime.Year, serverTime.Month, serverTime.Day, serverTime.Hour, this.schedule.hourly[j].minute, 0);
+				list2.Add(new VODPlayer.VODNextStream(this.schedule.hourly[j].stream.name, this.schedule.hourly[j].ClampedDateTime(dateTime), this.schedule.hourly[j].stream.url, this.schedule.hourly[j].stream.ch));
+				list2.Add(new VODPlayer.VODNextStream(this.schedule.hourly[j].stream.name, this.schedule.hourly[j].ClampedDateTime(dateTime.AddHours(1.0)), this.schedule.hourly[j].stream.url, this.schedule.hourly[j].stream.ch));
+			}
+		}
+		list2.Sort();
+		for (int k = 0; k < list2.Count; k++)
+		{
+			if (list2[k].StartTime > serverTime)
+			{
+				this.cacheVOD(list2[k].Url);
+				return list2[k];
 			}
 		}
 		return null;
@@ -309,7 +331,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 
 	private void StartImagePlayback(string url, int duration, VODPlayer.VODStream.VODStreamChannel ch, double time = 0.0)
 	{
-		VODPlayer.<StartImagePlayback>d__40 <StartImagePlayback>d__;
+		VODPlayer.<StartImagePlayback>d__41 <StartImagePlayback>d__;
 		<StartImagePlayback>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<StartImagePlayback>d__.<>4__this = this;
 		<StartImagePlayback>d__.url = url;
@@ -317,19 +339,19 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		<StartImagePlayback>d__.ch = ch;
 		<StartImagePlayback>d__.time = time;
 		<StartImagePlayback>d__.<>1__state = -1;
-		<StartImagePlayback>d__.<>t__builder.Start<VODPlayer.<StartImagePlayback>d__40>(ref <StartImagePlayback>d__);
+		<StartImagePlayback>d__.<>t__builder.Start<VODPlayer.<StartImagePlayback>d__41>(ref <StartImagePlayback>d__);
 	}
 
 	private void StartVideoPlayback(string url, VODPlayer.VODStream.VODStreamChannel ch, double time = 0.0)
 	{
-		VODPlayer.<StartVideoPlayback>d__41 <StartVideoPlayback>d__;
+		VODPlayer.<StartVideoPlayback>d__42 <StartVideoPlayback>d__;
 		<StartVideoPlayback>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 		<StartVideoPlayback>d__.<>4__this = this;
 		<StartVideoPlayback>d__.url = url;
 		<StartVideoPlayback>d__.ch = ch;
 		<StartVideoPlayback>d__.time = time;
 		<StartVideoPlayback>d__.<>1__state = -1;
-		<StartVideoPlayback>d__.<>t__builder.Start<VODPlayer.<StartVideoPlayback>d__41>(ref <StartVideoPlayback>d__);
+		<StartVideoPlayback>d__.<>t__builder.Start<VODPlayer.<StartVideoPlayback>d__42>(ref <StartVideoPlayback>d__);
 	}
 
 	private void onTD(string s)
@@ -434,11 +456,12 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 	[Serializable]
 	public class VODNextStream : IComparable<VODPlayer.VODNextStream>
 	{
-		public VODNextStream(string name, DateTime startTime, string url)
+		public VODNextStream(string name, DateTime startTime, string url, VODPlayer.VODStream.VODStreamChannel channel)
 		{
 			this.Title = name;
 			this.StartTime = startTime;
 			this.Url = url;
+			this.Channel = channel;
 		}
 
 		int IComparable<VODPlayer.VODNextStream>.CompareTo(VODPlayer.VODNextStream other)
@@ -451,6 +474,8 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		public DateTime StartTime;
 
 		public string Url;
+
+		public VODPlayer.VODStream.VODStreamChannel Channel;
 	}
 
 	[Serializable]
@@ -482,7 +507,9 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		{
 			DEFAULT,
 			VIM,
-			MM
+			MM,
+			GCORP,
+			EVENT
 		}
 	}
 

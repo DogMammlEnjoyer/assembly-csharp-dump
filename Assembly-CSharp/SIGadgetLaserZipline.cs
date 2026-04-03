@@ -138,6 +138,12 @@ public class SIGadgetLaserZipline : SIGadget, ICallBack
 			}
 			if (!this.wasTriggerPressed)
 			{
+				if (base.IsBlocked(SIExclusionType.AffectsLocalMovement))
+				{
+					this.isLineBroken = true;
+					this.laserBeam.SetActive(false);
+					return;
+				}
 				if (Time.time < this.coolingDownUntilTimestamp)
 				{
 					this.isLineBroken = true;
@@ -183,6 +189,13 @@ public class SIGadgetLaserZipline : SIGadget, ICallBack
 				this.wasTriggerPressed = true;
 				this.wasSlidingUngrounded = (!GTPlayer.Instance.IsGroundedButt && !GTPlayer.Instance.IsGroundedHand);
 				this.gameEntity.RequestState(this.gameEntity.id, this.GetStateLong());
+			}
+			if (base.IsBlocked(SIExclusionType.AffectsLocalMovement))
+			{
+				this.isLineBroken = true;
+				this.laserBeam.SetActive(false);
+				this.gameEntity.RequestState(this.gameEntity.id, this.GetStateLong());
+				return;
 			}
 			Vector3 rigidbodyVelocity = GTPlayer.Instance.RigidbodyVelocity;
 			GTPlayer.Instance.LaserZiplineActiveAtFrame = Time.frameCount + 1;

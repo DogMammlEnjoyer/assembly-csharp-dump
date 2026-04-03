@@ -415,7 +415,7 @@ public class KIDManager : MonoBehaviour
 		{
 			return;
 		}
-		PrivateUIRoom.ForceStartOverlay();
+		PrivateUIRoom.ForceStartOverlay("");
 	}
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D911}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04E15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Unity.Cinemachine</RootNamespace>
@@ -254,67 +254,67 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D915}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E19}</Project>
       <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D919}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E1D}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Core.Runtime\Unity.RenderPipelines.Core.Runtime.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D928}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E2C}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Universal.2D.Runtime\Unity.RenderPipelines.Universal.2D.Runtime.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D92D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E31}</Project>
       <Name>Unity.RenderPipelines.Universal.2D.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.RenderPipelines.Universal.Runtime\Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D92F}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E33}</Project>
       <Name>Unity.RenderPipelines.Universal.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Splines\Unity.Splines.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D933}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E37}</Project>
       <Name>Unity.Splines</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.Timeline\Unity.Timeline.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D935}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E39}</Project>
       <Name>Unity.Timeline</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.AnimationModule\UnityEngine.AnimationModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D945}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E49}</Project>
       <Name>UnityEngine.AnimationModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.DirectorModule\UnityEngine.DirectorModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94F}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E53}</Project>
       <Name>UnityEngine.DirectorModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.InputLegacyModule\UnityEngine.InputLegacyModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D95C}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E60}</Project>
       <Name>UnityEngine.InputLegacyModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.Physics2DModule\UnityEngine.Physics2DModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D966}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6A}</Project>
       <Name>UnityEngine.Physics2DModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.PhysicsModule\UnityEngine.PhysicsModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D967}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E6B}</Project>
       <Name>UnityEngine.PhysicsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UIModule\UnityEngine.UIModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97C}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E80}</Project>
       <Name>UnityEngine.UIModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D97A}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E7E}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>

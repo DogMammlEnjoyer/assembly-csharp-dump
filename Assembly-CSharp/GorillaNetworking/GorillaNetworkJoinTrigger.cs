@@ -284,10 +284,6 @@ namespace GorillaNetworking
 		[FormerlySerializedAs("gameModeName")]
 		public string networkZone;
 
-		public string componentTypeToAdd;
-
-		public GameObject componentTarget;
-
 		public GorillaFriendCollider myCollider;
 
 		public GorillaNetworkJoinTrigger primaryTriggerForMyZone;

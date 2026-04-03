@@ -27,15 +27,31 @@ namespace GorillaNetworking.Store
 
 		public void OnEnable()
 		{
-			this.addToCartTextTMP.gameObject.SetActive(true);
-			this.slotPriceTextTMP.gameObject.SetActive(true);
+			TMP_Text tmp_Text = this.addToCartTextTMP;
+			if (tmp_Text != null)
+			{
+				tmp_Text.gameObject.SetActive(true);
+			}
+			TMP_Text tmp_Text2 = this.slotPriceTextTMP;
+			if (tmp_Text2 != null)
+			{
+				tmp_Text2.gameObject.SetActive(true);
+			}
 			this.AddStandToStoreController();
 		}
 
 		public void OnDisable()
 		{
-			this.addToCartTextTMP.gameObject.SetActive(false);
-			this.slotPriceTextTMP.gameObject.SetActive(false);
+			TMP_Text tmp_Text = this.addToCartTextTMP;
+			if (tmp_Text != null)
+			{
+				tmp_Text.gameObject.SetActive(false);
+			}
+			TMP_Text tmp_Text2 = this.slotPriceTextTMP;
+			if (tmp_Text2 != null)
+			{
+				tmp_Text2.gameObject.SetActive(false);
+			}
 			this.RemoveStandFromStoreController();
 		}
 

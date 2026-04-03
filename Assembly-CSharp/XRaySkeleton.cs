@@ -1,19 +1,26 @@
 ﻿using System;
 using UnityEngine;
 
-public class XRaySkeleton : SyncToPlayerColor
+public class XRaySkeleton : SyncToPlayerColor, IGorillaSimpleBackgroundWorker
 {
 	protected override void Awake()
 	{
 		base.Awake();
 		this.target = this.renderer.material;
-		Material[] materialsToChangeTo = this.rig.materialsToChangeTo;
-		this.tagMaterials = new Material[materialsToChangeTo.Length];
+		this.mats = this.rig.materialsToChangeTo;
+		this.tagMaterials = new Material[this.mats.Length];
 		this.tagMaterials[0] = new Material(this.target);
-		for (int i = 1; i < materialsToChangeTo.Length; i++)
+		GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
+	}
+
+	public void SimpleWork()
+	{
+		if (this.currentIndex >= 0 && this.currentIndex < this.mats.Length)
 		{
-			Material material = new Material(materialsToChangeTo[i]);
-			this.tagMaterials[i] = material;
+			Material material = new Material(this.mats[this.currentIndex]);
+			this.tagMaterials[this.currentIndex] = material;
+			this.currentIndex++;
+			GorillaSimpleBackgroundWorkerManager.WorkerSignup(this);
 		}
 	}
 
@@ -62,6 +69,10 @@ public class XRaySkeleton : SyncToPlayerColor
 	public Material[] tagMaterials = new Material[0];
 
 	private int _lastMatIndex;
+
+	private Material[] mats;
+
+	private int currentIndex = 1;
 
 	private static readonly ShaderHashId _BaseColor = "_BaseColor";
 

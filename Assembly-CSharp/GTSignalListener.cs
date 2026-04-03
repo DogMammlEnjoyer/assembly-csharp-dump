@@ -31,8 +31,8 @@ public class GTSignalListener : MonoBehaviour
 		int rigActorID;
 		if (!(this.rig == null))
 		{
-			NetPlayer owningNetPlayer = this.rig.OwningNetPlayer;
-			rigActorID = ((owningNetPlayer != null) ? owningNetPlayer.ActorNumber : -1);
+			NetPlayer creator = this.rig.Creator;
+			rigActorID = ((creator != null) ? creator.ActorNumber : -1);
 		}
 		else
 		{

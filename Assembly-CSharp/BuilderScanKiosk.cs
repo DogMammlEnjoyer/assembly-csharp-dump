@@ -272,9 +272,18 @@ public class BuilderScanKiosk : MonoBehaviourTick
 		this.screenText.text = this.GetTextForScreen();
 		this.ToggleSaveButton(BuilderScanKiosk.IsSaveSlotValid(this.targetTable.CurrentSaveSlot) && !this.coolingDown);
 		this.noneButton.buttonRenderer.material = ((!BuilderScanKiosk.IsSaveSlotValid(this.targetTable.CurrentSaveSlot)) ? this.noneButton.pressedMaterial : this.noneButton.unpressedMaterial);
+		bool flag = SubscriptionManager.IsLocalSubscribed();
 		for (int i = 0; i < this.scanButtons.Count; i++)
 		{
-			this.scanButtons[i].buttonRenderer.material = ((this.targetTable.CurrentSaveSlot == i) ? this.scanButtons[i].pressedMaterial : this.scanButtons[i].unpressedMaterial);
+			GorillaPressableButton gorillaPressableButton = this.scanButtons[i];
+			if (gorillaPressableButton.isSubscriberOnlyButton && !flag)
+			{
+				gorillaPressableButton.buttonRenderer.material = ((gorillaPressableButton.nonSubscriberMaterial != null) ? gorillaPressableButton.nonSubscriberMaterial : gorillaPressableButton.unpressedMaterial);
+			}
+			else
+			{
+				gorillaPressableButton.buttonRenderer.material = ((this.targetTable.CurrentSaveSlot == i) ? gorillaPressableButton.pressedMaterial : gorillaPressableButton.unpressedMaterial);
+			}
 		}
 		if (this.scannerState == BuilderScanKiosk.ScannerState.CONFIRMATION)
 		{
@@ -480,7 +489,7 @@ public class BuilderScanKiosk : MonoBehaviourTick
 
 	private static string SAVE_FILE = "MyBuild";
 
-	public static int NUM_SAVE_SLOTS = 3;
+	public static int NUM_SAVE_SLOTS = 5;
 
 	public static int DEV_SAVE_SLOT = -2;
 

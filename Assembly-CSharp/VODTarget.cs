@@ -36,6 +36,18 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 		}
 	}
 
+	public VODPlayer.VODStream.VODStreamChannel[] Channel
+	{
+		get
+		{
+			if (this.channel.Length != 0)
+			{
+				return this.channel;
+			}
+			return new VODPlayer.VODStream.VODStreamChannel[1];
+		}
+	}
+
 	public bool VerifyChannel(VODPlayer.VODStream.VODStreamChannel ch)
 	{
 		if (this.channel.Length == 0 && ch == VODPlayer.VODStream.VODStreamChannel.DEFAULT)
@@ -54,7 +66,8 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 
 	protected override void OnLostObservable()
 	{
-		if (VODTarget.AlertDisabled != null)
+		this.observable = false;
+		if (!this.staticScreen.activeInHierarchy && VODTarget.AlertDisabled != null)
 		{
 			VODTarget.AlertDisabled(this);
 		}
@@ -62,7 +75,8 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 
 	protected override void OnBecameObservable()
 	{
-		if (VODTarget.AlertEnabled != null)
+		this.observable = true;
+		if (!this.staticScreen.activeInHierarchy && VODTarget.AlertEnabled != null)
 		{
 			VODTarget.AlertEnabled(this);
 		}
@@ -83,7 +97,7 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 		VODPlayer.OnCrash = (Action)Delegate.Combine(VODPlayer.OnCrash, new Action(this.VODPlayer_OnCrash));
 		if (VODPlayer.state == VODPlayer.State.CRASHED)
 		{
-			base.gameObject.SetActive(false);
+			this.staticScreen.SetActive(true);
 		}
 	}
 
@@ -99,11 +113,28 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 
 	private void VODPlayer_OnCrash()
 	{
-		base.gameObject.SetActive(false);
+		this.staticScreen.SetActive(true);
 	}
 
 	protected override void ObservableSliceUpdate()
 	{
+	}
+
+	public void ShowStatic(bool on)
+	{
+		this.staticScreen.SetActive(on);
+		if (on)
+		{
+			if (this.observable && VODTarget.AlertDisabled != null)
+			{
+				VODTarget.AlertDisabled(this);
+				return;
+			}
+		}
+		else if (this.observable && VODTarget.AlertEnabled != null)
+		{
+			VODTarget.AlertEnabled(this);
+		}
 	}
 
 	[SerializeField]
@@ -120,6 +151,11 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 
 	[SerializeField]
 	private VODPlayer.VODStream.VODStreamChannel[] channel;
+
+	[SerializeField]
+	private GameObject staticScreen;
+
+	private bool observable;
 
 	public static Action<VODTarget> AlertEnabled;
 

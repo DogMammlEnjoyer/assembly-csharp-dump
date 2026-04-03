@@ -92,7 +92,7 @@ namespace System.Linq.Parallel
 				{
 					return CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._rightChildSelector, this._resultSelector);
 				}
-				return (IEnumerable<TOutput>)CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._rightChildSelector);
+				return (IEnumerable<!2>)CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._rightChildSelector);
 			}
 			else
 			{
@@ -100,7 +100,7 @@ namespace System.Linq.Parallel
 				{
 					return CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._indexedRightChildSelector, this._resultSelector);
 				}
-				return (IEnumerable<TOutput>)CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._indexedRightChildSelector);
+				return (IEnumerable<!2>)CancellableEnumerable.Wrap<TLeftInput>(base.Child.AsSequentialQuery(token), token).SelectMany(this._indexedRightChildSelector);
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace System.Linq.Parallel
 						this._currentRightSource = enumerable.GetEnumerator();
 						if (this._selectManyOperator._resultSelector == null)
 						{
-							this._currentRightSourceAsOutput = (IEnumerator<TOutput>)this._currentRightSource;
+							this._currentRightSourceAsOutput = (IEnumerator<!2>)this._currentRightSource;
 						}
 					}
 					if (this._currentRightSource.MoveNext())
@@ -243,7 +243,7 @@ namespace System.Linq.Parallel
 						this._currentRightSource = enumerable.GetEnumerator();
 						if (this._selectManyOperator._resultSelector == null)
 						{
-							this._currentRightSourceAsOutput = (IEnumerator<TOutput>)this._currentRightSource;
+							this._currentRightSourceAsOutput = (IEnumerator<!2>)this._currentRightSource;
 						}
 					}
 					if (this._currentRightSource.MoveNext())

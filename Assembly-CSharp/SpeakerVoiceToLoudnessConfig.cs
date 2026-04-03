@@ -29,10 +29,10 @@ internal static class SpeakerVoiceToLoudnessConfig
 
 	private static void OnTitleDataCacheReady(PlayFabTitleDataCache titleDataCache)
 	{
-		titleDataCache.GetTitleData("SpeakerVoiceToLoudnessConfig", new Action<string>(SpeakerVoiceToLoudnessConfig.OnTitleDataCacheRespsonse), new Action<PlayFabError>(SpeakerVoiceToLoudnessConfig.OnTitleDataCacheError), false);
+		titleDataCache.GetTitleData("SpeakerVoiceToLoudnessConfig", new Action<string>(SpeakerVoiceToLoudnessConfig.OnTitleDataCacheResponse), new Action<PlayFabError>(SpeakerVoiceToLoudnessConfig.OnTitleDataCacheError), false);
 	}
 
-	private static void OnTitleDataCacheRespsonse(string json)
+	private static void OnTitleDataCacheResponse(string json)
 	{
 		SpeakerVoiceToLoudnessConfig.SerializedConfig serializedConfig = default(SpeakerVoiceToLoudnessConfig.SerializedConfig);
 		try

@@ -298,9 +298,9 @@ public class GorillaPlayerScoreboardLine : MonoBehaviour
 			int length2 = text.Length;
 			if (length2 > 0 && length == length2 && GorillaComputer.instance.CheckAutoBanListForName(text))
 			{
-				if (text.Length > 11)
+				if (text.Length > 12)
 				{
-					text = text.Substring(0, 11);
+					text = text.Substring(0, 12);
 				}
 				text = text.ToUpper();
 			}

@@ -154,7 +154,7 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				reader.ReadInt16();
+				reader.ReadInt32();
 			}
 			for (int j = 0; j < 2; j++)
 			{

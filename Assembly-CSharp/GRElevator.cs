@@ -39,7 +39,11 @@ public class GRElevator : MonoBehaviour
 
 	public void PressButtonVisuals(GRElevator.ButtonType type)
 	{
-		this.typeButtonDict[type].Pressed();
+		GRElevatorButton grelevatorButton;
+		if (this.typeButtonDict.TryGetValue(type, out grelevatorButton))
+		{
+			grelevatorButton.Pressed();
+		}
 	}
 
 	public void PlayDing()
@@ -383,6 +387,10 @@ public class GRElevator : MonoBehaviour
 		Close,
 		Summon,
 		MonkeBlocks,
+		VIMExperience1,
+		VIMExperience2,
+		VIMExperience3,
+		VIMExperience4,
 		Count
 	}
 }

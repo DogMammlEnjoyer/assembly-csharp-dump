@@ -20,7 +20,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
-using Valve.VR;
 
 public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMonoBehaviour, IGuidedRefObject
 {
@@ -359,10 +358,6 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		{
 			float num2 = this._forcePerfRefreshRate ? this._perfRefreshRate : this._defaultRefreshRate;
 			float num3 = 1f / num2;
-			if (SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency)
-			{
-				num3 = 1f / num2;
-			}
 			if (num2 > 0f)
 			{
 				DebugHudStats.FPS_THRESHOLD = (int)num2 - 1;
@@ -1165,7 +1160,7 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 				isLeftHand,
 				stiltID,
 				this.handTapSpeed,
-				global::Utils.PackVector3ToLong(this.dirFromHitToHand)
+				Utils.PackVector3ToLong(this.dirFromHitToHand)
 			});
 		}
 	}

@@ -24,7 +24,7 @@ public static class SceneIndexExtensions
 	{
 		if (SceneIndexExtensions.onSceneLoadCallbacks == null)
 		{
-			SceneIndexExtensions.onSceneLoadCallbacks = new List<Action>[21];
+			SceneIndexExtensions.onSceneLoadCallbacks = new List<Action>[22];
 			for (int i = 0; i < SceneIndexExtensions.onSceneLoadCallbacks.Length; i++)
 			{
 				SceneIndexExtensions.onSceneLoadCallbacks[i] = new List<Action>();
@@ -36,7 +36,10 @@ public static class SceneIndexExtensions
 
 	public static void RemoveCallbackOnSceneLoad(this SceneIndex scene, Action callback)
 	{
-		SceneIndexExtensions.onSceneLoadCallbacks[(int)scene].Remove(callback);
+		if (SceneIndexExtensions.onSceneLoadCallbacks != null)
+		{
+			SceneIndexExtensions.onSceneLoadCallbacks[(int)scene].Remove(callback);
+		}
 	}
 
 	public static void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -54,7 +57,7 @@ public static class SceneIndexExtensions
 	{
 		if (SceneIndexExtensions.onSceneUnloadCallbacks == null)
 		{
-			SceneIndexExtensions.onSceneUnloadCallbacks = new List<Action>[21];
+			SceneIndexExtensions.onSceneUnloadCallbacks = new List<Action>[22];
 			for (int i = 0; i < SceneIndexExtensions.onSceneUnloadCallbacks.Length; i++)
 			{
 				SceneIndexExtensions.onSceneUnloadCallbacks[i] = new List<Action>();
@@ -95,7 +98,7 @@ public static class SceneIndexExtensions
 		}
 	}
 
-	private const int SceneIndex_COUNT = 21;
+	private const int SceneIndex_COUNT = 22;
 
 	[OnEnterPlay_SetNull]
 	private static List<Action>[] onSceneLoadCallbacks;

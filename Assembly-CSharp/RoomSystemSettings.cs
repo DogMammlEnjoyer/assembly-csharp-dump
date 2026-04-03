@@ -55,6 +55,14 @@ internal class RoomSystemSettings : ScriptableObject
 		}
 	}
 
+	public CallLimiterWithCooldown LavaSyncLimiter
+	{
+		get
+		{
+			return this.lavaSyncLimiter;
+		}
+	}
+
 	public GameObject PlayerImpactEffect
 	{
 		get
@@ -136,6 +144,9 @@ internal class RoomSystemSettings : ScriptableObject
 
 	[SerializeField]
 	private CallLimiterWithCooldown playerEffectLimiter;
+
+	[SerializeField]
+	private CallLimiterWithCooldown lavaSyncLimiter;
 
 	[SerializeField]
 	private GameObject playerImpactEffect;

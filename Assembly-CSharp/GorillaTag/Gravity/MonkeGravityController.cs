@@ -31,6 +31,14 @@ namespace GorillaTag.Gravity
 			}
 		}
 
+		public virtual float Scale
+		{
+			get
+			{
+				return this.TargetTransform.localScale.x;
+			}
+		}
+
 		protected bool InstantRotation
 		{
 			get
@@ -85,10 +93,6 @@ namespace GorillaTag.Gravity
 
 		protected virtual void Awake()
 		{
-			if (this.m_activatorCollider.IsNull())
-			{
-				this.m_activatorCollider = base.GetComponent<Collider>();
-			}
 			if (this.m_targetRigidBody.IsNull())
 			{
 				this.m_targetRigidBody = base.GetComponent<Rigidbody>();
@@ -97,9 +101,17 @@ namespace GorillaTag.Gravity
 			{
 				this.m_targetTransform = base.transform;
 			}
-			if (this.m_activatorCollider.IsNull())
+			if (this.m_alwaysInZone != null)
 			{
-				return;
+				this.m_alwaysInZone.AddTarget(this);
+			}
+			else if (this.m_activatorCollider.IsNull())
+			{
+				this.m_activatorCollider = base.GetComponent<Collider>();
+				if (this.m_activatorCollider.IsNull())
+				{
+					return;
+				}
 			}
 			if (this.m_targetRigidBody.IsNull())
 			{
@@ -227,6 +239,9 @@ namespace GorillaTag.Gravity
 
 		[SerializeField]
 		private ForceMode m_forceModeOverride;
+
+		[SerializeField]
+		private BasicGravityZone m_alwaysInZone;
 
 		private bool m_register;
 

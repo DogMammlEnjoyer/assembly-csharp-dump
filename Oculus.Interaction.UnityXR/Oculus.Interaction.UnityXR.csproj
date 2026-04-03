@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D8DC}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04DE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Oculus.Interaction</RootNamespace>
@@ -50,31 +50,31 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oculus.Interaction\Oculus.Interaction.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D8}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DDC}</Project>
       <Name>Oculus.Interaction</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.InputSystem\Unity.InputSystem.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D915}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E19}</Project>
       <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.XR.CoreUtils\Unity.XR.CoreUtils.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D937}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E3B}</Project>
       <Name>Unity.XR.CoreUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.CoreModule\UnityEngine.CoreModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D94D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E51}</Project>
       <Name>UnityEngine.CoreModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.VRModule\UnityEngine.VRModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D98D}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E91}</Project>
       <Name>UnityEngine.VRModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnityEngine.XRModule\UnityEngine.XRModule.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D990}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E94}</Project>
       <Name>UnityEngine.XRModule</Name>
     </ProjectReference>
   </ItemGroup>

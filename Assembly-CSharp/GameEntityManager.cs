@@ -490,11 +490,6 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			if (!this.zoneComponents[j].ValidateMigratedGameEntity(0, entityTypeId, Vector3.zero, Quaternion.identity, createData, actorNumber))
 			{
-				MonoBehaviour monoBehaviour = this.zoneComponents[j] as MonoBehaviour;
-				if (monoBehaviour != null)
-				{
-					string name = monoBehaviour.name;
-				}
 				return false;
 			}
 		}
@@ -1193,11 +1188,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		GamePlayer gamePlayer;
 		if (GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out gamePlayer))
 		{
-			gamePlayer.ClearGrabbedIfHeld(gameEntity.id, this);
 			if (gamePlayer.IsLocal())
 			{
 				GamePlayerLocal.instance.ClearGrabbedIfHeld(gameEntity.id, this);
 			}
+			gamePlayer.ClearGrabbedIfHeld(gameEntity.id, this);
 		}
 		GamePlayer gamePlayer2;
 		if (GamePlayer.TryGetGamePlayer(gameEntity.snappedByActorNumber, out gamePlayer2))
@@ -2664,13 +2659,31 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			GameEntity gameEntity = this.entities[j];
 			if (!(gameEntity == null))
 			{
+				int attachedPlayerActorNr = gameEntity.AttachedPlayerActorNr;
+				if (attachedPlayerActorNr != -1)
+				{
+					bool flag = false;
+					for (int k = 0; k < GameEntityManager.tempRigs.Count; k++)
+					{
+						if (GameEntityManager.tempRigs[k].Creator.ActorNumber == attachedPlayerActorNr)
+						{
+							flag = true;
+							break;
+						}
+					}
+					if (!flag)
+					{
+						goto IL_B7;
+					}
+				}
 				GameEntityManager.tempEntitiesToSerialize.Add(gameEntity);
 			}
+			IL_B7:;
 		}
 		binaryWriter.Write(GameEntityManager.tempEntitiesToSerialize.Count);
-		for (int k = 0; k < GameEntityManager.tempEntitiesToSerialize.Count; k++)
+		for (int l = 0; l < GameEntityManager.tempEntitiesToSerialize.Count; l++)
 		{
-			GameEntity gameEntity2 = GameEntityManager.tempEntitiesToSerialize[k];
+			GameEntity gameEntity2 = GameEntityManager.tempEntitiesToSerialize[l];
 			if (!(gameEntity2 == null))
 			{
 				int netIdFromEntityId = this.GetNetIdFromEntityId(gameEntity2.id);
@@ -2682,9 +2695,9 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 				binaryWriter.Write(value2);
 			}
 		}
-		for (int l = 0; l < GameEntityManager.tempEntitiesToSerialize.Count; l++)
+		for (int m = 0; m < GameEntityManager.tempEntitiesToSerialize.Count; m++)
 		{
-			GameEntity gameEntity3 = GameEntityManager.tempEntitiesToSerialize[l];
+			GameEntity gameEntity3 = GameEntityManager.tempEntitiesToSerialize[m];
 			if (!(gameEntity3 == null))
 			{
 				int netIdFromEntityId2 = this.GetNetIdFromEntityId(gameEntity3.id);
@@ -2705,9 +2718,9 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 					binaryWriter.Write(value3);
 				}
 				GameAgent component = gameEntity3.GetComponent<GameAgent>();
-				bool flag = component != null;
-				binaryWriter.Write(flag);
-				if (flag)
+				bool flag2 = component != null;
+				binaryWriter.Write(flag2);
+				if (flag2)
 				{
 					Vector3 worldPos = Vector3.zero;
 					if (component.navAgent != null)
@@ -2722,32 +2735,32 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 				}
 				byte b = (byte)gameEntity3.entitySerialize.Count;
 				binaryWriter.Write(b);
-				for (int m = 0; m < (int)b; m++)
+				for (int n = 0; n < (int)b; n++)
 				{
-					gameEntity3.entitySerialize[m].OnGameEntitySerialize(binaryWriter);
+					gameEntity3.entitySerialize[n].OnGameEntitySerialize(binaryWriter);
 				}
-				for (int n = 0; n < this.zoneComponents.Count; n++)
+				for (int num2 = 0; num2 < this.zoneComponents.Count; num2++)
 				{
-					this.zoneComponents[n].SerializeZoneEntityData(binaryWriter, gameEntity3);
+					this.zoneComponents[num2].SerializeZoneEntityData(binaryWriter, gameEntity3);
 				}
 			}
 		}
 		int count = GameEntityManager.tempRigs.Count;
 		binaryWriter.Write(count);
-		for (int num2 = 0; num2 < GameEntityManager.tempRigs.Count; num2++)
+		for (int num3 = 0; num3 < GameEntityManager.tempRigs.Count; num3++)
 		{
-			VRRig vrrig = GameEntityManager.tempRigs[num2];
+			VRRig vrrig = GameEntityManager.tempRigs[num3];
 			NetPlayer owningNetPlayer = vrrig.OwningNetPlayer;
 			binaryWriter.Write(owningNetPlayer.ActorNumber);
 			GamePlayer gamePlayerRef = vrrig.GamePlayerRef;
-			bool flag2 = gamePlayerRef != null;
-			binaryWriter.Write(flag2);
-			if (flag2)
+			bool flag3 = gamePlayerRef != null;
+			binaryWriter.Write(flag3);
+			if (flag3)
 			{
 				gamePlayerRef.SerializeNetworkState(binaryWriter, owningNetPlayer, this);
-				for (int num3 = 0; num3 < this.zoneComponents.Count; num3++)
+				for (int num4 = 0; num4 < this.zoneComponents.Count; num4++)
 				{
-					this.zoneComponents[num3].SerializeZonePlayerData(binaryWriter, owningNetPlayer.ActorNumber);
+					this.zoneComponents[num4].SerializeZonePlayerData(binaryWriter, owningNetPlayer.ActorNumber);
 				}
 			}
 		}
@@ -3379,16 +3392,69 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	private void OnNetworkPlayerLeft(NetPlayer leavingPlayer)
 	{
+		int num = 0;
+		foreach (GameEntity gameEntity in this.entities)
+		{
+			if (gameEntity != null && gameEntity.IsAttachedToPlayer(leavingPlayer))
+			{
+				num++;
+			}
+		}
 		this.playerZoneJoinTimes.Remove(leavingPlayer.ActorNumber);
 	}
 
 	public void OnRigDeactivated(RigContainer container)
 	{
+		GamePlayer component = container.GetComponent<GamePlayer>();
+		int? num;
+		if (component == null)
+		{
+			num = null;
+		}
+		else
+		{
+			VRRig rig = component.rig;
+			if (rig == null)
+			{
+				num = null;
+			}
+			else
+			{
+				NetPlayer owningNetPlayer = rig.OwningNetPlayer;
+				num = ((owningNetPlayer != null) ? new int?(owningNetPlayer.ActorNumber) : null);
+			}
+		}
+		int? num2 = num;
+		if (num2 != null)
+		{
+			num2.GetValueOrDefault();
+		}
 		if (this != GameEntityManager.activeManager)
 		{
+			int num3 = 0;
+			foreach (GameEntity gameEntity in this.entities)
+			{
+				if (gameEntity != null)
+				{
+					GameEntity gameEntity2 = gameEntity;
+					NetPlayer player;
+					if (component == null)
+					{
+						player = null;
+					}
+					else
+					{
+						VRRig rig2 = component.rig;
+						player = ((rig2 != null) ? rig2.OwningNetPlayer : null);
+					}
+					if (gameEntity2.IsAttachedToPlayer(player))
+					{
+						num3++;
+					}
+				}
+			}
 			return;
 		}
-		GamePlayer component = container.GetComponent<GamePlayer>();
 		if (this.IsAuthority())
 		{
 			this.RequestDestroyItems(component.HeldAndSnappedItems(this));

@@ -51,7 +51,6 @@ namespace GorillaTag.Gravity
 			if (!this.PassesScaleFilter(targetController))
 			{
 				this.OnTargetFilteredOut(targetController);
-				return;
 			}
 			GravityInfo gravityInfo = default(GravityInfo);
 			Vector3 worldPoint = targetController.GetWorldPoint();
@@ -145,7 +144,7 @@ namespace GorillaTag.Gravity
 			{
 				return true;
 			}
-			bool flag = target.TargetTransform.localScale.x < 1f;
+			bool flag = target.Scale < 1f;
 			if (this.scaleFilter != GravityZoneScaleFilter.SmallOnly)
 			{
 				return !flag;
@@ -194,7 +193,7 @@ namespace GorillaTag.Gravity
 
 		protected Vector3 m_gravityDirection;
 
-		private ListProcessor<MonkeGravityController> m_gravityTargets = new ListProcessor<MonkeGravityController>(5, null);
+		protected ListProcessor<MonkeGravityController> m_gravityTargets = new ListProcessor<MonkeGravityController>(5, null);
 
 		private Dictionary<MonkeGravityController, GravityInfo> m_targetGravityInfos = new Dictionary<MonkeGravityController, GravityInfo>(5);
 	}

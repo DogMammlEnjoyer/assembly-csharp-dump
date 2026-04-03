@@ -241,14 +241,14 @@ namespace GorillaNetworking
 
 		public Task AttemptToJoinSpecificRoomAsync(string roomID, JoinType roomJoinType, Action<NetJoinResult> callback)
 		{
-			PhotonNetworkController.<AttemptToJoinSpecificRoomAsync>d__79 <AttemptToJoinSpecificRoomAsync>d__;
+			PhotonNetworkController.<AttemptToJoinSpecificRoomAsync>d__81 <AttemptToJoinSpecificRoomAsync>d__;
 			<AttemptToJoinSpecificRoomAsync>d__.<>t__builder = AsyncTaskMethodBuilder.Create();
 			<AttemptToJoinSpecificRoomAsync>d__.<>4__this = this;
 			<AttemptToJoinSpecificRoomAsync>d__.roomID = roomID;
 			<AttemptToJoinSpecificRoomAsync>d__.roomJoinType = roomJoinType;
 			<AttemptToJoinSpecificRoomAsync>d__.callback = callback;
 			<AttemptToJoinSpecificRoomAsync>d__.<>1__state = -1;
-			<AttemptToJoinSpecificRoomAsync>d__.<>t__builder.Start<PhotonNetworkController.<AttemptToJoinSpecificRoomAsync>d__79>(ref <AttemptToJoinSpecificRoomAsync>d__);
+			<AttemptToJoinSpecificRoomAsync>d__.<>t__builder.Start<PhotonNetworkController.<AttemptToJoinSpecificRoomAsync>d__81>(ref <AttemptToJoinSpecificRoomAsync>d__);
 			return <AttemptToJoinSpecificRoomAsync>d__.<>t__builder.Task;
 		}
 
@@ -616,6 +616,10 @@ namespace GorillaNetworking
 		private NetworkObject testPlayerPrefab;
 
 		private string roomToJoin = "";
+
+		private int joinNextAttempt;
+
+		private int maxNextAttempts = 10;
 
 		private string LastRoomToJoin = "";
 

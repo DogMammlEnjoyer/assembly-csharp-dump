@@ -1,5 +1,6 @@
 ﻿using System;
 using GorillaTag.GuidedRefs;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class SlingshotProjectileHitNotifier : BaseGuidedRefTargetMono
@@ -16,6 +17,10 @@ public class SlingshotProjectileHitNotifier : BaseGuidedRefTargetMono
 
 	public void InvokeHit(SlingshotProjectile projectile, Collision collision)
 	{
+		if (this.projectileType != "" && projectile.tag != this.projectileType)
+		{
+			return;
+		}
 		SlingshotProjectileHitNotifier.ProjectileHitEvent onProjectileHit = this.OnProjectileHit;
 		if (onProjectileHit == null)
 		{
@@ -71,6 +76,10 @@ public class SlingshotProjectileHitNotifier : BaseGuidedRefTargetMono
 		this.OnProjectileTriggerEnter = null;
 		this.OnProjectileTriggerExit = null;
 	}
+
+	[TagField]
+	[SerializeField]
+	private string projectileType;
 
 	public delegate void ProjectileHitEvent(SlingshotProjectile projectile, Collision collision);
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Timers;
 using ExitGames.Client.Photon;
 using GorillaExtensions;
@@ -75,9 +77,7 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.projectileSendData[6] = g;
 		RoomSystem.projectileSendData[7] = b;
 		RoomSystem.projectileSendData[8] = a;
-		byte b2 = 0;
-		object obj = RoomSystem.projectileSendData;
-		RoomSystem.SendEvent(b2, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(0, RoomSystem.projectileSendData, NetworkSystemRaiseEvent.neoOthers, false);
 	}
 
 	internal static void ImpactEffect(VRRig targetRig, Vector3 position, float r, float g, float b, float a, int projectileCount, PhotonMessageInfoWrapped info = default(PhotonMessageInfoWrapped))
@@ -124,9 +124,108 @@ internal class RoomSystem : MonoBehaviour
 			RoomSystem.impactSendData[3] = b;
 			RoomSystem.impactSendData[4] = a;
 			RoomSystem.impactSendData[5] = projectileCount;
-			byte b2 = 1;
-			object obj = RoomSystem.impactSendData;
-			RoomSystem.SendEvent(b2, obj, NetworkSystemRaiseEvent.neoOthers, false);
+			RoomSystem.SendEvent(1, RoomSystem.impactSendData, NetworkSystemRaiseEvent.neoOthers, false);
+		}
+	}
+
+	internal static void SendLavaSync(byte zone, byte state, double stateStartTime, float activationProgress, int voteCount, int[] votePlayerIds)
+	{
+		if (!RoomSystem.joinedRoom)
+		{
+			return;
+		}
+		RoomSystem.PackLavaSyncData(zone, state, stateStartTime, activationProgress, voteCount, votePlayerIds);
+		RoomSystem.SendEvent(12, RoomSystem.lavaSyncSendData, NetworkSystemRaiseEvent.neoOthers, false);
+	}
+
+	internal static void SendLavaSyncToPlayer(byte zone, byte state, double stateStartTime, float activationProgress, int voteCount, int[] votePlayerIds, NetPlayer target)
+	{
+		if (!RoomSystem.joinedRoom)
+		{
+			return;
+		}
+		RoomSystem.PackLavaSyncData(zone, state, stateStartTime, activationProgress, voteCount, votePlayerIds);
+		RoomSystem.SendEvent(12, RoomSystem.lavaSyncSendData, target, false);
+	}
+
+	private static void PackLavaSyncData(byte zone, byte state, double stateStartTime, float activationProgress, int voteCount, int[] votePlayerIds)
+	{
+		RoomSystem.lavaSyncSendData[0] = zone;
+		RoomSystem.lavaSyncSendData[1] = state;
+		RoomSystem.lavaSyncSendData[2] = stateStartTime;
+		RoomSystem.lavaSyncSendData[3] = activationProgress;
+		RoomSystem.lavaSyncSendData[4] = voteCount;
+		for (int i = 0; i < 20; i++)
+		{
+			RoomSystem.lavaSyncSendData[5 + i] = votePlayerIds[i];
+		}
+	}
+
+	private unsafe static void DeserializeLavaSync(object[] data, PhotonMessageInfoWrapped info)
+	{
+		NetworkSystem.Instance.GetPlayer(info.senderID);
+		MonkeAgent.IncrementRPCCall(info, "DeserializeLavaSync");
+		if (!RoomSystem.callbackInstance.roomSettings.LavaSyncLimiter.CheckCallServerTime(info.SentServerTime))
+		{
+			Debug.LogWarning(string.Format("[RoomSystem] LavaSync dropped by rate limiter: sender={0} sentTime={1:F3} photonTime={2:F3}", info.senderID, info.SentServerTime, PhotonNetwork.Time));
+			return;
+		}
+		if (data != null && data.Length >= 25)
+		{
+			object obj = data[0];
+			if (obj is byte)
+			{
+				byte zone = (byte)obj;
+				obj = data[1];
+				if (obj is byte)
+				{
+					byte b = (byte)obj;
+					obj = data[2];
+					if (obj is double)
+					{
+						double value = (double)obj;
+						obj = data[3];
+						if (obj is float)
+						{
+							float value2 = (float)obj;
+							obj = data[4];
+							if (obj is int)
+							{
+								int value3 = (int)obj;
+								for (int i = 0; i < 20; i++)
+								{
+									if (!(data[5 + i] is int))
+									{
+										return;
+									}
+								}
+								if (b > 4)
+								{
+									return;
+								}
+								RoomSystem.LavaSyncEventData obj2;
+								obj2.zone = zone;
+								obj2.state = b;
+								obj2.stateStartTime = value.GetFinite();
+								obj2.activationProgress = value2.ClampSafe(0f, 2f);
+								obj2.voteCount = Mathf.Clamp(value3, 0, 20);
+								obj2.senderActorNumber = info.senderID;
+								for (int j = 0; j < 20; j++)
+								{
+									*(ref obj2.votes.FixedElementField + (IntPtr)j * 4) = (int)data[5 + j];
+								}
+								Action<RoomSystem.LavaSyncEventData> onLavaSyncReceived = RoomSystem.OnLavaSyncReceived;
+								if (onLavaSyncReceived == null)
+								{
+									return;
+								}
+								onLavaSyncReceived(obj2);
+								return;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -271,6 +370,7 @@ internal class RoomSystem : MonoBehaviour
 		this.roomSettings.SoundEffectLimiter.Reset();
 		this.roomSettings.SoundEffectOtherLimiter.Reset();
 		this.roomSettings.PlayerEffectLimiter.Reset();
+		this.roomSettings.LavaSyncLimiter.Reset();
 		try
 		{
 			RoomSystem.m_roomSizeOnJoin = 0;
@@ -296,7 +396,6 @@ internal class RoomSystem : MonoBehaviour
 
 	private void OnPlayerLeftRoom(NetPlayer netPlayer)
 	{
-		Debug.Log(string.Format("Player {0} entered room", (netPlayer != null) ? new int?(netPlayer.ActorNumber) : null));
 		if (netPlayer == null)
 		{
 			Debug.LogError("Player that left doesn't have a reference somehow...");
@@ -389,6 +488,7 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.netEventCallbacks[8] = new Action<object[], PhotonMessageInfoWrapped>(RoomSystem.DeserializePlayerLaunched);
 		RoomSystem.netEventCallbacks[6] = new Action<object[], PhotonMessageInfoWrapped>(RoomSystem.DeserializePlayerEffect);
 		RoomSystem.netEventCallbacks[9] = new Action<object[], PhotonMessageInfoWrapped>(RoomSystem.DeserializePlayerHit);
+		RoomSystem.netEventCallbacks[12] = new Action<object[], PhotonMessageInfoWrapped>(RoomSystem.DeserializeLavaSync);
 		RoomSystem.soundEffectCallback = new Action<RoomSystem.SoundEffect, NetPlayer>(RoomSystem.OnPlaySoundEffect);
 		RoomSystem.statusEffectCallback = new Action<RoomSystem.StatusEffects>(RoomSystem.OnStatusEffect);
 	}
@@ -549,13 +649,13 @@ internal class RoomSystem : MonoBehaviour
 		return netPlayer;
 	}
 
-	internal static void SendEvent(in byte code, in object evData, in NetPlayer target, bool reliable)
+	internal static void SendEvent(byte code, object[] evData, in NetPlayer target, bool reliable)
 	{
 		NetworkSystemRaiseEvent.neoTarget.TargetActors[0] = target.ActorNumber;
 		RoomSystem.SendEvent(code, evData, NetworkSystemRaiseEvent.neoTarget, reliable);
 	}
 
-	internal static void SendEvent(in byte code, in object evData, in NetEventOptions neo, bool reliable)
+	internal static void SendEvent(byte code, object[] evData, in NetEventOptions neo, bool reliable)
 	{
 		RoomSystem.sendEventData[0] = NetworkSystem.Instance.ServerTimestamp;
 		RoomSystem.sendEventData[1] = code;
@@ -705,9 +805,7 @@ internal class RoomSystem : MonoBehaviour
 			if (friendCollider.playerIDsCurrentlyTouching.Contains(netPlayer.UserId) && netPlayer != NetworkSystem.Instance.LocalPlayer)
 			{
 				netEventOptions.TargetActors[0] = netPlayer.ActorNumber;
-				byte b = 4;
-				object obj = RoomSystem.groupJoinSendData;
-				RoomSystem.SendEvent(b, obj, netEventOptions, false);
+				RoomSystem.SendEvent(4, RoomSystem.groupJoinSendData, netEventOptions, false);
 			}
 		}
 	}
@@ -726,9 +824,7 @@ internal class RoomSystem : MonoBehaviour
 			if (rig.IsLocalPartyMember && rig.creator != NetworkSystem.Instance.LocalPlayer)
 			{
 				netEventOptions.TargetActors[0] = rig.creator.ActorNumber;
-				byte b = 7;
-				object obj = RoomSystem.groupJoinSendData;
-				RoomSystem.SendEvent(b, obj, netEventOptions, false);
+				RoomSystem.SendEvent(7, RoomSystem.groupJoinSendData, netEventOptions, false);
 			}
 		}
 	}
@@ -756,8 +852,7 @@ internal class RoomSystem : MonoBehaviour
 			if (sourceFriendCollider.playerIDsCurrentlyTouching.Contains(netPlayer.UserId) || (targetFriendCollider.playerIDsCurrentlyTouching.Contains(netPlayer.UserId) && netPlayer != NetworkSystem.Instance.LocalPlayer))
 			{
 				netEventOptions.TargetActors[0] = netPlayer.ActorNumber;
-				object obj = RoomSystem.groupJoinSendData;
-				RoomSystem.SendEvent(eventType, obj, netEventOptions, false);
+				RoomSystem.SendEvent(eventType, RoomSystem.groupJoinSendData, netEventOptions, false);
 			}
 		}
 	}
@@ -783,9 +878,7 @@ internal class RoomSystem : MonoBehaviour
 		if (!NetworkSystem.Instance.IsMasterClient)
 		{
 			RoomSystem.reportTouchSendData[0] = touchedNetPlayer;
-			byte b = 5;
-			object obj = RoomSystem.reportTouchSendData;
-			RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoMaster, false);
+			RoomSystem.SendEvent(5, RoomSystem.reportTouchSendData, NetworkSystemRaiseEvent.neoMaster, false);
 			return;
 		}
 		Action<NetPlayer, NetPlayer> action = RoomSystem.playerTouchedCallback;
@@ -799,9 +892,7 @@ internal class RoomSystem : MonoBehaviour
 	internal static void LaunchPlayer(NetPlayer player, Vector3 velocity)
 	{
 		RoomSystem.reportTouchSendData[0] = velocity;
-		byte b = 8;
-		object obj = RoomSystem.reportTouchSendData;
-		RoomSystem.SendEvent(b, obj, player, false);
+		RoomSystem.SendEvent(8, RoomSystem.reportTouchSendData, player, false);
 	}
 
 	private static void DeserializePlayerLaunched(object[] data, PhotonMessageInfoWrapped info)
@@ -829,9 +920,7 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.reportHitSendData[0] = direction;
 		RoomSystem.reportHitSendData[1] = strength;
 		RoomSystem.reportHitSendData[2] = player.ActorNumber;
-		byte b = 9;
-		object obj = RoomSystem.reportHitSendData;
-		RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(9, RoomSystem.reportHitSendData, NetworkSystemRaiseEvent.neoOthers, false);
 		RigContainer rigContainer;
 		if (VRRigCache.Instance.TryGetVrrig(player, out rigContainer))
 		{
@@ -1005,9 +1094,7 @@ internal class RoomSystem : MonoBehaviour
 			return;
 		}
 		RoomSystem.statusSendData[0] = (int)status;
-		byte b = 2;
-		object obj = RoomSystem.statusSendData;
-		RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(2, RoomSystem.statusSendData, NetworkSystemRaiseEvent.neoOthers, false);
 	}
 
 	internal static void SendStatusEffectToPlayer(RoomSystem.StatusEffects status, NetPlayer target)
@@ -1015,9 +1102,7 @@ internal class RoomSystem : MonoBehaviour
 		if (!target.IsLocal)
 		{
 			RoomSystem.statusSendData[0] = (int)status;
-			byte b = 2;
-			object obj = RoomSystem.statusSendData;
-			RoomSystem.SendEvent(b, obj, target, false);
+			RoomSystem.SendEvent(2, RoomSystem.statusSendData, target, false);
 			return;
 		}
 		Action<RoomSystem.StatusEffects> action = RoomSystem.statusEffectCallback;
@@ -1109,9 +1194,7 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.soundSendData[0] = sound.id;
 		RoomSystem.soundSendData[1] = sound.volume;
 		RoomSystem.soundSendData[2] = sound.stopCurrentAudio;
-		byte b = 3;
-		object obj = RoomSystem.soundSendData;
-		RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(3, RoomSystem.soundSendData, NetworkSystemRaiseEvent.neoOthers, false);
 	}
 
 	internal static void SendSoundEffectToPlayer(int soundIndex, float soundVolume, NetPlayer player, bool stopCurrentAudio = false)
@@ -1140,9 +1223,7 @@ internal class RoomSystem : MonoBehaviour
 			RoomSystem.soundSendData[0] = sound.id;
 			RoomSystem.soundSendData[1] = sound.volume;
 			RoomSystem.soundSendData[2] = sound.stopCurrentAudio;
-			byte b = 3;
-			object obj = RoomSystem.soundSendData;
-			RoomSystem.SendEvent(b, obj, player, false);
+			RoomSystem.SendEvent(3, RoomSystem.soundSendData, player, false);
 			return;
 		}
 	}
@@ -1167,9 +1248,7 @@ internal class RoomSystem : MonoBehaviour
 		RoomSystem.sendSoundDataOther[1] = sound.volume;
 		RoomSystem.sendSoundDataOther[2] = sound.stopCurrentAudio;
 		RoomSystem.sendSoundDataOther[3] = target.ActorNumber;
-		byte b = 3;
-		object obj = RoomSystem.sendSoundDataOther;
-		RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(3, RoomSystem.sendSoundDataOther, NetworkSystemRaiseEvent.neoOthers, false);
 	}
 
 	internal static void OnPlayerEffect(PlayerEffect effect, NetPlayer target)
@@ -1208,9 +1287,7 @@ internal class RoomSystem : MonoBehaviour
 		}
 		RoomSystem.playerEffectData[0] = target.ActorNumber;
 		RoomSystem.playerEffectData[1] = effect;
-		byte b = 6;
-		object obj = RoomSystem.playerEffectData;
-		RoomSystem.SendEvent(b, obj, NetworkSystemRaiseEvent.neoOthers, false);
+		RoomSystem.SendEvent(6, RoomSystem.playerEffectData, NetworkSystemRaiseEvent.neoOthers, false);
 	}
 
 	private static RoomSystem.ImpactFxContainer impactEffect = new RoomSystem.ImpactFxContainer();
@@ -1224,6 +1301,15 @@ internal class RoomSystem : MonoBehaviour
 	private static readonly object[] impactSendData = new object[6];
 
 	private static readonly List<int> hashValues = new List<int>(2);
+
+	[OnExitPlay_SetNull]
+	internal static Action<RoomSystem.LavaSyncEventData> OnLavaSyncReceived;
+
+	private const int lavaSyncHeaderSize = 5;
+
+	private const int lavaSyncTotalSize = 25;
+
+	private static readonly object[] lavaSyncSendData = new object[25];
 
 	[SerializeField]
 	private RoomSystemSettings roomSettings;
@@ -1439,6 +1525,32 @@ internal class RoomSystem : MonoBehaviour
 		RightHand
 	}
 
+	internal struct LavaSyncEventData
+	{
+		public byte zone;
+
+		public byte state;
+
+		public double stateStartTime;
+
+		public float activationProgress;
+
+		public int voteCount;
+
+		public int senderActorNumber;
+
+		[FixedBuffer(typeof(int), 20)]
+		public RoomSystem.LavaSyncEventData.<votes>e__FixedBuffer votes;
+
+		[CompilerGenerated]
+		[UnsafeValueType]
+		[StructLayout(LayoutKind.Sequential, Size = 80)]
+		public struct <votes>e__FixedBuffer
+		{
+			public int FixedElementField;
+		}
+	}
+
 	private struct Events
 	{
 		public const byte PROJECTILE = 0;
@@ -1464,6 +1576,10 @@ internal class RoomSystem : MonoBehaviour
 		public const byte ELEVATOR_JOIN = 10;
 
 		public const byte SHUTTLE_JOIN = 11;
+
+		public const byte LAVA_SYNC = 12;
+
+		public const byte RPC = 255;
 	}
 
 	public enum StatusEffects

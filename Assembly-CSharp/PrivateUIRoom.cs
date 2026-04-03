@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GorillaExtensions;
 using GorillaLocomotion;
+using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
@@ -217,7 +218,7 @@ public class PrivateUIRoom : MonoBehaviourTick
 		}
 	}
 
-	public static void ForceStartOverlay()
+	public static void ForceStartOverlay(string text = "")
 	{
 		if (PrivateUIRoom.instance == null)
 		{
@@ -228,6 +229,7 @@ public class PrivateUIRoom : MonoBehaviourTick
 		{
 			return;
 		}
+		PrivateUIRoom.instance._text.text = text;
 		PrivateUIRoom.StartOverlay();
 	}
 
@@ -324,6 +326,9 @@ public class PrivateUIRoom : MonoBehaviourTick
 	{
 		return !(PrivateUIRoom.instance == null) && PrivateUIRoom.instance.inOverlay;
 	}
+
+	[SerializeField]
+	private TextMeshPro _text;
 
 	[SerializeField]
 	private GameObject occluder;

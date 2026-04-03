@@ -154,8 +154,11 @@ public class ZoneManagement : MonoBehaviour
 		ZoneManagement.AddSceneToForceStayLoaded("City");
 	}
 
+	public bool ZonesSetting { get; private set; }
+
 	private void SetZones(GTZone[] newActiveZones)
 	{
+		this.ZonesSetting = true;
 		for (int i = 0; i < this.objectActivationState.Length; i++)
 		{
 			this.objectActivationState[i] = false;
@@ -279,11 +282,11 @@ public class ZoneManagement : MonoBehaviour
 			}
 		}
 		Action onSceneLoadsCompleted = this.OnSceneLoadsCompleted;
-		if (onSceneLoadsCompleted == null)
+		if (onSceneLoadsCompleted != null)
 		{
-			return;
+			onSceneLoadsCompleted();
 		}
-		onSceneLoadsCompleted();
+		this.ZonesSetting = false;
 	}
 
 	private ZoneData GetZoneData(GTZone zone)

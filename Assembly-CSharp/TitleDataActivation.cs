@@ -28,7 +28,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 
 	private static void onTDReferenceDateError(PlayFabError error)
 	{
-		Debug.LogError("TitleDataActivation :: onTDReferenceDateError :: No Reference Date Set!!");
+		Debug.LogError("TitleDataActivation :: onTDReferenceDateError :: No Reference Date Set!! :: " + error.ErrorMessage);
 	}
 
 	private void Initialize()

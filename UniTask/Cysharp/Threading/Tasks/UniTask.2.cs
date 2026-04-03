@@ -164,7 +164,7 @@ namespace Cysharp.Threading.Tasks
 			private readonly IUniTaskSource<T> source;
 		}
 
-		private sealed class MemoizeSource : IUniTaskSource<!0>, IUniTaskSource
+		private sealed class MemoizeSource : IUniTaskSource<T>, IUniTaskSource
 		{
 			public MemoizeSource(IUniTaskSource<T> source)
 			{

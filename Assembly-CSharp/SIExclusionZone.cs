@@ -14,11 +14,14 @@ public class SIExclusionZone : MonoBehaviour
 			}
 		}
 		this.gadgetsInZone.Clear();
-		foreach (SIPlayer siplayer in this.playersInZone)
+		if ((this.exclusionType & SIExclusionType.AffectsOthers) != (SIExclusionType)0)
 		{
-			if (siplayer != null)
+			foreach (SIPlayer siplayer in this.playersInZone)
 			{
-				siplayer.exclusionZoneCount--;
+				if (siplayer != null)
+				{
+					siplayer.exclusionZoneCount--;
+				}
 			}
 		}
 		this.playersInZone.Clear();
@@ -39,7 +42,10 @@ public class SIExclusionZone : MonoBehaviour
 		if (componentInParent2 != null && !this.playersInZone.Contains(componentInParent2))
 		{
 			this.playersInZone.Add(componentInParent2);
-			componentInParent2.exclusionZoneCount++;
+			if ((this.exclusionType & SIExclusionType.AffectsOthers) != (SIExclusionType)0)
+			{
+				componentInParent2.exclusionZoneCount++;
+			}
 		}
 	}
 
@@ -55,7 +61,10 @@ public class SIExclusionZone : MonoBehaviour
 		if (componentInParent2 != null && this.playersInZone.Contains(componentInParent2))
 		{
 			this.playersInZone.Remove(componentInParent2);
-			componentInParent2.exclusionZoneCount--;
+			if ((this.exclusionType & SIExclusionType.AffectsOthers) != (SIExclusionType)0)
+			{
+				componentInParent2.exclusionZoneCount--;
+			}
 		}
 	}
 
@@ -63,6 +72,8 @@ public class SIExclusionZone : MonoBehaviour
 	{
 		this.gadgetsInZone.Remove(gadget);
 	}
+
+	public SIExclusionType exclusionType = SIExclusionType.AffectsOthers;
 
 	private List<SIGadget> gadgetsInZone = new List<SIGadget>();
 

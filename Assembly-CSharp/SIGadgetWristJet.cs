@@ -103,7 +103,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 		{
 			return;
 		}
-		if (this.state == SIGadgetWristJet.State.Active && this.currentFuel > 0f && this.buttonActivatable.CheckInput(0.25f))
+		if (this.state == SIGadgetWristJet.State.Active && this.currentFuel > 0f && this.buttonActivatable.CheckInput(0.25f) && !base.IsBlocked(SIExclusionType.AffectsLocalMovement))
 		{
 			this.gtPlayer.AddForce(-Physics.gravity * (this.gtPlayer.scale * this.gravityNegationPercent), ForceMode.Acceleration);
 			this._ApplyClampedThrust();
@@ -140,7 +140,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 		switch (this.state)
 		{
 		case SIGadgetWristJet.State.Unactive:
-			if (flag)
+			if (flag && !base.IsBlocked(SIExclusionType.AffectsLocalMovement))
 			{
 				this.SetStateAuthority(SIGadgetWristJet.State.Active);
 			}

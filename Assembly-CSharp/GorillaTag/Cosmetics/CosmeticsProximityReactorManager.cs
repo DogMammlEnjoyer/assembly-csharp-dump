@@ -203,19 +203,31 @@ namespace GorillaTag.Cosmetics
 							float cosmeticPairThresholdWith = cosmeticsProximityReactor.GetCosmeticPairThresholdWith(cosmeticsProximityReactor2, out flag);
 							bool flag2;
 							float cosmeticPairThresholdWith2 = cosmeticsProximityReactor2.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out flag2);
-							if (flag && flag2)
+							if (flag || flag2)
 							{
-								float threshold = Mathf.Min(cosmeticPairThresholdWith, cosmeticPairThresholdWith2);
+								float num = float.MaxValue;
+								if (flag && cosmeticPairThresholdWith < num)
+								{
+									num = cosmeticPairThresholdWith;
+								}
+								if (flag2 && cosmeticPairThresholdWith2 < num)
+								{
+									num = cosmeticPairThresholdWith2;
+								}
 								Vector3 contact;
-								if (CosmeticsProximityReactorManager.AreCollidersWithinThreshold(cosmeticsProximityReactor, cosmeticsProximityReactor2, threshold, out contact))
+								if (CosmeticsProximityReactorManager.AreCollidersWithinThreshold(cosmeticsProximityReactor, cosmeticsProximityReactor2, num, out contact))
 								{
 									cosmeticsProximityReactor.OnCosmeticBelowWith(cosmeticsProximityReactor2, contact);
 									cosmeticsProximityReactor2.OnCosmeticBelowWith(cosmeticsProximityReactor, contact);
-									if (cosmeticsProximityReactor.IsBelow && cosmeticsProximityReactor2.IsBelow)
+									if (cosmeticsProximityReactor.IsBelow)
 									{
 										cosmeticsProximityReactor.RefreshAggregateMatched();
-										cosmeticsProximityReactor2.RefreshAggregateMatched();
 										this.matchedFrame[cosmeticsProximityReactor] = Time.frameCount;
+										result = true;
+									}
+									if (cosmeticsProximityReactor2.IsBelow)
+									{
+										cosmeticsProximityReactor2.RefreshAggregateMatched();
 										this.matchedFrame[cosmeticsProximityReactor2] = Time.frameCount;
 										result = true;
 									}
@@ -269,11 +281,9 @@ namespace GorillaTag.Cosmetics
 						{
 							bool flag;
 							float cosmeticPairThresholdWith = a.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out flag);
-							bool flag2;
-							float cosmeticPairThresholdWith2 = cosmeticsProximityReactor.GetCosmeticPairThresholdWith(a, out flag2);
-							if (flag && flag2)
+							if (flag)
 							{
-								float threshold = Mathf.Min(cosmeticPairThresholdWith, cosmeticPairThresholdWith2);
+								float threshold = cosmeticPairThresholdWith;
 								Vector3 vector;
 								if (CosmeticsProximityReactorManager.AreCollidersWithinThreshold(a, cosmeticsProximityReactor, threshold, out vector))
 								{

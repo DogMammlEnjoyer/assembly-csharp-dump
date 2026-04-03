@@ -19,7 +19,7 @@ public class GetPlayerData_Data
 		this.status = response.Status;
 		if (this.status != null)
 		{
-			this.session = new TMPSession(response.Session, response.DefaultSession, response.Age, this.status.Value);
+			this.session = new TMPSession(response.Session, response.DefaultSession, this.status.Value);
 			this.session.SetOptInPermissions(response.Permissions);
 			Debug.Log("[KID::GET_PLAYER_DATA_DATA::OptInRefactor] Setting Opt-in Permissions: " + string.Join(", ", this.session.GetOptedInPermissions()));
 		}

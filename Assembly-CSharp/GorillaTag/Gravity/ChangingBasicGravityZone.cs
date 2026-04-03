@@ -28,6 +28,24 @@ namespace GorillaTag.Gravity
 			}
 		}
 
+		public void Update()
+		{
+			if (this.lastValueWhenSet == this.ExternalTriggerSetGravityStrength)
+			{
+				this.lastExternalTriggerSetMatched = true;
+				return;
+			}
+			if (!this.lastExternalTriggerSetMatched)
+			{
+				this.SetGravityStrength(this.ExternalSetGravityStrength);
+				this.lastValueWhenSet = this.ExternalTriggerSetGravityStrength;
+				this.lastExternalTriggerSetMatched = true;
+				return;
+			}
+			this.ExternalTriggerSetGravityStrength = this.lastValueWhenSet;
+			this.lastExternalTriggerSetMatched = false;
+		}
+
 		public void SetGravityStrength(float strength)
 		{
 			this.SetGravityStrength(strength, this.m_changeStrengthTime);
@@ -90,6 +108,15 @@ namespace GorillaTag.Gravity
 			}
 			base.CallBack();
 		}
+
+		[Header("Change Value To Trigger Gravity Strength Change At Set Value (false to true and true to false both work, but value must change the frame you want it changed)")]
+		public bool ExternalTriggerSetGravityStrength;
+
+		public float ExternalSetGravityStrength;
+
+		private bool lastExternalTriggerSetMatched = true;
+
+		private bool lastValueWhenSet;
 
 		private bool m_strengthDirty;
 

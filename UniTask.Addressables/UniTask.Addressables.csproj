@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF15D55A-97E1-48F2-AADA-CC246887D906}</ProjectGuid>
+    <ProjectGuid>{27DCF414-5DE9-454A-BC77-F5D0CCA04E0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cysharp.Threading.Tasks</RootNamespace>
@@ -46,15 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netstandard\netstandard.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D8D4}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04DD8}</Project>
       <Name>netstandard</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniTask\UniTask.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D907}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E0B}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.ResourceManager\Unity.ResourceManager.csproj">
-      <Project>{CF15D55A-97E1-48F2-AADA-CC246887D931}</Project>
+      <Project>{27DCF414-5DE9-454A-BC77-F5D0CCA04E35}</Project>
       <Name>Unity.ResourceManager</Name>
     </ProjectReference>
   </ItemGroup>

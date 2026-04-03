@@ -74,7 +74,12 @@ namespace GorillaTag
 
 		public virtual void ProcessListSafe()
 		{
-			if (this.m_itemProcessorDelegate == null)
+			this.ProcessListSafe(this.m_itemProcessorDelegate);
+		}
+
+		public virtual void ProcessListSafe(InAction<T> customDelegate)
+		{
+			if (customDelegate == null)
 			{
 				Debug.LogError("ListProcessor: ItemProcessor is null");
 				return;
@@ -85,9 +90,8 @@ namespace GorillaTag
 			{
 				try
 				{
-					InAction<T> itemProcessorDelegate = this.m_itemProcessorDelegate;
 					T t = this.m_list[this.m_currentIndex];
-					itemProcessorDelegate(t);
+					customDelegate(t);
 				}
 				catch (Exception ex)
 				{
@@ -99,7 +103,12 @@ namespace GorillaTag
 
 		public virtual void ProcessList()
 		{
-			if (this.m_itemProcessorDelegate == null)
+			this.ProcessList(this.m_itemProcessorDelegate);
+		}
+
+		public virtual void ProcessList(InAction<T> customDelegate)
+		{
+			if (customDelegate == null)
 			{
 				Debug.LogError("ListProcessor: ItemProcessor is null");
 				return;
@@ -108,9 +117,8 @@ namespace GorillaTag
 			this.m_currentIndex = 0;
 			while (this.m_currentIndex < this.m_listCount)
 			{
-				InAction<T> itemProcessorDelegate = this.m_itemProcessorDelegate;
 				T t = this.m_list[this.m_currentIndex];
-				itemProcessorDelegate(t);
+				customDelegate(t);
 				this.m_currentIndex++;
 			}
 		}

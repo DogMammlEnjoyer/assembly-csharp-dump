@@ -994,7 +994,7 @@ namespace GorillaNetworking
 					this.UpdateNametagSetting(!this.NametagsEnabled, true);
 					return;
 				default:
-					if (this.NametagsEnabled && this.currentName.Length < 11 && (buttonPressed < GorillaKeyboardBindings.up || buttonPressed > GorillaKeyboardBindings.option3))
+					if (this.NametagsEnabled && this.currentName.Length < 12 && (buttonPressed < GorillaKeyboardBindings.up || buttonPressed > GorillaKeyboardBindings.option3))
 					{
 						string str = this.currentName;
 						string str2;

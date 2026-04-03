@@ -8,7 +8,7 @@ namespace System.Linq
 {
 	/// <summary>Represents a parallel sequence.</summary>
 	/// <typeparam name="TSource">The type of element in the source sequence.</typeparam>
-	public class ParallelQuery<TSource> : ParallelQuery, IEnumerable<TSource>, IEnumerable
+	public class ParallelQuery<TSource> : ParallelQuery, IEnumerable<!0>, IEnumerable
 	{
 		internal ParallelQuery(QuerySettings settings) : base(settings)
 		{
@@ -29,7 +29,7 @@ namespace System.Linq
 
 		internal override IEnumerator GetEnumeratorUntyped()
 		{
-			return ((IEnumerable<TSource>)this).GetEnumerator();
+			return ((IEnumerable<!0>)this).GetEnumerator();
 		}
 
 		/// <summary>Returns an enumerator that iterates through the sequence.</summary>

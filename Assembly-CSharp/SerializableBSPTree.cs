@@ -88,6 +88,18 @@ public class SerializableBSPTree
 		}
 	}
 
+	public int FindZoneIdx(GTZone zoneId, GTSubZone subZoneId)
+	{
+		for (int i = 0; i < this.zones.Length; i++)
+		{
+			if (this.zones[i].zoneId == zoneId && this.zones[i].subZoneId == subZoneId)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	private float GetAxisValue(Vector3 point, SerializableBSPNode.Axis axis)
 	{
 		switch (axis)

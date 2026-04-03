@@ -8,8 +8,6 @@ public class GetPlayerDataResponse
 
 	public Session Session;
 
-	public int? Age;
-
 	public KIDDefaultSession DefaultSession;
 
 	public string[] Permissions;

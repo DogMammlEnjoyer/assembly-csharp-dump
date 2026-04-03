@@ -1006,10 +1006,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		{
 			return createData;
 		}
-		int num = (int)(createData & (long)((ulong)-1));
-		long result = (createData & -4294967296L) | ((long)SIPlayer.LocalPlayer.ActorNr & (long)((ulong)-1));
-		int actorNr = SIPlayer.LocalPlayer.ActorNr;
-		return result;
+		return (createData & -4294967296L) | ((long)SIPlayer.LocalPlayer.ActorNr & (long)((ulong)-1));
 	}
 
 	public bool ValidateMigratedGameEntity(int netId, int entityTypeId, Vector3 position, Quaternion rotation, long createData, int actorNr)
@@ -1079,9 +1076,8 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		{
 			return true;
 		}
-		if ((createData & -9223372036854775808L) != 0L)
+		if ((createData & -9223372036854775808L) != 0L && !this.HasActiveTryOnDispenser)
 		{
-			bool hasActiveTryOnDispenser = this.HasActiveTryOnDispenser;
 			return this.HasActiveTryOnDispenser;
 		}
 		SIPlayer siplayer = SIPlayer.Get((int)(createData & (long)((ulong)-1)));

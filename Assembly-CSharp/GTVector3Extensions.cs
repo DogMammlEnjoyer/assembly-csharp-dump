@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -12,18 +11,54 @@ public static class GTVector3Extensions
 		return new Vector3(vector.x, 0f, vector.z);
 	}
 
+	public static Vector3 Sum(this IList<Vector3> vecs)
+	{
+		Vector3 vector = Vector3.zero;
+		for (int i = 0; i < vecs.Count; i++)
+		{
+			vector += vecs[i];
+		}
+		return vector;
+	}
+
+	public static Vector3 Average(this IList<Vector3> vecs)
+	{
+		int count = vecs.Count;
+		if (count == 0)
+		{
+			return Vector3.zero;
+		}
+		Vector3 a = Vector3.zero;
+		for (int i = 0; i < count; i++)
+		{
+			a += vecs[i];
+		}
+		return a / (float)count;
+	}
+
 	public static Vector3 Sum(this IEnumerable<Vector3> vecs)
 	{
 		Vector3 vector = Vector3.zero;
-		for (int i = 0; i < vecs.Count<Vector3>(); i++)
+		foreach (Vector3 b in vecs)
 		{
-			vector += vecs.ElementAt(i);
+			vector += b;
 		}
 		return vector;
 	}
 
 	public static Vector3 Average(this IEnumerable<Vector3> vecs)
 	{
-		return vecs.Sum() / (float)vecs.Count<Vector3>();
+		Vector3 a = Vector3.zero;
+		int num = 0;
+		foreach (Vector3 b in vecs)
+		{
+			a += b;
+			num++;
+		}
+		if (num == 0)
+		{
+			return Vector3.zero;
+		}
+		return a / (float)num;
 	}
 }

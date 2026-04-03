@@ -674,7 +674,7 @@ namespace System.Collections.Generic
 		/// <summary>Enumerates the elements of a <see cref="T:System.Collections.Generic.LinkedList`1" />.</summary>
 		/// <typeparam name="T" />
 		[Serializable]
-		public struct Enumerator : IEnumerator<T>, IDisposable, IEnumerator, ISerializable, IDeserializationCallback
+		public struct Enumerator : IEnumerator<!0>, IDisposable, IEnumerator, ISerializable, IDeserializationCallback
 		{
 			internal Enumerator(LinkedList<T> list)
 			{

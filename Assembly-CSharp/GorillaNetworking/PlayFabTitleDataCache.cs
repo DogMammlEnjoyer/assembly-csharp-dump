@@ -247,7 +247,6 @@ namespace GorillaNetworking
 									}));
 								}
 								this.requests.RemoveAt(i);
-								break;
 							}
 						}
 						string a;

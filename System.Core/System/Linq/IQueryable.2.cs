@@ -6,7 +6,7 @@ namespace System.Linq
 {
 	/// <summary>Provides functionality to evaluate queries against a specific data source wherein the type of the data is known.</summary>
 	/// <typeparam name="T">The type of the data in the data source.</typeparam>
-	public interface IQueryable<out T> : IEnumerable<T>, IEnumerable, IQueryable
+	public interface IQueryable<out T> : IEnumerable<!0>, IEnumerable, IQueryable
 	{
 	}
 }

@@ -438,6 +438,8 @@ namespace GorillaLocomotion
 
 		public bool IsBodySliding { get; set; }
 
+		public bool bodyGroundIsSlippery { get; private set; }
+
 		public GorillaClimbable CurrentClimbable
 		{
 			get
@@ -2683,15 +2685,15 @@ namespace GorillaLocomotion
 			Vector3 localPosition = this.climbHelper.localPosition;
 			if (climbable.snapX)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.x, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|447_0(ref localPosition.x, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapY)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.y, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|447_0(ref localPosition.y, climbable.maxDistanceSnap);
 			}
 			if (climbable.snapZ)
 			{
-				GTPlayer.<BeginClimbing>g__SnapAxis|443_0(ref localPosition.z, climbable.maxDistanceSnap);
+				GTPlayer.<BeginClimbing>g__SnapAxis|447_0(ref localPosition.z, climbable.maxDistanceSnap);
 			}
 			this.climbHelperTargetPos = localPosition;
 			climbable.isBeingClimbed = true;
@@ -3235,17 +3237,19 @@ namespace GorillaLocomotion
 			if (num > num3)
 			{
 				this.bodyGroundContactTime = Time.time;
+				Collider otherCollider = this.bodyGroundContact.otherCollider;
+				this.bodyGroundIsSlippery = (otherCollider != null && otherCollider.sharedMaterial != null && otherCollider.sharedMaterial.staticFriction <= 0.0001f && otherCollider.sharedMaterial.dynamicFriction <= 0.0001f);
 			}
 		}
 
 		public void DoLaunch(Vector3 velocity)
 		{
-			GTPlayer.<DoLaunch>d__479 <DoLaunch>d__;
+			GTPlayer.<DoLaunch>d__483 <DoLaunch>d__;
 			<DoLaunch>d__.<>t__builder = AsyncVoidMethodBuilder.Create();
 			<DoLaunch>d__.<>4__this = this;
 			<DoLaunch>d__.velocity = velocity;
 			<DoLaunch>d__.<>1__state = -1;
-			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__479>(ref <DoLaunch>d__);
+			<DoLaunch>d__.<>t__builder.Start<GTPlayer.<DoLaunch>d__483>(ref <DoLaunch>d__);
 		}
 
 		private void OnEnable()
@@ -3405,7 +3409,7 @@ namespace GorillaLocomotion
 		}
 
 		[CompilerGenerated]
-		internal static void <BeginClimbing>g__SnapAxis|443_0(ref float val, float maxDist)
+		internal static void <BeginClimbing>g__SnapAxis|447_0(ref float val, float maxDist)
 		{
 			if (val > maxDist)
 			{
